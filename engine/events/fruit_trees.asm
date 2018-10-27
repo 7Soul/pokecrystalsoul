@@ -1,23 +1,26 @@
 FruitTreeScript::
 	callasm GetCurTreeFruit
-	opentext
+	;opentext
 	copybytetovar wCurFruit
 	itemtotext USE_SCRIPT_VAR, MEM_BUFFER_0
-	writetext FruitBearingTreeText
-	buttonsound
+	;writetext FruitBearingTreeText
+	;buttonsound
 	callasm TryResetFruitTrees
 	callasm CheckFruitTree
 	iffalse .fruit
+	opentext
 	writetext NothingHereText
 	waitbutton
 	jump .end
 
 .fruit
-	writetext HeyItsFruitText
+	
+	;writetext HeyItsFruitText ; 7Soul
 	copybytetovar wCurFruit
 	giveitem ITEM_FROM_MEM
 	iffalse .packisfull
-	buttonsound
+	opentext
+	
 	writetext ObtainedFruitText
 	callasm PickedFruitTree
 	specialsound

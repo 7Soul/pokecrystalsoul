@@ -1,13 +1,13 @@
 BadgeTypeBoosts:
 ; entries correspond to wJohtoBadges constants
-	db FLYING   ; ZEPHYRBADGE
+	db POISON   ; ZEPHYRBADGE
 	db BUG      ; HIVEBADGE
 	db NORMAL   ; PLAINBADGE
-	db GHOST    ; FOGBADGE
-	db STEEL    ; MINERALBADGE
-	db FIGHTING ; STORMBADGE
+	db DARK     ; FOGBADGE
+	db ROCK     ; MINERALBADGE
+	db WATER    ; STORMBADGE
 	db ICE      ; GLACIERBADGE
-	db DRAGON   ; RISINGBADGE
+	db FIRE     ; RISINGBADGE
 	; fallthrough
 ; entries correspond to wKantoBadges constants
 	db ROCK     ; BOULDERBADGE

@@ -1,6 +1,6 @@
 	db PARASECT ; 047
 
-	db  60,  95,  80,  30,  60,  80
+	db  65,  95,  95,  30,  65,  80
 	;   hp  atk  def  spd  sat  sdf
 
 	db BUG, GRASS ; type

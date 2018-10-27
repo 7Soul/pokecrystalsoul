@@ -1,10 +1,10 @@
 	db YANMA ; 193
 
-	db  65,  65,  45,  95,  75,  45
+	db  75,  75,  55,  95,  75,  45
 	;   hp  atk  def  spd  sat  sdf
 
-	db BUG, FLYING ; type
-	db 75 ; catch rate
+	db BUG, BUG ; type
+	db 255 ; catch rate
 	db 147 ; base exp
 	db NO_ITEM, NO_ITEM ; items
 	db GENDER_F50 ; gender ratio

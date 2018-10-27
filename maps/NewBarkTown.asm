@@ -295,7 +295,7 @@ NewBarkTown_MapEvents:
 	db 4 ; bg events
 	bg_event  8,  8, BGEVENT_READ, NewBarkTownSign
 	bg_event 11,  5, BGEVENT_READ, NewBarkTownPlayersHouseSign
-	bg_event  3,  3, BGEVENT_READ, NewBarkTownElmsLabSign
+	bg_event  4,  4, BGEVENT_READ, NewBarkTownElmsLabSign
 	bg_event  9, 13, BGEVENT_READ, NewBarkTownElmsHouseSign
 
 	db 3 ; object events

@@ -64,12 +64,12 @@ endc
 ENDM
 
 	map_attributes NewBarkTown, NEW_BARK_TOWN, $05, WEST | EAST
-	connection west, Route29, ROUTE_29, 0, 0, 9
+	connection west, Route29, ROUTE_29, 0, 0, 11
 	connection east, Route27, ROUTE_27, 0, 0, 9
 
 	map_attributes CherrygroveCity, CHERRYGROVE_CITY, $35, NORTH | EAST
 	connection north, Route30, ROUTE_30, 5, 0, 10
-	connection east, Route29, ROUTE_29, 0, 0, 9
+	connection east, Route29, ROUTE_29, 0, 0, 11
 
 	map_attributes VioletCity, VIOLET_CITY, $05, SOUTH | WEST | EAST
 	connection south, Route32, ROUTE_32, 0, 0, 10
@@ -78,7 +78,7 @@ ENDM
 
 	map_attributes AzaleaTown, AZALEA_TOWN, $05, WEST | EAST
 	connection west, Route34, ROUTE_34, -3, 15, 12
-	connection east, Route33, ROUTE_33, 0, 0, 9
+	connection east, Route33, ROUTE_33, 0, 0, 11
 
 	map_attributes CianwoodCity, CIANWOOD_CITY, $35, EAST
 	connection east, Route41, ROUTE_41, 0, 0, 27
@@ -140,7 +140,7 @@ ENDM
 
 	map_attributes Route33, ROUTE_33, $05, NORTH | WEST
 	connection north, Route32, ROUTE_32, 0, 0, 10
-	connection west, AzaleaTown, AZALEA_TOWN, 0, 0, 9
+	connection west, AzaleaTown, AZALEA_TOWN, 0, 0, 11
 
 	map_attributes Route34, ROUTE_34, $05, NORTH | EAST
 	connection north, GoldenrodCity, GOLDENROD_CITY, -3, 2, 16

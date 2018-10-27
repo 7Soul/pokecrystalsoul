@@ -713,7 +713,7 @@ Script_UsedWaterfall:
 	db "@"
 
 TryWaterfallOW::
-	ld d, WATERFALL
+	ld d, DARK_PULSE
 	call CheckPartyMove
 	jr c, .failed
 	ld de, ENGINE_RISINGBADGE

@@ -145,15 +145,15 @@ DrawEnemyHUDBorder:
 	dec a
 	call CheckCaughtMon
 	ret z
-	hlcoord 1, 1
+	hlcoord 1, 2
 	ld [hl], $5d
 	ret
 
 .tiles
-	db $6d ; left side
-	db $74 ; bottom left
-	db $78 ; bottom right
-	db $76 ; bottom side
+	db $0 ; left side
+	db $0 ; bottom left
+	db $0 ; bottom right
+	db $0 ; bottom side
 .tiles_end
 
 PlaceHUDBorderTiles:

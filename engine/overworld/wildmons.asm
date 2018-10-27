@@ -294,6 +294,16 @@ ChooseWildEncounter:
 	add hl, bc ; this selects our mon
 	ld a, [hli]
 	ld b, a
+	call Random ; adds 0 to 3 levels ; 7Soul
+	cp 15 percent
+	jr c, .ok
+	inc b
+	cp 30 percent
+	jr c, .ok
+	inc b
+	cp 65 percent
+	jr c, .ok
+	inc b
 ; If the Pokemon is encountered by surfing, we need to give the levels some variety.
 	call CheckOnWater
 	jr nz, .ok
@@ -316,11 +326,10 @@ ChooseWildEncounter:
 	ld a, b
 	ld [wCurPartyLevel], a
 	ld b, [hl]
-	; ld a, b
+	ld a, b
 	call ValidateTempWildMonSpecies
 	jr c, .nowildbattle
 
-	ld a, b ; This is in the wrong place.
 	cp UNOWN
 	jr nz, .done
 

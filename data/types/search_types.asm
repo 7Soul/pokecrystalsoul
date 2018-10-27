@@ -6,14 +6,14 @@ PokedexTypeSearchConversionTable:
 	db GRASS
 	db ELECTRIC
 	db ICE
-	db FIGHTING
+	;db FIGHTING
 	db POISON
-	db GROUND
-	db FLYING
+	;db GROUND
+	;db FLYING
 	db PSYCHIC
 	db BUG
 	db ROCK
-	db GHOST
-	db DRAGON
+	;db GHOST
+	;db DRAGON
 	db DARK
-	db STEEL
+	;db STEEL

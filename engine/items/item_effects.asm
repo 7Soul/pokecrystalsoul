@@ -328,7 +328,7 @@ PokeBallEffect:
 	and 1 << FRZ | SLP
 	ld c, 10
 	jr nz, .addstatus
-	; ld a, [wEnemyMonStatus]
+	ld a, [wEnemyMonStatus]
 	and a
 	ld c, 5
 	jr nz, .addstatus
@@ -346,7 +346,7 @@ PokeBallEffect:
 	ld d, a
 	push de
 	ld a, [wBattleMonItem]
-	; ld b, a
+	ld b, a
 	farcall GetItemHeldEffect
 	ld a, b
 	cp HELD_CATCH_CHANCE
@@ -976,7 +976,7 @@ LoveBallMultiplier:
 	pop de
 	cp d
 	pop bc
-	ret nz ; for the intended effect, this should be "ret z"
+	ret z ; for the intended effect, this should be "ret z"
 
 	sla b
 	jr c, .max
@@ -1014,7 +1014,7 @@ FastBallMultiplier:
 	cp -1
 	jr z, .next
 	cp c
-	jr nz, .next ; for the intended effect, this should be "jr nz, .loop"
+	jr nz, .loop ; for the intended effect, this should be "jr nz, .loop"
 	sla b
 	jr c, .max
 
@@ -2080,11 +2080,11 @@ SuperRepelEffect:
 	jr UseRepel
 
 MaxRepelEffect:
-	ld b, 250
+	ld b, 255
 	jr UseRepel
 
 RepelEffect:
-	ld b, 100
+	ld b, 150
 
 UseRepel:
 	ld a, [wRepelEffect]
@@ -2094,6 +2094,8 @@ UseRepel:
 
 	ld a, b
 	ld [wRepelEffect], a
+	ld a, [wCurItem]
+	ld [wRepelType], a
 	jp UseItemText
 
 TextJump_RepelUsedEarlierIsStillInEffect:

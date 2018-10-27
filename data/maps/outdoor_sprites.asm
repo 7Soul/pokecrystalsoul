@@ -30,7 +30,7 @@ OutdoorSprites:
 	dw SaffronGroupSprites
 	dw CherrygroveGroupSprites
 
-PalletGroupSprites:
+PalletGroupSprites: ; 0
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -55,7 +55,7 @@ PalletGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
 
-ViridianGroupSprites:
+ViridianGroupSprites: ; 1
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -80,7 +80,7 @@ ViridianGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
 
-PewterGroupSprites:
+PewterGroupSprites: ; 2
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -105,7 +105,7 @@ PewterGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
 
-CinnabarGroupSprites:
+CinnabarGroupSprites: ; 3
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -130,7 +130,7 @@ CinnabarGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
 
-CeruleanGroupSprites:
+CeruleanGroupSprites: ; 4
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -155,7 +155,7 @@ CeruleanGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_SLOWPOKE
 
-SaffronGroupSprites:
+SaffronGroupSprites: ; 5
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -180,7 +180,7 @@ SaffronGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_SLOWPOKE
 
-CeladonGroupSprites:
+CeladonGroupSprites: ; 6
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -205,7 +205,7 @@ CeladonGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
 
-LavenderGroupSprites:
+LavenderGroupSprites: ; 7
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -230,7 +230,7 @@ LavenderGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
 
-VermilionGroupSprites:
+VermilionGroupSprites: ; 8
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -255,7 +255,7 @@ VermilionGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
 
-FuchsiaGroupSprites:
+FuchsiaGroupSprites: ; 9
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -280,7 +280,7 @@ FuchsiaGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
 
-IndigoGroupSprites:
+IndigoGroupSprites: ; 10
 	db SPRITE_SUICUNE
 	db SPRITE_SILVER_TROPHY
 	db SPRITE_FAMICOM
@@ -447,13 +447,13 @@ AzaleaGroupSprites:
 	db SPRITE_YOUNGSTER
 	db SPRITE_OFFICER
 	db SPRITE_POKEFAN_M
-	db SPRITE_BLACK_BELT
 	db SPRITE_TEACHER
 	db SPRITE_AZALEA_ROCKET
 	db SPRITE_LASS
 	db SPRITE_SILVER
 	db SPRITE_FRUIT_TREE
 	db SPRITE_SLOWPOKE
+	db SPRITE_POKE_BALL
 
 GoldenrodGroupSprites:
 	db SPRITE_SUICUNE

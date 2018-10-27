@@ -201,10 +201,10 @@ ReplaceTimeOfDayPals:
 	ret
 
 .DarkCave:
-	ld a, [wStatusFlags]
-	bit STATUSFLAGS_FLASH_F, a
-	jr nz, .UsedFlash
-	ld a, %11111111 ; 3, 3, 3, 3
+	;ld a, [wStatusFlags]
+	;bit STATUSFLAGS_FLASH_F, a
+	;jr nz, .UsedFlash
+	ld a, %10101010 ; 3, 3, 3, 3 ; was %11111111 ; 7Soul
 	ld [wTimeOfDayPalset], a
 	ret
 

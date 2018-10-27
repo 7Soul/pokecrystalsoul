@@ -1,9 +1,9 @@
 	db XATU ; 178
 
-	db  65,  75,  70,  95,  95,  70
+	db  65,  85,  70,  95,  105,  70
 	;   hp  atk  def  spd  sat  sdf
 
-	db PSYCHIC, FLYING ; type
+	db PSYCHIC, PSYCHIC ; type
 	db 75 ; catch rate
 	db 171 ; base exp
 	db NO_ITEM, NO_ITEM ; items

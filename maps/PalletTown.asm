@@ -42,9 +42,8 @@ PalletTownFisherText:
 	text "Technology is"
 	line "incredible!"
 
-	para "You can now trade"
-	line "#MON across"
-	cont "time like e-mail."
+	para "You can totally"
+	line "fuck #MON now"
 	done
 
 PalletTownSignText:

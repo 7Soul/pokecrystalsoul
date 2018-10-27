@@ -10,10 +10,10 @@ ChrisNameMenuHeader:
 	db 5 ; items
 	db "NEW NAME@"
 MalePlayerNameArray:
-	db "CHRIS@"
-	db "MAT@"
-	db "ALLAN@"
-	db "JON@"
+	db "DANNY@"
+	db "DWAYNE@"
+	db "DON@"
+	db "DENNY@"
 	db 2 ; displacement
 	db " NAME @" ; title
 
@@ -29,9 +29,9 @@ KrisNameMenuHeader:
 	db 5 ; items
 	db "NEW NAME@"
 FemalePlayerNameArray:
-	db "KRIS@"
-	db "AMANDA@"
-	db "JUANA@"
-	db "JODI@"
+	db "ARIN@"
+	db "ALLAN@"
+	db "ARNOLD@"
+	db "OREGANO@"
 	db 2 ; displacement
 	db " NAME @" ; title

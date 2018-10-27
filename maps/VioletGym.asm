@@ -264,11 +264,11 @@ VioletGymGuyText:
 	para "You believe?"
 	line "Then listen."
 
-	para "The grass-type is"
-	line "weak against the"
+	para "The poison-type is"
+	line "super effective"
 
-	para "flying-type. Keep"
-	line "this in mind."
+	para "against the"
+	line "normal-type."
 	done
 
 VioletGymGuyWinText:
@@ -283,17 +283,17 @@ VioletGym_MapEvents:
 	db 0, 0 ; filler
 
 	db 2 ; warp events
-	warp_event  4, 15, VIOLET_CITY, 2
-	warp_event  5, 15, VIOLET_CITY, 2
+	warp_event  6, 15, VIOLET_CITY, 2
+	warp_event  7, 15, VIOLET_CITY, 2
 
 	db 0 ; coord events
 
 	db 2 ; bg events
-	bg_event  3, 13, BGEVENT_READ, VioletGymStatue
-	bg_event  6, 13, BGEVENT_READ, VioletGymStatue
+	bg_event  5, 13, BGEVENT_READ, VioletGymStatue
+	bg_event  8, 13, BGEVENT_READ, VioletGymStatue
 
 	db 4 ; object events
-	object_event  5,  1, SPRITE_FALKNER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, VioletGymFalknerScript, -1
-	object_event  7,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperRod, -1
-	object_event  2, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperAbe, -1
-	object_event  7, 13, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, VioletGymGuyScript, -1
+	object_event  7,  2, SPRITE_FALKNER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, VioletGymFalknerScript, -1
+	object_event  8,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperRod, -1
+	object_event  5, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperAbe, -1
+	object_event  9, 13, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, VioletGymGuyScript, -1

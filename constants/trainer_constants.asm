@@ -53,6 +53,9 @@ KRIS EQU __enum__
 	const RIVAL1_1_CHIKORITA
 	const RIVAL1_1_CYNDAQUIL
 	const RIVAL1_1_TOTODILE
+	const RIVAL1_1_BULBASAUR
+	const RIVAL1_1_CHARMANDER
+	const RIVAL1_1_SQUIRTLE
 	const RIVAL1_2_CHIKORITA
 	const RIVAL1_2_CYNDAQUIL
 	const RIVAL1_2_TOTODILE
@@ -346,7 +349,7 @@ KRIS EQU __enum__
 	const ARNIE5
 	const WAYNE
 
-	trainerclass FISHER ; 25
+	trainerclass FISHER ; 26
 	const JUSTIN
 	const RALPH1
 	const ARNOLD
@@ -372,6 +375,7 @@ KRIS EQU __enum__
 	const RALPH4
 	const RALPH5
 	const TULLY4
+	const TERRY
 
 	trainerclass SWIMMERM ; 26
 	const HAROLD

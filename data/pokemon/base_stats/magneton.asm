@@ -3,7 +3,7 @@
 	db  50,  60,  95,  70, 120,  70
 	;   hp  atk  def  spd  sat  sdf
 
-	db ELECTRIC, STEEL ; type
+	db ELECTRIC, ELECTRIC ; type
 	db 60 ; catch rate
 	db 161 ; base exp
 	db NO_ITEM, METAL_COAT ; items

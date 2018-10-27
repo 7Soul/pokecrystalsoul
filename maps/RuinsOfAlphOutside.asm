@@ -282,17 +282,17 @@ RuinsOfAlphOutside_MapEvents:
 	db 0, 0 ; filler
 
 	db 11 ; warp events
-	warp_event  2, 17, RUINS_OF_ALPH_HO_OH_CHAMBER, 1
+	warp_event 10, 33, RUINS_OF_ALPH_HO_OH_CHAMBER, 1
 	warp_event 14,  7, RUINS_OF_ALPH_KABUTO_CHAMBER, 1
-	warp_event  2, 29, RUINS_OF_ALPH_OMANYTE_CHAMBER, 1
-	warp_event 16, 33, RUINS_OF_ALPH_AERODACTYL_CHAMBER, 1
+	warp_event  2,  7, RUINS_OF_ALPH_OMANYTE_CHAMBER, 1
+	warp_event  8, 27, RUINS_OF_ALPH_AERODACTYL_CHAMBER, 1
 	warp_event 10, 13, RUINS_OF_ALPH_INNER_CHAMBER, 1
-	warp_event 17, 11, RUINS_OF_ALPH_RESEARCH_CENTER, 1
-	warp_event  6, 19, UNION_CAVE_B1F, 1
-	warp_event  6, 27, UNION_CAVE_B1F, 2
+	warp_event  7, 17, RUINS_OF_ALPH_RESEARCH_CENTER, 1
+	warp_event  2, 23, UNION_CAVE_B1F, 1
+	warp_event 16, 27, UNION_CAVE_B1F, 2
 	warp_event  7,  5, ROUTE_36_RUINS_OF_ALPH_GATE, 3
-	warp_event 13, 20, ROUTE_32_RUINS_OF_ALPH_GATE, 1
-	warp_event 13, 21, ROUTE_32_RUINS_OF_ALPH_GATE, 2
+	warp_event 13, 18, ROUTE_32_RUINS_OF_ALPH_GATE, 1
+	warp_event 13, 19, ROUTE_32_RUINS_OF_ALPH_GATE, 2
 
 	db 2 ; coord events
 	coord_event 11, 14, SCENE_RUINSOFALPHOUTSIDE_GET_UNOWN_DEX, RuinsOfAlphOutsideScientistScene1
@@ -304,7 +304,7 @@ RuinsOfAlphOutside_MapEvents:
 	bg_event 18, 12, BGEVENT_READ, RuinsOfAlphResearchCenterSign
 
 	db 5 ; object events
-	object_event  4, 20, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 1, TrainerPsychicNathan, -1
+	object_event  6, 28, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 1, TrainerPsychicNathan, -1
 	object_event 11, 15, SPRITE_SCIENTIST, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphOutsideScientistScript, EVENT_RUINS_OF_ALPH_OUTSIDE_SCIENTIST
 	object_event 13, 17, SPRITE_FISHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphOutsideFisherScript, EVENT_RUINS_OF_ALPH_OUTSIDE_TOURIST_FISHER
 	object_event 14, 11, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphOutsideYoungster1Script, EVENT_RUINS_OF_ALPH_OUTSIDE_TOURIST_YOUNGSTERS

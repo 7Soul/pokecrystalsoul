@@ -232,7 +232,7 @@ ENDM
 	add_tm FRUSTRATION  ; d4
 	add_tm SOLARBEAM    ; d5
 	add_tm IRON_TAIL    ; d6
-	add_tm DRAGONBREATH ; d7
+	add_tm HYDRO_PUMP   ; d7
 	add_tm THUNDER      ; d8
 	add_tm EARTHQUAKE   ; d9
 	add_tm RETURN       ; da
@@ -277,7 +277,7 @@ ENDM
 	add_hm STRENGTH     ; f6
 	add_hm FLASH        ; f7
 	add_hm WHIRLPOOL    ; f8
-	add_hm WATERFALL    ; f9
+	add_hm DARK_PULSE    ; f9
 NUM_HMS = const_value - HM01
 
 add_mt: MACRO

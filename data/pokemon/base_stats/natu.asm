@@ -1,9 +1,9 @@
 	db NATU ; 177
 
-	db  40,  50,  45,  70,  70,  45
+	db  40,  50,  45,  70,  75,  45
 	;   hp  atk  def  spd  sat  sdf
 
-	db PSYCHIC, FLYING ; type
+	db PSYCHIC, PSYCHIC ; type
 	db 190 ; catch rate
 	db 73 ; base exp
 	db NO_ITEM, NO_ITEM ; items

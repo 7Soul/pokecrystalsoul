@@ -48,8 +48,8 @@ LearnMove:
 	xor a
 	ld [wDisabledMove], a
 	ld [wPlayerDisableCount], a
+	
 .not_disabled
-
 	call GetMoveName
 	ld hl, Text_1_2_and_Poof ; 1, 2 and…
 	call PrintText
@@ -107,8 +107,8 @@ LearnMove:
 	call YesNoBox
 	jp c, .loop
 
-	ld hl, Text_DidNotLearn ; <MON> did not learn <MOVE>.
-	call PrintText
+	;ld hl, Text_DidNotLearn ; <MON> did not learn <MOVE>.
+	;call PrintText
 	ld b, 0
 	ret
 
@@ -134,8 +134,8 @@ ForgetMove:
 	pop hl
 .loop
 	push hl
-	ld hl, Text_ForgetWhich
-	call PrintText
+	;ld hl, Text_ForgetWhich
+	;call PrintText
 	hlcoord 5, 2
 	ld b, NUM_MOVES * 2
 	ld c, MOVE_NAME_LENGTH

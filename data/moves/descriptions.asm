@@ -81,7 +81,7 @@ MoveDescriptions::
 	dw SleepPowderDescription
 	dw PetalDanceDescription
 	dw StringShotDescription
-	dw DragonRageDescription
+	dw XScissorDescription
 	dw FireSpinDescription
 	dw ThundershockDescription
 	dw ThunderboltDescription
@@ -126,7 +126,7 @@ MoveDescriptions::
 	dw SludgeDescription
 	dw BoneClubDescription
 	dw FireBlastDescription
-	dw WaterfallDescription
+	dw DarkPulseDescription
 	dw ClampDescription
 	dw SwiftDescription
 	dw SkullBashDescription
@@ -193,7 +193,7 @@ MoveDescriptions::
 	dw SpikesDescription
 	dw ZapCannonDescription
 	dw ForesightDescription
-	dw DestinyBondDescription
+	dw HexDescription
 	dw PerishSongDescription
 	dw IcyWindDescription
 	dw DetectDescription
@@ -224,7 +224,7 @@ MoveDescriptions::
 	dw MagnitudeDescription
 	dw DynamicpunchDescription
 	dw MegahornDescription
-	dw DragonbreathDescription
+	dw ZoomFlightDescription
 	dw BatonPassDescription
 	dw EncoreDescription
 	dw PursuitDescription
@@ -251,13 +251,12 @@ MoveDescriptions::
 	dw RockSmashDescription
 	dw WhirlpoolDescription
 	dw BeatUpDescription
-	dw MoveFCDescription
+	dw GunkShotDescription
 	dw MoveFDDescription
 	dw MoveFEDescription
 	dw MoveFFDescription
 	dw Move00Description
 
-MoveFCDescription:
 MoveFDDescription:
 MoveFEDescription:
 MoveFFDescription:
@@ -325,8 +324,8 @@ CutDescription:
 	next "scythes, etc.@"
 
 GustDescription:
-	db   "Whips up a strong"
-	next "gust of wind.@"
+	db   "More damage to"
+	next "airborne targets.@"
 
 WingAttackDescription:
 	db   "Strikes the target"
@@ -588,9 +587,9 @@ StringShotDescription:
 	db   "A move that lowers"
 	next "the foe's SPEED.@"
 
-DragonRageDescription:
-	db   "Always inflicts"
-	next "40HP damage.@"
+XScissorDescription:
+	db   "Hits with crossed"
+	next "appendages.@"
 
 FireSpinDescription:
 	db   "Traps foe in fire"
@@ -768,9 +767,9 @@ FireBlastDescription:
 	db   "An attack that"
 	next "may cause a burn.@"
 
-WaterfallDescription:
-	db   "An aquatic charge"
-	next "attack.@"
+DarkPulseDescription:
+	db   "Dark hit that may"
+	next "cause flinching.@"
 
 ClampDescription:
 	db   "Traps the foe for"
@@ -1036,9 +1035,9 @@ ForesightDescription:
 	db   "Negates accuracy"
 	next "reduction moves.@"
 
-DestinyBondDescription:
-	db   "The foe faints if"
-	next "the user does.@"
+HexDescription:
+	db   "Damage doubles if"
+	next "foe has status.@"
 
 PerishSongDescription:
 	db   "Both user and foe"
@@ -1160,9 +1159,9 @@ MegahornDescription:
 	db   "A powerful charge"
 	next "attack.@"
 
-DragonbreathDescription:
-	db   "A strong breath"
-	next "attack.@"
+ZoomFlightDescription:
+	db   "Quick hit may"
+	next "cause confusion.@"
 
 BatonPassDescription:
 	db   "Switches while"
@@ -1267,3 +1266,11 @@ WhirlpoolDescription:
 BeatUpDescription:
 	db   "Party #MON join"
 	next "in the attack.@"
+	
+GunkShotDescription:
+	db   "Concentrated ran-"
+	next "ged poison shot.@"
+	
+SilverWindDescription:
+	db   "Raises all stats"
+	next "with low chance.@"

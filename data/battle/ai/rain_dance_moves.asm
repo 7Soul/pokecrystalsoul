@@ -6,10 +6,10 @@ RainDanceMoves:
 	db SURF
 	db BUBBLEBEAM
 	db THUNDER
-	db WATERFALL
 	db CLAMP
 	db BUBBLE
 	db CRABHAMMER
 	db OCTAZOOKA
 	db WHIRLPOOL
+	db TWISTER
 	db -1 ; end

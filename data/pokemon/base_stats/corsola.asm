@@ -1,7 +1,7 @@
 	db CORSOLA ; 222
 
-	db  55,  55,  85,  35,  65,  85
-	;   hp  atk  def  spd  sat  sdf
+	db  55,  55,  105,  35,  90,  85
+	;   hp  atk   def   spd  sat  sdf
 
 	db WATER, ROCK ; type
 	db 60 ; catch rate

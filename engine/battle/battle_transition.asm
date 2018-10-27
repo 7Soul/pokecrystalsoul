@@ -392,8 +392,8 @@ endr
 	call .load
 	ld a, $1
 	ldh [hBGMapMode], a
-	call DelayFrame
-	call DelayFrame
+	;call DelayFrame
+	;call DelayFrame
 	ld hl, wcf64
 	inc [hl]
 	ret
@@ -402,8 +402,8 @@ endr
 	ld a, $1
 	ldh [hBGMapMode], a
 	call DelayFrame
-	call DelayFrame
-	call DelayFrame
+	;call DelayFrame
+	;call DelayFrame
 	xor a
 	ldh [hBGMapMode], a
 	ld a, BATTLETRANSITION_FINISH

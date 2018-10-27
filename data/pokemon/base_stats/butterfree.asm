@@ -1,9 +1,9 @@
 	db BUTTERFREE ; 012
 
-	db  60,  45,  50,  70,  80,  80
+	db  75,  45,  50,  70,  90,  90
 	;   hp  atk  def  spd  sat  sdf
 
-	db BUG, FLYING ; type
+	db BUG, BUG ; type
 	db 45 ; catch rate
 	db 160 ; base exp
 	db NO_ITEM, SILVERPOWDER ; items

@@ -87,7 +87,7 @@
 	const SLEEP_POWDER ; 4f
 	const PETAL_DANCE  ; 50
 	const STRING_SHOT  ; 51
-	const DRAGON_RAGE  ; 52
+	const X_SCISSOR    ; 52
 	const FIRE_SPIN    ; 53
 	const THUNDERSHOCK ; 54
 	const THUNDERBOLT  ; 55
@@ -132,7 +132,7 @@
 	const SLUDGE       ; 7c
 	const BONE_CLUB    ; 7d
 	const FIRE_BLAST   ; 7e
-	const WATERFALL    ; 7f
+	const DARK_PULSE   ; 7f
 	const CLAMP        ; 80
 	const SWIFT        ; 81
 	const SKULL_BASH   ; 82
@@ -230,7 +230,7 @@
 	const MAGNITUDE    ; de
 	const DYNAMICPUNCH ; df
 	const MEGAHORN     ; e0
-	const DRAGONBREATH ; e1
+	const ZOOM_FLIGHT  ; e1
 	const BATON_PASS   ; e2
 	const ENCORE       ; e3
 	const PURSUIT      ; e4
@@ -257,10 +257,10 @@
 	const ROCK_SMASH   ; f9
 	const WHIRLPOOL    ; fa
 	const BEAT_UP      ; fb
+	const GUNK_SHOT    ; fc
+	const SILVER_WIND  ; fd
 NUM_ATTACKS EQU const_value + -1
 
-	const MOVE_OR_ANIM_FC ; fc
-	const MOVE_OR_ANIM_FD ; fd
 	const MOVE_OR_ANIM_FE ; fe
 
 ; Battle animations use the same constants as the moves up to this point

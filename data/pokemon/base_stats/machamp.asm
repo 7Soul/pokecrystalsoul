@@ -3,7 +3,7 @@
 	db  90, 130,  80,  55,  65,  85
 	;   hp  atk  def  spd  sat  sdf
 
-	db FIGHTING, FIGHTING ; type
+	db NORMAL, NORMAL ; type
 	db 45 ; catch rate
 	db 193 ; base exp
 	db NO_ITEM, NO_ITEM ; items

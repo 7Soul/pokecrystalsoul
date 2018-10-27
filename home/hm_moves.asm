@@ -20,6 +20,6 @@ IsHMMove::
 	db SURF
 	db STRENGTH
 	db FLASH
-	db WATERFALL
+	db DARK_PULSE
 	db WHIRLPOOL
 	db -1 ; end

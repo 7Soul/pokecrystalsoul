@@ -300,7 +300,7 @@ DoPlayerMovement::
 	ret
 
 .walk
-	ld a, STEP_WALK
+	ld a, STEP_BIKE ; 7Soul
 	call .DoStep
 	scf
 	ret

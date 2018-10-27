@@ -70,9 +70,6 @@ SaffronPokecenter2FBeta_Blocks:
 Route41_Blocks:
 	INCBIN "maps/Route41.blk"
 
-Route33_Blocks:
-	INCBIN "maps/Route33.blk"
-
 Route45_Blocks:
 	INCBIN "maps/Route45.blk"
 
@@ -1045,3 +1042,8 @@ BetaBlank_Blocks:
 
 GoldenrodDeptStoreRoof_Blocks:
 	INCBIN "maps/GoldenrodDeptStoreRoof.blk"
+	
+SECTION "Map Blocks 4", ROMX
+
+Route33_Blocks:
+	INCBIN "maps/Route33.blk"

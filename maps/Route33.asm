@@ -2,6 +2,7 @@
 	const ROUTE33_POKEFAN_M
 	const ROUTE33_LASS
 	const ROUTE33_FRUIT_TREE
+	const ROUTE33_POKE_BALL1
 
 Route33_MapScripts:
 	db 0 ; scene scripts
@@ -142,6 +143,9 @@ Route33Sign:
 Route33FruitTree:
 	fruittree FRUITTREE_ROUTE_33
 
+Route33Potion:
+	itemball POTION
+	
 HikerAnthony2SeenText:
 	text "I came through the"
 	line "tunnel, but I"
@@ -196,14 +200,15 @@ Route33_MapEvents:
 	db 0, 0 ; filler
 
 	db 1 ; warp events
-	warp_event 11,  9, UNION_CAVE_1F, 3
+	warp_event  7,  5, UNION_CAVE_1F, 3
 
 	db 0 ; coord events
 
 	db 1 ; bg events
-	bg_event 11, 11, BGEVENT_READ, Route33Sign
+	bg_event  5, 7, BGEVENT_READ, Route33Sign
 
-	db 3 ; object events
-	object_event  6, 13, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerHikerAnthony, -1
-	object_event 13, 16, SPRITE_LASS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route33LassScript, -1
-	object_event 14, 16, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route33FruitTree, -1
+	db 4 ; object events
+	object_event  5,  8, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerHikerAnthony, -1
+	object_event 18, 11, SPRITE_LASS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route33LassScript, -1
+	object_event 10, 23, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route33FruitTree, -1
+	object_event 13, 19, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route33Potion, EVENT_ROUTE_33_POTION

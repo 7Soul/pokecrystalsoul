@@ -94,7 +94,7 @@ NameRival:
 	ret
 
 .default
-	db "SILVER@"
+	db "CLAARF@"
 
 NameRater:
 	farcall _NameRater

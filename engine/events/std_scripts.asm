@@ -56,13 +56,13 @@ StdScripts::
 PokecenterNurseScript:
 ; EVENT_WELCOMED_TO_POKECOM_CENTER is never set
 
-	opentext
-	checktime MORN
-	iftrue .morn
-	checktime DAY
-	iftrue .day
-	checktime NITE
-	iftrue .nite
+	;opentext
+	;checktime MORN
+	;iftrue .morn
+	;checktime DAY
+	;iftrue .day
+	;checktime NITE
+	;iftrue .nite
 	jump .ok
 
 .morn
@@ -100,14 +100,14 @@ PokecenterNurseScript:
 
 .ok
 	; only do this once
-	clearevent EVENT_WELCOMED_TO_POKECOM_CENTER
+	;clearevent EVENT_WELCOMED_TO_POKECOM_CENTER
 
-	farwritetext NurseAskHealText
-	yesorno
-	iffalse .done
+	;farwritetext NurseAskHealText
+	;yesorno
+	;iffalse .done
 
-	farwritetext NurseTakePokemonText
-	pause 20
+	;farwritetext NurseTakePokemonText
+
 	special StubbedTrainerRankings_Healings
 	turnobject LAST_TALKED, LEFT
 	pause 10
@@ -115,10 +115,9 @@ PokecenterNurseScript:
 	playmusic MUSIC_NONE
 	writebyte HEALMACHINE_POKECENTER
 	special HealMachineAnim
-	pause 30
+	pause 10
 	special RestartMapMusic
 	turnobject LAST_TALKED, DOWN
-	pause 10
 
 	checkphonecall ; elm already called about pokerus
 	iftrue .no
@@ -126,21 +125,22 @@ PokecenterNurseScript:
 	iftrue .no
 	special CheckPokerus
 	iftrue .pokerus
+	
 .no
-
-	farwritetext NurseReturnPokemonText
-	pause 20
+	;farwritetext NurseReturnPokemonText
+	pause 10
 
 .done
-	farwritetext NurseGoodbyeText
+	;farwritetext NurseGoodbyeText
 
 	turnobject LAST_TALKED, UP
 	pause 10
 	turnobject LAST_TALKED, DOWN
 	pause 10
+	turnobject PLAYER, DOWN
 
-	waitbutton
-	closetext
+	;waitbutton
+	;closetext
 	end
 
 .pokerus

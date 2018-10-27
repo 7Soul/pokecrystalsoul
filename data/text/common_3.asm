@@ -970,11 +970,11 @@ UnknownText_0x1c56c9::
 	text_from_ram wStringBuffer2
 	text "."
 
-	para "But @"
-	text_from_ram wMonOrItemNameBuffer
-	text_start
-	line "can't learn more"
-	cont "than four moves."
+	;para "But @"
+	;text_from_ram wMonOrItemNameBuffer
+	;text_start
+	;line "can't learn more"
+	;cont "than four moves."
 
 	para "Delete an older"
 	line "move to make room"

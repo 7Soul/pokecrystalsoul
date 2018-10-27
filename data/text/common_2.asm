@@ -650,8 +650,8 @@ Text_YouCantUseItInABattle::
 	prompt
 
 Text_AreYouABoyOrAreYouAGirl::
-	text "Are you a boy?"
-	line "Or are you a girl?"
+	text "Are you a Dan?"
+	line "Or are you a Arin?"
 	done
 
 UnknownText_0x1c0cc6::
@@ -1495,35 +1495,47 @@ _OakText1::
 	text "Hello! Sorry to"
 	line "keep you waiting!"
 
-	para "Welcome to the"
-	line "world of #MON!"
+	para "I've shit my pants"
+	line ""
 
 	para "My name is OAK."
 
-	para "People call me the"
-	line "#MON PROF."
+	para "It stands for:"
+	line "Oh! Ass Krack."
 	prompt
 
 _OakText2::
-	text "This world is in-"
-	line "habited by crea-"
-	cont "tures that we call"
-	cont "#MON.@@"
+	text "This world used to"
+	line "be inhabited by"
+	cont "creatures called"
+	cont "Pokémon."
+	
+	para "But then they went"
+	line "through a horri-"
+	cont "fying mutation"
+	
+	para "that turned them"
+	line "into what we now"
+	cont "call #MON@@"
 
 _OakText3::
 	text_waitbutton
 	db "@@"
 
 _OakText4::
-	text "People and #MON"
-	line "live together by"
+	text "It was such a"
+	line "horrible and trau-"
 
-	para "supporting each"
-	line "other."
+	para "matizing event"
+	line "that everyone just"
 
-	para "Some people play"
-	line "with #MON, some"
-	cont "battle with them."
+	para "erased it from"
+	line "their memory and"
+	cont "continued to"
+	
+	para "train #MON"
+	line "like nothing ever"
+	cont "happened."
 	prompt
 
 _OakText5::
@@ -1534,6 +1546,12 @@ _OakText5::
 	para "There are still"
 	line "many mysteries to"
 	cont "solve."
+	
+	para "Like,"
+	line ""
+	cont "Why do I keep"
+	cont "farting uncon-"
+	cont "trolably."
 
 	para "That's why I study"
 	line "#MON every day."

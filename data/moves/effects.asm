@@ -6,7 +6,7 @@ NormalHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -35,7 +35,7 @@ PoisonHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -56,7 +56,7 @@ LeechHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -77,7 +77,7 @@ BurnHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -98,7 +98,7 @@ FreezeHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -119,7 +119,7 @@ ParalyzeHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -140,7 +140,7 @@ Selfdestruct:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -161,7 +161,7 @@ DreamEater:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -539,7 +539,7 @@ AttackDownHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -561,7 +561,7 @@ DefenseDownHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -575,7 +575,7 @@ DefenseDownHit:
 	supereffectivetext
 	checkfaint
 	buildopponentrage
-	effectchance ; bug: duplicate effectchance shouldn't be here
+	;effectchance ; bug: duplicate effectchance shouldn't be here
 	defensedown
 	statdownmessage
 	endmove
@@ -584,7 +584,7 @@ SpeedDownHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -606,7 +606,7 @@ SpecialAttackDownHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -628,7 +628,7 @@ SpecialDefenseDownHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -650,7 +650,7 @@ AccuracyDownHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -672,7 +672,7 @@ EvasionDownHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -694,7 +694,7 @@ DefenseUpHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -716,7 +716,7 @@ AttackUpHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -738,7 +738,7 @@ AllUpHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -759,7 +759,7 @@ PayDay:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -813,7 +813,7 @@ Rampage:
 	rampage
 	usedmovetext
 	checkhit
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -844,7 +844,7 @@ MultiHit:
 	startloop
 	lowersub
 	checkhit
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -869,7 +869,7 @@ PoisonMultiHit:
 	doturn
 	startloop
 	lowersub
-	checkhit
+	;checkhit
 	effectchance
 	critical
 	damagestats
@@ -895,7 +895,7 @@ FlinchHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -931,7 +931,7 @@ RecoilHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -975,7 +975,7 @@ ConfuseHit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1018,7 +1018,7 @@ TriAttack:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1061,7 +1061,7 @@ SkyAttack:
 	doturn
 	charge
 	usedmovetext
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1090,7 +1090,7 @@ HyperBeam:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1110,7 +1110,7 @@ Rage:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1172,7 +1172,7 @@ RazorWind:
 	doturn
 	charge
 	usedmovetext
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1194,7 +1194,7 @@ Fly:
 	doturn
 	charge
 	usedmovetext
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1216,7 +1216,7 @@ TrapTarget:
 	usedmovetext
 	doturn
 	checkhit
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1298,7 +1298,7 @@ Snore:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1373,7 +1373,7 @@ FalseSwipe:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1404,7 +1404,7 @@ TripleKick:
 	startloop
 	lowersub
 	checkhit
-	critical
+	;critical
 	damagestats
 	damagecalc
 	triplekick
@@ -1429,7 +1429,7 @@ Thief:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1465,7 +1465,7 @@ FlameWheel:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1538,7 +1538,7 @@ Rollout:
 	checkobedience
 	doturn
 	usedmovetext
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1577,7 +1577,7 @@ FuryCutter:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1606,7 +1606,7 @@ Return:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	happinesspower
 	damagecalc
@@ -1628,7 +1628,7 @@ Present:
 	usedmovetext
 	doturn
 	checkhit
-	critical
+	;critical
 	damagestats
 	present
 	damagecalc
@@ -1648,7 +1648,7 @@ Frustration:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	frustrationpower
 	damagecalc
@@ -1676,7 +1676,7 @@ SacredFire:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1698,7 +1698,7 @@ Magnitude:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	getmagnitude
 	damagecalc
@@ -1727,7 +1727,7 @@ Pursuit:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1748,7 +1748,7 @@ RapidSpin:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1790,7 +1790,7 @@ HiddenPower:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	hiddenpower
 	damagecalc
 	stab
@@ -1863,7 +1863,7 @@ SkullBash:
 	doturn
 	charge
 	usedmovetext
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1886,7 +1886,7 @@ Twister:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1908,7 +1908,7 @@ Earthquake:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1946,7 +1946,7 @@ Gust:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1966,7 +1966,7 @@ Stomp:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -1991,7 +1991,7 @@ Solarbeam:
 	skipsuncharge
 	charge
 	usedmovetext
-	critical
+	;critical
 	damagestats
 	damagecalc
 	stab
@@ -2011,7 +2011,7 @@ Thunder:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
+	;critical
 	damagestats
 	damagecalc
 	thunderaccuracy
@@ -2044,7 +2044,7 @@ BeatUp:
 	startloop
 	lowersub
 	checkhit
-	critical
+	;critical
 	beatup
 	damagecalc
 	damagevariation
