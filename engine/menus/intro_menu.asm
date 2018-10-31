@@ -649,7 +649,7 @@ OakSpeech:
 	call RotateThreePalettesRight
 	call ClearTileMap
 
-	ld a, MAGNEMITE
+	ld a, STANTLER
 	ld [wCurSpecies], a
 	ld [wCurPartySpecies], a
 	call GetBaseData
@@ -776,9 +776,9 @@ NamePlayer:
 	ret
 
 .Chris:
-	db "CHRIS@@@@@@"
+	db "DANNY@@@@@@"
 .Kris:
-	db "KRIS@@@@@@@"
+	db "ARIN@@@@@@@"
 
 Unreferenced_Function60e9:
 	call LoadMenuHeader

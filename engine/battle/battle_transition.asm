@@ -539,7 +539,7 @@ StartTrainerBattle_SpeckleToBlack:
 	ldh [hBGMapMode], a
 	call DelayFrame
 	call DelayFrame
-	call DelayFrame
+	;call DelayFrame
 	xor a
 	ldh [hBGMapMode], a
 	ld a, BATTLETRANSITION_FINISH

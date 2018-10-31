@@ -2185,7 +2185,7 @@ BattleBGEffect_VibrateMon:
 	ld [hl], $1
 	ld hl, BG_EFFECT_STRUCT_03
 	add hl, bc
-	;ld [hl], $20
+	ld [hl], $20
 	ret
 
 .one

@@ -252,7 +252,7 @@ MoveDescriptions::
 	dw WhirlpoolDescription
 	dw BeatUpDescription
 	dw GunkShotDescription
-	dw MoveFDDescription
+	dw SilverWindDescription
 	dw MoveFEDescription
 	dw MoveFFDescription
 	dw Move00Description

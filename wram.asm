@@ -2655,11 +2655,11 @@ wErinFightCount::    db
 wEventFlags:: flag_array NUM_EVENTS ; da72
 ; db6c
 
-	ds 6
-
+	;ds 6
+	ds 1
 wCurBox:: db ; db72
 
-	ds 2
+	
 
 ; 8 chars + $50
 wBoxNames:: ds BOX_NAME_LENGTH * NUM_BOXES ; db75
@@ -2761,7 +2761,7 @@ wPhoneList:: ds CONTACT_LIST_SIZE ; dc7c
 	ds 23
 
 wLuckyNumberShowFlag:: db ; dc9d
-wRepelType:: db ; 
+wRepelType:: db
 wLuckyIDNumber:: dw ; dc9f
 
 wRepelEffect:: db ; If a Repel is in use, it contains the nr of steps it's still active

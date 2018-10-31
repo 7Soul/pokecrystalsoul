@@ -6,7 +6,7 @@ PokedexTypeSearchConversionTable:
 	db GRASS
 	db ELECTRIC
 	db ICE
-	;db FIGHTING
+	db FIGHTING
 	db POISON
 	;db GROUND
 	;db FLYING

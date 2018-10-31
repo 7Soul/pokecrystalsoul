@@ -48,7 +48,6 @@ LearnMove:
 	xor a
 	ld [wDisabledMove], a
 	ld [wPlayerDisableCount], a
-	
 .not_disabled
 	call GetMoveName
 	ld hl, Text_1_2_and_Poof ; 1, 2 and…

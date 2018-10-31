@@ -203,8 +203,6 @@ gfx/trainer_card/leaders.2bpp: tools/gfx += --trim-whitespace
 gfx/overworld/chris_fish.2bpp: tools/gfx += --trim-whitespace
 gfx/overworld/kris_fish.2bpp: tools/gfx += --trim-whitespace
 
-gfx/battle/enemy_hp_bar_border.2bpp: rgbgfx += -h
-gfx/battle/hp_exp_bar_border.2bpp: rgbgfx += -h
 gfx/battle/dude.2bpp: rgbgfx += -h
 
 gfx/font/unused_bold_font.1bpp: tools/gfx += --trim-whitespace

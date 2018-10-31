@@ -54,7 +54,7 @@ InitGender:
 	db "Arin@"
 
 TextJump_AreYouABoyOrAreYouAGirl:
-	; Are you a boy? Or are you a girl?
+	; Are you a Dan? Or are you a Arin?
 	text_jump Text_AreYouABoyOrAreYouAGirl
 	db "@"
 

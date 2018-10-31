@@ -61,8 +61,8 @@ FacingStepDown1: ; walking down 1
 
 FacingStepDown3: ; walking down 2
 	db 4 ; #
-	db  0,  8, X_FLIP, $80
-	db  0,  0, X_FLIP, $81
+	db  0,  0, 0, $80
+	db  0,  8, 0, $81
 	db  8,  8, RELATIVE_ATTRIBUTES | X_FLIP, $82
 	db  8,  0, RELATIVE_ATTRIBUTES | X_FLIP, $83
 

@@ -12,7 +12,7 @@ LoadSGBPokedexGFX2:
 	ret
 
 SGBPokedexGFX_LZ:
-INCBIN "gfx/pokedex/sgb.2bpp"
+INCBIN "gfx/pokedex/sgb.2bpp.lz"
 
 LoadQuestionMarkPic:
 	ld hl, .QuestionMarkLZ
@@ -21,7 +21,7 @@ LoadQuestionMarkPic:
 	ret
 
 .QuestionMarkLZ:
-INCBIN "gfx/pokedex/question_mark.2bpp"
+INCBIN "gfx/pokedex/question_mark.2bpp.lz"
 
 DrawPokedexListWindow:
 	ld a, $32

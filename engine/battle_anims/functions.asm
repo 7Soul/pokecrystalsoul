@@ -163,6 +163,7 @@ BattleAnimFunction_04:
 	inc [hl]
 	inc [hl]
 	inc [hl]
+	inc [hl]
 	ld d, $10
 	push af
 	push de
@@ -1071,8 +1072,8 @@ BattleAnimFunction_0C:
 	ld hl, BATTLEANIMSTRUCT_0F
 	add hl, bc
 	ld [hl], $0
-	;ld a, BATTLEANIMFRAMESET_22
-	;call ReinitBattleAnimFrameset
+	ld a, BATTLEANIMFRAMESET_22
+	call ReinitBattleAnimFrameset
 .two
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
@@ -2906,9 +2907,9 @@ BattleAnimFunction_Horn:
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	ld a, [hl]
-	cp $58
+	cp $78
 	ret nc
-	ld a, $2
+	ld a, $8
 	call Functionce70a
 	ret
 

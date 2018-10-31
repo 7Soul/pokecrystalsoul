@@ -2,7 +2,6 @@
 	const ROUTE33_POKEFAN_M
 	const ROUTE33_LASS
 	const ROUTE33_FRUIT_TREE
-	const ROUTE33_POKE_BALL1
 
 Route33_MapScripts:
 	db 0 ; scene scripts
@@ -142,9 +141,6 @@ Route33Sign:
 
 Route33FruitTree:
 	fruittree FRUITTREE_ROUTE_33
-
-Route33Potion:
-	itemball POTION
 	
 HikerAnthony2SeenText:
 	text "I came through the"
@@ -211,4 +207,3 @@ Route33_MapEvents:
 	object_event  5,  8, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerHikerAnthony, -1
 	object_event 18, 11, SPRITE_LASS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route33LassScript, -1
 	object_event 10, 23, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route33FruitTree, -1
-	object_event 13, 19, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route33Potion, EVENT_ROUTE_33_POTION

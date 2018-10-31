@@ -621,7 +621,7 @@ BattleAnim_EnemyDamage:
 BattleAnim_EnemyStatDown:
 	anim_call BattleAnim_FollowEnemyFeet_1
 	anim_bgeffect ANIM_BG_VIBRATE_MON, $0, $0, $0
-	anim_wait 20
+	anim_wait 40
 	anim_call BattleAnim_ShowMon_1
 	anim_wait 1
 	anim_ret
@@ -629,7 +629,7 @@ BattleAnim_EnemyStatDown:
 BattleAnim_PlayerStatDown:
 	anim_call BattleAnim_FollowEnemyFeet_1
 	anim_bgeffect ANIM_BG_WOBBLE_MON, $0, $0, $0
-	anim_wait 20
+	anim_wait 40
 	anim_call BattleAnim_ShowMon_1
 	anim_wait 1
 	anim_ret
@@ -2672,7 +2672,7 @@ BattleAnim_Withdraw: ; Rock Tomb
 	anim_obj ANIM_OBJ_A1, 120, 64, $0
 	anim_obj ANIM_OBJ_A3, 120, 32, $0
 	anim_obj ANIM_OBJ_A4, 152, 64, $0
-	anim_wait 32
+	; anim_wait 32
 	anim_ret
 
 BattleAnim_Psybeam:
@@ -4103,7 +4103,6 @@ BattleAnim_ZoomFlight: ; Zoom Flight
 	anim_2gfx ANIM_GFX_WIND, ANIM_GFX_HIT
 	anim_obp0 $fc
 	anim_call BattleAnim_FollowEnemyFeet_0
-	;anim_bgeffect ANIM_BG_18, $0, $1, $40
 	anim_sound 0, 1, SFX_WING_ATTACK
 	anim_obj ANIM_OBJ_ZOOM_FLIGHT, 8, 24, $10
 	anim_obj ANIM_OBJ_ZOOM_FLIGHT, 8, 48, $2

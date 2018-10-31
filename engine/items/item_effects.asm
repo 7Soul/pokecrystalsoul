@@ -726,20 +726,27 @@ BallMultiplierFunctionTable:
 	db -1 ; end
 
 UltraBallMultiplier:
-; multiply catch rate by 2
+; multiply catch rate by 4
 	sla b
 	ret nc
 	ld b, $ff
+	sla b ;
+	ret nc ;
+	ld b, $ff ;
 	ret
 
 SafariBallMultiplier:
 GreatBallMultiplier:
 ParkBallMultiplier:
 ; multiply catch rate by 1.5
-	ld a, b
-	srl a
-	add b
-	ld b, a
+	;ld a, b
+	;srl a
+	;add b
+	;ld b, a
+	;ret nc
+	;ld b, $ff
+; multiply catch rate by 2
+	sla b
 	ret nc
 	ld b, $ff
 	ret
@@ -917,7 +924,7 @@ MoonBallMultiplier:
 	push bc
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte
-	cp MOON_STONE_RED ; BURN_HEAL
+	cp MOON_STONE ; BURN_HEAL ; FIXED
 	pop bc
 	ret nz
 
@@ -2080,11 +2087,11 @@ SuperRepelEffect:
 	jr UseRepel
 
 MaxRepelEffect:
-	ld b, 255
+	ld b, 250
 	jr UseRepel
 
 RepelEffect:
-	ld b, 150
+	ld b, 100
 
 UseRepel:
 	ld a, [wRepelEffect]

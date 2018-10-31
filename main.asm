@@ -612,7 +612,7 @@ SECTION "Crystal Events", ROMX
 
 INCLUDE "engine/events/battle_tower/load_trainer.asm"
 INCLUDE "engine/events/odd_egg.asm"
-
+INCLUDE "engine/events/givecubone.asm"
 
 SECTION "Mobile Stadium 2", ROMX
 
