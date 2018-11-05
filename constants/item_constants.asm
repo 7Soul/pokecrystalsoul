@@ -231,7 +231,7 @@ ENDM
 	add_tm ENDURE       ; d3
 	add_tm FRUSTRATION  ; d4
 	add_tm SOLARBEAM    ; d5
-	add_tm IRON_TAIL    ; d6
+	add_tm FROZEN_TAIL    ; d6
 	add_tm HYDRO_PUMP   ; d7
 	add_tm THUNDER      ; d8
 	add_tm EARTHQUAKE   ; d9
@@ -256,7 +256,7 @@ ENDM
 	add_tm REST         ; ec
 	add_tm ATTRACT      ; ed
 	add_tm THIEF        ; ee
-	add_tm STEEL_WING   ; ef
+	add_tm ICICLE_WING  ; ef
 	add_tm FIRE_PUNCH   ; f0
 	add_tm FURY_CUTTER  ; f1
 	add_tm NIGHTMARE    ; f2

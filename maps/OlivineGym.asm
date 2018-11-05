@@ -28,13 +28,13 @@ OlivineGymJasmineScript:
 	checkcode VAR_BADGES
 	scall OlivineGymActivateRockets
 .FightDone:
-	checkevent EVENT_GOT_TM23_IRON_TAIL
+	checkevent EVENT_GOT_TM23_FROZEN_TAIL
 	iftrue .GotIronTail
 	writetext Jasmine_BadgeSpeech
 	buttonsound
-	verbosegiveitem TM_IRON_TAIL
+	verbosegiveitem TM_FROZEN_TAIL
 	iffalse .NoRoomForIronTail
-	setevent EVENT_GOT_TM23_IRON_TAIL
+	setevent EVENT_GOT_TM23_FROZEN_TAIL
 	writetext Jasmine_IronTailSpeech
 	waitbutton
 	closetext

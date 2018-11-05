@@ -115,7 +115,7 @@
 	const MINIMIZE     ; 6b
 	const SMOKESCREEN  ; 6c
 	const CONFUSE_RAY  ; 6d
-	const WITHDRAW     ; 6e
+	const ROCK_TOMB    ; 6e
 	const DEFENSE_CURL ; 6f
 	const BARRIER      ; 70
 	const LIGHT_SCREEN ; 71
@@ -216,7 +216,7 @@
 	const MILK_DRINK   ; d0
 	const SPARK        ; d1
 	const FURY_CUTTER  ; d2
-	const STEEL_WING   ; d3
+	const ICICLE_WING  ; d3
 	const MEAN_LOOK    ; d4
 	const ATTRACT      ; d5
 	const SLEEP_TALK   ; d6
@@ -236,8 +236,8 @@
 	const PURSUIT      ; e4
 	const RAPID_SPIN   ; e5
 	const SWEET_SCENT  ; e6
-	const IRON_TAIL    ; e7
-	const METAL_CLAW   ; e8
+	const FROZEN_TAIL   ; e7
+	const FROZEN_CLAW   ; e8
 	const VITAL_THROW  ; e9
 	const MORNING_SUN  ; ea
 	const SYNTHESIS    ; eb

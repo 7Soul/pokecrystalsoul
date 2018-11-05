@@ -50,3 +50,13 @@ WhirlpoolBlockPointers:
 ; facing block, replacement block, animation
 	db $07, $36, 0
 	db -1 ; end
+	
+MeltTreeBlockPointers:
+; tileset, block list pointer
+	dbw TILESET_JOHTO,        .johto
+	db -1 ; end
+
+.johto:
+; facing block, replacement block, animation
+	db $92, $08, 0 ; melt
+	db -1 ; end
