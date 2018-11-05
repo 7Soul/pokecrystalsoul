@@ -538,7 +538,7 @@ Route45_MapEvents:
 	db 0 ; coord events
 
 	db 2 ; bg events
-	bg_event 10,  4, BGEVENT_READ, Route45Sign
+	bg_event 9,  4, BGEVENT_READ, Route45Sign
 	bg_event 13, 80, BGEVENT_ITEM, Route45HiddenPpUp
 
 	db 13 ; object events

@@ -188,6 +188,10 @@ CheckWaterfallTile::
 	cp COLL_CURRENT_DOWN
 	ret
 
+CheckBurnTile::
+	cp COLL_MELT
+	ret
+
 CheckStandingOnEntrance::
 	ld a, [wPlayerStandingTile]
 	cp COLL_DOOR
