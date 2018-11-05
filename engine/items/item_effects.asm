@@ -2091,7 +2091,7 @@ MaxRepelEffect:
 	jr UseRepel
 
 RepelEffect:
-	ld b, 150
+	ld b, 100
 
 UseRepel:
 	ld a, [wRepelEffect]

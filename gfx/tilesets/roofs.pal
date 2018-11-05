@@ -103,5 +103,5 @@
 	RGB 13,13,01, 08,08,01 ; nite
 
 ; group 26 (Cherrygrove)
-	RGB 31,14,28, 21,00,15 ; morn/day
+	RGB 31,14,28, 27,00,16 ; morn/day
 	RGB 14,07,17, 12,00,07 ; nite

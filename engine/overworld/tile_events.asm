@@ -68,6 +68,7 @@ CheckGrassCollision::
 	db COLL_WATER
 	db COLL_GRASS_48
 	db COLL_GRASS_49
+	db COLL_GRASS_4A
 	db COLL_GRASS_4B
 	db COLL_GRASS_4C
 	db -1
@@ -98,14 +99,3 @@ GetWarpSFX::
 	ret z
 	ld de, SFX_EXIT_BUILDING
 	ret
-	
-CheckBurnCollision:
-	ld a, c
-	ld hl, .blocks
-	ld de, 1
-	call IsInArray
-	ret
-
-.blocks
-	db COLL_CUT_TREE
-	db -1

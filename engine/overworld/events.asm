@@ -870,14 +870,9 @@ CountStep:
 	jr c, .doscript
 
 	; If Repel wore off, don't count the step.
-	call Random
-	cp 50 percent
-	jr c, .skip_repel
-
 	call DoRepelStep
 	jr c, .doscript
 
-.skip_repel
 	; Count the step for poison and total steps
 	ld hl, wPoisonStepCount
 	inc [hl]
@@ -939,8 +934,8 @@ CountStep:
 DoRepelStep:
 	ld a, [wRepelEffect]
 	and a
-	ret z	
-	
+	ret z
+
 	dec a
 	ld [wRepelEffect], a
 	ret nz
@@ -1094,7 +1089,7 @@ TryTileCollisionEvent::
 
 	call CheckCutTreeTile
 	jr nz, .whirlpool
-	farcall TryCutOW	
+	farcall TryCutOW
 	jr .done
 
 .whirlpool
@@ -1110,13 +1105,6 @@ TryTileCollisionEvent::
 	jr nz, .headbutt
 	farcall TryWaterfallOW
 	jr .done
-	
-; .burn
-	; ld a, [wEngineBuffer1]
-	; call CheckCutTreeTile
-	; jr nz, .headbutt
-	; farcall TryBurnOW
-	; jr .done
 
 .headbutt
 	ld a, [wEngineBuffer1]

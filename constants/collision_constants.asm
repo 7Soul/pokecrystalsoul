@@ -46,7 +46,7 @@ COLL_BRAKE_46          EQU $46 ; unused
 COLL_BRAKE_47          EQU $47 ; unused
 COLL_GRASS_48          EQU $48 ; unused
 COLL_GRASS_49          EQU $49 ; unused
-COLL_MELT              EQU $4a
+COLL_GRASS_4A          EQU $4a ; garbage
 COLL_GRASS_4B          EQU $4b ; garbage
 COLL_GRASS_4C          EQU $4c ; unused
 COLL_WALK_RIGHT_ALT    EQU $50 ; unused

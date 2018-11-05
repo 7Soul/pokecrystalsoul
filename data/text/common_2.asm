@@ -291,6 +291,17 @@ UnknownText_0x1c05c8::
 	line "here."
 	prompt
 
+UnknownText_0x1c05dd::
+	text_from_ram wStringBuffer2
+	text " used"
+	line "CUT!"
+	prompt
+
+UnknownText_0x1c05ec::
+	text "There's nothing to"
+	line "CUT here."
+	prompt
+
 UnknownText_0x1c0609::
 	text "A blinding FLASH"
 	line "lights the area!@"
@@ -493,25 +504,13 @@ UnknownText_0x1c09dd::
 	text "This tree can be"
 	line "CUT!"
 
-	para "Want to use a"
-	line "CUTTING move?"
+	para "Want to use CUT?"
 	done
 
 UnknownText_0x1c0a05::
 	text "This tree can be"
-	line "CUT or BURNED!"
+	line "CUT!"
 	done
-	
-UnknownText_0x1c05dd::
-	text_from_ram wStringBuffer2
-	text " has"
-	line "cut the tree!"
-	prompt
-
-UnknownText_0x1c05ec::
-	text "There's nothing to"
-	line "CUT here."
-	prompt
 
 UnknownText_0x1c0a1c::
 	text "<PLAYER> found"
@@ -1557,29 +1556,3 @@ _OakText5::
 	para "That's why I study"
 	line "#MON every day."
 	prompt
-
-text_usedburn::
-	text_from_ram wStringBuffer2
-	text ""
-	line "burned the tree!"
-	prompt
-
-text_nothingtoburn::
-	text "There's nothing to"
-	line "BURN here."
-	prompt
-	
-text_askburn::
-	text "This tree can be"
-	line "BURNED!"
-
-	para "Want to use a"
-	line "FIRE move?"
-	;text_from_ram wStringBuffer3
-	;text "?"
-	done
-
-text_cantburn::
-	text "This tree can be"
-	line "CUT or BURNED!"
-	done
