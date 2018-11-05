@@ -1110,6 +1110,13 @@ TryTileCollisionEvent::
 	jr nz, .headbutt
 	farcall TryWaterfallOW
 	jr .done
+	
+; .burn
+	; ld a, [wEngineBuffer1]
+	; call CheckCutTreeTile
+	; jr nz, .headbutt
+	; farcall TryBurnOW
+	; jr .done
 
 .headbutt
 	ld a, [wEngineBuffer1]

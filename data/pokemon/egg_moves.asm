@@ -47,7 +47,7 @@ PidgeyEggMoves:
 	db FAINT_ATTACK
 	db FORESIGHT
 if !_CRYSTAL
-	db ICICLE_WING
+	db STEEL_WING
 endc
 	db -1 ; end
 
@@ -84,7 +84,7 @@ SandshrewEggMoves:
 	db COUNTER
 	db RAPID_SPIN
 if _CRYSTAL
-	db FROZEN_CLAW
+	db METAL_CLAW
 endc
 	db -1 ; end
 
@@ -258,7 +258,7 @@ SlowpokeEggMoves:
 
 FarfetchDEggMoves:
 if !_CRYSTAL
-	db ICICLE_WING
+	db STEEL_WING
 endc
 	db FORESIGHT
 	db MIRROR_MOVE
@@ -461,7 +461,7 @@ AerodactylEggMoves:
 	db PURSUIT
 	db FORESIGHT
 if !_CRYSTAL
-	db ICICLE_WING
+	db STEEL_WING
 endc
 	db -1 ; end
 
@@ -583,7 +583,7 @@ NatuEggMoves:
 	db DRILL_PECK
 	db QUICK_ATTACK
 	db FAINT_ATTACK
-	db ICICLE_WING
+	db STEEL_WING
 	db -1 ; end
 
 MareepEggMoves:
@@ -683,7 +683,7 @@ DunsparceEggMoves:
 	db -1 ; end
 
 GligarEggMoves:
-	db FROZEN_CLAW
+	db METAL_CLAW
 	db WING_ATTACK
 	db RAZOR_WIND
 	db COUNTER
@@ -732,7 +732,7 @@ TeddiursaEggMoves:
 	db FOCUS_ENERGY
 	db COUNTER
 if _CRYSTAL
-	db FROZEN_CLAW
+	db METAL_CLAW
 endc
 	db -1 ; end
 

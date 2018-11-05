@@ -26,6 +26,7 @@ BulbasaurEvosAttacks:
 	db 10, VINE_WHIP
 	db 15, POISONPOWDER
 	db 15, SLEEP_POWDER
+	db 15, WITHDRAW
 	db 20, RAZOR_LEAF
 	db 25, SWEET_SCENT
 	db 32, GROWTH
@@ -1317,15 +1318,12 @@ OnixEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, SCREECH
-	db 1, BIND
-	db 7, ROCK_THROW
-	db 11, ROCK_TOMB
-	db 20, HARDEN
-	db 25, DIG
-	db 28, RAGE
+	db 10, BIND
+	db 14, ROCK_THROW
+	db 23, HARDEN
+	db 27, RAGE
 	db 36, SANDSTORM
 	db 40, SLAM
-	db 52, EARTHQUAKE
 	db 0 ; no more level-up moves
 
 DrowzeeEvosAttacks:
@@ -1549,8 +1547,7 @@ RhyhornEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, HORN_ATTACK
 	db 1, TAIL_WHIP
-	db 1, STOMP
-	db 12, ROCK_TOMB
+	db 13, STOMP
 	db 19, FURY_ATTACK
 	db 31, SCARY_FACE
 	db 37, HORN_DRILL
@@ -1564,7 +1561,7 @@ RhydonEvosAttacks:
 	db 1, TAIL_WHIP
 	db 1, STOMP
 	db 1, FURY_ATTACK
-	db 15, ROCK_TOMB
+	db 13, STOMP
 	db 19, FURY_ATTACK
 	db 31, SCARY_FACE
 	db 37, HORN_DRILL
@@ -2878,17 +2875,13 @@ SteelixEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, SCREECH
-	db 1, BIND
-	db 10, ROCK_THROW
-	db 14, ROCK_TOMB	
-	db 19, ICY_WIND
+	db 10, BIND
+	db 14, ROCK_THROW
 	db 23, HARDEN
-	db 28, DIG
-	db 30, RAGE
-	db 39, FROZEN_TAIL
-	db 41, SANDSTORM
-	db 44, SLAM
-	db 52, CRUNCH
+	db 27, RAGE
+	db 36, SANDSTORM
+	db 40, SLAM
+	db 49, CRUNCH
 	db 0 ; no more level-up moves
 
 SnubbullEvosAttacks:
@@ -2941,7 +2934,7 @@ ScizorEvosAttacks:
 	db 12, PURSUIT
 	db 18, FALSE_SWIPE
 	db 24, AGILITY
-	db 30, FROZEN_CLAW
+	db 30, METAL_CLAW
 	db 36, SLASH
 	db 38, X_SCISSOR
 	db 42, SWORDS_DANCE
@@ -2985,7 +2978,7 @@ SneaselEvosAttacks:
 	db 49, SLASH
 	db 57, BEAT_UP
 if _CRYSTAL
-	db 65, FROZEN_CLAW
+	db 65, METAL_CLAW
 endc
 	db 0 ; no more level-up moves
 
@@ -3134,15 +3127,13 @@ SkarmoryEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, LEER
 	db 1, PECK
-	db 1, FROZEN_CLAW
 	db 13, SAND_ATTACK
 	db 19, SWIFT
 	db 25, AGILITY
 	db 30, SPIKES
-	db 33, ROCK_SLIDE
 	db 37, FURY_ATTACK
-	db 42, ICICLE_WING
-	db 54, FROZEN_TAIL
+	db 49, STEEL_WING
+	db 54, IRON_TAIL
 	db 0 ; no more level-up moves
 
 HoundourEvosAttacks:
