@@ -1436,6 +1436,18 @@ HasRockSmash:
 	ld d, ROCK_SMASH
 	call CheckPartyMove
 	jr nc, .yes
+	ld d, ROCK_SLIDE
+	call CheckPartyMove
+	jr nc, .yes
+	ld d, ROCK_THROW
+	call CheckPartyMove
+	jr nc, .yes
+	ld d, FISSURE
+	call CheckPartyMove
+	jr nc, .yes
+	ld d, CRABHAMMER
+	call CheckPartyMove
+	jr nc, .yes
 .no
 	ld a, 1
 	jr .done

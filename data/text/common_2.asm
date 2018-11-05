@@ -439,8 +439,8 @@ UnknownText_0x1c08bc::
 
 UnknownText_0x1c08f0::
 	text_from_ram wStringBuffer2
-	text " used"
-	line "ROCK SMASH!"
+	text " smashes"
+	line "the rock!"
 	prompt
 
 UnknownText_0x1c0906::
@@ -452,8 +452,8 @@ UnknownText_0x1c0924::
 	text "This rock looks"
 	line "breakable."
 
-	para "Want to use ROCK"
-	line "SMASH?"
+	para "Want to use a"
+	line "SMASH move?"
 	done
 
 UnknownText_0x1c0958::
