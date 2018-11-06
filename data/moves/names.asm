@@ -252,3 +252,4 @@ MoveNames::
 	db "BEAT UP@"
 	db "GUNK SHOT@"
 	db "SILVER WIND@"
+	db "WILL-O-WISP@"

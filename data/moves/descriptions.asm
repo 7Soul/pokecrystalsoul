@@ -253,12 +253,10 @@ MoveDescriptions::
 	dw BeatUpDescription
 	dw GunkShotDescription
 	dw SilverWindDescription
-	dw MoveFEDescription
+	dw WillOWispDescription
 	dw MoveFFDescription
 	dw Move00Description
 
-MoveFDDescription:
-MoveFEDescription:
 MoveFFDescription:
 Move00Description:
 	db "?@"
@@ -1274,3 +1272,7 @@ GunkShotDescription:
 SilverWindDescription:
 	db   "Raises all stats"
 	next "with low chance.@"
+	
+WillOWispDescription:
+	db   "Burns a foe that"
+	next "isn't fire type.@"

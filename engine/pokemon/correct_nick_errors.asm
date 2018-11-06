@@ -35,8 +35,8 @@ CorrectNickErrors::
 	jr nc, .loop
 
 ; replace it with a "?"
-	ld a, "?"
-	ld [de], a
+	;ld a, "?"
+	;ld [de], a
 	jr .loop
 
 .done

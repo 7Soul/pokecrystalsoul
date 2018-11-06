@@ -254,7 +254,7 @@ BattleAnimations::
 	dw BattleAnim_BeatUp
 	dw BattleAnim_GunkShot
 	dw BattleAnim_SilverWind
-	dw BattleAnim_254
+	dw BattleAnim_WillOWisp
 	dw BattleAnim_SweetScent2
 ; $100
 	dw BattleAnim_ThrowPokeBall
@@ -4877,6 +4877,27 @@ BattleAnim_Synthesis_branch_cbc80:
 	anim_wait 5
 	anim_loop 2, .loop
 	anim_wait 16
+	anim_ret
+	
+BattleAnim_WillOWisp:
+	anim_1gfx ANIM_GFX_FIRE
+	anim_sound 6, 2, SFX_EMBER
+	anim_obj ANIM_OBJ_EMBER, 64, 96, $12
+	anim_wait 4
+	anim_sound 6, 2, SFX_EMBER
+	anim_obj ANIM_OBJ_EMBER, 64, 100, $14
+	anim_wait 4
+	anim_sound 6, 2, SFX_EMBER
+	anim_obj ANIM_OBJ_EMBER, 64, 84, $13
+	anim_wait 16
+	anim_incobj  1
+	anim_incobj  2
+	anim_incobj  3
+	anim_sound 0, 1, SFX_EMBER
+	anim_obj ANIM_OBJ_EMBER, 120, 68, $30
+	anim_obj ANIM_OBJ_EMBER, 132, 68, $30
+	anim_obj ANIM_OBJ_EMBER, 144, 68, $30
+	anim_wait 32
 	anim_ret
 
 BattleAnim_FollowEnemyFeet_0:

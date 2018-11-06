@@ -150,10 +150,10 @@ DrawEnemyHUDBorder:
 	ret
 
 .tiles
-	db $0 ; left side
-	db $0 ; bottom left
-	db $0 ; bottom right
-	db $0 ; bottom side
+	db $7F ; left side
+	db $7F ; bottom left
+	db $7F ; bottom right
+	db $7F ; bottom side
 .tiles_end
 
 PlaceHUDBorderTiles:
