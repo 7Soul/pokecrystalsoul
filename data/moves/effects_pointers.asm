@@ -105,7 +105,7 @@ MoveEffectsPointers:
 	dw HealBell
 	dw NormalHit
 	dw TripleKick
-	dw Thief
+	dw AtkDefUp
 	dw MeanLook
 	dw Nightmare
 	dw FlameWheel
@@ -158,3 +158,4 @@ MoveEffectsPointers:
 	dw Fly
 	dw DefenseCurl
 	dw DoBurn
+	dw WeightDamage

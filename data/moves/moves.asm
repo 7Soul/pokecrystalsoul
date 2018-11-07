@@ -62,7 +62,7 @@ Moves: ; 41afb
 	move SUPERSONIC,   EFFECT_CONFUSE,             0, NORMAL,   STATUS,    55, 20,   0
 	move SONICBOOM,    EFFECT_STATIC_DAMAGE,      20, NORMAL,   SPECIAL,   90, 20,   0
 	move DISABLE,      EFFECT_DISABLE,             0, NORMAL,   STATUS,    55, 20,   0
-	move ACID,         EFFECT_DEFENSE_DOWN_HIT,   40, DARK,     SPECIAL,  100, 30,  10
+	move ACID,         EFFECT_DEFENSE_DOWN_HIT,   40, GRASS,    SPECIAL,  100, 30,  30
 	move EMBER,        EFFECT_BURN_HIT,           40, FIRE,     SPECIAL,  100, 25,  10
 	move FLAMETHROWER, EFFECT_BURN_HIT,           95, FIRE,     SPECIAL,  100, 15,  10
 	move MIST,         EFFECT_MIST,                0, ICE,      STATUS,   100, 30,   0
@@ -78,7 +78,7 @@ Moves: ; 41afb
 	move PECK,         EFFECT_NORMAL_HIT,         35, NORMAL,   PHYSICAL, 100, 35,   0
 	move DRILL_PECK,   EFFECT_NORMAL_HIT,         80, NORMAL,   PHYSICAL, 100, 20,   0
 	move SUBMISSION,   EFFECT_RECOIL_HIT,         80, FIGHTING, PHYSICAL,  80, 25,   0
-	move LOW_KICK,     EFFECT_FLINCH_HIT,         50, FIGHTING, PHYSICAL,  90, 20,  30
+	move LOW_KICK,     EFFECT_WEIGHT_DAMAGE,       0, FIGHTING, PHYSICAL, 100, 20,   0
 	move COUNTER,      EFFECT_COUNTER,             1, FIGHTING, PHYSICAL, 100, 20,   0
 	move SEISMIC_TOSS, EFFECT_LEVEL_DAMAGE,        1, FIGHTING, PHYSICAL, 100, 20,   0
 	move STRENGTH,     EFFECT_NORMAL_HIT,         80, NORMAL,   PHYSICAL, 100, 15,   0
@@ -91,7 +91,7 @@ Moves: ; 41afb
 	move POISONPOWDER, EFFECT_POISON,              0, GRASS,    STATUS,    75, 35,   0
 	move STUN_SPORE,   EFFECT_PARALYZE,            0, GRASS,    STATUS,    75, 30,   0
 	move SLEEP_POWDER, EFFECT_SLEEP,               0, GRASS,    STATUS,    75, 15,   0
-	move PETAL_DANCE,  EFFECT_RAMPAGE,            70, GRASS,    SPECIAL,  100, 20,   0
+	move PETAL_DANCE,  EFFECT_RAMPAGE,            80, GRASS,    SPECIAL,  100, 20,   0
 	move STRING_SHOT,  EFFECT_SPEED_DOWN,          0, BUG,      STATUS,    95, 40,   0
 	move X_SCISSOR,    EFFECT_NORMAL_HIT,         80, BUG,      PHYSICAL, 100, 15,   0
 	move FIRE_SPIN,    EFFECT_TRAP_TARGET,        15, FIRE,     SPECIAL,   70, 15,   0
@@ -143,7 +143,7 @@ Moves: ; 41afb
 	move SWIFT,        EFFECT_ALWAYS_HIT,         60, NORMAL,   SPECIAL,  100, 20,   0
 	move SKULL_BASH,   EFFECT_SKULL_BASH,        100, NORMAL,   PHYSICAL, 100, 15,   0
 	move SPIKE_CANNON, EFFECT_MULTI_HIT,          20, NORMAL,   PHYSICAL, 100, 15,   0
-	move CONSTRICT,    EFFECT_SPEED_DOWN_HIT,     10, NORMAL,   PHYSICAL, 100, 35,  10
+	move CONSTRICT,    EFFECT_SPEED_DOWN_HIT,     50, NORMAL,   PHYSICAL, 100, 35,  30
 	move AMNESIA,      EFFECT_SP_DEF_UP_2,         0, PSYCHIC,  STATUS,   100, 20,   0
 	move KINESIS,      EFFECT_ACCURACY_DOWN,       0, PSYCHIC,  STATUS,    80, 15,   0
 	move SOFTBOILED,   EFFECT_HEAL,                0, NORMAL,   STATUS,   100, 10,   0
@@ -179,8 +179,8 @@ Moves: ; 41afb
 	move STRUGGLE,     EFFECT_RECOIL_HIT,         50, NORMAL,   PHYSICAL, 100,  1,   0
 	move SKETCH,       EFFECT_SKETCH,              0, NORMAL,   STATUS,   100,  1,   0
 	move TRIPLE_KICK,  EFFECT_TRIPLE_KICK,        10, FIGHTING, PHYSICAL,  90, 10,   0
-	move THIEF,        EFFECT_THIEF,              40, DARK,     PHYSICAL, 100, 10, 100
-	move SPIDER_WEB,   EFFECT_MEAN_LOOK,           0, BUG,      STATUS,   100, 10,   0
+	move BULK_UP,      EFFECT_ATK_DEF_UP,          0, NORMAL,   STATUS,   100, 20,   0
+	move BUG_BUZZ,     EFFECT_SP_DEF_DOWN_HIT,    90, BUG,      SPECIAL,  100, 10,  10
 	move MIND_READER,  EFFECT_LOCK_ON,             0, NORMAL,   STATUS,   100,  5,   0
 	move NIGHTMARE,    EFFECT_NIGHTMARE,           0, DARK,     STATUS,   100, 15,   0
 	move FLAME_WHEEL,  EFFECT_FLAME_WHEEL,        60, FIRE,     PHYSICAL, 100, 25,  10
@@ -265,4 +265,4 @@ Moves: ; 41afb
 	move BEAT_UP,      EFFECT_BEAT_UP,            10, DARK,     PHYSICAL, 100, 10,   0
 	move GUNK_SHOT,    EFFECT_POISON_HIT,        120, DARK,     PHYSICAL,  80,  5,  30
 	move SILVER_WIND,  EFFECT_ALL_UP_HIT,         60, BUG,      SPECIAL,  100,  5,  10
-	move WILL_O_WISP,  EFFECT_BURN,         0, FIRE,      SPECIAL,  100,  5,  0
+	move WILL_O_WISP,  EFFECT_BURN,                0, FIRE,     SPECIAL,  100,  5,   0

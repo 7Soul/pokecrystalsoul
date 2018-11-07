@@ -168,8 +168,8 @@ BattleAnimations::
 	dw BattleAnim_Struggle
 	dw BattleAnim_Sketch
 	dw BattleAnim_TripleKick
-	dw BattleAnim_Thief
-	dw BattleAnim_SpiderWeb
+	dw BattleAnim_BulkUp
+	dw BattleAnim_BugBuzz
 	dw BattleAnim_MindReader
 	dw BattleAnim_Nightmare
 	dw BattleAnim_FlameWheel
@@ -3146,33 +3146,36 @@ BattleAnim_TripleKick_branch_caca5:
 	anim_wait 8
 	anim_ret
 
-BattleAnim_Thief:
-	anim_1gfx ANIM_GFX_HIT
-	anim_call BattleAnim_FollowEnemyFeet_0
-	anim_bgeffect ANIM_BG_TACKLE, $0, $1, $0
-	anim_wait 16
-	anim_sound 0, 1, SFX_THIEF
-	anim_obj ANIM_OBJ_01, 128, 48, $0
-	anim_wait 16
-	anim_call BattleAnim_ShowMon_0
-	anim_wait 1
-	anim_1gfx ANIM_GFX_STATUS
-	anim_sound 0, 1, SFX_THIEF_2
-	anim_obj ANIM_OBJ_THIEF, 120, 76, $1
+BattleAnim_BulkUp:
+	anim_bgeffect ANIM_BG_WHITE_HUES, $0, $8, $0
+	anim_1gfx ANIM_GFX_CHARGE
+	anim_sound 0, 0, SFX_SWORDS_DANCE
+	anim_obj ANIM_OBJ_GROWTH, 48, 108, $0
+	anim_obj ANIM_OBJ_GROWTH, 48, 108, $8
+	anim_obj ANIM_OBJ_GROWTH, 48, 108, $10
+	anim_obj ANIM_OBJ_GROWTH, 48, 108, $18
+	anim_obj ANIM_OBJ_GROWTH, 48, 108, $20
+	anim_obj ANIM_OBJ_GROWTH, 48, 108, $28
+	anim_obj ANIM_OBJ_GROWTH, 48, 108, $30
+	anim_obj ANIM_OBJ_GROWTH, 48, 108, $38
 	anim_wait 64
 	anim_ret
 
-BattleAnim_SpiderWeb:
-	anim_1gfx ANIM_GFX_WEB
-	anim_bgeffect ANIM_BG_07, $0, $2, $0
-	anim_obj ANIM_OBJ_SPIDER_WEB, 132, 48, $0
-	anim_sound 6, 2, SFX_SPIDER_WEB
-	anim_obj ANIM_OBJ_STRING_SHOT, 64, 80, $0
-	anim_wait 4
-	anim_obj ANIM_OBJ_STRING_SHOT, 64, 88, $0
-	anim_wait 4
-	anim_obj ANIM_OBJ_STRING_SHOT, 64, 84, $0
-	anim_wait 64
+BattleAnim_BugBuzz:
+	anim_2gfx ANIM_GFX_REFLECT, ANIM_GFX_SPEED
+	anim_bgeffect ANIM_BG_06, $0, $2, $0
+.loop
+	anim_sound 0, 0, SFX_SHINE
+	anim_obj ANIM_OBJ_AE, 64, 72, $4
+	anim_wait 8
+	anim_obj ANIM_OBJ_AE, 64, 88, $4
+	anim_wait 8
+	anim_obj ANIM_OBJ_AE, 64, 80, $4
+	anim_wait 8
+	anim_obj ANIM_OBJ_AE, 64, 96, $4
+	anim_wait 8
+	anim_loop 3, .loop
+	anim_wait 32
 	anim_ret
 
 BattleAnim_MindReader:
@@ -4881,23 +4884,12 @@ BattleAnim_Synthesis_branch_cbc80:
 	
 BattleAnim_WillOWisp:
 	anim_1gfx ANIM_GFX_FIRE
-	anim_sound 6, 2, SFX_EMBER
-	anim_obj ANIM_OBJ_EMBER, 64, 96, $12
-	anim_wait 4
-	anim_sound 6, 2, SFX_EMBER
-	anim_obj ANIM_OBJ_EMBER, 64, 100, $14
-	anim_wait 4
-	anim_sound 6, 2, SFX_EMBER
-	anim_obj ANIM_OBJ_EMBER, 64, 84, $13
-	anim_wait 16
-	anim_incobj  1
-	anim_incobj  2
-	anim_incobj  3
-	anim_sound 0, 1, SFX_EMBER
-	anim_obj ANIM_OBJ_EMBER, 120, 68, $30
-	anim_obj ANIM_OBJ_EMBER, 132, 68, $30
-	anim_obj ANIM_OBJ_EMBER, 144, 68, $30
-	anim_wait 32
+.loop
+	anim_sound 0, 0, SFX_EMBER
+	anim_obj ANIM_OBJ_WILL_O_WISP, 48, 104, $0
+	anim_wait 8
+	anim_loop 8, .loop
+	anim_wait 24
 	anim_ret
 
 BattleAnim_FollowEnemyFeet_0:

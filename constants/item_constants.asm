@@ -255,7 +255,7 @@ ENDM
 	add_tm DETECT       ; eb
 	add_tm REST         ; ec
 	add_tm ATTRACT      ; ed
-	add_tm THIEF        ; ee
+	add_tm BULK_UP      ; ee
 	add_tm ICICLE_WING  ; ef
 	add_tm FIRE_PUNCH   ; f0
 	add_tm FURY_CUTTER  ; f1

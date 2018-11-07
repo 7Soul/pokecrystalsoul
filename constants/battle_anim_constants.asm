@@ -220,6 +220,7 @@ BATTLEANIMSTRUCT_LENGTH EQU const_value
 	const ANIM_OBJ_A4
 	const ANIM_OBJ_ZOOM_FLIGHT
 	const ANIM_OBJ_GUNK_SHOT
+	const ANIM_OBJ_WILL_O_WISP
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def

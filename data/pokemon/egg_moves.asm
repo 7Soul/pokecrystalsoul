@@ -302,6 +302,7 @@ GastlyEggMoves:
 	db PSYWAVE
 	db PERISH_SONG
 	db HAZE
+	db WILL_O_WISP
 	db -1 ; end
 
 OnixEggMoves:

@@ -1436,26 +1436,16 @@ TripleKick:
 	kingsrock
 	endmove
 
-Thief:
+AtkDefUp:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
-	damagestats
-	damagecalc
-	stab
-	damagevariation
-	checkhit
-	effectchance
-	moveanim
-	failuretext
-	applydamage
-	criticaltext
-	supereffectivetext
-	thief
-	checkfaint
-	buildopponentrage
-	kingsrock
+	statupanim
+	atkdefup
+	;lowersub	
+	;raisesub
+	;statupmessage
+	;statupfailtext
 	endmove
 
 MeanLook:
@@ -2086,3 +2076,25 @@ DefenseCurl:
 	statupmessage
 	statupfailtext
 	endmove
+
+WeightDamage:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	weightdamage
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	kingsrock
+	endmove
+
+	

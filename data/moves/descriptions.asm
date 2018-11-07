@@ -167,8 +167,8 @@ MoveDescriptions::
 	dw StruggleDescription
 	dw SketchDescription
 	dw TripleKickDescription
-	dw ThiefDescription
-	dw SpiderWebDescription
+	dw BulkUpDescription
+	dw BugBuzzDescription
 	dw MindReaderDescription
 	dw NightmareDescription
 	dw FlameWheelDescription
@@ -526,8 +526,8 @@ SubmissionDescription:
 	next "so hurts the user.@"
 
 LowKickDescription:
-	db   "An attack that may"
-	next "cause flinching.@"
+	db   "It's more powerful"
+	next "on heavier foes.@"
 
 CounterDescription:
 	db   "Returns a physical"
@@ -929,13 +929,13 @@ TripleKickDescription:
 	db   "Hits three times"
 	next "with rising power.@"
 
-ThiefDescription:
-	db   "An attack that may"
-	next "steal a held item.@"
+BulkUpDescription:
+	db   "Raises the user's"
+	next "ATK and DEF.@"
 
-SpiderWebDescription:
-	db   "Prevents fleeing"
-	next "or switching.@"
+BugBuzzDescription:
+	db   "Buzzing attack may"
+	next "lower SPCL.DEF.@"
 
 MindReaderDescription:
 	db   "Ensures the next"

@@ -83,7 +83,7 @@ BattleCommandPointers:
 	dw BattleCommand_HeldFlinch
 	dw BattleCommand_TripleKick
 	dw BattleCommand_KickCounter
-	dw BattleCommand_Thief
+	dw BattleCommand_AtkDefUp
 	dw BattleCommand_ArenaTrap
 	dw BattleCommand_Nightmare
 	dw BattleCommand_Defrost
@@ -142,7 +142,7 @@ BattleCommandPointers:
 	dw BattleCommand_SpecialAttackDown2
 	dw BattleCommand_SpecialDefenseDown2
 	dw BattleCommand_AccuracyDown2
-	dw BattleCommand_EvasionDown2
+	dw BattleCommand_EvasionDown2	
 	dw BattleCommand_StatUpMessage
 	dw BattleCommand_StatDownMessage
 	dw BattleCommand_StatUpFailText
@@ -180,3 +180,4 @@ BattleCommandPointers:
 	dw BattleCommand_StartLoop
 	dw BattleCommand_Curl
 	dw BattleCommand_BurnTarget
+	dw BattleCommand_WeightDamage

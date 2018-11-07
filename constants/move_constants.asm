@@ -173,8 +173,8 @@
 	const STRUGGLE     ; a5
 	const SKETCH       ; a6
 	const TRIPLE_KICK  ; a7
-	const THIEF        ; a8
-	const SPIDER_WEB   ; a9
+	const BULK_UP      ; a8
+	const BUG_BUZZ     ; a9
 	const MIND_READER  ; aa
 	const NIGHTMARE    ; ab
 	const FLAME_WHEEL  ; ac
@@ -236,8 +236,8 @@
 	const PURSUIT      ; e4
 	const RAPID_SPIN   ; e5
 	const SWEET_SCENT  ; e6
-	const FROZEN_TAIL   ; e7
-	const FROZEN_CLAW   ; e8
+	const FROZEN_TAIL  ; e7
+	const FROZEN_CLAW  ; e8
 	const VITAL_THROW  ; e9
 	const MORNING_SUN  ; ea
 	const SYNTHESIS    ; eb
