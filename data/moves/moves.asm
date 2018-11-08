@@ -26,7 +26,7 @@ Moves: ; 41afb
 	move GUILLOTINE,   EFFECT_OHKO,                0, NORMAL,   PHYSICAL,  30,  5,   0
 	move RAZOR_WIND,   EFFECT_RAZOR_WIND,         80, NORMAL,   SPECIAL,  100, 10,   0
 	move SWORDS_DANCE, EFFECT_ATTACK_UP_2,         0, NORMAL,   STATUS,   100, 30,   0
-	move CUT,          EFFECT_NORMAL_HIT,         50, NORMAL,   PHYSICAL,  95, 30,   0
+	move AQUA_TAIL,    EFFECT_NORMAL_HIT,         90, WATER,    PHYSICAL,  90, 10,   0
 	move GUST,         EFFECT_GUST,               40, NORMAL,   SPECIAL,  100, 35,   0
 	move WING_ATTACK,  EFFECT_NORMAL_HIT,         60, NORMAL,   PHYSICAL, 100, 35,   0
 	move WHIRLWIND,    EFFECT_FORCE_SWITCH,        0, NORMAL,   STATUS,   100, 20,   0
@@ -188,7 +188,7 @@ Moves: ; 41afb
 	move CURSE,        EFFECT_CURSE,               0, DARK,     STATUS,   100, 10,   0
 	move FLAIL,        EFFECT_REVERSAL,            1, NORMAL,   PHYSICAL, 100, 15,   0
 	move CONVERSION2,  EFFECT_CONVERSION2,         0, NORMAL,   STATUS,   100, 30,   0
-	move AEROBLAST,    EFFECT_NORMAL_HIT,        100, NORMAL,   SPECIAL,   95,  5,   0
+	move LEAF_STORM,   EFFECT_SELFSPATK_DOWN_HIT,130, GRASS,    SPECIAL,   90,  5,   0
 	move COTTON_SPORE, EFFECT_SPEED_DOWN_2,        0, GRASS,    STATUS,    85, 40,   0
 	move REVERSAL,     EFFECT_REVERSAL,            1, FIGHTING, PHYSICAL, 100, 15,   0
 	move SPITE,        EFFECT_SPITE,               0, DARK,     STATUS,   100, 10,   0
@@ -209,7 +209,7 @@ Moves: ; 41afb
 	move PERISH_SONG,  EFFECT_PERISH_SONG,         0, NORMAL,   STATUS,   100,  5,   0
 	move ICY_WIND,     EFFECT_SPEED_DOWN_HIT,     55, ICE,      SPECIAL,   95, 15, 100
 	move DETECT,       EFFECT_PROTECT,             0, FIGHTING, STATUS,   100,  5,   0
-	move BONE_RUSH,    EFFECT_MULTI_HIT,          25, ROCK,     PHYSICAL,  90, 10,   0
+	move ZEN_HEADBUTT, EFFECT_FLINCH_HIT,         80, PSYCHIC,  PHYSICAL,  90, 15,  20
 	move LOCK_ON,      EFFECT_LOCK_ON,             0, NORMAL,   STATUS,   100,  5,   0
 	move OUTRAGE,      EFFECT_RAMPAGE,            90, NORMAL,   PHYSICAL, 100, 15,   0
 	move SANDSTORM,    EFFECT_SANDSTORM,           0, ROCK,     STATUS,   100, 10,   0
@@ -262,7 +262,7 @@ Moves: ; 41afb
 	move FUTURE_SIGHT, EFFECT_FUTURE_SIGHT,       80, PSYCHIC,  SPECIAL,   90, 15,   0
 	move ROCK_SMASH,   EFFECT_DEFENSE_DOWN_HIT,   40, FIGHTING, PHYSICAL, 100, 15,  50
 	move WHIRLPOOL,    EFFECT_TRAP_TARGET,        15, WATER,    SPECIAL,   70, 15,   0
-	move BEAT_UP,      EFFECT_BEAT_UP,            10, DARK,     PHYSICAL, 100, 10,   0
+	move POWER_GEM,    EFFECT_NORMAL_HIT,         80, ROCK,     SPECIAL,  100, 20,   0
 	move GUNK_SHOT,    EFFECT_POISON_HIT,        120, DARK,     PHYSICAL,  80,  5,  30
 	move SILVER_WIND,  EFFECT_ALL_UP_HIT,         60, BUG,      SPECIAL,  100,  5,  10
 	move WILL_O_WISP,  EFFECT_BURN,                0, FIRE,     SPECIAL,  100,  5,   0

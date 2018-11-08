@@ -20,8 +20,7 @@ MonMenuOptionStrings:
 
 MonMenuOptions:
 ; category, item, value; actions are in PokemonActionSubmenu (see engine/pokemon/mon_menu.asm)
-; moves
-	db MONMENU_FIELD_MOVE, MONMENUITEM_CUT,        CUT	
+; moves	
 	db MONMENU_FIELD_MOVE, MONMENUITEM_CUT,        RAZOR_LEAF
 	db MONMENU_FIELD_MOVE, MONMENUITEM_CUT,        FURY_CUTTER
 	db MONMENU_FIELD_MOVE, MONMENUITEM_CUT,        SLASH

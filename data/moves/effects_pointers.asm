@@ -159,3 +159,4 @@ MoveEffectsPointers:
 	dw DefenseCurl
 	dw DoBurn
 	dw WeightDamage
+	dw SelfSpAtkDownHit

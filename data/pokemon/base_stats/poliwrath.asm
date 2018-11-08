@@ -3,7 +3,7 @@
 	db  90,  95,  95,  70,  70,  90
 	;   hp  atk  def  spd  sat  sdf
 
-	db WATER, WATER ; type
+	db WATER, FIGHTING ; type
 	db 45 ; catch rate
 	db 185 ; base exp
 	db NO_ITEM, KINGS_ROCK ; items

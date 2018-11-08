@@ -231,7 +231,7 @@ ENDM
 	add_tm ENDURE       ; d3
 	add_tm FRUSTRATION  ; d4
 	add_tm SOLARBEAM    ; d5
-	add_tm FROZEN_TAIL    ; d6
+	add_tm FROZEN_TAIL  ; d6
 	add_tm HYDRO_PUMP   ; d7
 	add_tm THUNDER      ; d8
 	add_tm EARTHQUAKE   ; d9
@@ -271,7 +271,7 @@ endc
 	enum \1_TMNUM
 ENDM
 
-	add_hm CUT          ; f3
+	add_hm AQUA_TAIL          ; f3
 	add_hm FLY          ; f4
 	add_hm SURF         ; f5
 	add_hm STRENGTH     ; f6

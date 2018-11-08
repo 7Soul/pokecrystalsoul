@@ -14,7 +14,7 @@ MoveDescriptions::
 	dw GuillotineDescription
 	dw RazorWindDescription
 	dw SwordsDanceDescription
-	dw CutDescription
+	dw AquaTailDescription
 	dw GustDescription
 	dw WingAttackDescription
 	dw WhirlwindDescription
@@ -176,7 +176,7 @@ MoveDescriptions::
 	dw CurseDescription
 	dw FlailDescription
 	dw Conversion2Description
-	dw AeroblastDescription
+	dw LeafStormDescription
 	dw CottonSporeDescription
 	dw ReversalDescription
 	dw SpiteDescription
@@ -197,7 +197,7 @@ MoveDescriptions::
 	dw PerishSongDescription
 	dw IcyWindDescription
 	dw DetectDescription
-	dw BoneRushDescription
+	dw ZenHeadbuttDescription
 	dw LockOnDescription
 	dw OutrageDescription
 	dw SandstormDescription
@@ -250,7 +250,7 @@ MoveDescriptions::
 	dw FutureSightDescription
 	dw RockSmashDescription
 	dw WhirlpoolDescription
-	dw BeatUpDescription
+	dw PowerGemDescription
 	dw GunkShotDescription
 	dw SilverWindDescription
 	dw WillOWispDescription
@@ -317,9 +317,9 @@ SwordsDanceDescription:
 	db   "A dance that in-"
 	next "creases ATTACK.@"
 
-CutDescription:
-	db   "Cuts using claws,"
-	next "scythes, etc.@"
+AquaTailDescription:
+	db   "Swings a tail like"
+	next "a vicious wave.@"
 
 GustDescription:
 	db   "More damage to"
@@ -965,9 +965,9 @@ Conversion2Description:
 	db   "The user's type is"
 	next "made resistant.@"
 
-AeroblastDescription:
-	db   "Has a high criti-"
-	next "cal hit ratio.@"
+LeafStormDescription:
+	db   "The recoil reduces"
+	next "the user's SP.ATK.@"
 
 CottonSporeDescription:
 	db   "Sharply reduces"
@@ -1049,9 +1049,9 @@ DetectDescription:
 	db   "Evades attack that"
 	next "turn. It may fail.@"
 
-BoneRushDescription:
-	db   "An attack that"
-	next "hits 2-5 times.@"
+ZenHeadbuttDescription:
+	db   "Rams the foe and"
+	next "causes flinching.@"
 
 LockOnDescription:
 	db   "Ensures the next"
@@ -1261,9 +1261,9 @@ WhirlpoolDescription:
 	db   "Traps the foe for"
 	next "2-5 turns.@"
 
-BeatUpDescription:
-	db   "Party #MON join"
-	next "in the attack.@"
+PowerGemDescription:
+	db   "Attacks with gem-"
+	next "stone energy.@"
 	
 GunkShotDescription:
 	db   "Concentrated ran-"

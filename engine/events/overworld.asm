@@ -1802,9 +1802,6 @@ GotOffTheBikeText:
 	db "@"
 
 TryCutOW::
-	ld d, CUT
-	call CheckPartyMove
-	jr nc, .do_cut
 	ld d, GUILLOTINE
 	call CheckPartyMove
 	jr nc, .do_cut

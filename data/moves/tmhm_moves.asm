@@ -52,7 +52,7 @@ TMHMMoves:
 	db FURY_CUTTER
 	db NIGHTMARE
 ; HMs
-	db CUT
+	db AQUA_TAIL
 	db FLY
 	db SURF
 	db STRENGTH
