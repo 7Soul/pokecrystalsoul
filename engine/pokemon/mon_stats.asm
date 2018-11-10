@@ -311,20 +311,20 @@ ListMovePP:
 	ld a, [wBuffer1]
 	ld e, a
 	ld d, $0
-	ld a, $3e ; P
-	call .load_loop
-	ld a, b
-	and a
-	jr z, .skip
-	ld c, a
-	ld a, "-"
-	call .load_loop
+	;ld a, $3e ; P
+	;call .load_loop
+	;ld a, b
+	;and a
+	;jr z, .skip
+	;ld c, a
+	;ld a, "-"
+	;call .load_loop
 
 .skip
 	pop hl
-	inc hl
-	inc hl
-	inc hl
+	;inc hl
+	;inc hl
+	;inc hl
 	ld d, h
 	ld e, l
 	ld hl, wTempMonMoves

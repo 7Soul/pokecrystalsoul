@@ -561,6 +561,57 @@ StatsScreen_PlaceHorizontalDividerBotPink: ;and mid
 	ld [hli], a
 	ret
 
+StatsScreen_PlaceHorizontalDividerTopGreen:
+	hlcoord 0, 7
+	ld b, SCREEN_WIDTH
+	ld a, $bb ; horizontal divider
+.loop
+	ld [hli], a
+	dec b
+	jr nz, .loop
+	
+	hlcoord 0, 7 
+	ld a, $ba ; top left corner
+	ld [hli], a
+	hlcoord 19, 7
+	ld a, $bc ; top right corner
+	ld [hli], a
+	ret
+	
+StatsScreen_PlaceHorizontalDividerMidGreen:
+	hlcoord 0, 9
+	ld b, SCREEN_WIDTH
+	ld a, $bb ; horizontal divider
+.loop
+	ld [hli], a
+	dec b
+	jr nz, .loop
+	
+	hlcoord 0, 9
+	ld a, $c2 ; 
+	ld [hli], a
+	hlcoord 19, 9
+	ld a, $c3 ; 
+	ld [hli], a
+	ret
+	
+StatsScreen_PlaceHorizontalDividerBotGreen:
+	hlcoord 0, 17
+	ld b, SCREEN_WIDTH
+	ld a, $bb ; horizontal divider
+.loop
+	ld [hli], a
+	dec b
+	jr nz, .loop
+	
+	hlcoord 0, 17
+	ld a, $be ; bot left corner
+	ld [hli], a
+	hlcoord 19, 17
+	ld a, $bf ; bot right corner
+	ld [hli], a
+	ret
+	
 StatsScreen_PlacePageSwitchArrows:
 	hlcoord 12, 6
 	ld [hl], "◀"
@@ -651,9 +702,7 @@ StatsScreen_LoadGFX:
 	add hl, de
 	dec b
 	jr nz, .PinkPageVerticalDivider2	
-	
-	
-	
+
 	hlcoord 1, 12
 	ld b, $0
 	predef DrawPlayerHP
@@ -672,7 +721,7 @@ StatsScreen_LoadGFX:
 	ld a, b
 	and $f0
 	jr z, .NotImmuneToPkrs
-	hlcoord 8, 8
+	hlcoord 11, 12
 	ld [hl], "." ; Pokérus immunity dot
 .NotImmuneToPkrs:
 	ld a, [wMonType]
@@ -687,7 +736,7 @@ StatsScreen_LoadGFX:
 	jr .StatusOK
 .HasPokerus:
 	ld de, .PkrsStr
-	hlcoord 1, 13
+	hlcoord 2, 15
 	call PlaceString
 	jr .done_status
 .StatusOK:
@@ -797,27 +846,48 @@ StatsScreen_LoadGFX:
 	db "#RUS@"
 
 .GreenPage:
-	ld de, .Item
 	hlcoord 0, 8
+	ld de, SCREEN_WIDTH
+	ld b, 9
+	ld a, $bd ; vertical divider
+.GreenPageVerticalDivider1:
+	ld [hl], a
+	add hl, de
+	dec b
+	jr nz, .GreenPageVerticalDivider1
+	hlcoord 19, 8
+	ld de, SCREEN_WIDTH
+	ld b, 9
+	ld a, $bd ; vertical divider
+.GreenPageVerticalDivider2:
+	ld [hl], a
+	add hl, de
+	dec b
+	jr nz, .GreenPageVerticalDivider2
+	call StatsScreen_PlaceHorizontalDividerTopGreen
+	ld de, .Item
+	hlcoord 1, 8
 	call PlaceString
 	call .GetItemName
-	hlcoord 8, 8
+	hlcoord 7, 8
 	call PlaceString
-	ld de, .Move
-	hlcoord 0, 10
-	call PlaceString
+	;ld de, .Move
+	;hlcoord 0, 10
+	;call PlaceString
 	ld hl, wTempMonMoves
 	ld de, wListMoves_MoveIndicesBuffer
 	ld bc, NUM_MOVES
 	call CopyBytes
-	hlcoord 8, 10
+	hlcoord 1, 10
 	ld a, SCREEN_WIDTH * 2
 	ld [wBuffer1], a
 	predef ListMoves
-	hlcoord 12, 11
+	hlcoord 14, 10
 	ld a, SCREEN_WIDTH * 2
 	ld [wBuffer1], a
 	predef ListMovePP
+	call StatsScreen_PlaceHorizontalDividerMidGreen
+	call StatsScreen_PlaceHorizontalDividerBotGreen
 	ret
 
 .GetItemName:
@@ -833,7 +903,7 @@ StatsScreen_LoadGFX:
 	ret
 
 .Item:
-	db "ITEM@"
+	db "ITEM:@"
 
 .ThreeDashes:
 	db "---@"
