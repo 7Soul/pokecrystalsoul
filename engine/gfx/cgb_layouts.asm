@@ -217,7 +217,7 @@ _CGB_StatsScreenHPPals:
 	call WipeAttrMap
 
 	hlcoord 0, 0, wAttrMap
-	lb bc, 8, SCREEN_WIDTH
+	lb bc, 7, SCREEN_WIDTH ; where the coloring starts
 	ld a, $1 ; mon palette
 	call FillBoxCGB
 

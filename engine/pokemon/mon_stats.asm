@@ -121,6 +121,72 @@ PrintTempMonStats:
 	next "SPEED"
 	next "@"
 
+PrintTempMonStatsShort:
+; Print wTempMon's stats at hl, with spacing bc.
+	push bc
+	push hl
+	
+    hlcoord 11, 8
+    ld [wBuffer2], a
+    ld de, .StatName1 ; ATK
+    call PlaceString
+	
+	hlcoord 11, 9
+    ld [wBuffer2], a
+    ld de, .StatName2 ; DEF
+    call PlaceString
+	
+	hlcoord 11, 10
+    ld [wBuffer2], a
+    ld de, .StatName3 ; S.ATK
+    call PlaceString
+	
+	hlcoord 11, 11
+    ld [wBuffer2], a
+    ld de, .StatName4 ; S.DEF
+    call PlaceString
+	
+	hlcoord 11, 12
+    ld [wBuffer2], a
+    ld de, .StatName5 ; SPD
+    call PlaceString
+	
+	pop hl
+	pop bc
+	add hl, bc
+	ld bc, SCREEN_WIDTH
+	add hl, bc
+	ld de, wTempMonAttack
+	lb bc, 2, 3
+	call .PrintStat
+	ld de, wTempMonDefense
+	call .PrintStat
+	ld de, wTempMonSpclAtk
+	call .PrintStat
+	ld de, wTempMonSpclDef
+	call .PrintStat
+	ld de, wTempMonSpeed
+	jp PrintNum
+
+.PrintStat:
+	push hl
+	call PrintNum
+	pop hl
+	ld de, SCREEN_WIDTH
+	add hl, de
+	ret
+
+.StatName1:
+	db	"ATK@"
+.StatName2:
+	db	"DEF@"
+.StatName3:
+	db	"S.ATK@"
+.StatName4:
+	db	"S.DEF@"
+.StatName5:
+	db	"SPD@"
+
 GetGender:
 ; Return the gender of a given monster (wCurPartyMon/wCurOTMon/wCurWildMon).
 ; When calling this function, a should be set to an appropriate wMonType value.

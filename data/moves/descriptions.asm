@@ -12,7 +12,7 @@ MoveDescriptions::
 	dw ScratchDescription
 	dw VicegripDescription
 	dw GuillotineDescription
-	dw RazorWindDescription
+	dw ChargeBeamDescription
 	dw SwordsDanceDescription
 	dw AquaTailDescription
 	dw GustDescription
@@ -69,7 +69,7 @@ MoveDescriptions::
 	dw LowKickDescription
 	dw CounterDescription
 	dw SeismicTossDescription
-	dw StrengthDescription
+	dw NastyPlotDescription
 	dw AbsorbDescription
 	dw MegaDrainDescription
 	dw LeechSeedDescription
@@ -135,7 +135,7 @@ MoveDescriptions::
 	dw AmnesiaDescription
 	dw KinesisDescription
 	dw SoftboiledDescription
-	dw HiJumpKickDescription
+	dw InfernoDescription
 	dw GlareDescription
 	dw DreamEaterDescription
 	dw PoisonGasDescription
@@ -147,7 +147,7 @@ MoveDescriptions::
 	dw BubbleDescription
 	dw DizzyPunchDescription
 	dw SporeDescription
-	dw FlashDescription
+	dw MagmaStormDescription
 	dw PsywaveDescription
 	dw SplashDescription
 	dw AcidArmorDescription
@@ -174,7 +174,7 @@ MoveDescriptions::
 	dw FlameWheelDescription
 	dw SnoreDescription
 	dw CurseDescription
-	dw FlailDescription
+	dw EerieImpulseDescription
 	dw Conversion2Description
 	dw LeafStormDescription
 	dw CottonSporeDescription
@@ -216,7 +216,7 @@ MoveDescriptions::
 	dw SleepTalkDescription
 	dw HealBellDescription
 	dw ReturnDescription
-	dw PresentDescription
+	dw HammerArmDescription
 	dw FrustrationDescription
 	dw SafeguardDescription
 	dw PainSplitDescription
@@ -229,7 +229,7 @@ MoveDescriptions::
 	dw EncoreDescription
 	dw PursuitDescription
 	dw RapidSpinDescription
-	dw SweetScentDescription
+	dw FellStingerDescription
 	dw IronTailDescription
 	dw MetalClawDescription
 	dw VitalThrowDescription
@@ -309,9 +309,9 @@ GuillotineDescription:
 	db   "A one-hit KO,"
 	next "pincer attack.@"
 
-RazorWindDescription:
-	db   "1st turn: Prepare"
-	next "2nd turn: Attack@"
+ChargeBeamDescription:
+	db   "High chance to in-"
+	next "crease SPCL.ATK.@"
 
 SwordsDanceDescription:
 	db   "A dance that in-"
@@ -537,9 +537,9 @@ SeismicTossDescription:
 	db   "The user's level"
 	next "equals damage HP.@"
 
-StrengthDescription:
-	db   "A powerful physi-"
-	next "cal attack.@"
+NastyPlotDescription:
+	db   "Sharply raises the"
+	next "SPCL.ATK rating.@"
 
 AbsorbDescription:
 	db   "Steals 1/2 of the"
@@ -801,9 +801,9 @@ SoftboiledDescription:
 	db   "Restores HP by 1/2"
 	next "the user's max HP.@"
 
-HiJumpKickDescription:
-	db   "May miss and hurt"
-	next "the user.@"
+InfernoDescription:
+	db   "Always burns if"
+	next "it hits.@"
 
 GlareDescription:
 	db   "A move that may"
@@ -849,9 +849,9 @@ SporeDescription:
 	db   "A move that"
 	next "induces sleep.@"
 
-FlashDescription:
-	db   "Blinds the foe to"
-	next "reduce accuracy.@"
+MagmaStormDescription:
+	db   "Traps foe in fire"
+	next "for 2-5 turns.@"
 
 PsywaveDescription:
 	db   "An attack with"
@@ -957,9 +957,9 @@ CurseDescription:
 	db   "Works differently"
 	next "for ghost-types.@"
 
-FlailDescription:
-	db   "Stronger if the"
-	next "user's HP is low.@"
+EerieImpulseDescription:
+	db   "Voltage lowers the"
+	next "foe's SPCL.ATK.@"
 
 Conversion2Description:
 	db   "The user's type is"
@@ -1125,9 +1125,9 @@ ReturnDescription:
 	db   "An attack that is"
 	next "based on loyalty.@"
 
-PresentDescription:
-	db   "A bomb that may"
-	next "restore HP.@"
+HammerArmDescription:
+	db   "Lowers the user's"
+	next "SPEED afterwards.@"
 
 FrustrationDescription:
 	db   "An attack based on"
@@ -1177,9 +1177,9 @@ RapidSpinDescription:
 	db   "A high-speed"
 	next "spinning attack.@"
 
-SweetScentDescription:
-	db   "Reduces the foe's"
-	next "evasiveness.@"
+FellStingerDescription:
+	db   "Raises ATK if foe"
+	next "is knocked out.@"
 
 IronTailDescription:
 	db   "An attack that may"

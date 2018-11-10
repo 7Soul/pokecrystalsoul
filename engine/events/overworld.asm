@@ -1075,7 +1075,7 @@ UnknownText_0xcd73:
 	db "@"
 
 TryStrengthOW:
-	ld d, STRENGTH
+	ld d, HAMMER_ARM
 	call CheckPartyMove
 	jr c, .nope
 

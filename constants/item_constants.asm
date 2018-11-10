@@ -220,7 +220,7 @@ ENDM
 	add_tm PSYCH_UP     ; c8
 	add_tm HIDDEN_POWER ; c9
 	add_tm SUNNY_DAY    ; ca
-	add_tm SWEET_SCENT  ; cb
+	add_tm FELL_STINGER ; cb
 	add_tm SNORE        ; cc
 	add_tm BLIZZARD     ; cd
 	add_tm HYPER_BEAM   ; ce
@@ -271,13 +271,13 @@ endc
 	enum \1_TMNUM
 ENDM
 
-	add_hm AQUA_TAIL          ; f3
+	add_hm AQUA_TAIL    ; f3
 	add_hm FLY          ; f4
 	add_hm SURF         ; f5
-	add_hm STRENGTH     ; f6
-	add_hm FLASH        ; f7
+	add_hm NASTY_PLOT   ; f6
+	add_hm MAGMA_STORM  ; f7
 	add_hm WHIRLPOOL    ; f8
-	add_hm DARK_PULSE    ; f9
+	add_hm DARK_PULSE   ; f9
 NUM_HMS = const_value - HM01
 
 add_mt: MACRO

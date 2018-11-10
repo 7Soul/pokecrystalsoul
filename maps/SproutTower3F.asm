@@ -64,7 +64,7 @@ SproutTower3FRivalScene:
 SageLiScript:
 	faceplayer
 	opentext
-	checkevent EVENT_GOT_HM05_FLASH
+	checkevent EVENT_GOT_HM05_MAGMA_STORM
 	iftrue .GotFlash
 	writetext SageLiSeenText
 	waitbutton
@@ -76,8 +76,8 @@ SageLiScript:
 	opentext
 	writetext SageLiTakeThisFlashText
 	buttonsound
-	verbosegiveitem HM_FLASH
-	setevent EVENT_GOT_HM05_FLASH
+	verbosegiveitem HM_MAGMA_STORM
+	setevent EVENT_GOT_HM05_MAGMA_STORM
 	setevent EVENT_BEAT_SAGE_LI
 	writetext SageLiFlashExplanationText
 	waitbutton

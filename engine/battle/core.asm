@@ -1254,7 +1254,7 @@ HandleWrap:
 	call SwitchTurnCore
 
 .skip_anim
-	call GetSixteenthMaxHP
+	call GetEighthMaxHP
 	call SubtractHPFromUser
 	ld hl, BattleText_UsersHurtByStringBuffer1
 	jr .print_text
@@ -1535,7 +1535,7 @@ HandleDefrost:
 	ret nz
 
 	call BattleRandom
-	cp 10 percent
+	cp 20 percent ; thaw
 	ret nc
 	xor a
 	ld [wBattleMonStatus], a
@@ -1721,19 +1721,11 @@ HandleWeather:
 	ld hl, wEnemyMonType1
 .ok
 	ld a, [hli]
-	cp ROCK
-	ret z
-	cp GROUND
-	ret z
-	cp STEEL
-	ret z
+	cp ROCK ; 7Soul - also had ground and steel below
+	ret z ;
 
 	ld a, [hl]
 	cp ROCK
-	ret z
-	cp GROUND
-	ret z
-	cp STEEL
 	ret z
 
 	call SwitchTurnCore

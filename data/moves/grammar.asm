@@ -6,7 +6,6 @@ MoveGrammar:
 ; 0: originally "[mon]の¯[move]¯つかった!" ("[mon]¯used¯[move]!")
 	db SWORDS_DANCE
 	db GROWTH
-	db STRENGTH
 	db HARDEN
 	db MINIMIZE
 	db SMOKESCREEN
@@ -14,7 +13,6 @@ MoveGrammar:
 	db EGG_BOMB
 	db SMOG
 	db BONE_CLUB
-	db FLASH
 	db SPLASH
 	db ACID_ARMOR
 	db BONEMERANG
@@ -40,7 +38,6 @@ MoveGrammar:
 	db BIDE
 	db SELFDESTRUCT
 	db AMNESIA
-	db FLAIL
 	db 0 ; end set
 
 ; 2: originally "[mon]の¯[move]¯した!" ("[mon]¯did¯[move]!")

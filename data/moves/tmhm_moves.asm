@@ -55,8 +55,8 @@ TMHMMoves:
 	db AQUA_TAIL
 	db FLY
 	db SURF
-	db STRENGTH
-	db FLASH
+	db NASTY_PLOT
+	db MAGMA_STORM
 	db WHIRLPOOL
 	db DARK_PULSE
 ; Move tutor

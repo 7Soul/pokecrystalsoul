@@ -397,7 +397,7 @@ StatsScreen_InitUpperHalf:
 	call PlaceString
 	hlcoord 18, 0
 	call .PlaceGenderChar
-	hlcoord 9, 4
+	hlcoord 9, 3
 	ld a, "/"
 	ld [hli], a
 	ld a, [wBaseDexNo]
@@ -405,6 +405,7 @@ StatsScreen_InitUpperHalf:
 	call GetPokemonName
 	call PlaceString
 	call StatsScreen_PlaceHorizontalDivider
+	call StatsScreen_PlaceHorizontalDivider2
 	call StatsScreen_PlacePageSwitchArrows
 	call StatsScreen_PlaceShinyIcon
 	ret
@@ -459,11 +460,41 @@ Unreferenced_Function4df7f:
 StatsScreen_PlaceHorizontalDivider:
 	hlcoord 0, 7
 	ld b, SCREEN_WIDTH
-	ld a, $62 ; horizontal divider (empty HP/exp bar)
+	ld a, $bb ; horizontal divider
 .loop
 	ld [hli], a
 	dec b
 	jr nz, .loop
+	
+	hlcoord 0, 7 
+	ld a, $ba ; top left corner
+	ld [hli], a
+	hlcoord 10, 7
+	ld a, $c1
+	ld [hli], a
+	hlcoord 19, 7
+	ld a, $bc ; top right corner
+	ld [hli], a
+	ret
+	
+StatsScreen_PlaceHorizontalDivider2:
+	hlcoord 0, 17
+	ld b, SCREEN_WIDTH
+	ld a, $bb ; horizontal divider
+.loop
+	ld [hli], a
+	dec b
+	jr nz, .loop
+	
+	hlcoord 0, 17
+	ld a, $be ; top left corner
+	ld [hli], a
+	hlcoord 10, 17
+	ld a, $c2
+	ld [hli], a
+	hlcoord 19, 17
+	ld a, $bf ; top right corner
+	ld [hli], a
 	ret
 
 StatsScreen_PlacePageSwitchArrows:
@@ -722,29 +753,58 @@ StatsScreen_LoadGFX:
 	db "MOVE@"
 
 .BluePage:
-	call .PlaceOTInfo
+	call .PlaceOTInfo	
+	call TN_PrintDVs
 	hlcoord 10, 8
 	ld de, SCREEN_WIDTH
-	ld b, 10
-	ld a, $31 ; vertical divider
-.BluePageVerticalDivider:
+	ld b, 9
+	ld a, $bd ; vertical divider
+.BluePageVerticalDivider1:
 	ld [hl], a
 	add hl, de
 	dec b
-	jr nz, .BluePageVerticalDivider
-	hlcoord 11, 8
-	ld bc, 6
-	predef PrintTempMonStats
+	jr nz, .BluePageVerticalDivider1
+	
+	hlcoord 0, 8
+	ld de, SCREEN_WIDTH
+	ld b, 9
+	ld a, $bd ; vertical divider
+.BluePageVerticalDivider2:
+	ld [hl], a
+	add hl, de
+	dec b
+	jr nz, .BluePageVerticalDivider2
+		
+	hlcoord 19, 8
+	ld de, SCREEN_WIDTH
+	ld b, 9
+	ld a, $bd ; vertical divider
+.BluePageVerticalDivider3:
+	ld [hl], a
+	add hl, de
+	dec b
+	jr nz, .BluePageVerticalDivider3
+;.BluePageHorizontalDivider:
+	;hlcoord 0, 11
+	;ld b, 10
+	;ld a, $62 ; horizontal divider (empty HP/exp bar)
+;.loop
+	;ld [hli], a
+	;dec b
+	;jr nz, .loop	
+	hlcoord 11, 7
+	ld bc, 5
+	predef PrintTempMonStatsShort
 	ret
 
 .PlaceOTInfo:
 	ld de, IDNoString
-	hlcoord 0, 9
+	hlcoord 1, 8
 	call PlaceString
 	ld de, OTString
-	hlcoord 0, 12
+	hlcoord 11, 14
 	call PlaceString
-	hlcoord 2, 10
+	hlcoord 5, 8
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
 	ld de, wTempMonID
 	call PrintNum
@@ -752,20 +812,20 @@ StatsScreen_LoadGFX:
 	call GetNicknamePointer
 	call CopyNickname
 	farcall CorrectNickErrors
-	hlcoord 2, 13
+	hlcoord 13, 15
 	call PlaceString
-	ld a, [wTempMonCaughtGender]
-	and a
-	jr z, .done
-	cp $7f
-	jr z, .done
-	and $80
-	ld a, "♂"
-	jr z, .got_gender
-	ld a, "♀"
-.got_gender
-	hlcoord 9, 13
-	ld [hl], a
+	; ld a, [wTempMonCaughtGender]
+	; and a
+	; jr z, .done
+	; cp $7f
+	; jr z, .done
+	; and $80
+	; ld a, "♂"
+	; jr z, .got_gender
+	; ld a, "♀"
+; .got_gender
+	; hlcoord 9, 9
+	; ld [hl], a
 .done
 	ret
 
@@ -776,7 +836,7 @@ StatsScreen_LoadGFX:
 	dw wBufferMonOT
 
 IDNoString:
-	db "<ID>№.@"
+	db "ID.@"
 
 OTString:
 	db "OT/@"
@@ -954,6 +1014,7 @@ EggStatsScreen:
 	ld b, SCGB_STATS_SCREEN_HP_PALS
 	call GetSGBLayout
 	call StatsScreen_PlaceHorizontalDivider
+	call StatsScreen_PlaceHorizontalDivider2
 	ld de, EggString
 	hlcoord 8, 1
 	call PlaceString
@@ -1088,8 +1149,6 @@ StatsScreen_LoadPageIndicators:
 CopyNickname:
 	ld de, wStringBuffer1
 	ld bc, MON_NAME_LENGTH
-	jr .okay ; utterly pointless
-.okay
 	ld a, [wMonType]
 	cp BOXMON
 	jr nz, .partymon
@@ -1139,3 +1198,149 @@ CheckFaintedFrzSlp:
 .fainted_frz_slp
 	scf
 	ret
+
+; by Aurelio Mannara - BitBuilt 2017
+; ShockSlayer helped ( °v°)
+TN_PrintDVs:
+    ; print labels
+	
+    hlcoord 2, 10
+    ld [wBuffer2], a
+    ld de, .label_DV ; DV
+    call PlaceString
+    
+    hlcoord 1, 11
+    ld [wBuffer2], a
+    ld de, .label_HP ; hp
+    call PlaceString
+    
+    hlcoord 1, 12
+    ld [wBuffer2], a
+    ld de, .label_ATK ; atk
+    call PlaceString
+    
+    hlcoord 1, 13
+    ld [wBuffer2], a
+    ld de, .label_DEF ; def
+    call PlaceString
+    
+    hlcoord 1, 14
+    ld [wBuffer2], a
+    ld de, .label_SPE ; spe
+    call PlaceString
+    
+    hlcoord 1, 15
+    ld [wBuffer2], a
+    ld de, .label_SPC ; spc
+    call PlaceString
+    
+    ; print 16 bit value of DVs
+    ld de, wTempMonDVs
+    ld a, [de]
+    ld b, a
+    inc de
+    ld a, [de]
+    ld c, a
+    push bc
+     ld de, wTempMonDVs
+    xor a
+    ld [de], a
+    inc de
+    pop bc
+    ld a, b
+    push bc
+    and $f0
+    swap a
+    ld [de], a
+    hlcoord 5, 12; atk disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de, wTempMonDVs
+    call PrintNum
+     ld de, wTempMonDVs
+    xor a
+    ld [de], a
+    inc de
+    pop bc
+    ld a, b
+    push bc
+    and $f
+    ld [de],a
+    hlcoord 5, 13 ; def disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de, wTempMonDVs
+    call PrintNum
+     ld de, wTempMonDVs
+    xor a
+    ld [de], a
+    inc de
+    pop bc
+    ld a, c
+    push bc
+    and $f0
+    swap a
+    ld [de], a
+    hlcoord 5, 14 ; spe disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de, wTempMonDVs
+    call PrintNum
+     ld de, wTempMonDVs
+    xor a
+    ld [de], a
+    inc de
+    pop bc
+    ld a, c
+    push bc
+    and $f
+    ld [de], a
+    hlcoord 5, 15 ; spc disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de, wTempMonDVs
+    call PrintNum
+     ld de, wTempMonDVs
+    xor a
+    ld [de], a
+    inc de
+    pop bc
+    bit 4, b
+    jr z, .noAttackHP
+    set 3, a
+.noAttackHP
+    bit 0, b
+    jr z, .noDefenseHP
+    set 2, a
+.noDefenseHP
+    bit 4, c
+    jr z, .noSpeedHP
+    set 1, a 
+.noSpeedHP
+    bit 0, c
+    jr z, .noSpecialHP
+    set 0, a
+.noSpecialHP
+    push bc
+    ld [de], a
+    hlcoord 5, 11 ; hp disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de, wTempMonDVs
+    call PrintNum
+     ld de, wTempMonDVs
+    pop bc
+    ld a, b
+    ld [de], a
+    inc de
+    ld a, c
+    ld [de], a
+	ret
+.label_DV
+    db "DVs:@"
+.label_HP
+    db "HP    /15@"
+.label_ATK
+    db "ATK   /15@"
+.label_DEF
+    db "DEF   /15@"
+.label_SPE
+    db "SPD   /15@"
+.label_SPC
+    db "SPC   /15@"    
+     

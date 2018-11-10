@@ -2107,6 +2107,9 @@ SelfSpAtkDownHit:
 	stab
 	damagevariation
 	checkhit
+	switchturn
+	specialattackdown2
+	switchturn
 	effectchance
 	moveanim
 	failuretext
@@ -2115,5 +2118,74 @@ SelfSpAtkDownHit:
 	supereffectivetext
 	checkfaint
 	buildopponentrage
-	specialattackdown
+	switchturn
+	statdownmessage
+	switchturn
+	endmove
+
+SelfSpdDownHit:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	switchturn
+	speeddown
+	switchturn
+	effectchance
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	switchturn
+	statdownmessage
+	switchturn
+	endmove
+
+SpecialAttackUpHit:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	effectchance
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	specialattackup
+	statupmessage
+	endmove
+	
+FellStinger:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
 	endmove

@@ -18,7 +18,7 @@
 	const SCRATCH      ; 0a
 	const VICEGRIP     ; 0b
 	const GUILLOTINE   ; 0c
-	const RAZOR_WIND   ; 0d
+	const CHARGE_BEAM  ; 0d
 	const SWORDS_DANCE ; 0e
 	const AQUA_TAIL    ; 0f
 	const GUST         ; 10
@@ -75,7 +75,7 @@
 	const LOW_KICK     ; 43
 	const COUNTER      ; 44
 	const SEISMIC_TOSS ; 45
-	const STRENGTH     ; 46
+	const NASTY_PLOT   ; 46
 	const ABSORB       ; 47
 	const MEGA_DRAIN   ; 48
 	const LEECH_SEED   ; 49
@@ -141,7 +141,7 @@
 	const AMNESIA      ; 85
 	const KINESIS      ; 86
 	const SOFTBOILED   ; 87
-	const HI_JUMP_KICK ; 88
+	const INFERNO      ; 88
 	const GLARE        ; 89
 	const DREAM_EATER  ; 8a
 	const POISON_GAS   ; 8b
@@ -153,7 +153,7 @@
 	const BUBBLE       ; 91
 	const DIZZY_PUNCH  ; 92
 	const SPORE        ; 93
-	const FLASH        ; 94
+	const MAGMA_STORM  ; 94
 	const PSYWAVE      ; 95
 	const SPLASH       ; 96
 	const ACID_ARMOR   ; 97
@@ -180,7 +180,7 @@
 	const FLAME_WHEEL  ; ac
 	const SNORE        ; ad
 	const CURSE        ; ae
-	const FLAIL        ; af
+	const EERIEIMPULSE ; af
 	const CONVERSION2  ; b0
 	const LEAF_STORM   ; b1
 	const COTTON_SPORE ; b2
@@ -222,7 +222,7 @@
 	const SLEEP_TALK   ; d6
 	const HEAL_BELL    ; d7
 	const RETURN       ; d8
-	const PRESENT      ; d9
+	const HAMMER_ARM   ; d9
 	const FRUSTRATION  ; da
 	const SAFEGUARD    ; db
 	const PAIN_SPLIT   ; dc
@@ -235,7 +235,7 @@
 	const ENCORE       ; e3
 	const PURSUIT      ; e4
 	const RAPID_SPIN   ; e5
-	const SWEET_SCENT  ; e6
+	const FELL_STINGER ; e6
 	const FROZEN_TAIL  ; e7
 	const FROZEN_CLAW  ; e8
 	const VITAL_THROW  ; e9

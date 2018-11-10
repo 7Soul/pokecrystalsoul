@@ -458,7 +458,13 @@ FireSpinTrapText:
 	text "<TARGET>"
 	line "was trapped!"
 	prompt
-
+	
+MagmaStormTrapText:
+	text "<TARGET>"
+	line "was trapped by"
+	cont "swirling magma!"
+	prompt
+	
 WrappedByText:
 	text "<TARGET>"
 	line "was WRAPPED by"

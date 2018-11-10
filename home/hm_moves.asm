@@ -15,9 +15,4 @@ IsHMMove::
 	jp IsInArray
 
 .HMMoves:
-	db FLY
-	db SURF
-	db STRENGTH
-	db FLASH
-	db WHIRLPOOL
 	db -1 ; end

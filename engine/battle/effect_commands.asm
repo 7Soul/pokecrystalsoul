@@ -2256,10 +2256,10 @@ GetFailureResultText:
 	ld hl, wCurDamage
 	ld a, [hli]
 	ld b, [hl]
-rept 3
+;rept 3
 	srl a
 	rr b
-endr
+;endr
 	ld [hl], b
 	dec hl
 	ld [hli], a
@@ -2453,6 +2453,17 @@ BattleCommand_CheckFaint:
 	call BattleCommand_RaiseSub
 
 .finish
+	ld a, BATTLE_VARS_MOVE_EFFECT
+	call GetBattleVar
+	cp EFFECT_FELL_STINGER
+	jr nz, .finish2
+	
+.fell_stinger
+	call ResetMiss
+	call BattleCommand_AttackUp2
+	call BattleCommand_StatUpMessage
+	
+.finish2
 	jp EndMoveEffect
 
 BattleCommand_BuildOpponentRage:
@@ -5657,10 +5668,6 @@ BattleCommand_Charge:
 	start_asm
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	cp RAZOR_WIND
-	ld hl, .RazorWind
-	jr z, .done
-
 	cp SOLARBEAM
 	ld hl, .Solarbeam
 	jr z, .done
@@ -5682,11 +5689,6 @@ BattleCommand_Charge:
 
 .done
 	ret
-
-.RazorWind:
-; 'made a whirlwind!'
-	text_jump UnknownText_0x1c0d12
-	db "@"
 
 .Solarbeam:
 ; 'took in sunlight!'
@@ -5767,11 +5769,12 @@ BattleCommand_TrapTarget:
 	jp StdBattleTextBox
 
 .Traps:
-	dbw BIND,      UsedBindText      ; 'used BIND on'
-	dbw WRAP,      WrappedByText     ; 'was WRAPPED by'
-	dbw FIRE_SPIN, FireSpinTrapText  ; 'was trapped!'
-	dbw CLAMP,     ClampedByText     ; 'was CLAMPED by'
-	dbw WHIRLPOOL, WhirlpoolTrapText ; 'was trapped!'
+	dbw BIND,       UsedBindText       ; 'used BIND on'
+	dbw WRAP,       WrappedByText      ; 'was WRAPPED by'
+	dbw FIRE_SPIN,  FireSpinTrapText   ; 'was trapped!'
+	dbw MAGMA_STORM,MagmaStormTrapText ; 'was trapped!'
+	dbw CLAMP,      ClampedByText      ; 'was CLAMPED by'
+	dbw WHIRLPOOL,  WhirlpoolTrapText  ; 'was trapped!'
 
 INCLUDE "engine/battle/move_effects/mist.asm"
 

@@ -160,3 +160,6 @@ MoveEffectsPointers:
 	dw DoBurn
 	dw WeightDamage
 	dw SelfSpAtkDownHit
+	dw SelfSpdDownHit
+	dw SpecialAttackUpHit
+	dw FellStinger

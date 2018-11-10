@@ -121,6 +121,8 @@
 	charmap "│",         $bd
 	charmap "└",         $be
 	charmap "┘",         $bf
+	charmap "┬",		 $c0
+	charmap "┴",		 $c1	
 
 	charmap "′",         $ce
 	charmap "″",         $cf
