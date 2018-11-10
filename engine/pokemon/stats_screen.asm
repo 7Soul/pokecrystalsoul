@@ -404,8 +404,7 @@ StatsScreen_InitUpperHalf:
 	ld [wNamedObjectIndexBuffer], a
 	call GetPokemonName
 	call PlaceString
-	call StatsScreen_PlaceHorizontalDivider
-	call StatsScreen_PlaceHorizontalDivider2
+	;call StatsScreen_PlaceHorizontalDivider
 	call StatsScreen_PlacePageSwitchArrows
 	call StatsScreen_PlaceShinyIcon
 	ret
@@ -457,7 +456,7 @@ Unreferenced_Function4df7f:
 	jr nz, .loop
 	ret
 
-StatsScreen_PlaceHorizontalDivider:
+StatsScreen_PlaceHorizontalDividerTopBlue:
 	hlcoord 0, 7
 	ld b, SCREEN_WIDTH
 	ld a, $bb ; horizontal divider
@@ -477,7 +476,7 @@ StatsScreen_PlaceHorizontalDivider:
 	ld [hli], a
 	ret
 	
-StatsScreen_PlaceHorizontalDivider2:
+StatsScreen_PlaceHorizontalDividerBotBlue:
 	hlcoord 0, 17
 	ld b, SCREEN_WIDTH
 	ld a, $bb ; horizontal divider
@@ -490,10 +489,75 @@ StatsScreen_PlaceHorizontalDivider2:
 	ld a, $be ; top left corner
 	ld [hli], a
 	hlcoord 10, 17
-	ld a, $c2
+	ld a, $c0
 	ld [hli], a
 	hlcoord 19, 17
 	ld a, $bf ; top right corner
+	ld [hli], a
+	ret
+
+StatsScreen_PlaceHorizontalDividerTopPink:
+	hlcoord 0, 7
+	ld b, SCREEN_WIDTH
+	ld a, $bb ; horizontal divider
+.loop
+	ld [hli], a
+	dec b
+	jr nz, .loop
+	
+	hlcoord 0, 7 
+	ld a, $ba ; top left corner
+	ld [hli], a
+	hlcoord 11, 7
+	ld a, $c1
+	ld [hli], a
+	hlcoord 11, 8
+	ld a, $bd
+	ld [hli], a
+	hlcoord 11, 9
+	ld a, $bd
+	ld [hli], a
+	hlcoord 11, 10
+	ld a, $bd
+	ld [hli], a
+	hlcoord 19, 7
+	ld a, $bc ; top right corner
+	ld [hli], a
+	ret
+	
+StatsScreen_PlaceHorizontalDividerBotPink: ;and mid
+	hlcoord 0, 17
+	ld b, SCREEN_WIDTH
+	ld a, $bb ; horizontal divider
+.loop
+	ld [hli], a
+	dec b
+	jr nz, .loop
+	
+	; mid divider :
+	hlcoord 0, 11
+	ld b, SCREEN_WIDTH
+	ld a, $bb ; horizontal divider
+.loop2
+	ld [hli], a
+	dec b
+	jr nz, .loop2
+	
+	hlcoord 0, 11
+	ld a, $c2 ; mid left
+	ld [hli], a
+	hlcoord 11, 11
+	ld a, $c0 ; mid facing up
+	ld [hli], a
+	hlcoord 19, 11
+	ld a, $c3 ; mid right
+	ld [hli], a
+	
+	hlcoord 0, 17
+	ld a, $be ; mid left
+	ld [hli], a
+	hlcoord 19, 17
+	ld a, $bf ; mid right
 	ld [hli], a
 	ret
 
@@ -566,13 +630,40 @@ StatsScreen_LoadGFX:
 	dw .BluePage
 
 .PinkPage:
-	hlcoord 0, 9
+	call StatsScreen_PlaceHorizontalDividerTopPink	
+	
+	hlcoord 0, 8
+	ld de, SCREEN_WIDTH
+	ld b, 9
+	ld a, $bd ; vertical divider
+.PinkPageVerticalDivider1:
+	ld [hl], a
+	add hl, de
+	dec b
+	jr nz, .PinkPageVerticalDivider1
+
+	hlcoord 19, 8
+	ld de, SCREEN_WIDTH
+	ld b, 9
+	ld a, $bd ; vertical divider
+.PinkPageVerticalDivider2:
+	ld [hl], a
+	add hl, de
+	dec b
+	jr nz, .PinkPageVerticalDivider2	
+	
+	
+	
+	hlcoord 1, 12
 	ld b, $0
 	predef DrawPlayerHP
-	hlcoord 8, 9
-	ld [hl], $41 ; right HP/exp bar end cap
-	ld de, .Status_Type
-	hlcoord 0, 12
+	;hlcoord 10, 12
+	;ld [hl], $41 ; right HP/exp bar end cap
+	ld de, .Status_String
+	hlcoord 1, 14
+	call PlaceString
+	ld de, .Type_String
+	hlcoord 10, 14
 	call PlaceString
 	ld a, [wTempMonPokerusStatus]
 	ld b, a
@@ -587,7 +678,7 @@ StatsScreen_LoadGFX:
 	ld a, [wMonType]
 	cp BOXMON
 	jr z, .StatusOK
-	hlcoord 6, 13
+	hlcoord 6, 15
 	push hl
 	ld de, wTempMonStatus
 	predef PlaceStatusString
@@ -603,46 +694,42 @@ StatsScreen_LoadGFX:
 	ld de, .OK_str
 	call PlaceString
 .done_status
-	hlcoord 1, 15
+	hlcoord 11, 15
 	predef PrintMonTypes
-	hlcoord 9, 8
+	hlcoord 10, 12
 	ld de, SCREEN_WIDTH
 	ld b, 10
 	ld a, $31 ; vertical divider
-.vertical_divider
-	ld [hl], a
-	add hl, de
-	dec b
-	jr nz, .vertical_divider
 	ld de, .ExpPointStr
-	hlcoord 10, 9
+	hlcoord 1, 8
 	call PlaceString
-	hlcoord 17, 14
+	hlcoord 16, 10
 	call .PrintNextLevel
-	hlcoord 13, 10
+	hlcoord 4, 8
 	lb bc, 3, 7
 	ld de, wTempMonExp
 	call PrintNum
 	call .CalcExpToNextLevel
-	hlcoord 13, 13
+	hlcoord 12, 9
 	lb bc, 3, 7
 	ld de, wBuffer1
 	call PrintNum
 	ld de, .LevelUpStr
-	hlcoord 10, 12
+	hlcoord 12, 8
 	call PlaceString
 	ld de, .ToStr
-	hlcoord 14, 14
+	hlcoord 13, 10
 	call PlaceString
-	hlcoord 11, 16
+	hlcoord 2, 9
 	ld a, [wTempMonLevel]
 	ld b, a
 	ld de, wTempMonExp + 2
 	predef FillInExpBar
-	hlcoord 10, 16
+	hlcoord 1, 9
 	ld [hl], $40 ; left exp bar end cap
-	hlcoord 19, 16
+	hlcoord 10, 9
 	ld [hl], $41 ; right exp bar end cap
+	call StatsScreen_PlaceHorizontalDividerBotPink
 	ret
 
 .PrintNextLevel:
@@ -688,18 +775,20 @@ StatsScreen_LoadGFX:
 	ld [hl], a
 	ret
 
-.Status_Type:
-	db   "STATUS/"
-	next "TYPE/@"
+.Status_String:
+	db "STATUS/@"
+
+.Type_String:
+	db "TYPE/@"
 
 .OK_str:
-	db "OK @"
+	db "OK@"
 
 .ExpPointStr:
-	db "EXP POINTS@"
+	db "EXP@"
 
 .LevelUpStr:
-	db "LEVEL UP@"
+	db "NEED@"
 
 .ToStr:
 	db "TO@"
@@ -755,6 +844,9 @@ StatsScreen_LoadGFX:
 .BluePage:
 	call .PlaceOTInfo	
 	call TN_PrintDVs
+	
+	call StatsScreen_PlaceHorizontalDividerTopBlue	
+	
 	hlcoord 10, 8
 	ld de, SCREEN_WIDTH
 	ld b, 9
@@ -783,15 +875,10 @@ StatsScreen_LoadGFX:
 	ld [hl], a
 	add hl, de
 	dec b
-	jr nz, .BluePageVerticalDivider3
-;.BluePageHorizontalDivider:
-	;hlcoord 0, 11
-	;ld b, 10
-	;ld a, $62 ; horizontal divider (empty HP/exp bar)
-;.loop
-	;ld [hli], a
-	;dec b
-	;jr nz, .loop	
+	jr nz, .BluePageVerticalDivider3	
+	
+	call StatsScreen_PlaceHorizontalDividerBotBlue
+	
 	hlcoord 11, 7
 	ld bc, 5
 	predef PrintTempMonStatsShort
@@ -1013,8 +1100,7 @@ EggStatsScreen:
 	call SetHPPal
 	ld b, SCGB_STATS_SCREEN_HP_PALS
 	call GetSGBLayout
-	call StatsScreen_PlaceHorizontalDivider
-	call StatsScreen_PlaceHorizontalDivider2
+	;call StatsScreen_PlaceHorizontalDivider
 	ld de, EggString
 	hlcoord 8, 1
 	call PlaceString

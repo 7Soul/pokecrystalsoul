@@ -122,7 +122,9 @@
 	charmap "└",         $be
 	charmap "┘",         $bf
 	charmap "┬",		 $c0
-	charmap "┴",		 $c1	
+	charmap "┴",		 $c1
+	charmap "├",		 $c2
+	charmap "┤	",		 $c3
 
 	charmap "′",         $ce
 	charmap "″",         $cf
