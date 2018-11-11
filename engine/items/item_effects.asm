@@ -487,6 +487,7 @@ PokeBallEffect:
 
 .Transformed:
 	ld a, [wEnemyMonSpecies]
+	push af
 	ld [wWildMon], a
 	ld [wCurPartySpecies], a
 	ld [wTempSpecies], a
@@ -501,7 +502,14 @@ PokeBallEffect:
 
 	call ClearSprites
 
-	ld a, [wTempSpecies]
+	callba GiveExperiencePointsAfterCatch
+	ld a, [wEnemyMonLevel]
+	ld [wCurPartyLevel], a
+	pop af
+	ld [wWildMon], a
+	ld [wCurPartySpecies], a
+	ld [wTempSpecies], a
+	
 	dec a
 	call CheckCaughtMon
 
@@ -677,6 +685,7 @@ PokeBallEffect:
 	jr .return_from_capture
 
 .FinishTutorial:
+	pop af
 	ld hl, Text_GotchaMonWasCaught
 
 .shake_and_break_free
