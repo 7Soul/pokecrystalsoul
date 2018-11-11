@@ -933,12 +933,12 @@ MoveScreenLoop:
 .moving_move
 	ld a, " "
 	hlcoord 1, 11
-	ld bc, 5
+	ld bc, 8
 	call ByteFill
 	hlcoord 1, 12
 	lb bc, 5, SCREEN_WIDTH - 2
 	call ClearBox
-	hlcoord 1, 12
+	hlcoord 1, 11
 	ld de, String_MoveWhere
 	call PlaceString
 	jp .joy_loop
@@ -1173,7 +1173,7 @@ SetUpMoveList:
 	ld [wBuffer1], a
 	hlcoord 2, 3
 	predef ListMoves
-	hlcoord 10, 4
+	hlcoord 14, 3
 	predef ListMovePP
 	call WaitBGMap
 	call SetPalettes

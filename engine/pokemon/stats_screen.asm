@@ -376,36 +376,25 @@ StatsScreen_InitUpperHalf:
 	call .PlaceHPBar
 	xor a
 	ldh [hBGMapMode], a
-	ld a, [wBaseDexNo]
-	ld [wDeciramBuffer], a
-	ld [wCurSpecies], a
-	hlcoord 8, 0
-	ld [hl], "№"
-	inc hl
-	ld [hl], "."
-	inc hl
-	hlcoord 10, 0
-	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
-	ld de, wDeciramBuffer
-	call PrintNum
-	hlcoord 14, 0
+	
+	hlcoord 2, 3
 	call PrintLevel
 	ld hl, .NicknamePointers
 	call GetNicknamePointer
 	call CopyNickname
-	hlcoord 8, 2
+	hlcoord 1, 2
 	call PlaceString
-	hlcoord 18, 0
+	hlcoord 6, 3
 	call .PlaceGenderChar
-	hlcoord 9, 3
-	ld a, "/"
-	ld [hli], a
-	ld a, [wBaseDexNo]
-	ld [wNamedObjectIndexBuffer], a
-	call GetPokemonName
-	call PlaceString
+	;hlcoord 9, 3
+	;ld a, "/"
+	;ld [hli], a
+	;ld a, [wBaseDexNo]
+	;ld [wNamedObjectIndexBuffer], a
+	;call GetPokemonName
+	;call PlaceString
 	;call StatsScreen_PlaceHorizontalDivider
-	call StatsScreen_PlacePageSwitchArrows
+	;call StatsScreen_PlacePageSwitchArrows
 	call StatsScreen_PlaceShinyIcon
 	ret
 
@@ -613,9 +602,9 @@ StatsScreen_PlaceHorizontalDividerBotGreen:
 	ret
 	
 StatsScreen_PlacePageSwitchArrows:
-	hlcoord 12, 6
+	hlcoord 11, 6
 	ld [hl], "◀"
-	hlcoord 19, 6
+	hlcoord 18, 6
 	ld [hl], "▶"
 	ret
 
@@ -623,7 +612,7 @@ StatsScreen_PlaceShinyIcon:
 	ld bc, wTempMonDVs
 	farcall CheckShininess
 	ret nc
-	hlcoord 19, 0
+	hlcoord 7, 3
 	ld [hl], "⁂"
 	ret
 
@@ -708,6 +697,19 @@ StatsScreen_LoadGFX:
 	predef DrawPlayerHP
 	;hlcoord 10, 12
 	;ld [hl], $41 ; right HP/exp bar end cap
+	ld a, [wBaseDexNo]
+	ld [wDeciramBuffer], a
+	ld [wCurSpecies], a
+	hlcoord 14, 12
+	ld [hl], "№"
+	inc hl
+	ld [hl], "."
+	inc hl
+	hlcoord 16, 12
+	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
+	ld de, wDeciramBuffer
+	call PrintNum
+	
 	ld de, .Status_String
 	hlcoord 1, 14
 	call PlaceString
@@ -959,7 +961,7 @@ StatsScreen_LoadGFX:
 	hlcoord 1, 8
 	call PlaceString
 	ld de, OTString
-	hlcoord 11, 14
+	hlcoord 11, 15
 	call PlaceString
 	hlcoord 5, 8
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
@@ -969,7 +971,7 @@ StatsScreen_LoadGFX:
 	call GetNicknamePointer
 	call CopyNickname
 	farcall CorrectNickErrors
-	hlcoord 13, 15
+	hlcoord 13, 16
 	call PlaceString
 	; ld a, [wTempMonCaughtGender]
 	; and a
@@ -1030,14 +1032,14 @@ StatsScreen_PlaceFrontpic:
 	ld a, [wCurPartySpecies]
 	cp UNOWN
 	jr z, .unown
-	hlcoord 0, 0
+	hlcoord 12, 0
 	call PrepMonFrontpic
 	ret
 
 .unown
 	xor a
 	ld [wBoxAlignment], a
-	hlcoord 0, 0
+	hlcoord 12, 0
 	call _PrepMonFrontpic
 	ret
 
@@ -1063,7 +1065,7 @@ StatsScreen_PlaceFrontpic:
 	call StatsScreen_LoadTextBoxSpaceGFX
 	ld de, vTiles2 tile $00
 	predef GetAnimatedFrontpic
-	hlcoord 0, 0
+	hlcoord 12, 0
 	ld d, $0
 	ld e, ANIM_MON_MENU
 	predef LoadMonAnimation
@@ -1263,7 +1265,7 @@ StatsScreen_AnimateEgg:
 	ld de, vTiles2 tile $00
 	predef GetAnimatedFrontpic
 	pop de
-	hlcoord 0, 0
+	hlcoord 12, 0
 	ld d, $0
 	predef LoadMonAnimation
 	ld hl, wcf64
@@ -1271,23 +1273,23 @@ StatsScreen_AnimateEgg:
 	ret
 
 StatsScreen_LoadPageIndicators:
-	hlcoord 13, 5
+	hlcoord 2, 5
 	ld a, $36 ; first of 4 small square tiles
 	call .load_square
-	hlcoord 15, 5
+	hlcoord 4, 5
 	ld a, $36 ; " " " "
 	call .load_square
-	hlcoord 17, 5
+	hlcoord 6, 5
 	ld a, $36 ; " " " "
 	call .load_square
 	ld a, c
 	cp GREEN_PAGE
 	ld a, $3a ; first of 4 large square tiles
-	hlcoord 13, 5 ; PINK_PAGE (< GREEN_PAGE)
+	hlcoord 2, 5 ; PINK_PAGE (< GREEN_PAGE)
 	jr c, .load_square
-	hlcoord 15, 5 ; GREEN_PAGE (= GREEN_PAGE)
+	hlcoord 4, 5 ; GREEN_PAGE (= GREEN_PAGE)
 	jr z, .load_square
-	hlcoord 17, 5 ; BLUE_PAGE (> GREEN_PAGE)
+	hlcoord 6, 5 ; BLUE_PAGE (> GREEN_PAGE)
 .load_square
 	push bc
 	ld [hli], a
@@ -1360,32 +1362,32 @@ CheckFaintedFrzSlp:
 TN_PrintDVs:
     ; print labels
 	
-    hlcoord 2, 10
+    hlcoord 2, 11
     ld [wBuffer2], a
     ld de, .label_DV ; DV
     call PlaceString
     
-    hlcoord 1, 11
+    hlcoord 1, 12
     ld [wBuffer2], a
     ld de, .label_HP ; hp
     call PlaceString
     
-    hlcoord 1, 12
+    hlcoord 1, 13
     ld [wBuffer2], a
     ld de, .label_ATK ; atk
     call PlaceString
     
-    hlcoord 1, 13
+    hlcoord 1, 14
     ld [wBuffer2], a
     ld de, .label_DEF ; def
     call PlaceString
     
-    hlcoord 1, 14
+    hlcoord 1, 15
     ld [wBuffer2], a
     ld de, .label_SPE ; spe
     call PlaceString
     
-    hlcoord 1, 15
+    hlcoord 1, 16
     ld [wBuffer2], a
     ld de, .label_SPC ; spc
     call PlaceString
@@ -1408,7 +1410,28 @@ TN_PrintDVs:
     and $f0
     swap a
     ld [de], a
-    hlcoord 5, 12; atk disp coords
+	cp $3 ; less than 3
+	jr c, .atkdv0
+	cp $6 ; 3 to 5 (less than 6)
+	jr c, .atkdv1
+	cp $a ; 6 to 9 (less than a (10))
+	jr c, .atkdv2
+	cp $d ; 10 to 13 (less than d (13))
+	jr c, .atkdv3
+	hlcoord 4, 13 ; atk disp coords 13 and +
+	jr .atkgo
+.atkdv0
+	hlcoord 8, 13
+	jr .atkgo
+.atkdv1
+	hlcoord 7, 13
+	jr .atkgo
+.atkdv2
+	hlcoord 6, 13
+	jr .atkgo
+.atkdv3
+	hlcoord 5, 13
+.atkgo
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
     call PrintNum
@@ -1421,7 +1444,28 @@ TN_PrintDVs:
     push bc
     and $f
     ld [de],a
-    hlcoord 5, 13 ; def disp coords
+    cp $3
+	jr c, .defdv0
+	cp $6
+	jr c, .defdv1
+	cp $a
+	jr c, .defdv2
+	cp $d
+	jr c, .defdv3	
+	hlcoord 4, 14 ; def disp coords
+	jr .defgo
+.defdv0
+	hlcoord 8, 14
+	jr .defgo
+.defdv1
+	hlcoord 7, 14
+	jr .defgo
+.defdv2
+	hlcoord 6, 14
+	jr .defgo
+.defdv3
+	hlcoord 5, 14
+.defgo
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
     call PrintNum
@@ -1435,7 +1479,28 @@ TN_PrintDVs:
     and $f0
     swap a
     ld [de], a
-    hlcoord 5, 14 ; spe disp coords
+    cp $3
+	jr c, .spedv0
+	cp $6
+	jr c, .spedv1
+	cp $a
+	jr c, .spedv2
+	cp $d
+	jr c, .spedv3
+	hlcoord 4, 15 ; speed disp coords
+	jr .spego
+.spedv0
+	hlcoord 8, 15
+	jr .spego
+.spedv1
+	hlcoord 7, 15
+	jr .spego
+.spedv2
+	hlcoord 6, 15
+	jr .spego
+.spedv3
+	hlcoord 5, 15
+.spego
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
     call PrintNum
@@ -1448,7 +1513,28 @@ TN_PrintDVs:
     push bc
     and $f
     ld [de], a
-    hlcoord 5, 15 ; spc disp coords
+    cp $3
+	jr c, .spcdv0
+	cp $6
+	jr c, .spcdv1
+	cp $a
+	jr c, .spcdv2
+	cp $d
+	jr c, .spcdv3
+	hlcoord 4, 16 ; special disp coords
+	jr .spcgo
+.spcdv0
+	hlcoord 8, 16
+	jr .spcgo
+.spcdv1
+	hlcoord 7, 16
+	jr .spcgo
+.spcdv2
+	hlcoord 6, 16
+	jr .spcgo
+.spcdv3
+	hlcoord 5, 16
+.spcgo
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
     call PrintNum
@@ -1475,7 +1561,28 @@ TN_PrintDVs:
 .noSpecialHP
     push bc
     ld [de], a
-    hlcoord 5, 11 ; hp disp coords
+    cp $3 ; less than 3
+	jr c, .hpdv0
+	cp $6 ; less than 6
+	jr c, .hpdv1 
+	cp $a ; less than 10
+	jr c, .hpdv2
+	cp $d ; less than 14
+	jr c, .hpdv3
+	hlcoord 4, 12
+	jr .hpgo
+.hpdv0
+	hlcoord 8, 12
+	jr .hpgo
+.hpdv1
+	hlcoord 7, 12
+	jr .hpgo
+.hpdv2
+	hlcoord 6, 12
+	jr .hpgo
+.hpdv3
+	hlcoord 5, 12
+.hpgo
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
     call PrintNum
@@ -1490,13 +1597,13 @@ TN_PrintDVs:
 .label_DV
     db "DVs:@"
 .label_HP
-    db "HP    /15@"
+    db "HP ………………@"
 .label_ATK
-    db "ATK   /15@"
+    db "ATK………………@"
 .label_DEF
-    db "DEF   /15@"
+    db "DEF………………@"
 .label_SPE
-    db "SPD   /15@"
+    db "SPD………………@"
 .label_SPC
-    db "SPC   /15@"    
+    db "SPC………………@"    
      
