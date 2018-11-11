@@ -1210,7 +1210,7 @@ PlaceMoveData:
 	hlcoord 0, 11
 	ld de, String_MoveType_Bottom
 	call PlaceString
-	hlcoord 12, 12
+	hlcoord 12, 11 ; MoveAtk string
 	ld de, String_MoveAtk
 	call PlaceString
 	ld a, [wCurSpecies]
@@ -1232,19 +1232,54 @@ PlaceMoveData:
 	call AddNTimes
 	ld a, BANK(Moves)
 	call GetFarByte
-	hlcoord 16, 12
+	hlcoord 16, 11
 	cp 2
 	jr c, .no_power
 	ld [wDeciramBuffer], a
 	ld de, wDeciramBuffer
 	lb bc, 1, 3
 	call PrintNum
-	jr .description
+	jr .place_acc
 
 .no_power
-	ld de, String_MoveNoPower
+	ld de, String_na
 	call PlaceString
 
+.place_acc
+	hlcoord 12, 12 ; MoveAcc string
+	ld de, String_MoveAcc
+	call PlaceString
+	ld a, [wCurSpecies]
+	dec a
+	ld hl, Moves + MOVE_ACC
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	; convert internal accuracy representation to a number
+	; between 0-100
+	ld a, BANK(Moves)
+	call GetFarByte
+	ld [hMultiplicand], a
+	ld a, 100
+	ld [hMultiplier], a
+	call Multiply
+	ld a, [hProduct]
+	; don't increase a for 0% moves
+	and a
+	jr z, .no_inc
+	inc a
+.no_inc
+	hlcoord 16, 12
+	cp 2
+	jr c, .no_acc
+	ld [wd265], a
+	ld de, wd265
+	lb bc, 1, 3
+	call PrintNum
+	jr .description
+.no_acc
+	ld de, String_na
+	call PlaceString
+	
 .description
 	hlcoord 1, 14
 	predef PrintMoveDesc
@@ -1253,12 +1288,14 @@ PlaceMoveData:
 	ret
 
 String_MoveType_Top:
-	db "┌────────┐@"
+	db "├────────┐ ┌───────┤@"
 String_MoveType_Bottom:
-	db "│        └@"
+	db "│        └─┘       │@"
 String_MoveAtk:
 	db "ATK/@"
-String_MoveNoPower:
+String_MoveAcc:
+	db "ACC/@"
+String_na:
 	db "---@"
 
 Function132d3:
