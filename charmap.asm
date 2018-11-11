@@ -124,8 +124,8 @@
 	charmap "┬",		 $c0
 	charmap "┴",		 $c1
 	charmap "├",		 $c2
-	charmap "┤	",		 $c3
-
+	charmap "┤",		 $c3
+	charmap "<DASH>",	 $cd
 	charmap "′",         $ce
 	charmap "″",         $cf
 

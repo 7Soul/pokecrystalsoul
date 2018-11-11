@@ -1597,13 +1597,13 @@ TN_PrintDVs:
 .label_DV
     db "DVs:@"
 .label_HP
-    db " HP№№№№№@"
+    db " HP<DASH><DASH><DASH><DASH><DASH><DASH>@"
 .label_ATK
-    db "ATK<DO><DO><DO><DO><DO><DO>@"
+    db "ATK<DASH><DASH><DASH><DASH><DASH><DASH>@"
 .label_DEF
-    db "DEF<DO><DO><DO><DO><DO><DO>@"
+    db "DEF<DASH><DASH><DASH><DASH><DASH><DASH>@"
 .label_SPE
-    db "SPD<DO><DO><DO><DO><DO><DO>@"
+    db "SPD<DASH><DASH><DASH><DASH><DASH><DASH>@"
 .label_SPC
-    db "SPC<DO><DO><DO><DO><DO><DO>@"    
+    db "SPC<DASH><DASH><DASH><DASH><DASH><DASH>@"    
      
