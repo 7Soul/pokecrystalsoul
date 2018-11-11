@@ -958,12 +958,12 @@ StatsScreen_LoadGFX:
 
 .PlaceOTInfo:
 	ld de, IDNoString
-	hlcoord 1, 8
+	hlcoord 11, 16
 	call PlaceString
 	ld de, OTString
-	hlcoord 11, 15
+	hlcoord 11, 14
 	call PlaceString
-	hlcoord 5, 8
+	hlcoord 14, 16
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
 	ld de, wTempMonID
 	call PrintNum
@@ -971,7 +971,7 @@ StatsScreen_LoadGFX:
 	call GetNicknamePointer
 	call CopyNickname
 	farcall CorrectNickErrors
-	hlcoord 13, 16
+	hlcoord 13, 15
 	call PlaceString
 	; ld a, [wTempMonCaughtGender]
 	; and a
@@ -1362,32 +1362,32 @@ CheckFaintedFrzSlp:
 TN_PrintDVs:
     ; print labels
 	
-    hlcoord 2, 11
-    ld [wBuffer2], a
-    ld de, .label_DV ; DV
-    call PlaceString
+    ; hlcoord 2, 11
+    ; ld [wBuffer2], a
+    ; ld de, .label_DV ; DV
+    ; call PlaceString
     
-    hlcoord 1, 12
+    hlcoord 1, 8
     ld [wBuffer2], a
     ld de, .label_HP ; hp
     call PlaceString
     
-    hlcoord 1, 13
+    hlcoord 1, 9
     ld [wBuffer2], a
     ld de, .label_ATK ; atk
     call PlaceString
     
-    hlcoord 1, 14
+    hlcoord 1, 10
     ld [wBuffer2], a
     ld de, .label_DEF ; def
     call PlaceString
     
-    hlcoord 1, 15
+    hlcoord 1, 11
     ld [wBuffer2], a
     ld de, .label_SPE ; spe
     call PlaceString
     
-    hlcoord 1, 16
+    hlcoord 1, 12
     ld [wBuffer2], a
     ld de, .label_SPC ; spc
     call PlaceString
@@ -1418,19 +1418,19 @@ TN_PrintDVs:
 	jr c, .atkdv2
 	cp $d ; 10 to 13 (less than d (13))
 	jr c, .atkdv3
-	hlcoord 4, 13 ; atk disp coords 13 and +
+	hlcoord 4, 9 ; atk disp coords 13 and +
 	jr .atkgo
 .atkdv0
-	hlcoord 8, 13
+	hlcoord 8, 9
 	jr .atkgo
 .atkdv1
-	hlcoord 7, 13
+	hlcoord 7, 9
 	jr .atkgo
 .atkdv2
-	hlcoord 6, 13
+	hlcoord 6, 9
 	jr .atkgo
 .atkdv3
-	hlcoord 5, 13
+	hlcoord 5, 9
 .atkgo
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
@@ -1452,19 +1452,19 @@ TN_PrintDVs:
 	jr c, .defdv2
 	cp $d
 	jr c, .defdv3	
-	hlcoord 4, 14 ; def disp coords
+	hlcoord 4, 10 ; def disp coords
 	jr .defgo
 .defdv0
-	hlcoord 8, 14
+	hlcoord 8, 10
 	jr .defgo
 .defdv1
-	hlcoord 7, 14
+	hlcoord 7, 10
 	jr .defgo
 .defdv2
-	hlcoord 6, 14
+	hlcoord 6, 10
 	jr .defgo
 .defdv3
-	hlcoord 5, 14
+	hlcoord 5, 10
 .defgo
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
@@ -1487,19 +1487,19 @@ TN_PrintDVs:
 	jr c, .spedv2
 	cp $d
 	jr c, .spedv3
-	hlcoord 4, 15 ; speed disp coords
+	hlcoord 4, 11 ; speed disp coords
 	jr .spego
 .spedv0
-	hlcoord 8, 15
+	hlcoord 8, 11
 	jr .spego
 .spedv1
-	hlcoord 7, 15
+	hlcoord 7, 11
 	jr .spego
 .spedv2
-	hlcoord 6, 15
+	hlcoord 6, 11
 	jr .spego
 .spedv3
-	hlcoord 5, 15
+	hlcoord 5, 11
 .spego
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
@@ -1521,19 +1521,19 @@ TN_PrintDVs:
 	jr c, .spcdv2
 	cp $d
 	jr c, .spcdv3
-	hlcoord 4, 16 ; special disp coords
+	hlcoord 4, 12 ; special disp coords
 	jr .spcgo
 .spcdv0
-	hlcoord 8, 16
+	hlcoord 8, 12
 	jr .spcgo
 .spcdv1
-	hlcoord 7, 16
+	hlcoord 7, 12
 	jr .spcgo
 .spcdv2
-	hlcoord 6, 16
+	hlcoord 6, 12
 	jr .spcgo
 .spcdv3
-	hlcoord 5, 16
+	hlcoord 5, 12
 .spcgo
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
@@ -1569,19 +1569,19 @@ TN_PrintDVs:
 	jr c, .hpdv2
 	cp $d ; less than 14
 	jr c, .hpdv3
-	hlcoord 4, 12
+	hlcoord 4, 8
 	jr .hpgo
 .hpdv0
-	hlcoord 8, 12
+	hlcoord 8, 8
 	jr .hpgo
 .hpdv1
-	hlcoord 7, 12
+	hlcoord 7, 8
 	jr .hpgo
 .hpdv2
-	hlcoord 6, 12
+	hlcoord 6, 8
 	jr .hpgo
 .hpdv3
-	hlcoord 5, 12
+	hlcoord 5, 8
 .hpgo
     lb bc, PRINTNUM_LEADINGZEROS | 2, 2
     ld de, wTempMonDVs
@@ -1597,13 +1597,13 @@ TN_PrintDVs:
 .label_DV
     db "DVs:@"
 .label_HP
-    db "HP ………………@"
+    db " HP№№№№№@"
 .label_ATK
-    db "ATK………………@"
+    db "ATK<DO><DO><DO><DO><DO><DO>@"
 .label_DEF
-    db "DEF………………@"
+    db "DEF<DO><DO><DO><DO><DO><DO>@"
 .label_SPE
-    db "SPD………………@"
+    db "SPD<DO><DO><DO><DO><DO><DO>@"
 .label_SPC
-    db "SPC………………@"    
+    db "SPC<DO><DO><DO><DO><DO><DO>@"    
      

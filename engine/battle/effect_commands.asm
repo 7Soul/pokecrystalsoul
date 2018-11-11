@@ -3853,6 +3853,21 @@ CheckIfTargetIsPoisonType:
 	ld a, [de]
 	cp POISON
 	ret
+	
+CheckIfTargetIsElectricType:
+	ld de, wEnemyMonType1
+	ld a, [hBattleTurn]
+	and a
+	jr z, .ok
+	ld de, wBattleMonType1
+.ok
+	ld a, [de]
+	inc de
+	cp ELECTRIC
+	ret z
+	ld a, [de]
+	cp ELECTRIC
+	ret
 
 PoisonOpponent:
 	ld a, BATTLE_VARS_STATUS_OPP
@@ -4097,6 +4112,8 @@ BattleCommand_ParalyzeTarget:
 	ret nz
 	ld a, [wTypeModifier]
 	and $7f
+	ret z
+	call CheckIfTargetIsElectricType
 	ret z
 	call GetOpponentItem
 	ld a, b
