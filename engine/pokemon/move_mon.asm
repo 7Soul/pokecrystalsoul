@@ -1529,6 +1529,7 @@ CalcMonStatC:
 
 .GotDV:
 	ld d, 0
+	rl a
 	add e
 	ld e, a
 	jr nc, .no_overflow_1
@@ -1559,7 +1560,7 @@ CalcMonStatC:
 	ldh [hDividend + 1], a
 	ldh a, [hProduct + 3]
 	ldh [hDividend + 2], a
-	ld a, 100
+	ld a, 150
 	ldh [hDivisor], a
 	ld a, 3
 	ld b, a
@@ -1568,11 +1569,13 @@ CalcMonStatC:
 	cp STAT_HP
 	ld a, STAT_MIN_NORMAL
 	jr nz, .not_hp
+	; add level
 	ld a, [wCurPartyLevel]
 	ld b, a
 	ldh a, [hQuotient + 3]
 	add b
 	ldh [hMultiplicand + 2], a
+	; ---
 	jr nc, .no_overflow_3
 	ldh a, [hQuotient + 2]
 	inc a
