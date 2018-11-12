@@ -163,3 +163,7 @@ MoveEffectsPointers:
 	dw SelfSpdDownHit
 	dw SpecialAttackUpHit
 	dw FellStinger
+	dw Venoshock
+	dw BrickBreak
+	dw SelfDefSpDefDownHit
+	

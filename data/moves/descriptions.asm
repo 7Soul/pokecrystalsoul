@@ -134,12 +134,12 @@ MoveDescriptions::
 	dw ConstrictDescription
 	dw AmnesiaDescription
 	dw KinesisDescription
-	dw SoftboiledDescription
+	dw VenoshockDescription
 	dw InfernoDescription
 	dw GlareDescription
 	dw DreamEaterDescription
 	dw PoisonGasDescription
-	dw BarrageDescription
+	dw RockBlastDescription
 	dw LeechLifeDescription
 	dw LovelyKissDescription
 	dw SkyAttackDescription
@@ -188,7 +188,7 @@ MoveDescriptions::
 	dw SweetKissDescription
 	dw BellyDrumDescription
 	dw SludgeBombDescription
-	dw MudSlapDescription
+	dw MudBombDescription
 	dw OctazookaDescription
 	dw SpikesDescription
 	dw ZapCannonDescription
@@ -196,10 +196,10 @@ MoveDescriptions::
 	dw HexDescription
 	dw PerishSongDescription
 	dw IcyWindDescription
-	dw DetectDescription
+	dw BrickBreakDescription
 	dw ZenHeadbuttDescription
 	dw LockOnDescription
-	dw OutrageDescription
+	dw CloseCombatDescription
 	dw SandstormDescription
 	dw GigaDrainDescription
 	dw EndureDescription
@@ -797,9 +797,9 @@ KinesisDescription:
 	db   "Reduces the foe's"
 	next "accuracy.@"
 
-SoftboiledDescription:
-	db   "Restores HP by 1/2"
-	next "the user's max HP.@"
+VenoshockDescription:
+	db   "Doubles in power if"
+	next "foe is poisoned.@"
 
 InfernoDescription:
 	db   "Always burns if"
@@ -817,8 +817,8 @@ PoisonGasDescription:
 	db   "A move that may"
 	next "poison the foe.@"
 
-BarrageDescription:
-	db   "Throws orbs to hit"
+RockBlastDescription:
+	db   "Throws rocks to hit"
 	next "2-5 times.@"
 
 LeechLifeDescription:
@@ -1013,7 +1013,7 @@ SludgeBombDescription:
 	db   "An attack that may"
 	next "poison the foe.@"
 
-MudSlapDescription:
+MudBombDescription:
 	db   "Reduces the foe's"
 	next "accuracy.@"
 
@@ -1045,9 +1045,9 @@ IcyWindDescription:
 	db   "An icy attack that"
 	next "lowers SPEED.@"
 
-DetectDescription:
-	db   "Evades attack that"
-	next "turn. It may fail.@"
+BrickBreakDescription:
+	db   "Breaks REFLECT"
+	next "and LIGHT SCREEN.@"
 
 ZenHeadbuttDescription:
 	db   "Rams the foe and"
@@ -1057,9 +1057,9 @@ LockOnDescription:
 	db   "Ensures the next"
 	next "attack will hit.@"
 
-OutrageDescription:
-	db   "Works 2-3 turns"
-	next "and confuses user.@"
+CloseCombatDescription:
+	db   "Lowers both def-"
+	next "enses of the user.@"
 
 SandstormDescription:
 	db   "Inflicts damage"

@@ -240,7 +240,7 @@ ENDM
 	const ITEM_DC       ; dc
 	add_tm PSYCHIC_M    ; dd
 	add_tm SHADOW_BALL  ; de
-	add_tm MUD_SLAP     ; df
+	add_tm MUD_BOMB     ; df
 	add_tm DOUBLE_TEAM  ; e0
 	add_tm ICE_PUNCH    ; e1
 	add_tm SWAGGER      ; e2
@@ -252,7 +252,7 @@ ENDM
 	add_tm DEFENSE_CURL ; e8
 	add_tm THUNDERPUNCH ; e9
 	add_tm DREAM_EATER  ; ea
-	add_tm DETECT       ; eb
+	add_tm BRICK_BREAK  ; eb
 	add_tm REST         ; ec
 	add_tm ATTRACT      ; ed
 	add_tm BULK_UP      ; ee

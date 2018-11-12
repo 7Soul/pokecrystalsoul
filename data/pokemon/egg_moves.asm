@@ -28,7 +28,7 @@ CharmanderEggMoves:
 	db ANCIENTPOWER
 	db ROCK_SLIDE
 	db BITE
-	db OUTRAGE
+	db THRASH
 	db -1 ; end
 
 SquirtleEggMoves:
@@ -837,7 +837,7 @@ MiltankEggMoves:
 LarvitarEggMoves:
 	db PURSUIT
 	db STOMP
-	db OUTRAGE
+	db THRASH
 	db FOCUS_ENERGY
 	db ANCIENTPOWER
 	db -1 ; end

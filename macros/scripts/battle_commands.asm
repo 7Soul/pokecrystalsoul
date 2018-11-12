@@ -182,6 +182,9 @@ ENDM
 	command curl                    ; af
 	command burn
 	command weightdamage
+	command venoshock
+	command brickbreak
+	command defspdefdown
 	
 
 	enum_start $fe

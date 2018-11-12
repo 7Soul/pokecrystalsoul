@@ -30,7 +30,7 @@ VioletGymFalknerScript:
 	checkcode VAR_BADGES
 	scall VioletGymActivateRockets
 .FightDone:
-	checkevent EVENT_GOT_TM31_MUD_SLAP
+	checkevent EVENT_GOT_TM31_MUD_BOMB
 	iftrue .SpeechAfterTM
 	setevent EVENT_BEAT_BIRD_KEEPER_ROD
 	setevent EVENT_BEAT_BIRD_KEEPER_ABE
@@ -38,9 +38,9 @@ VioletGymFalknerScript:
 	specialphonecall SPECIALCALL_ASSISTANT
 	writetext FalknerZephyrBadgeText
 	buttonsound
-	verbosegiveitem TM_MUD_SLAP
+	verbosegiveitem TM_MUD_BOMB
 	iffalse .NoRoomForMudSlap
-	setevent EVENT_GOT_TM31_MUD_SLAP
+	setevent EVENT_GOT_TM31_MUD_BOMB
 	writetext FalknerTMMudSlapText
 	waitbutton
 	closetext

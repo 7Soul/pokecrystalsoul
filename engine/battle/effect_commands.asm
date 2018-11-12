@@ -3839,6 +3839,14 @@ BattleCommand_Poison:
 	cp EFFECT_TOXIC
 	ret
 
+BattleCommand_Venoshock:
+; venoshock
+	ld a, BATTLE_VARS_STATUS_OPP
+	call GetBattleVar
+	bit PSN, a
+	ret z
+	jp DoubleDamage
+	
 CheckIfTargetIsPoisonType:
 	ld de, wEnemyMonType1
 	ldh a, [hBattleTurn]
@@ -4435,41 +4443,12 @@ BattleCommand_StatDown:
 ; Sharply lower the stat if applicable.
 	ld a, [wLoweredStat]
 	and $f0
-	jr z, .ComputerMiss
+	jr z, .GotAmountToLower
 	dec b
-	jr nz, .ComputerMiss
+	jr nz, .GotAmountToLower
 	inc b
 
-.ComputerMiss:
-; Computer opponents have a 25% chance of failing.
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .DidntMiss
-
-	ld a, [wLinkMode]
-	and a
-	jr nz, .DidntMiss
-
-	ld a, [wInBattleTowerBattle]
-	and a
-	jr nz, .DidntMiss
-
-; Lock-On still always works.
-	ld a, [wPlayerSubStatus5]
-	bit SUBSTATUS_LOCK_ON, a
-	jr nz, .DidntMiss
-
-; Attacking moves that also lower accuracy are unaffected.
-	ld a, BATTLE_VARS_MOVE_EFFECT
-	call GetBattleVar
-	cp EFFECT_ACCURACY_DOWN_HIT
-	jr z, .DidntMiss
-
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	jr c, .Failed
-
-.DidntMiss:
+.GotAmountToLower:
 	call CheckSubstituteOpp
 	jr nz, .Failed
 
@@ -4757,6 +4736,19 @@ BattleCommand_AtkDefUp:
 	call ResetMiss
 	call BattleCommand_DefenseUp
 	jp   BattleCommand_StatUpMessage
+	
+BattleCommand_DefSpDefDown:
+; defspdefdown
+
+; Defense
+	call ResetMiss
+	call BattleCommand_DefenseDown
+	call BattleCommand_StatDownMessage
+
+; Special Defense
+	call ResetMiss
+	call BattleCommand_SpecialDefenseDown
+	jp   BattleCommand_StatDownMessage
 	
 ResetMiss:
 	xor a
@@ -6109,17 +6101,29 @@ BattleCommand_DoubleUndergroundDamage:
 	; fallthrough
 
 DoubleDamage:
+	ld a, [hl]
+	and a
+	ret z
 	ld hl, wCurDamage + 1
 	sla [hl]
 	dec hl
 	rl [hl]
-	jr nc, .quit
-
+	ret nc
 	ld a, $ff
 	ld [hli], a
 	ld [hl], a
-.quit
 	ret
+	; ld hl, wCurDamage + 1
+	; sla [hl]
+	; dec hl
+	; rl [hl]
+	; jr nc, .quit
+
+	; ld a, $ff
+	; ld [hli], a
+	; ld [hl], a
+; .quit
+	; ret
 
 INCLUDE "engine/battle/move_effects/mimic.asm"
 
@@ -6570,13 +6574,15 @@ INCLUDE "engine/battle/move_effects/pursuit.asm"
 
 INCLUDE "engine/battle/move_effects/rapid_spin.asm"
 
+INCLUDE "engine/battle/move_effects/brick_break.asm"
+
 BattleCommand_HealMorn:
 ; healmorn
 	ld b, MORN_F
 	jr BattleCommand_TimeBasedHealContinue
 
 BattleCommand_HealDay:
-; healday
+; healday 
 	ld b, DAY_F
 	jr BattleCommand_TimeBasedHealContinue
 

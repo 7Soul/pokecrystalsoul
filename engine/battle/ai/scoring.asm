@@ -387,6 +387,7 @@ AI_Smart:
 	dbw EFFECT_SOLARBEAM,        AI_Smart_Solarbeam
 	dbw EFFECT_THUNDER,          AI_Smart_Thunder
 	dbw EFFECT_FLY,              AI_Smart_Fly
+	dbw EFFECT_BRICK_BREAK,      AI_Smart_BrickBreak
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -2667,6 +2668,25 @@ AI_Smart_Thunder:
 	ret c
 
 	inc [hl]
+	ret
+	
+AI_Smart_BrickBreak:
+; 80% chance to greatly encourage this move if the enemy has Light Screen or Reflect up.
+
+	ld a, [wPlayerScreens]
+	bit SCREENS_LIGHT_SCREEN, a
+	jr nz, .asm_39097
+
+	ld a, [wPlayerScreens]
+	bit SCREENS_REFLECT, a
+	ret z
+
+.asm_39097
+	call AI_80_20
+	ret c
+
+	dec [hl]
+	dec [hl]
 	ret
 
 AICompareSpeed:

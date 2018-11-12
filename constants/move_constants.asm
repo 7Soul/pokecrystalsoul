@@ -140,12 +140,12 @@
 	const CONSTRICT    ; 84
 	const AMNESIA      ; 85
 	const KINESIS      ; 86
-	const SOFTBOILED   ; 87
+	const VENOSHOCK    ; 87
 	const INFERNO      ; 88
 	const GLARE        ; 89
 	const DREAM_EATER  ; 8a
 	const POISON_GAS   ; 8b
-	const BARRAGE      ; 8c
+	const ROCK_BLAST      ; 8c
 	const LEECH_LIFE   ; 8d
 	const LOVELY_KISS  ; 8e
 	const SKY_ATTACK   ; 8f
@@ -194,7 +194,7 @@
 	const SWEET_KISS   ; ba
 	const BELLY_DRUM   ; bb
 	const SLUDGE_BOMB  ; bc
-	const MUD_SLAP     ; bd
+	const MUD_BOMB     ; bd
 	const OCTAZOOKA    ; be
 	const SPIKES       ; bf
 	const ZAP_CANNON   ; c0
@@ -202,10 +202,10 @@
 	const DESTINY_BOND ; c2
 	const PERISH_SONG  ; c3
 	const ICY_WIND     ; c4
-	const DETECT       ; c5
+	const BRICK_BREAK  ; c5
 	const ZEN_HEADBUTT ; c6
 	const LOCK_ON      ; c7
-	const OUTRAGE      ; c8
+	const CLOSE_COMBAT ; c8
 	const SANDSTORM    ; c9
 	const GIGA_DRAIN   ; ca
 	const ENDURE       ; cb

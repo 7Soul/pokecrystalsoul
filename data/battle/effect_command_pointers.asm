@@ -181,3 +181,6 @@ BattleCommandPointers:
 	dw BattleCommand_Curl
 	dw BattleCommand_BurnTarget
 	dw BattleCommand_WeightDamage
+	dw BattleCommand_Venoshock
+	dw BattleCommand_BrickBreak
+	dw BattleCommand_DefSpDefDown

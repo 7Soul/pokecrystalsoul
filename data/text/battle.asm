@@ -878,12 +878,14 @@ TransformedText:
 
 LightScreenEffectText:
 	text "<USER>'s"
-	line "SPCL.DEF rose!"
+	line "SPCL.DEF rises if"
+	cont "hit by SPECIAL!"
 	prompt
 
 ReflectEffectText:
 	text "<USER>'s"
-	line "DEFENSE rose!"
+	line "DEFENSE rises if"
+	cont "hit by PHYSICAL!"
 	prompt
 
 NothingHappenedText:
@@ -1053,6 +1055,18 @@ ShedLeechSeedText:
 BlewSpikesText:
 	text "<USER>"
 	line "blew away SPIKES!"
+	prompt
+	
+BrickBreakText1:
+	text "<USER> "
+	line "breaks down the"
+	cont "REFLECT!"
+	prompt
+	
+BrickBreakText2:
+	text "<USER> "
+	line "breaks down the"
+	cont "LIGHT SCREEN!"
 	prompt
 
 DownpourText:

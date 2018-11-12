@@ -251,12 +251,12 @@ InitBattleAnimBuffer:
 	ld a, [wFXAnimID]
 	cp KINESIS
 	jr z, .kinesis
-	cp SOFTBOILED
-	jr z, .softboiled
+	;cp SOFTBOILED
+	;jr z, .softboiled
 	cp MILK_DRINK
 	jr nz, .no_sub
 .kinesis
-.softboiled
+;.softboiled
 .milk_drink
 	pop af
 	sub 1 * 8
