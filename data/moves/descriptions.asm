@@ -19,7 +19,7 @@ MoveDescriptions::
 	dw WingAttackDescription
 	dw WhirlwindDescription
 	dw FlyDescription
-	dw BindDescription
+	dw MagicalLeafDescription
 	dw SlamDescription
 	dw VineWhipDescription
 	dw StompDescription
@@ -337,9 +337,9 @@ FlyDescription:
 	db   "1st turn: Fly"
 	next "2nd turn: Attack@"
 
-BindDescription:
-	db   "Binds the target"
-	next "for 2-5 turns.@"
+MagicalLeafDescription:
+	db   "Leaf attack that"
+	next "never misses.@"
 
 SlamDescription:
 	db   "Slams the foe with"

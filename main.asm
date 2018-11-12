@@ -331,6 +331,7 @@ INCLUDE "engine/phone/buenas_password.asm"
 
 SECTION "Phone Text", ROMX
 
+INCLUDE "engine/battle_anims/bg_effects.asm"
 INCLUDE "data/phone/text/anthony_overworld.asm"
 INCLUDE "data/phone/text/todd_overworld.asm"
 INCLUDE "data/phone/text/gina_overworld.asm"
@@ -370,7 +371,6 @@ INCLUDE "engine/events/trainer_scripts.asm"
 
 SECTION "bank32", ROMX
 
-INCLUDE "engine/battle_anims/bg_effects.asm"
 INCLUDE "data/moves/animations.asm"
 
 TheEndGFX::

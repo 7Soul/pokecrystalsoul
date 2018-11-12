@@ -20,7 +20,7 @@ BattleAnimations::
 	dw BattleAnim_WingAttack
 	dw BattleAnim_Whirlwind
 	dw BattleAnim_Fly
-	dw BattleAnim_Bind
+	dw BattleAnim_MagicalLeaf
 	dw BattleAnim_Slam
 	dw BattleAnim_VineWhip
 	dw BattleAnim_Stomp
@@ -1729,20 +1729,52 @@ BattleAnim_Bide:
 	anim_call BattleAnim_ShowMon_0
 	anim_ret
 
-BattleAnim_Bind:
-	anim_1gfx ANIM_GFX_ROPE
-	anim_sound 0, 1, SFX_BIND
-	anim_obj ANIM_OBJ_48, 132, 64, $0
-	anim_wait 8
-	anim_obj ANIM_OBJ_49, 132, 56, $0
-	anim_wait 8
-	anim_obj ANIM_OBJ_48, 132, 48, $0
-	anim_wait 64
-	anim_sound 0, 1, SFX_BIND
-	anim_incobj  1
-	anim_incobj  2
+BattleAnim_MagicalLeaf:
+	anim_1gfx ANIM_GFX_PLANT
+	anim_sound 0, 0, SFX_VINE_WHIP
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $28
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $5c
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $10
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $e8
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $9c
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $d0
+	anim_wait 6
+	anim_sound 0, 0, SFX_FLASH
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $1c
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $50
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $dc
+	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $90
+	anim_wait 80
+	anim_sound 16, 2, SFX_VINE_WHIP
 	anim_incobj  3
-	anim_wait 96
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  5
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  7
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  9
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  1
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  2
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  4
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  6
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  8
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj 10
+	anim_wait 16
 	anim_ret
 
 BattleAnim_Wrap:

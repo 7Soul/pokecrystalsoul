@@ -1402,7 +1402,7 @@ OnixEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, SCREECH
-	db 1, BIND
+	db 1, WRAP
 	db 7, ROCK_THROW
 	db 11, ROCK_TOMB
 	db 20, HARDEN
@@ -1709,7 +1709,7 @@ TangelaEvosAttacks:
 	db 10, ABSORB
 	db 13, POISONPOWDER
 	db 19, VINE_WHIP
-	db 25, BIND
+	db 25, WRAP
 	db 31, MEGA_DRAIN
 	db 34, STUN_SPORE
 	db 40, SLAM
@@ -1823,16 +1823,19 @@ StarmieEvosAttacks:
 MrMimeEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BARRIER
+	db 1, POUND
 	db 6, CONFUSION
+	db 9, MEDITATE
 	db 11, SUBSTITUTE
-	db 16, MEDITATE
-	db 21, DOUBLESLAP
+	db 15, DOUBLESLAP
+	db 19, MAGICAL_LEAF
+	db 23, PSYBEAM
 	db 26, LIGHT_SCREEN
 	db 26, REFLECT
 	db 31, ENCORE
-	db 36, PSYBEAM
-	db 41, BATON_PASS
-	db 46, SAFEGUARD
+	db 36, PSYCHIC_M
+	db 46, BATON_PASS
+	db 50, SAFEGUARD
 	db 0 ; no more level-up moves
 
 ScytherEvosAttacks:
@@ -1902,7 +1905,7 @@ PinsirEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, VICEGRIP
 	db 1, FOCUS_ENERGY
-	db 4, BIND
+	db 4, WRAP
 	db 8, SEISMIC_TOSS
 	db 11, HARDEN
 	db 22, DOUBLESLAP
@@ -2270,7 +2273,7 @@ ChikoritaEvosAttacks:
 	db 9, POISONPOWDER
 	db 12, SYNTHESIS
 	db 17, REFLECT
-	db 20, PETAL_DANCE
+	db 20, MAGICAL_LEAF
 	db 23, HIDDEN_POWER
 	db 31, LIGHT_SCREEN
 	db 34, BODY_SLAM
@@ -2290,7 +2293,7 @@ BayleefEvosAttacks:
 	db 9, POISONPOWDER
 	db 12, SYNTHESIS
 	db 18, REFLECT
-	db 22, PETAL_DANCE
+	db 22, MAGICAL_LEAF
 	db 26, HIDDEN_POWER
 	db 36, LIGHT_SCREEN
 	db 40, BODY_SLAM
@@ -2309,7 +2312,7 @@ MeganiumEvosAttacks:
 	db 9, POISONPOWDER
 	db 12, SYNTHESIS
 	db 17, REFLECT
-	db 20, PETAL_DANCE
+	db 20, MAGICAL_LEAF
 	db 23, HIDDEN_POWER
 	db 39, LIGHT_SCREEN
 	db 46, BODY_SLAM
@@ -2344,8 +2347,7 @@ QuilavaEvosAttacks:
 	db 10, EMBER
 	db 13, QUICK_ATTACK
 	db 20, FLAME_WHEEL
-	db 21, CLOSE_COMBAT
-	db 21, BULK_UP
+	db 21, MAGICAL_LEAF
 	db 24, DEFENSE_CURL
 	db 31, SWIFT
 	db 46, FLAMETHROWER
@@ -2744,6 +2746,7 @@ BellossomEvosAttacks:
 	db 24, GIGA_DRAIN
 	db 38, PETAL_DANCE
 	db 44, SAFEGUARD
+	db 48, MAGICAL_LEAF
 	db 50, SOLARBEAM
 	db 55, SUNNY_DAY
 	db 61, LEAF_STORM
@@ -3121,7 +3124,7 @@ SteelixEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, SCREECH
-	db 1, BIND
+	db 1, WRAP
 	db 10, ROCK_THROW
 	db 14, ROCK_TOMB	
 	db 19, ICY_WIND
@@ -3765,11 +3768,12 @@ CelebiEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, LEECH_SEED
 	db 1, CONFUSION
-	db 1, RECOVER
 	db 1, HEAL_BELL
 	db 10, SAFEGUARD
-	db 20, ANCIENTPOWER
-	db 30, FUTURE_SIGHT
+	db 19, MAGICAL_LEAF
+	db 22, RECOVER
+	db 28, ANCIENTPOWER
+	db 33, FUTURE_SIGHT
 	db 40, BATON_PASS
-	db 50, PERISH_SONG
+	db 56, LEAF_STORM
 	db 0 ; no more level-up moves

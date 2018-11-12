@@ -18,7 +18,7 @@ MoveNames::
 	db "Wing Attack@"
 	db "Whirlwind@"
 	db "Fly@"
-	db "Bind@"
+	db "Magical Leaf@"
 	db "Slam@"
 	db "Vine Whip@"
 	db "Stomp@"
