@@ -20,11 +20,11 @@ TREEMON_SLEEP_TURNS EQU 7
 ; default move priority
 BASE_PRIORITY EQU 1
 
-; type effectiveness factors, scaled by 10
-SUPER_EFFECTIVE    EQU 15
-MORE_EFFECTIVE     EQU 13
+; type effectiveness factors, scaled by 100
+SUPER_EFFECTIVE    EQU 18
+MORE_EFFECTIVE     EQU 10
 EFFECTIVE          EQU 10
-NOT_VERY_EFFECTIVE EQU 07
+NOT_VERY_EFFECTIVE EQU 05
 NO_EFFECT          EQU 00
 
 ; wPlayerStatLevels and wEnemyStatLevels indexes (see wram.asm)

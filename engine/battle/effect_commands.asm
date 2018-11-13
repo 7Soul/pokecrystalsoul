@@ -1278,6 +1278,8 @@ BattleCommand_Stab:
 	ld c, l
 	srl b
 	rr c
+	srl b ; 
+	rr c ;
 	add hl, bc
 
 	ld a, h
@@ -1531,7 +1533,7 @@ BattleCommand_DamageVariation:
 .loop
 	call BattleRandom
 	rrca
-	cp 85 percent + 1
+	cp 95 percent + 1
 	jr c, .loop
 
 	ldh [hMultiplier], a
