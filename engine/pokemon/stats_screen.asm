@@ -1409,14 +1409,27 @@ TN_PrintDVs:
     push bc
     and $f0
     swap a
+	cp $d ; 15,14,13 turns to 10
+	jr c, .dvMinATK1
+	ld a, $a
+	jr .dvMinATK2
+.dvMinATK1
+	cp $9 ; 11,10,9 turns to 9
+	jr c, .dvMinATK2
+	ld a, $9
+.dvMinATK2
+	cp $0 ; limit min DV to 1 (1 to 10)
+	jr nz, .dvMaxATK
+	ld a, $1
+.dvMaxATK
     ld [de], a
 	cp $3 ; less than 3
 	jr c, .atkdv0
-	cp $6 ; 3 to 5 (less than 6)
+	cp $5 ; 3 to 5 (less than 6)
 	jr c, .atkdv1
-	cp $a ; 6 to 9 (less than a (10))
+	cp $7 ; 6 to 9 (less than a (10))
 	jr c, .atkdv2
-	cp $d ; 10 to 13 (less than d (13))
+	cp $9 ; 10 to 13 (less than d (13))
 	jr c, .atkdv3
 	hlcoord 4, 9 ; atk disp coords 13 and +
 	jr .atkgo
@@ -1443,14 +1456,23 @@ TN_PrintDVs:
     ld a, b
     push bc
     and $f
+	cp $d ; 15,14,13 turns to 10
+	jr c, .dvMinDEF1
+	ld a, $a
+	jr .dvMinDEF2
+.dvMinDEF1
+	cp $9 ; 11,10,9 turns to 9
+	jr c, .dvMinDEF2
+	ld a, $9
+.dvMinDEF2
     ld [de],a
     cp $3
 	jr c, .defdv0
-	cp $6
+	cp $5
 	jr c, .defdv1
-	cp $a
+	cp $7
 	jr c, .defdv2
-	cp $d
+	cp $9
 	jr c, .defdv3	
 	hlcoord 4, 10 ; def disp coords
 	jr .defgo
@@ -1478,14 +1500,27 @@ TN_PrintDVs:
     push bc
     and $f0
     swap a
+	cp $d ; 15,14,13 turns to 10
+	jr c, .dvMinSPE1
+	ld a, $a
+	jr .dvMinSPE2
+.dvMinSPE1
+	cp $9 ; 11,10,9 turns to 9
+	jr c, .dvMinSPE2
+	ld a, $9
+.dvMinSPE2
+	cp $0 ; limit min DV to 1 (1 to 10)
+	jr nz, .dvMaxSPE
+	ld a, $1
+.dvMaxSPE
     ld [de], a
     cp $3
 	jr c, .spedv0
-	cp $6
+	cp $5
 	jr c, .spedv1
-	cp $a
+	cp $7
 	jr c, .spedv2
-	cp $d
+	cp $9
 	jr c, .spedv3
 	hlcoord 4, 11 ; speed disp coords
 	jr .spego
@@ -1512,14 +1547,27 @@ TN_PrintDVs:
     ld a, c
     push bc
     and $f
+	cp $d ; 15,14,13 turns to 10
+	jr c, .dvMinSPC1
+	ld a, $a
+	jr .dvMinSPC2
+.dvMinSPC1
+	cp $9 ; 11,10,9 turns to 9
+	jr c, .dvMinSPC2
+	ld a, $9
+.dvMinSPC2
+	cp $0 ; limit min DV to 1 (1 to 10)
+	jr nz, .dvMaxSPC
+	ld a, $1
+.dvMaxSPC
     ld [de], a
     cp $3
 	jr c, .spcdv0
-	cp $6
+	cp $5
 	jr c, .spcdv1
-	cp $a
+	cp $7
 	jr c, .spcdv2
-	cp $d
+	cp $9
 	jr c, .spcdv3
 	hlcoord 4, 12 ; special disp coords
 	jr .spcgo
@@ -1560,14 +1608,27 @@ TN_PrintDVs:
     set 0, a
 .noSpecialHP
     push bc
-    ld [de], a
+	cp $d ; 15,14,13 turns to 10
+	jr c, .dvMinHP1
+	ld a, $a
+	jr .dvMinHP2
+.dvMinHP1
+	cp $9 ; 11,10,9 turns to 9
+	jr c, .dvMinHP2
+	ld a, $9
+.dvMinHP2
+	cp $0 ; limit min DV to 1 (1 to 10)
+	jr nz, .dvMaxHP
+	ld a, $1
+.dvMaxHP
+    ld [de], a	
     cp $3 ; less than 3
 	jr c, .hpdv0
-	cp $6 ; less than 6
+	cp $5 ; less than 6
 	jr c, .hpdv1 
-	cp $a ; less than 10
+	cp $7 ; less than 10
 	jr c, .hpdv2
-	cp $d ; less than 14
+	cp $9 ; less than 14
 	jr c, .hpdv3
 	hlcoord 4, 8
 	jr .hpgo

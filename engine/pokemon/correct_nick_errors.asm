@@ -37,7 +37,7 @@ CorrectNickErrors::
 ; replace it with a "?"
 	;ld a, "?"
 	;ld [de], a
-	jr .loop
+	;jr .loop
 
 .done
 ; next char
