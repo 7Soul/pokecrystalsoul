@@ -2244,20 +2244,20 @@ BattleAnim_HornAttack:
 BattleAnim_FuryAttack:
 	anim_2gfx ANIM_GFX_HORN, ANIM_GFX_HIT
 	anim_obj ANIM_OBJ_HORN, 72, 72, $2
-	anim_wait 8
+	anim_wait 6
 	anim_sound 0, 1, SFX_HORN_ATTACK
 	anim_obj ANIM_OBJ_04, 128, 40, $0
-	anim_wait 8
+	anim_wait 6
 	anim_obj ANIM_OBJ_HORN, 80, 88, $2
-	anim_wait 8
+	anim_wait 6
 	anim_sound 0, 1, SFX_HORN_ATTACK
 	anim_obj ANIM_OBJ_04, 136, 56, $0
-	anim_wait 8
+	anim_wait 6
 	anim_obj ANIM_OBJ_HORN, 76, 80, $2
-	anim_wait 8
+	anim_wait 6
 	anim_sound 0, 1, SFX_HORN_ATTACK
 	anim_obj ANIM_OBJ_04, 132, 48, $0
-	anim_wait 8
+	anim_wait 2
 	anim_ret
 
 BattleAnim_HornDrill:

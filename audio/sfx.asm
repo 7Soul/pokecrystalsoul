@@ -4362,7 +4362,7 @@ Sfx_Ember_Ch5:
 	sound_duty 1, 2, 0, 3
 	sound __, 12, $f3, $0120
 	sound __, 10, $d3, $0150
-	loopchannel 5, Sfx_Ember_Ch5
+	loopchannel 3, Sfx_Ember_Ch5
 	sound __,  9, $e3, $0130
 	sound __, 16, $c2, $0110
 	endchannel
@@ -4370,7 +4370,7 @@ Sfx_Ember_Ch5:
 Sfx_Ember_Ch8:
 	noise __, 11, $f3, $35
 	noise __, 15, $f6, $45
-	loopchannel 4, Sfx_Ember_Ch8
+	loopchannel 2, Sfx_Ember_Ch8
 	noise __, 13, $f4, $bc
 	noise __, 13, $f5, $9c
 	noise __, 16, $f4, $ac

@@ -5340,7 +5340,7 @@ BattleCommand_EndLoop:
 	jr nz, .not_triple_kick
 .reject_triple_kick_sample
 	call BattleRandom
-	and $3
+	and $3 
 	jr z, .reject_triple_kick_sample
 	dec a
 	jr nz, .double_hit
@@ -5377,8 +5377,8 @@ BattleCommand_EndLoop:
 
 .not_triple_kick
 	call BattleRandom
-	and $3
-	cp 2
+	and $3 ; multihit
+	cp 2 ; multihit
 	jr c, .got_number_hits
 	call BattleRandom
 	and $3
@@ -6882,7 +6882,7 @@ AnimateFailedMove:
 BattleCommand_MoveDelay:
 ; movedelay
 ; Wait 40 frames.
-	ld c, 40
+	ld c, 10 ; 40
 	jp DelayFrames
 
 BattleCommand_ClearText:
