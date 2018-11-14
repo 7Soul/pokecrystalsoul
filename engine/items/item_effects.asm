@@ -212,8 +212,8 @@ PokeBallEffect:
 .room_in_party
 	xor a
 	ld [wWildMon], a
-	ld a, [wCurItem]
-	cp PARK_BALL
+	ld a, [wBattleType]
+	cp BATTLETYPE_CONTEST
 	call nz, ReturnToBattle_UseBall
 
 	ld hl, wOptions
@@ -318,11 +318,6 @@ PokeBallEffect:
 	jr nz, .statuscheck
 	ld a, 1
 .statuscheck
-; This routine is buggy. It was intended that SLP and FRZ provide a higher
-; catch rate than BRN/PSN/PAR, which in turn provide a higher catch rate than
-; no status effect at all. But instead, it makes BRN/PSN/PAR provide no
-; benefit.
-; Uncomment the line below to fix this.
 	ld b, a
 	ld a, [wEnemyMonStatus]
 	and 1 << FRZ | SLP
@@ -339,10 +334,6 @@ PokeBallEffect:
 	jr nc, .max_1
 	ld a, $ff
 .max_1
-
-	; BUG: farcall overwrites a, and GetItemHeldEffect takes b anyway.
-	; This is probably the reason the HELD_CATCH_CHANCE effect is never used.
-	; Uncomment the line below to fix.
 	ld d, a
 	push de
 	ld a, [wBattleMonItem]

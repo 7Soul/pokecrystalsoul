@@ -307,10 +307,12 @@ SpearowEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, PECK
 	db 1, GROWL
-	db 7, LEER
-	db 13, FURY_ATTACK
+	db 4, LEER
+	db 8, PURSUIT
+	db 11, FURY_ATTACK
 	db 25, PURSUIT
 	db 31, MIRROR_MOVE
+	db 32, RESTORE
 	db 37, DRILL_PECK
 	db 43, AGILITY
 	db 0 ; no more level-up moves
