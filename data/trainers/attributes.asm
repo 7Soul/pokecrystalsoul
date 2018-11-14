@@ -316,7 +316,7 @@ TrainerClassAttributes:
 ; Picnicker
 	db NO_ITEM, NO_ITEM ; items
 	db 5 ; base reward
-	dw AI_BASIC | AI_CAUTIOUS | AI_STATUS
+	dw AI_BASIC | AI_CAUTIOUS | AI_STATUS | AI_SMART
 	dw CONTEXT_USE | SWITCH_SOMETIMES
 
 ; Camper

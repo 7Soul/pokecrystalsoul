@@ -108,7 +108,11 @@ AI_Setup:
 	jr z, .checkmove
 	cp EFFECT_EVASION_DOWN_2 + 1
 	jr c, .statdown
-
+	jr z, .checkmove
+	
+	cp EFFECT_ATK_DEF_UP
+	jr z, .statdown
+	
 	jr .checkmove
 
 .statup
@@ -329,6 +333,8 @@ AI_Smart:
 	dbw EFFECT_UNUSED_2B,        AI_Smart_Unused2B
 	dbw EFFECT_CONFUSE,          AI_Smart_Confuse
 	dbw EFFECT_SP_DEF_UP_2,      AI_Smart_SpDefenseUp2
+	dbw EFFECT_DEF_UP_2,         AI_Smart_DefenseUp2
+	dbw EFFECT_ATTACK_UP_2,      AI_Smart_AttackUp2
 	dbw EFFECT_REFLECT,          AI_Smart_Reflect
 	dbw EFFECT_PARALYZE,         AI_Smart_Paralyze
 	dbw EFFECT_SPEED_DOWN_HIT,   AI_Smart_SpeedDownHit
@@ -388,6 +394,7 @@ AI_Smart:
 	dbw EFFECT_THUNDER,          AI_Smart_Thunder
 	dbw EFFECT_FLY,              AI_Smart_Fly
 	dbw EFFECT_BRICK_BREAK,      AI_Smart_BrickBreak
+	dbw EFFECT_VENOSHOCK,        AI_Smart_Venoshock
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -1113,17 +1120,10 @@ AI_Smart_SpDefenseUp2:
 	cp $b
 	jr nc, .asm_38b10
 
-; 80% chance to greatly encourage this move if
-; enemy's Special Defense level is lower than +2, and the player's Pokémon is Special-oriented
+; 80% chance to greatly encourage this move if enemy's Special Defense level is lower than +2, and the player's Pokémon is Special-oriented
 	cp $9
 	ret nc
 
-	ld a, [wBattleMonType1]
-	cp SPECIAL
-	jr nc, .asm_38b09
-	ld a, [wBattleMonType2]
-	cp SPECIAL
-	ret c
 	push hl
 ; Get the pointer for the player's Pokémon's base Attack
 	ld a, [wBattleMonSpecies]
@@ -1144,7 +1144,7 @@ AI_Smart_SpDefenseUp2:
 ; If its base Attack is greater than its base Special Attack,
 ; don't encourage this move.
 	cp d
-	ret c
+	ret c ; check SP.ATK (d) against ATK (a). If SP.ATK is lower (meaning the player is a physical attacker), stop here and don't encourage sp.def 
 
 .asm_38b09
 	call AI_80_20
@@ -1156,10 +1156,137 @@ AI_Smart_SpDefenseUp2:
 .asm_38b10
 	inc [hl]
 	ret
+	
+AI_Smart_DefenseUp2:
+; Discourage this move if enemy's HP is lower than 50%.
+	call AICheckEnemyHalfHP
+	jr nc, .asm_38b0a
+
+; Discourage this move if enemy's defense level is higher than +3.
+	ld a, [wEnemyDefLevel]
+	cp $b
+	jr nc, .asm_38b0a
+
+; 80% chance to greatly encourage this move if enemy's Physical Defense level is lower than +2, and the player's Pokémon is Physical-oriented
+	cp $9
+	ret nc
+
+	push hl
+; Get the pointer for the player's Pokémon's base Attack
+	ld a, [wBattleMonSpecies]
+	ld hl, BaseData + BASE_ATK
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+; Get the Pokémon's base Attack
+	ld a, BANK(BaseData)
+	call GetFarByte
+	ld d, a
+; Get the pointer for the player's Pokémon's base Special Attack
+	ld bc, BASE_SAT - BASE_ATK
+	add hl, bc
+; Get the Pokémon's base Special Attack
+	ld a, BANK(BaseData)
+	call GetFarByte
+	pop hl
+; If its base Attack is greater than its base Special Attack,
+; don't encourage this move.
+	cp d
+	ret nc ; check SP.ATK (d) against ATK (a). If SP.ATK is not lower (meaning the player is a special attacker), stop here and don't encourage def 
+
+.asm_38b0b
+	call AI_80_20
+	ret c
+	dec [hl]
+	dec [hl]
+	ret
+
+.asm_38b0a
+	inc [hl]
+	ret
+	
+AI_Smart_AttackUp2:
+; Discourage this move if enemy's HP is lower than 50%.
+	call AICheckEnemyHalfHP
+	jr nc, .asm_38b0c
+
+; Discourage this move if enemy's attack level is higher than +3.
+	ld a, [wEnemyAtkLevel]
+	cp $b
+	jr nc, .asm_38b0c
+
+; 80% chance to greatly encourage this move if enemy's Attack level is lower than +2, and the enemy's Pokémon is Physical-oriented
+	cp $9
+	ret nc
+
+	push hl
+; Get the pointer for the enemy's Pokémon's base Attack
+	ld a, [wEnemyMonSpecies]
+	ld hl, BaseData + BASE_ATK
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+; Get the Pokémon's base Attack
+	ld a, BANK(BaseData)
+	call GetFarByte
+	ld d, a
+; Get the pointer for the enemy's Pokémon's base Special Attack
+	ld bc, BASE_SAT - BASE_ATK
+	add hl, bc
+; Get the Pokémon's base Special Attack
+	ld a, BANK(BaseData)
+	call GetFarByte
+	pop hl
+	
+	cp d
+	ret nc ; check SP.ATK (d) against ATK (a). If SP.ATK is not lower (meaning the player is a phys attacker), stop here and don't encourage atk 
+	
+AI_Smart_SpAttackUp2:
+; Discourage this move if enemy's HP is lower than 50%.
+	call AICheckEnemyHalfHP
+	jr nc, .asm_38b0c
+
+; Discourage this move if enemy's sp.attack level is higher than +3.
+	ld a, [wEnemyAtkLevel]
+	cp $b
+	jr nc, .asm_38b0c
+
+; 80% chance to greatly encourage this move if enemy's Sp.Attack level is lower than +2, and the enemy's Pokémon is Special-oriented
+	cp $9
+	ret nc
+
+	push hl
+; Get the pointer for the enemy's Pokémon's base Attack
+	ld a, [wEnemyMonSpecies]
+	ld hl, BaseData + BASE_ATK
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+; Get the Pokémon's base Attack
+	ld a, BANK(BaseData)
+	call GetFarByte
+	ld d, a
+; Get the pointer for the enemy's Pokémon's base Special Attack
+	ld bc, BASE_SAT - BASE_ATK
+	add hl, bc
+; Get the Pokémon's base Special Attack
+	ld a, BANK(BaseData)
+	call GetFarByte
+	pop hl
+
+	cp d
+	ret c ; check SP.ATK (d) against ATK (a). If SP.ATK is lower (meaning the player is a phys attacker), stop here and don't encourage sp.atk 
+
+.asm_38b0d
+	call AI_80_20
+	ret c
+	dec [hl]
+	dec [hl]
+	ret
+
+.asm_38b0c
+	inc [hl]
+	ret
 
 AI_Smart_Fly:
 ; Fly, Dig
-
 ; Greatly encourage this move if the player is
 ; flying or underground, and slower than the enemy.
 
@@ -1764,7 +1891,7 @@ AI_Smart_MeanLook:
 
 ; 80% chance to greatly encourage this move if the enemy is badly poisoned (buggy).
 ; Should check wPlayerSubStatus5 instead.
-	ld a, [wEnemySubStatus5]
+	ld a, [wPlayerSubStatus5]
 	bit SUBSTATUS_TOXIC, a
 	jr nz, .asm_38e26
 
@@ -2685,6 +2812,25 @@ AI_Smart_BrickBreak:
 	call AI_80_20
 	ret c
 
+	dec [hl]
+	dec [hl]
+	ret
+	
+AI_Smart_Venoshock:
+; Greatly encourage poisoning moves if the ai has Venoshock.
+; 50% chance to greatly encourage poison inducing moves otherwise.
+
+	ld b, EFFECT_POISON
+	call AIHasMoveEffect
+	jr c, .asm_387f0
+
+	ld b, EFFECT_POISON_HIT
+	call AIHasMoveEffect
+	ret nc
+
+.asm_387f0
+	call AI_50_50
+	ret c
 	dec [hl]
 	dec [hl]
 	ret
