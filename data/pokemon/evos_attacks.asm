@@ -312,7 +312,7 @@ SpearowEvosAttacks:
 	db 11, FURY_ATTACK
 	db 25, PURSUIT
 	db 31, MIRROR_MOVE
-	db 32, RESTORE
+	db 32, RECOVER
 	db 37, DRILL_PECK
 	db 43, AGILITY
 	db 0 ; no more level-up moves
