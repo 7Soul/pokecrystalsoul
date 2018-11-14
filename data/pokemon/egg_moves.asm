@@ -17,9 +17,6 @@ BulbasaurEggMoves:
 	db LIGHT_SCREEN
 	db SKULL_BASH
 	db SAFEGUARD
-if !_CRYSTAL
-	db CHARM
-endc
 	db PETAL_DANCE
 	db -1 ; end
 

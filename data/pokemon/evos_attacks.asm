@@ -15,6 +15,7 @@ SECTION "Evolutions and Attacks", ROMX
 ;    * db level, move
 ; - db 0 ; no more level-up moves
 
+INCLUDE "data/pokemon/evolution_moves.asm"
 INCLUDE "data/pokemon/evos_attacks_pointers.asm"
 
 BulbasaurEvosAttacks:
@@ -180,7 +181,7 @@ MetapodEvosAttacks:
 ButterfreeEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, CONFUSION
-	db 10, GUST
+	db 9, GUST
 	db 11, CONFUSION
 	db 13, POISONPOWDER
 	db 14, STUN_SPORE
@@ -1095,6 +1096,7 @@ GeodudeEvosAttacks:
 	db 34, EARTHQUAKE
 	db 41, EXPLOSION
 	db 40, DOUBLE_EDGE
+	db 100, ICE_BEAM
 	db 0 ; no more level-up moves
 
 GravelerEvosAttacks:

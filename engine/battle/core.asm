@@ -5963,19 +5963,19 @@ LoadEnemyMon:
 
 ; Failing that, it's all up to chance
 ;  Effective chances:
-;    75% None
-;    23% Item1
+;    60% None
+;    38% Item1
 ;     2% Item2
 
-; 25% chance of getting an item
+; 40% chance of getting an item
 	call BattleRandom
-	cp 75 percent + 1
+	cp 60 percent + 1
 	ld a, NO_ITEM
 	jr c, .UpdateItem
 
 ; From there, an 8% chance for Item2
 	call BattleRandom
-	cp 8 percent ; 8% of 25% = 2% Item2
+	cp 10 percent ; 10% of 40% = 4% Item2
 	ld a, [wBaseItem1]
 	jr nc, .UpdateItem
 	ld a, [wBaseItem2]
@@ -6123,7 +6123,7 @@ LoadEnemyMon:
 
 ; No reason to keep going if length > 1536 mm (i.e. if HIGH(length) > 6 feet)
 	ld a, [wMagikarpLength]
-	cp HIGH(1536) ; should be "cp 5", since 1536 mm = 5'0", but HIGH(1536) = 6
+	cp 5
 	jr nz, .CheckMagikarpArea
 
 ; 5% chance of skipping both size checks
@@ -6132,7 +6132,7 @@ LoadEnemyMon:
 	jr c, .CheckMagikarpArea
 ; Try again if length >= 1616 mm (i.e. if LOW(length) >= 3 inches)
 	ld a, [wMagikarpLength + 1]
-	cp LOW(1616) ; should be "cp 3", since 1616 mm = 5'3", but LOW(1616) = 80
+	cp 3
 	jr nc, .GenerateDVs
 
 ; 20% chance of skipping this check
@@ -6141,7 +6141,7 @@ LoadEnemyMon:
 	jr c, .CheckMagikarpArea
 ; Try again if length >= 1600 mm (i.e. if LOW(length) >= 2 inches)
 	ld a, [wMagikarpLength + 1]
-	cp LOW(1600) ; should be "cp 2", since 1600 mm = 5'2", but LOW(1600) = 64
+	cp 2
 	jr nc, .GenerateDVs
 
 .CheckMagikarpArea:
@@ -6160,10 +6160,10 @@ LoadEnemyMon:
 ; smaller than 4'0" may be caught by the filter, a lot more than intended.
 	ld a, [wMapGroup]
 	cp GROUP_LAKE_OF_RAGE
-	jr z, .Happiness
+	jr nz, .Happiness
 	ld a, [wMapNumber]
 	cp MAP_LAKE_OF_RAGE
-	jr z, .Happiness
+	jr nz, .Happiness
 ; 40% chance of not flooring
 	call Random
 	cp 40 percent - 2

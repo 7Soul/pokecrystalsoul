@@ -333,7 +333,7 @@ AI_Smart:
 	dbw EFFECT_UNUSED_2B,        AI_Smart_Unused2B
 	dbw EFFECT_CONFUSE,          AI_Smart_Confuse
 	dbw EFFECT_SP_DEF_UP_2,      AI_Smart_SpDefenseUp2
-	dbw EFFECT_DEF_UP_2,         AI_Smart_DefenseUp2
+	dbw EFFECT_DEFENSE_UP_2,     AI_Smart_DefenseUp2
 	dbw EFFECT_ATTACK_UP_2,      AI_Smart_AttackUp2
 	dbw EFFECT_REFLECT,          AI_Smart_Reflect
 	dbw EFFECT_PARALYZE,         AI_Smart_Paralyze
@@ -1238,16 +1238,25 @@ AI_Smart_AttackUp2:
 	
 	cp d
 	ret nc ; check SP.ATK (d) against ATK (a). If SP.ATK is not lower (meaning the player is a phys attacker), stop here and don't encourage atk 
-	
+
+	call AI_80_20
+	ret c
+	dec [hl]
+	dec [hl]
+	ret
+
+.asm_38b0c
+	inc [hl]
+	ret
 AI_Smart_SpAttackUp2:
 ; Discourage this move if enemy's HP is lower than 50%.
 	call AICheckEnemyHalfHP
-	jr nc, .asm_38b0c
+	jr nc, .asm_38b0e
 
 ; Discourage this move if enemy's sp.attack level is higher than +3.
 	ld a, [wEnemyAtkLevel]
 	cp $b
-	jr nc, .asm_38b0c
+	jr nc, .asm_38b0e
 
 ; 80% chance to greatly encourage this move if enemy's Sp.Attack level is lower than +2, and the enemy's Pokémon is Special-oriented
 	cp $9
@@ -1274,14 +1283,13 @@ AI_Smart_SpAttackUp2:
 	cp d
 	ret c ; check SP.ATK (d) against ATK (a). If SP.ATK is lower (meaning the player is a phys attacker), stop here and don't encourage sp.atk 
 
-.asm_38b0d
 	call AI_80_20
 	ret c
 	dec [hl]
 	dec [hl]
 	ret
 
-.asm_38b0c
+.asm_38b0e
 	inc [hl]
 	ret
 
