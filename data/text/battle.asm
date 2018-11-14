@@ -1062,6 +1062,18 @@ BrickBreakText2:
 	line "breaks down the"
 	cont "LIGHT SCREEN!"
 	prompt
+	
+FireFlickText1:
+	text "<USER>"
+	line "flicks the BRN"
+	cont "into a flame!"
+	prompt	
+	
+FireFlickText2:
+	text "<USER>"
+	line "flicks the FIRE"
+	cont "into a flame!"
+	prompt
 
 DownpourText:
 	text "A downpour"

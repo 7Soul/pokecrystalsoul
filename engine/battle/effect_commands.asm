@@ -3864,6 +3864,8 @@ BattleCommand_Venoshock:
 	ret z
 	jp DoubleDamage
 	
+INCLUDE "engine/battle/move_effects/fire_flick.asm"
+
 CheckIfTargetIsPoisonType:
 	ld de, wEnemyMonType1
 	ldh a, [hBattleTurn]
@@ -6129,17 +6131,6 @@ DoubleDamage:
 	ld [hli], a
 	ld [hl], a
 	ret
-	; ld hl, wCurDamage + 1
-	; sla [hl]
-	; dec hl
-	; rl [hl]
-	; jr nc, .quit
-
-	; ld a, $ff
-	; ld [hli], a
-	; ld [hl], a
-; .quit
-	; ret
 
 INCLUDE "engine/battle/move_effects/mimic.asm"
 

@@ -168,7 +168,7 @@ MoveNames::
 	db "Triple Kick@"
 	db "Bulk Up@"
 	db "Bug Buzz@"
-	db "Mind Reader@"
+	db "Fire Flick@"
 	db "Nightmare@"
 	db "Flame Wheel@"
 	db "Snore@"

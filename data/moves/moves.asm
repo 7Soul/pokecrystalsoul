@@ -181,7 +181,7 @@ Moves: ; 41afb
 	move TRIPLE_KICK,  EFFECT_TRIPLE_KICK,        10, FIGHTING, PHYSICAL,  90, 10,   0
 	move BULK_UP,      EFFECT_ATK_DEF_UP,          0, NORMAL,   STATUS,   100, 20,   0
 	move BUG_BUZZ,     EFFECT_SP_DEF_DOWN_HIT,    90, BUG,      SPECIAL,  100, 10,  10
-	move MIND_READER,  EFFECT_LOCK_ON,             0, NORMAL,   STATUS,   100,  5,   0
+	move FIRE_FLICK,   EFFECT_FIRE_FLICK,         50, FIRE,     SPECIAL,  100, 10,   0
 	move NIGHTMARE,    EFFECT_NIGHTMARE,           0, DARK,     STATUS,   100, 15,   0
 	move FLAME_WHEEL,  EFFECT_FLAME_WHEEL,        60, FIRE,     PHYSICAL, 100, 25,  10
 	move SNORE,        EFFECT_SNORE,              40, NORMAL,   SPECIAL,  100, 15,  30

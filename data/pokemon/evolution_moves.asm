@@ -1,4 +1,4 @@
-RandomMoves::
+EvolutionMoves::
 	db NO_MOVE ; Bulbasaur
 	db NO_MOVE ; Ivysaur
 	db NO_MOVE ; Venusaur

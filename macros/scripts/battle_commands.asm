@@ -185,6 +185,7 @@ ENDM
 	command venoshock
 	command brickbreak
 	command defspdefdown
+	command fireflick
 	
 
 	enum_start $fe

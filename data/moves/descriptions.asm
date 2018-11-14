@@ -169,7 +169,7 @@ MoveDescriptions::
 	dw TripleKickDescription
 	dw BulkUpDescription
 	dw BugBuzzDescription
-	dw MindReaderDescription
+	dw FireFlickDescription
 	dw NightmareDescription
 	dw FlameWheelDescription
 	dw SnoreDescription
@@ -937,9 +937,9 @@ BugBuzzDescription:
 	db   "Buzzing attack may"
 	next "lower SPCL.DEF.@"
 
-MindReaderDescription:
-	db   "Ensures the next"
-	next "attack will hit.@"
+FireFlickDescription:
+	db   "Combusts a BRN or"
+	next "a FIRE-TYPE foe.@"
 
 NightmareDescription:
 	db   "A sleeper loses"

@@ -498,6 +498,7 @@ ClefairyEvosAttacks:
 	db 19, MINIMIZE
 	db 26, DEFENSE_CURL
 	db 29, METRONOME
+	db 37, FIRE_FLICK
 	db 41, MOONLIGHT
 	db 53, LIGHT_SCREEN
 	db 0 ; no more level-up moves
@@ -508,6 +509,7 @@ ClefableEvosAttacks:
 	db 1, DOUBLESLAP
 	db 1, METRONOME
 	db 1, MOONLIGHT
+	db 42, FIRE_FLICK
 	db 49, MOONLIGHT
 	db 55, LIGHT_SCREEN
 	db 59, BODY_SLAM
@@ -554,6 +556,7 @@ JigglypuffEvosAttacks:
 	db 29, REST
 	db 34, BODY_SLAM
 	db 39, DOUBLE_EDGE
+	db 43, FIRE_FLICK
 	db 0 ; no more level-up moves
 
 WigglytuffEvosAttacks:
@@ -564,7 +567,8 @@ WigglytuffEvosAttacks:
 	db 1, DOUBLESLAP
 	db 37, BODY_SLAM
 	db 41, DOUBLE_EDGE
-	db 45, SKULL_BASH	
+	db 46, FIRE_FLICK
+	db 50, SKULL_BASH	
 	db 0 ; no more level-up moves
 
 ZubatEvosAttacks:
@@ -902,7 +906,7 @@ PoliwrathEvosAttacks:
 	db 39, BODY_SLAM
 	db 42, BULK_UP
 	db 47, BELLY_DRUM
-	db 51, MIND_READER
+	db 51, LOCK_ON
 	db 56, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -1587,7 +1591,7 @@ HitmonleeEvosAttacks:
 	db 17, BRICK_BREAK
 	db 21, FOCUS_ENERGY
 	db 24, BULK_UP
-	db 31, MIND_READER
+	db 31, LOCK_ON
 	db 36, FORESIGHT
 	db 41, ENDURE
 	db 46, MEGA_KICK
@@ -1639,6 +1643,7 @@ KoffingEvosAttacks:
 	db 35, ROLLOUT
 	db 41, EXPLOSION
 	db 45, SUNNY_DAY
+	db 49, FIRE_FLICK
 	db 0 ; no more level-up moves
 
 WeezingEvosAttacks:
@@ -1653,7 +1658,8 @@ WeezingEvosAttacks:
 	db 35, HAZE
 	db 37, ROLLOUT
 	db 43, EXPLOSION
-	db 48, SUNNY_DAY	
+	db 48, SUNNY_DAY
+	db 54, FIRE_FLICK
 	db 0 ; no more level-up moves
 
 RhyhornEvosAttacks:
@@ -1831,11 +1837,12 @@ MrMimeEvosAttacks:
 	db 11, SUBSTITUTE
 	db 15, DOUBLESLAP
 	db 19, MAGICAL_LEAF
-	db 23, PSYBEAM
-	db 26, LIGHT_SCREEN
-	db 26, REFLECT
-	db 31, ENCORE
-	db 36, PSYCHIC_M
+	db 22, LIGHT_SCREEN
+	db 22, REFLECT
+	db 25, PSYBEAM
+	db 29, FIRE_FLICK
+	db 33, ENCORE
+	db 39, PSYCHIC_M
 	db 46, BATON_PASS
 	db 50, SAFEGUARD
 	db 0 ; no more level-up moves
@@ -2155,7 +2162,7 @@ ArticunoEvosAttacks:
 	db 1, POWDER_SNOW
 	db 13, MIST
 	db 25, AGILITY
-	db 37, MIND_READER
+	db 37, LOCK_ON
 	db 49, ICE_BEAM
 	db 61, REFLECT
 	db 65, BLIZZARD
@@ -2349,7 +2356,6 @@ QuilavaEvosAttacks:
 	db 10, EMBER
 	db 13, QUICK_ATTACK
 	db 20, FLAME_WHEEL
-	db 21, FURY_ATTACK
 	db 24, DEFENSE_CURL
 	db 31, SWIFT
 	db 46, FLAMETHROWER

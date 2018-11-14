@@ -184,3 +184,4 @@ BattleCommandPointers:
 	dw BattleCommand_Venoshock
 	dw BattleCommand_BrickBreak
 	dw BattleCommand_DefSpDefDown
+	dw BattleCommand_FireFlick

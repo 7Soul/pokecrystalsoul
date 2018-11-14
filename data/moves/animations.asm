@@ -170,7 +170,7 @@ BattleAnimations::
 	dw BattleAnim_TripleKick
 	dw BattleAnim_BulkUp
 	dw BattleAnim_BugBuzz
-	dw BattleAnim_MindReader
+	dw BattleAnim_FireFlick
 	dw BattleAnim_Nightmare
 	dw BattleAnim_FlameWheel
 	dw BattleAnim_Snore
@@ -3194,17 +3194,32 @@ BattleAnim_BugBuzz:
 	anim_wait 32
 	anim_ret
 
-BattleAnim_MindReader:
-	anim_1gfx ANIM_GFX_MISC
-	anim_sound 0, 1, SFX_MIND_READER
+BattleAnim_FireFlick:
+	anim_2gfx ANIM_GFX_FIRE, ANIM_GFX_SPEED
 .loop
-	anim_obj ANIM_OBJ_MIND_READER, 132, 48, $3
-	anim_obj ANIM_OBJ_MIND_READER, 132, 48, $12
-	anim_obj ANIM_OBJ_MIND_READER, 132, 48, $20
-	anim_obj ANIM_OBJ_MIND_READER, 132, 48, $31
-	anim_wait 16
-	anim_loop 2, .loop
-	anim_wait 32
+	anim_sound 0, 1, SFX_EMBER
+	anim_obj ANIM_OBJ_EMBER, 134, 68, $30
+	anim_wait 4
+	anim_obj ANIM_OBJ_SHINY, 134, 68, $0
+	anim_wait 4
+	
+	anim_obj ANIM_OBJ_EMBER, 134, 52, $30
+	anim_wait 4
+	anim_obj ANIM_OBJ_SHINY, 102, 52, $0
+	anim_wait 4
+	
+	anim_obj ANIM_OBJ_EMBER, 134, 36, $30
+	anim_wait 4
+	anim_obj ANIM_OBJ_SHINY, 134, 36, $0
+	anim_wait 4
+	
+	anim_obj ANIM_OBJ_EMBER, 134, 20, $30
+	anim_wait 4
+	anim_obj ANIM_OBJ_SHINY, 102, 20, $0
+	anim_wait 8
+	anim_clearobjs
+	anim_loop 3, .loop
+	anim_wait 8
 	anim_ret
 
 BattleAnim_Nightmare:

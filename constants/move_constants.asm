@@ -175,7 +175,7 @@
 	const TRIPLE_KICK  ; a7
 	const BULK_UP      ; a8
 	const BUG_BUZZ     ; a9
-	const MIND_READER  ; aa
+	const FIRE_FLICK   ; aa
 	const NIGHTMARE    ; ab
 	const FLAME_WHEEL  ; ac
 	const SNORE        ; ad

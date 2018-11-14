@@ -166,4 +166,5 @@ MoveEffectsPointers:
 	dw Venoshock
 	dw BrickBreak
 	dw SelfDefSpDefDownHit
+	dw FireFlick
 	

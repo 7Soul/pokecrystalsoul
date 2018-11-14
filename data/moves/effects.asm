@@ -2250,3 +2250,23 @@ SelfDefSpDefDownHit:
 	checkfaint
 	buildopponentrage	
 	endmove
+
+FireFlick:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	fireflick
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	endmove
