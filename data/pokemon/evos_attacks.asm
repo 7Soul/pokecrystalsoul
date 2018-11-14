@@ -62,6 +62,7 @@ VenusaurEvosAttacks:
 	db 15, POISONPOWDER
 	db 15, SLEEP_POWDER
 	db 22, RAZOR_LEAF
+	db 31, PETAL_DANCE
 	db 41, GROWTH
 	db 53, SYNTHESIS
 	db 65, SOLARBEAM
@@ -174,7 +175,7 @@ MetapodEvosAttacks:
 	db EVOLVE_LEVEL, 10, BUTTERFREE
 	db 0 ; no more evolutions
 	db 1, HARDEN
-	db 7, HARDEN	
+	db 6, HARDEN	
 	db 14, LEECH_LIFE
 	db 0 ; no more level-up moves
 
@@ -206,14 +207,14 @@ KakunaEvosAttacks:
 	db EVOLVE_LEVEL, 10, BEEDRILL
 	db 0 ; no more evolutions
 	db 1, HARDEN
-	db 7, HARDEN	
+	db 6, HARDEN	
 	db 14, LEECH_LIFE
 	db 0 ; no more level-up moves
 
 BeedrillEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, FURY_ATTACK
-	db 10, TWINEEDLE
+	db 9, TWINEEDLE
 	db 11, FURY_ATTACK
 	db 15, FOCUS_ENERGY
 	db 19, RAGE
@@ -275,10 +276,14 @@ RattataEvosAttacks:
 	db 1, TACKLE
 	db 1, TAIL_WHIP
 	db 7, QUICK_ATTACK
-	db 13, HYPER_FANG
-	db 20, FOCUS_ENERGY
-	db 27, PURSUIT
-	db 34, SUPER_FANG
+	db 10, BITE
+	db 13, PURSUIT
+	db 16, HYPER_FANG
+	db 22, CRUNCH
+	db 25, FOCUS_ENERGY
+	db 31, SUPER_FANG
+	db 34, DOUBLE_EDGE
+	db 40, REVERSAL
 	db 0 ; no more level-up moves
 
 RaticateEvosAttacks:
@@ -286,11 +291,15 @@ RaticateEvosAttacks:
 	db 1, TACKLE
 	db 1, TAIL_WHIP
 	db 1, QUICK_ATTACK
-	db 7, QUICK_ATTACK
-	db 13, HYPER_FANG
-	db 20, SCARY_FACE
-	db 30, PURSUIT
-	db 40, SUPER_FANG
+	db 1, BITE
+	db 13, PURSUIT
+	db 16, HYPER_FANG
+	db 19, SCARY_FACE
+	db 24, CRUNCH
+	db 28, FOCUS_ENERGY
+	db 33, SUPER_FANG
+	db 38, DOUBLE_EDGE
+	db 45, REVERSAL
 	db 0 ; no more level-up moves
 
 SpearowEvosAttacks:
@@ -346,7 +355,7 @@ ArbokEvosAttacks:
 	db 12, GLARE	
 	db 17, SCREECH
 	db 20, ACID
-	db 22, CRUNCH
+	db 21, CRUNCH
 	db 31, VENOSHOCK
 	db 39, MUD_BOMB	
 	db 43, HAZE

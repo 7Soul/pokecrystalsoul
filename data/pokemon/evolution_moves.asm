@@ -1,28 +1,28 @@
 EvolutionMoves::
 	db NO_MOVE ; Bulbasaur
 	db NO_MOVE ; Ivysaur
-	db NO_MOVE ; Venusaur
+	db PETAL_DANCE ; Venusaur
 	db NO_MOVE ; Charmander
 	db NO_MOVE ; Charmeleon
-	db NO_MOVE ; Charizard
+	db WING_ATTACK ; Charizard
 	db NO_MOVE ; Squirtle
 	db NO_MOVE ; Wartortle
 	db NO_MOVE ; Blastoise
 	db NO_MOVE ; Caterpie
-	db NO_MOVE ; Metapod
+	db HARDEN ; Metapod
 	db GUST ; Butterfree
 	db NO_MOVE ; Weedle
-	db NO_MOVE ; Kakuna
-	db NO_MOVE ; Beedrill
+	db HARDEN ; Kakuna
+	db TWINEEDLE ; Beedrill
 	db NO_MOVE ; Pidgey
 	db NO_MOVE ; Pidgeotto
 	db NO_MOVE ; Pidgeot
 	db NO_MOVE ; Rattata
-	db NO_MOVE ; Raticate
+	db SCARY_FACE ; Raticate
 	db NO_MOVE ; Spearow
 	db NO_MOVE ; Fearow
 	db NO_MOVE ; Ekans
-	db NO_MOVE ; Arbok
+	db CRUNCH ; Arbok
 	db NO_MOVE ; Pikachu
 	db NO_MOVE ; Raichu
 	db NO_MOVE ; Sandshrew
