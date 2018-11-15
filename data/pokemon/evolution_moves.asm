@@ -49,7 +49,7 @@ EvolutionMoves::
 	db NO_MOVE ; Venonat
 	db NO_MOVE ; Venomoth
 	db NO_MOVE ; Diglett
-	db NO_MOVE ; Dugtrio
+	db TRI_ATTACK ; Dugtrio
 	db NO_MOVE ; Meowth
 	db NO_MOVE ; Persian
 	db NO_MOVE ; Psyduck
@@ -76,7 +76,7 @@ EvolutionMoves::
 	db NO_MOVE ; Graveler
 	db NO_MOVE ; Golem
 	db NO_MOVE ; Ponyta
-	db NO_MOVE ; Rapidash
+	db STAMPEDE ; Rapidash
 	db NO_MOVE ; Slowpoke
 	db NO_MOVE ; Slowbro
 	db NO_MOVE ; Magnemite
@@ -101,7 +101,7 @@ EvolutionMoves::
 	db NO_MOVE ; Voltorb
 	db NO_MOVE ; Electrode
 	db NO_MOVE ; Exeggcute
-	db NO_MOVE ; Exeggutor
+	db STOMP ; Exeggutor
 	db NO_MOVE ; Cubone
 	db NO_MOVE ; Marowak
 	db NO_MOVE ; Hitmonlee
@@ -230,7 +230,7 @@ EvolutionMoves::
 	db NO_MOVE ; Houndoom
 	db NO_MOVE ; Kingdra
 	db NO_MOVE ; Phanpy
-	db NO_MOVE ; Donphan
+	db STAMPEDE ; Donphan
 	db NO_MOVE ; Porygon2
 	db NO_MOVE ; Stantler
 	db NO_MOVE ; Smeargle

@@ -2270,3 +2270,23 @@ FireFlick:
 	checkfaint
 	buildopponentrage
 	endmove
+
+Stampede:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	stampede
+	endmove

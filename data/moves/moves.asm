@@ -153,7 +153,7 @@ Moves: ; 41afb
 	move POISON_GAS,   EFFECT_POISON,              0, DARK,     STATUS,    55, 40,   0
 	move ROCK_BLAST,   EFFECT_MULTI_HIT,          25, ROCK,     PHYSICAL,  85, 10,   0
 	move LEECH_LIFE,   EFFECT_LEECH_HIT,          40, BUG,      PHYSICAL, 100, 15,   0
-	move LOVELY_KISS,  EFFECT_SLEEP,               0, NORMAL,   STATUS,    75, 10,   0
+	move STAMPEDE,     EFFECT_STAMPEDE,			  80, NORMAL,   PHYSICAL,  75,  5, 100
 	move SKY_ATTACK,   EFFECT_SKY_ATTACK,        140, FLYING,   PHYSICAL,  90,  5,   0
 	move TRANSFORM,    EFFECT_TRANSFORM,           0, NORMAL,   STATUS,   100, 10,   0
 	move BUBBLE,       EFFECT_SPEED_DOWN_HIT,     20, WATER,    SPECIAL,  100, 30,  10

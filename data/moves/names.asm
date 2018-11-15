@@ -140,7 +140,7 @@ MoveNames::
 	db "Poison Gas@"
 	db "Rock Blast@"
 	db "Leech Life@"
-	db "Lovely Kiss@"
+	db "Stampede@"
 	db "Sky Attack@"
 	db "Transform@"
 	db "Bubble@"

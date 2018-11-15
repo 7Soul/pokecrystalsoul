@@ -5004,6 +5004,8 @@ CalcStats:
 
 INCLUDE "engine/battle/move_effects/bide.asm"
 
+INCLUDE "engine/battle/move_effects/stampede.asm"
+
 BattleCommand_CheckRampage:
 ; checkrampage
 

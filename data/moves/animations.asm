@@ -142,7 +142,7 @@ BattleAnimations::
 	dw BattleAnim_PoisonGas
 	dw BattleAnim_RockBlast
 	dw BattleAnim_LeechLife
-	dw BattleAnim_LovelyKiss
+	dw BattleAnim_Stampede
 	dw BattleAnim_SkyAttack
 	dw BattleAnim_Transform
 	dw BattleAnim_Bubble
@@ -2404,14 +2404,39 @@ BattleAnim_Mimic:
 	anim_wait 48
 	anim_ret
 
-BattleAnim_LovelyKiss:
-	anim_2gfx ANIM_GFX_OBJECTS, ANIM_GFX_ANGELS
-	anim_bgeffect ANIM_BG_07, $0, $2, $0
-	anim_obj ANIM_OBJ_LOVELY_KISS, 152, 40, $0
-	anim_wait 32
-	anim_sound 0, 1, SFX_LICK
-	anim_obj ANIM_OBJ_HEART, 128, 40, $0
-	anim_wait 40
+BattleAnim_Stampede:
+	anim_1gfx ANIM_GFX_HIT
+	anim_bgeffect ANIM_BG_1F, $60, $4, $10
+	anim_sound 0, 1, SFX_STOMP
+	anim_obj ANIM_OBJ_07, 116, 64, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_01, 116, 64, $0
+	anim_wait 6
+	anim_sound 0, 1, SFX_STOMP
+	anim_obj ANIM_OBJ_07, 128, 58, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_01, 128, 58, $0
+	anim_wait 6
+	anim_sound 0, 1, SFX_STOMP
+	anim_obj ANIM_OBJ_07, 124, 52, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_01, 124, 52, $0
+	anim_wait 6
+	anim_sound 0, 1, SFX_STOMP
+	anim_obj ANIM_OBJ_07, 136, 46, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_01, 136, 46, $0
+	anim_wait 6
+	anim_sound 0, 1, SFX_STOMP
+	anim_obj ANIM_OBJ_07, 132, 40, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_01, 132, 40, $0
+	anim_wait 6
+	anim_sound 0, 1, SFX_STOMP
+	anim_obj ANIM_OBJ_07, 144, 32, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_01, 144, 32, $0
+	anim_wait 6
 	anim_ret
 
 BattleAnim_Bonemerang:

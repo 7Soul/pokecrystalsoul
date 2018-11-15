@@ -186,6 +186,7 @@ ENDM
 	command brickbreak
 	command defspdefdown
 	command fireflick
+	command stampede
 	
 
 	enum_start $fe

@@ -141,7 +141,7 @@ MoveDescriptions::
 	dw PoisonGasDescription
 	dw RockBlastDescription
 	dw LeechLifeDescription
-	dw LovelyKissDescription
+	dw StampedeDescription
 	dw SkyAttackDescription
 	dw TransformDescription
 	dw BubbleDescription
@@ -825,9 +825,9 @@ LeechLifeDescription:
 	db   "Steals 1/2 of the"
 	next "damage inflicted.@"
 
-LovelyKissDescription:
-	db   "May cause the foe"
-	next "to fall asleep.@"
+StampedeDescription:
+	db   "Non-defensive foes"
+	next "become PARALYZED.@"
 
 SkyAttackDescription:
 	db   "1st turn: Prepare"

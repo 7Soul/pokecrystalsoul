@@ -17,7 +17,6 @@ BattleCommand_FireFlick:
 	jp DoubleDamage
 	ret
 	
-	
 CheckIfTargetIsFireType:
 	ld de, wEnemyMonType1
 	ldh a, [hBattleTurn]

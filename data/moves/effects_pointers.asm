@@ -167,4 +167,5 @@ MoveEffectsPointers:
 	dw BrickBreak
 	dw SelfDefSpDefDownHit
 	dw FireFlick
+	dw Stampede
 	
