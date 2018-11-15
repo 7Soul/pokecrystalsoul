@@ -218,7 +218,7 @@ BattleAnimations::
 	dw BattleAnim_HealBell
 	dw BattleAnim_Return
 	dw BattleAnim_HammerArm
-	dw BattleAnim_Frustration
+	dw BattleAnim_LeafShield
 	dw BattleAnim_Safeguard
 	dw BattleAnim_PainSplit
 	dw BattleAnim_SacredFire
@@ -4100,27 +4100,24 @@ BattleAnim_HammerArm:
 	anim_call BattleAnim_ShowMon_0
 	anim_ret
 
-BattleAnim_Frustration:
-	anim_1gfx ANIM_GFX_MISC
-	anim_sound 0, 0, SFX_KINESIS_2
-	anim_obj ANIM_OBJ_ANGER, 72, 80, $0
-	anim_wait 40
-	anim_1gfx ANIM_GFX_HIT
+BattleAnim_LeafShield:
+	anim_1gfx ANIM_GFX_PLANT
+	anim_sound 0, 0, SFX_VINE_WHIP
+	anim_obj ANIM_OBJ_LEAF_SHIELD, 48, 84, $0
+	anim_obj ANIM_OBJ_LEAF_SHIELD, 48, 84, $8
+	anim_obj ANIM_OBJ_LEAF_SHIELD, 48, 84, $10
+	anim_obj ANIM_OBJ_LEAF_SHIELD, 48, 84, $18
+	anim_obj ANIM_OBJ_LEAF_SHIELD, 48, 84, $20
+	anim_obj ANIM_OBJ_LEAF_SHIELD, 48, 84, $28
+	anim_obj ANIM_OBJ_LEAF_SHIELD, 48, 84, $30
+	anim_obj ANIM_OBJ_LEAF_SHIELD, 48, 84, $38
+	anim_wait 58
 	anim_call BattleAnim_FollowEnemyFeet_0
-	anim_bgeffect ANIM_BG_26, $0, $1, $0
+	anim_bgeffect ANIM_BG_1A, $0, $1, $20
+	anim_wait 16
+	anim_incbgeffect ANIM_BG_1A
+	anim_call BattleAnim_ShowMon_0	
 	anim_wait 8
-	anim_sound 0, 1, SFX_COMET_PUNCH
-	anim_obj ANIM_OBJ_01, 120, 48, $0
-	anim_wait 8
-	anim_sound 0, 1, SFX_COMET_PUNCH
-	anim_obj ANIM_OBJ_01, 152, 48, $0
-	anim_wait 8
-	anim_sound 0, 1, SFX_COMET_PUNCH
-	anim_obj ANIM_OBJ_01, 136, 48, $0
-	anim_wait 8
-	anim_incbgeffect ANIM_BG_26
-	anim_wait 1
-	anim_call BattleAnim_ShowMon_0
 	anim_ret
 
 BattleAnim_Safeguard:

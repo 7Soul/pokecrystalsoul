@@ -1,6 +1,4 @@
 INCLUDE "constants.asm"
-
-
 SECTION "Evolutions and Attacks", ROMX
 
 ; Evos+attacks data structure:
@@ -278,12 +276,14 @@ RattataEvosAttacks:
 	db 7, QUICK_ATTACK
 	db 10, BITE
 	db 13, PURSUIT
-	db 16, HYPER_FANG
-	db 22, CRUNCH
-	db 25, FOCUS_ENERGY
-	db 31, SUPER_FANG
-	db 34, DOUBLE_EDGE
-	db 40, REVERSAL
+	db 16, HYPER_FANG	
+	db 21, LEAF_SHIELD	
+	db 23, DIG
+	db 27, CRUNCH
+	db 30, FOCUS_ENERGY
+	db 36, SUPER_FANG
+	db 42, DOUBLE_EDGE
+	db 46, REVERSAL
 	db 0 ; no more level-up moves
 
 RaticateEvosAttacks:
@@ -295,11 +295,13 @@ RaticateEvosAttacks:
 	db 13, PURSUIT
 	db 16, HYPER_FANG
 	db 19, SCARY_FACE
-	db 24, CRUNCH
-	db 28, FOCUS_ENERGY
-	db 33, SUPER_FANG
-	db 38, DOUBLE_EDGE
-	db 45, REVERSAL
+	db 23, LEAF_SHIELD	
+	db 26, DIG
+	db 30, CRUNCH
+	db 34, FOCUS_ENERGY
+	db 40, SUPER_FANG
+	db 47, DOUBLE_EDGE
+	db 51, REVERSAL
 	db 0 ; no more level-up moves
 
 SpearowEvosAttacks:
@@ -618,12 +620,19 @@ OddishEvosAttacks:
 	db EVOLVE_LEVEL, 21, GLOOM
 	db 0 ; no more evolutions
 	db 1, ABSORB
-	db 14, POISONPOWDER
-	db 16, STUN_SPORE
-	db 18, SLEEP_POWDER
+	db 1, GROWTH
+	db 1, LEAF_SHIELD
+	db 9, ACID
+	db 13, POISONPOWDER
+	db 14, STUN_SPORE
+	db 15, SLEEP_POWDER
+	db 19, MEGA_DRAIN
 	db 23, ACID
-	db 32, MOONLIGHT
+	db 28, MOONLIGHT
+	db 31, HEADBUTT
+	db 35, TOXIC
 	db 39, PETAL_DANCE
+	db 43, LEAF_STORM
 	db 0 ; no more level-up moves
 
 GloomEvosAttacks:
@@ -632,13 +641,17 @@ GloomEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, ABSORB
 	db 1, POISONPOWDER
+	db 1, LEAF_SHIELD
 	db 14, POISONPOWDER
 	db 16, STUN_SPORE
 	db 18, SLEEP_POWDER
 	db 20, MEGA_DRAIN
 	db 24, ACID
-	db 35, MOONLIGHT
-	db 44, PETAL_DANCE
+	db 29, MOONLIGHT
+	db 32, HEADBUTT
+	db 36, TOXIC
+	db 41, PETAL_DANCE
+	db 46, LEAF_STORM
 	db 0 ; no more level-up moves
 
 VileplumeEvosAttacks:
@@ -646,9 +659,13 @@ VileplumeEvosAttacks:
 	db 1, ABSORB
 	db 1, STUN_SPORE
 	db 1, PETAL_DANCE
+	db 1, LEAF_SHIELD
 	db 28, ACID
-	db 39, MOONLIGHT
-	db 51, PETAL_DANCE
+	db 32, MOONLIGHT
+	db 35, HEADBUTT
+	db 40, TOXIC
+	db 45, PETAL_DANCE
+	db 51, LEAF_STORM
 	db 0 ; no more level-up moves
 
 ParasEvosAttacks:
@@ -1571,34 +1588,33 @@ CuboneEvosAttacks:
 	db EVOLVE_LEVEL, 28, MAROWAK
 	db 0 ; no more evolutions
 	db 1, GROWL
-	db 5, TAIL_WHIP
-	db 9, BONE_CLUB
-	db 13, HEADBUTT
-	db 17, LEER
-	db 21, FOCUS_ENERGY
+	db 1, LEER
+	db 1, BONE_CLUB
+	db 11, HEADBUTT
+	db 17, FOCUS_ENERGY
+	db 22, LEAF_SHIELD
 	db 25, BONEMERANG
 	db 29, RAGE
 	db 33, FALSE_SWIPE
 	db 37, THRASH
 	db 43, DOUBLE_EDGE
+	db 48, EARTHQUAKE
 	db 0 ; no more level-up moves
 
 MarowakEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, GROWL
-	db 1, TAIL_WHIP
+	db 1, LEER
 	db 1, BONE_CLUB
-	db 1, HEADBUTT
-	db 5, TAIL_WHIP
-	db 9, BONE_CLUB
-	db 13, HEADBUTT
-	db 17, LEER
-	db 21, FOCUS_ENERGY
+	db 11, HEADBUTT
+	db 17, FOCUS_ENERGY
+	db 22, LEAF_SHIELD
 	db 25, BONEMERANG
 	db 32, RAGE
-	db 39, FALSE_SWIPE
-	db 46, THRASH
-	db 51, DOUBLE_EDGE
+	db 36, FALSE_SWIPE
+	db 42, THRASH
+	db 49, DOUBLE_EDGE
+	db 55, EARTHQUAKE
 	db 0 ; no more level-up moves
 
 HitmonleeEvosAttacks:
@@ -2378,7 +2394,7 @@ QuilavaEvosAttacks:
 	db 10, EMBER
 	db 13, QUICK_ATTACK
 	db 20, FLAME_WHEEL
-	db 21, STAMPEDE
+	db 21, LEAF_SHIELD
 	db 24, DEFENSE_CURL
 	db 31, SWIFT
 	db 46, FLAMETHROWER
@@ -2471,6 +2487,7 @@ SentretEvosAttacks:
 	db 1, FORESIGHT
 	db 4, DEFENSE_CURL
 	db 7, QUICK_ATTACK
+	db 12, LEAF_SHIELD
 	db 17, FURY_SWIPES
 	db 19, CHARM
 	db 25, SLAM
@@ -2485,7 +2502,8 @@ FurretEvosAttacks:
 	db 1, FORESIGHT
 	db 4, DEFENSE_CURL
 	db 7, QUICK_ATTACK
-	db 16, AGILITY
+	db 12, LEAF_SHIELD
+	db 14, AGILITY
 	db 19, FURY_SWIPES
 	db 21, CHARM
 	db 27, SLAM
@@ -2898,6 +2916,7 @@ AipomEvosAttacks:
 	db 1, SCRATCH
 	db 1, TAIL_WHIP
 	db 6, SAND_ATTACK
+	db 8, LEAF_SHIELD
 	db 12, BATON_PASS
 	db 19, FURY_SWIPES
 	db 27, SWIFT
@@ -3236,7 +3255,7 @@ ShuckleEvosAttacks: ; done
 	db 12, ENCORE
 	db 16, SAFEGUARD
 	db 23, ROCK_THROW
-	db 27, BIDE
+	db 27, LEAF_SHIELD
 	db 30, ROCK_BLAST
 	db 37, REST
 	db 42, BUG_BUZZ
@@ -3286,6 +3305,7 @@ TeddiursaEvosAttacks:
 	db 1, LICK
 	db 8, FURY_SWIPES
 	db 15, FAINT_ATTACK
+	db 22, LEAF_SHIELD
 	db 29, SLASH
 	db 36, CHARM
 	db 41, REST
@@ -3300,6 +3320,7 @@ UrsaringEvosAttacks:
 	db 1, LICK
 	db 1, FURY_SWIPES
 	db 15, FAINT_ATTACK
+	db 22, LEAF_SHIELD
 	db 29, SLASH
 	db 38, SCARY_FACE
 	db 46, REST

@@ -130,6 +130,12 @@ BattleText_MonsReflectFaded:
 	line "REFLECT faded!"
 	prompt
 
+BattleText_MonsLeafShieldBroke:
+	text_from_ram wStringBuffer1
+	text " #MON's"
+	line "LEAF SHIELD rotted!"
+	prompt
+
 BattleText_RainContinuesToFall:
 	text "Rain continues to"
 	line "fall."
@@ -812,6 +818,11 @@ SubTookDamageText:
 	line "took damage for"
 	cont "<TARGET>!"
 	prompt
+	
+WaterResistantText:
+	text "<TARGET>'s"
+	line "WATER resistant!"
+	prompt
 
 SubFadedText:
 	text "<TARGET>'s"
@@ -880,6 +891,12 @@ ReflectEffectText:
 	text "<USER>'s"
 	line "DEFENSE rises if"
 	cont "hit by PHYSICAL!"
+	prompt
+
+LeafShieldEffectText:
+	text "<USER>'s"
+	line "protected from"
+	cont "WATER!"
 	prompt
 
 NothingHappenedText:

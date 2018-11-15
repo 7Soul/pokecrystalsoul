@@ -2598,7 +2598,22 @@ PlayerAttackDamage:
 	and a
 	ld d, a
 	ret z
-
+	
+	ld a, [wEnemyScreens]
+	bit SCREENS_LEAF_SHIELD, a
+	jr z, .no_leaf_shield
+	
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK
+	cp WATER
+	jr nz, .no_leaf_shield
+	
+	ld hl, WaterResistantText
+	call StdBattleTextBox
+	rl d
+	
+.no_leaf_shield
 	ld a, [hl]
 	cp SPECIAL
 	jr nc, .special
@@ -2658,7 +2673,7 @@ PlayerAttackDamage:
 .thickclub
 ; Note: Returns player attack at hl in hl.
 	call ThickClubBoost
-
+	
 .done
 	call TruncateHL_BC
 
@@ -2844,7 +2859,22 @@ EnemyAttackDamage:
 	ld d, a
 	and a
 	ret z
-
+	
+	ld a, [wPlayerScreens]
+	bit SCREENS_LEAF_SHIELD, a
+	jr z, .no_leaf_shield
+	
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK
+	cp WATER
+	jr nz, .no_leaf_shield
+	
+	ld hl, WaterResistantText
+	call StdBattleTextBox
+	rl d
+	
+.no_leaf_shield
 	ld a, [hl]
 	cp SPECIAL
 	jr nc, .Special
@@ -6325,7 +6355,7 @@ BattleCommand_Screen:
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
 	cp EFFECT_LIGHT_SCREEN
-	jr nz, .Reflect
+	jr nz, .reflect
 
 	bit SCREENS_LIGHT_SCREEN, [hl]
 	jr nz, .failed
@@ -6335,17 +6365,30 @@ BattleCommand_Screen:
 	ld hl, LightScreenEffectText
 	jr .good
 
-.Reflect:
+.reflect
+	ld a, BATTLE_VARS_MOVE_EFFECT
+	call GetBattleVar
+	cp EFFECT_REFLECT
+	jr nz, .leaf_shield
+
 	bit SCREENS_REFLECT, [hl]
 	jr nz, .failed
-	set SCREENS_REFLECT, [hl]
-
-	; LightScreenCount -> ReflectCount
-	inc bc
-
+	set SCREENS_REFLECT, [hl]	
+	inc bc ; LightScreenCount -> ReflectCount
 	ld a, 5
 	ld [bc], a
 	ld hl, ReflectEffectText
+	jp .good
+	
+.leaf_shield
+	bit SCREENS_LEAF_SHIELD, [hl]
+	jr nz, .failed
+	set SCREENS_LEAF_SHIELD, [hl]
+	inc bc
+	inc bc ; LightScreenCount -> ReflectCount
+	ld a, 5
+	ld [bc], a
+	ld hl, LeafShieldEffectText
 
 .good
 	call AnimateCurrentMove

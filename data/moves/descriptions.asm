@@ -141,7 +141,7 @@ MoveDescriptions::
 	dw PoisonGasDescription
 	dw RockBlastDescription
 	dw LeechLifeDescription
-	dw StampedeDescription
+	dw LeafShieldDescription
 	dw SkyAttackDescription
 	dw TransformDescription
 	dw BubbleDescription
@@ -825,9 +825,9 @@ LeechLifeDescription:
 	db   "Steals 1/2 of the"
 	next "damage inflicted.@"
 
-StampedeDescription:
-	db   "Non-defensive foes"
-	next "become PARALYZED.@"
+LeafShieldDescription:
+	db   "Weakens WATER-type"
+	next "hits for 5 turns.@"
 
 SkyAttackDescription:
 	db   "1st turn: Prepare"

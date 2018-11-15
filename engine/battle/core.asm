@@ -1642,6 +1642,8 @@ HandleScreens:
 	call nz, .LightScreenTick
 	bit SCREENS_REFLECT, [hl]
 	call nz, .ReflectTick
+	bit SCREENS_LEAF_SHIELD, [hl]
+	call nz, .LeafShieldTick
 	ret
 
 .Copy:
@@ -1674,7 +1676,23 @@ HandleScreens:
 	ld [de], a
 	ret nz
 	res SCREENS_REFLECT, [hl]
+	push hl
+	push de
 	ld hl, BattleText_MonsReflectFaded
+	jp StdBattleTextBox
+	pop de
+	pop hl
+	ret
+	
+.LeafShieldTick:
+	inc de
+	inc de
+	ld a, [de]
+	dec a
+	ld [de], a
+	ret nz
+	res SCREENS_LEAF_SHIELD, [hl]
+	ld hl, BattleText_MonsLeafShieldBroke
 	jp StdBattleTextBox
 
 HandleWeather:

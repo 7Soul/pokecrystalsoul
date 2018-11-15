@@ -159,7 +159,7 @@ EvolutionMoves::
 	db NO_MOVE ; Totodile
 	db NO_MOVE ; Croconaw
 	db NO_MOVE ; Feraligatr
-	db NO_MOVE ; Sentret
+	db AGILITY ; Sentret
 	db NO_MOVE ; Furret
 	db NO_MOVE ; Hoothoot
 	db NO_MOVE ; Noctowl

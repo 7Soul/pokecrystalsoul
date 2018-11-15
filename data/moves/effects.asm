@@ -1007,6 +1007,7 @@ Transform:
 
 LightScreen:
 Reflect:
+LeafShield:
 	checkobedience
 	usedmovetext
 	doturn

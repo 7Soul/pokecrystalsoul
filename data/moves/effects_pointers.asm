@@ -168,4 +168,5 @@ MoveEffectsPointers:
 	dw SelfDefSpDefDownHit
 	dw FireFlick
 	dw Stampede
+	dw LeafShield
 	

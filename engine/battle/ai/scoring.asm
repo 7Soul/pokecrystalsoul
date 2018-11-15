@@ -395,6 +395,7 @@ AI_Smart:
 	dbw EFFECT_FLY,              AI_Smart_Fly
 	dbw EFFECT_BRICK_BREAK,      AI_Smart_BrickBreak
 	dbw EFFECT_VENOSHOCK,        AI_Smart_Venoshock
+	dbw EFFECT_LEAF_SHIELD,      AI_Smart_LeafShield
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -2133,6 +2134,39 @@ AI_Smart_Foresight:
 	ret c
 	dec [hl]
 	dec [hl]
+	ret
+	
+AI_Smart_LeafShield:
+	ld a, [wEnemyScreens]
+	bit SCREENS_LEAF_SHIELD, a
+	jr nz, .has_leaf_shield
+	
+	ld a, [wBattleMonType1]
+	cp WATER
+	jr z, .iswater
+	ld a, [wBattleMonType2]
+	cp WATER
+	jr z, .iswater
+	jr .random_shield
+
+.iswater
+	call Random
+	cp 39 percent + 1 ; 60% chance to encourage move
+	ret c
+	dec [hl]
+	dec [hl]
+	ret
+	
+.random_shield
+	call Random
+	cp 8 percent ; 92% chance to discourage
+	ret c
+	inc [hl]
+	ret
+	
+.has_leaf_shield ; strongly discourage otherwise
+	inc [hl]
+	inc [hl]
 	ret
 
 AI_Smart_PerishSong:

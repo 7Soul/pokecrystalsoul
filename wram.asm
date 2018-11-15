@@ -647,7 +647,7 @@ wPlayerScreens:: ; c6ff
 ; bit
 ; 7
 ; 6
-; 5
+; 5 leaf shield
 ; 4 reflect
 ; 3 light screen
 ; 2 safeguard
@@ -662,12 +662,13 @@ wEnemyScreens:: ; c700
 wPlayerSafeguardCount:: db ; c701
 wPlayerLightScreenCount:: db ; c702
 wPlayerReflectCount:: db ; c703
-	ds 1
+wPlayerLeafShieldCount:: db ; c704
 
 wEnemySafeguardCount:: db ; c705
 wEnemyLightScreenCount:: db ; c706
 wEnemyReflectCount:: db ; c707
-	ds 2
+wEnemyLeafShieldCount:: db ; c708
+	ds 1
 
 wBattleWeather:: ; c70a
 ; 00 normal

@@ -223,7 +223,7 @@
 	const HEAL_BELL    ; d7
 	const RETURN       ; d8
 	const HAMMER_ARM   ; d9
-	const FRUSTRATION  ; da
+	const LEAF_SHIELD  ; da
 	const SAFEGUARD    ; db
 	const PAIN_SPLIT   ; dc
 	const SACRED_FIRE  ; dd

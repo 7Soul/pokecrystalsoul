@@ -229,7 +229,7 @@ ENDM
 	add_tm RAIN_DANCE   ; d1
 	add_tm GIGA_DRAIN   ; d2
 	add_tm ENDURE       ; d3
-	add_tm FRUSTRATION  ; d4
+	add_tm LEAF_SHIELD  ; d4
 	add_tm SOLARBEAM    ; d5
 	add_tm FROZEN_TAIL  ; d6
 	add_tm HYDRO_PUMP   ; d7

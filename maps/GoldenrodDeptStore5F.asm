@@ -88,7 +88,7 @@ GoldenrodDeptStore5FReceptionistScript:
 .NotVeryHappy:
 	writetext UnknownText_0x561d8
 	buttonsound
-	verbosegiveitem TM_FRUSTRATION
+	verbosegiveitem TM_LEAF_SHIELD
 	iffalse .Done
 	setflag ENGINE_GOLDENROD_DEPT_STORE_TM27_RETURN
 	closetext

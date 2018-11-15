@@ -216,7 +216,7 @@ MoveNames::
 	db "Heal Bell@"
 	db "Return@"
 	db "Hammer Arm@"
-	db "Frustration@"
+	db "Leaf Shield@"
 	db "Safeguard@"
 	db "Pain Split@"
 	db "Sacred Fire@"
