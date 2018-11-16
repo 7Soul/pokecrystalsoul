@@ -184,8 +184,9 @@ AI_Types:
 
 ; effective
 	ld a, [wEnemyMoveStruct + MOVE_POWER]
-	and a
-	jr z, .checkmove
+	ld b, 1
+	cp b
+	jr c, .checkmove
 	dec [hl]
 	jr .checkmove
 
@@ -1238,7 +1239,7 @@ AI_Smart_AttackUp2:
 	pop hl
 	
 	cp d
-	ret nc ; check SP.ATK (d) against ATK (a). If SP.ATK is not lower (meaning the player is a phys attacker), stop here and don't encourage atk 
+	ret nc ; check SP.ATK (d) against ATK (a). If SP.ATK is not lower (meaning the enemy is a phys attacker), stop here and don't encourage atk 
 
 	call AI_80_20
 	ret c
@@ -1282,7 +1283,7 @@ AI_Smart_SpAttackUp2:
 	pop hl
 
 	cp d
-	ret c ; check SP.ATK (d) against ATK (a). If SP.ATK is lower (meaning the player is a phys attacker), stop here and don't encourage sp.atk 
+	ret c ; check SP.ATK (d) against ATK (a). If SP.ATK is lower (meaning the enemy is a phys attacker), stop here and don't encourage sp.atk 
 
 	call AI_80_20
 	ret c
@@ -1859,30 +1860,34 @@ AI_Smart_Conversion2:
 	ret
 
 AI_Smart_Disable:
+; Compare if the enemy is faster than the player
 	call AICompareSpeed
-	jr nc, .asm_38df3
-
+	jr nc, .enemy_slower 
+	
+; Check if the player's last used move is a useful move
 	push hl
 	ld a, [wLastPlayerCounterMove]
 	ld hl, UsefulMoves
 	ld de, 1
 	call IsInArray
-
 	pop hl
-	jr nc, .asm_38dee
-
+	jr nc, .not_useful_move
+	
+; 60% chance to encourage Disable if the player used a useful move last turn
 	call Random
 	cp 39 percent + 1
 	ret c
 	dec [hl]
 	ret
-
-.asm_38dee
+	
+; Do nothing if the move has 0 power
+.not_useful_move
 	ld a, [wEnemyMoveStruct + MOVE_POWER]
 	and a
 	ret nz
-
-.asm_38df3
+	
+; 92% chance to discourage this move if enemy is slower
+.enemy_slower
 	call Random
 	cp 8 percent
 	ret c
@@ -2137,10 +2142,6 @@ AI_Smart_Foresight:
 	ret
 	
 AI_Smart_LeafShield:
-	ld a, [wEnemyScreens]
-	bit SCREENS_LEAF_SHIELD, a
-	jr nz, .has_leaf_shield
-	
 	ld a, [wBattleMonType1]
 	cp WATER
 	jr z, .iswater
@@ -2161,11 +2162,6 @@ AI_Smart_LeafShield:
 	call Random
 	cp 8 percent ; 92% chance to discourage
 	ret c
-	inc [hl]
-	ret
-	
-.has_leaf_shield ; strongly discourage otherwise
-	inc [hl]
 	inc [hl]
 	ret
 

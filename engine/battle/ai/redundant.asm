@@ -44,11 +44,18 @@ AI_Redundant:
 	dbw EFFECT_MOONLIGHT,    .Moonlight
 	dbw EFFECT_SWAGGER,      .Swagger
 	dbw EFFECT_FUTURE_SIGHT, .FutureSight
+	dbw EFFECT_REFLECT,      .Reflect
+	dbw EFFECT_LEAF_SHIELD,  .LeafShield
 	db -1
 
 .LightScreen:
 	ld a, [wEnemyScreens]
 	bit SCREENS_LIGHT_SCREEN, a
+	ret
+	
+.LeafShield:
+	ld a, [wEnemyScreens]
+	bit SCREENS_LEAF_SHIELD, a
 	ret
 
 .Mist:

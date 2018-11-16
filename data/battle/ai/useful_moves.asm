@@ -1,4 +1,4 @@
-; AI_SMART knows these moves are usable all-around.
+; AI_SMART knows these moves are usable all-around and will try to MIMIC, DISABLE or MIRROR MOVE them
 
 UsefulMoves:
 	db DOUBLE_EDGE
@@ -19,4 +19,9 @@ UsefulMoves:
 	db RECOVER
 	db FIRE_BLAST
 	db SUPER_FANG
+	db MAGICAL_LEAF
+	db CHARGE_BEAM
+	db SILVER_WIND
+	db X_SCISSOR
+	db BUG_BUZZ
 	db -1 ; end

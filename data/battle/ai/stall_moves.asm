@@ -33,4 +33,8 @@ StallMoves:
 	db CONVERSION
 	db SUBSTITUTE
 	db FLAME_WHEEL
+	db LEAF_SHIELD
+	db NASTY_PLOT
+	db EERIE_IMPULSE
+	db BULK_UP
 	db -1 ; end
