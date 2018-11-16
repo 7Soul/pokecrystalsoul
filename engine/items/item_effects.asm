@@ -223,6 +223,11 @@ PokeBallEffect:
 
 	ld a, [wEnemyMonCatchRate]
 	ld b, a
+	cp a, 251
+	jp c, .dontadd	
+	ld a, 5 ; all pokemon below 251 catch rate have +5 rate
+	add b
+.dontadd
 	ld a, [wBattleType]
 	cp BATTLETYPE_TUTORIAL
 	jp z, .catch_without_fail
@@ -321,13 +326,13 @@ PokeBallEffect:
 	ld b, a
 	ld a, [wEnemyMonStatus]
 	and 1 << FRZ | SLP
-	ld c, 10
+	ld c, 20 ; FRZ or SLP adds 20 to catch rate
 	jr nz, .addstatus
-	ld a, [wEnemyMonStatus]
+	ld a, [wEnemyMonStatus] 
 	and a
-	ld c, 5
+	ld c, 10 ; BRN/PSN/PAR adds 10 to catch rate
 	jr nz, .addstatus
-	ld c, 0
+	ld c, 5 ; no status adds 5
 .addstatus
 	ld a, b
 	add c
@@ -420,21 +425,9 @@ PokeBallEffect:
 	ld a, [hl]
 	push af
 	set SUBSTATUS_TRANSFORMED, [hl]
-
-; This code is buggy. Any wild Pokémon that has Transformed will be
-; caught as a Ditto, even if it was something else like Mew.
-; To fix, do not set [wTempEnemyMonSpecies] to DITTO.
 	bit SUBSTATUS_TRANSFORMED, a
-	jr nz, .ditto
-	jr .not_ditto
+	jr nz, .load_data
 
-.ditto
-	ld a, DITTO
-	ld [wTempEnemyMonSpecies], a
-	jr .load_data
-
-.not_ditto
-	set SUBSTATUS_TRANSFORMED, [hl]
 	ld hl, wEnemyBackupDVs
 	ld a, [wEnemyMonDVs]
 	ld [hli], a
@@ -726,27 +719,26 @@ BallMultiplierFunctionTable:
 	db -1 ; end
 
 UltraBallMultiplier:
-; multiply catch rate by 4
-	sla b
-	ret nc
-	ld b, $ff
-	sla b ;
-	ret nc ;
-	ld b, $ff ;
+; multiply catch rate by 3
+	ld a, b
+	add a
+	jr c, .max
+	add b
+	jr nc, .done
+.max
+	ld a, $ff
+.done
+	ld b, a
 	ret
 
 SafariBallMultiplier:
 GreatBallMultiplier:
 ParkBallMultiplier:
-; multiply catch rate by 1.5
-	;ld a, b
-	;srl a
-	;add b
-	;ld b, a
-	;ret nc
-	;ld b, $ff
-; multiply catch rate by 2
-	sla b
+;multiply catch rate by 1.5
+	ld a, b
+	srl a
+	add b
+	ld b, a
 	ret nc
 	ld b, $ff
 	ret
@@ -775,10 +767,11 @@ GetPokedexEntryBank:
 
 HeavyBallMultiplier:
 ; subtract 20 from catch rate if weight < 102.4 kg
-; else add 0 to catch rate if weight < 204.8 kg
-; else add 20 to catch rate if weight < 307.2 kg
-; else add 30 to catch rate if weight < 409.6 kg
-; else add 40 to catch rate (never happens)
+; else add 20 to catch rate if 102.4 kg < weight < 153.6 kg ; (Graveler, Rhyhorn, Scizor, Dewgong, Donphan, Ursaring, Forretress, Rhydon, Exeggutor, Cloyster, Kingdra, Pupitar)
+; else add 40 to catch rate if 153.6 kg < weight < 204.8 kg ; (Arcanine, Raikou, Suicune, Entei, Ho-Oh, Tyranitar)
+; else add 60 to catch rate if 204.8 kg < weight < 307.2 kg ; (Onix, Dragonite, Lugia, Lapras, Gyarados, Golem)
+; else add 60 to catch rate if 307.2 kg < weight < 409.6 kg ; (Steelix)
+; else add 80 to catch rate (never happens)
 	ld a, [wEnemyMonSpecies]
 	ld hl, PokedexDataPointerTable
 	dec a
@@ -868,33 +861,31 @@ endr
 
 .WeightsTable:
 ; weight factor, boost
-	db HIGH(2048),   0
-	db HIGH(3072),  20
-	db HIGH(4096),  30
-	db HIGH(65280), 40
+	db HIGH(1536),  20
+	db HIGH(2048),  40
+	db HIGH(3072),  60
+	db HIGH(4096),  60
+	db HIGH(65280), 80
 
 LureBallMultiplier:
-; multiply catch rate by 3 if this is a fishing rod battle
+; multiply catch rate by 4 if this is a fishing rod battle
 	ld a, [wBattleType]
 	cp BATTLETYPE_FISH
 	ret nz
 
-	ld a, b
-	add a
+	sla b
 	jr c, .max
-
-	add b
-	jr nc, .done
+	sla b
+	ret nc
 .max
-	ld a, $ff
+	ld b, $ff
+	ret
 .done
 	ld b, a
 	ret
 
 MoonBallMultiplier:
-; This function is buggy.
-; Intent:  multiply catch rate by 4 if mon evolves with moon stone
-; Reality: no boost
+; Multiply catch rate by 8 if mon evolves with moon stone
 	push bc
 	ld a, [wTempEnemyMonSpecies]
 	dec a
@@ -918,30 +909,25 @@ MoonBallMultiplier:
 	inc hl
 	inc hl
 
-; Moon Stone's constant from Pokémon Red is used.
-; No Pokémon evolve with Burn Heal,
-; so Moon Balls always have a catch rate of 1×.
 	push bc
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte
-	cp MOON_STONE ; BURN_HEAL ; FIXED
+	cp MOON_STONE
 	pop bc
 	ret nz
 
 	sla b
 	jr c, .max
 	sla b
-	jr nc, .done
+	jr c, .max
+	sla b
+	ret nc
 .max
 	ld b, $ff
-.done
 	ret
 
 LoveBallMultiplier:
-; This function is buggy.
-; Intent:  multiply catch rate by 8 if mons are of same species, different sex
-; Reality: multiply catch rate by 8 if mons are of same species, same sex
-
+; Multiply catch rate by 8 if mons are of same species, different sex
 	; does species match?
 	ld a, [wTempEnemyMonSpecies]
 	ld c, a
@@ -978,12 +964,11 @@ LoveBallMultiplier:
 	jr nz, .wildmale
 	inc d   ; female
 .wildmale
-
 	ld a, d
 	pop de
 	cp d
 	pop bc
-	ret z ; for the intended effect, this should be "ret z"
+	ret z
 
 	sla b
 	jr c, .max
@@ -1003,11 +988,8 @@ LoveBallMultiplier:
 	ret
 
 FastBallMultiplier:
-; This function is buggy.
-; Intent:  multiply catch rate by 4 if enemy mon is in one of the three
-;          FleeMons tables.
-; Reality: multiply catch rate by 4 if enemy mon is one of the first three in
-;          the first FleeMons table.
+; Multiply catch rate by 4 if enemy mon is in one of the three
+; FleeMons tables.
 	ld a, [wTempEnemyMonSpecies]
 	ld c, a
 	ld hl, FleeMons
@@ -1021,10 +1003,13 @@ FastBallMultiplier:
 	cp -1
 	jr z, .next
 	cp c
-	jr nz, .loop ; for the intended effect, this should be "jr nz, .loop"
+	jr nz, .loop 
 	sla b
 	jr c, .max
 
+	sla b
+	jr c, .max
+	
 	sla b
 	ret nc
 
@@ -1035,6 +1020,20 @@ FastBallMultiplier:
 .next
 	dec d
 	jr nz, .loop
+	
+	ld a, [wTempEnemyMonSpecies]
+	cp ABRA
+	ret nz
+	sla b
+	jr c, .max
+
+	sla b
+	jr c, .max
+	
+	sla b
+	ret nc
+	
+	ld b, $ff
 	ret
 
 LevelBallMultiplier:

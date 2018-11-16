@@ -1276,10 +1276,26 @@ BattleCommand_Stab:
 
 	ld b, h
 	ld c, l
+	; 100%
 	srl b
 	rr c
+	; 50%
 	srl b ; 
 	rr c ;
+	; 25%
+	srl b
+	rr c
+	; 12.5%
+	ld a, b
+	add a
+	add a
+	ld b, a
+	
+	ld a, c
+	add a
+	add a
+	ld c, a
+	
 	add hl, bc
 
 	ld a, h

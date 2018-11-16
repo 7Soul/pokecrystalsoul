@@ -35,6 +35,6 @@ StallMoves:
 	db FLAME_WHEEL
 	db LEAF_SHIELD
 	db NASTY_PLOT
-	db EERIE_IMPULSE
+	db EERIEIMPULSE
 	db BULK_UP
 	db -1 ; end
