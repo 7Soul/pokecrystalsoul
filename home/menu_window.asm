@@ -157,7 +157,7 @@ GetMenuTextStartCoord::
 	ld a, [wMenuDataFlags]
 	bit 6, a
 	jr nz, .bit_6_set
-	inc b
+	inc b ; space over Fight menu
 
 .bit_6_set
 ; bit 7: if set, leave extra room on the left

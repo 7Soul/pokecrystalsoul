@@ -5612,7 +5612,20 @@ MoveInfoBox:
 	ld c, 9
 	call TextBox
 	call MobileTextBorder
-
+	
+	hlcoord 0, 12
+	ld a, $c2 ; mid left
+	ld [hli], a
+	hlcoord 4, 12
+	ld a, $c1 ; mid down
+	ld [hli], a
+	hlcoord 10, 12
+	ld a, $c0 ; mid up
+	ld [hli], a
+	hlcoord 4, 17
+	ld a, $c0 ; mid up
+	ld [hli], a
+	
 	ld a, [wPlayerDisableCount]
 	and a
 	jr z, .not_disabled

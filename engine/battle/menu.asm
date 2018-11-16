@@ -30,7 +30,7 @@ Function24f19:
 
 BattleMenuHeader:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 8, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+	menu_coords 4, 12, 15, SCREEN_HEIGHT - 1
 	dw MenuData_0x24f34
 	db 1 ; default option
 
@@ -42,10 +42,10 @@ MenuData_0x24f34:
 	dbw BANK(MenuData_0x24f34), 0
 
 Strings24f3d:
-	db "FIGHT@"
+	db "Fight@"
 	db "<PKMN>@"
-	db "PACK@"
-	db "RUN@"
+	db "Bag@"
+	db "Run@"
 
 MenuHeader_0x24f4e:
 	db MENU_BACKUP_TILES ; flags
