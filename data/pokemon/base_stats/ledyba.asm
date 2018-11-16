@@ -3,7 +3,7 @@
 	db  40,  30,  30,  55,  40,  80
 	;   hp  atk  def  spd  sat  sdf
 
-	db BUG, BUG ; type
+	db BUG, FLYING ; type
 	db 255 ; catch rate
 	db 54 ; base exp
 	db NO_ITEM, NO_ITEM ; items
