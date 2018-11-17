@@ -2394,6 +2394,7 @@ QuilavaEvosAttacks:
 	db 10, EMBER
 	db 13, QUICK_ATTACK
 	db 20, FLAME_WHEEL
+	db 21, SANDSTORM
 	db 21, LEAF_SHIELD
 	db 24, DEFENSE_CURL
 	db 31, SWIFT

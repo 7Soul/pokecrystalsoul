@@ -2291,3 +2291,4 @@ Stampede:
 	buildopponentrage
 	stampede
 	endmove
+	

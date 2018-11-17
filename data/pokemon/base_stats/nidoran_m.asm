@@ -3,7 +3,7 @@
 	db  46,  57,  40,  50,  40,  40
 	;   hp  atk  def  spd  sat  sdf
 
-	db DARK, DARK ; type
+	db ROCK, GRASS ; type
 	db 235 ; catch rate
 	db 60 ; base exp
 	db NO_ITEM, NO_ITEM ; items

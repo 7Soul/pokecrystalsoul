@@ -151,6 +151,11 @@ BattleText_TheSandstormRages:
 	line "rages."
 	prompt
 
+BattleText_EasyBreezeBlows:
+	text "An EASY BREEZE"
+	line "continues to blow."
+	prompt
+
 BattleText_TheRainStopped:
 	text "The rain stopped."
 	prompt
@@ -165,6 +170,11 @@ BattleText_TheSandstormSubsided:
 	line "subsided."
 	prompt
 
+BattleText_TheBreezeEnded:
+	text "The EASY BREEZE"
+	line "dwindled."
+	prompt
+	
 BattleText_EnemyMonFainted:
 	text "Enemy @"
 	text_from_ram wEnemyMonNick
@@ -1100,6 +1110,11 @@ DownpourText:
 SunGotBrightText:
 	text "The sunlight got"
 	line "bright!"
+	prompt
+	
+BreezeText:
+	text "A gentle breeze"
+	line "starts blowing!"
 	prompt
 
 BellyDrumText:
