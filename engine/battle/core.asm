@@ -9057,6 +9057,10 @@ BattleStartMessage:
 	cp BATTLETYPE_CELEBI
 	jr z, .PlaceBattleStartText
 	ld hl, WildPokemonAppearedText
+	
+	call BattleCheckEnemyShininess
+	jr nc, .PlaceBattleStartText
+	ld hl, ShinyPokemonAppearedText
 
 .PlaceBattleStartText:
 	push hl

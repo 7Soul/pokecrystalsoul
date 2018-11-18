@@ -13,6 +13,13 @@ WildPokemonAppearedText:
 	text_start
 	line "appeared!"
 	prompt
+	
+ShinyPokemonAppearedText:
+	text "A shiny @"
+	text_from_ram wEnemyMonNick
+	text_start
+	line "appeared!!!"
+	prompt
 
 HookedPokemonAttackedText:
 	text "The hooked"
