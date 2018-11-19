@@ -1603,24 +1603,24 @@ JohtoGrassWildMons:
 	db 2, MANKEY
 	db 2, SUNKERN
 	db 2, RATTATA
-	db 2, SUNKERN
-	db 2, JIGGLYPUFF
+	db 3, SUNKERN
+	db 3, JIGGLYPUFF
 	; day
 	db 2, GEODUDE
 	db 2, EKANS
 	db 2, MANKEY
 	db 2, GRIMER
 	db 2, RATTATA
-	db 2, SUNKERN
-	db 2, JIGGLYPUFF
+	db 3, SUNKERN
+	db 3, JIGGLYPUFF
 	; nite
 	db 2, GEODUDE
 	db 2, EKANS
 	db 2, MANKEY
 	db 2, GRIMER
 	db 2, RATTATA
-	db 2, SUNKERN
-	db 2, JIGGLYPUFF
+	db 3, SUNKERN
+	db 3, JIGGLYPUFF
 
 	map_id SILVER_CAVE_OUTSIDE
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite

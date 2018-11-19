@@ -294,33 +294,210 @@ ChooseWildEncounter:
 	add hl, bc ; this selects our mon
 	ld a, [hli]
 	ld b, a
-	call Random ; adds 0 to 3 levels ; 7Soul
+	
+	ld d, b
+	push hl
+	push de
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits	
+	ld a, [wNumSetBits]
+	pop de
+	pop hl
+	ld b, d
+	jp .switch_start
+	
+.case0; 0 badges
+ ; adds 0 to 1 levels
+	call Random 
+	cp 33 percent
+	jp c, .switch_end
+	inc b
+	cp 66 percent
+	jp c, .switch_end
+	inc b
+	call Random
+	cp 96 percent ; 4% chance of 1 extra level
+	jp c, .switch_end
+	inc b
+	jp .switch_end
+
+.case1 ; 1 badge
+ ; multiply mon level by number of badges
+	ld a, 1
+	ld c, b
+	call SimpleMultiply
+ ; add more levels
+	ld b, 1
+	add b
+	ld b, a
+ ; adds 0 to 2 levels
+	call Random 
+	cp 25 percent
+	jp c, .switch_end
+	inc b
+	cp 50 percent
+	jp c, .switch_end
+	inc b
+	cp 75 percent
+	jp c, .switch_end
+	inc b
+	call Random
+	cp 96 percent ; 4% chance of 1 extra level
+	jp c, .switch_end
+	inc b
+	jp .switch_end
+	
+.case2	; 2 badges
+ ; multiply mon level by number of badges
+	ld a, 2
+	ld c, b
+	call SimpleMultiply
+ ; add more levels
+	ld b, 2
+	add b
+	ld b, a
+ ; adds 0 to 3 levels
+	call Random 
+	cp 20 percent
+	jp c, .switch_end
+	inc b
+	cp 40 percent
+	jp c, .switch_end
+	inc b
+	cp 60 percent
+	jp c, .switch_end
+	inc b
+	cp 80 percent
+	jp c, .switch_end
+	inc b
+	call Random
+	cp 96 percent ; 4% chance of 1 extra level
+	jp c, .switch_end
+	inc b
+	jp .switch_end
+	
+.case3	; 3 badges
+ ; multiply mon level by number of badges
+	ld a, 3
+	ld c, b
+	call SimpleMultiply
+ ; add more levels
+	ld b, 3
+	add b
+	ld b, a
+ ; adds 0 to 4 levels
+	call Random 
 	cp 15 percent
-	jr c, .ok
+	jp c, .switch_end
 	inc b
 	cp 30 percent
-	jr c, .ok
+	jp c, .switch_end
 	inc b
-	cp 65 percent
-	jr c, .ok
+	cp 45 percent
+	jp c, .switch_end
 	inc b
-; If the Pokemon is encountered by surfing, we need to give the levels some variety.
-	call CheckOnWater
-	jr nz, .ok
-; Check if we buff the wild mon, and by how much.
-	call Random
-	cp 35 percent
-	jr c, .ok
-	inc b
-	cp 65 percent
-	jr c, .ok
+	cp 60 percent
+	jp c, .switch_end
 	inc b
 	cp 85 percent
-	jr c, .ok
+	jp c, .switch_end
 	inc b
-	cp 95 percent
-	jr c, .ok
+	call Random
+	cp 96 percent ; 4% chance of 1 extra level
+	jp c, .switch_end
 	inc b
+	jr .switch_end
+	
+.case4	
+	jp .switch_end
+.case5	
+	jp .switch_end
+.case6	
+	jp .switch_end
+.case7	
+	jp .switch_end
+.case8	; 8 badges
+ ; multiply mon level by number of badges
+	ld a, 8
+	ld c, b
+	call SimpleMultiply
+ ; add more levels
+	ld b, 5
+	add b
+	ld b, a 
+ ; adds 0 to 5 levels
+	call Random 
+	cp 14 percent
+	jp c, .switch_end
+	inc b
+	cp 28 percent
+	jp c, .switch_end
+	inc b
+	cp 42 percent
+	jp c, .switch_end
+	inc b
+	cp 56 percent
+	jp c, .switch_end
+	inc b
+	cp 70 percent
+	jp c, .switch_end
+	inc b	
+	cp 89 percent
+	jp c, .switch_end
+	inc b
+	call Random
+	cp 96 percent ; 4% chance of 1 extra level
+	jp c, .switch_end
+	inc b
+	jp .switch_end
+	
+.switch_start
+	ld a, [wNumSetBits]
+	cp a, 0
+	jp z, .case0
+	cp a, 1
+	jp z, .case1
+	cp a, 2
+	jp z, .case2
+	cp a, 3
+	jp z, .case3
+	cp a, 4
+	jp z, .case4
+	cp a, 5
+	jp z, .case5
+	cp a, 6
+	jp z, .case6
+	cp a, 7
+	jp z, .case7
+	cp a, 8
+	jp z, .case8
+
+.switch_end
+; multiply Badge number by 2
+	ld a, [wNumSetBits]
+	ld c, 2
+	call SimpleMultiply
+	add b
+	ld b, a
+
+; If the Pokemon is encountered by surfing, we need to give the levels some variety.
+	; call CheckOnWater
+	; jr nz, .ok
+; Check if we buff the wild mon, and by how much.
+	; call Random
+	; cp 35 percent
+	; jr c, .ok
+	; inc b
+	; cp 65 percent
+	; jr c, .ok
+	; inc b
+	; cp 85 percent
+	; jr c, .ok
+	; inc b
+	; cp 95 percent
+	; jr c, .ok
+	; inc b
 ; Store the level
 .ok
 	ld a, b
@@ -974,3 +1151,4 @@ INCLUDE "data/wild/kanto_grass.asm"
 INCLUDE "data/wild/kanto_water.asm"
 INCLUDE "data/wild/swarm_grass.asm"
 INCLUDE "data/wild/swarm_water.asm"
+
