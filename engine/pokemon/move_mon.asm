@@ -1579,7 +1579,10 @@ CalcMonStatC:
 	ld a, 3
 	ld b, a
 	call Divide
-	ld a, c
+
+
+	
+	ld a, c	
 	cp STAT_HP
 	ld a, STAT_MIN_NORMAL
 	jr nz, .not_hp
@@ -1607,8 +1610,31 @@ CalcMonStatC:
 	ldh a, [hQuotient + 2]
 	inc a
 	ldh [hMultiplicand + 1], a
-
 .no_overflow_4
+;;;;;;;;;;;;;;;;;;;
+	ld a, c	
+	cp STAT_ATK
+	jr z, .go_atk
+	jr .return_to_calc
+.go_atk
+	ld a, [wTempMonItem]
+	cp THICK_CLUB
+	jr z, .item_effect
+	jr .return_to_calc
+.item_effect
+	ld a, [wCurSpecies]
+	cp CUBONE
+	jr z, .mon_cubone
+	jr .return_to_calc
+.mon_cubone
+	sla b
+	rl c
+	
+	ldh a, [hQuotient + 3]
+	add b
+	ldh [hMultiplicand + 2], a
+.return_to_calc
+;;;;;;;;;;;;;;;;;;;;
 	ldh a, [hQuotient + 2]
 	cp HIGH(MAX_STAT_VALUE + 1) + 1
 	jr nc, .max_stat

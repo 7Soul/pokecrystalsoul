@@ -183,13 +183,13 @@ EvolveAfterBattle_MasterLoop:
 
 .level
 	ld a, [hli]
-	ld b, a
+	ld b, a ; b = evolution level
 	ld a, [wTempMonLevel]
 	cp b
 	jp c, .dont_evolve_3
 	call IsMonHoldingEverstone
 	jp z, .dont_evolve_3
-
+	
 .proceed
 	ld a, [wTempMonLevel]
 	ld [wCurPartyLevel], a

@@ -308,7 +308,9 @@ ChooseWildEncounter:
 	jp .switch_start
 	
 .case0; 0 badges
- ; adds 0 to 1 levels
+ ; Add 1
+	inc b
+ ; adds 0 to 2 levels
 	call Random 
 	cp 33 percent
 	jp c, .switch_end
@@ -321,25 +323,21 @@ ChooseWildEncounter:
 	jp c, .switch_end
 	inc b
 	jp .switch_end
-
+	
 .case1 ; 1 badge
  ; multiply mon level by number of badges
 	ld a, 1
 	ld c, b
 	call SimpleMultiply
  ; add more levels
-	ld b, 1
-	add b
+	inc a ; add 1
 	ld b, a
  ; adds 0 to 2 levels
 	call Random 
-	cp 25 percent
+	cp 33 percent
 	jp c, .switch_end
 	inc b
-	cp 50 percent
-	jp c, .switch_end
-	inc b
-	cp 75 percent
+	cp 66 percent
 	jp c, .switch_end
 	inc b
 	call Random
@@ -359,16 +357,13 @@ ChooseWildEncounter:
 	ld b, a
  ; adds 0 to 3 levels
 	call Random 
-	cp 20 percent
+	cp 25 percent
 	jp c, .switch_end
 	inc b
-	cp 40 percent
+	cp 50 percent
 	jp c, .switch_end
 	inc b
-	cp 60 percent
-	jp c, .switch_end
-	inc b
-	cp 80 percent
+	cp 75 percent
 	jp c, .switch_end
 	inc b
 	call Random
@@ -388,19 +383,16 @@ ChooseWildEncounter:
 	ld b, a
  ; adds 0 to 4 levels
 	call Random 
-	cp 15 percent
+	cp 20 percent
 	jp c, .switch_end
 	inc b
-	cp 30 percent
-	jp c, .switch_end
-	inc b
-	cp 45 percent
+	cp 40 percent
 	jp c, .switch_end
 	inc b
 	cp 60 percent
 	jp c, .switch_end
 	inc b
-	cp 85 percent
+	cp 80 percent
 	jp c, .switch_end
 	inc b
 	call Random

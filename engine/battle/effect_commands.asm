@@ -2650,7 +2650,7 @@ PlayerAttackDamage:
 	ld hl, wBattleMonAttack
 	call CheckDamageStatsCritical
 	jr c, .thickclub
-
+; is crit get base def and atk
 	ld hl, wEnemyDefense
 	ld a, [hli]
 	ld b, a
@@ -2688,7 +2688,20 @@ PlayerAttackDamage:
 
 .thickclub
 ; Note: Returns player attack at hl in hl.
+	ld a, [wBattleMonItem]
+	cp THICK_CLUB
+	jp z, .do_thick_club
+	cp ITEM_19
+	jp z, .do_item_19
+	ld a, [hli]
+	ld l, [hl]
+	ld h, a
+	jr .done
+.do_thick_club
 	call ThickClubBoost
+	jr .done
+.do_item_19
+	call Item19Boost
 	
 .done
 	call TruncateHL_BC
@@ -2799,6 +2812,21 @@ ThickClubBoost:
 	pop de
 	pop bc
 	ret
+	
+Item19Boost:
+; Return in hl the stat value at hl.
+
+; If the attacking monster is Cubone or Marowak and
+; it's holding a Thick Club, double it.
+	push bc
+	push de
+	ld b, CUBONE
+	ld c, CATERPIE
+	ld d, ITEM_19
+	call SpeciesItemBoost
+	pop de
+	pop bc
+	ret
 
 LightBallBoost:
 ; Return in hl the stat value at hl.
@@ -2853,7 +2881,22 @@ SpeciesItemBoost:
 ; Double the stat
 	sla l
 	rl h
-	
+	; ld a, [hl]
+	; cp 50
+	; jr c, .lower_than_50
+; .greater_than_50 ; Increase stat by 50%
+	; srl l
+	; rr h
+	; add hl, hl
+	; jr .next
+; .lower_than_50 ; Increase stat by 75%
+	; srl l
+	; rr h
+	; add hl, hl
+	; srl l
+	; rr h
+	; add hl, hl
+.next
 	ld a, HIGH(MAX_STAT_VALUE)
 	cp h
 	jr c, .cap
@@ -6511,8 +6554,6 @@ ResetTurn:
 	call DoMove
 	jp EndMoveEffect
 
-INCLUDE "engine/battle/move_effects/thief.asm"
-
 BattleCommand_ArenaTrap:
 ; arenatrap
 
@@ -6597,8 +6638,6 @@ INCLUDE "engine/battle/move_effects/fury_cutter.asm"
 INCLUDE "engine/battle/move_effects/attract.asm"
 
 INCLUDE "engine/battle/move_effects/return.asm"
-
-INCLUDE "engine/battle/move_effects/present.asm"
 
 INCLUDE "engine/battle/move_effects/frustration.asm"
 

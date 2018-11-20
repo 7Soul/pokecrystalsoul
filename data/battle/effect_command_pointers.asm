@@ -100,7 +100,6 @@ BattleCommandPointers:
 	dw BattleCommand_FuryCutter
 	dw BattleCommand_Attract
 	dw BattleCommand_HappinessPower
-	dw BattleCommand_Present
 	dw BattleCommand_DamageCalc
 	dw BattleCommand_FrustrationPower
 	dw BattleCommand_Safeguard

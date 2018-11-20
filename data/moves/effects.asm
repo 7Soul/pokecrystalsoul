@@ -1624,27 +1624,6 @@ Return:
 	kingsrock
 	endmove
 
-Present:
-	checkobedience
-	usedmovetext
-	doturn
-	checkhit
-	critical
-	damagestats
-	present
-	damagecalc
-	stab
-	damagevariation
-	clearmissdamage
-	failuretext
-	applydamage
-	criticaltext
-	supereffectivetext
-	checkfaint
-	buildopponentrage
-	kingsrock
-	endmove
-
 Frustration:
 	checkobedience
 	usedmovetext

@@ -167,6 +167,7 @@ CaterpieEvosAttacks:
 	db 1, TACKLE
 	db 1, STRING_SHOT
 	db 10, LEECH_LIFE
+	db 50, FELL_STINGER
 	db 0 ; no more level-up moves
 
 MetapodEvosAttacks:
@@ -389,9 +390,10 @@ RaichuEvosAttacks:
 	db 1, TAIL_WHIP
 	db 1, QUICK_ATTACK
 	db 1, THUNDERBOLT
-	db 33, AGILITY
-	db 41, THUNDER
-	db 50, LIGHT_SCREEN
+	db 31, THUNDERBOLT
+	db 36, AGILITY
+	db 45, THUNDER
+	db 56, LIGHT_SCREEN
 	db 0 ; no more level-up moves
 
 SandshrewEvosAttacks:
@@ -2369,7 +2371,7 @@ MeganiumEvosAttacks:
 	db 0 ; no more level-up moves
 
 CyndaquilEvosAttacks:
-	db EVOLVE_LEVEL, 14, QUILAVA
+	db EVOLVE_LEVEL, 16, QUILAVA
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, LEER
@@ -2379,10 +2381,10 @@ CyndaquilEvosAttacks:
 	db 19, FLAME_WHEEL
 	db 22, DEFENSE_CURL
 	db 31, SWIFT
-	db 40, FLAMETHROWER
-	db 46, INFERNO
-	db 49, ROLLOUT
-	db 55, DOUBLE_EDGE
+	db 38, FLAMETHROWER
+	db 43, INFERNO
+	db 47, ROLLOUT
+	db 53, DOUBLE_EDGE
 	db 0 ; no more level-up moves
 
 QuilavaEvosAttacks:
@@ -2394,14 +2396,15 @@ QuilavaEvosAttacks:
 	db 10, EMBER
 	db 13, QUICK_ATTACK
 	db 20, FLAME_WHEEL
+	db 21, POWER_GEM
 	db 21, SANDSTORM
 	db 21, LEAF_SHIELD
 	db 24, DEFENSE_CURL
 	db 31, SWIFT
-	db 46, FLAMETHROWER
-	db 53, INFERNO
-	db 57, ROLLOUT
-	db 64, DOUBLE_EDGE
+	db 42, FLAMETHROWER
+	db 52, INFERNO
+	db 56, ROLLOUT
+	db 63, DOUBLE_EDGE
 	db 0 ; no more level-up moves
 
 TyphlosionEvosAttacks:
@@ -2423,7 +2426,7 @@ TyphlosionEvosAttacks:
 	db 0 ; no more level-up moves
 
 TotodileEvosAttacks:
-	db EVOLVE_LEVEL, 18, CROCONAW
+	db EVOLVE_LEVEL, 16, CROCONAW
 	db 0 ; no more evolutions
 	db 1, SCRATCH
 	db 1, LEER

@@ -30,7 +30,7 @@
 	const FIRE_STONE   ; 16
 	const THUNDERSTONE ; 17
 	const WATER_STONE  ; 18
-	const ITEM_19      ; 19
+	const ITEM_19      ; 19 ; unused
 	const HP_UP        ; 1a
 	const PROTEIN      ; 1b
 	const IRON         ; 1c
@@ -50,12 +50,12 @@
 	const SUPER_REPEL  ; 2a
 	const MAX_REPEL    ; 2b
 	const DIRE_HIT     ; 2c
-	const ITEM_2D      ; 2d
+	const ITEM_2D      ; 2d ; unused
 	const FRESH_WATER  ; 2e
 	const SODA_POP     ; 2f
 	const LEMONADE     ; 30
 	const X_ATTACK     ; 31
-	const ITEM_32      ; 32
+	const ITEM_32      ; 32 ; unused
 	const X_DEFEND     ; 33
 	const X_SPEED      ; 34
 	const X_SPECIAL    ; 35
@@ -95,7 +95,7 @@
 	const BIG_MUSHROOM ; 57
 	const SILVERPOWDER ; 58
 	const BLU_APRICORN ; 59
-	const ITEM_5A      ; 5a
+	const ITEM_5A      ; 5a ; unused
 	const AMULET_COIN  ; 5b
 	const YLW_APRICORN ; 5c
 	const GRN_APRICORN ; 5d
@@ -105,7 +105,7 @@
 	const WHT_APRICORN ; 61
 	const BLACKBELT    ; 62
 	const BLK_APRICORN ; 63
-	const ITEM_64      ; 64
+	const ITEM_64      ; 64 ; unused
 	const PNK_APRICORN ; 65
 	const BLACKGLASSES ; 66
 	const SLOWPOKETAIL ; 67
@@ -125,7 +125,7 @@
 	const MIRACLE_SEED ; 75
 	const THICK_CLUB   ; 76
 	const FOCUS_BAND   ; 77
-	const ITEM_78      ; 78
+	const ITEM_78      ; 78 ; unused
 	const ENERGYPOWDER ; 79
 	const ENERGY_ROOT  ; 7a
 	const HEAL_POWDER  ; 7b
@@ -140,34 +140,34 @@
 	const STAR_PIECE   ; 84
 	const BASEMENT_KEY ; 85
 	const PASS         ; 86
-	const ITEM_87      ; 87
-	const ITEM_88      ; 88
-	const ITEM_89      ; 89
+	const ITEM_87      ; 87 ; unused
+	const ITEM_88      ; 88 ; unused
+	const ITEM_89      ; 89 ; unused
 	const CHARCOAL     ; 8a
 	const BERRY_JUICE  ; 8b
 	const SCOPE_LENS   ; 8c
-	const ITEM_8D      ; 8d
-	const ITEM_8E      ; 8e
+	const ITEM_8D      ; 8d ; unused
+	const ITEM_8E      ; 8e ; unused
 	const METAL_COAT   ; 8f
 	const DRAGON_FANG  ; 90
-	const ITEM_91      ; 91
+	const ITEM_91      ; 91 ; unused
 	const LEFTOVERS    ; 92
-	const ITEM_93      ; 93
-	const ITEM_94      ; 94
-	const ITEM_95      ; 95
+	const ITEM_93      ; 93 ; unused
+	const ITEM_94      ; 94 ; unused
+	const ITEM_95      ; 95 ; unused
 	const MYSTERYBERRY ; 96
 	const DRAGON_SCALE ; 97
 	const BERSERK_GENE ; 98
-	const ITEM_99      ; 99
-	const ITEM_9A      ; 9a
-	const ITEM_9B      ; 9b
+	const ITEM_99      ; 99 ; unused
+	const ITEM_9A      ; 9a ; unused
+	const ITEM_9B      ; 9b ; unused
 	const SACRED_ASH   ; 9c
 	const HEAVY_BALL   ; 9d
 	const FLOWER_MAIL  ; 9e
 	const LEVEL_BALL   ; 9f
 	const LURE_BALL    ; a0
 	const FAST_BALL    ; a1
-	const ITEM_A2      ; a2
+	const ITEM_A2      ; a2 ; unused
 	const LIGHT_BALL   ; a3
 	const FRIEND_BALL  ; a4
 	const MOON_BALL    ; a5
@@ -176,15 +176,15 @@
 	const GORGEOUS_BOX ; a8
 	const SUN_STONE    ; a9
 	const POLKADOT_BOW ; aa
-	const ITEM_AB      ; ab
+	const ITEM_AB      ; ab ; unused
 	const UP_GRADE     ; ac
 	const BERRY        ; ad
 	const GOLD_BERRY   ; ae
 	const SQUIRTBOTTLE ; af
-	const ITEM_B0      ; b0
+	const ITEM_B0      ; b0 ; unused
 	const PARK_BALL    ; b1
 	const RAINBOW_WING ; b2
-	const ITEM_B3      ; b3
+	const ITEM_B3      ; b3 ; unused
 	const BRICK_PIECE  ; b4
 	const SURF_MAIL    ; b5
 	const LITEBLUEMAIL ; b6
@@ -195,7 +195,7 @@
 	const BLUESKY_MAIL ; bb
 	const MUSIC_MAIL   ; bc
 	const MIRAGE_MAIL  ; bd
-	const ITEM_BE      ; be
+	const ITEM_BE      ; be ; unused
 
 add_tm: MACRO
 if !DEF(TM01)

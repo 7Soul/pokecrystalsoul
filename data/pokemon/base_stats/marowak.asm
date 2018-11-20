@@ -1,6 +1,6 @@
 	db MAROWAK ; 105
 
-	db  60,  90, 110,  45,  40,  70
+	db  60,  85, 110,  45,  50,  90
 	;   hp  atk  def  spd  sat  sdf
 
 	db ROCK, ROCK ; type
