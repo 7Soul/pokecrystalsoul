@@ -95,17 +95,20 @@ DoMove:
 	ld hl, BattleCommandPointers
 	add hl, bc
 	add hl, bc
-	pop bc
+	
 
 	ld a, BANK(BattleCommandPointers)
 	call GetFarHalfword
-
-	call .DoMoveEffectCommand
-
+	pop bc
+	call .CallEffectCommand
 	jr .ReadMoveEffectCommand
-
-.DoMoveEffectCommand:
-	jp hl
+	
+.CallEffectCommand
+    cp BANK(.CallEffectCommand)
+    jp nz, FarCall_hl
+    jp hl
+; .DoMoveEffectCommand:
+	; jp hl
 
 CheckTurn:
 BattleCommand_CheckTurn:
@@ -2691,8 +2694,8 @@ PlayerAttackDamage:
 	ld a, [wBattleMonItem]
 	cp THICK_CLUB
 	jp z, .do_thick_club
-	cp ITEM_19
-	jp z, .do_item_19
+	cp -1
+	jp nz, .do_item
 	ld a, [hli]
 	ld l, [hl]
 	ld h, a
@@ -2700,8 +2703,10 @@ PlayerAttackDamage:
 .do_thick_club
 	call ThickClubBoost
 	jr .done
-.do_item_19
-	call Item19Boost
+.do_item
+	;ld a, [wBattleMonType1]
+	;cp GHOST
+	call ItemBoost
 	
 .done
 	call TruncateHL_BC
@@ -2718,7 +2723,6 @@ TruncateHL_BC:
 .loop
 ; Truncate 16-bit values hl and bc to 8-bit values b and c respectively.
 ; b = hl, c = bc
-
 	ld a, h
 	or b
 	jr z, .finish
@@ -2756,7 +2760,6 @@ CheckDamageStatsCritical:
 ; Return carry if boosted stats should be used in damage calculations.
 ; Unboosted stats should be used if the attack is a critical hit,
 ;  and the stage of the opponent's defense is higher than the user's attack.
-
 	ld a, [wCriticalHit]
 	and a
 	scf
@@ -2813,20 +2816,43 @@ ThickClubBoost:
 	pop bc
 	ret
 	
-Item19Boost:
+ItemBoost:
 ; Return in hl the stat value at hl.
-
-; If the attacking monster is Cubone or Marowak and
-; it's holding a Thick Club, double it.
 	push bc
 	push de
-	ld b, CUBONE
-	ld c, CATERPIE
-	ld d, ITEM_19
+	push hl
+	
+	ld a, [wBattleMonSpecies]
+	ld b, a
+	ld hl, .Items
+
+.find_mon
+	ld a, [hli]
+	cp b
+	jr z, .found_mon
+	inc hl
+	inc hl
+	jr .find_mon
+
+.found_mon
+	ld a, [hl]
+	jp .check_mon
+	
+.check_mon
+	ld b, b
+	ld c, b
+	ld d, a
+	pop hl
 	call SpeciesItemBoost
 	pop de
 	pop bc
 	ret
+	
+.Items:
+	dbw CATERPIE, RARE_CANDY
+	dbw CUBONE,   RARE_CANDY
+	dbw QUILAVA,  ITEM_19
+	dbw BERRY,    RARE_CANDY
 
 LightBallBoost:
 ; Return in hl the stat value at hl.
@@ -2848,7 +2874,6 @@ SpeciesItemBoost:
 
 ; If the attacking monster is species b or c and
 ; it's holding item d, double it.
-
 	ld a, [hli]
 	ld l, [hl]
 	ld h, a

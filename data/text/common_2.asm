@@ -1384,7 +1384,7 @@ UnknownText_0x1c1b03::
 	cont "time to use that!"
 	done
 
-UnknownText_0x1c1b2c::
+_TookAndMadeHoldText::
 	text "Took @"
 	text_from_ram wMonOrItemNameBuffer
 	text "'s"
@@ -1397,14 +1397,54 @@ UnknownText_0x1c1b2c::
 	text_from_ram wStringBuffer2
 	text "."
 	prompt
+	
+_TookAndMadeHoldStrongerText::
+	text "Took @"
+	text_from_ram wMonOrItemNameBuffer
+	text "'s"
+	line "@"
+	text_from_ram wStringBuffer1
+	text " and"
 
-UnknownText_0x1c1b57::
+	para "made it hold"
+	line "@"
+	text_from_ram wStringBuffer2
+	text "."
+	
+	para "@"
+	text_from_ram wMonOrItemNameBuffer
+	text_start
+	line "feels stronger!"
+	prompt
+
+_MadeHoldText::
 	text "Made @"
 	text_from_ram wMonOrItemNameBuffer
 	text_start
 	line "hold @"
 	text_from_ram wStringBuffer2
 	text "."
+	prompt
+	
+_MadeHoldStrongerText::
+	text "Made @"
+	text_from_ram wMonOrItemNameBuffer
+	text_start
+	line "hold @"
+	text_from_ram wStringBuffer2
+	text "."
+	
+	para "@"
+	text_from_ram wMonOrItemNameBuffer
+	text_start
+	line "feels stronger!"
+	prompt
+	
+_FeelsStrongerText::
+	text "@"
+	text_from_ram wMonOrItemNameBuffer
+	text_start
+	line "feels stronger now!"
 	prompt
 
 UnknownText_0x1c1b6f::

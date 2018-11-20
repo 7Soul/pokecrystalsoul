@@ -160,7 +160,7 @@ Route46Sign:
 	jumptext Route46SignText
 
 Route46XSpeed:
-	itemball ITEM_19
+	itemball BERSERK_GENE
 
 Route46FruitTree1:
 	fruittree FRUITTREE_ROUTE_46_1

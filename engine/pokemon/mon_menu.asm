@@ -290,11 +290,21 @@ TryGiveItemToPartymon:
 
 .give_item_to_mon
 	call GiveItemToPokemon
+	cp 1
+	jr z, .madeholdstronger
+	cp 0
+	jr z, .madehold
+.madeholdstronger
+	ld hl, MadeHoldStrongerText
+	call MenuTextBoxBackup
+	call GivePartyItem
+	ret
+.madehold
 	ld hl, MadeHoldText
 	call MenuTextBoxBackup
 	call GivePartyItem
 	ret
-
+	
 .please_remove_mail
 	ld hl, PleaseRemoveMailText
 	call MenuTextBoxBackup
@@ -308,6 +318,7 @@ TryGiveItemToPartymon:
 	jr c, .abort
 
 	call GiveItemToPokemon
+	ld d, a
 	ld a, [wNamedObjectIndexBuffer]
 	push af
 	ld a, [wCurItem]
@@ -317,8 +328,21 @@ TryGiveItemToPartymon:
 	call ReceiveItemFromPokemon
 	jr nc, .bag_full
 
+	ld a, d
+	cp 1
+	jr z, .tookandmadeholdstronger
+	cp 0
+	jr z, .tookandmadehold
+.tookandmadeholdstronger
+	ld hl, TookAndMadeHoldStrongerText
+	call MenuTextBoxBackup
+	jr .return
+.tookandmadehold
 	ld hl, TookAndMadeHoldText
 	call MenuTextBoxBackup
+.return
+	;ld hl, TookAndMadeHoldText
+	;call MenuTextBoxBackup
 	ld a, [wNamedObjectIndexBuffer]
 	ld [wCurItem], a
 	call GivePartyItem
@@ -392,11 +416,23 @@ GiveTakeItemMenuData:
 	db "TAKE@"
 
 TookAndMadeHoldText:
-	text_jump UnknownText_0x1c1b2c
+	text_jump _TookAndMadeHoldText
 	db "@"
 
 MadeHoldText:
-	text_jump UnknownText_0x1c1b57
+	text_jump _MadeHoldText
+	db "@"
+	
+MadeHoldStrongerText:
+	text_jump _MadeHoldStrongerText
+	db "@"
+	
+TookAndMadeHoldStrongerText:
+	text_jump _TookAndMadeHoldStrongerText
+	db "@"
+	
+FeelsStrongerText:
+	text_jump _FeelsStrongerText
 	db "@"
 
 PleaseRemoveMailText:
@@ -437,11 +473,57 @@ ReceiveItemFromPokemon:
 	jp ReceiveItem
 
 GiveItemToPokemon:
+
+	predef CopyMonToTempMon
+	ld a, [wTempMonSpecies]
+	ld b, a
+	ld hl, .Items
+
+.find_mon
+	ld a, [hli]
+	cp b
+	jr z, .found_mon
+	cp -1
+	jr z, .return_to_toss
+	cp 0
+	jr z, .return_to_toss
+	inc hl
+	inc hl
+	jr .find_mon
+
+.found_mon
+	ld a, [hl]
+	ld d, a
+	ld a, [wCurItem]
+	ld b, a ; held item
+	ld a, d ; item from table	
+	cp b
+	jp z, .check_mon
+	jp .return_to_toss
+	
+.check_mon
 	ld a, 1
 	ld [wItemQuantityChangeBuffer], a
 	ld hl, wNumItems
-	jp TossItem
-
+	call TossItem
+	ld a, 1
+	ret
+	
+.return_to_toss
+	ld a, 1
+	ld [wItemQuantityChangeBuffer], a
+	ld hl, wNumItems
+	call TossItem
+	ld a, 0
+	ret
+	
+.Items:
+	dbw CATERPIE, RARE_CANDY
+	dbw CUBONE,   THICK_CLUB
+	dbw QUILAVA,  ITEM_19
+	dbw BERRY,    RARE_CANDY
+	dw 0
+	
 StartMenuYesNo:
 	call MenuTextBox
 	call YesNoBox

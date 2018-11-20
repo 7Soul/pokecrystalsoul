@@ -1617,21 +1617,38 @@ CalcMonStatC:
 	jr z, .go_atk
 	jr .return_to_calc
 .go_atk
-	ld a, [wTempMonItem]
-	cp THICK_CLUB
-	jr z, .item_effect
-	jr .return_to_calc
-.item_effect
+
 	ld a, [wCurSpecies]
-	cp CUBONE
-	jr z, .mon_cubone
+	ld d, a
+	ld hl, .Items
+
+.find_mon
+	ld a, [hli]
+	cp d
+	jr z, .found_mon
+	cp -1
+	jr z, .return_to_calc
+	cp 0
+	jr z, .return_to_calc
+	inc hl
+	inc hl
+	jr .find_mon
+
+.found_mon
+	ld a, [hl]
+	ld d, a
+	ld a, [wTempMonItem]
+	ld e, a ; held item
+	ld a, d ; item from table
+	cp e
+	jp z, .check_mon
 	jr .return_to_calc
-.mon_cubone
-	sla b
-	rl c
-	
+
+.check_mon	
 	ldh a, [hQuotient + 3]
-	add b
+	ld b, a
+	ldh a, [hQuotient + 3]
+	add b ; add value back to itself (aka, double it)
 	ldh [hMultiplicand + 2], a
 .return_to_calc
 ;;;;;;;;;;;;;;;;;;;;
@@ -1655,6 +1672,13 @@ CalcMonStatC:
 	pop de
 	pop hl
 	ret
+	
+.Items:
+	dbw CATERPIE, RARE_CANDY
+	dbw CUBONE,   THICK_CLUB
+	dbw QUILAVA,  ITEM_19
+	dbw NINETALES,ITEM_19
+	dw 0
 
 GivePoke::
 	push de
