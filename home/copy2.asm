@@ -71,7 +71,23 @@ GetFarByte::
 	; return retrieved value in a
 	ldh a, [hBuffer]
 	ret
-
+	
+GetFarByteHalfword::
+; retrieve a byte + halfword combination from a:hl and return in a:hl
+	ldh [hBuffer], a
+	ldh a, [hROMBank]
+	push af
+	ldh a, [hBuffer]
+	rst Bankswitch
+.Function:
+	ld a, [hli]
+	push af
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop af
+	ret
+	
 GetFarHalfword::
 ; retrieve a halfword from a:hl, and return it in hl.
 	; bankswitch to new bank

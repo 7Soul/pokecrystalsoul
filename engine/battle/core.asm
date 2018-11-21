@@ -3566,6 +3566,18 @@ Function_SetEnemyMonAndSendOutAnimation:
 	call UpdateEnemyHUD
 	ld a, $1
 	ldh [hBGMapMode], a
+	
+	ld hl, wEnemyMonItem
+	ld a, [hl]
+	cp -1
+	jr z, .skip_item
+	cp 0
+	jr z, .skip_item
+	ld [wNamedObjectIndexBuffer], a
+	call GetItemName
+	ld hl, TrainerHoldingText
+	call StdBattleTextBox
+.skip_item
 	ret
 
 NewEnemyMonStatus:
@@ -4664,7 +4676,7 @@ PrintPlayerHUD:
 .got_gender_char
 	hlcoord 17, 8
 	ld [hl], a
-	hlcoord 14, 8
+	hlcoord 10, 8
 	push af ; back up gender
 	push hl
 	ld de, wBattleMonStatus
@@ -4678,6 +4690,7 @@ PrintPlayerHUD:
 	dec hl ; genderless
 
 .copy_level
+	hlcoord 14, 8
 	ld a, [wBattleMonLevel]
 	ld [wTempMonLevel], a
 	jp PrintLevel
@@ -4741,19 +4754,20 @@ DrawEnemyHUD:
 	hlcoord 9, 1
 	ld [hl], a
 
-	hlcoord 6, 1
+	hlcoord 1, 1
 	push af
 	push hl
 	ld de, wEnemyMonStatus
 	predef PlaceNonFaintStatus
 	pop hl
 	pop bc
-	jr nz, .skip_level
+	;jr nz, .skip_level
 	ld a, b
 	cp " "
 	jr nz, .print_level
 	dec hl
 .print_level
+	hlcoord 6, 1
 	ld a, [wEnemyMonLevel]
 	ld [wTempMonLevel], a
 	call PrintLevel
@@ -9069,7 +9083,18 @@ BattleStartMessage:
 	farcall BattleStart_TrainerHuds
 	pop hl
 	call StdBattleTextBox
-
+	
+	ld hl, wEnemyMonItem
+	ld a, [hl]
+	cp -1
+	jr z, .skip_item
+	cp 0
+	jr z, .skip_item
+	ld [wNamedObjectIndexBuffer], a
+	call GetItemName
+	ld hl, WildHoldingText
+	call StdBattleTextBox
+.skip_item
 	call IsMobileBattle2
 	ret nz
 

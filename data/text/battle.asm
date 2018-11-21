@@ -14,6 +14,18 @@ WildPokemonAppearedText:
 	line "appeared!"
 	prompt
 	
+WildHoldingText:
+	text "It appears to be"
+	line "holding an item!"
+	prompt
+	
+TrainerHoldingText:
+	text "It's holding a"
+	line "@"
+	text_from_ram wStringBuffer1
+	text "!"
+	prompt
+	
 ShinyPokemonAppearedText:
 	text "A shiny @"
 	text_from_ram wEnemyMonNick

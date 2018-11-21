@@ -1611,17 +1611,24 @@ CalcMonStatC:
 	inc a
 	ldh [hMultiplicand + 1], a
 .no_overflow_4
-;;;;;;;;;;;;;;;;;;;
+ ; double stats if using held item
 	ld a, c	
 	cp STAT_ATK
-	jr z, .go_atk
+	jr z, .loadAtkItems
+	cp STAT_SATK
+	jr z, .loadSpAtkItems
 	jr .return_to_calc
-.go_atk
-
+	
+.loadAtkItems	
+	ld hl, .AtkItems
+	jr .load_species
+.loadSpAtkItems	
+	ld hl, .SpAtkItems
+	
+.load_species
 	ld a, [wCurSpecies]
 	ld d, a
-	ld hl, .Items
-
+	
 .find_mon
 	ld a, [hli]
 	cp d
@@ -1641,15 +1648,16 @@ CalcMonStatC:
 	ld e, a ; held item
 	ld a, d ; item from table
 	cp e
-	jp z, .check_mon
+	jp z, .double_stat
 	jr .return_to_calc
 
-.check_mon	
+.double_stat	
 	ldh a, [hQuotient + 3]
 	ld b, a
 	ldh a, [hQuotient + 3]
 	add b ; add value back to itself (aka, double it)
 	ldh [hMultiplicand + 2], a
+	
 .return_to_calc
 ;;;;;;;;;;;;;;;;;;;;
 	ldh a, [hQuotient + 2]
@@ -1673,11 +1681,19 @@ CalcMonStatC:
 	pop hl
 	ret
 	
-.Items:
-	dbw CATERPIE, RARE_CANDY
-	dbw CUBONE,   THICK_CLUB
-	dbw QUILAVA,  ITEM_19
-	dbw NINETALES,ITEM_19
+.AtkItems:
+	dbw CATERPIE,	TOUGH_HORN
+	dbw WEEDLE,		TOUGH_HORN
+	dbw SPINARAK,	TOUGH_HORN
+	dbw LEDYBA,		TOUGH_HORN
+	dbw PARAS,		TOUGH_HORN
+	dbw CUBONE,		THICK_CLUB
+	dw 0	
+	
+.SpAtkItems:
+	dbw PINECO,		CARAPACE
+	dbw VENONAT,	CARAPACE
+	dbw QUILAVA,	CARAPACE
 	dw 0
 
 GivePoke::

@@ -473,7 +473,7 @@ ReceiveItemFromPokemon:
 	jp ReceiveItem
 
 GiveItemToPokemon:
-
+ ; show "Mon feels stronger" text
 	predef CopyMonToTempMon
 	ld a, [wTempMonSpecies]
 	ld b, a
@@ -518,10 +518,15 @@ GiveItemToPokemon:
 	ret
 	
 .Items:
-	dbw CATERPIE, RARE_CANDY
-	dbw CUBONE,   THICK_CLUB
-	dbw QUILAVA,  ITEM_19
-	dbw BERRY,    RARE_CANDY
+	dbw CATERPIE,	TOUGH_HORN
+	dbw WEEDLE,		TOUGH_HORN
+	dbw SPINARAK,	TOUGH_HORN
+	dbw LEDYBA,		TOUGH_HORN
+	dbw PARAS,		TOUGH_HORN
+	dbw PINECO,		CARAPACE
+	dbw VENONAT,	CARAPACE
+	dbw CUBONE,		THICK_CLUB
+	dbw QUILAVA,	CARAPACE
 	dw 0
 	
 StartMenuYesNo:

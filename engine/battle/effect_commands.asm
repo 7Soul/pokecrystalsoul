@@ -95,18 +95,38 @@ DoMove:
 	ld hl, BattleCommandPointers
 	add hl, bc
 	add hl, bc
-	
+	pop bc
 
 	ld a, BANK(BattleCommandPointers)
 	call GetFarHalfword
-	pop bc
-	call .CallEffectCommand
+
+	call .DoMoveEffectCommand
+
 	jr .ReadMoveEffectCommand
+
+.DoMoveEffectCommand:
+	jp hl
 	
-.CallEffectCommand
-    cp BANK(.CallEffectCommand)
-    jp nz, FarCall_hl
-    jp hl
+	; push bc
+	; dec a
+	; ld c, a
+	; ld b, 0
+	; ld hl, BattleCommandPointers
+	; add hl, bc
+	; add hl, bc
+	; add hl, bc
+
+	; ld a, BANK(BattleCommandPointers)
+	; call GetFarByteHalfword
+	; pop bc
+	; call .CallEffectCommand
+	; jr .ReadMoveEffectCommand
+	
+; .CallEffectCommand
+    ; cp BANK(.CallEffectCommand)
+    ; jp nz, FarCall_hl
+    ; jp hl
+	
 ; .DoMoveEffectCommand:
 	; jp hl
 
@@ -2686,26 +2706,13 @@ PlayerAttackDamage:
 
 .lightball
 ; Note: Returns player special attack at hl in hl.
-	call LightBallBoost
+	ld a, 1
+	call ItemBoost
 	jr .done
 
 .thickclub
 ; Note: Returns player attack at hl in hl.
-	ld a, [wBattleMonItem]
-	cp THICK_CLUB
-	jp z, .do_thick_club
-	cp -1
-	jp nz, .do_item
-	ld a, [hli]
-	ld l, [hl]
-	ld h, a
-	jr .done
-.do_thick_club
-	call ThickClubBoost
-	jr .done
-.do_item
-	;ld a, [wBattleMonType1]
-	;cp GHOST
+	ld a, 0
 	call ItemBoost
 	
 .done
@@ -2822,14 +2829,34 @@ ItemBoost:
 	push de
 	push hl
 	
+	cp 0 ; atk
+	jr z, .loadAtkItems
+	cp 1 ; sp.atk
+	jr z, .loadSpAtkItems
+	
+.loadAtkItems
+	ld hl, .AtkItems
+	jr .load_species
+.loadSpAtkItems
+	ld hl, .SpAtkItems
+	
+.load_species
+	ldh a, [hBattleTurn]
+	and a
 	ld a, [wBattleMonSpecies]
 	ld b, a
-	ld hl, .Items
+	jr z, .find_mon
+	ld a, [wTempEnemyMonSpecies]
+	ld b, a
 
 .find_mon
 	ld a, [hli]
 	cp b
 	jr z, .found_mon
+	cp -1
+	jr z, .leave
+	cp 0
+	jr z, .leave
 	inc hl
 	inc hl
 	jr .find_mon
@@ -2847,13 +2874,31 @@ ItemBoost:
 	pop de
 	pop bc
 	ret
-	
-.Items:
-	dbw CATERPIE, RARE_CANDY
-	dbw CUBONE,   RARE_CANDY
-	dbw QUILAVA,  ITEM_19
-	dbw BERRY,    RARE_CANDY
 
+.leave
+	pop hl
+	ld a, [hli]
+	ld l, [hl]
+	ld h, a
+	pop de
+	pop bc
+	ret
+	
+.AtkItems:
+	dbw CATERPIE,	TOUGH_HORN
+	dbw WEEDLE,		TOUGH_HORN
+	dbw SPINARAK,	TOUGH_HORN
+	dbw LEDYBA,		TOUGH_HORN
+	dbw PARAS,		TOUGH_HORN
+	dbw CUBONE,		THICK_CLUB
+	dw 0
+	
+.SpAtkItems:
+	dbw PINECO,		CARAPACE
+	dbw VENONAT,	CARAPACE
+	dbw QUILAVA,	CARAPACE
+	dw 0
+	
 LightBallBoost:
 ; Return in hl the stat value at hl.
 
