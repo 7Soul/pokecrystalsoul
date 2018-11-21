@@ -1465,8 +1465,12 @@ TN_PrintDVs:
 .dvMinDEF1
 	cp $9 ; 11,10,9 turns to 9
 	jr c, .dvMinDEF2
-	ld a, $9
+	ld a, $9	
 .dvMinDEF2
+	cp $0 ; limit min DV to 1 (1 to 10)
+	jr nz, .dvMaxDEF
+	ld a, $1
+.dvMaxDEF
     ld [de],a
     cp $3
 	jr c, .defdv0
