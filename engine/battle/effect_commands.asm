@@ -2869,22 +2869,8 @@ ItemBoost:
 	pop de
 	pop bc
 	ret
-	
-.AtkItems:
-	db CATERPIE,	TOUGH_HORN, 0 ; 0 = double, 1 = 75% inc, 2 = 50% inc
-	db WEEDLE,		TOUGH_HORN, 0
-	db SPINARAK,	TOUGH_HORN, 0
-	db LEDYBA,		TOUGH_HORN, 0
-	db PARAS,		TOUGH_HORN, 0
-	db CUBONE,		THICK_CLUB, 0
-	db PINECO,		CARAPACE,   0
-	dw 0
-	
-.SpAtkItems:
-	db PINECO,		CARAPACE, 	0
-	db VENONAT,		CARAPACE, 	0
-	db QUILAVA,		CARAPACE, 	0
-	dw 0
+
+INCLUDE "data/held_items.asm"
 
 SpeciesItemBoost:
 ; Return in hl the stat value at hl.
@@ -2928,6 +2914,8 @@ SpeciesItemBoost:
 	jp z, .inc_75p
 	cp 2 ; if 'e' is 2, increase by 50%
 	jp z, .inc_50p
+	cp 10
+	jp nc, .inc_static
 	
 .double
 	sla l
@@ -2947,6 +2935,11 @@ SpeciesItemBoost:
 	srl l
 	rr h
 	add hl, hl
+	jp .next
+	
+.inc_static; Increase stat by fixed number in 'e'
+	ld a, e
+	add hl
 	jp .next
 	
 .next

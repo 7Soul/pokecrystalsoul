@@ -1460,6 +1460,8 @@ CalcMonStatC:
 	pop de
 
 .no_stat_exp
+	ld a, 1
+	ld [$8010], a
 	srl c
 	pop hl
 	push bc
@@ -1580,8 +1582,6 @@ CalcMonStatC:
 	ld b, a
 	call Divide
 
-
-	
 	ld a, c	
 	cp STAT_HP
 	ld a, STAT_MIN_NORMAL
@@ -1611,6 +1611,9 @@ CalcMonStatC:
 	inc a
 	ldh [hMultiplicand + 1], a
 .no_overflow_4
+	ld a, [$8010] ; rare candy? Don't show item boost in pop up stats window
+	cp 1
+	jp z, .return_to_calc
  ; double stats if using held item
 	ld a, c	
 	cp STAT_ATK
@@ -1642,20 +1645,64 @@ CalcMonStatC:
 	jr .find_mon
 
 .found_mon
-	ld a, [hl]
+	ld a, [hli]
 	ld d, a
 	ld a, [wTempMonItem]
 	ld e, a ; held item
 	ld a, d ; item from table
 	cp e
-	jp z, .double_stat
+	ld a, [hl]
+	ld e, a
+	jp z, .found_item
 	jr .return_to_calc
 
-.double_stat	
+.found_item
+	ld a, e
+	cp 0 ; if 'e' is 0, double stat
+	jp z, .double
+	cp 1 ; if 'e' is 1, increase by 75%
+	jp z, .inc_75p
+	cp 2 ; if 'e' is 2, increase by 50%
+	jp z, .inc_50p
+	cp 10
+	jp nc, .inc_static
+	jp .return_to_calc
+	
+.double
 	ldh a, [hQuotient + 3]
 	ld b, a
-	ldh a, [hQuotient + 3]
 	add b ; add value back to itself (aka, double it)
+	ldh [hMultiplicand + 2], a
+	jp .return_to_calc
+	
+.inc_75p
+	ldh a, [hQuotient + 3]
+	srl a
+	ld b, a
+	ldh a, [hQuotient + 3]
+	add b
+	ld e, a
+	ldh a, [hQuotient + 3]
+	srl a
+	srl a
+	ld b, a
+	ld a, e
+	add b
+	ldh [hMultiplicand + 2], a
+	jp .return_to_calc
+	
+.inc_50p
+	ldh a, [hQuotient + 3]
+	srl a
+	ld b, a
+	ldh a, [hQuotient + 3]
+	add b
+	ldh [hMultiplicand + 2], a
+	jp .return_to_calc
+	
+.inc_static; Increase stat by fixed number in 'e'
+	ldh a, [hQuotient + 3]
+	add e
 	ldh [hMultiplicand + 2], a
 	
 .return_to_calc
@@ -1681,20 +1728,7 @@ CalcMonStatC:
 	pop hl
 	ret
 	
-.AtkItems:
-	dbw CATERPIE,	TOUGH_HORN
-	dbw WEEDLE,		TOUGH_HORN
-	dbw SPINARAK,	TOUGH_HORN
-	dbw LEDYBA,		TOUGH_HORN
-	dbw PARAS,		TOUGH_HORN
-	dbw CUBONE,		THICK_CLUB
-	dw 0	
-	
-.SpAtkItems:
-	dbw PINECO,		CARAPACE
-	dbw VENONAT,	CARAPACE
-	dbw QUILAVA,	CARAPACE
-	dw 0
+INCLUDE "data/held_items.asm"
 
 GivePoke::
 	push de
