@@ -1446,9 +1446,9 @@ BattleCheckTypeMatchup:
 CheckTypeMatchup:
 ; There is an incorrect assumption about this function made in the AI related code: when
 ; the AI calls CheckTypeMatchup (not BattleCheckTypeMatchup), it assumes that placing the
-; offensive type in a will make this function do the right thing. Since a is overwritten,
+; offensive type in 'a' will make this function do the right thing. Since 'a' is overwritten,
 ; this assumption is incorrect. A simple fix would be to load the move type for the
-; current move into a in BattleCheckTypeMatchup, before falling through, which is
+; current move into 'a' in BattleCheckTypeMatchup, before falling through, which is
 ; consistent with how the rest of the code assumes this code works like.
 	push hl
 	push de
@@ -2672,14 +2672,14 @@ PlayerAttackDamage:
 .physicalcrit
 	ld hl, wBattleMonAttack
 	call CheckDamageStatsCritical
-	jr c, .thickclub
+	jr c, .atk_boost_item
 ; is crit get base def and atk
 	ld hl, wEnemyDefense
 	ld a, [hli]
 	ld b, a
 	ld c, [hl]
 	ld hl, wPlayerAttack
-	jr .thickclub
+	jr .atk_boost_item
 
 .special
 	ld hl, wEnemyMonSpclDef
@@ -2696,7 +2696,7 @@ PlayerAttackDamage:
 .specialcrit
 	ld hl, wBattleMonSpclAtk
 	call CheckDamageStatsCritical
-	jr c, .lightball
+	jr c, .spatk_boost_item
 
 	ld hl, wEnemySpDef
 	ld a, [hli]
@@ -2704,13 +2704,13 @@ PlayerAttackDamage:
 	ld c, [hl]
 	ld hl, wPlayerSpAtk
 
-.lightball
+.spatk_boost_item
 ; Note: Returns player special attack at hl in hl.
 	ld a, 1
 	call ItemBoost
 	jr .done
 
-.thickclub
+.atk_boost_item
 ; Note: Returns player attack at hl in hl.
 	ld a, 0
 	call ItemBoost
@@ -2807,21 +2807,6 @@ CheckDamageStatsCritical:
 	pop bc
 	pop hl
 	ret
-
-ThickClubBoost:
-; Return in hl the stat value at hl.
-
-; If the attacking monster is Cubone or Marowak and
-; it's holding a Thick Club, double it.
-	push bc
-	push de
-	ld b, CUBONE
-	ld c, MAROWAK
-	ld d, THICK_CLUB
-	call SpeciesItemBoost
-	pop de
-	pop bc
-	ret
 	
 ItemBoost:
 ; Return in hl the stat value at hl.
@@ -2862,13 +2847,14 @@ ItemBoost:
 	jr .find_mon
 
 .found_mon
+	ld a, [hli]
+	ld d, a
 	ld a, [hl]
-	jp .check_mon
-	
+	ld e, a
+
 .check_mon
 	ld b, b
 	ld c, b
-	ld d, a
 	pop hl
 	call SpeciesItemBoost
 	pop de
@@ -2885,34 +2871,20 @@ ItemBoost:
 	ret
 	
 .AtkItems:
-	dbw CATERPIE,	TOUGH_HORN
-	dbw WEEDLE,		TOUGH_HORN
-	dbw SPINARAK,	TOUGH_HORN
-	dbw LEDYBA,		TOUGH_HORN
-	dbw PARAS,		TOUGH_HORN
-	dbw CUBONE,		THICK_CLUB
+	db CATERPIE,	TOUGH_HORN, 0 ; 0 = double, 1 = 75% inc, 2 = 50% inc
+	db WEEDLE,		TOUGH_HORN, 0
+	db SPINARAK,	TOUGH_HORN, 0
+	db LEDYBA,		TOUGH_HORN, 0
+	db PARAS,		TOUGH_HORN, 0
+	db CUBONE,		THICK_CLUB, 0
+	db PINECO,		CARAPACE,   0
 	dw 0
 	
 .SpAtkItems:
-	dbw PINECO,		CARAPACE
-	dbw VENONAT,	CARAPACE
-	dbw QUILAVA,	CARAPACE
+	db PINECO,		CARAPACE, 	0
+	db VENONAT,		CARAPACE, 	0
+	db QUILAVA,		CARAPACE, 	0
 	dw 0
-	
-LightBallBoost:
-; Return in hl the stat value at hl.
-
-; If the attacking monster is Pikachu and it's
-; holding a Light Ball, double it.
-	push bc
-	push de
-	ld b, PIKACHU
-	ld c, PIKACHU
-	ld d, LIGHT_BALL
-	call SpeciesItemBoost
-	pop de
-	pop bc
-	ret
 
 SpeciesItemBoost:
 ; Return in hl the stat value at hl.
@@ -2932,9 +2904,9 @@ SpeciesItemBoost:
 	ld a, [hl]
 	jr z, .CompareSpecies
 	ld a, [wTempEnemyMonSpecies]
+	
 .CompareSpecies:
 	pop hl
-
 	cp b
 	jr z, .GetItemHeldEffect
 	cp c
@@ -2949,23 +2921,34 @@ SpeciesItemBoost:
 	ret nz
 
 ; Double the stat
+	ld a, e
+	cp 0 ; if 'e' is 0, double stat
+	jp z, .double
+	cp 1 ; if 'e' is 1, increase by 75%
+	jp z, .inc_75p
+	cp 2 ; if 'e' is 2, increase by 50%
+	jp z, .inc_50p
+	
+.double
 	sla l
 	rl h
-	; ld a, [hl]
-	; cp 50
-	; jr c, .lower_than_50
-; .greater_than_50 ; Increase stat by 50%
-	; srl l
-	; rr h
-	; add hl, hl
-	; jr .next
-; .lower_than_50 ; Increase stat by 75%
-	; srl l
-	; rr h
-	; add hl, hl
-	; srl l
-	; rr h
-	; add hl, hl
+	jp .next
+	
+.inc_75p ; Increase stat by 75%
+	srl l
+	rr h
+	add hl, hl
+	srl l
+	rr h
+	add hl, hl
+	jp .next
+
+.inc_50p ; Increase stat by 50%
+	srl l
+	rr h
+	add hl, hl
+	jp .next
+	
 .next
 	ld a, HIGH(MAX_STAT_VALUE)
 	cp h
@@ -3055,11 +3038,13 @@ EnemyAttackDamage:
 	ld hl, wEnemySpAtk
 
 .lightball
-	call LightBallBoost
+	ld a, 1
+	call ItemBoost
 	jr .done
 
 .thickclub
-	call ThickClubBoost
+	ld a, 0
+	call ItemBoost
 
 .done
 	call TruncateHL_BC
@@ -4150,7 +4135,7 @@ BattleCommand_BurnTarget:
 	ld a, [wTypeModifier]
 	and $7f
 	ret z
-	call CheckMoveTypeMatchesTarget ; Don't burn a Fire-type
+	farcall CheckMoveTypeMatchesTarget ; Don't burn a Fire-type
 	ret z
 	call GetOpponentItem
 	ld a, b
@@ -4219,7 +4204,7 @@ BattleCommand_FreezeTarget:
 	ld a, [wBattleWeather]
 	cp WEATHER_SUN
 	ret z
-	call CheckMoveTypeMatchesTarget ; Don't freeze an Ice-type
+	farcall CheckMoveTypeMatchesTarget ; Don't freeze an Ice-type
 	ret z
 	call GetOpponentItem
 	ld a, b
@@ -6177,41 +6162,7 @@ BattleCommand_Paralyze:
 	jp PrintDoesntAffect
 
 	
-CheckMoveTypeMatchesTarget:
-; Compare move type to opponent type.
-; Return z if matching the opponent type,
-; unless the move is Normal (Tri Attack).
 
-	push hl
-
-	ld hl, wEnemyMonType1
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .ok
-	ld hl, wBattleMonType1
-.ok
-
-	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVar
-	and TYPE_MASK
-	cp NORMAL
-	jr z, .normal
-
-	cp [hl]
-	jr z, .return
-
-	inc hl
-	cp [hl]
-
-.return
-	pop hl
-	ret
-
-.normal
-	ld a, 1
-	and a
-	pop hl
-	ret
 
 INCLUDE "engine/battle/move_effects/substitute.asm"
 

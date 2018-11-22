@@ -531,6 +531,7 @@ ChooseWildEncounter:
 	ld a, b
 	jp nc, .dont_check_evolve1
 	call EvolveWildMon
+	jp .dont_check_evolve2
 	
 .dont_check_evolve1
 	call Random 

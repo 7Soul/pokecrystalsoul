@@ -9084,6 +9084,9 @@ BattleStartMessage:
 	pop hl
 	call StdBattleTextBox
 	
+	ld a, [wBattleMode]
+	dec a
+	jr nz, .skip_item
 	ld hl, wEnemyMonItem
 	ld a, [hl]
 	cp -1
@@ -9091,9 +9094,10 @@ BattleStartMessage:
 	cp 0
 	jr z, .skip_item
 	ld [wNamedObjectIndexBuffer], a
-	call GetItemName
+	;call GetItemName
 	ld hl, WildHoldingText
 	call StdBattleTextBox
+	
 .skip_item
 	call IsMobileBattle2
 	ret nz
