@@ -294,7 +294,6 @@ ChooseWildEncounter:
 	add hl, bc ; this selects our mon
 	ld a, [hli]
 	ld b, a
-	
 	ld d, b
 	push hl
 	push de
@@ -399,7 +398,7 @@ ChooseWildEncounter:
 	cp 96 percent ; 4% chance of 1 extra level
 	jp c, .switch_end
 	inc b
-	jr .switch_end
+	jp .switch_end
 	
 .case4	
 	jp .switch_end
@@ -442,6 +441,11 @@ ChooseWildEncounter:
 	cp 96 percent ; 4% chance of 1 extra level
 	jp c, .switch_end
 	inc b
+	call Random
+	cp 96 percent ; 4% chance of 2 extra levels
+	jp c, .switch_end
+	inc b
+	inc b
 	jp .switch_end
 	
 .switch_start
@@ -476,20 +480,6 @@ ChooseWildEncounter:
 ; If the Pokemon is encountered by surfing, we need to give the levels some variety.
 	; call CheckOnWater
 	; jr nz, .ok
-; Check if we buff the wild mon, and by how much.
-	; call Random
-	; cp 35 percent
-	; jr c, .ok
-	; inc b
-	; cp 65 percent
-	; jr c, .ok
-	; inc b
-	; cp 85 percent
-	; jr c, .ok
-	; inc b
-	; cp 95 percent
-	; jr c, .ok
-	; inc b
 ; Store the level
 .ok
 	ld a, b
@@ -497,14 +487,65 @@ ChooseWildEncounter:
 	ld b, [hl]
 	ld a, b
 	call ValidateTempWildMonSpecies
-	jr c, .nowildbattle
+	jp c, .nowildbattle
+	; Check if it's Nidoran F and change to Nidoran M
+	ld a, b
+	cp NIDORAN_F
+	jp nz, .not_nidoran_f
+	call Random 
+	cp 50 percent
+	jp nc, .not_nidoran_f	
+	jp .change_3species
+.not_nidoran_f
+	; Check if it's Omanyte and change to Kabuto
+	ld a, b
+	cp OMANYTE
+	jp nz, .not_omanyte
+	call Random 
+	cp 50 percent
+	jp nc, .not_omanyte	
+	jp .change_2species
+.not_omanyte
+	; Check if it's Caterpie and change to Weedle
+	ld a, b
+	cp CATERPIE
+	jp nz, .not_caterpie
+	call Random 
+	cp 50 percent
+	jp nc, .not_caterpie
 
+.change_3species
+	inc b
+	inc b
+	inc b
+	jp .not_caterpie
+	
+.change_2species
+	inc b
+	inc b
+	jp .not_caterpie
+	
+.not_caterpie	
+	call Random 
+	cp 50 percent
+	ld a, b
+	jp nc, .dont_check_evolve1
+	call EvolveWildMon
+	
+.dont_check_evolve1
+	call Random 
+	cp 50 percent
+	ld a, b
+	jp nc, .dont_check_evolve2
+	call EvolveWildMon
+	
+.dont_check_evolve2
 	cp UNOWN
-	jr nz, .done
+	jp nz, .done
 
 	ld a, [wUnlockedUnowns]
 	and a
-	jr z, .nowildbattle
+	jp z, .nowildbattle
 
 .done
 	jr .loadwildmon
@@ -523,6 +564,182 @@ ChooseWildEncounter:
 	ret
 
 INCLUDE "data/wild/probabilities.asm"
+
+EvolveWildMon:
+; check if the defender has any evolutions
+; hl = EvosAttacksPointers  (species - 1) * 2
+	dec a
+	push hl
+	push bc
+	ld c, a
+	ld b, 0
+	ld hl, EvosAttacksPointers
+	add hl, bc
+	add hl, bc
+; hl = the species' entry from EvosAttacksPointers
+	ld a, BANK(EvosAttacksPointers)
+	call GetFarHalfword
+; a = the first byte of the species' EvosAttacks data
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+; if a == 0, there are no evolutions, so don't boost stats
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	and a
+	cp 0
+	jp nz, .has_evolution
+	jp .done
+.has_evolution
+	inc hl
+	cp EVOLVE_ITEM
+	jp z, .evolve_item
+	cp EVOLVE_HAPPINESS
+	jp z, .evolve_happy
+	cp EVOLVE_STAT
+	jp z, .evolve_stat
+	ld a, [wCurPartyLevel]
+	ld d, a ; d = wild mon level
+	
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte ; a = evolve level
+	cp d
+	jp nc, .lower
+	
+	ld c, a
+	ld a, d ; a = wild level
+	ld d, c ; d = evolve level data
+	sub d
+	ld d, a
+	cp 5
+	jp nc, .diff_greaterthan5
+	call Random 
+	cp 30 percent
+	jp c, .finish_evolve
+	jp .done
+	
+.diff_greaterthan5
+	ld a, d
+	cp 10
+	jp nc, .diff_greaterthan10
+	call Random 
+	cp 40 percent
+	jp c, .finish_evolve
+	jp .done
+	
+.diff_greaterthan10
+	ld a, d
+	cp 15
+	jp nc, .diff_greaterthan15
+	call Random 
+	cp 60 percent
+	jp c, .finish_evolve
+	jp .done
+	
+.diff_greaterthan15
+	ld a, d
+	cp 25
+	jp nc, .diff_greaterthan25
+	call Random 
+	cp 80 percent
+	jp c, .finish_evolve
+	jp .done
+	
+.diff_greaterthan25
+	ld a, d
+	cp 35
+	jp nc, .finish_evolve
+	call Random 
+	cp 90 percent
+	jp c, .finish_evolve
+	jp .done
+	
+.finish_evolve
+	pop bc
+	pop hl
+	inc b
+	ret
+.evolve_happy2
+	pop bc
+	ld a, b
+	cp PICHU
+	jp z, .evolve_pichu
+	cp CLEFFA
+	jp z, .evolve_cleffa
+	cp IGGLYBUFF
+	jp z, .evolve_igglybuff
+	cp GOLBAT
+	jp z, .evolve_golbat
+	cp CHANSEY
+	jp z, .evolve_chansey
+	cp EEVEE
+	jp z, .done
+	jp .done
+.evolve_pichu
+	pop hl
+	ld a, PIKACHU
+	ld b, a
+	ret
+.evolve_cleffa
+	pop hl
+	ld a, CLEFAIRY
+	ld b, a
+	ret
+.evolve_igglybuff
+	pop hl
+	ld a, JIGGLYPUFF
+	ld b, a
+	ret
+.evolve_golbat
+	pop hl
+	ld a, CROBAT
+	ld b, a
+	ret
+.evolve_chansey
+	pop hl
+	ld a, BLISSEY
+	ld b, a
+	ret
+.check_time
+	ld a, [wTimeOfDay]
+	cp NITE_F
+	jp z, .evolve_umbreon
+.evolve_espeon
+	pop hl
+	ld a, ESPEON
+	ld b, a
+	ret
+.evolve_umbreon
+	pop hl
+	ld a, UMBREON
+	ld b, a
+	ret
+.evolve_tyrogue
+	pop hl
+	ld b, a
+	ret
+.evolve_item
+	jp .done
+.evolve_happy
+	call Random 
+	cp 4 percent
+	jp c, .evolve_happy2
+	jp .done
+.evolve_stat
+	call Random 
+	cp 4 percent
+	ld d, a
+	ld a, HITMONCHAN
+	jp c, .evolve_tyrogue
+	ld a, d
+	cp 8 percent
+	ld a, HITMONLEE
+	jp c, .evolve_tyrogue
+	jp .done
+.lower
+.done
+	pop bc
+	pop hl
+	ret
 
 CheckRepelEffect::
 ; If there is no active Repel, there's no need to be here.
@@ -929,7 +1146,6 @@ _BackUpMapIndices:
 INCLUDE "data/wild/roammon_maps.asm"
 
 ValidateTempWildMonSpecies:
-; Due to a development oversight, this function is called with the wild Pokemon's level, not its species, in a.
 	and a
 	jr z, .nowildmon ; = 0
 	cp NUM_POKEMON + 1 ; 252

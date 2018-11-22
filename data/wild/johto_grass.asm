@@ -5,56 +5,56 @@ JohtoGrassWildMons:
 	map_id SPROUT_TOWER_2F
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
 	; morn
-	db 4, GASTLY
-	db 4, RATTATA
-	db 4, EKANS
-	db 5, SPINARAK
-	db 4, HOOTHOOT
-	db 5, RATTATA
-	db 5, RATTATA
+	db 2, RATTATA
+	db 2, RATTATA
+	db 2, EKANS
+	db 2, SPINARAK
+	db 2, HOOTHOOT
+	db 2, GASTLY
+	db 3, MAGNEMITE
 	; day
-	db 4, GASTLY
-	db 4, RATTATA
-	db 4, EKANS
-	db 5, SPINARAK
-	db 4, RATTATA
-	db 5, RATTATA
-	db 5, RATTATA
+	db 2, RATTATA
+	db 2, RATTATA
+	db 2, EKANS
+	db 2, SPINARAK
+	db 2, HOOTHOOT
+	db 2, GASTLY
+	db 3, MAGNEMITE
 	; nite
-	db 4, GASTLY
-	db 4, HOOTHOOT
-	db 4, EKANS
-	db 5, SPINARAK
-	db 4, HOOTHOOT
-	db 5, HOOTHOOT
-	db 5, HOOTHOOT
+	db 2, GASTLY
+	db 2, RATTATA
+	db 2, EKANS
+	db 2, SPINARAK
+	db 2, HOOTHOOT
+	db 2, MEOWTH
+	db 3, MISDREAVUS
 
 	map_id SPROUT_TOWER_3F
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
 	; morn
-	db 4, GASTLY
-	db 4, RATTATA
-	db 4, EKANS
-	db 5, SPINARAK
-	db 4, RATTATA
-	db 5, RATTATA
-	db 5, MURKROW
+	db 2, RATTATA
+	db 2, RATTATA
+	db 2, EKANS
+	db 2, SPINARAK
+	db 2, HOOTHOOT
+	db 2, GASTLY
+	db 3, MAGNEMITE
 	; day
-	db 4, GASTLY
-	db 4, RATTATA
-	db 4, EKANS
-	db 5, SPINARAK
-	db 4, HOOTHOOT
-	db 5, RATTATA
-	db 5, MURKROW
+	db 2, RATTATA
+	db 2, RATTATA
+	db 2, EKANS
+	db 2, SPINARAK
+	db 2, HOOTHOOT
+	db 2, GASTLY
+	db 3, MAGNEMITE
 	; nite
-	db 4, GASTLY
-	db 4, HOOTHOOT
-	db 4, EKANS
-	db 5, SPINARAK
-	db 4, HOOTHOOT
-	db 5, HOOTHOOT
-	db 5, MURKROW
+	db 2, GASTLY
+	db 2, RATTATA
+	db 2, EKANS
+	db 2, SPINARAK
+	db 2, HOOTHOOT
+	db 2, MEOWTH
+	db 3, MISDREAVUS
 
 	map_id TIN_TOWER_2F
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
@@ -1193,83 +1193,83 @@ JohtoGrassWildMons:
 	map_id ROUTE_29
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
-	db 2, SENTRET
-	db 2, MEOWTH
-	db 2, HOPPIP
-	db 2, NIDORAN_M
-	db 2, NIDORAN_F
-	db 2, PINECO
-	db 2, PARAS
+	db 1, SENTRET
+	db 1, SANDSHREW
+	db 1, HOPPIP
+	db 1, NIDORAN_F
+	db 1, PIDGEY
+	db 1, CATERPIE
+	db 1, PARAS
 	; day
-	db 2, SENTRET
-	db 2, MEOWTH
-	db 2, HOPPIP
-	db 2, NIDORAN_M
-	db 2, NIDORAN_F
-	db 2, PINECO
-	db 2, PARAS
+	db 1, SENTRET
+	db 1, SANDSHREW
+	db 1, HOPPIP
+	db 1, NIDORAN_F
+	db 1, PIDGEY
+	db 1, CATERPIE
+	db 1, PARAS
 	; nite
-	db 2, SENTRET
-	db 2, MEOWTH
-	db 2, HOOTHOOT
-	db 2, NIDORAN_M
-	db 2, NIDORAN_F
-	db 2, CATERPIE
-	db 2, PARAS
+	db 1, HOOTHOOT
+	db 1, MEOWTH
+	db 1, ODDISH
+	db 1, NIDORAN_F
+	db 1, RATTATA
+	db 1, PINECO
+	db 1, VENONAT
 
 	map_id ROUTE_30
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
-	db 3, LEDYBA
-	db 3, SPINARAK
-	db 3, MAREEP
-	db 2, MARILL
-	db 3, MARILL
-	db 4, WEEDLE
-	db 3, PICHU
+	db 1, LEDYBA
+	db 1, MARILL
+	db 1, MAREEP
+	db 2, CATERPIE
+	db 1, CUBONE
+	db 2, SPINARAK
+	db 1, PICHU
 	; day
-	db 3, LEDYBA
-	db 3, SPINARAK
-	db 3, MAREEP
-	db 2, MARILL
-	db 3, MARILL
-	db 4, WEEDLE
-	db 3, PICHU
+	db 1, LEDYBA
+	db 1, MARILL
+	db 1, MAREEP
+	db 2, CATERPIE
+	db 1, CUBONE
+	db 2, SPINARAK
+	db 1, PICHU
 	; nite
-	db 3, LEDYBA
-	db 3, SPINARAK
-	db 3, MAREEP
-	db 2, MARILL
-	db 3, MARILL
-	db 4, WEEDLE
-	db 3, PICHU
+	db 1, SPINARAK
+	db 1, MARILL
+	db 1, MAREEP
+	db 2, PINECO
+	db 1, CUBONE
+	db 2, LEDYBA
+	db 1, PICHU
 
 	map_id ROUTE_31
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
-	db 3, BELLSPROUT
-	db 3, ODDISH
-	db 3, TANGELA
-	db 5, EKANS
-	db 5, ODDISH
-	db 6, ODDISH
-	db 4, TEDDIURSA
+	db 1, BELLSPROUT
+	db 1, SPEAROW
+	db 1, TANGELA
+	db 1, EKANS
+	db 2, SUNKERN
+	db 1, ODDISH
+	db 1, TEDDIURSA
 	; day
-	db 3, BELLSPROUT
-	db 3, ODDISH
-	db 3, TANGELA
-	db 5, EKANS
-	db 5, ODDISH
-	db 6, ODDISH
-	db 4, TEDDIURSA
+	db 1, BELLSPROUT
+	db 1, SPEAROW
+	db 1, TANGELA
+	db 1, EKANS
+	db 2, SUNKERN
+	db 1, ODDISH
+	db 1, TEDDIURSA
 	; nite
-	db 3, BELLSPROUT
-	db 3, ODDISH
-	db 3, TANGELA
-	db 5, EKANS
-	db 5, PARAS
-	db 6, PARAS
-	db 4, TEDDIURSA
+	db 1, ODDISH
+	db 1, POLIWAG
+	db 1, TANGELA
+	db 1, EKANS
+	db 2, ZUBAT
+	db 1, BELLSPROUT
+	db 1, GASTLY
 
 	map_id ROUTE_32
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
@@ -1598,29 +1598,29 @@ JohtoGrassWildMons:
 	map_id ROUTE_46
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
-	db 2, GEODUDE
-	db 2, EKANS
-	db 2, MANKEY
-	db 2, SUNKERN
-	db 2, RATTATA
-	db 3, SUNKERN
-	db 3, JIGGLYPUFF
+	db 2, NIDORAN_F
+	db 2, NIDORAN_F
+	db 2, NIDORAN_F
+	db 2, CATERPIE
+	db 2, CATERPIE
+	db 3, CATERPIE
+	db 3, CATERPIE
 	; day
-	db 2, GEODUDE
-	db 2, EKANS
-	db 2, MANKEY
-	db 2, GRIMER
-	db 2, RATTATA
-	db 3, SUNKERN
-	db 3, JIGGLYPUFF
+	db 2, EEVEE
+	db 2, EEVEE
+	db 2, EEVEE
+	db 2, EEVEE
+	db 2, EEVEE
+	db 3, EEVEE
+	db 3, EEVEE
 	; nite
-	db 2, GEODUDE
-	db 2, EKANS
-	db 2, MANKEY
-	db 2, GRIMER
-	db 2, RATTATA
-	db 3, SUNKERN
-	db 3, JIGGLYPUFF
+	db 2, NIDORAN_F
+	db 2, NIDORAN_F
+	db 2, NIDORAN_F
+	db 2, NIDORAN_F
+	db 2, NIDORAN_F
+	db 3, NIDORAN_F
+	db 3, NIDORAN_F
 
 	map_id SILVER_CAVE_OUTSIDE
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
