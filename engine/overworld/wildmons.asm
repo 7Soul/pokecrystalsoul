@@ -613,7 +613,7 @@ EvolveWildMon:
 	cp 5
 	jp nc, .diff_greaterthan5
 	call Random 
-	cp 30 percent
+	cp 30 percent ; 0 <= diff < 5
 	jp c, .finish_evolve
 	jp .done
 	
@@ -622,7 +622,7 @@ EvolveWildMon:
 	cp 10
 	jp nc, .diff_greaterthan10
 	call Random 
-	cp 40 percent
+	cp 60 percent ; 5 <= diff < 10
 	jp c, .finish_evolve
 	jp .done
 	
@@ -631,29 +631,38 @@ EvolveWildMon:
 	cp 15
 	jp nc, .diff_greaterthan15
 	call Random 
-	cp 60 percent
+	cp 80 percent ; 10 <= diff < 15
 	jp c, .finish_evolve
 	jp .done
 	
 .diff_greaterthan15
 	ld a, d
+	cp 20
+	jp nc, .diff_greaterthan20
+	call Random 
+	cp 95 percent ; 15 <= diff < 20
+	jp c, .finish_evolve
+	jp .done
+	
+.diff_greaterthan20
+	ld a, d
 	cp 25
 	jp nc, .diff_greaterthan25
 	call Random 
-	cp 80 percent
+	cp 95 percent ; 20 <= diff < 25
 	jp c, .finish_evolve
 	jp .done
 	
 .diff_greaterthan25
 	ld a, d
-	cp 35
+	cp 30
 	jp nc, .finish_evolve
 	call Random 
-	cp 90 percent
+	cp 98 percent ; 25 <= diff < 35
 	jp c, .finish_evolve
 	jp .done
 	
-.finish_evolve
+.finish_evolve ; diff greater than 30
 	pop bc
 	pop hl
 	inc b

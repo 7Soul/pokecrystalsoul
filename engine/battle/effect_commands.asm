@@ -3885,7 +3885,7 @@ BattleCommand_PoisonTarget:
 	ld a, [wTypeModifier]
 	and $7f
 	ret z
-	call CheckIfTargetIsPoisonType
+	farcall CheckIfTargetIsPoisonType
 	ret z
 	call GetOpponentItem
 	ld a, b
@@ -3916,7 +3916,7 @@ BattleCommand_Poison:
 	and $7f
 	jp z, .failed
 
-	call CheckIfTargetIsPoisonType
+	farcall CheckIfTargetIsPoisonType
 	jp z, .failed
 
 	ld a, BATTLE_VARS_STATUS_OPP
@@ -4024,36 +4024,6 @@ BattleCommand_Venoshock:
 	jp DoubleDamage
 	
 INCLUDE "engine/battle/move_effects/fire_flick.asm"
-
-CheckIfTargetIsPoisonType:
-	ld de, wEnemyMonType1
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .ok
-	ld de, wBattleMonType1
-.ok
-	ld a, [de]
-	inc de
-	cp POISON
-	ret z
-	ld a, [de]
-	cp POISON
-	ret
-	
-CheckIfTargetIsElectricType:
-	ld de, wEnemyMonType1
-	ld a, [hBattleTurn]
-	and a
-	jr z, .ok
-	ld de, wBattleMonType1
-.ok
-	ld a, [de]
-	inc de
-	cp ELECTRIC
-	ret z
-	ld a, [de]
-	cp ELECTRIC
-	ret
 
 PoisonOpponent:
 	ld a, BATTLE_VARS_STATUS_OPP
@@ -4299,7 +4269,7 @@ BattleCommand_ParalyzeTarget:
 	ld a, [wTypeModifier]
 	and $7f
 	ret z
-	call CheckIfTargetIsElectricType
+	farcall CheckIfTargetIsElectricType
 	ret z
 	call GetOpponentItem
 	ld a, b
