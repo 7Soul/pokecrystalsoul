@@ -163,7 +163,7 @@ PlaceString::
 	push hl
 
 PlaceNextChar::
-	ld a, [de]
+	ld a, [de]	
 	cp "@"
 	jr nz, CheckDict
 	ld b, h

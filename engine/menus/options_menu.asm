@@ -13,9 +13,9 @@ _OptionsMenu:
 	call PlaceString
 	xor a
 	ld [wJumptableIndex], a
-	ld c, $6 ; number of items on the menu minus 1 (for cancel)
+	ld c, $4 ; number of items on the menu minus 1 (for cancel)
 
-.print_text_loop ; this next will display the settings of each option when the menu is opened
+.print_text_loop ; this text will display the settings of each option when the menu is opened
 	push bc
 	xor a
 	ldh [hJoyLast], a
@@ -61,20 +61,16 @@ _OptionsMenu:
 	ret
 
 StringOptions:
-	db "TEXT SPEED<LF>"
-	db "        :<LF>"
-	db "BATTLE SCENE<LF>"
-	db "        :<LF>"
-	db "BATTLE STYLE<LF>"
-	db "        :<LF>"
-	db "SOUND<LF>"
-	db "        :<LF>"
-	db "PRINT<LF>"
-	db "        :<LF>"
-	db "MENU ACCOUNT<LF>"
-	db "        :<LF>"
-	db "FRAME<LF>"
-	db "        :TYPE<LF>"
+	db "Text Speed<LF>"
+	db "         <LF>"
+	db "Battle VFX<LF>"
+	db "         <LF>"
+	db "Switch Type<LF>"
+	db "         <LF>"
+	db "Sound<LF>"
+	db "         <LF>"
+	db "Frame<LF>"
+	db "          Type<LF>"
 	db "CANCEL@"
 
 GetOptionPointer:
@@ -94,8 +90,8 @@ GetOptionPointer:
 	dw Options_BattleScene
 	dw Options_BattleStyle
 	dw Options_Sound
-	dw Options_Print
-	dw Options_MenuAccount
+	;dw Options_Print
+	;dw Options_MenuAccount
 	dw Options_Frame
 	dw Options_Cancel
 
@@ -146,7 +142,7 @@ Options_TextSpeed:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	hlcoord 11, 3
+	hlcoord 12, 3
 	call PlaceString
 	and a
 	ret
@@ -157,9 +153,9 @@ Options_TextSpeed:
 	dw .Mid
 	dw .Slow
 
-.Fast: db "FAST@"
-.Mid:  db "MID @"
-.Slow: db "SLOW@"
+.Fast: db "INSTA@"
+.Mid:  db "FAST @"
+.Slow: db "MED  @"
 
 GetTextSpeed:
 ; converts TEXT_DELAY_* value in a to OPT_TEXT_SPEED_* value in c,
@@ -216,7 +212,7 @@ Options_BattleScene:
 	ld de, .Off
 
 .Display:
-	hlcoord 11, 5
+	hlcoord 12, 5
 	call PlaceString
 	and a
 	ret
@@ -254,13 +250,13 @@ Options_BattleStyle:
 	ld de, .Set
 
 .Display:
-	hlcoord 11, 7
+	hlcoord 12, 7
 	call PlaceString
 	and a
 	ret
 
-.Shift: db "SHIFT@"
-.Set:   db "SET  @"
+.Shift: db "SWITCH@"
+.Set:   db "STAY  @"
 
 Options_Sound:
 	ld hl, wOptions
@@ -299,7 +295,7 @@ Options_Sound:
 	ld de, .Stereo
 
 .Display:
-	hlcoord 11, 9
+	hlcoord 12, 9
 	call PlaceString
 	and a
 	ret
@@ -353,7 +349,7 @@ Options_Print:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	hlcoord 11, 11
+	hlcoord 12, 11
 	call PlaceString
 	and a
 	ret
@@ -439,7 +435,7 @@ Options_MenuAccount:
 	ld de, .On
 
 .Display:
-	hlcoord 11, 13
+	hlcoord 12, 13
 	call PlaceString
 	and a
 	ret
@@ -471,7 +467,7 @@ Options_Frame:
 	ld [hl], a
 UpdateFrame:
 	ld a, [wTextBoxFrame]
-	hlcoord 16, 15 ; where on the screen the number is drawn
+	hlcoord 17, 11 ; where on the screen the number is drawn
 	add "1"
 	ld [hl], a
 	call LoadFontsExtra
@@ -501,7 +497,7 @@ OptionsControl:
 
 .DownPressed:
 	ld a, [hl] ; load the cursor position to a
-	cp $7 ; maximum number of items in option menu
+	cp $5 ; maximum number of items in option menu
 	jr nz, .CheckFive
 	ld [hl], $0
 	scf
@@ -528,7 +524,7 @@ OptionsControl:
 .NotSix:
 	and a
 	jr nz, .Decrease
-	ld [hl], $8 ; number of option items +1
+	ld [hl], $6 ; number of option items +1
 
 .Decrease:
 	dec [hl]
