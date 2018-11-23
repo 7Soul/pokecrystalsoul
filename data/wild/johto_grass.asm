@@ -1598,29 +1598,29 @@ JohtoGrassWildMons:
 	map_id ROUTE_46
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
-	db 2, NIDORAN_F
-	db 2, NIDORAN_F
-	db 2, NIDORAN_F
-	db 2, CATERPIE
-	db 2, CATERPIE
-	db 3, CATERPIE
-	db 3, CATERPIE
+	db 1, GEODUDE
+	db 1, EKANS
+	db 1, MANKEY
+	db 1, SUNKERN
+	db 1, PIDGEY
+	db 1, SUNKERN
+	db 1, IGGLYBUFF
 	; day
-	db 2, EEVEE
-	db 2, EEVEE
-	db 2, EEVEE
-	db 2, EEVEE
-	db 2, EEVEE
-	db 3, EEVEE
-	db 3, EEVEE
+	db 1, GEODUDE
+	db 1, EKANS
+	db 1, MANKEY
+	db 1, SUNKERN
+	db 1, PIDGEY
+	db 1, SUNKERN
+	db 1, IGGLYBUFF
 	; nite
-	db 2, NIDORAN_F
-	db 2, NIDORAN_F
-	db 2, NIDORAN_F
-	db 2, NIDORAN_F
-	db 2, NIDORAN_F
-	db 3, NIDORAN_F
-	db 3, NIDORAN_F
+	db 1, GEODUDE
+	db 1, EKANS
+	db 1, MANKEY
+	db 1, GRIMER
+	db 1, RATTATA
+	db 1, GRIMER
+	db 1, CLEFFA
 
 	map_id SILVER_CAVE_OUTSIDE
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite

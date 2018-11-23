@@ -478,7 +478,6 @@ SwimmerfPic:         INCBIN "gfx/trainers/swimmer_f.2bpp.lz"
 DiglettFrontpic:     INCBIN "gfx/pokemon/diglett/front.animated.2bpp.lz"
 OfficerPic:          INCBIN "gfx/trainers/officer.2bpp.lz"
 MukBackpic:          INCBIN "gfx/pokemon/muk/back.2bpp.lz"
-DelibirdBackpic:     INCBIN "gfx/pokemon/delibird/back.2bpp.lz"
 SabrinaPic:          INCBIN "gfx/trainers/sabrina.2bpp.lz"
 MagikarpBackpic:     INCBIN "gfx/pokemon/magikarp/back.2bpp.lz"
 AriadosBackpic:      INCBIN "gfx/pokemon/ariados/back.2bpp.lz"
@@ -782,6 +781,7 @@ GastlyBackpic:       INCBIN "gfx/pokemon/gastly/back.2bpp.lz"
 GolemBackpic:        INCBIN "gfx/pokemon/golem/back.2bpp.lz"
 TangelaBackpic:      INCBIN "gfx/pokemon/tangela/back.2bpp.lz"
 MetapodBackpic:      INCBIN "gfx/pokemon/metapod/back.2bpp.lz"
+DelibirdBackpic:     INCBIN "gfx/pokemon/delibird/back.2bpp.lz"
 
 SECTION "Pics 21", ROMX
 
