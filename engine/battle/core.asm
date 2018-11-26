@@ -6825,7 +6825,7 @@ BadgeStatBoosts:
 	call c, BoostStat
 	ret
 
-INCLUDE "data/battle/held_items.asm"
+INCLUDE "data/held_items.asm"
 
 BoostStat:
 ; Raise stat at hl by 1/8.
