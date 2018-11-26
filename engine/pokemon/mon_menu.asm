@@ -318,17 +318,18 @@ TryGiveItemToPartymon:
 	jr c, .abort
 
 	call GiveItemToPokemon
-	ld d, a
+	ld [wBuffer4], a
 	ld a, [wNamedObjectIndexBuffer]
 	push af
 	ld a, [wCurItem]
 	ld [wNamedObjectIndexBuffer], a
 	pop af
 	ld [wCurItem], a
+	;ld [wBuffer2], a
 	call ReceiveItemFromPokemon
 	jr nc, .bag_full
 
-	ld a, d
+	ld a, [wBuffer4]
 	cp 1
 	jr z, .tookandmadeholdstronger
 	cp 0
@@ -341,8 +342,6 @@ TryGiveItemToPartymon:
 	ld hl, TookAndMadeHoldText
 	call MenuTextBoxBackup
 .return
-	;ld hl, TookAndMadeHoldText
-	;call MenuTextBoxBackup
 	ld a, [wNamedObjectIndexBuffer]
 	ld [wCurItem], a
 	call GivePartyItem
@@ -351,6 +350,7 @@ TryGiveItemToPartymon:
 .bag_full
 	ld a, [wNamedObjectIndexBuffer]
 	ld [wCurItem], a
+	;ld [wBuffer2], a
 	call ReceiveItemFromPokemon
 	ld hl, ItemStorageIsFullText
 	call MenuTextBoxBackup
@@ -378,12 +378,18 @@ TakePartyItem:
 	jr z, .asm_12c8c
 
 	ld [wCurItem], a
+	;ld [wBuffer2], a
 	call ReceiveItemFromPokemon
 	jr nc, .asm_12c94
 
 	farcall ItemIsMail
+	
+	;call RecalcStats
+	;ld a, [wBuffer2]
+	;ld [wCurItem], a
 	call GetPartyItemLocation
 	ld a, [hl]
+	;ld a, [wBuffer2]
 	ld [wNamedObjectIndexBuffer], a
 	ld [hl], NO_ITEM
 	call GetItemName
@@ -467,14 +473,110 @@ GetPartyItemLocation:
 	ret
 
 ReceiveItemFromPokemon:
+	;ld a, [wBuffer2]
+	;ld [wCurItem], a
 	ld a, 1
 	ld [wItemQuantityChangeBuffer], a
 	ld hl, wNumItems
 	jp ReceiveItem
 
-GiveItemToPokemon:
- ; show "Mon feels stronger" text
+RecalcStats:
+	ld a, 1
+	ld [wBuffer3], a
 	predef CopyMonToTempMon
+	call GetBaseData
+	
+	ld a, NO_ITEM
+	ld [wTempMonItem], a
+	
+	ld a, [wTempMonSpecies]
+	ld [wCurSpecies], a
+	ld bc, wTempMon
+	ld hl, MON_LEVEL
+	add hl, bc
+	ld a, [hl]
+	ld [wCurPartyLevel], a
+	ld hl, MON_MAXHP
+	add hl, bc
+	ld d, h
+	ld e, l
+	ld hl, MON_STAT_EXP - 1
+	add hl, bc
+	ld b, TRUE
+	predef CalcMonStats
+	
+	ld a, [wTempMonSpecies]
+	ld [wCurSpecies], a
+	ld a, [wCurPartyMon]
+	ld hl, wPartyMons
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld e, l
+	ld d, h
+	ld bc, MON_MAXHP
+	add hl, bc
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	ld hl, wTempMonMaxHP + 1
+	ld a, [hld]
+	sub c
+	ld c, a
+	ld a, [hl]
+	sbc b
+	ld b, a
+	ld hl, wTempMonHP + 1
+	ld a, [hl]
+	add c
+	ld [hld], a
+	ld a, [hl]
+	adc b
+	ld [hl], a
+
+	ld hl, wTempMonSpecies
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call CopyBytes
+	ld a, 0
+	ld [wBuffer3], a
+	ret
+
+GiveItemToPokemon:
+	jp .return_to_toss
+	; ld a, 0
+	; ld [wBuffer3], a
+	
+	; predef CopyMonToTempMon
+	; call GetBaseData
+	
+	; ld a, [wCurItem]
+	; ld [wTempMonItem], a
+	
+	; ld bc, wTempMonSpecies
+	; ld hl, MON_LEVEL
+	; add hl, bc
+	; ld a, [hl]
+	; ld [wCurPartyLevel], a
+	; ld hl, MON_MAXHP
+	; add hl, bc
+	; ld d, h
+	; ld e, l
+	; ld hl, MON_STAT_EXP - 1
+	; add hl, bc
+	; ld b, TRUE
+	; predef CalcMonStats
+
+	
+	; ld a, [wCurPartyMon]
+	; ld hl, wPartyMons
+	; ld bc, PARTYMON_STRUCT_LENGTH
+	; call AddNTimes
+	; ld e, l
+	; ld d, h
+	
+	; ld hl, wTempMonSpecies
+	; ld bc, PARTYMON_STRUCT_LENGTH
+	; call CopyBytes
+	
 	ld a, [wTempMonSpecies]
 	ld b, a
 	ld hl, .Items
@@ -527,6 +629,7 @@ GiveItemToPokemon:
 	dbw VENONAT,	CARAPACE
 	dbw CUBONE,		THICK_CLUB
 	dbw QUILAVA,	CARAPACE
+	dbw CHARMANDER,	POTION
 	dw 0
 	
 StartMenuYesNo:

@@ -914,7 +914,7 @@ StatsScreen_LoadGFX:
 	db "MOVE@"
 
 .BluePage:
-	farcall CalcTempmonStats	
+	farcall CalcTempmonStats
 	
 	call .PlaceOTInfo	
 	call TN_PrintDVs

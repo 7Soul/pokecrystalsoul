@@ -1231,6 +1231,8 @@ UpdateStatsAfterItem:
 	ld a, MON_STAT_EXP - 1
 	call GetPartyParamLocation
 	ld b, TRUE
+	ld a, 1
+	ld [$8010], a
 	predef_jump CalcMonStats
 
 RareCandy_StatBooster_ExitMenu:

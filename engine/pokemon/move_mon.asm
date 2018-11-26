@@ -340,6 +340,8 @@ endr
 	ld bc, MON_STAT_EXP - 1
 	add hl, bc
 	ld b, FALSE
+	ld a, 0
+	ld [$8010], a
 	call CalcMonStats
 
 .registerunowndex
@@ -658,6 +660,8 @@ SendGetMonIntoFromBox:
 
 	push bc
 	ld b, TRUE
+	ld a, 0
+	ld [$8010], a
 	call CalcMonStats
 	pop bc
 
@@ -866,6 +870,8 @@ RetrieveBreedmon:
 	add hl, bc
 	push bc
 	ld b, TRUE
+	ld a, 0
+	ld [$8010], a
 	call CalcMonStats
 	ld hl, wPartyMon1Moves
 	ld a, [wPartyCount]
@@ -1385,6 +1391,8 @@ ComputeNPCTrademonStats:
 	ld a, MON_STAT_EXP - 1
 	call GetPartyParamLocation
 	ld b, TRUE
+	ld a, 0
+	ld [$8010], a
 	call CalcMonStats
 	pop de
 	ld a, MON_HP
@@ -1460,8 +1468,6 @@ CalcMonStatC:
 	pop de
 
 .no_stat_exp
-	ld a, 1
-	ld [$8010], a
 	srl c
 	pop hl
 	push bc
@@ -1611,22 +1617,40 @@ CalcMonStatC:
 	inc a
 	ldh [hMultiplicand + 1], a
 .no_overflow_4
-	ld a, [$8010] ; rare candy? Don't show item boost in pop up stats window
-	cp 1
-	jp z, .return_to_calc
+
  ; double stats if using held item
 	ld a, c	
 	cp STAT_ATK
 	jr z, .loadAtkItems
+	cp STAT_DEF
+	jr z, .loadDefItems
+	cp STAT_SPD
+	jr z, .loadSpdItems
 	cp STAT_SATK
 	jr z, .loadSpAtkItems
-	jr .return_to_calc
+	cp STAT_SDEF
+	jr z, .loadSpDefItems
+	cp STAT_HP
+	jr z, .loadHpItems
+	jp .return_to_calc
 	
 .loadAtkItems	
 	ld hl, .AtkItems
 	jr .load_species
 .loadSpAtkItems	
 	ld hl, .SpAtkItems
+	jr .load_species
+.loadSpdItems	
+	ld hl, .SpdItems
+	jr .load_species
+.loadDefItems	
+	ld hl, .DefItems
+	jr .load_species
+.loadSpDefItems	
+	ld hl, .SpDefItems
+	jr .load_species
+.loadHpItems	
+	ld hl, .HpItems
 	
 .load_species
 	ld a, [wCurSpecies]
@@ -1637,9 +1661,9 @@ CalcMonStatC:
 	cp d
 	jr z, .found_mon
 	cp -1
-	jr z, .return_to_calc
+	jp z, .return_to_calc
 	cp 0
-	jr z, .return_to_calc
+	jp z, .return_to_calc
 	inc hl
 	inc hl
 	jr .find_mon
@@ -1654,7 +1678,7 @@ CalcMonStatC:
 	ld a, [hl]
 	ld e, a
 	jp z, .found_item
-	jr .return_to_calc
+	jp .return_to_calc
 
 .found_item
 	ld a, e
@@ -1706,7 +1730,6 @@ CalcMonStatC:
 	ldh [hMultiplicand + 2], a
 	
 .return_to_calc
-;;;;;;;;;;;;;;;;;;;;
 	ldh a, [hQuotient + 2]
 	cp HIGH(MAX_STAT_VALUE + 1) + 1
 	jr nc, .max_stat

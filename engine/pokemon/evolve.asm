@@ -260,6 +260,8 @@ EvolveAfterBattle_MasterLoop:
 	ld hl, wTempMonExp + 2
 	ld de, wTempMonMaxHP
 	ld b, TRUE
+	ld a, 1
+	ld [$8010], a
 	predef CalcMonStats
 
 	ld a, [wCurPartyMon]

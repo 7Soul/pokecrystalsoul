@@ -2672,14 +2672,14 @@ PlayerAttackDamage:
 .physicalcrit
 	ld hl, wBattleMonAttack
 	call CheckDamageStatsCritical
-	jr c, .atk_boost_item
-; is crit get base def and atk
+	jr c, .done
+	
 	ld hl, wEnemyDefense
 	ld a, [hli]
 	ld b, a
 	ld c, [hl]
 	ld hl, wPlayerAttack
-	jr .atk_boost_item
+	jr .done
 
 .special
 	ld hl, wEnemyMonSpclDef
@@ -2696,7 +2696,7 @@ PlayerAttackDamage:
 .specialcrit
 	ld hl, wBattleMonSpclAtk
 	call CheckDamageStatsCritical
-	jr c, .spatk_boost_item
+	jr c, .done
 
 	ld hl, wEnemySpDef
 	ld a, [hli]
@@ -2704,18 +2704,11 @@ PlayerAttackDamage:
 	ld c, [hl]
 	ld hl, wPlayerSpAtk
 
-.spatk_boost_item
-; Note: Returns player special attack at hl in hl.
-	ld a, 1
-	call ItemBoost
-	jr .done
-
-.atk_boost_item
-; Note: Returns player attack at hl in hl.
-	ld a, 0
-	call ItemBoost
-	
 .done
+	ld a, [hli]
+	ld l, [hl]
+	ld h, a
+	
 	call TruncateHL_BC
 
 	ld a, [wBattleMonLevel]
@@ -2807,153 +2800,6 @@ CheckDamageStatsCritical:
 	pop bc
 	pop hl
 	ret
-	
-ItemBoost:
-; Return in hl the stat value at hl.
-	push bc
-	push de
-	push hl
-	
-	cp 0 ; atk
-	jr z, .loadAtkItems
-	cp 1 ; sp.atk
-	jr z, .loadSpAtkItems
-	
-.loadAtkItems
-	ld hl, .AtkItems
-	jr .load_species
-.loadSpAtkItems
-	ld hl, .SpAtkItems
-	
-.load_species
-	ldh a, [hBattleTurn]
-	and a
-	ld a, [wBattleMonSpecies]
-	ld b, a
-	jr z, .find_mon
-	ld a, [wTempEnemyMonSpecies]
-	ld b, a
-
-.find_mon
-	ld a, [hli]
-	cp b
-	jr z, .found_mon
-	cp -1
-	jr z, .leave
-	cp 0
-	jr z, .leave
-	inc hl
-	inc hl
-	jr .find_mon
-
-.found_mon
-	ld a, [hli]
-	ld d, a
-	ld a, [hl]
-	ld e, a
-
-.check_mon
-	ld b, b
-	ld c, b
-	pop hl
-	call SpeciesItemBoost
-	pop de
-	pop bc
-	ret
-
-.leave
-	pop hl
-	ld a, [hli]
-	ld l, [hl]
-	ld h, a
-	pop de
-	pop bc
-	ret
-
-INCLUDE "data/held_items.asm"
-
-SpeciesItemBoost:
-; Return in hl the stat value at hl.
-
-; If the attacking monster is species b or c and
-; it's holding item d, double it.
-	ld a, [hli]
-	ld l, [hl]
-	ld h, a
-
-	push hl
-	ld a, MON_SPECIES
-	call BattlePartyAttr
-
-	ldh a, [hBattleTurn]
-	and a
-	ld a, [hl]
-	jr z, .CompareSpecies
-	ld a, [wTempEnemyMonSpecies]
-	
-.CompareSpecies:
-	pop hl
-	cp b
-	jr z, .GetItemHeldEffect
-	cp c
-	ret nz
-
-.GetItemHeldEffect:
-	push hl
-	call GetUserItem
-	ld a, [hl]
-	pop hl
-	cp d
-	ret nz
-
-; Double the stat
-	ld a, e
-	cp 0 ; if 'e' is 0, double stat
-	jp z, .double
-	cp 1 ; if 'e' is 1, increase by 75%
-	jp z, .inc_75p
-	cp 2 ; if 'e' is 2, increase by 50%
-	jp z, .inc_50p
-	cp 10
-	jp nc, .inc_static
-	
-.double
-	sla l
-	rl h
-	jp .next
-	
-.inc_75p ; Increase stat by 75%
-	srl l
-	rr h
-	add hl, hl
-	srl l
-	rr h
-	add hl, hl
-	jp .next
-
-.inc_50p ; Increase stat by 50%
-	srl l
-	rr h
-	add hl, hl
-	jp .next
-	
-.inc_static; Increase stat by fixed number in 'e'
-	ld a, e
-	add hl
-	jp .next
-	
-.next
-	ld a, HIGH(MAX_STAT_VALUE)
-	cp h
-	jr c, .cap
-	ld a, LOW(MAX_STAT_VALUE)
-	cp l
-	ret nc
-
-.cap
-	ld h, HIGH(MAX_STAT_VALUE)
-	ld l, LOW(MAX_STAT_VALUE)
-	ret
 
 EnemyAttackDamage:
 	call ResetDamage
@@ -2999,14 +2845,14 @@ EnemyAttackDamage:
 .physicalcrit
 	ld hl, wEnemyMonAttack
 	call CheckDamageStatsCritical
-	jr c, .thickclub
+	jr c, .done
 
 	ld hl, wPlayerDefense
 	ld a, [hli]
 	ld b, a
 	ld c, [hl]
 	ld hl, wEnemyAttack
-	jr .thickclub
+	jr .done
 
 .Special:
 	ld hl, wBattleMonSpclDef
@@ -3023,23 +2869,18 @@ EnemyAttackDamage:
 .specialcrit
 	ld hl, wEnemyMonSpclAtk
 	call CheckDamageStatsCritical
-	jr c, .lightball
+	jr c, .done
 	ld hl, wPlayerSpDef
 	ld a, [hli]
 	ld b, a
 	ld c, [hl]
 	ld hl, wEnemySpAtk
 
-.lightball
-	ld a, 1
-	call ItemBoost
-	jr .done
-
-.thickclub
-	ld a, 0
-	call ItemBoost
-
 .done
+	ld a, [hli]
+	ld l, [hl]
+	ld h, a
+	
 	call TruncateHL_BC
 
 	ld a, [wEnemyMonLevel]

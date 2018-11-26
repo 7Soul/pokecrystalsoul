@@ -3885,6 +3885,7 @@ InitBattleMon:
 	ld bc, PARTYMON_STRUCT_LENGTH - MON_ATK
 	call CopyBytes
 	call ApplyStatusEffectOnPlayerStats
+	;call BadgeStatBoosts
 	ret
 
 BattleCheckPlayerShininess:
@@ -6231,6 +6232,8 @@ LoadEnemyMon:
 	ld de, wEnemyMonMaxHP
 	ld b, FALSE
 	ld hl, wEnemyMonDVs - (MON_DVS - MON_STAT_EXP + 1) ; wLinkBattleRNs + 7 ; ?
+	ld a, 0
+	ld [$8010], a
 	predef CalcMonStats
 
 ; If we're in a trainer battle,
@@ -6764,6 +6767,66 @@ ApplyStatLevelMultiplier:
 
 INCLUDE "data/battle/stat_multipliers_2.asm"
 
+BadgeStatBoosts:
+; Raise the stats of the battle mon in wBattleMon
+; depending on which badges have been obtained.
+
+; Every other badge boosts a stat, starting from the first.
+
+; 	ZephyrBadge:  Attack
+; 	PlainBadge:   Speed
+; 	MineralBadge: Defense
+; 	GlacierBadge: Special Attack
+; 	RisingBadge:  Special Defense
+
+; The boosted stats are in order, except PlainBadge and MineralBadge's boosts are swapped.
+
+	ld a, [wLinkMode]
+	and a
+	ret nz
+
+	ld a, [wInBattleTowerBattle]
+	and a
+	ret nz
+
+	ld a, [wJohtoBadges]
+
+; Swap badges 3 (PlainBadge) and 5 (MineralBadge).
+	ld d, a
+	and (1 << PLAINBADGE)
+	add a
+	add a
+	ld b, a
+	ld a, d
+	and (1 << MINERALBADGE)
+	rrca
+	rrca
+	ld c, a
+	ld a, d
+	and ((1 << ZEPHYRBADGE) | (1 << HIVEBADGE) | (1 << FOGBADGE) | (1 << STORMBADGE) | (1 << GLACIERBADGE) | (1 << RISINGBADGE))
+	or b
+	or c
+	ld b, a
+
+	ld hl, wBattleMonAttack
+	ld c, 4
+.CheckBadge:
+	ld a, b
+	srl b
+	call c, BoostStat
+	inc hl
+	inc hl
+; Check every other badge.
+	srl b
+	dec c
+	jr nz, .CheckBadge
+; And the last one (RisingBadge) too.
+	srl a
+	call c, BoostStat
+	ret
+
+INCLUDE "data/battle/held_items.asm"
+
 BoostStat:
 ; Raise stat at hl by 1/8.
 
@@ -7164,6 +7227,8 @@ GiveExperiencePoints:
 	add hl, bc
 	push bc
 	ld b, TRUE
+	ld a, 0
+	ld [$8010], a
 	predef CalcMonStats
 	pop bc
 	pop de
