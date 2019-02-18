@@ -91,7 +91,22 @@ TrainerType1:
 ; normal (level, species)
 	ld h, d
 	ld l, e
-.loop
+.loop	
+	push hl
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits	
+	ld a, [wNumSetBits]
+	inc a
+	ld b, a
+	pop hl
+	ld a, [hl]
+	cp b
+	ret nc
+	ld a, [hli]
+	cp $ff
+	ret z
+	
 	ld a, [hli]
 	cp $ff
 	ret z
@@ -104,13 +119,28 @@ TrainerType1:
 	push hl
 	predef TryAddMonToParty
 	pop hl
-	jr .loop
+	jp .loop
 
 TrainerType2:
 ; moves
 	ld h, d
 	ld l, e
 .loop
+	push hl
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits	
+	ld a, [wNumSetBits]
+	inc a
+	ld b, a
+	pop hl
+	ld a, [hl]
+	cp b
+	ret nc
+	ld a, [hli]
+	cp $ff
+	ret z
+	
 	ld a, [hli]
 	cp $ff
 	ret z
@@ -180,13 +210,28 @@ TrainerType2:
 .copied_pp
 
 	pop hl
-	jr .loop
+	jp .loop
 
 TrainerType3:
 ; item
 	ld h, d
 	ld l, e
 .loop
+	push hl
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits	
+	ld a, [wNumSetBits]
+	inc a
+	ld b, a
+	pop hl
+	ld a, [hl]
+	cp b
+	ret nc
+	ld a, [hli]
+	cp $ff
+	ret z
+	
 	ld a, [hli]
 	cp $ff
 	ret z
@@ -208,16 +253,32 @@ TrainerType3:
 	pop hl
 	ld a, [hli]
 	ld [de], a
-	jr .loop
+	jp .loop
 
 TrainerType4:
 ; item + moves
 	ld h, d
 	ld l, e
 .loop
+	push hl
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits	
+	ld a, [wNumSetBits]
+	inc a
+	ld b, a
+	pop hl
+	ld a, [hl]
+	cp b
+	ret nc
 	ld a, [hli]
 	cp $ff
 	ret z
+	
+	ld a, [hli]
+	cp $ff
+	ret z
+	
 
 	ld [wCurPartyLevel], a
 	ld a, [hli]
@@ -299,7 +360,7 @@ TrainerType4:
 .copied_pp
 
 	pop hl
-	jr .loop
+	jp .loop
 
 ComputeTrainerReward:
 	ld hl, hProduct
