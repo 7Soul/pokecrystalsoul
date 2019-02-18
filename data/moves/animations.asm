@@ -150,7 +150,7 @@ BattleAnimations::
 	dw BattleAnim_Spore
 	dw BattleAnim_MagmaStorm
 	dw BattleAnim_Psywave
-	dw BattleAnim_Splash
+	dw BattleAnim_AirSlash
 	dw BattleAnim_AcidArmor
 	dw BattleAnim_Crabhammer
 	dw BattleAnim_Explosion
@@ -2000,14 +2000,16 @@ BattleAnim_AcidArmor:
 	anim_call BattleAnim_ShowMon_0
 	anim_ret
 
-BattleAnim_Splash:
-	anim_1gfx ANIM_GFX_HIT
-	anim_sound 0, 0, SFX_VICEGRIP
-	anim_call BattleAnim_FollowPlayerHead_0
-	anim_bgeffect ANIM_BG_BOUNCE_DOWN, $0, $1, $0
-	anim_wait 96
-	anim_incbgeffect ANIM_BG_BOUNCE_DOWN
-	anim_call BattleAnim_ShowMon_0
+BattleAnim_AirSlash:
+	anim_2gfx ANIM_GFX_SHINE, ANIM_GFX_CUT
+	anim_bgeffect ANIM_BG_07, $0, $0, $0
+	anim_sound 0, 1, SFX_CUT
+	anim_obj ANIM_OBJ_3A, 152, 40, $0
+	anim_wait 8
+	anim_sound 0, 1, SFX_CUT
+	anim_wait 8
+	anim_sound 0, 1, SFX_CUT
+	anim_wait 16
 	anim_ret
 
 BattleAnim_Dig:

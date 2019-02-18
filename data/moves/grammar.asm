@@ -13,7 +13,6 @@ MoveGrammar:
 	db EGG_BOMB
 	db SMOG
 	db BONE_CLUB
-	db SPLASH
 	db ACID_ARMOR
 	db BONEMERANG
 	db REST

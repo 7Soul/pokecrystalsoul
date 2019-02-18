@@ -1,8 +1,6 @@
 	db ONIX ; 095
 
-	  db  75,  85, 160,  70,  55,  50
-	; db  75,  85, 200,  30,  55,  65 ; steelix
-	; db  95, 125,  74,  81,  60, 95 ; gyarados
+	db  75, 105, 160,  80,  55,  50
 	;   hp  atk  def  spd  sat  sdf
 
 	db ROCK, ROCK ; type

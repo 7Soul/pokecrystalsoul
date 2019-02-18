@@ -149,7 +149,7 @@ MoveDescriptions::
 	dw SporeDescription
 	dw MagmaStormDescription
 	dw PsywaveDescription
-	dw SplashDescription
+	dw AirSlashDescription
 	dw AcidArmorDescription
 	dw CrabhammerDescription
 	dw ExplosionDescription
@@ -857,9 +857,9 @@ PsywaveDescription:
 	db   "An attack with"
 	next "variable power.@"
 
-SplashDescription:
-	db   "Has no effect"
-	next "whatsoever.@"
+AirSlashDescription:
+	db   "An attack that may"
+	next "cause flinching.@"
 
 AcidArmorDescription:
 	db   "Sharply raises the"

@@ -41,6 +41,7 @@ PidgeyEggMoves:
 	db PURSUIT
 	db FAINT_ATTACK
 	db FORESIGHT
+	db AIR_SLASH
 if !_CRYSTAL
 	db ICICLE_WING
 endc
@@ -187,7 +188,6 @@ GrowlitheEggMoves:
 
 PoliwagEggMoves:
 	db MIST
-	db SPLASH
 	db BUBBLEBEAM
 	db HAZE
 	db LOCK_ON
@@ -383,7 +383,6 @@ HorseaEggMoves:
 	db AURORA_BEAM
 	db OCTAZOOKA
 	db DISABLE
-	db SPLASH
 	db -1 ; end
 
 GoldeenEggMoves:
@@ -544,7 +543,6 @@ CleffaEggMoves:
 	db METRONOME
 	db AMNESIA
 	db BELLY_DRUM
-	db SPLASH
 	db MIMIC
 	db -1 ; end
 
@@ -743,7 +741,6 @@ DelibirdEggMoves:
 	db AURORA_BEAM
 	db QUICK_ATTACK
 	db FUTURE_SIGHT
-	db SPLASH
 	db RAPID_SPIN
 	db -1 ; end
 

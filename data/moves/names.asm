@@ -148,7 +148,7 @@ MoveNames::
 	db "Spore@"
 	db "Magma Storm@"
 	db "Psywave@"
-	db "Splash@"
+	db "Air Slash@"
 	db "Acid Armor@"
 	db "Crabhammer@"
 	db "Explosion@"

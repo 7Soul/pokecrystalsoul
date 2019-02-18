@@ -155,7 +155,7 @@
 	const SPORE        ; 93
 	const MAGMA_STORM  ; 94
 	const PSYWAVE      ; 95
-	const SPLASH       ; 96
+	const AIR_SLASH    ; 96
 	const ACID_ARMOR   ; 97
 	const CRABHAMMER   ; 98
 	const EXPLOSION    ; 99

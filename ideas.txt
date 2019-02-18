@@ -1,0 +1,25 @@
+Easy Breeze weather effect
+	Flying moves power up
+	Spore moves have half acc
+	
+Air Static weather effect
+	Damages anything that isn't electric or rock every turn
+	Special Psychic moves power down
+	
+Nightfall weather effect
+	Powers up: Night Shade, Lick, Pursuit, Bite, Faint Attack, Crunch, Dark Pulse, Shadow Ball, Moonlight
+	Reduces the accuracy of: Solar Beam, Aurora Beam
+	Reduces the effect of: Morning Sun
+	
+Hot Coals
+	A Spikes-like effect that doesn't hurt fire or flying types, and can cause a BRN
+	
+
+A move that does more damage if the foe is higher level
+A move that if it faints the foe, the next mon will receive a status effect
+
+Held items that boost stats for unevolved mon:
+	- One that doubles ATK and SP.ATK
+		- For each type (12)
+	- One that doubles DEF and SP.DEF
+		- For each type (12)

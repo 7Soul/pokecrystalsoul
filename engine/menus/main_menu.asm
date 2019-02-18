@@ -41,12 +41,12 @@ MainMenu:
 	dw .Strings
 
 .Strings:
-	db "CONTINUE@"
-	db "NEW GAME@"
-	db "OPTION@"
-	db "MYSTERY GIFT@"
-	db "MOBILE@"
-	db "MOBILE STUDIUM@"
+	db "Continue@"
+	db "New Game@"
+	db "Options@"
+	db "Mystery Gift@"
+	db "Mobile@"
+	db "Mobile Studium@"
 
 .Jumptable:
 	dw MainMenu_Continue

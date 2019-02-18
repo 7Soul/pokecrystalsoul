@@ -1,6 +1,6 @@
 	db STEELIX ; 208
 
-	db  75,  85, 200,  30,  55,  65
+	db  75, 105, 200,  40,  55,  65
 	;   hp  atk  def  spd  sat  sdf
 
 	db ROCK, ROCK ; type
