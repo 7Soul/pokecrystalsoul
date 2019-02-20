@@ -105,7 +105,7 @@
 	const WHT_APRICORN ; 61
 	const BLACKBELT    ; 62
 	const BLK_APRICORN ; 63
-	const ITEM_64      ; 64 ; unused
+	const CINDERS      ; 64 ; unused
 	const PNK_APRICORN ; 65
 	const BLACKGLASSES ; 66
 	const SLOWPOKETAIL ; 67
@@ -125,7 +125,7 @@
 	const MIRACLE_SEED ; 75
 	const THICK_CLUB   ; 76
 	const FOCUS_BAND   ; 77
-	const ITEM_78      ; 78 ; unused
+	const DARK_MIRROR  ; 78 ; unused
 	const ENERGYPOWDER ; 79
 	const ENERGY_ROOT  ; 7a
 	const HEAL_POWDER  ; 7b
@@ -140,14 +140,14 @@
 	const STAR_PIECE   ; 84
 	const BASEMENT_KEY ; 85
 	const PASS         ; 86
-	const ITEM_87      ; 87 ; unused
-	const ITEM_88      ; 88 ; unused
-	const ITEM_89      ; 89 ; unused
+	const DUMBELL	   ; 87 ; unused
+	const GRASSWHISTLE ; 88 ; unused
+	const ACCELEROCK   ; 89 ; unused
 	const CHARCOAL     ; 8a
 	const BERRY_JUICE  ; 8b
 	const SCOPE_LENS   ; 8c
-	const ITEM_8D      ; 8d ; unused
-	const ITEM_8E      ; 8e ; unused
+	const HARDENEDSAND ; 8d ; unused
+	const SHINY_CORAL  ; 8e ; unused
 	const METAL_COAT   ; 8f
 	const DRAGON_FANG  ; 90
 	const ITEM_91      ; 91 ; unused
