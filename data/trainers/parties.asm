@@ -4,17 +4,19 @@ Trainers:
 ; Trainer data structure:
 ; - db "NAME@", TRAINERTYPE_* constant
 ; - 1 to 6 Pokémon:
-;    * for TRAINERTYPE_NORMAL:     db level, species
-;    * for TRAINERTYPE_MOVES:      db level, species, 4 moves
-;    * for TRAINERTYPE_ITEM:       db level, species, item
-;    * for TRAINERTYPE_ITEM_MOVES: db level, species, item, 4 moves
+;    * for TRAINERTYPE_NORMAL:     db badges, level, species
+;    * for TRAINERTYPE_MOVES:      db badges, level, species, 4 moves
+;    * for TRAINERTYPE_ITEM:       db badges, level, species, item
+;    * for TRAINERTYPE_ITEM_MOVES: db badges, level, species, item, 4 moves
+; badge number is -1 from number (0 means 1 badges, 1 means 2 badges, etc)
 ; - db -1 ; end
 
 FalknerGroup:
 	; FALKNER (1)
 	db "FALKNER@", TRAINERTYPE_MOVES
-	db  11, HOOTHOOT,  MUD_BOMB, GROWL, FORESIGHT, PECK
-	db  10, MURKROW,   PECK, MUD_BOMB, NO_MOVE, NO_MOVE
+	db  1, 11, HOOTHOOT,  MUD_BOMB, GROWL, FORESIGHT, PECK
+	db  1, 10, MURKROW,   PECK, MUD_BOMB, NO_MOVE, NO_MOVE
+	db  2, 10, MURKROW,   PECK, MUD_BOMB, NO_MOVE, NO_MOVE
 	db -1 ; end
 	
 BugsyGroup:
@@ -355,7 +357,7 @@ ErikaGroup:
 YoungsterGroup:
 	; YOUNGSTER (1)
 	db "JOEY@", TRAINERTYPE_NORMAL
-	db  10, RATTATA
+	db  0, 10, RATTATA
 	db -1 ; end
 
 	; YOUNGSTER (2)
@@ -1534,9 +1536,10 @@ BugCatcherGroup:
 
 	; BUG_CATCHER (4)
 	db "WADE@", TRAINERTYPE_NORMAL
-	db  4, SPINARAK
-	db  4, SPINARAK
-	db  8, SPINARAK
+	db  0, 4, SPINARAK
+	db  0, 4, SPINARAK
+	db  0, 8, SPINARAK
+	db  1, 8, ARIADOS
 	db -1 ; end
 
 	; BUG_CATCHER (5)
@@ -2832,10 +2835,10 @@ PicnickerGroup:
 
 	; PICNICKER (10)
 	db "ERIN@", TRAINERTYPE_ITEM_MOVES
-	db 0, 21, PONYTA, CARAPACE, SURF, LEAF_SHIELD, NO_MOVE, NO_MOVE
-	db 1, 21, PONYTA, CARAPACE, SURF, LEAF_SHIELD, NO_MOVE, NO_MOVE
-	db 2, 21, QUILAVA, NO_ITEM, SURF, EMBER, NO_MOVE, NO_MOVE
-	db 9, 21, QUILAVA, NO_ITEM, SURF, EMBER, NO_MOVE, NO_MOVE
+	db 0, 3, CUBONE, NO_ITEM, SURF, EMBER, NO_MOVE, NO_MOVE
+	db 0, 3, PONYTA, CARAPACE, SURF, LEAF_SHIELD, NO_MOVE, NO_MOVE
+	db 2, 1, PONYTA, CARAPACE, SURF, LEAF_SHIELD, NO_MOVE, NO_MOVE
+	db 2, 1, QUILAVA, NO_ITEM, SURF, EMBER, NO_MOVE, NO_MOVE
 	db -1 ; end
 
 	; PICNICKER (11)

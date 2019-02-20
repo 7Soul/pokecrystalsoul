@@ -1171,7 +1171,7 @@ BattleCommand_Critical:
 	jr nz, .Farfetchd
 	ld a, [hl]
 	cp LUCKY_PUNCH
-	jr nz, .FocusEnergy
+	jp nz, .FocusEnergy
 
 ; +2 critical level
 	ld c, 2
@@ -1179,16 +1179,55 @@ BattleCommand_Critical:
 
 .Farfetchd:
 	cp FARFETCH_D
-	jr nz, .FocusEnergy
+	jr nz, .Steel_Wing_Check
 	ld a, [hl]
 	cp STICK
-	jr nz, .FocusEnergy
+	jp nz, .FocusEnergy
+
+; +2 critical level
+	ld c, 2
+	jr .Tally
+
+.Steel_Wing_Check:
+	ld d, a
+	push hl
+	ld hl, .SteelWing
+	
+.find_mon
+	ld a, [hli]
+	cp d
+	jr z, .found_mon
+	cp -1
+	jp z, .FocusEnergy
+	cp 0
+	jp z, .FocusEnergy
+	inc hl
+	inc hl
+	jr .find_mon
+
+.found_mon
+	pop hl
+	ld a, [hl]
+	cp STEEL_WING
+	jr nz, .FocusEnergy	
+	
+	ld a, BATTLE_VARS_MOVE_TYPE ; Check if its a flying move
+	call GetBattleVarAddr
+	and TYPE_MASK
+	cp FLYING
+	jr nz, .FocusEnergy	
+	
+	ld a, BATTLE_VARS_MOVE_POWER ; Check if power is below 60
+	call GetBattleVar
+	cp 61
+	jr c, .FocusEnergy	
 
 ; +2 critical level
 	ld c, 2
 	jr .Tally
 
 .FocusEnergy:
+	pop hl
 	ld a, BATTLE_VARS_SUBSTATUS4
 	call GetBattleVar
 	bit SUBSTATUS_FOCUS_ENERGY, a
@@ -1232,6 +1271,8 @@ BattleCommand_Critical:
 	ld a, 1
 	ld [wCriticalHit], a
 	ret
+
+INCLUDE "data/held_items.asm"
 
 INCLUDE "data/moves/critical_hit_moves.asm"
 

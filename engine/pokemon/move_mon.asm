@@ -1620,37 +1620,8 @@ CalcMonStatC:
 
  ; double stats if using held item
 	ld a, c	
-	cp STAT_ATK
-	jr z, .loadAtkItems
-	cp STAT_DEF
-	jr z, .loadDefItems
-	cp STAT_SPD
-	jr z, .loadSpdItems
-	cp STAT_SATK
-	jr z, .loadSpAtkItems
-	cp STAT_SDEF
-	jr z, .loadSpDefItems
-	cp STAT_HP
-	jr z, .loadHpItems
-	jp .return_to_calc
-	
-.loadAtkItems	
-	ld hl, .AtkItems
-	jr .load_species
-.loadSpAtkItems	
-	ld hl, .SpAtkItems
-	jr .load_species
-.loadSpdItems	
-	ld hl, .SpdItems
-	jr .load_species
-.loadDefItems	
-	ld hl, .DefItems
-	jr .load_species
-.loadSpDefItems	
-	ld hl, .SpDefItems
-	jr .load_species
-.loadHpItems	
-	ld hl, .HpItems
+	ld [$C001], a
+	ld hl, .AllItems
 	
 .load_species
 	ld a, [wCurSpecies]
@@ -1666,6 +1637,11 @@ CalcMonStatC:
 	jp z, .return_to_calc
 	inc hl
 	inc hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	;inc hl
 	jr .find_mon
 
 .found_mon
@@ -1675,12 +1651,70 @@ CalcMonStatC:
 	ld e, a ; held item
 	ld a, d ; item from table
 	cp e
-	ld a, [hl]
-	ld e, a
 	jp z, .found_item
-	jp .return_to_calc
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	jp .load_species
 
 .found_item
+	ld a, [$C001]
+	cp STAT_ATK
+	jr z, .loadAtkItems
+	cp STAT_DEF
+	jr z, .loadDefItems
+	cp STAT_SPD
+	jr z, .loadSpdItems
+	cp STAT_SATK
+	jr z, .loadSpAtkItems
+	cp STAT_SDEF
+	jr z, .loadSpDefItems
+	cp STAT_HP
+	jr z, .loadHpItems
+	jp .return_to_calc
+	
+.loadAtkItems
+	ld a, [hl]
+	ld e, a
+	jr .addStat
+.loadSpAtkItems	
+	inc hl
+	ld a, [hl]
+	ld e, a
+	jr .addStat
+.loadSpdItems
+	inc hl
+	inc hl
+	ld a, [hl]
+	ld e, a
+	jr .addStat
+.loadDefItems
+	inc hl
+	inc hl
+	inc hl
+	ld a, [hl]
+	ld e, a
+	jr .addStat
+.loadSpDefItems	
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	ld a, [hl]
+	ld e, a
+	jr .addStat
+.loadHpItems
+	; inc hl
+	; inc hl
+	; inc hl
+	; inc hl
+	; inc hl
+	; ld a, [hl]
+	; ld e, a
+	jr .return_to_calc	
+.addStat
 	ld a, e
 	cp 0 ; if 'e' is 0, double stat
 	jp z, .double
@@ -1688,7 +1722,7 @@ CalcMonStatC:
 	jp z, .inc_75p
 	cp 2 ; if 'e' is 2, increase by 50%
 	jp z, .inc_50p
-	cp 10
+	cp 5
 	jp nc, .inc_static
 	jp .return_to_calc
 	
@@ -1729,7 +1763,7 @@ CalcMonStatC:
 	add e
 	ldh [hMultiplicand + 2], a
 	
-.return_to_calc
+.return_to_calc	
 	ldh a, [hQuotient + 2]
 	cp HIGH(MAX_STAT_VALUE + 1) + 1
 	jr nc, .max_stat
@@ -1745,7 +1779,7 @@ CalcMonStatC:
 	ld a, LOW(MAX_STAT_VALUE)
 	ldh [hMultiplicand + 2], a
 
-.stat_value_okay
+.stat_value_okay	
 	pop bc
 	pop de
 	pop hl

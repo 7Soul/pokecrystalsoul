@@ -49,7 +49,7 @@ ItemDescriptions:
 	dw SodaPopDesc
 	dw LemonadeDesc
 	dw XAttackDesc
-	dw TeruSama4Desc
+	dw SteelWingDesc
 	dw XDefendDesc
 	dw XSpeedDesc
 	dw XSpecialDesc
@@ -89,7 +89,7 @@ ItemDescriptions:
 	dw BigMushroomDesc
 	dw SilverPowderDesc
 	dw BluApricornDesc
-	dw TeruSama6Desc
+	dw BatteryDesc
 	dw AmuletCoinDesc
 	dw YlwApricornDesc
 	dw GrnApricornDesc
@@ -432,7 +432,8 @@ DireHitDesc:
 	next "ratio. (1 BTL)@"
 
 CarapaceDesc:
-	db   "?@"
+	db   "Powers unevolved"
+	next "BUG-Types.@"
 
 FreshWaterDesc:
 	db   "Restores #MON"
@@ -450,8 +451,9 @@ XAttackDesc:
 	db   "Raises ATTACK."
 	next "(1 BTL)@"
 
-TeruSama4Desc:
-	db   "?@"
+SteelWingDesc:
+	db   "Powers unevolved"
+	next "FLYING-Types.@"
 
 XDefendDesc:
 	db   "Raises DEFENSE."
@@ -606,8 +608,9 @@ SilverPowderDesc:
 BluApricornDesc:
 	db   "A blue APRICORN.@"
 
-TeruSama6Desc:
-	db   "?@"
+BatteryDesc:
+	db   "Powers unevolved"
+	next "ELECTRIC-Types.@"
 
 AmuletCoinDesc:
 	db   "Doubles monetary"

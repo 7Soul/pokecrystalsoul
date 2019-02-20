@@ -237,9 +237,10 @@ PidgeyEvosAttacks:
 	db 15, WING_ATTACK
 	db 18, WHIRLWIND
 	db 23, AGILITY
-	db 27, AIR_SLASH
-	db 32, SWORDS_DANCE
-	db 47, MIRROR_MOVE
+	db 26, AIR_SLASH
+	db 30, FOCUS_ENERGY
+	db 33, SWORDS_DANCE
+	db 46, MIRROR_MOVE
 	db 0 ; no more level-up moves
 
 PidgeottoEvosAttacks:
