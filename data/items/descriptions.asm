@@ -144,10 +144,10 @@ ItemDescriptions:
 	dw ShinyCoralDesc
 	dw MetalCoatDesc
 	dw DragonFangDesc
-	dw CuteRibbonDesc
+	dw TeruSama14Desc
 	dw LeftoversDesc
-	dw FrozenDewDesc
-	dw EyeGlyphDesc
+	dw TeruSama15Desc
+	dw TeruSama16Desc
 	dw TeruSama17Desc
 	dw MysteryBerryDesc
 	dw DragonScaleDesc
@@ -824,21 +824,18 @@ DragonFangDesc:
 	db   "Powers up dragon-"
 	next "type moves. (HOLD)@"
 
-CuteRibbonDesc:
-	db   "Powers unevolved"
-	next "NORMAL-Types.@"
+TeruSama14Desc:
+	db   "?@"
 
 LeftoversDesc:
 	db   "Restores HP during"
 	next "battle. (HOLD)@"
 
-FrozenDewDesc:
-	db   "Powers unevolved"
-	next "ICE-Types.@"
+TeruSama15Desc:
+	db   "?@"
 
-EyeGlyphDesc:
-	db   "Powers unevolved"
-	next "PSYCHIC-Types.@"
+TeruSama16Desc:
+	db   "?@"
 
 TeruSama17Desc:
 	db   "?@"

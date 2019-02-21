@@ -150,10 +150,10 @@
 	const SHINY_CORAL  ; 8e ; unused
 	const METAL_COAT   ; 8f
 	const DRAGON_FANG  ; 90
-	const CUTE_RIBBON  ; 91 ; unused
+	const ITEM_91      ; 91 ; unused
 	const LEFTOVERS    ; 92
-	const FROZEN_DEW   ; 93 ; unused
-	const EYE_GLYPH    ; 94 ; unused
+	const ITEM_93      ; 93 ; unused
+	const ITEM_94      ; 94 ; unused
 	const ITEM_95      ; 95 ; unused
 	const MYSTERYBERRY ; 96
 	const DRAGON_SCALE ; 97

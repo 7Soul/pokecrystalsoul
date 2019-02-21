@@ -1621,7 +1621,7 @@ CalcMonStatC:
  ; double stats if using held item
 	ld a, c	
 	ld [$C001], a
-	ld hl, AllItems
+	ld hl, .AllItems
 	
 .load_species
 	ld a, [wCurSpecies]
@@ -1633,12 +1633,15 @@ CalcMonStatC:
 	jr z, .found_mon
 	cp -1
 	jp z, .return_to_calc
+	cp 0
+	jp z, .return_to_calc
 	inc hl
 	inc hl
 	inc hl
 	inc hl
 	inc hl
 	inc hl
+	;inc hl
 	jr .find_mon
 
 .found_mon
@@ -1782,7 +1785,7 @@ CalcMonStatC:
 	pop hl
 	ret
 	
-;INCLUDE "data/held_items.asm"
+INCLUDE "data/held_items.asm"
 
 GivePoke::
 	push de

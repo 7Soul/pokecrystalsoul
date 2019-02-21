@@ -59,9 +59,9 @@ CheckMoveTypeMatchesTarget:
 	and a
 	pop hl
 	ret
-
+	
 HeldItems:
-	ld hl, AllItems
+	ld hl, .SteelWing
 	ret
 
 INCLUDE "data/held_items.asm"

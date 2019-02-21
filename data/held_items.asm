@@ -1,6 +1,6 @@
 ; 0 = double, 1 = 75% inc, 2 = 50% inc
 ; 5+ = inc by 5+ 
-AllItems:                    ;	   atk,    satk,   spd,    def,   sdef
+.AllItems:                    ;	   atk,    satk,   spd,    def,   sdef
 	db CATERPIE,	TOUGH_HORN, 	0, 		2, 		2,		2,		2
 	db CATERPIE,	CARAPACE, 		2, 		2, 		2,		0,		0
 	db WEEDLE,		TOUGH_HORN, 	0, 		2, 		2,		2,		2
@@ -49,7 +49,7 @@ AllItems:                    ;	   atk,    satk,   spd,    def,   sdef
 	db MANKEY,		DUMBELL, 		2, 		2, 		2,		2,		2
 	db MACHOP,		DUMBELL, 		2, 		2, 		2,		2,		2
 	db TYROGUE,		DUMBELL, 		2, 		2, 		2,		2,		2
-	db BULBASAUR,	GRASSWHISTLE, 	2, 		2, 		2,		1,		1
+	db BULBASAUR,	GRASSWHISTLE, 	2, 		2, 		2,		2,		2
 	db CHIKORITA,	GRASSWHISTLE, 	2, 		2, 		2,		1,		1
 	db SUNKERN,		GRASSWHISTLE, 	2, 		2, 		2,		1,		1
 	db ODDISH,		GRASSWHISTLE, 	2, 		2, 		2,		1,		1
@@ -86,27 +86,15 @@ AllItems:                    ;	   atk,    satk,   spd,    def,   sdef
 	db WOOPER,		SHINY_CORAL, 	1, 		2, 		2,		2,		1
 	db OMANYTE,		SHINY_CORAL, 	1, 		2, 		2,		2,		1
 	db KABUTO,		SHINY_CORAL, 	1, 		2, 		2,		2,		1
-	db RATTATA,		CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db MEOWTH,		CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db EEVEE,		CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db PORYGON,		CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db SENTRET,		CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db TEDDIURSA,	CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db JIGGLYPUFF,	CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db IGGLYBUFF,	CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db CLEFAIRY,	CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db CLEFFA,		CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db PIDGEY,		CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db SPEAROW,		CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db DODUO,		CUTE_RIBBON, 	1, 		2, 		2,		2,		2
-	db SWINUB,		FROZEN_DEW, 	2, 		1, 		2,		1,		2
-	db SEEL,		FROZEN_DEW, 	2, 		1, 		2,		1,		2
-	db SHELLDER,	FROZEN_DEW, 	2, 		1, 		2,		1,		2
-	db SMOOCHUM,	FROZEN_DEW, 	2, 		1, 		2,		1,		2
-	db ABRA,		EYE_GLYPH, 		2, 		2, 		2,		2,		2
-	db DROWZEE,		EYE_GLYPH, 		2, 		2, 		2,		2,		2
-	db NATU,		EYE_GLYPH, 		2, 		2, 		2,		2,		2
-	db SLOWPOKE,	EYE_GLYPH, 		2, 		2, 		2,		2,		2
-	db EXEGGCUTE,	EYE_GLYPH, 		2, 		2, 		2,		2,		2
-	db SMOOCHUM,	EYE_GLYPH, 		2, 		2, 		2,		2,		2
-	dw -1
+	dw 0
+	
+.SteelWing:
+	db PIDGEY,		STEEL_WING, 0
+	db SPEAROW,		STEEL_WING, 0
+	db ZUBAT,		STEEL_WING, 0
+	db DODUO,		STEEL_WING, 0
+	db HOOTHOOT,	STEEL_WING, 0
+	db LEDYBA,		STEEL_WING, 0
+	db NATU,		STEEL_WING, 0
+	db HOPPIP,		STEEL_WING, 0
+	dw 0

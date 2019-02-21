@@ -282,10 +282,81 @@ TrainerType4:
 	ret z
 	ld d, a ; put level in d
 	; change level
+	push hl
+	push de
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits	
 	ld a, [wNumSetBits] ; a is number of badges
+	pop de
 	ld b, d ; b is level
-	call BadgeLevels
+	pop hl
+	jp .switch_start
 	
+.case0; 0 badges
+	jp .switch_end	
+	
+.case1; 1 badges
+	ld a, b
+	add a, 5
+	jp .switch_end	
+	
+.case2; 2 badges
+	ld a, b
+	add a, 10
+	jp .switch_end
+	
+.case3; 3 badges
+	ld a, b
+	add a, 15
+	jp .switch_end
+	
+.case4; 4 badges
+	ld a, b
+	add a, 20
+	jp .switch_end
+	
+.case5; 5 badges
+	ld a, b
+	add a, 25
+	jp .switch_end
+	
+.case6; 6 badges
+	ld a, b
+	add a, 30
+	jp .switch_end
+	
+.case7; 7 badges
+	ld a, b
+	add a, 35
+	jp .switch_end
+	
+.case8; 8 badges
+	ld a, b
+	add a, 40
+	jp .switch_end
+	
+.switch_start
+	cp a, 0
+	jp z, .case0
+	cp a, 1
+	jp z, .case1
+	cp a, 2
+	jp z, .case2
+	cp a, 3
+	jp z, .case3
+	cp a, 4
+	jp z, .case4
+	cp a, 5
+	jp z, .case5
+	cp a, 6
+	jp z, .case6
+	cp a, 7
+	jp z, .case7
+	cp a, 8
+	jp z, .case8
+
+.switch_end
 	ld [wCurPartyLevel], a
 	ld a, [hli]
 	ld [wCurPartySpecies], a
@@ -367,81 +438,6 @@ TrainerType4:
 
 	pop hl
 	jp .loop
-	
-BadgeLevels:
-	jp .switch_start
-	
-.case0; 0 badges
-	ld a, b
-	add a, 4
-	jp .switch_end	
-	
-.case1; 1 badges
-	ld a, b
-	add a, a
-	add a, 8
-	jp .switch_end	
-	
-.case2; 2 badges
-	ld a, b
-	add a, a
-	add a, 15
-	jp .switch_end
-	
-.case3; 3 badges
-	ld a, b
-	add a, a
-	add a, 22
-	jp .switch_end
-	
-.case4; 4 badges
-	ld a, b
-	add a, a
-	add a, 24
-	jp .switch_end
-	
-.case5; 5 badges
-	ld a, b
-	add a, 28
-	jp .switch_end
-	
-.case6; 6 badges
-	ld a, b
-	add a, 30
-	jp .switch_end
-	
-.case7; 7 badges
-	ld a, b
-	add a, 35
-	jp .switch_end
-	
-.case8; 8 badges
-	ld a, b
-	add a, 44
-	jp .switch_end
-	
-.switch_start
-	cp a, 0
-	jp z, .case0
-	cp a, 1
-	jp z, .case1
-	cp a, 2
-	jp z, .case2
-	cp a, 3
-	jp z, .case3
-	cp a, 4
-	jp z, .case4
-	cp a, 5
-	jp z, .case5
-	cp a, 6
-	jp z, .case6
-	cp a, 7
-	jp z, .case7
-	cp a, 8
-	jp z, .case8
-
-.switch_end
-	ret
 
 ComputeTrainerReward:
 	ld hl, hProduct
