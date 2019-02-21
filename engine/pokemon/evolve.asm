@@ -399,8 +399,6 @@ IsMonHoldingEverstone:
 	jr z, .is_everstone
 	cp TOUGH_HORN
 	jr z, .is_everstone
-	cp STEEL_WING
-	jr z, .is_everstone
 .is_everstone
 	pop hl
 	ret

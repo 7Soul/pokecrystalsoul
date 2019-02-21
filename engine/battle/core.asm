@@ -6910,7 +6910,7 @@ HeldItemBoost:
 	; ldh [hMultiplicand + 2], a
 	; jp .return_to_calc
 	ret
-;INCLUDE "data/held_items.asm"
+INCLUDE "data/held_items.asm"
 
 BoostStat:
 ; Raise stat at hl by 1/8.

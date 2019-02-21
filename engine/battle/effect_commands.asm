@@ -1191,7 +1191,7 @@ BattleCommand_Critical:
 .Steel_Wing_Check:
 	ld d, a
 	push hl
-	farcall HeldItems
+	ld hl, .SteelWing
 	
 .find_mon
 	ld a, [hli]
@@ -1272,7 +1272,7 @@ BattleCommand_Critical:
 	ld [wCriticalHit], a
 	ret
 
-;INCLUDE "data/held_items.asm"
+INCLUDE "data/held_items.asm"
 
 INCLUDE "data/moves/critical_hit_moves.asm"
 
@@ -2207,6 +2207,7 @@ BattleCommand_FailureText:
 
 BattleCommand_ApplyDamage:
 ; applydamage
+
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
 	call GetBattleVar
 	bit SUBSTATUS_ENDURE, a

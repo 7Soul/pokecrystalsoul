@@ -32,21 +32,25 @@ CheckMoveTypeMatchesTarget:
 ; Compare move type to opponent type.
 ; Return z if matching the opponent type,
 ; unless the move is Normal (Tri Attack).
+
 	push hl
+
 	ld hl, wEnemyMonType1
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .ok
 	ld hl, wBattleMonType1
-	
 .ok
+
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK
 	cp NORMAL
 	jr z, .normal
+
 	cp [hl]
 	jr z, .return
+
 	inc hl
 	cp [hl]
 
@@ -59,10 +63,3 @@ CheckMoveTypeMatchesTarget:
 	and a
 	pop hl
 	ret
-	
-HeldItems:
-	ld hl, .SteelWing
-	ret
-
-INCLUDE "data/held_items.asm"
-	
