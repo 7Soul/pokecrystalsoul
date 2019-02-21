@@ -232,13 +232,11 @@ PidgeyEvosAttacks:
 	db 1, TACKLE
 	db 3, SAND_ATTACK
 	db 5, GUST
-	db 9, MIRROR_MOVE
 	db 11, QUICK_ATTACK
 	db 15, WING_ATTACK
 	db 18, WHIRLWIND
 	db 23, AGILITY
 	db 26, AIR_SLASH
-	db 30, FOCUS_ENERGY
 	db 33, SWORDS_DANCE
 	db 46, MIRROR_MOVE
 	db 0 ; no more level-up moves
