@@ -99,7 +99,7 @@ ItemDescriptions:
 	dw WhtApricornDesc
 	dw BlackbeltDesc
 	dw BlkApricornDesc
-	dw TeruSama7Desc
+	dw CindersDesc
 	dw PnkApricornDesc
 	dw BlackGlassesDesc
 	dw SlowpokeTailDesc
@@ -119,7 +119,7 @@ ItemDescriptions:
 	dw MiracleSeedDesc
 	dw ThickClubDesc
 	dw FocusBandDesc
-	dw TeruSama8Desc
+	dw DarkMirrorDesc
 	dw EnergyPowderDesc
 	dw EnergyRootDesc
 	dw HealPowderDesc
@@ -134,14 +134,14 @@ ItemDescriptions:
 	dw StarPieceDesc
 	dw BasementKeyDesc
 	dw PassDesc
-	dw TeruSama9Desc
-	dw TeruSama10Desc
-	dw TeruSama11Desc
+	dw DumbellDesc
+	dw GrassWhistleDesc
+	dw AccelerockDesc
 	dw CharcoalDesc
 	dw BerryJuiceDesc
 	dw ScopeLensDesc
-	dw TeruSama12Desc
-	dw TeruSama13Desc
+	dw HardenedSandDesc
+	dw ShinyCoralDesc
 	dw MetalCoatDesc
 	dw DragonFangDesc
 	dw TeruSama14Desc
@@ -645,8 +645,9 @@ BlkApricornDesc:
 	db   "A black APRICORN."
 	next "@"
 
-TeruSama7Desc:
-	db   "?@"
+CindersDesc:
+	db   "Powers unevolved"
+	next "FIRE-Types.@"
 
 PnkApricornDesc:
 	db   "A pink APRICORN."
@@ -724,8 +725,9 @@ FocusBandDesc:
 	db   "May prevent faint-"
 	next "ing. (HOLD)@"
 
-TeruSama8Desc:
-	db   "?@"
+DarkMirrorDesc:
+	db   "Powers unevolved"
+	next "DARK-Types.@"
 
 EnergyPowderDesc:
 	db   "Restores #MON"
@@ -782,14 +784,17 @@ PassDesc:
 	db   "A ticket for the"
 	next "MAGNET TRAIN.@"
 
-TeruSama9Desc:
-	db   "?@"
+DumbellDesc:
+	db   "Powers unevolved"
+	next "FIGHTING-Types.@"
 
-TeruSama10Desc:
-	db   "?@"
+GrassWhistleDesc:
+	db   "Powers unevolved"
+	next "GRASS-Types.@"
 
-TeruSama11Desc:
-	db   "?@"
+AccelerockDesc:
+	db   "Powers unevolved"
+	next "ROCK-Types.@"
 
 CharcoalDesc:
 	db   "Powers up fire-"
@@ -803,11 +808,13 @@ ScopeLensDesc:
 	db   "Raises critical"
 	next "hit ratio. (HOLD)@"
 
-TeruSama12Desc:
-	db   "?@"
+HardenedSandDesc:
+	db   "Powers unevolved"
+	next "ROCK-Types.@"
 
-TeruSama13Desc:
-	db   "?@"
+ShinyCoralDesc:
+	db   "Powers unevolved"
+	next "WATER-Types.@"
 
 MetalCoatDesc:
 	db   "Powers up steel-"
