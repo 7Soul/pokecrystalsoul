@@ -3886,7 +3886,6 @@ InitBattleMon:
 	call CopyBytes
 	call ApplyStatusEffectOnPlayerStats
 	;call BadgeStatBoosts
-	call HeldItemBoost
 	ret
 
 BattleCheckPlayerShininess:
@@ -6825,92 +6824,6 @@ BadgeStatBoosts:
 	srl a
 	call c, BoostStat
 	ret
-
-HeldItemBoost:
-	; ld hl, wBattleMonAttack
-	; ld c, 4
-	
-	; ld a, c	
-	; cp STAT_ATK
-	; jr z, .loadAtkItems
-	; cp STAT_DEF
-	; jr z, .loadDefItems
-	; cp STAT_SPD
-	; jr z, .loadSpdItems
-	; cp STAT_SATK
-	; jr z, .loadSpAtkItems
-	; cp STAT_SDEF
-	; jr z, .loadSpDefItems
-	; cp STAT_HP
-	; jr z, .loadHpItems
-	; jp .return_to_calc
-	
-; .loadAtkItems	
-	; ld hl, .AtkItems
-	; jr .load_species
-; .loadSpAtkItems	
-	; ld hl, .SpAtkItems
-	; jr .load_species
-; .loadSpdItems	
-	; ld hl, .SpdItems
-	; jr .load_species
-; .loadDefItems	
-	; ld hl, .DefItems
-	; jr .load_species
-; .loadSpDefItems	
-	; ld hl, .SpDefItems
-	; jr .load_species
-; .loadHpItems	
-	; ld hl, .HpItems
-	
-; .load_species
-	; ld a, [wCurSpecies]
-	; ld d, a
-	
-; .find_mon
-	; ld a, [hli]
-	; cp d
-	; jr z, .found_mon
-	; cp -1
-	; jp z, .return_to_calc
-	; cp 0
-	; jp z, .return_to_calc
-	; inc hl
-	; inc hl
-	; jr .find_mon
-
-; .found_mon
-	; ld a, [hli]
-	; ld d, a
-	; ld a, [wTempMonItem]
-	; ld e, a ; held item
-	; ld a, d ; item from table
-	; cp e
-	; ld a, [hl]
-	; ld e, a
-	; jp z, .found_item
-	; jp .return_to_calc
-
-; .found_item
-	; ld a, e
-	; cp 0 ; if 'e' is 0, double stat
-	; jp z, .double
-	; cp 1 ; if 'e' is 1, increase by 75%
-	; jp z, .inc_75p
-	; cp 2 ; if 'e' is 2, increase by 50%
-	; jp z, .inc_50p
-	; cp 10
-	; jp nc, .inc_static
-	; jp .return_to_calc
-	
-; .double
-	; ldh a, [hQuotient + 3]
-	; ld b, a
-	; add b ; add value back to itself (aka, double it)
-	; ldh [hMultiplicand + 2], a
-	; jp .return_to_calc
-	ret
-;INCLUDE "data/held_items.asm"
 
 BoostStat:
 ; Raise stat at hl by 1/8.

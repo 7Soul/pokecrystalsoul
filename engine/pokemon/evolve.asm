@@ -401,6 +401,26 @@ IsMonHoldingEverstone:
 	jr z, .is_everstone
 	cp STEEL_WING
 	jr z, .is_everstone
+	cp CINDERS
+	jr z, .is_everstone
+	cp BATTERY
+	jr z, .is_everstone
+	cp DARK_MIRROR
+	jr z, .is_everstone
+	cp DUMBELL
+	jr z, .is_everstone
+	cp GRASSWHISTLE
+	jr z, .is_everstone
+	cp ACCELEROCK
+	jr z, .is_everstone
+	cp SHINY_CORAL
+	jr z, .is_everstone
+	cp CUTE_RIBBON
+	jr z, .is_everstone
+	cp FROZEN_DEW
+	jr z, .is_everstone
+	cp EYE_GLYPH
+	jr z, .is_everstone
 .is_everstone
 	pop hl
 	ret

@@ -1175,7 +1175,7 @@ BattleCommand_Critical:
 
 ; +2 critical level
 	ld c, 2
-	jr .Tally
+	jp .Tally
 
 .Farfetchd:
 	cp FARFETCH_D
@@ -1186,12 +1186,23 @@ BattleCommand_Critical:
 
 ; +2 critical level
 	ld c, 2
-	jr .Tally
+	jp .Tally
 
 .Steel_Wing_Check:
 	ld d, a
 	push hl
 	farcall HeldItems
+	
+.load_species
+	ldh a, [hBattleTurn]
+	and a
+	ld a, [wEnemyMonItem]
+	ld e, a
+	ld a, [wEnemyMonSpecies]
+	jr nz, .find_mon
+	ld a, [wBattleMonItem]
+	ld e, a
+	ld a, [wBattleMonSpecies]
 	
 .find_mon
 	ld a, [hli]
@@ -1199,28 +1210,41 @@ BattleCommand_Critical:
 	jr z, .found_mon
 	cp -1
 	jp z, .FocusEnergy
-	cp 0
-	jp z, .FocusEnergy
+	inc hl
+	inc hl
+	inc hl
+	inc hl
 	inc hl
 	inc hl
 	jr .find_mon
 
 .found_mon
-	pop hl
-	ld a, [hl]
-	cp STEEL_WING
-	jr nz, .FocusEnergy	
+	ld a, [hli]
+	ld d, a
+	ld a, d ; item from table
+	cp e
+	jr z, .found_item	
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	jp .load_species
 	
-	ld a, BATTLE_VARS_MOVE_TYPE ; Check if its a flying move
-	call GetBattleVarAddr
-	and TYPE_MASK
-	cp FLYING
-	jr nz, .FocusEnergy	
-	
+.found_item
+	; ld a, [hli]
+	; ld e, a
+	; ld a, BATTLE_VARS_MOVE_TYPE ; Check if its a flying move
+	; call GetBattleVarAddr
+	; and TYPE_MASK
+	; cp e
+	; jr nz, .FocusEnergy
 	ld a, BATTLE_VARS_MOVE_POWER ; Check if power is below 60
 	call GetBattleVar
 	cp 61
-	jr c, .FocusEnergy	
+	jr nc, .FocusEnergy
+	cp 2
+	jr c, .FocusEnergy
 
 ; +2 critical level
 	ld c, 2
@@ -1271,8 +1295,6 @@ BattleCommand_Critical:
 	ld a, 1
 	ld [wCriticalHit], a
 	ret
-
-;INCLUDE "data/held_items.asm"
 
 INCLUDE "data/moves/critical_hit_moves.asm"
 
