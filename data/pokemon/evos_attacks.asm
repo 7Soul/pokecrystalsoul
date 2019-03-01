@@ -14,8 +14,10 @@ SECTION "Evolutions and Attacks", ROMX
 ; - db 0 ; no more level-up moves
 
 INCLUDE "data/pokemon/evolution_moves.asm"
-INCLUDE "data/pokemon/evos_attacks_pointers.asm"
 
+SECTION "Evolutions and Attacks 2", ROMX
+
+INCLUDE "data/pokemon/evos_attacks_pointers.asm"
 BulbasaurEvosAttacks:
 	db EVOLVE_LEVEL, 16, IVYSAUR
 	db 0 ; no more evolutions
