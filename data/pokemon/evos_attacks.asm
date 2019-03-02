@@ -13,7 +13,7 @@ SECTION "Evolutions and Attacks", ROMX
 ;    * db level, move
 ; - db 0 ; no more level-up moves
 
-INCLUDE "data/pokemon/evolution_moves.asm"
+;INCLUDE "data/pokemon/evolution_moves.asm"
 INCLUDE "data/pokemon/evos_attacks_pointers.asm"
 
 BulbasaurEvosAttacks:
@@ -34,10 +34,6 @@ BulbasaurEvosAttacks:
 IvysaurEvosAttacks:
 	db EVOLVE_LEVEL, 32, VENUSAUR
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, GROWL
-	db 1, LEECH_SEED
-	db 4, GROWL
 	db 7, LEECH_SEED
 	db 10, VINE_WHIP
 	db 15, POISONPOWDER
@@ -50,13 +46,6 @@ IvysaurEvosAttacks:
 
 VenusaurEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, GROWL
-	db 1, LEECH_SEED
-	db 1, VINE_WHIP
-	db 4, GROWL
-	db 7, LEECH_SEED
-	db 10, VINE_WHIP
 	db 15, POISONPOWDER
 	db 15, SLEEP_POWDER
 	db 22, RAZOR_LEAF
@@ -86,7 +75,6 @@ CharmeleonEvosAttacks:
 	db 1, SCRATCH
 	db 1, GROWL
 	db 1, EMBER
-	db 7, EMBER
 	db 13, SMOKESCREEN
 	db 20, RAGE
 	db 27, SCARY_FACE
@@ -97,12 +85,6 @@ CharmeleonEvosAttacks:
 
 CharizardEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, SCRATCH
-	db 1, GROWL
-	db 1, EMBER
-	db 1, SMOKESCREEN
-	db 7, EMBER
-	db 13, SMOKESCREEN
 	db 20, RAGE
 	db 27, SCARY_FACE
 	db 34, FLAMETHROWER
@@ -147,11 +129,6 @@ WartortleEvosAttacks:
 
 BlastoiseEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, TAIL_WHIP
-	db 1, BUBBLE
-	db 1, HARDEN
-	db 13, WATER_GUN
 	db 18, BITE
 	db 21, RAPID_SPIN
 	db 25, PROTECT
@@ -244,8 +221,6 @@ PidgeyEvosAttacks:
 PidgeottoEvosAttacks:
 	db EVOLVE_LEVEL, 36, PIDGEOT
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, SAND_ATTACK
 	db 1, GUST
 	db 5, SAND_ATTACK
 	db 9, GUST
@@ -258,11 +233,6 @@ PidgeottoEvosAttacks:
 
 PidgeotEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, SAND_ATTACK
-	db 1, GUST
-	db 1, QUICK_ATTACK
-	db 5, SAND_ATTACK
 	db 9, GUST
 	db 15, QUICK_ATTACK
 	db 23, WHIRLWIND
@@ -291,9 +261,6 @@ RattataEvosAttacks:
 
 RaticateEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, TAIL_WHIP
-	db 1, QUICK_ATTACK
 	db 1, BITE
 	db 13, PURSUIT
 	db 16, HYPER_FANG
@@ -328,7 +295,6 @@ FearowEvosAttacks:
 	db 1, GROWL
 	db 1, LEER
 	db 1, FURY_ATTACK
-	db 7, LEER
 	db 13, FURY_ATTACK
 	db 26, PURSUIT
 	db 32, MIRROR_MOVE
@@ -355,10 +321,6 @@ EkansEvosAttacks:
 
 ArbokEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, WRAP
-	db 1, LEER
-	db 1, POISON_STING
-	db 1, BITE
 	db 12, GLARE	
 	db 17, SCREECH
 	db 20, ACID
@@ -418,9 +380,6 @@ SandshrewEvosAttacks:
 
 SandslashEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, SCRATCH
-	db 1, DEFENSE_CURL
-	db 1, SAND_ATTACK
 	db 5, POISON_STING
 	db 13, RAPID_SPIN
 	db 16, ROLLOUT
@@ -643,9 +602,6 @@ GloomEvosAttacks:
 	db EVOLVE_ITEM, LEAF_STONE, VILEPLUME
 	db EVOLVE_ITEM, SUN_STONE, BELLOSSOM
 	db 0 ; no more evolutions
-	db 1, ABSORB
-	db 1, POISONPOWDER
-	db 1, LEAF_SHIELD
 	db 14, POISONPOWDER
 	db 16, STUN_SPORE
 	db 18, SLEEP_POWDER
@@ -660,10 +616,6 @@ GloomEvosAttacks:
 
 VileplumeEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, ABSORB
-	db 1, STUN_SPORE
-	db 1, PETAL_DANCE
-	db 1, LEAF_SHIELD
 	db 28, ACID
 	db 32, MOONLIGHT
 	db 35, HEADBUTT
@@ -690,7 +642,6 @@ ParasEvosAttacks:
 
 ParasectEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, SCRATCH
 	db 1, STUN_SPORE
 	db 1, POISONPOWDER
 	db 7, STUN_SPORE
@@ -724,10 +675,7 @@ VenonatEvosAttacks:
 
 VenomothEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, DISABLE
 	db 1, FORESIGHT
-	db 1, SUPERSONIC
 	db 9, SUPERSONIC
 	db 13, POISONPOWDER
 	db 17, NIGHT_SHADE
@@ -758,8 +706,6 @@ DiglettEvosAttacks:
 
 DugtrioEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, TRI_ATTACK
-	db 1, SCRATCH
 	db 4, GROWL
 	db 13, MAGNITUDE
 	db 17, DIG
@@ -790,8 +736,6 @@ MeowthEvosAttacks:
 PersianEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SCRATCH
-	db 1, GROWL
-	db 1, BITE
 	db 11, BITE
 	db 20, PAY_DAY
 	db 29, FAINT_ATTACK

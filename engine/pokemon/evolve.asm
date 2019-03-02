@@ -298,7 +298,7 @@ EvolveAfterBattle_MasterLoop:
 	ld [wTempSpecies], a
 	xor a
 	ld [wMonType], a
-	call LearnEvolutionMove
+	;call LearnEvolutionMove
 	call LearnLevelMoves
 	ld a, [wTempSpecies]
 	dec a
@@ -394,34 +394,34 @@ IsMonHoldingEverstone:
 	call AddNTimes
 	ld a, [hl]
 	cp EVERSTONE
-	jr z, .is_everstone
-	cp CARAPACE
-	jr z, .is_everstone
-	cp TOUGH_HORN
-	jr z, .is_everstone
-	cp STEEL_WING
-	jr z, .is_everstone
-	cp CINDERS
-	jr z, .is_everstone
-	cp BATTERY
-	jr z, .is_everstone
-	cp DARK_MIRROR
-	jr z, .is_everstone
-	cp DUMBELL
-	jr z, .is_everstone
-	cp GRASSWHISTLE
-	jr z, .is_everstone
-	cp ACCELEROCK
-	jr z, .is_everstone
-	cp SHINY_CORAL
-	jr z, .is_everstone
-	cp CUTE_RIBBON
-	jr z, .is_everstone
-	cp FROZEN_DEW
-	jr z, .is_everstone
-	cp EYE_GLYPH
-	jr z, .is_everstone
-.is_everstone
+	; jr z, .is_everstone
+	; cp CARAPACE
+	; jr z, .is_everstone
+	; cp TOUGH_HORN
+	; jr z, .is_everstone
+	; cp STEEL_WING
+	; jr z, .is_everstone
+	; cp CINDERS
+	; jr z, .is_everstone
+	; cp BATTERY
+	; jr z, .is_everstone
+	; cp DARK_MIRROR
+	; jr z, .is_everstone
+	; cp DUMBELL
+	; jr z, .is_everstone
+	; cp GRASSWHISTLE
+	; jr z, .is_everstone
+	; cp ACCELEROCK
+	; jr z, .is_everstone
+	; cp SHINY_CORAL
+	; jr z, .is_everstone
+	; cp CUTE_RIBBON
+	; jr z, .is_everstone
+	; cp FROZEN_DEW
+	; jr z, .is_everstone
+	; cp EYE_GLYPH
+	; jr z, .is_everstone
+; .is_everstone
 	pop hl
 	ret
 
@@ -685,42 +685,43 @@ GetPreEvolution:
 	scf
 	ret
 
-LearnEvolutionMove:
-	ld a, [wTempSpecies]
-	ld [wCurPartySpecies], a
-	dec a
-	ld c, a
-	ld b, 0
-	ld hl, EvolutionMoves
-	add hl, bc
-	ld a, [hl]
-	and a
-	ret z
+; LearnEvolutionMove:
+	; ld a, [wTempSpecies]
+	; ld [wCurPartySpecies], a
+	; dec a
+	; ld c, a
+	; ld b, 0
+	; ld hl, EvolutionMoves
+	; add hl, bc
+	; ld a, [hl]
+	; and a
+	; ret z
 
-	push hl
-	ld d, a
-	ld hl, wPartyMon1Moves
-	ld a, [wCurPartyMon]
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
+	; push hl
+	; ld d, a
+	; ld hl, wPartyMon1Moves
+	; ld a, [wCurPartyMon]
+	; ld bc, PARTYMON_STRUCT_LENGTH
+	; call AddNTimes
 
-	ld b, NUM_MOVES
-.check_move
-	ld a, [hli]
-	cp d
-	jr z, .has_move
-	dec b
-	jr nz, .check_move
+	; ld b, NUM_MOVES
+; .check_move
+	; ld a, [hli]
+	; cp d
+	; jr z, .has_move
+	; dec b
+	; jr nz, .check_move
 
-	ld a, d
-	ld [wPutativeTMHMMove], a
-	ld [wNamedObjectIndexBuffer], a
-	call GetMoveName
-	call CopyName1
-	predef LearnMove
-	ld a, [wCurPartySpecies]
-	ld [wTempSpecies], a
+	; ld a, d
+	; ld [wPutativeTMHMMove], a
+	; ld [wNamedObjectIndexBuffer], a
+	; call GetMoveName
+	; call CopyName1
+	; predef LearnMove
+	; ld a, [wCurPartySpecies]
+	; ld [wTempSpecies], a
 
-.has_move
-	pop hl
-	ret
+; .has_move
+	; pop hl
+	; ret
+	
