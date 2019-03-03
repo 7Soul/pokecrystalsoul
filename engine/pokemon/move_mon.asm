@@ -1637,7 +1637,6 @@ CalcMonStatC:
 	jr .find_mon
 
 .found_mon
-	ld [$C003], a
 	ld a, [hli]
 	ld d, a
 	ld a, [wTempMonItem]

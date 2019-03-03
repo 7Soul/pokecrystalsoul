@@ -22,20 +22,20 @@ FishGroups:
 	fishgroup 50 percent + 1, .Qwilfish_NoSwarm_Old, .Qwilfish_NoSwarm_Good, .Qwilfish_NoSwarm_Super
 
 .Shore_Old:
-	db  50 percent + 1, MAGIKARP,   10
-	db  75 percent + 1, MAGIKARP,   12
-	db  90 percent + 1, GOLDEEN,    10
-	db 100 percent,     REMORAID,   10
+	db  50 percent + 1, MAGIKARP,	10
+	db  75 percent + 1, MAGIKARP,	12
+	db  90 percent + 1, GOLDEEN,	10
+	db 100 percent,     REMORAID,	10
 .Shore_Good:
-	db  50 percent + 1, REMORAID,   15
-	db  75 percent + 1, GOLDEEN,    18
-	db  90 percent + 1, MAGIKARP,   20
-	db 100 percent,     SQUIRTLE,   20
+	db  50 percent + 1, REMORAID,	15
+	db  75 percent + 1, GOLDEEN,	18
+	db  90 percent + 1, MAGIKARP,	20
+	db 100 percent,     SQUIRTLE,	20
 .Shore_Super:
-	db  50 percent + 1, GOLDEEN,    35
-	db  75 percent + 1, SEAKING,    40
-	db  90 percent + 1, KINGLER,    40
-	db 100 percent,     WARTORTLE,  40
+	db  50 percent + 1, GOLDEEN,	35
+	db  75 percent + 1, GOLDEEN,	40
+	db  90 percent + 1, KRABBY,		40
+	db 100 percent,     SQUIRTLE,	40
 
 .Ocean_Old:
 	db  50 percent + 1, MAGIKARP,   35

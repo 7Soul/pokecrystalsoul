@@ -310,13 +310,10 @@ ChooseWildEncounter:
  ; Add 1
 	inc b
  ; adds 0 to 2 levels
-	call Random 
-	cp 33 percent
-	jp c, .switch_end
-	inc b
-	cp 66 percent
-	jp c, .switch_end
-	inc b
+	ld a, 3
+	call RandomRange
+	add b
+	ld b, a
 	call Random
 	cp 96 percent ; 4% chance of 1 extra level
 	jp c, .switch_end
@@ -324,93 +321,146 @@ ChooseWildEncounter:
 	jp .switch_end
 	
 .case1 ; 1 badge
- ; multiply mon level by number of badges
-	ld a, 1
+ ; multiply mon level by number of badges+1
+	ld a, 2
 	ld c, b
-	call SimpleMultiply
+	call SimpleMultiply ; a has level at this point
  ; add more levels
 	inc a ; add 1
 	ld b, a
- ; adds 0 to 2 levels
-	call Random 
-	cp 33 percent
-	jp c, .switch_end
-	inc b
-	cp 66 percent
-	jp c, .switch_end
-	inc b
-	call Random
+ ; adds 0 to 3 levels
+	ld a, 4
+	call RandomRange
+	add b
+	ld b, a
 	cp 96 percent ; 4% chance of 1 extra level
 	jp c, .switch_end
 	inc b
 	jp .switch_end
 	
 .case2	; 2 badges
- ; multiply mon level by number of badges
-	ld a, 2
+ ; multiply mon level by number of badges+1
+	ld a, 3
 	ld c, b
-	call SimpleMultiply
+	call SimpleMultiply ; a has level at this point
  ; add more levels
-	ld b, 2
+	ld b, 4 ; add 4
 	add b
 	ld b, a
- ; adds 0 to 3 levels
-	call Random 
-	cp 25 percent
-	jp c, .switch_end
-	inc b
-	cp 50 percent
-	jp c, .switch_end
-	inc b
-	cp 75 percent
-	jp c, .switch_end
-	inc b
-	call Random
-	cp 96 percent ; 4% chance of 1 extra level
+ ; adds 0 to 4 levels
+	ld a, 5
+	call RandomRange
+	add b
+	ld b, a
+	call Random ; 4% chance of 1 extra level
+	cp 96 percent 
 	jp c, .switch_end
 	inc b
 	jp .switch_end
 	
 .case3	; 3 badges
- ; multiply mon level by number of badges
-	ld a, 3
+ ; multiply mon level by number of badges+1
+	ld a, 4
 	ld c, b
-	call SimpleMultiply
+	call SimpleMultiply ; a has level at this point
  ; add more levels
-	ld b, 3
+	ld b, 4 ; add 4
 	add b
 	ld b, a
  ; adds 0 to 4 levels
-	call Random 
-	cp 20 percent
-	jp c, .switch_end
-	inc b
-	cp 40 percent
-	jp c, .switch_end
-	inc b
-	cp 60 percent
-	jp c, .switch_end
-	inc b
-	cp 80 percent
-	jp c, .switch_end
-	inc b
+	ld a, 5
+	call RandomRange
+	add b
+	ld b, a
 	call Random
 	cp 96 percent ; 4% chance of 1 extra level
 	jp c, .switch_end
 	inc b
 	jp .switch_end
 	
-.case4	
+.case4	; 4 badges
+ ; multiply mon level by number of badges+1
+	ld a, 5
+	ld c, b
+	call SimpleMultiply ; a has level at this point
+ ; add more levels
+	ld b, 4 ; add 4
+	add b
+	ld b, a
+ ; adds 0 to 4 levels
+	ld a, 5
+	call RandomRange
+	add b
+	ld b, a
+	call Random
+	cp 96 percent ; 4% chance of 1 extra level
+	jp c, .switch_end
+	inc b
 	jp .switch_end
-.case5	
+	
+.case5	; 5 badges
+ ; multiply mon level by number of badges+1
+	ld a, 6
+	ld c, b
+	call SimpleMultiply ; a has level at this point
+ ; add more levels
+	ld b, 4 ; add 4
+	add b
+	ld b, a
+ ; adds 0 to 4 levels
+	ld a, 5
+	call RandomRange
+	add b
+	ld b, a
+	call Random
+	cp 96 percent ; 4% chance of 1 extra level
+	jp c, .switch_end
+	inc b
 	jp .switch_end
-.case6	
+	
+.case6	; 6 badges
+ ; multiply mon level by number of badges+1
+	ld a, 7
+	ld c, b
+	call SimpleMultiply ; a has level at this point
+ ; add more levels
+	ld b, 5 ; add 5
+	add b
+	ld b, a
+ ; adds 0 to 5 levels
+	ld a, 6
+	call RandomRange
+	add b
+	ld b, a
+	call Random
+	cp 96 percent ; 4% chance of 1 extra level
+	jp c, .switch_end
+	inc b
 	jp .switch_end
-.case7	
+	
+.case7	; 7 badges
+ ; multiply mon level by number of badges+1
+	ld a, 8
+	ld c, b
+	call SimpleMultiply ; a has level at this point
+ ; add more levels
+	ld b, 5 ; add 5
+	add b
+	ld b, a
+ ; adds 0 to 5 levels
+	ld a, 6
+	call RandomRange
+	add b
+	ld b, a
+	call Random
+	cp 96 percent ; 4% chance of 1 extra level
+	jp c, .switch_end
+	inc b
 	jp .switch_end
+	
 .case8	; 8 badges
  ; multiply mon level by number of badges
-	ld a, 8
+	ld a, 9
 	ld c, b
 	call SimpleMultiply
  ; add more levels
@@ -418,25 +468,10 @@ ChooseWildEncounter:
 	add b
 	ld b, a 
  ; adds 0 to 5 levels
-	call Random 
-	cp 14 percent
-	jp c, .switch_end
-	inc b
-	cp 28 percent
-	jp c, .switch_end
-	inc b
-	cp 42 percent
-	jp c, .switch_end
-	inc b
-	cp 56 percent
-	jp c, .switch_end
-	inc b
-	cp 70 percent
-	jp c, .switch_end
-	inc b	
-	cp 89 percent
-	jp c, .switch_end
-	inc b
+	ld a, 6
+	call RandomRange
+	add b
+	ld b, a
 	call Random
 	cp 96 percent ; 4% chance of 1 extra level
 	jp c, .switch_end
@@ -471,11 +506,13 @@ ChooseWildEncounter:
 
 .switch_end
 ; multiply Badge number by 2
-	ld a, [wNumSetBits]
-	ld c, 2
-	call SimpleMultiply
-	add b
-	ld b, a
+	; ld a, [wNumSetBits]
+	; ld [$C003], a
+	; ld c, 2
+	; call SimpleMultiply
+	; add b
+	; ld b, a
+	; ld [$C004], a
 
 ; If the Pokemon is encountered by surfing, we need to give the levels some variety.
 	; call CheckOnWater
@@ -488,7 +525,32 @@ ChooseWildEncounter:
 	ld a, b
 	call ValidateTempWildMonSpecies
 	jp c, .nowildbattle
-	; Check if it's Nidoran F and change to Nidoran M
+	; If the mon is Legendary, 92% chance to reroll into any other mon
+	push hl
+	push bc
+	push de
+	ld a, b
+	ld hl, IsLegendary
+	ld de, 1
+	call IsInArray
+	jp nc, .not_legendary	
+	call Random
+	cp 92 percent
+	jp c, .not_legendary
+	pop hl
+	pop bc
+	pop de
+	ld a, 250
+	call RandomRange
+	inc a
+	ld b, a
+	jp .done
+	
+.not_legendary
+	pop hl
+	pop bc
+	pop de
+	; Check if it's Nidoran F and randomizes to Nidoran M
 	ld a, b
 	cp NIDORAN_F
 	jp nz, .not_nidoran_f
@@ -497,7 +559,7 @@ ChooseWildEncounter:
 	jp nc, .not_nidoran_f	
 	jp .change_3species
 .not_nidoran_f
-	; Check if it's Omanyte and change to Kabuto
+	; Check if it's Omanyte and randomizes to Kabuto
 	ld a, b
 	cp OMANYTE
 	jp nz, .not_omanyte
@@ -506,7 +568,37 @@ ChooseWildEncounter:
 	jp nc, .not_omanyte	
 	jp .change_2species
 .not_omanyte
-	; Check if it's Caterpie and change to Weedle
+	; Check if it's Bulbasaur and randomizes to Chikorita
+	ld a, b
+	cp BULBASAUR
+	jp nz, .not_bulba
+	call Random 
+	cp 50 percent
+	jp nc, .not_bulba	
+	ld a, CHIKORITA
+	ld b, a
+.not_bulba
+	; Check if it's Charmander and randomizes to Cyndaquil
+	ld a, b
+	cp CHARMANDER
+	jp nz, .not_char
+	call Random 
+	cp 50 percent
+	jp nc, .not_char	
+	ld a, CYNDAQUIL
+	ld b, a
+.not_char
+	; Check if it's Squirtle and randomizes to Totodile
+	ld a, b
+	cp SQUIRTLE
+	jp nz, .not_squirtle
+	call Random 
+	cp 50 percent
+	jp nc, .not_squirtle	
+	ld a, TOTODILE
+	ld b, a
+.not_squirtle
+	; Check if it's Caterpie and randomizes to Weedle
 	ld a, b
 	cp CATERPIE
 	jp nz, .not_caterpie
@@ -565,6 +657,20 @@ ChooseWildEncounter:
 	ret
 
 INCLUDE "data/wild/probabilities.asm"
+
+IsLegendary:
+	db MEW
+	db MEWTWO
+	db ARTICUNO
+	db ZAPDOS
+	db MOLTRES
+	db LUGIA
+	db HO_OH
+	db CELEBI
+	db GEODUDE
+	db MANKEY
+	db EKANS
+	db -1
 
 EvolveWildMon:
 ; check if the defender has any evolutions

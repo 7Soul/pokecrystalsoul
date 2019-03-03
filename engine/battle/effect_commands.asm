@@ -1201,7 +1201,6 @@ BattleCommand_Critical:
 	jr nz, .find_mon
 	ld a, [wBattleMonItem]
 	ld e, a
-	ld [$C004], a
 	
 .find_mon
 	ld a, [hli]
@@ -1213,8 +1212,7 @@ BattleCommand_Critical:
 	jr .find_mon
 
 .found_mon
-	ld a, [hli] ; item from table	
-	ld [$C003], a
+	ld a, [hli] ; item from table
 	cp e
 	jr z, .found_item	
 	jp .load_held_item
