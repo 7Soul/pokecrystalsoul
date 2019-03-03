@@ -1411,7 +1411,7 @@ TN_PrintDVs:
     push bc
     and $f0
     swap a
-	cp $d ; 15,14,13 turns to 10
+	cp $d ; 15,14,13,12 turns to 10
 	jr c, .dvMinATK1
 	ld a, $a
 	jr .dvMinATK2
@@ -1458,7 +1458,7 @@ TN_PrintDVs:
     ld a, b
     push bc
     and $f
-	cp $d ; 15,14,13 turns to 10
+	cp $d ; 15,14,13,12 turns to 10
 	jr c, .dvMinDEF1
 	ld a, $a
 	jr .dvMinDEF2
@@ -1506,7 +1506,7 @@ TN_PrintDVs:
     push bc
     and $f0
     swap a
-	cp $d ; 15,14,13 turns to 10
+	cp $d ; 15,14,13,12 turns to 10
 	jr c, .dvMinSPE1
 	ld a, $a
 	jr .dvMinSPE2
@@ -1553,7 +1553,7 @@ TN_PrintDVs:
     ld a, c
     push bc
     and $f
-	cp $d ; 15,14,13 turns to 10
+	cp $d ; 15,14,13,12 turns to 10
 	jr c, .dvMinSPC1
 	ld a, $a
 	jr .dvMinSPC2
@@ -1614,7 +1614,7 @@ TN_PrintDVs:
     set 0, a
 .noSpecialHP
     push bc
-	cp $d ; 15,14,13 turns to 10
+	cp $d ; 15,14,13,12 turns to 10
 	jr c, .dvMinHP1
 	ld a, $a
 	jr .dvMinHP2

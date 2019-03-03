@@ -87,13 +87,13 @@ MrPokemonsHouse_OakScript:
 	turnobject PLAYER, RIGHT
 	opentext
 	writetext MrPokemonsHouse_OakText1
-	buttonsound
-	waitsfx
-	writetext MrPokemonsHouse_GetDexText
-	playsound SFX_ITEM
-	waitsfx
-	setflag ENGINE_POKEDEX
-	writetext MrPokemonsHouse_OakText2
+	;buttonsound
+	;waitsfx
+	;writetext MrPokemonsHouse_GetDexText
+	;playsound SFX_ITEM
+	;waitsfx
+	;setflag ENGINE_POKEDEX
+	;writetext MrPokemonsHouse_OakText2
 	waitbutton
 	closetext
 	turnobject PLAYER, DOWN
@@ -122,6 +122,7 @@ MrPokemonsHouse_OakScript:
 	closetext
 	setevent EVENT_RIVAL_NEW_BARK_TOWN
 	setevent EVENT_PLAYERS_HOUSE_1F_NEIGHBOR
+	;setevent EVENT_GAVE_MYSTERY_EGG_TO_ELM
 	clearevent EVENT_PLAYERS_NEIGHBORS_HOUSE_NEIGHBOR
 	setscene SCENE_FINISHED
 	setmapscene CHERRYGROVE_CITY, SCENE_CHERRYGROVECITY_MEET_RIVAL
@@ -280,41 +281,7 @@ MrPokemonsHouse_OakText1:
 
 	para "#MON with love"
 	line "and care."
-
-	para "…Ah!"
-
-	para "You seem to be"
-	line "dependable."
-
-	para "How would you like"
-	line "to help me out?"
-
-	para "See? This is the"
-	line "latest version of"
-	cont "#DEX."
-
-	para "It automatically"
-	line "records data on"
-
-	para "#MON you've"
-	line "seen or caught."
-
-	para "It's a hi-tech"
-	line "encyclopedia!"
-	done
-
-MrPokemonsHouse_GetDexText:
-	text "<PLAYER> received"
-	line "#DEX!"
-	done
-
-MrPokemonsHouse_OakText2:
-	text "Go meet many kinds"
-	line "of #MON and"
-
-	para "complete that"
-	line "#DEX!"
-
+	
 	para "But I've stayed"
 	line "too long."
 
@@ -324,6 +291,11 @@ MrPokemonsHouse_OakText2:
 
 	para "<PLAY_G>, I'm"
 	line "counting on you!"
+	done
+
+MrPokemonsHouse_GetDexText:
+	text "<PLAYER> received"
+	line "#DEX!"
 	done
 
 MrPokemonText_GimmeTheScale:

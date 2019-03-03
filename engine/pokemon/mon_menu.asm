@@ -541,47 +541,11 @@ RecalcStats:
 	ret
 
 GiveItemToPokemon:
-	; jp .return_to_toss
-	; ld a, 0
-	; ld [wBuffer3], a
-	
-	; predef CopyMonToTempMon
-	; call GetBaseData
-	
-	; ld a, [wCurItem]
-	; ld [wTempMonItem], a
-	
-	; ld bc, wTempMonSpecies
-	; ld hl, MON_LEVEL
-	; add hl, bc
-	; ld a, [hl]
-	; ld [wCurPartyLevel], a
-	; ld hl, MON_MAXHP
-	; add hl, bc
-	; ld d, h
-	; ld e, l
-	; ld hl, MON_STAT_EXP - 1
-	; add hl, bc
-	; ld b, TRUE
-	; predef CalcMonStats
-
-	
-	; ld a, [wCurPartyMon]
-	; ld hl, wPartyMons
-	; ld bc, PARTYMON_STRUCT_LENGTH
-	; call AddNTimes
-	; ld e, l
-	; ld d, h
-	
-	; ld hl, wTempMonSpecies
-	; ld bc, PARTYMON_STRUCT_LENGTH
-	; call CopyBytes
-	; farcall HeldItems2
 	ld hl, SimpleList
 	
 .load_species
-	ld a, [wTempMonSpecies]
-	ld d, a	
+	ld a, [wCurPartySpecies]
+	ld d, a	; put mon in d
 
 .find_mon
 	ld a, [hli]
@@ -594,11 +558,10 @@ GiveItemToPokemon:
 
 .found_mon
 	ld a, [hli]
-	ld d, a
+	ld d, a ; item from table
 	ld a, [wCurItem]
 	ld e, a ; held item
-	ld a, d ; item from table
-	cp e
+	cp d
 	jr z, .found_item
 	jr .load_species
 	
@@ -729,8 +692,8 @@ SimpleList:
 	db SLOWPOKE,	EYE_GLYPH
 	db EXEGGCUTE,	EYE_GLYPH
 	db SMOOCHUM,	EYE_GLYPH
-	dw -1
-	
+	db -1
+
 StartMenuYesNo:
 	call MenuTextBox
 	call YesNoBox

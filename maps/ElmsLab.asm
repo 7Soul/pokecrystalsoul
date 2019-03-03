@@ -282,7 +282,7 @@ SquirtlePokeBallScript:
 	waitbutton
 	closepokepic
 	opentext
-	writetext TakeCharmanderText
+	writetext TakeSquirtleText
 	yesorno
 	iffalse DidntChooseStarterScript
 	disappear ELMSLAB_POKE_BALL5
@@ -367,6 +367,9 @@ ElmDirectionsScript:
 	waitbutton
 	closetext
 	setevent EVENT_GOT_A_POKEMON_FROM_ELM
+	setflag ENGINE_POKEDEX
+	clearevent EVENT_ROUTE_30_YOUNGSTER_JOEY
+	setevent EVENT_ROUTE_30_BATTLE
 	setevent EVENT_RIVAL_CHERRYGROVE_CITY
 	setscene SCENE_ELMSLAB_AIDE_GIVES_POTION
 	setmapscene NEW_BARK_TOWN, SCENE_FINISHED
@@ -577,39 +580,41 @@ AideScript_GivePotion:
 	writetext AideText_GiveYouPotion
 	buttonsound
 	verbosegiveitem POTION
-	writetext AideText_AlwaysBusy
-	waitbutton
-	closetext
-	setscene SCENE_ELMSLAB_NOTHING
-	end
-
-AideScript_WalkBalls1:
-	applymovement ELMSLAB_ELMS_AIDE, AideWalksRight1
-	turnobject PLAYER, DOWN
-	scall AideScript_GiveYouBalls
-	applymovement ELMSLAB_ELMS_AIDE, AideWalksLeft1
-	end
-
-AideScript_WalkBalls2:
-	applymovement ELMSLAB_ELMS_AIDE, AideWalksRight2
-	turnobject PLAYER, DOWN
-	scall AideScript_GiveYouBalls
-	applymovement ELMSLAB_ELMS_AIDE, AideWalksLeft2
-	end
-
-AideScript_GiveYouBalls:
-	opentext
-	writetext AideText_GiveYouBalls
-	buttonsound
 	itemtotext POKE_BALL, MEM_BUFFER_1
 	scall AideScript_ReceiveTheBalls
 	giveitem POKE_BALL, 5
-	writetext AideText_ExplainBalls
-	buttonsound
 	itemnotify
 	closetext
 	setscene SCENE_ELMSLAB_NOTHING
 	end
+
+; AideScript_WalkBalls1:
+	; applymovement ELMSLAB_ELMS_AIDE, AideWalksRight1
+	; turnobject PLAYER, DOWN
+	; scall AideScript_GiveYouBalls
+	; applymovement ELMSLAB_ELMS_AIDE, AideWalksLeft1
+	; end
+
+; AideScript_WalkBalls2:
+	; applymovement ELMSLAB_ELMS_AIDE, AideWalksRight2
+	; turnobject PLAYER, DOWN
+	; scall AideScript_GiveYouBalls
+	; applymovement ELMSLAB_ELMS_AIDE, AideWalksLeft2
+	; end
+
+; AideScript_GiveYouBalls:
+	; opentext
+	; writetext AideText_GiveYouBalls
+	; buttonsound
+	; itemtotext POKE_BALL, MEM_BUFFER_1
+	; scall AideScript_ReceiveTheBalls
+	; giveitem POKE_BALL, 5
+	; writetext AideText_ExplainBalls
+	; buttonsound
+	; itemnotify
+	; closetext
+	; setscene SCENE_ELMSLAB_NOTHING
+	; end
 
 AideScript_ReceiveTheBalls:
 	jumpstd receiveitem
@@ -618,12 +623,12 @@ AideScript_ReceiveTheBalls:
 ElmsAideScript:
 	faceplayer
 	opentext
-	checkevent EVENT_GOT_TOGEPI_EGG_FROM_ELMS_AIDE
-	iftrue AideScript_AfterTheft
-	checkevent EVENT_GAVE_MYSTERY_EGG_TO_ELM
-	iftrue AideScript_ExplainBalls
-	checkevent EVENT_GOT_MYSTERY_EGG_FROM_MR_POKEMON
-	iftrue AideScript_TheftTestimony
+	; checkevent EVENT_GOT_TOGEPI_EGG_FROM_ELMS_AIDE
+	; iftrue AideScript_AfterTheft
+	; checkevent EVENT_GAVE_MYSTERY_EGG_TO_ELM
+	; iftrue AideScript_ExplainBalls
+	; checkevent EVENT_GOT_MYSTERY_EGG_FROM_MR_POKEMON
+	; iftrue AideScript_TheftTestimony
 	writetext AideText_AlwaysBusy
 	waitbutton
 	closetext
@@ -635,11 +640,11 @@ AideScript_TheftTestimony:
 	closetext
 	end
 
-AideScript_ExplainBalls:
-	writetext AideText_ExplainBalls
-	waitbutton
-	closetext
-	end
+; AideScript_ExplainBalls:
+	; writetext AideText_ExplainBalls
+	; waitbutton
+	; closetext
+	; end
 
 AideScript_AfterTheft:
 	writetext AideText_AfterTheft
@@ -1400,23 +1405,6 @@ AideText_TheftTestimony:
 	line "itself."
 	done
 
-AideText_GiveYouBalls:
-	text "<PLAY_G>!"
-
-	para "Use these on your"
-	line "#DEX quest!"
-	done
-
-AideText_ExplainBalls:
-	text "To add to your"
-	line "#DEX, you have"
-	cont "to catch #MON."
-
-	para "Throw # BALLS"
-	line "at wild #MON"
-	cont "to get them."
-	done
-
 ElmsLabOfficerText1:
 	text "I heard a #MON"
 	line "was stolen here…"
@@ -1523,15 +1511,15 @@ ElmsLab_MapEvents:
 	warp_event  4, 11, NEW_BARK_TOWN, 1
 	warp_event  5, 11, NEW_BARK_TOWN, 1
 
-	db 8 ; coord events
+	db 6 ; coord events
 	coord_event  4,  6, SCENE_ELMSLAB_CANT_LEAVE, LabTryToLeaveScript
 	coord_event  5,  6, SCENE_ELMSLAB_CANT_LEAVE, LabTryToLeaveScript
 	coord_event  4,  5, SCENE_ELMSLAB_MEET_OFFICER, MeetCopScript
 	coord_event  5,  5, SCENE_ELMSLAB_MEET_OFFICER, MeetCopScript2
 	coord_event  4,  8, SCENE_ELMSLAB_AIDE_GIVES_POTION, AideScript_WalkPotion1
 	coord_event  5,  8, SCENE_ELMSLAB_AIDE_GIVES_POTION, AideScript_WalkPotion2
-	coord_event  4,  8, SCENE_ELMSLAB_AIDE_GIVES_POKE_BALLS, AideScript_WalkBalls1
-	coord_event  5,  8, SCENE_ELMSLAB_AIDE_GIVES_POKE_BALLS, AideScript_WalkBalls2
+	;coord_event  4,  8, SCENE_ELMSLAB_AIDE_GIVES_POKE_BALLS, AideScript_WalkBalls1
+	;coord_event  5,  8, SCENE_ELMSLAB_AIDE_GIVES_POKE_BALLS, AideScript_WalkBalls2
 
 	db 13 ; bg events
 	bg_event  2,  1, BGEVENT_READ, ElmsLabHealingMachine
