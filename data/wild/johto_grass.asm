@@ -361,7 +361,7 @@ JohtoGrassWildMons:
 	db 1, DIGLETT
 	db 1, SMEARGLE
 	db 2, TOGEPI
-	db 1, KABUTO
+	db 1, OMANYTE
 	db 1, AERODACTYL
 	; day
 	db 1, RHYHORN
@@ -369,7 +369,7 @@ JohtoGrassWildMons:
 	db 1, DIGLETT
 	db 1, SMEARGLE
 	db 2, TOGEPI
-	db 1, KABUTO
+	db 1, OMANYTE
 	db 1, AERODACTYL
 	; nite
 	db 1, RHYHORN
@@ -377,7 +377,7 @@ JohtoGrassWildMons:
 	db 1, DIGLETT
 	db 1, SMEARGLE
 	db 2, TOGEPI
-	db 1, KABUTO
+	db 1, OMANYTE
 	db 1, AERODACTYL
 
 	map_id RUINS_OF_ALPH_INNER_CHAMBER
