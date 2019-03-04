@@ -321,79 +321,77 @@ ChooseWildEncounter:
 	jp .switch_end
 	
 .case1 ; 1 badge
- ; multiply mon level by number of badges+1
-	ld a, 2
-	ld c, b
-	call SimpleMultiply ; a has level at this point
+ ; doubles number of badges
+	add a ; add a(badges) to itself (doubles a)
+	add b ; add b(level) and a(badges) ; a holds level
  ; add more levels
-	inc a ; add 1
-	ld b, a
+	ld b, 3 ; add 3
+	add b
+	ld b, a ; b holds level
  ; adds 0 to 3 levels
 	ld a, 4
 	call RandomRange
 	add b
 	ld b, a
-	cp 96 percent ; 4% chance of 1 extra level
+	call Random 
+	cp 95 percent ; 5% chance of 1 extra level
 	jp c, .switch_end
 	inc b
 	jp .switch_end
 	
 .case2	; 2 badges
- ; multiply mon level by number of badges+1
-	ld a, 3
-	ld c, b
-	call SimpleMultiply ; a has level at this point
+ ; doubles number of badges
+	add a ; add a(badges) to itself (doubles a)
+	add b ; add b(level) and a(badges) ; a holds level
  ; add more levels
 	ld b, 4 ; add 4
 	add b
-	ld b, a
+	ld b, a ; b holds level
  ; adds 0 to 4 levels
 	ld a, 5
 	call RandomRange
 	add b
 	ld b, a
-	call Random ; 4% chance of 1 extra level
-	cp 96 percent 
+	call Random 
+	cp 90 percent ; 10% chance of 1 extra level
 	jp c, .switch_end
 	inc b
 	jp .switch_end
 	
 .case3	; 3 badges
- ; multiply mon level by number of badges+1
-	ld a, 4
-	ld c, b
-	call SimpleMultiply ; a has level at this point
+ ; doubles number of badges
+	add a ; add a(badges) to itself (doubles a)
+	add b ; add b(level) and a(badges) ; a holds level
  ; add more levels
 	ld b, 4 ; add 4
 	add b
-	ld b, a
+	ld b, a ; b holds level
  ; adds 0 to 4 levels
 	ld a, 5
 	call RandomRange
 	add b
 	ld b, a
-	call Random
-	cp 96 percent ; 4% chance of 1 extra level
+	call Random 
+	cp 90 percent ; 10% chance of 1 extra level
 	jp c, .switch_end
 	inc b
 	jp .switch_end
 	
 .case4	; 4 badges
- ; multiply mon level by number of badges+1
-	ld a, 5
-	ld c, b
-	call SimpleMultiply ; a has level at this point
+ ; doubles number of badges
+	add a ; add a(badges) to itself (doubles a)
+	add b ; add b(level) and a(badges) ; a holds level
  ; add more levels
-	ld b, 4 ; add 4
+	ld b, 5 ; add 5
 	add b
-	ld b, a
+	ld b, a ; b holds level
  ; adds 0 to 4 levels
 	ld a, 5
 	call RandomRange
 	add b
 	ld b, a
-	call Random
-	cp 96 percent ; 4% chance of 1 extra level
+	call Random 
+	cp 90 percent ; 10% chance of 1 extra level
 	jp c, .switch_end
 	inc b
 	jp .switch_end
