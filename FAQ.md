@@ -1,7 +1,7 @@
-# FAQ
+# Changelog
+
 
 ## Pokemon
-# General
 Pokemon that were too weak or overpowered received some rebalancing. All movesets were updated.
 
 Changes in stats, movepools and held items makes using unevolved Pokemon at higher levels more viable
@@ -14,7 +14,7 @@ Evolutions that require trading are replaced with a level evolution
 
 HP growth is less level-dependant
 
-# Wild
+## Wild
 All Pokemon are obtainable
 
 Levels of wild pokemon scale with badges
@@ -52,10 +52,10 @@ Type boost items add 20% damage instead of 10%.
 
 Berries sell for more.
 
-# Held Items
+## Held Items
 New class of held items that empower unevolved pokemon. They can be found being held by wild unevolved Pokemon. When given to an unevolved Pokemon it displays the message "X feels stronger".
 
-  Effects:
+  ### Effects:
   
   Prevents evolving
   
@@ -66,7 +66,7 @@ New class of held items that empower unevolved pokemon. They can be found being 
   Gives +2 Critical to moves of the same type of the Pokemon with a power of or below 60
   
   
-# Battle
+## Battle
 Super effective deal +80% instead of +100%. Not Very Effective deal -30% instead of -50%
 
 STAB is +33% instead of +50%. Random damage variation is 5% instead if 15%
@@ -93,10 +93,10 @@ Smart AI understands how to use new moves
 
 A message lets you know if the opponent has a held item
 
-# Bug Fixes
+## Bug Fixes
 Fixed [all of these common](https://github.com/pret/pokecrystal/blob/master/docs/bugs_and_glitches.md) bugs
 
-# Graphical
+## Graphical
 Redone battle UI and stats interface
 
 Can see DVs and held item buffs in stats menu
@@ -111,10 +111,10 @@ Many Pokemon sprites have had their normal colors and shiny colors updated
 
 Some back sprites were made bigger to show more of the Pokemon
 
-# Events
+## Events
 After choosing your starter with Elm, you get the Pokedex and 5 Pokeballs and you're ready to go
 
-# Misc
+## Misc
 Faster pokecenters, berry tree messages, and "forget move" messages
 
 Morning starts at 6AM instead of 4AM, making Night last 10 hours and Day last 14 hours
