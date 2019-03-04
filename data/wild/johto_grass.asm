@@ -1436,7 +1436,7 @@ JohtoGrassWildMons:
 	map_id ROUTE_38
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
-	db 1, CLEFFA
+	db 1, IGGLYBUFF
 	db 1, MILTANK
 	db 1, PICHU
 	db 1, NIDORAN_F
@@ -1444,7 +1444,7 @@ JohtoGrassWildMons:
 	db 1, TAUROS
 	db 1, TOGEPI
 	; day
-	db 1, CLEFFA
+	db 1, IGGLYBUFF
 	db 1, MILTANK
 	db 1, PICHU
 	db 1, NIDORAN_F
@@ -1615,8 +1615,8 @@ JohtoGrassWildMons:
 	db 1, IGGLYBUFF
 	; nite
 	db 1, GEODUDE
-	db 2, EKANS
-	db 3, MANKEY
+	db 1, EKANS
+	db 1, MANKEY
 	db 1, GRIMER
 	db 1, RATTATA
 	db 1, GRIMER

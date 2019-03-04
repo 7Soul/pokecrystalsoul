@@ -105,7 +105,7 @@ DrawPlayerHUDBorder:
 	call CopyBytes
 	hlcoord 18, 10
 	ld de, -1 ; start on right
-	jr PlaceHUDBorderTiles
+	jp PlaceHUDBorderTiles
 
 .tiles
 	db $73 ; right side
@@ -121,7 +121,7 @@ DrawPlayerPartyIconHUDBorder:
 	call CopyBytes
 	hlcoord 18, 10
 	ld de, -1 ; start on right
-	jr PlaceHUDBorderTiles
+	jp PlaceHUDBorderTiles
 
 .tiles
 	db $73 ; right side
@@ -138,26 +138,54 @@ DrawEnemyHUDBorder:
 	hlcoord 1, 2
 	ld de, 1 ; start on left
 	call PlaceHUDBorderTiles
-	ld a, [wBattleMode]
-	dec a
-	ret nz
 	ld a, [wTempEnemyMonSpecies]
+	cp 0
+	jr z, .no_trainer_item
 	dec a
+	; check trainer mon item and show icon
 	push hl
 	ld hl, wEnemyMonItem
 	ld a, [hl]
-	ld [$C000], a
 	pop hl
 	cp NO_ITEM
-	jr z, .no_item
-	hlcoord 1, 1
+	jr z, .no_trainer_item
+	hlcoord 1, 2
 	ld [hl], $5e
+.no_trainer_item
+	ld a, [wBattleMode]
+	dec a
+	ret nz
 	
-.no_item
 	call CheckCaughtMon
-	ret z
+	jr z, .not_caught
 	hlcoord 1, 2
 	ld [hl], $5d
+	; check wild mon item and show icon
+	push hl
+	ld hl, wEnemyMonItem
+	ld a, [hl]
+	pop hl
+	cp NO_ITEM
+	jr z, .check_shiny
+	hlcoord 1, 3
+	ld [hl], $5e
+	jr .check_shiny
+	
+.not_caught
+	push hl
+	ld hl, wEnemyMonItem
+	ld a, [hl]
+	pop hl
+	cp NO_ITEM
+	jr z, .check_shiny
+	hlcoord 1, 2
+	ld [hl], $5e
+	
+.check_shiny
+	farcall BattleCheckEnemyShininess
+	ret nc
+	hlcoord 10, 1
+	ld [hl], $5f
 	ret
 
 .tiles
