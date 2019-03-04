@@ -7,8 +7,7 @@ Pokemon that were too weak or overpowered received some rebalancing. All moveset
 Changes in stats, movepools and held items makes using unevolved Pokemon at higher levels more viable
 
 DVs are spread out differently. They go from 1 to 10 and there's a higher chance to get a 10
-
-25% chance of 10, 18% chance of 9, 6% chance of 8 to 2 and 12% chance of 1
+- 25% chance of 10, 18% chance of 9, 6% chance of 8 to 2 and 12% chance of 1
 
 Evolutions that require trading are replaced with a level evolution
 
@@ -55,16 +54,11 @@ Berries sell for more.
 ## Held Items
 New class of held items that empower unevolved pokemon. They can be found being held by wild unevolved Pokemon. When given to an unevolved Pokemon it displays the message "X feels stronger".
 
-  ### Effects:
-  
-  Prevents evolving
-  
-  Leftovers (heal 1/16th HP per turn)
-  
-  Increases all stats (but not HP) by 50%
-  
-  Gives +2 Critical to moves of the same type of the Pokemon with a power of or below 60
-  
+  ### Effects:  
+  - Prevents evolving  
+  - Leftovers (heal 1/16th HP per turn)  
+  - Increases all stats (but not HP) by 50%  
+  - Gives +2 Critical to moves of the same type of the Pokemon with a power of or below 60
   
 ## Battle
 Super effective deal +80% instead of +100%. Not Very Effective deal -30% instead of -50%
@@ -83,7 +77,7 @@ Gain EXP after catching a pokemon
 
 Happiness is gained faster by battle
 
-Trainers and Gym Leaders
+## Trainers and Gym Leaders
 
 Team composition and levels scale with badges
 
