@@ -3,10 +3,10 @@
 	db  65,  45,  55,  45,  45,  70
 	;   hp  atk  def  spd  sat  sdf
 
-	db WATER, WATER ; type
+	db ICE, WATER ; type
 	db 190 ; catch rate
 	db 100 ; base exp
-	db NO_ITEM, NO_ITEM ; items
+	db NO_ITEM, FROZEN_DEW ; items
 	db GENDER_F50 ; gender ratio
 	db 100 ; unknown 1
 	db 20 ; step cycles to hatch
