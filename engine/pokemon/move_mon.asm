@@ -1659,7 +1659,7 @@ CalcMonStatC:
 	cp STAT_SDEF
 	jr z, .loadSpDefItems
 	cp STAT_HP
-	jr z, .loadHpItems
+	jr z, .return_to_calc
 	jp .return_to_calc
 	
 .loadAtkItems
@@ -1691,16 +1691,6 @@ CalcMonStatC:
 	inc hl
 	ld a, [hl]
 	ld e, a
-	jr .addStat
-.loadHpItems
-	; inc hl
-	; inc hl
-	; inc hl
-	; inc hl
-	; inc hl
-	; ld a, [hl]
-	; ld e, a
-	jr .return_to_calc	
 .addStat
 	ld a, e
 	cp 0 ; if 'e' is 0, double stat
@@ -1826,8 +1816,6 @@ SimpleList3:
 	db BELLSPROUT,	GRASSWHISTLE
 	db EXEGGCUTE,	GRASSWHISTLE
 	db HOPPIP,		GRASSWHISTLE
-	db NIDORAN_F,	GRASSWHISTLE
-	db NIDORAN_M,	GRASSWHISTLE
 	db PARAS,		GRASSWHISTLE
 	db GEODUDE,		ACCELEROCK
 	db ONIX,		ACCELEROCK

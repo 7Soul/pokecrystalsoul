@@ -525,6 +525,17 @@ ChooseWildEncounter:
 	ld a, b
 	call ValidateTempWildMonSpecies
 	jp c, .nowildbattle
+	
+	push hl
+	push de
+	push bc
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits	
+	ld a, [wNumSetBits]
+	pop bc
+	pop de
+	pop hl
 	; If the mon is Legendary, 92% chance to reroll into any other mon
 	push hl
 	push bc
@@ -533,23 +544,39 @@ ChooseWildEncounter:
 	ld hl, IsLegendary
 	ld de, 1
 	call IsInArray
-	jp nc, .not_legendary	
+	jp nc, .not_legendary ; continue operations if it isn't in the legendaries list
+
+	ld a, [wNumSetBits]
+	ld b, a
+	ld a, 100
+	sub b
+	sub b
+	ld b, a ; b contains 68 to 100, lower with more badges
+	ld a, 101
+	call RandomRange ; 0 to 100
+	cp b
+	jp c, .randomize ; 68~100% chance to cancel and return to choosing a pokemon based on badges
+	call TryWildEncounter
+	; Total 3% plus 92% plus 90% chance to get a random mon (around 0.3%)
+.randomize
 	call Random
 	cp 92 percent
-	jp c, .not_legendary
+	jp nc, .continue_with_legendary ; 8% chance to keep the legendary
+	
 	pop hl
 	pop bc
 	pop de
-	ld a, 250
+	ld a, 251
 	call RandomRange
 	inc a
 	ld b, a
 	jp .done
 	
+.continue_with_legendary	
 .not_legendary
 	pop hl
 	pop bc
-	pop de
+	pop de	
 	; Check if it's Nidoran F and randomizes to Nidoran M
 	ld a, b
 	cp NIDORAN_F
@@ -659,17 +686,14 @@ ChooseWildEncounter:
 INCLUDE "data/wild/probabilities.asm"
 
 IsLegendary:
-	db MEW
-	db MEWTWO
 	db ARTICUNO
 	db ZAPDOS
 	db MOLTRES
+	db MEW
+	db MEWTWO
 	db LUGIA
 	db HO_OH
 	db CELEBI
-	db GEODUDE
-	db MANKEY
-	db EKANS
 	db -1
 
 EvolveWildMon:
