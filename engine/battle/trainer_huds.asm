@@ -143,6 +143,17 @@ DrawEnemyHUDBorder:
 	ret nz
 	ld a, [wTempEnemyMonSpecies]
 	dec a
+	push hl
+	ld hl, wEnemyMonItem
+	ld a, [hl]
+	ld [$C000], a
+	pop hl
+	cp NO_ITEM
+	jr z, .no_item
+	hlcoord 1, 1
+	ld [hl], $5e
+	
+.no_item
 	call CheckCaughtMon
 	ret z
 	hlcoord 1, 2
