@@ -4,82 +4,73 @@
 ## Questions
 
 - [What is pokecrystal11.gbc?](#what-is-pokecrystal11gbc)
-- [I can't build the ROM, `make` just prints an error!](#i-cant-build-the-rom-make-just-prints-an-error)
-  - [`gcc`: command not found](#gcc-command-not-found)
-  - ["ERROR: `UNION` already defined"](#error-union-already-defined)
-  - ["Segmentation fault" from `rgbgfx`](#segmentation-fault-from-rgbgfx)
-  - ["Section is too big" or "Unable to place section in bank"](#section-is-too-big-or-unable-to-place-section-in-bank)
-  - ["Invalid file or object file version"](#invalid-file-or-object-file-version)
-  - ["Syntax error"](#syntax-error)
-- [How do I edit maps?](#how-do-i-edit-maps)
-- [How do I edit the colors of an image?](#how-do-i-edit-the-colors-of-an-image)
-- [How do I write new features?](#how-do-i-write-new-features)
-- [I need more help!](#i-need-more-help)
-
 
 ## What is pokecrystal11.gbc?
 
-Version 1.1 of Pokémon Crystal, which fixed some issues with the initial international release. `make crystal11` defines `_CRYSTAL11` so the assembly builds the changed version.
-
-
-## I can't build the ROM, `make` just prints an error!
-
-Reread [INSTALL.md](INSTALL.md) carefully, and make sure you're following all its steps.
-
-### `gcc`: command not found
-
-You need to install `gcc`. If you're using Cygwin, re-run its setup, and at "Select Packages", choose to install `gcc-core`.
-
-### "ERROR: `UNION` already defined"
-
-Download [**rgbds 0.3.7**][rgbds]. Older versions will not work.
-
-### "Segmentation fault" from `rgbgfx`
-
-If you are using 64-bit Windows, download [**64-bit Cygwin**][cygwin] and [**64-bit rgbds**][rgbds].
-
-### "Section is too big" or "Unable to place section in bank"
-
-If you have not changed any of the asm, make sure you have the latest version of pokecrystal and the correct version of rgbds (see [INSTALL.md](INSTALL.md)).
-
-If you added or changed any code, it has to fit in the **memory banks**. The 2MB ROM is divided into 128 banks of 4KB each, numbered $00 to $7F. The linkerscript **pokecrystal.link** lists which `SECTION`s go in which banks. Try moving some code into a new section.
-
-### "Invalid file or object file version"
-
-Run `make clean` to remove all the old `o` files, then re-run `make`.
-
-### "Syntax error"
-
-If you have not changed any of the asm, make sure you have the latest version of pokecrystal and the correct version of rgbds (see [INSTALL.md](INSTALL.md)).
-
-If you added or changed any code, you've made a mistake while writing some of it. Re-read the modifications you've made to the file it complains about and try to compare them with other code.
-
-
-## How do I edit maps?
-
-For `asm` scripts, read [docs/map_event_scripts.md](docs/map_event_scripts.md). For `blk` layouts, try [Polished Map][polished-map] or [crowdmap][crowdmap].
-
-
-## How do I edit the colors of an image?
-
-Most `.png` images are paletted PNGs. You can edit these with any program that supports creating PNGs with palette information. These palettes should consist of exactly 4 colors. Additionally, for Pokémon images, the first color should be white, and the last black. Tools such as Paint and [GIMP](https://www.gimp.org/) will do the right job, while other tools such as Photoshop might mess it up and output palettes of 255 colors even though only using 4. You may try using tools like [GraphicsGale](https://graphicsgale.com/us/) or [IrfanView](https://www.irfanview.com/) to fix this, or sometimes resaving the image in Paint seems to help.
-
-Some image `.png` files are greyscale. This indicates that even though these images do have proper colors in-game, they're shared with something else, and as such changing them will affect other things as well. Don't try opening the `.2bpp` files, these only contain the image data as well, not the palettes.
-
-It really depends on what image you're trying to change the colors of, where these colors are specified. Try looking for related files or `.pal` files.
-
-
-## How do I write new features?
-
-There are a number of special-purpose scripting languages, as described in [docs](docs/). For more general features, you'll need to code directly in assembly language. See [docs/assembly_programming.md](docs/assembly_programming.md). Some of the [tutorials][tutorials] may also be helpful.
-
-
-## I need more help!
-
-Try asking on IRC or Discord (see [README.md](README.md)).
-
-[cygwin]: https://cygwin.com/install.html
-[rgbds]: https://github.com/rednex/rgbds/releases
-[polished-map]: https://github.com/Rangi42/polished-map
-[crowdmap]: https://github.com/yenatch/crowdmap/
-[tutorials]: https://github.com/pret/pokecrystal/wiki/Tutorials
+# Pokemon
+# General
+Pokemon that were too weak or overpowered received some rebalancing. All movesets were updated.
+Changes in stats, movepools and held items makes using unevolved Pokemon at higher levels more viable
+DVs are spread out differently. They go from 1 to 10 and there's a higher chance to get a 10
+25% chance of 10, 18% chance of 9, 6% chance of 8 to 2 and 12% chance of 1
+Evolutions that require trading are replaced with a level evolution
+HP growth is less level-dependant
+# Wild
+All Pokemon are obtainable
+Levels of wild pokemon scale with badges
+Pokemon can appear evolved if their level is high enough (for any Pokemon that evolves through leveling or happiness + Tyrogue)
+Higher shiny chance (1/1024)
+Very minor boost to catch rate for all Pokemon
+Wild Legendaries can be found in some areas, but you may find a completely different Pokemon instead.
+3% base chance to run into this encounter. 
+Then a chance based on the number of badges, ranging from 100% to 68% to cancel out of this encounter entirely.
+Then a 50% chance to roll this encounter into a completely random pokemon.
+# Moves
+Many moves rebalanced, removed or added (see below)
+Physical/Special split
+# Items
+Special Pokeballs are more effective. Fast ball and Moon ball x4 to x8, Net ball x3 to x4, Heavy Ball has a wider range. Ultra ball x2 to x3 and price adjusted to compensate.
+Special Pokeballs sell for more.
+Fast Ball also works on Abra.
+Repels last twice as long (100, 200, 300 steps for each of the repel types). To compensate, they're 85% more expensive. Repels also ask if you want to auto-reaply.
+Type boost items add 20% damage instead of 10%.
+Berries sell for more.
+# Held Items
+New class of held items that empower unevolved pokemon. They can be found being held by wild unevolved Pokemon. When given to an unevolved Pokemon it displays the message "X feels stronger".
+  Effects:
+  Prevents evolving
+  Leftovers (heal 1/16th HP per turn)
+  Increases all stats (but not HP) by 50%
+  Gives +2 Critical to moves of the same type of the Pokemon with a power of or below 60
+# Battle
+Super effective deal +80% instead of +100%. Not Very Effective deal -30% instead of -50%
+STAB is +33% instead of +50%. Random damage variation is 5% instead if 15%
+No random crits for regular moves but increasing your crit chance works as normal
+Removed badge type boost
+Several battle animations are faster
+Electric type can't be paralyzed and Fire types can't be burned
+Gain EXP after catching a pokemon
+Happiness is gained faster by battle
+Trainers and Gym Leaders
+Team composition and levels scale with badges
+AI tries to use stat up moves more smartly
+Smart AI understands how to use new moves
+A message lets you know if the opponent has a held item
+# Bug Fixes
+Fixed [all of these common](https://github.com/pret/pokecrystal/blob/master/docs/bugs_and_glitches.md) bugs
+# Graphical
+Redone battle UI and stats interface
+Can see DVs and held item buffs in stats menu
+Revamped tilesets for maps
+All NPC sprites were remade
+Lower case names
+Many Pokemon sprites have had their normal colors and shiny colors updated
+Some back sprites were made bigger to show more of the Pokemon
+# Events
+After choosing your starter with Elm, you get the Pokedex and 5 Pokeballs and you're ready to go
+# Misc
+Faster pokecenters, berry tree messages, and "forget move" messages
+Morning starts at 6AM instead of 4AM, making Night last 10 hours and Day last 14 hours
+New interface frames to choose from
+"Instant" text speed option
+If a wild pokemon has a held item, the game will tell you, same for trainer battles.
