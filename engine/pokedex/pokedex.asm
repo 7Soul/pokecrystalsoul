@@ -1118,6 +1118,8 @@ Pokedex_DrawMainScreenBG:
 	hlcoord 8, 16
 	ld [hl], $5b
 	call Pokedex_PlaceFrontpicTopLeftCorner
+	hlcoord 2, 8
+	ld [hl], $6b ; camera icon
 	ret
 
 String_SEEN:
@@ -1398,9 +1400,6 @@ Pokedex_PlaceFrontpicAtHL:
 	inc a
 	dec b
 	jr nz, .row
-	
-	hlcoord 2, 8
-	ld [hl], $6b
 	ret
 
 Pokedex_PlaceString:

@@ -10,7 +10,7 @@ JohtoGrassWildMons:
 	db 1, EKANS
 	db 1, SPINARAK
 	db 1, HOOTHOOT
-	db 1, GASTLY
+	db 2, GASTLY
 	db 1, MAGNEMITE
 	; day
 	db 1, RATTATA
@@ -18,7 +18,7 @@ JohtoGrassWildMons:
 	db 1, EKANS
 	db 1, SPINARAK
 	db 1, HOOTHOOT
-	db 1, GASTLY
+	db 2, GASTLY
 	db 1, MAGNEMITE
 	; nite
 	db 1, GASTLY
@@ -37,7 +37,7 @@ JohtoGrassWildMons:
 	db 1, EKANS
 	db 1, SPINARAK
 	db 1, HOOTHOOT
-	db 1, GASTLY
+	db 2, GASTLY
 	db 1, MAGNEMITE
 	; day
 	db 2, RATTATA
@@ -45,15 +45,15 @@ JohtoGrassWildMons:
 	db 1, EKANS
 	db 1, SPINARAK
 	db 1, HOOTHOOT
-	db 1, GASTLY
+	db 2, GASTLY
 	db 1, MAGNEMITE
 	; nite
-	db 2, GASTLY
+	db 1, GASTLY
 	db 2, RATTATA
 	db 1, EKANS
 	db 1, SPINARAK
 	db 1, HOOTHOOT
-	db 1, MEOWTH
+	db 3, MEOWTH
 	db 1, MISDREAVUS
 
 	map_id TIN_TOWER_2F
@@ -281,7 +281,7 @@ JohtoGrassWildMons:
 	db 1, ZUBAT
 	db 2, MAGBY
 	db 1, CHARMANDER
-	db 1, MOLTRES
+	db 5, MOLTRES
 	; day
 	db 1, KOFFING
 	db 1, HOUNDOUR
@@ -289,7 +289,7 @@ JohtoGrassWildMons:
 	db 1, ZUBAT
 	db 2, MAGBY
 	db 1, CHARMANDER
-	db 1, MOLTRES
+	db 5, MOLTRES
 	; nite
 	db 1, KOFFING
 	db 1, HOUNDOUR
@@ -297,7 +297,7 @@ JohtoGrassWildMons:
 	db 1, ZUBAT
 	db 2, MAGBY
 	db 1, CHARMANDER
-	db 1, MOLTRES
+	db 5, MOLTRES
 
 	map_id BURNED_TOWER_B1F
 	db 6 percent, 6 percent, 6 percent ; encounter rates: morn/day/nite
@@ -360,7 +360,7 @@ JohtoGrassWildMons:
 	db 1, NATU
 	db 1, DIGLETT
 	db 1, SMEARGLE
-	db 2, TOGEPI
+	db 3, TOGEPI
 	db 1, OMANYTE
 	db 1, AERODACTYL
 	; day
@@ -373,10 +373,10 @@ JohtoGrassWildMons:
 	db 1, AERODACTYL
 	; nite
 	db 1, RHYHORN
-	db 1, NATU
+	db 3, NATU
 	db 1, DIGLETT
 	db 1, SMEARGLE
-	db 2, TOGEPI
+	db 1, TOGEPI
 	db 1, OMANYTE
 	db 1, AERODACTYL
 
@@ -459,7 +459,7 @@ JohtoGrassWildMons:
 	db 1, ONIX
 	db 2, SANDSHREW
 	db 2, TYROGUE
-	db 1, CORSOLA
+	db 3, CORSOLA
 
 	map_id UNION_CAVE_B2F
 	db 4 percent, 4 percent, 4 percent ; encounter rates: morn/day/nite
@@ -486,7 +486,7 @@ JohtoGrassWildMons:
 	db 1, ONIX
 	db 2, SANDSHREW
 	db 2, TYROGUE
-	db 1, CORSOLA
+	db 4, CORSOLA
 
 	map_id SLOWPOKE_WELL_B1F
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
@@ -524,7 +524,7 @@ JohtoGrassWildMons:
 	db 1, STARYU
 	db 1, SEEL
 	db 2, SMOOCHUM
-	db 1, ARTICUNO
+	db 5, ARTICUNO
 	; day
 	db 3, SLOWPOKE
 	db 1, KRABBY
@@ -532,7 +532,7 @@ JohtoGrassWildMons:
 	db 1, STARYU
 	db 1, SEEL
 	db 2, SMOOCHUM
-	db 1, ARTICUNO
+	db 5, ARTICUNO
 	; nite
 	db 3, SLOWPOKE
 	db 1, KRABBY
@@ -540,7 +540,7 @@ JohtoGrassWildMons:
 	db 1, STARYU
 	db 1, SHELLDER
 	db 2, SMOOCHUM
-	db 1, ARTICUNO
+	db 5, ARTICUNO
 
 	map_id ILEX_FOREST
 	db 4 percent, 4 percent, 4 percent ; encounter rates: morn/day/nite
@@ -551,7 +551,7 @@ JohtoGrassWildMons:
 	db 1, SPEAROW
 	db 1, YANMA
 	db 2, HERACROSS
-	db 1, CELEBI
+	db 5, CELEBI
 	; day
 	db 1, SCYTHER
 	db 1, PINSIR
@@ -559,7 +559,7 @@ JohtoGrassWildMons:
 	db 1, SPEAROW
 	db 1, YANMA
 	db 2, HERACROSS
-	db 1, CELEBI
+	db 5, CELEBI
 	; nite
 	db 1, SCYTHER
 	db 1, PINSIR
@@ -567,7 +567,7 @@ JohtoGrassWildMons:
 	db 1, ZUBAT
 	db 1, GLIGAR
 	db 2, MURKROW
-	db 1, CELEBI
+	db 5, CELEBI
 
 	map_id MOUNT_MORTAR_1F_OUTSIDE
 	db 6 percent, 6 percent, 6 percent ; encounter rates: morn/day/nite
@@ -632,7 +632,7 @@ JohtoGrassWildMons:
 	db 2, ODDISH
 	db 1, SANDSHREW
 	db 2, CHARMANDER
-	db 1, MOLTRES
+	db 5, MOLTRES
 	; day
 	db 1, GEODUDE
 	db 1, MACHOP
@@ -640,7 +640,7 @@ JohtoGrassWildMons:
 	db 2, ODDISH
 	db 1, SANDSHREW
 	db 2, CHARMANDER
-	db 1, MOLTRES
+	db 5, MOLTRES
 	; nite
 	db 1, GEODUDE
 	db 1, MACHOP
@@ -648,7 +648,7 @@ JohtoGrassWildMons:
 	db 2, ODDISH
 	db 1, SANDSHREW
 	db 2, CHARMANDER
-	db 1, MOLTRES
+	db 5, MOLTRES
 
 	map_id MOUNT_MORTAR_B1F
 	db 6 percent, 6 percent, 6 percent ; encounter rates: morn/day/nite
@@ -680,136 +680,136 @@ JohtoGrassWildMons:
 	map_id ICE_PATH_1F
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
 	; morn
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
-	db 1, ARTICUNO
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
+	db 5, ARTICUNO
 	; day
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
-	db 1, ARTICUNO
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
+	db 5, ARTICUNO
 	; nite
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
-	db 1, ARTICUNO
+	db 1, DELIBIRD
+	db 1, SHELLDER
+	db 2, NIDORAN_F
+	db 4, SHELLDER
+	db 1, SMOOCHUM
+	db 1, SNEASEL
+	db 5, ARTICUNO
 
 	map_id ICE_PATH_B1F
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
 	; morn
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 	; day
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 	; nite
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SHELLDER
+	db 2, NIDORAN_F
+	db 4, SHELLDER
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 
 	map_id ICE_PATH_B2F_MAHOGANY_SIDE
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
 	; morn
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 	; day
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 	; nite
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SHELLDER
+	db 2, NIDORAN_F
+	db 4, SHELLDER
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 
 	map_id ICE_PATH_B2F_BLACKTHORN_SIDE
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
 	; morn
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 	; day
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 	; nite
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SHELLDER
+	db 2, NIDORAN_F
+	db 4, SHELLDER
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 
 	map_id ICE_PATH_B3F
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
 	; morn
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 	; day
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SEEL
+	db 2, NIDORAN_F
+	db 4, SEEL
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 	; nite
-	db 3, SEEL
-	db 3, SHELLDER
-	db 3, SWINUB
-	db 3, DELIBIRD
-	db 4, SMOOCHUM
-	db 3, SNEASEL
+	db 1, DELIBIRD
+	db 1, SHELLDER
+	db 2, NIDORAN_F
+	db 4, SHELLDER
+	db 1, SMOOCHUM
+	db 1, SNEASEL
 	db 1, ARTICUNO
 
 	map_id WHIRL_ISLAND_NW
@@ -1166,25 +1166,25 @@ JohtoGrassWildMons:
 	map_id DARK_CAVE_BLACKTHORN_ENTRANCE
 	db 4 percent, 4 percent, 4 percent ; encounter rates: morn/day/nite
 	; morn
-	db 3, GEODUDE
-	db 3, TEDDIURSA
+	db 1, GEODUDE
+	db 1, TEDDIURSA
 	db 2, SWINUB
 	db 3, PHANPY
 	db 1, DUNSPARCE
 	db 2, OMANYTE
 	db 1, SQUIRTLE
 	; day
-	db 3, GEODUDE
-	db 3, TEDDIURSA
+	db 1, GEODUDE
+	db 1, TEDDIURSA
 	db 2, SWINUB
 	db 3, PHANPY
 	db 1, DUNSPARCE
 	db 2, OMANYTE
 	db 1, SQUIRTLE
 	; nite
-	db 3, GEODUDE
-	db 3, MACHOP
-	db 2, SWINUB
+	db 1, GEODUDE
+	db 1, MACHOP
+	db 2, MURKROW
 	db 3, PHANPY
 	db 1, DUNSPARCE
 	db 2, OMANYTE
@@ -1252,7 +1252,7 @@ JohtoGrassWildMons:
 	db 1, TANGELA
 	db 1, EKANS
 	db 2, SUNKERN
-	db 1, ODDISH
+	db 2, ODDISH
 	db 1, TEDDIURSA
 	; day
 	db 1, BELLSPROUT
@@ -1260,7 +1260,7 @@ JohtoGrassWildMons:
 	db 1, TANGELA
 	db 1, EKANS
 	db 2, SUNKERN
-	db 1, ODDISH
+	db 2, ODDISH
 	db 1, TEDDIURSA
 	; nite
 	db 1, ODDISH
@@ -1388,7 +1388,7 @@ JohtoGrassWildMons:
 	db 1, ABRA
 	db 1, NIDORAN_F
 	db 2, VULPIX
-	db 2, MEW
+	db 5, MEW
 	; day
 	db 1, GROWLITHE
 	db 1, PIDGEY
@@ -1396,7 +1396,7 @@ JohtoGrassWildMons:
 	db 1, ABRA
 	db 1, NIDORAN_F
 	db 2, VULPIX
-	db 2, MEW
+	db 5, MEW
 	; nite
 	db 1, VULPIX
 	db 1, HOOTHOOT
@@ -1404,7 +1404,7 @@ JohtoGrassWildMons:
 	db 1, ABRA
 	db 1, NIDORAN_F
 	db 2, GROWLITHE
-	db 2, MEW
+	db 5, MEW
 
 	map_id ROUTE_37
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
@@ -1463,28 +1463,28 @@ JohtoGrassWildMons:
 	map_id ROUTE_39
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
 	; morn
-	db 1, POLIWAG
+	db 1, MARILL
 	db 1, MAGNEMITE
 	db 1, MILTANK
 	db 1, RATTATA
 	db 2, ABRA
 	db 1, TOGEPI
-	db 1, TAUROS
+	db 1, STANTLER
 	; day
-	db 1, POLIWAG
+	db 1, MARILL
 	db 1, MAGNEMITE
 	db 1, MILTANK
 	db 1, RATTATA
 	db 2, ABRA
 	db 1, TOGEPI
-	db 1, TAUROS
+	db 1, STANTLER
 	; nite
 	db 1, POLIWAG
-	db 1, MAGNEMITE
-	db 1, MILTANK
-	db 1, RATTATA
+	db 1, VOLTORB
+	db 1, LICKITUNG
+	db 1, SPEAROW
 	db 2, DROWZEE
-	db 1, TOGEPI
+	db 1, ELEKID
 	db 1, TAUROS
 
 	map_id ROUTE_42
@@ -1494,25 +1494,25 @@ JohtoGrassWildMons:
 	db 1, EKANS
 	db 1, MARILL
 	db 1, EXEGGCUTE
-	db 1, KANGASKHAN
+	db 1, CUBONE
 	db 2, KANGASKHAN
-	db 2, ZUBAT
+	db 2, ZAPDOS
 	; day
 	db 1, MANKEY
 	db 1, EKANS
 	db 1, MARILL
 	db 1, EXEGGCUTE
-	db 1, KANGASKHAN
+	db 1, CUBONE
 	db 2, KANGASKHAN
-	db 2, ZUBAT
+	db 2, ZAPDOS
 	; nite
 	db 1, MANKEY
 	db 1, ZUBAT
-	db 1, MARILL
+	db 1, POLIWAG
 	db 1, EXEGGCUTE
 	db 1, KANGASKHAN
 	db 2, KANGASKHAN
-	db 2, EKANS
+	db 2, ZAPDOS
 
 	map_id ROUTE_43
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
@@ -1572,7 +1572,7 @@ JohtoGrassWildMons:
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
 	db 1, NIDORAN_F
-	db 1, DODUO
+	db 2, DODUO
 	db 1, VULPIX
 	db 1, SKARMORY
 	db 1, PHANPY
@@ -1580,7 +1580,7 @@ JohtoGrassWildMons:
 	db 1, ZAPDOS
 	; day
 	db 1, NIDORAN_F
-	db 1, DODUO
+	db 2, DODUO
 	db 1, VULPIX
 	db 1, SKARMORY
 	db 1, PHANPY
@@ -1588,11 +1588,11 @@ JohtoGrassWildMons:
 	db 1, ZAPDOS
 	; nite
 	db 1, NIDORAN_F
-	db 1, DODUO
+	db 2, DODUO
 	db 1, VULPIX
 	db 1, SKARMORY
 	db 1, PHANPY
-	db 1, DRATINI
+	db 2, DRATINI
 	db 1, ZAPDOS
 
 	map_id ROUTE_46
