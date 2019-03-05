@@ -360,7 +360,7 @@ ErikaGroup:
 YoungsterGroup:
 	; YOUNGSTER (1)
 	db "JOEY@", TRAINERTYPE_ITEM
-	db  0, 4, RATTATA, CUTE_RIBBON
+	db  0, 5, 0, RATTATA, 0, CUTE_RIBBON
 	db -1 ; end
 
 	; YOUNGSTER (2)
@@ -394,13 +394,13 @@ YoungsterGroup:
 	db -1 ; end
 
 	; YOUNGSTER (7)
-	db "JOEY@", TRAINERTYPE_NORMAL
-	db 15, RATTATA
+	db "JOEY@", TRAINERTYPE_ITEM
+	db  0, 7, 0, RATTATA, CUTE_RIBBON
 	db -1 ; end
 
 	; YOUNGSTER (8)
-	db "JOEY@", TRAINERTYPE_MOVES
-	db 21, RATICATE,   TAIL_WHIP, QUICK_ATTACK, HYPER_FANG, SCARY_FACE
+	db "JOEY@", TRAINERTYPE_ITEM
+	db  0, 9, 0, RATTATA, CUTE_RIBBON
 	db -1 ; end
 
 	; YOUNGSTER (9)
@@ -2837,8 +2837,9 @@ PicnickerGroup:
 	db -1 ; end
 
 	; PICNICKER (10)
-	db "ERIN@", TRAINERTYPE_NORMAL
-	db 0, 1, 3, TYROGUE
+	db "ERIN@", TRAINERTYPE_ITEM
+	db  0, 5, 0, RATTATA, 2, CUTE_RIBBON
+	db  0, 5, 0, RATTATA, 5, CUTE_RIBBON
 	db -1 ; end
 
 	; PICNICKER (11)

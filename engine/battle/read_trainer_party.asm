@@ -170,7 +170,16 @@ TrainerType2:
 	call BadgeLevels
 	
 	ld [wCurPartyLevel], a
-	ld a, [hli]
+	
+	ld a, [hli] ; get evolve bit
+	ld [$C000], a
+	
+	ld a, [hli] ; get speciess
+	ld b, a
+	call EvolveTrainerMon
+	ld a, b
+	call EvolveTrainerMon
+	ld a, b
 	ld [wCurPartySpecies], a
 
 	ld a, OTPARTYMON
@@ -257,17 +266,41 @@ TrainerType3:
 	cp $ff
 	ret z
 	
+	; stop if -1
 	ld a, [hli]
 	cp $ff
 	ret z
-
+	ld d, a ; put level in d
+	; change level
+	ld a, [wNumSetBits] ; a is number of badges
+	ld b, d ; b is level
+	call BadgeLevels
+	
 	ld [wCurPartyLevel], a
-	ld a, [hli]
+	
+	ld a, [hli] ; get evolve bit
+	ld [$C000], a
+	
+	ld a, [hli] ; get speciess
+	ld b, a
+	call EvolveTrainerMon
+	ld a, b
+	call EvolveTrainerMon
+	ld a, b
 	ld [wCurPartySpecies], a
+	
 	ld a, OTPARTYMON
 	ld [wMonType], a
 	push hl
 	predef TryAddMonToParty
+	pop hl
+	ld a, [hli]
+	ld b, a
+	ld a, [wNumSetBits]
+	cp b
+	push hl
+	jp c, .skip_item
+	
 	ld a, [wOTPartyCount]
 	dec a
 	ld hl, wOTPartyMon1Item
@@ -275,6 +308,7 @@ TrainerType3:
 	call AddNTimes
 	ld d, h
 	ld e, l
+.skip_item
 	pop hl
 	ld a, [hli]
 	ld [de], a
@@ -312,7 +346,16 @@ TrainerType4:
 	call BadgeLevels
 	
 	ld [wCurPartyLevel], a
-	ld a, [hli]
+	
+	ld a, [hli] ; get evolve bit
+	ld [$C000], a
+	
+	ld a, [hli] ; get speciess
+	ld b, a
+	call EvolveTrainerMon
+	ld a, b
+	call EvolveTrainerMon
+	ld a, b
 	ld [wCurPartySpecies], a
 
 	ld a, OTPARTYMON
