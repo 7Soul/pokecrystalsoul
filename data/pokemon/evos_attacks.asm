@@ -1146,8 +1146,8 @@ RapidashEvosAttacks:
 	db 0 ; no more level-up moves
 
 SlowpokeEvosAttacks:
-	db EVOLVE_LEVEL, 37, SLOWBRO
 	db EVOLVE_ITEM, WATER_STONE, SLOWKING
+	db EVOLVE_LEVEL, 37, SLOWBRO
 	db 0 ; no more evolutions
 	db 1, CURSE
 	db 1, TACKLE

@@ -92,6 +92,7 @@ TrainerType1:
 	ld h, d
 	ld l, e
 .loop	
+	; check badges
 	push hl
 	ld hl, wBadges
 	ld b, 2
@@ -102,20 +103,36 @@ TrainerType1:
 	pop hl
 	ld a, [hl]
 	cp b
-	ret nc
+	ret nc	
 	ld a, [hli]
 	cp $ff
 	ret z
 	
+	; stop if -1
 	ld a, [hli]
 	cp $ff
 	ret z
-
+	ld d, a ; put level in d
+	; change level
+	ld a, [wNumSetBits] ; a is number of badges
+	ld b, d ; b is level
+	call BadgeLevels	
 	ld [wCurPartyLevel], a
-	ld a, [hli]
+	
+	ld a, [hli] ; get evolve bit
+	ld [$C000], a
+	
+	ld a, [hli] ; get speciess
+	ld b, a
+	call EvolveTrainerMon
+	ld a, b
+	call EvolveTrainerMon
+	ld a, b
 	ld [wCurPartySpecies], a
+	
 	ld a, OTPARTYMON
 	ld [wMonType], a
+
 	push hl
 	predef TryAddMonToParty
 	pop hl
@@ -126,6 +143,7 @@ TrainerType2:
 	ld h, d
 	ld l, e
 .loop
+	; check badges
 	push hl
 	ld hl, wBadges
 	ld b, 2
@@ -136,18 +154,25 @@ TrainerType2:
 	pop hl
 	ld a, [hl]
 	cp b
-	ret nc
+	ret nc	
 	ld a, [hli]
 	cp $ff
 	ret z
 	
+	; stop if -1
 	ld a, [hli]
 	cp $ff
 	ret z
-
+	ld d, a ; put level in d
+	; change level
+	ld a, [wNumSetBits] ; a is number of badges
+	ld b, d ; b is level
+	call BadgeLevels
+	
 	ld [wCurPartyLevel], a
 	ld a, [hli]
 	ld [wCurPartySpecies], a
+
 	ld a, OTPARTYMON
 	ld [wMonType], a
 
@@ -378,13 +403,13 @@ BadgeLevels:
 	
 .case1; 1 badges
 	ld a, b
-	add a, a
+	;add a, a
 	add a, 8
 	jp .switch_end	
 	
 .case2; 2 badges
 	ld a, b
-	add a, a
+	;add a, a
 	add a, 15
 	jp .switch_end
 	
@@ -441,6 +466,214 @@ BadgeLevels:
 	jp z, .case8
 
 .switch_end
+	ret
+	
+EvolveTrainerMon:
+; check if the defender has any evolutions
+; hl = EvosAttacksPointers  (species - 1) * 2
+	dec a
+	push hl
+	push bc
+	ld c, a
+	ld b, 0
+	ld hl, EvosAttacksPointers
+	add hl, bc
+	add hl, bc
+	ld a, [$C000] ; check evolve bit
+	cp 0
+	jp z, .done
+	ld a, [wCurPartyLevel]
+	ld d, a ; d = wild mon level
+; hl = the species' entry from EvosAttacksPointers
+	ld a, BANK(EvosAttacksPointers)
+	call GetFarHalfword
+; a = the first byte of the species' EvosAttacks data
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+; if a == 0, there are no evolutions, so don't boost stats
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	and a
+	cp 0
+	jp z, .done ; done if it has no evolutions
+
+	inc hl
+	cp EVOLVE_ITEM
+	jp z, .evolve_item
+	cp EVOLVE_HAPPINESS
+	jp z, .evolve_happy
+	cp EVOLVE_STAT
+	jp z, .evolve_stat	
+	
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte ; a = evolve level
+	cp d
+	jp nc, .lower
+	
+	ld c, a
+	ld a, d ; a = wild level
+	ld d, c ; d = evolve level data
+	
+.finish_evolve
+	pop bc
+	pop hl
+	inc b
+	ret
+
+.evolve_eevee
+	ld a, d ; a = wild level
+	cp 20
+	jp c, .donezo
+	pop hl
+	ld a, [$C000]
+	cp 1
+	jp z, .eevee_1
+	cp 2
+	jp z, .eevee_2
+	cp 3
+	jp z, .eevee_3
+	cp 4
+	jp z, .eevee_4
+	cp 5
+	jp z, .eevee_5
+	ret
+.eevee_1
+	ld a, JOLTEON
+	ld b, a
+	ret
+.eevee_2
+	ld a, VAPOREON
+	ld b, a
+	ret
+.eevee_3
+	ld a, FLAREON
+	ld b, a
+	ret
+.eevee_4
+	ld a, ESPEON
+	ld b, a
+	ret
+.eevee_5
+	ld a, UMBREON
+	ld b, a
+	ret
+.evolve_gloom
+	ld a, d ; a = wild level
+	cp 25
+	jp c, .donezo
+	pop hl
+	ld a, [$C000]
+	cp 1
+	jp z, .gloom_1
+	cp 2
+	jp z, .gloom_2
+.gloom_1
+	ld a, VILEPLUME
+	ld b, a
+	ret
+.gloom_2
+	ld a, BELLOSSOM
+	ld b, a
+	ret
+.evolve_poliwhirl
+	ld a, d ; a = wild level
+	cp 29
+	jp c, .donezo
+	pop hl
+	ld a, [$C000]
+	cp 1
+	jp z, .poliwhirl_1
+	cp 2
+	jp z, .poliwhirl_2
+.poliwhirl_1
+	ld a, POLIWRATH
+	ld b, a
+	ret
+.poliwhirl_2
+	ld a, POLITOED
+	ld b, a
+	ret
+.evolve_slowpoke
+	ld a, d ; a = wild level
+	cp 37
+	jp c, .donezo
+	pop hl
+	ld a, [$C000]
+	cp 1
+	jp z, .slowpoke_1
+	cp 2
+	jp z, .slowpoke_2
+.slowpoke_1
+	ld a, SLOWBRO
+	ld b, a
+	ret
+.slowpoke_2
+	ld a, SLOWKING
+	ld b, a
+	ret
+.hitmonlee
+	ld a, HITMONLEE
+	ld b, a
+	ret
+.hitmonchan
+	ld a, HITMONCHAN
+	ld b, a
+	ret
+.hitmontop
+	ld a, HITMONTOP
+	ld b, a
+	ret
+.evolve_item	
+	pop bc
+	ld a, b
+	cp EEVEE
+	jp z, .evolve_eevee
+	cp GLOOM
+	jp z, .evolve_gloom
+	cp POLIWHIRL
+	jp z, .evolve_poliwhirl
+	cp SLOWPOKE
+	jp z, .evolve_slowpoke
+	
+	ld a, d ; a = wild level
+	cp 23
+	jp c, .donezo
+	inc hl
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte ; a = evolved species
+	ld b, a
+	jp .donezo
+.evolve_happy
+	pop bc
+	ld a, d ; a = wild level
+	cp 13
+	jp c, .donezo
+	inc hl
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte ; a = evolved species
+	ld b, a
+	jp .donezo
+.evolve_stat
+	pop bc
+	ld a, d ; a = wild level
+	ld [$C005], a
+	cp 15
+	jp c, .donezo
+	pop hl
+	ld a, [$C000]
+	cp 1
+	jp z, .hitmonlee
+	cp 2
+	jp z, .hitmonchan
+	cp 3
+	jp z, .hitmontop
+.lower
+.done
+	pop bc
+	pop hl
+	ret
+.donezo
+	pop hl
 	ret
 
 ComputeTrainerReward:

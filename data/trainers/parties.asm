@@ -4,11 +4,14 @@ Trainers:
 ; Trainer data structure:
 ; - db "NAME@", TRAINERTYPE_* constant
 ; - 1 to 6 Pokémon:
-;    * for TRAINERTYPE_NORMAL:     db badges, level, species
-;    * for TRAINERTYPE_MOVES:      db badges, level, species, 4 moves
-;    * for TRAINERTYPE_ITEM:       db badges, level, species, item
-;    * for TRAINERTYPE_ITEM_MOVES: db badges, level, species, item, 4 moves
+;    * for TRAINERTYPE_NORMAL:     db badges, level, evolve_bit, species
+;    * for TRAINERTYPE_MOVES:      db badges, level, evolve_bit, species, 4 moves
+;    * for TRAINERTYPE_ITEM:       db badges, level, evolve_bit, species, item
+;    * for TRAINERTYPE_ITEM_MOVES: db badges, level, evolve_bit, species, item, 4 moves
 ; badge number is -1 from number (0 means 1 badges, 1 means 2 badges, etc)
+; evolve bit dictates if the mon scaling causes it to evolve
+;	0 = never evolve
+;	1+ = evolve
 ; - db -1 ; end
 
 FalknerGroup:
@@ -2834,11 +2837,8 @@ PicnickerGroup:
 	db -1 ; end
 
 	; PICNICKER (10)
-	db "ERIN@", TRAINERTYPE_ITEM_MOVES
-	db 0, 1, CUBONE, NO_ITEM, SURF, EMBER, NO_MOVE, NO_MOVE
-	db 0, 1, PONYTA, CARAPACE, SURF, LEAF_SHIELD, NO_MOVE, NO_MOVE
-	db 2, 1, PONYTA, CARAPACE, SURF, LEAF_SHIELD, NO_MOVE, NO_MOVE
-	db 2, 1, QUILAVA, NO_ITEM, SURF, EMBER, NO_MOVE, NO_MOVE
+	db "ERIN@", TRAINERTYPE_NORMAL
+	db 0, 1, 3, TYROGUE
 	db -1 ; end
 
 	; PICNICKER (11)
