@@ -236,9 +236,9 @@ Pokedex_InitMainScreen:
 	ldh [hSCX], a
 
 	ld a, [wCurDexMode]
-	cp DEXMODE_OLD
-	ld a, $4a
-	jr z, .okay
+	;cp DEXMODE_OLD
+	;ld a, $4a
+	;jr z, .okay
 	ld a, $47
 .okay
 	ldh [hWX], a
@@ -1370,7 +1370,7 @@ UnownModeLetterAndCursorCoords:
 	dwcoord  14, 9,  15, 9 ; Y
 	dwcoord  14,10,  15,10 ; Z
 
-Pokedex_FillBackgroundColor2:
+Pokedex_FillBackgroundColor2:	
 	hlcoord 0, 0
 	ld a, $32
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
@@ -1398,6 +1398,9 @@ Pokedex_PlaceFrontpicAtHL:
 	inc a
 	dec b
 	jr nz, .row
+	
+	hlcoord 2, 8
+	ld [hl], $6b
 	ret
 
 Pokedex_PlaceString:
@@ -1978,7 +1981,8 @@ Pokedex_PutOldModeCursorOAM:
 	jr nz, .okay
 	ld hl, .CursorAtTopOAM
 .okay
-	call Pokedex_LoadCursorOAM
+	call Pokedex_LoadCursorOAM	
+	call Pokedex_PutScrollbarOAM
 	ret
 
 .CursorOAM:
@@ -1986,26 +1990,22 @@ Pokedex_PutOldModeCursorOAM:
 	dsprite  2,  0,  9, -1, $31, 7
 	dsprite  2,  0, 10, -1, $32, 7
 	dsprite  2,  0, 11, -1, $32, 7
-	dsprite  2,  0, 12, -1, $32, 7
-	dsprite  2,  0, 13, -1, $33, 7
+	dsprite  2,  0, 12, -1, $33, 7
 	dsprite  2,  0, 16, -2, $33, 7 | X_FLIP
 	dsprite  2,  0, 17, -2, $32, 7 | X_FLIP
 	dsprite  2,  0, 18, -2, $32, 7 | X_FLIP
-	dsprite  2,  0, 19, -2, $32, 7 | X_FLIP
-	dsprite  2,  0, 20, -2, $31, 7 | X_FLIP
-	dsprite  3,  0, 20, -2, $30, 7 | X_FLIP
+	dsprite  2,  0, 19, -2, $31, 7 | X_FLIP
+	dsprite  3,  0, 19, -2, $30, 7 | X_FLIP
 	dsprite  4,  0,  9, -1, $30, 7 | Y_FLIP
 	dsprite  5,  0,  9, -1, $31, 7 | Y_FLIP
 	dsprite  5,  0, 10, -1, $32, 7 | Y_FLIP
 	dsprite  5,  0, 11, -1, $32, 7 | Y_FLIP
-	dsprite  5,  0, 12, -1, $32, 7 | Y_FLIP
-	dsprite  5,  0, 13, -1, $33, 7 | Y_FLIP
+	dsprite  5,  0, 12, -1, $33, 7 | Y_FLIP
 	dsprite  5,  0, 16, -2, $33, 7 | X_FLIP | Y_FLIP
 	dsprite  5,  0, 17, -2, $32, 7 | X_FLIP | Y_FLIP
 	dsprite  5,  0, 18, -2, $32, 7 | X_FLIP | Y_FLIP
-	dsprite  5,  0, 19, -2, $32, 7 | X_FLIP | Y_FLIP
-	dsprite  5,  0, 20, -2, $31, 7 | X_FLIP | Y_FLIP
-	dsprite  4,  0, 20, -2, $30, 7 | X_FLIP | Y_FLIP
+	dsprite  5,  0, 19, -2, $31, 7 | X_FLIP | Y_FLIP
+	dsprite  4,  0, 19, -2, $30, 7 | X_FLIP | Y_FLIP
 	db -1
 
 .CursorAtTopOAM:
@@ -2015,26 +2015,22 @@ Pokedex_PutOldModeCursorOAM:
 	dsprite  2,  0,  9, -1, $34, 7
 	dsprite  2,  0, 10, -1, $35, 7
 	dsprite  2,  0, 11, -1, $35, 7
-	dsprite  2,  0, 12, -1, $35, 7
-	dsprite  2,  0, 13, -1, $36, 7
+	dsprite  2,  0, 12, -1, $36, 7
 	dsprite  2,  0, 16, -2, $36, 7 | X_FLIP
 	dsprite  2,  0, 17, -2, $35, 7 | X_FLIP
 	dsprite  2,  0, 18, -2, $35, 7 | X_FLIP
-	dsprite  2,  0, 19, -2, $35, 7 | X_FLIP
-	dsprite  2,  0, 20, -2, $34, 7 | X_FLIP
-	dsprite  3,  0, 20, -2, $30, 7 | X_FLIP
+	dsprite  2,  0, 19, -2, $34, 7 | X_FLIP
+	dsprite  3,  0, 19, -2, $30, 7 | X_FLIP
 	dsprite  4,  0,  9, -1, $30, 7 | Y_FLIP
 	dsprite  5,  0,  9, -1, $31, 7 | Y_FLIP
 	dsprite  5,  0, 10, -1, $32, 7 | Y_FLIP
 	dsprite  5,  0, 11, -1, $32, 7 | Y_FLIP
-	dsprite  5,  0, 12, -1, $32, 7 | Y_FLIP
-	dsprite  5,  0, 13, -1, $33, 7 | Y_FLIP
+	dsprite  5,  0, 12, -1, $33, 7 | Y_FLIP
 	dsprite  5,  0, 16, -2, $33, 7 | X_FLIP | Y_FLIP
 	dsprite  5,  0, 17, -2, $32, 7 | X_FLIP | Y_FLIP
 	dsprite  5,  0, 18, -2, $32, 7 | X_FLIP | Y_FLIP
-	dsprite  5,  0, 19, -2, $32, 7 | X_FLIP | Y_FLIP
-	dsprite  5,  0, 20, -2, $31, 7 | X_FLIP | Y_FLIP
-	dsprite  4,  0, 20, -2, $30, 7 | X_FLIP | Y_FLIP
+	dsprite  5,  0, 19, -2, $31, 7 | X_FLIP | Y_FLIP
+	dsprite  4,  0, 19, -2, $30, 7 | X_FLIP | Y_FLIP
 	db -1
 
 Pokedex_PutNewModeABCModeCursorOAM:

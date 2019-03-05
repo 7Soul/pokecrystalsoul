@@ -167,9 +167,9 @@ DisplayDexEntry:
 	call ByteFill
 	; page number
 	hlcoord 1, 9
-	ld [hl], $55
+	ld [hl], $7f
 	inc hl
-	ld [hl], $55
+	ld [hl], $7f
 	hlcoord 1, 10
 	ld [hl], $56 ; P.
 	inc hl
@@ -197,9 +197,9 @@ DisplayDexEntry:
 	call ByteFill
 	; page number
 	hlcoord 1, 9
-	ld [hl], $55
+	ld [hl], $7f
 	inc hl
-	ld [hl], $55
+	ld [hl], $7f
 	hlcoord 1, 10
 	ld [hl], $56 ; P.
 	inc hl

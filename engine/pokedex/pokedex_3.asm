@@ -39,13 +39,13 @@ DrawPokedexListWindow:
 	hlcoord 0, 16
 	ld bc, 11
 	call ByteFill
-	hlcoord 5, 0
+	hlcoord 9, 0
 	ld [hl], $3f
-	hlcoord 5, 16
+	hlcoord 9, 16
 	ld [hl], $40
-	ld a, [wCurDexMode]
-	cp DEXMODE_OLD
-	jr z, .OldMode
+	;ld a, [wCurDexMode]
+	;cp DEXMODE_OLD
+	;jr z, .OldMode
 ; scroll bar
 	hlcoord 11, 0
 	ld [hl], $50
@@ -54,18 +54,18 @@ DrawPokedexListWindow:
 	ld b, SCREEN_HEIGHT - 3
 	call Bank77_FillColumn
 	ld [hl], $52
-	jr .Done
+	;jr .Done
 
 .OldMode:
 ; no scroll bar
-	hlcoord 11, 0
-	ld [hl], $66
-	ld a, $67
-	hlcoord 11, 1
-	ld b, SCREEN_HEIGHT - 3
-	call Bank77_FillColumn
-	ld [hl], $68
-.Done:
+	; hlcoord 11, 0
+	; ld [hl], $66
+	; ld a, $67
+	; hlcoord 11, 1
+	; ld b, SCREEN_HEIGHT - 3
+	; call Bank77_FillColumn
+	; ld [hl], $68
+; .Done:
 	ret
 
 DrawPokedexSearchResultsWindow:
