@@ -108,10 +108,18 @@ TrainerType1:
 	cp $ff
 	ret z
 	
+	ld a, [wNumSetBits]
+	ld b, a
+	ld a, [hli]
+	cp b
+	jp c, .skip
+	jp z, .skip
+	
 	; stop if -1
 	ld a, [hli]
 	cp $ff
 	ret z
+	
 	ld d, a ; put level in d
 	; change level
 	ld a, [wNumSetBits] ; a is number of badges
@@ -138,6 +146,12 @@ TrainerType1:
 	pop hl
 	jp .loop
 
+.skip
+	inc hl
+	inc hl
+	inc hl
+	jp .loop
+
 TrainerType2:
 ; moves
 	ld h, d
@@ -158,6 +172,13 @@ TrainerType2:
 	ld a, [hli]
 	cp $ff
 	ret z
+	
+	ld a, [wNumSetBits]
+	ld b, a
+	ld a, [hli]
+	cp b
+	jp c, .skip
+	jp z, .skip
 	
 	; stop if -1
 	ld a, [hli]
@@ -242,8 +263,14 @@ TrainerType2:
 	dec b
 	jr nz, .copy_pp
 .copied_pp
-
 	pop hl
+	jp .loop
+.skip
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
 	jp .loop
 
 TrainerType3:
@@ -264,7 +291,14 @@ TrainerType3:
 	ret nc
 	ld a, [hli]
 	cp $ff
-	ret z
+	ret z	
+	
+	ld a, [wNumSetBits]
+	ld b, a
+	ld a, [hli]
+	cp b
+	jp c, .skip
+	jp z, .skip
 	
 	; stop if -1
 	ld a, [hli]
@@ -312,6 +346,13 @@ TrainerType3:
 	pop hl
 	ld a, [hli]
 	ld [de], a
+	jp .loop
+.skip
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
 	jp .loop
 
 TrainerType4:

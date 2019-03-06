@@ -16,10 +16,12 @@ Trainers:
 
 FalknerGroup:
 	; FALKNER (1)
-	db "FALKNER@", TRAINERTYPE_MOVES
-	db  1, 11, HOOTHOOT,  MUD_BOMB, GROWL, FORESIGHT, PECK
-	db  1, 10, MURKROW,   PECK, MUD_BOMB, NO_MOVE, NO_MOVE
-	db  2, 10, MURKROW,   PECK, MUD_BOMB, NO_MOVE, NO_MOVE
+	db "FALKNER@", TRAINERTYPE_ITEM
+	db  0, 19, 5,  1, HOOTHOOT, 0, NO_ITEM
+	db  0, 19, 5,  1, MURKROW, 1, BERRY
+	db  0, 3,  9,  1, PIDGEOTTO, 0, NO_ITEM
+	db  0, 19, 9,  1, SKARMORY, 0, NO_ITEM
+	db  3, 19, 13, 1, PIDGEOTTO, 0, BERRY ; at 3 badges Pidgeotto gets replaced by a stronger one
 	db -1 ; end
 	
 BugsyGroup:
@@ -360,7 +362,7 @@ ErikaGroup:
 YoungsterGroup:
 	; YOUNGSTER (1)
 	db "JOEY@", TRAINERTYPE_ITEM
-	db  0, 5, 0, RATTATA, 0, CUTE_RIBBON
+	db  0, 5, 0, RATTATA, 1, CUTE_RIBBON
 	db -1 ; end
 
 	; YOUNGSTER (2)
@@ -395,7 +397,9 @@ YoungsterGroup:
 
 	; YOUNGSTER (7)
 	db "JOEY@", TRAINERTYPE_ITEM
-	db  0, 7, 0, RATTATA, CUTE_RIBBON
+	db  0,  8,   7, 0, RATTATA, 0, NO_ITEM
+	db  8,  16, 14, 0, RATTATA, 0, CUTE_RIBBON ; at 8 badges replace
+	db  16, 19, 14, 0, RATTATA, 0, CUTE_RIBBON ; at 16 badges replace
 	db -1 ; end
 
 	; YOUNGSTER (8)
@@ -2838,8 +2842,11 @@ PicnickerGroup:
 
 	; PICNICKER (10)
 	db "ERIN@", TRAINERTYPE_ITEM
-	db  0, 5, 0, RATTATA, 2, CUTE_RIBBON
-	db  0, 5, 0, RATTATA, 5, CUTE_RIBBON
+	db  0, 17, 5,  1, HOOTHOOT, 0, NO_ITEM
+	db  0, 17, 5,  1, MURKROW, 0, NO_ITEM
+	db  0, 2,  9,  1, PIDGEOTTO, 0, NO_ITEM
+	db  0, 17, 9,  1, SKARMORY, 0, NO_ITEM
+	db  2, 17, 13, 1, PIDGEOTTO, 0, BERRY
 	db -1 ; end
 
 	; PICNICKER (11)
