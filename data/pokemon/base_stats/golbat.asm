@@ -1,6 +1,6 @@
 	db GOLBAT ; 042
 
-	db  75,  80,  70,  90,  65,  75
+	db  75,  85,  70,  90,  65,  75
 	;   hp  atk  def  spd  sat  sdf
 
 	db DARK, FLYING ; type

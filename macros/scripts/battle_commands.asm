@@ -179,13 +179,14 @@ ENDM
 	command supereffectivelooptext  ; ad
 	command startloop               ; ae
 	command curl                    ; af
-	command burn
-	command weightdamage
-	command venoshock
-	command brickbreak
-	command defspdefdown
-	command fireflick
-	command stampede
+	command burn					; b0
+	command weightdamage			; b1
+	command venoshock				; b2
+	command brickbreak				; b3
+	command defspdefdown			; b4
+	command fireflick				; b5
+	command stampede				; b6
+	command jetstream				; b7
 	
 
 	enum_start $fe

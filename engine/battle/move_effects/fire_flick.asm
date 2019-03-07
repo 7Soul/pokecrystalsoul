@@ -10,24 +10,10 @@ BattleCommand_FireFlick:
 	call StdBattleTextBox
 	jp DoubleDamage
 .noburn
-	call CheckIfTargetIsFireType
+	farcall CheckIfTargetIsFireType
 	ret nz
 	ld hl, FireFlickText2
 	call StdBattleTextBox
 	jp DoubleDamage
 	ret
 	
-CheckIfTargetIsFireType:
-	ld de, wEnemyMonType1
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .ok
-	ld de, wBattleMonType1
-.ok
-	ld a, [de]
-	inc de
-	cp FIRE
-	ret z
-	ld a, [de]
-	cp FIRE
-	ret

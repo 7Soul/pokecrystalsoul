@@ -168,4 +168,5 @@ MoveEffectsPointers:
 	dw FireFlick
 	dw Stampede
 	dw LeafShield
+	dw JetStream
 	

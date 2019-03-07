@@ -141,7 +141,7 @@ MoveDescriptions::
 	dw PoisonGasDescription
 	dw RockBlastDescription
 	dw LeechLifeDescription
-	dw LeafShieldDescription
+	dw StampedeDescription
 	dw SkyAttackDescription
 	dw TransformDescription
 	dw BubbleDescription
@@ -153,7 +153,7 @@ MoveDescriptions::
 	dw AcidArmorDescription
 	dw CrabhammerDescription
 	dw ExplosionDescription
-	dw FurySwipesDescription
+	dw JetStreamDescription
 	dw BonemerangDescription
 	dw RestDescription
 	dw RockSlideDescription
@@ -217,7 +217,7 @@ MoveDescriptions::
 	dw HealBellDescription
 	dw ReturnDescription
 	dw HammerArmDescription
-	dw FrustrationDescription
+	dw LeafShieldDescription
 	dw SafeguardDescription
 	dw PainSplitDescription
 	dw SacredFireDescription
@@ -825,9 +825,9 @@ LeechLifeDescription:
 	db   "Steals 1/2 of the"
 	next "damage inflicted.@"
 
-LeafShieldDescription:
-	db   "Weakens WATER-type"
-	next "hits for 5 turns.@"
+StampedeDescription:
+	db   "Paralizes foes with"
+	next "more ATK than DEF.@"
 
 SkyAttackDescription:
 	db   "1st turn: Prepare"
@@ -873,9 +873,9 @@ ExplosionDescription:
 	db   "Very powerful but"
 	next "makes user faint.@"
 
-FurySwipesDescription:
-	db   "Quickly scratches"
-	next "2-5 times.@"
+JetStreamDescription:
+	db   "Washes away WATER"
+	next "types with a jet.@"
 
 BonemerangDescription:
 	db   "An attack that"
@@ -1129,9 +1129,9 @@ HammerArmDescription:
 	db   "Lowers the user's"
 	next "SPEED afterwards.@"
 
-FrustrationDescription:
-	db   "An attack based on"
-	next "lack of loyalty.@"
+LeafShieldDescription:
+	db   "Weakens WATER-type"
+	next "hits for 5 turns.@"
 
 SafeguardDescription:
 	db   "Prevents all"

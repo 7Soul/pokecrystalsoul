@@ -59,6 +59,36 @@ CheckMoveTypeMatchesTarget:
 	and a
 	pop hl
 	ret
+	
+CheckIfTargetIsFireType:
+	ld de, wEnemyMonType1
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .ok
+	ld de, wBattleMonType1
+.ok
+	ld a, [de]
+	inc de
+	cp FIRE
+	ret z
+	ld a, [de]
+	cp FIRE
+	ret	
+	
+CheckIfTargetIsWaterType:
+	ld de, wEnemyMonType1
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .ok
+	ld de, wBattleMonType1
+.ok
+	ld a, [de]
+	inc de
+	cp WATER
+	ret z
+	ld a, [de]
+	cp WATER
+	ret
 
 HeldItems:
 	ld hl, AllItems

@@ -152,7 +152,7 @@ MoveNames::
 	db "Acid Armor@"
 	db "Crabhammer@"
 	db "Explosion@"
-	db "Fury Swipes@"
+	db "Jet Stream@"
 	db "Bonemerang@"
 	db "Rest@"
 	db "Rock Slide@"

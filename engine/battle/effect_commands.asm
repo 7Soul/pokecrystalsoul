@@ -4016,6 +4016,13 @@ BattleCommand_Venoshock:
 	
 INCLUDE "engine/battle/move_effects/fire_flick.asm"
 
+BattleCommand_JetStream:
+; jetstream
+	farcall CheckIfTargetIsWaterType
+	ret nz
+	jp DoubleDamage
+	ret
+
 PoisonOpponent:
 	ld a, BATTLE_VARS_STATUS_OPP
 	call GetBattleVarAddr
@@ -6620,15 +6627,15 @@ INCLUDE "engine/battle/move_effects/spikes.asm"
 
 INCLUDE "engine/battle/move_effects/foresight.asm"
 
+BattleCommand5d:
+; unused
+	ret
+
 INCLUDE "engine/battle/move_effects/perish_song.asm"
 
 INCLUDE "engine/battle/move_effects/sandstorm.asm"
 
 INCLUDE "engine/battle/move_effects/rollout.asm"
-
-BattleCommand5d:
-; unused
-	ret
 
 INCLUDE "engine/battle/move_effects/fury_cutter.asm"
 

@@ -50,7 +50,7 @@ endc
 RattataEggMoves:
 	db SCREECH
 	db FLAME_WHEEL
-	db FURY_SWIPES
+	db FURY_ATTACK
 	db BITE
 	db COUNTER
 	db REVERSAL
@@ -477,7 +477,7 @@ ChikoritaEggMoves:
 	db -1 ; end
 
 CyndaquilEggMoves:
-	db FURY_SWIPES
+	db FURY_ATTACK
 	db QUICK_ATTACK
 	db REVERSAL
 	db THRASH

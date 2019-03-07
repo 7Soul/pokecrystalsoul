@@ -185,3 +185,4 @@ BattleCommandPointers:
 	dw BattleCommand_DefSpDefDown
 	dw BattleCommand_FireFlick
 	dw BattleCommand_Stampede
+	dw BattleCommand_JetStream
