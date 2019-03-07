@@ -1,3 +1,43 @@
+LearnEvolutionMove:
+	ld a, [wTempSpecies]
+	ld [wCurPartySpecies], a
+	dec a
+	ld c, a
+	ld b, 0
+	ld hl, EvolutionMoves
+	add hl, bc
+	ld a, [hl]
+	and a
+	ret z
+
+	push hl
+	ld d, a
+	ld hl, wPartyMon1Moves
+	ld a, [wCurPartyMon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+
+	ld b, NUM_MOVES
+.check_move
+	ld a, [hli]
+	cp d
+	jr z, .has_move
+	dec b
+	jr nz, .check_move
+
+	ld a, d
+	ld [wPutativeTMHMMove], a
+	ld [wNamedObjectIndexBuffer], a
+	call GetMoveName
+	call CopyName1
+	predef LearnMove
+	ld a, [wCurPartySpecies]
+	ld [wTempSpecies], a
+
+.has_move
+	pop hl
+	ret
+
 EvolutionMoves::
 	db NO_MOVE ; Bulbasaur
 	db NO_MOVE ; Ivysaur
@@ -47,45 +87,45 @@ EvolutionMoves::
 	db NO_MOVE ; Paras
 	db NO_MOVE ; Parasect
 	db NO_MOVE ; Venonat
-	db NO_MOVE ; Venomoth
+	db GUST ; Venomoth
 	db NO_MOVE ; Diglett
 	db TRI_ATTACK ; Dugtrio
 	db NO_MOVE ; Meowth
-	db NO_MOVE ; Persian
+	db POWER_GEM ; Persian
 	db NO_MOVE ; Psyduck
 	db NO_MOVE ; Golduck
 	db NO_MOVE ; Mankey
-	db NO_MOVE ; Primeape
+	db RAGE ; Primeape
 	db NO_MOVE ; Growlithe
 	db NO_MOVE ; Arcanine
 	db NO_MOVE ; Poliwag
 	db NO_MOVE ; Poliwhirl
-	db NO_MOVE ; Poliwrath
+	db SUBMISSION ; Poliwrath
 	db NO_MOVE ; Abra
-	db NO_MOVE ; Kadabra
+	db CONFUSION ; Kadabra
 	db NO_MOVE ; Alakazam
 	db NO_MOVE ; Machop
 	db NO_MOVE ; Machoke
-	db NO_MOVE ; Machamp
+	db STRENGTH ; Machamp
 	db NO_MOVE ; Bellsprout
 	db NO_MOVE ; Weepinbell
 	db NO_MOVE ; Victreebel
 	db NO_MOVE ; Tentacool
 	db NO_MOVE ; Tentacruel
-	db HARDEN ; Geodude
+	db NO_MOVE ; Geodude
 	db NO_MOVE ; Graveler
 	db NO_MOVE ; Golem
 	db NO_MOVE ; Ponyta
 	db STAMPEDE ; Rapidash
 	db NO_MOVE ; Slowpoke
-	db NO_MOVE ; Slowbro
+	db HARDEN ; Slowbro
 	db NO_MOVE ; Magnemite
-	db NO_MOVE ; Magneton
+	db TRI_ATTACK ; Magneton
 	db NO_MOVE ; FarfetchD
 	db NO_MOVE ; Doduo
-	db NO_MOVE ; Dodrio
+	db TRI_ATTACK ; Dodrio
 	db NO_MOVE ; Seel
-	db NO_MOVE ; Dewgong
+	db FISSURE ; Dewgong
 	db NO_MOVE ; Grimer
 	db NO_MOVE ; Muk
 	db NO_MOVE ; Shellder
@@ -104,13 +144,13 @@ EvolutionMoves::
 	db STOMP ; Exeggutor
 	db NO_MOVE ; Cubone
 	db NO_MOVE ; Marowak
-	db NO_MOVE ; Hitmonlee
-	db NO_MOVE ; Hitmonchan
+	db DOUBLE_KICK ; Hitmonlee
+	db COMET_PUNCH ; Hitmonchan
 	db NO_MOVE ; Lickitung
 	db NO_MOVE ; Koffing
 	db NO_MOVE ; Weezing
 	db NO_MOVE ; Rhyhorn
-	db NO_MOVE ; Rhydon
+	db HAMMER_ARM ; Rhydon
 	db NO_MOVE ; Chansey
 	db NO_MOVE ; Tangela
 	db NO_MOVE ; Kangaskhan
@@ -128,18 +168,18 @@ EvolutionMoves::
 	db NO_MOVE ; Pinsir
 	db NO_MOVE ; Tauros
 	db NO_MOVE ; Magikarp
-	db NO_MOVE ; Gyarados
+	db BITE ; Gyarados
 	db NO_MOVE ; Lapras
 	db NO_MOVE ; Ditto
 	db NO_MOVE ; Eevee
-	db NO_MOVE ; Vaporeon
-	db NO_MOVE ; Jolteon
-	db NO_MOVE ; Flareon
+	db WATER_GUN ; Vaporeon
+	db THUNDERSHOCK ; Jolteon
+	db EMBER ; Flareon
 	db NO_MOVE ; Porygon
 	db NO_MOVE ; Omanyte
-	db NO_MOVE ; Omastar
+	db SPIKE_CANNON ; Omastar
 	db NO_MOVE ; Kabuto
-	db NO_MOVE ; Kabutops
+	db SLASH ; Kabutops
 	db NO_MOVE ; Aerodactyl
 	db NO_MOVE ; Snorlax
 	db NO_MOVE ; Articuno
@@ -147,12 +187,12 @@ EvolutionMoves::
 	db NO_MOVE ; Moltres
 	db NO_MOVE ; Dratini
 	db NO_MOVE ; Dragonair
-	db NO_MOVE ; Dragonite
+	db WING_ATTACK ; Dragonite
 	db NO_MOVE ; Mewtwo
 	db NO_MOVE ; Mew
 	db NO_MOVE ; Chikorita
 	db NO_MOVE ; Bayleef
-	db NO_MOVE ; Meganium
+	db PETAL_DANCE ; Meganium
 	db NO_MOVE ; Cyndaquil
 	db NO_MOVE ; Quilava
 	db NO_MOVE ; Typhlosion
@@ -176,11 +216,11 @@ EvolutionMoves::
 	db NO_MOVE ; Togepi
 	db NO_MOVE ; Togetic
 	db NO_MOVE ; Natu
-	db NO_MOVE ; Xatu
+	db AIR_SLASH ; Xatu
 	db NO_MOVE ; Mareep
 	db NO_MOVE ; Flaaffy
-	db NO_MOVE ; Ampharos
-	db NO_MOVE ; Bellossom
+	db THUNDERPUNCH ; Ampharos
+	db MAGICAL_LEAF ; Bellossom
 	db NO_MOVE ; Marill
 	db NO_MOVE ; Azumarill
 	db NO_MOVE ; Sudowoodo
@@ -194,8 +234,8 @@ EvolutionMoves::
 	db NO_MOVE ; Yanma
 	db NO_MOVE ; Wooper
 	db NO_MOVE ; Quagsire
-	db NO_MOVE ; Espeon
-	db NO_MOVE ; Umbreon
+	db CONFUSION ; Espeon
+	db PURSUIT ; Umbreon
 	db NO_MOVE ; Murkrow
 	db NO_MOVE ; Slowking
 	db NO_MOVE ; Misdreavus
@@ -222,7 +262,7 @@ EvolutionMoves::
 	db NO_MOVE ; Piloswine
 	db NO_MOVE ; Corsola
 	db NO_MOVE ; Remoraid
-	db NO_MOVE ; Octillery
+	db OCTAZOOKA ; Octillery
 	db NO_MOVE ; Delibird
 	db NO_MOVE ; Mantine
 	db NO_MOVE ; Skarmory
@@ -235,7 +275,7 @@ EvolutionMoves::
 	db NO_MOVE ; Stantler
 	db NO_MOVE ; Smeargle
 	db NO_MOVE ; Tyrogue
-	db NO_MOVE ; Hitmontop
+	db ROLLING_KICK ; Hitmontop
 	db NO_MOVE ; Smoochum
 	db NO_MOVE ; Elekid
 	db NO_MOVE ; Magby
