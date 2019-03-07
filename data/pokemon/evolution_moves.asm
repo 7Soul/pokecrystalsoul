@@ -106,7 +106,7 @@ EvolutionMoves::
 	db NO_MOVE ; Alakazam
 	db NO_MOVE ; Machop
 	db NO_MOVE ; Machoke
-	db STRENGTH ; Machamp
+	db NO_MOVE ; Machamp
 	db NO_MOVE ; Bellsprout
 	db NO_MOVE ; Weepinbell
 	db NO_MOVE ; Victreebel

@@ -956,10 +956,6 @@ KadabraEvosAttacks:
 
 AlakazamEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, TELEPORT
-	db 1, KINESIS
-	db 1, CONFUSION
-	db 16, CONFUSION
 	db 18, DISABLE
 	db 21, PSYBEAM
 	db 26, RECOVER
@@ -1005,8 +1001,7 @@ MachampEvosAttacks:
 	db 0 ; no more evolutions
 	db 21, FORESIGHT
 	db 25, VITAL_THROW
-	db 33, SUBMISSION
-	db 41, STRENGTH
+	db 40, SUBMISSION
 	db 43, BULK_UP
 	db 47, CROSS_CHOP
 	db 53, SCARY_FACE	

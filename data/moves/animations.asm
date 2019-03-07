@@ -154,7 +154,7 @@ BattleAnimations::
 	dw BattleAnim_AcidArmor
 	dw BattleAnim_Crabhammer
 	dw BattleAnim_Explosion
-	dw BattleAnim_FurySwipes
+	dw BattleAnim_JetStream
 	dw BattleAnim_Bonemerang
 	dw BattleAnim_Rest
 	dw BattleAnim_RockSlide
@@ -1480,24 +1480,23 @@ BattleAnim_Scratch:
 	anim_wait 32
 	anim_ret
 
-BattleAnim_FurySwipes:
-	anim_1gfx ANIM_GFX_CUT
-	anim_if_param_equal $1, BattleAnim_FurySwipes_branch_c9dd9
-	anim_sound 0, 1, SFX_SCRATCH
-	anim_obj ANIM_OBJ_37, 144, 48, $0
-	anim_obj ANIM_OBJ_37, 140, 44, $0
-	anim_obj ANIM_OBJ_37, 136, 40, $0
-	anim_sound 0, 1, SFX_SCRATCH
-	anim_wait 32
-	anim_ret
-
-BattleAnim_FurySwipes_branch_c9dd9:
-	anim_sound 0, 1, SFX_SCRATCH
-	anim_obj ANIM_OBJ_38, 120, 48, $0
-	anim_obj ANIM_OBJ_38, 124, 44, $0
-	anim_obj ANIM_OBJ_38, 128, 40, $0
-	anim_sound 0, 1, SFX_SCRATCH
-	anim_wait 32
+BattleAnim_JetStream:
+	anim_1gfx ANIM_GFX_WATER
+	anim_sound 0, 1, SFX_WATER_GUN
+	anim_obj ANIM_OBJ_HYDRO_PUMP, 108, 80, $0
+	anim_obj ANIM_OBJ_HYDRO_PUMP, 156, 80, $0
+	anim_wait 8
+	anim_sound 0, 1, SFX_WATER_GUN
+	anim_obj ANIM_OBJ_HYDRO_PUMP, 116, 72, $0
+	anim_obj ANIM_OBJ_HYDRO_PUMP, 148, 72, $0
+	anim_wait 8
+	anim_sound 0, 1, SFX_WATER_GUN
+	anim_obj ANIM_OBJ_HYDRO_PUMP, 124, 72, $0
+	anim_obj ANIM_OBJ_HYDRO_PUMP, 140, 72, $0
+	anim_wait 8
+	anim_sound 0, 1, SFX_WATER_GUN
+	anim_obj ANIM_OBJ_HYDRO_PUMP, 132, 64, $0
+	anim_wait 16
 	anim_ret
 
 BattleAnim_Cut:
@@ -2856,16 +2855,16 @@ BattleAnim_AquaTail:
 	anim_incbgeffect ANIM_BG_BOUNCE_DOWN
 	anim_wait 4
 	anim_bgeffect ANIM_BG_25, $0, $1, $0
-	anim_wait 3
+	anim_wait 8
 	
 	anim_sound 16, 2, SFX_WATER_GUN
 	anim_obj ANIM_OBJ_HYDRO_PUMP, 130, 72, $0
 	anim_bgeffect ANIM_BG_31, $1c, $0, $0
 	anim_wait 32
 	anim_obj ANIM_OBJ_00, 136, 40, $0
-	anim_call BattleAnim_ShowMon_1
+	anim_call BattleAnim_ShowMon_0
 	anim_bgeffect ANIM_BG_32, $0, $0, $0
-	anim_wait 16
+	anim_wait 12
 	anim_ret
 
 BattleAnim_QuickAttack:
