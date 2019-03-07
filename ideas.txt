@@ -17,10 +17,3 @@ Hot Coals
 
 A move that does more damage if the foe is higher level
 A move that if it faints the foe, the next mon will receive a status effect
-
-
-Held items that boost stats for unevolved mon:
-	- One that doubles ATK and SP.ATK
-		- For each type (12)
-	- One that doubles DEF and SP.DEF
-		- For each type (12)

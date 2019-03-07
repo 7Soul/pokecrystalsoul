@@ -1587,7 +1587,6 @@ CuboneEvosAttacks:
 	db 1, BONE_CLUB
 	db 11, HEADBUTT
 	db 17, FOCUS_ENERGY
-	db 19, JET_STREAM
 	db 22, LEAF_SHIELD
 	db 25, BONEMERANG
 	db 29, RAGE
