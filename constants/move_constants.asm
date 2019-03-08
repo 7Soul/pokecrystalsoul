@@ -199,7 +199,7 @@
 	const SPIKES       ; bf
 	const ZAP_CANNON   ; c0
 	const FORESIGHT    ; c1
-	const DESTINY_BOND ; c2
+	const WAKEUP_SLAP  ; c2
 	const PERISH_SONG  ; c3
 	const ICY_WIND     ; c4
 	const BRICK_BREAK  ; c5

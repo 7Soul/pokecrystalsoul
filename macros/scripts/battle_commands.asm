@@ -77,7 +77,7 @@ ENDM
 	command sketch                  ; 46
 	command defrostopponent         ; 47
 	command sleeptalk               ; 48
-	command destinybond             ; 49
+	command wakeupslap              ; 49
 	command spite                   ; 4a
 	command falseswipe              ; 4b
 	command healbell                ; 4c
@@ -187,6 +187,7 @@ ENDM
 	command fireflick				; b5
 	command stampede				; b6
 	command jetstream				; b7
+	command wakeupfoe				; b8
 	
 
 	enum_start $fe

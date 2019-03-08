@@ -353,7 +353,6 @@ AI_Smart:
 	dbw EFFECT_LOCK_ON,          AI_Smart_LockOn
 	dbw EFFECT_DEFROST_OPPONENT, AI_Smart_DefrostOpponent
 	dbw EFFECT_SLEEP_TALK,       AI_Smart_SleepTalk
-	dbw EFFECT_DESTINY_BOND,     AI_Smart_DestinyBond
 	dbw EFFECT_REVERSAL,         AI_Smart_Reversal
 	dbw EFFECT_SPITE,            AI_Smart_Spite
 	dbw EFFECT_HEAL_BELL,        AI_Smart_HealBell
@@ -397,6 +396,8 @@ AI_Smart:
 	dbw EFFECT_BRICK_BREAK,      AI_Smart_BrickBreak
 	dbw EFFECT_VENOSHOCK,        AI_Smart_Venoshock
 	dbw EFFECT_LEAF_SHIELD,      AI_Smart_LeafShield
+	dbw EFFECT_FIRE_FLICK,       AI_Smart_FireFlick
+	dbw EFFECT_JET_STREAM,       AI_Smart_JetStream
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -404,6 +405,10 @@ AI_Smart_Sleep:
 ; 50% chance to greatly encourage sleep inducing moves otherwise.
 
 	ld b, EFFECT_DREAM_EATER
+	call AIHasMoveEffect
+	jr c, .asm_387f0
+	
+	ld b, EFFECT_WAKEUP_SLAP
 	call AIHasMoveEffect
 	jr c, .asm_387f0
 
@@ -2867,6 +2872,41 @@ AI_Smart_Venoshock:
 	ret nc
 
 .asm_387f0
+	call AI_50_50
+	ret c
+	dec [hl]
+	dec [hl]
+	ret
+	
+AI_Smart_FireFlick:
+	ld a, [wBattleMonType1]
+	cp FIRE
+	jr z, .good
+	ld a, [wBattleMonType2]
+	cp FIRE
+	jr z, .good
+	ld a, [wBattleMonStatus]
+	and 1 << BRN
+	jr nz, .good
+	ret
+	
+.good
+	call AI_50_50
+	ret c
+	dec [hl]
+	dec [hl]
+	ret
+	
+AI_Smart_JetStream:
+	ld a, [wBattleMonType1]
+	cp WATER
+	jr z, .good
+	ld a, [wBattleMonType2]
+	cp WATER
+	jr z, .good
+	ret
+	
+.good
 	call AI_50_50
 	ret c
 	dec [hl]

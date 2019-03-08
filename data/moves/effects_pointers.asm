@@ -98,7 +98,7 @@ MoveEffectsPointers:
 	dw Sketch
 	dw DefrostOpponent
 	dw SleepTalk
-	dw DestinyBond
+	dw WakeupSlap
 	dw Reversal
 	dw Spite
 	dw FalseSwipe

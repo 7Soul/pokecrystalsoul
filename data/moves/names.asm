@@ -192,7 +192,7 @@ MoveNames::
 	db "Spikes@"
 	db "Zap Cannon@"
 	db "Foresight@"
-	db "Destiny Bond@"
+	db "Wake-up Slap@"
 	db "Perish Song@"
 	db "Icy Wind@"
 	db "Brick Break@"

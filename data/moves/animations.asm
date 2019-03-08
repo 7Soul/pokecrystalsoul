@@ -194,7 +194,7 @@ BattleAnimations::
 	dw BattleAnim_Spikes
 	dw BattleAnim_ZapCannon
 	dw BattleAnim_Foresight
-	dw BattleAnim_Hex
+	dw BattleAnim_WakeupSlap
 	dw BattleAnim_PerishSong
 	dw BattleAnim_IcyWind
 	dw BattleAnim_BrickBreak
@@ -3641,21 +3641,21 @@ BattleAnim_Foresight:
 	anim_wait 8
 	anim_ret
 
-BattleAnim_Hex:
-	anim_1gfx ANIM_GFX_ANGELS
-	anim_bgp $1b
-	anim_obp0 $0
-	anim_if_param_equal $1, BattleAnim_Hex_branch_cb104
-	anim_sound 6, 2, SFX_WHIRLWIND
-	anim_obj ANIM_OBJ_DESTINY_BOND, 44, 120, $2
-	anim_wait 128
-	anim_ret
-
-BattleAnim_Hex_branch_cb104:
-	anim_obj ANIM_OBJ_DESTINY_BOND, 132, 76, $0
-	anim_sound 0, 1, SFX_KINESIS
-	anim_bgeffect ANIM_BG_RETURN_MON, $0, $0, $0
-	anim_wait 32
+BattleAnim_WakeupSlap:
+	anim_1gfx ANIM_GFX_HIT
+	anim_sound 0, 1, SFX_DOUBLESLAP
+	anim_obj ANIM_OBJ_08, 144, 56, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_01, 144, 56, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_08, 126, 48, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_01, 126, 48, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_08, 108, 40, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_01, 108, 40, $0
+	anim_wait 8
 	anim_ret
 
 BattleAnim_PerishSong:

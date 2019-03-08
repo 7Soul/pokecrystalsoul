@@ -193,7 +193,7 @@ MoveDescriptions::
 	dw SpikesDescription
 	dw ZapCannonDescription
 	dw ForesightDescription
-	dw HexDescription
+	dw WakeupSlapDescription
 	dw PerishSongDescription
 	dw IcyWindDescription
 	dw BrickBreakDescription
@@ -1033,9 +1033,9 @@ ForesightDescription:
 	db   "Negates accuracy"
 	next "reduction moves.@"
 
-HexDescription:
-	db   "Damage doubles if"
-	next "foe has status.@"
+WakeupSlapDescription:
+	db   "Does double damage"
+	next "to sleeping foes.@"
 
 PerishSongDescription:
 	db   "Both user and foe"

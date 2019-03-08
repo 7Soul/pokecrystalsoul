@@ -2636,7 +2636,7 @@ BattleCommand_CheckFaint:
 	ld [wFXAnimID + 1], a
 	inc a
 	ld [wKickCounter], a
-	ld a, DESTINY_BOND
+	;ld a, DESTINY_BOND
 	call LoadAnim
 	call BattleCommand_SwitchTurn
 
@@ -3543,7 +3543,7 @@ BattleCommand_DefrostOpponent:
 
 INCLUDE "engine/battle/move_effects/sleep_talk.asm"
 
-INCLUDE "engine/battle/move_effects/destiny_bond.asm"
+;INCLUDE "engine/battle/move_effects/destiny_bond.asm"
 
 INCLUDE "engine/battle/move_effects/spite.asm"
 
@@ -4022,6 +4022,57 @@ BattleCommand_JetStream:
 	ret nz
 	jp DoubleDamage
 	ret
+	
+BattleCommand_WakeupSlap:
+; wakeupslap
+	ld a, BATTLE_VARS_STATUS_OPP
+	call GetBattleVar
+	and SLP
+	ret z
+	
+	jp DoubleDamage
+
+BattleCommand_WakeupFoe:
+; wakeupfoe
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .wake_up_enemy
+	
+	ld a, [wBattleMonStatus]
+	cp 0
+	ret z
+	ld a, 0
+	ld [wBattleMonStatus], a
+	ld hl, WokeUpText
+	call StdBattleTextBox
+	call CantMove
+	call UpdateEnemyMonInParty
+	ld hl, UpdateEnemyHUD
+	call CallBattleCore
+	ld a, $1
+	ldh [hBGMapMode], a
+	ld hl, wEnemySubStatus1
+	res SUBSTATUS_NIGHTMARE, [hl]
+	ret	
+.wake_up_enemy
+	ld a, [wEnemyMonStatus]
+	cp 0
+	ret z
+	call BattleCommand_SwitchTurn	
+	ld a, 0
+	ld [wEnemyMonStatus], a
+	ld hl, WokeUpText
+	call StdBattleTextBox
+	call CantMove
+	call UpdateBattleMonInParty
+	ld hl, UpdatePlayerHUD
+	call CallBattleCore
+	ld a, $1
+	ldh [hBGMapMode], a
+	ld hl, wPlayerSubStatus1
+	res SUBSTATUS_NIGHTMARE, [hl]
+	call BattleCommand_SwitchTurn
+	ret	
 
 PoisonOpponent:
 	ld a, BATTLE_VARS_STATUS_OPP

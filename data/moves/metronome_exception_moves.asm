@@ -10,6 +10,5 @@ MetronomeExcepts:
 	db MIRROR_COAT
 	db PROTECT
 	db ENDURE
-	db DESTINY_BOND
 	db SLEEP_TALK
 	db -1

@@ -342,7 +342,6 @@ KoffingEggMoves:
 	db SCREECH
 	db PSYWAVE
 	db PSYBEAM
-	db DESTINY_BOND
 	db PAIN_SPLIT
 	db -1 ; end
 
@@ -634,7 +633,6 @@ endc
 
 MisdreavusEggMoves:
 	db SCREECH
-	db DESTINY_BOND
 	db -1 ; end
 
 GirafarigEggMoves:

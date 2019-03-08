@@ -76,7 +76,7 @@ BattleCommandPointers:
 	dw BattleCommand_Sketch
 	dw BattleCommand_DefrostOpponent
 	dw BattleCommand_SleepTalk
-	dw BattleCommand_DestinyBond
+	dw BattleCommand_WakeupSlap
 	dw BattleCommand_Spite
 	dw BattleCommand_FalseSwipe
 	dw BattleCommand_HealBell
@@ -186,3 +186,4 @@ BattleCommandPointers:
 	dw BattleCommand_FireFlick
 	dw BattleCommand_Stampede
 	dw BattleCommand_JetStream
+	dw BattleCommand_WakeupFoe

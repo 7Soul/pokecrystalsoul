@@ -69,10 +69,10 @@ EvolutionMoves::
 	db NO_MOVE ; Sandslash
 	db NO_MOVE ; NidoranF
 	db NO_MOVE ; Nidorina
-	db NO_MOVE ; Nidoqueen
+	db SUBMISSION ; Nidoqueen
 	db NO_MOVE ; NidoranM
 	db NO_MOVE ; Nidorino
-	db NO_MOVE ; Nidoking
+	db BRICK_BREAK ; Nidoking
 	db NO_MOVE ; Clefairy
 	db NO_MOVE ; Clefable
 	db NO_MOVE ; Vulpix

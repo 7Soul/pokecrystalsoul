@@ -1365,11 +1365,26 @@ SleepTalk:
 	sleeptalk
 	endmove
 
-DestinyBond:
+WakeupSlap:
 	checkobedience
 	usedmovetext
 	doturn
-	destinybond
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	wakeupslap
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	kingsrock
+	wakeupfoe
 	endmove
 
 Spite:
