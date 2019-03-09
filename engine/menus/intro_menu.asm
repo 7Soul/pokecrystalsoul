@@ -66,6 +66,7 @@ NewGame:
 	call AreYouABoyOrAreYouAGirl
 	call OakSpeech
 	call InitializeWorld
+	call RandomizeStarters
 	ld a, 1
 	ld [wPrevLandmark], a
 
@@ -86,6 +87,29 @@ AreYouABoyOrAreYouAGirl:
 	ld c, 0
 	farcall InitMobileProfile ; mobile
 	ret
+	
+RandomizeStarters:	
+	ld de, wRandomStarter1
+	ld a, 0
+	ld b, a	
+.loop
+	ld hl, .pokelist
+	ld a, 76
+	call RandomRange	
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	
+	ld [de], a
+	inc de
+	ld a, [wRandomStarter3]
+	cp 0
+	jp z, .loop
+	ret
+	
+.pokelist: ; random mon list
+	db BULBASAUR, CHARMANDER, SQUIRTLE, SENTRET, CUBONE, VOLTORB, MAGNEMITE, GEODUDE, CATERPIE, WEEDLE, PIDGEY, SPEAROW, RATTATA, PICHU, CLEFFA, IGGLYBUFF, SMOOCHUM, ELEKID, EKANS, SANDSHREW, NIDORAN_F, NIDORAN_M, VULPIX, ZUBAT, PARAS, ODDISH, VENONAT, DIGLETT, MEOWTH, PSYDUCK, MANKEY, POLIWAG, GROWLITHE, ABRA, MACHOP, BELLSPROUT, TENTACOOL, PONYTA, SLOWPOKE, FARFETCH_D, DODUO, SEEL, GRIMER, SHELLDER, GASTLY, DROWZEE, KRABBY, EXEGGCUTE, KOFFING, RHYHORN, HORSEA, STARYU, EEVEE, CHIKORITA, CYNDAQUIL, TOTODILE, HOOTHOOT, LEDYBA, SPINARAK, CHINCHOU, TOGEPI, NATU, MAREEP, MARILL, HOPPIP, SUNKERN, WOOPER, PINECO, SNUBBULL, TEDDIURSA, SLUGMA, SWINUB, REMORAID, HOUNDOUR, PHANPY, LARVITAR
 
 ResetWRAM:
 	xor a

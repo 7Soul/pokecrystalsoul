@@ -1060,3 +1060,12 @@ ENDM
 checksave: MACRO
 	db checksave_command
 ENDM
+
+	; enum randomfromarray_command ; $a9
+; randomfromarray: MACRO
+	; db randomfromarray_command
+	; db \1 ; array pointer
+	; db \2 ; array pointer
+	; db \3 ; array size
+	; db \4 ; array size
+; ENDM

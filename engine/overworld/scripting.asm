@@ -235,6 +235,7 @@ endc
 	dw Script_name                       ; a7
 	dw Script_wait                       ; a8
 	dw Script_checksave                  ; a9
+	;dw Script_randomfromarray            ; aa
 
 StartScript:
 	ld hl, wScriptFlags
@@ -2829,3 +2830,38 @@ Script_checksave:
 
 .byte
 	db 0
+
+; Script_randomfromarray:
+; ; script command 0xaa
+	; call GetScriptByte
+	; call RandomRange
+	; ld [$C000], a
+	; cp 0
+	; jr z, .item1
+	; cp 1
+	; jr z, .item2
+	; cp 2
+	; jr z, .item3
+; .item3
+	; call GetScriptByte
+	; call GetScriptByte
+	; call GetScriptByte
+	; jp .end
+	; ret
+; .item2
+	; call GetScriptByte
+	; call GetScriptByte
+	; ld c, a
+	; call GetScriptByte
+	; ld a, c
+	; jp .end
+	; ret
+; .item1
+	; call GetScriptByte
+	; ld c, a
+	; call GetScriptByte
+	; call GetScriptByte
+	; ld a, c
+; .end
+	; ld [wRandomStarter], a
+	; ret

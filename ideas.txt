@@ -13,7 +13,11 @@ Nightfall weather effect
 	
 Hot Coals
 	A Spikes-like effect that doesn't hurt fire or flying types, and can cause a BRN
-	
+	A move that if it faints the foe, the next mon will receive a BRN
 
-A move that does more damage if the foe is higher level
-A move that if it faints the foe, the next mon will receive a status effect
+Skull Helmet
+	DEF up x2
+	
+Makeshift
+	Does damage and increases ATK
+(Cubone would have Leaf Shield, Skull Helmet and Makeshift)

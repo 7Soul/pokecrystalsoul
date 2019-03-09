@@ -2533,8 +2533,10 @@ wTradeFlags:: flag_array NUM_NPC_TRADES ; d960
 wMooMooBerries:: db ; d962
 wUndergroundSwitchPositions:: db ; d963
 wFarfetchdPosition:: db ; d964
-
-	ds 13
+wRandomStarter1:: db ; d965
+wRandomStarter2:: db ; d966
+wRandomStarter3:: db ; d967
+	ds 10
 
 ; map scene ids
 wPokecenter2FSceneID::                            db ; d972
