@@ -62,22 +62,7 @@ ElmsLab_MapScripts:
 .ElmGetsEmail:
 	writetext ElmText_Accepted
 	buttonsound
-	;writetext ElmText_ResearchAmbitions
-	;waitbutton
 	closetext
-	;playsound SFX_GLASS_TING
-	;pause 30
-	;showemote EMOTE_SHOCK, ELMSLAB_ELM, 10
-	;turnobject ELMSLAB_ELM, DOWN
-	;opentext
-	;writetext ElmText_GotAnEmail
-	;waitbutton
-	;closetext
-	;opentext
-	;turnobject ELMSLAB_ELM, RIGHT
-	;writetext ElmText_MissionFromMrPokemon
-	;waitbutton
-	;closetext
 	applymovement ELMSLAB_ELM, ElmsLab_ElmToDefaultPositionMovement1
 	turnobject PLAYER, UP
 	applymovement ELMSLAB_ELM, ElmsLab_ElmToDefaultPositionMovement2
@@ -158,7 +143,7 @@ LabTryToLeaveScript:
 	applymovement PLAYER, ElmsLab_CantLeaveMovement
 	end
 
-CyndaquilPokeBallScript:
+Mon1PokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue LookAtElmPokeBallScript
 	turnobject ELMSLAB_ELM, DOWN
@@ -188,7 +173,18 @@ CyndaquilPokeBallScript:
 	callasm GetStarter1
 	callasm CustomGivePoke
 	closetext
-	applymovement PLAYER, AfterCyndaquilMovement
+	checkcode VAR_FACING
+	ifequal UP, .cyndaMove1
+	ifequal RIGHT, .cyndaMove2
+	ifequal DOWN, .cyndaMove3
+.cyndaMove1
+	applymovement PLAYER, AfterMon1Movement
+	jump ElmDirectionsScript
+.cyndaMove2
+	applymovement PLAYER, AfterMon1Movement2
+	jump ElmDirectionsScript
+.cyndaMove3
+	applymovement PLAYER, AfterMon1Movement3
 	jump ElmDirectionsScript
 
 GetStarter1:
@@ -203,6 +199,21 @@ GetStarter2:
 
 GetStarter3:
 	ld a, [wRandomStarter3]
+	ld [wScriptVar], a
+	ret
+
+GetStarter4:
+	ld a, [wRandomStarter4]
+	ld [wScriptVar], a
+	ret
+
+GetStarter5:
+	ld a, [wRandomStarter5]
+	ld [wScriptVar], a
+	ret
+
+GetStarter6:
+	ld a, [wRandomStarter6]
 	ld [wScriptVar], a
 	ret
 
@@ -230,7 +241,7 @@ CustomGivePoke:
 	ld [wCurPartySpecies], a
 	ld a, 5
 	ld [wCurPartyLevel], a
-	ld a, BERRY
+	ld a, [wRandomStarterItem]
 	ld [wCurItem], a
 	ld a, FALSE
 	and a
@@ -246,7 +257,7 @@ CustomGivePoke:
 	ld [wScriptVar], a
 	ret
 
-TotodilePokeBallScript:
+Mon2PokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue LookAtElmPokeBallScript
 	turnobject ELMSLAB_ELM, DOWN
@@ -276,10 +287,17 @@ TotodilePokeBallScript:
 	callasm GetStarter2
 	callasm CustomGivePoke
 	closetext
-	applymovement PLAYER, AfterTotodileMovement
+	checkcode VAR_FACING
+	ifequal UP, .totoMove1
+	ifequal DOWN, .totoMove2
+.totoMove1
+	applymovement PLAYER, AfterMon2Movement
+	jump ElmDirectionsScript
+.totoMove2
+	applymovement PLAYER, AfterMon2Movement2
 	jump ElmDirectionsScript
 
-ChikoritaPokeBallScript:
+Mon3PokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue LookAtElmPokeBallScript
 	turnobject ELMSLAB_ELM, DOWN
@@ -309,97 +327,113 @@ ChikoritaPokeBallScript:
 	callasm GetStarter3
 	callasm CustomGivePoke
 	closetext
-	applymovement PLAYER, AfterChikoritaMovement
+	checkcode VAR_FACING
+	ifequal UP, .chikoMove1
+	ifequal DOWN, .chikoMove2
+.chikoMove1
+	applymovement PLAYER, AfterMon3Movement
+	jump ElmDirectionsScript
+.chikoMove2
+	applymovement PLAYER, AfterMon3Movement2
 	jump ElmDirectionsScript
 	
-CharmanderPokeBallScript:
+Mon4PokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue LookAtElmPokeBallScript
 	turnobject ELMSLAB_ELM, DOWN
 	refreshscreen
-	pokepic CHARMANDER
-	cry CHARMANDER
+	callasm GetStarter4
+	callasm CustomPic
+	callasm CustomCry
 	waitbutton
 	closepokepic
 	opentext
-	writetext TakeCharmanderText
+	callasm GetStarter4
+	pokenamemem USE_SCRIPT_VAR, MEM_BUFFER_0
+	writetext WillYouTakeText
 	yesorno
 	iffalse DidntChooseStarterScript
 	disappear ELMSLAB_POKE_BALL4
-	setevent EVENT_GOT_CHARMANDER_FROM_ELM
+	setevent EVENT_GOT_MON4_FROM_ELM
 	writetext ChoseStarterText
 	buttonsound
 	waitsfx
-	pokenamemem CHARMANDER, MEM_BUFFER_0
+	callasm GetStarter4
+	pokenamemem USE_SCRIPT_VAR, MEM_BUFFER_0
 	writetext ReceivedStarterText
 	playsound SFX_CAUGHT_MON
 	waitsfx
 	buttonsound
-	givepoke CHARMANDER, 5, BERRY
+	callasm GetStarter4
+	callasm CustomGivePoke
 	closetext
-	checkcode VAR_FACING
-	ifequal RIGHT, ElmDirectionsScript
-	applymovement PLAYER, AfterCharmanderMovement
+	applymovement PLAYER, AfterMon4Movement
 	jump ElmDirectionsScript
 	
-SquirtlePokeBallScript:
+Mon5PokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue LookAtElmPokeBallScript
 	turnobject ELMSLAB_ELM, DOWN
 	refreshscreen
-	pokepic SQUIRTLE
-	cry SQUIRTLE
+	callasm GetStarter5
+	callasm CustomPic
+	callasm CustomCry
 	waitbutton
 	closepokepic
 	opentext
-	writetext TakeSquirtleText
+	callasm GetStarter5
+	pokenamemem USE_SCRIPT_VAR, MEM_BUFFER_0
+	writetext WillYouTakeText
 	yesorno
 	iffalse DidntChooseStarterScript
 	disappear ELMSLAB_POKE_BALL5
-	setevent EVENT_GOT_SQUIRTLE_FROM_ELM
+	setevent EVENT_GOT_MON5_FROM_ELM
 	writetext ChoseStarterText
 	buttonsound
 	waitsfx
-	pokenamemem SQUIRTLE, MEM_BUFFER_0
+	callasm GetStarter5
+	pokenamemem USE_SCRIPT_VAR, MEM_BUFFER_0
 	writetext ReceivedStarterText
 	playsound SFX_CAUGHT_MON
 	waitsfx
 	buttonsound
-	givepoke SQUIRTLE, 5, BERRY
+	callasm GetStarter5
+	callasm CustomGivePoke
 	closetext
-	checkcode VAR_FACING
-	ifequal RIGHT, ElmDirectionsScript
-	applymovement PLAYER, AfterSquirtleMovement
+	applymovement PLAYER, AfterMon5Movement
 	jump ElmDirectionsScript
 	
-BulbasaurPokeBallScript:
+Mon6PokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue LookAtElmPokeBallScript
 	turnobject ELMSLAB_ELM, DOWN
 	refreshscreen
-	pokepic BULBASAUR
-	cry BULBASAUR
+	callasm GetStarter6
+	callasm CustomPic
+	callasm CustomCry
 	waitbutton
 	closepokepic
 	opentext
-	writetext TakeBulbasaurText
+	callasm GetStarter6
+	pokenamemem USE_SCRIPT_VAR, MEM_BUFFER_0
+	writetext WillYouTakeText
 	yesorno
 	iffalse DidntChooseStarterScript
 	disappear ELMSLAB_POKE_BALL6
-	setevent EVENT_GOT_BULBASAUR_FROM_ELM
+	setevent EVENT_GOT_MON6_FROM_ELM
 	writetext ChoseStarterText
 	buttonsound
 	waitsfx
-	pokenamemem BULBASAUR, MEM_BUFFER_0
+	callasm GetStarter6
+	pokenamemem USE_SCRIPT_VAR, MEM_BUFFER_0
 	writetext ReceivedStarterText
 	playsound SFX_CAUGHT_MON
 	waitsfx
 	buttonsound
-	givepoke BULBASAUR, 5, BERRY
+	callasm GetStarter6
+	callasm CustomGivePoke
 	closetext
-	checkcode VAR_FACING
-	ifequal RIGHT, ElmDirectionsScript
-	applymovement PLAYER, AfterBulbasaurMovement
+	applymovement PLAYER, AfterMon6Movement
 	jump ElmDirectionsScript
 
 DidntChooseStarterScript:
@@ -420,21 +454,10 @@ ElmDirectionsScript:
 	playsound SFX_REGISTER_PHONE_NUMBER
 	waitsfx
 	waitbutton
-	;closetext
-	;turnobject ELMSLAB_ELM, LEFT
-	;opentext
-	;writetext ElmDirectionsText2
-	;waitbutton
-	;closetext
-	;turnobject ELMSLAB_ELM, DOWN
-	;opentext
-	;writetext ElmDirectionsText3
-	;waitbutton	
+	closetext
 	;stringtotext .mapcardname, MEM_BUFFER_1
 	;scall .JumpstdReceiveItem
 	setflag ENGINE_MAP_CARD	
-	;waitbutton
-	closetext
 	setevent EVENT_GOT_A_POKEMON_FROM_ELM
 	setflag ENGINE_POKEDEX
 	clearevent EVENT_ROUTE_30_YOUNGSTER_JOEY
@@ -657,34 +680,6 @@ AideScript_GivePotion:
 	setscene SCENE_ELMSLAB_NOTHING
 	end
 
-; AideScript_WalkBalls1:
-	; applymovement ELMSLAB_ELMS_AIDE, AideWalksRight1
-	; turnobject PLAYER, DOWN
-	; scall AideScript_GiveYouBalls
-	; applymovement ELMSLAB_ELMS_AIDE, AideWalksLeft1
-	; end
-
-; AideScript_WalkBalls2:
-	; applymovement ELMSLAB_ELMS_AIDE, AideWalksRight2
-	; turnobject PLAYER, DOWN
-	; scall AideScript_GiveYouBalls
-	; applymovement ELMSLAB_ELMS_AIDE, AideWalksLeft2
-	; end
-
-; AideScript_GiveYouBalls:
-	; opentext
-	; writetext AideText_GiveYouBalls
-	; buttonsound
-	; itemtotext POKE_BALL, MEM_BUFFER_1
-	; scall AideScript_ReceiveTheBalls
-	; giveitem POKE_BALL, 5
-	; writetext AideText_ExplainBalls
-	; buttonsound
-	; itemnotify
-	; closetext
-	; setscene SCENE_ELMSLAB_NOTHING
-	; end
-
 AideScript_ReceiveTheBalls:
 	jumpstd receiveitem
 	end
@@ -708,12 +703,6 @@ AideScript_TheftTestimony:
 	waitbutton
 	closetext
 	end
-
-; AideScript_ExplainBalls:
-	; writetext AideText_ExplainBalls
-	; waitbutton
-	; closetext
-	; end
 
 AideScript_AfterTheft:
 	writetext AideText_AfterTheft
@@ -879,14 +868,43 @@ ElmsLab_ElmToDefaultPositionMovement2:
 	turn_head DOWN
 	step_end
 
-AfterCyndaquilMovement:
+AfterMon1Movement:
 	step LEFT
 	step LEFT
 	step UP
 	turn_head UP
 	step_end
 
-AfterTotodileMovement:
+AfterMon1Movement2:
+	step LEFT
+	turn_head UP
+	step_end
+
+AfterMon1Movement3:
+	step LEFT
+	step DOWN
+	step LEFT
+	turn_head UP
+	step_end
+
+AfterMon2Movement:
+	step LEFT
+	step LEFT
+	step LEFT
+	step UP
+	turn_head UP
+	step_end
+	
+AfterMon2Movement2:
+	step LEFT
+	step LEFT
+	step DOWN
+	step LEFT
+	turn_head UP
+	step_end
+
+AfterMon3Movement:
+	step LEFT
 	step LEFT
 	step LEFT
 	step LEFT
@@ -894,23 +912,8 @@ AfterTotodileMovement:
 	turn_head UP
 	step_end
 
-AfterChikoritaMovement:
+AfterMon3Movement2:
 	step LEFT
-	step LEFT
-	step LEFT
-	step LEFT
-	step UP
-	turn_head UP
-	step_end
-	
-AfterCharmanderMovement:
-	step LEFT
-	step DOWN
-	step LEFT
-	turn_head UP
-	step_end
-	
-AfterSquirtleMovement:
 	step LEFT
 	step LEFT
 	step DOWN
@@ -918,7 +921,22 @@ AfterSquirtleMovement:
 	turn_head UP
 	step_end
 	
-AfterBulbasaurMovement:
+AfterMon4Movement:
+	step LEFT
+	step DOWN
+	step LEFT
+	turn_head UP
+	step_end
+	
+AfterMon5Movement:
+	step LEFT
+	step LEFT
+	step DOWN
+	step LEFT
+	turn_head UP
+	step_end
+	
+AfterMon6Movement:
 	step LEFT
 	step LEFT
 	step LEFT
@@ -995,42 +1013,6 @@ ElmText_LetYourMonBattleIt:
 LabWhereGoingText:
 	text "ELM: Wait! Where"
 	line "are you going?"
-	done
-
-TakeCyndaquilText:
-	text "ELM: You'll take"
-	line "CYNDAQUIL, the"
-	cont "fire #MON?"
-	done
-
-TakeTotodileText:
-	text "ELM: Do you want"
-	line "TOTODILE, the"
-	cont "water #MON?"
-	done
-
-TakeChikoritaText:
-	text "ELM: So, you like"
-	line "CHIKORITA, the"
-	cont "grass #MON?"
-	done
-	
-TakeCharmanderText:
-	text "ELM: You'll take"
-	line "CHARMANDER, the"
-	cont "fire #MON?"
-	done
-	
-TakeSquirtleText:
-	text "ELM: Do you want"
-	line "SQUIRTLE, the"
-	cont "water #MON?"
-	done
-	
-TakeBulbasaurText:
-	text "ELM: So, you like"
-	line "BULBASAUR, the"
-	cont "grass #MON?"
 	done
 
 DidntChooseStarterText:
@@ -1549,10 +1531,10 @@ ElmsLab_MapEvents:
 	db 9 ; object events
 	object_event  5,  2, SPRITE_ELM, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ProfElmScript, -1
 	object_event  2,  9, SPRITE_SCIENTIST, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ElmsAideScript, EVENT_ELMS_AIDE_IN_LAB
-	object_event  7,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CyndaquilPokeBallScript, EVENT_MON1_POKEBALL_IN_ELMS_LAB
-	object_event  8,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, TotodilePokeBallScript, EVENT_MON2_POKEBALL_IN_ELMS_LAB
-	object_event  9,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ChikoritaPokeBallScript, EVENT_MON3_POKEBALL_IN_ELMS_LAB
-	object_event  7,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CharmanderPokeBallScript, EVENT_CHARMANDER_POKEBALL_IN_ELMS_LAB
-	object_event  8,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SquirtlePokeBallScript, EVENT_SQUIRTLE_POKEBALL_IN_ELMS_LAB
-	object_event  9,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BulbasaurPokeBallScript, EVENT_BULBASAUR_POKEBALL_IN_ELMS_LAB
+	object_event  7,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Mon1PokeBallScript, EVENT_MON1_POKEBALL_IN_ELMS_LAB
+	object_event  8,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Mon2PokeBallScript, EVENT_MON2_POKEBALL_IN_ELMS_LAB
+	object_event  9,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Mon3PokeBallScript, EVENT_MON3_POKEBALL_IN_ELMS_LAB
+	object_event  7,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Mon4PokeBallScript, EVENT_MON4_POKEBALL_IN_ELMS_LAB
+	object_event  8,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Mon5PokeBallScript, EVENT_MON5_POKEBALL_IN_ELMS_LAB
+	object_event  9,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Mon6PokeBallScript, EVENT_MON6_POKEBALL_IN_ELMS_LAB
 	object_event  5,  3, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CopScript, EVENT_COP_IN_ELMS_LAB

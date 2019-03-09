@@ -113,15 +113,15 @@ CherrygroveSilverSceneNorth:
 	writetext CherrygroveRivalText_Seen
 	waitbutton
 	closetext
-	checkevent EVENT_GOT_CHARMANDER_FROM_ELM
+	checkevent EVENT_GOT_MON4_FROM_ELM
 	iftrue .Charmander
 	checkevent EVENT_GOT_MON2_FROM_ELM
 	iftrue .Totodile
-	checkevent EVENT_GOT_SQUIRTLE_FROM_ELM
+	checkevent EVENT_GOT_MON5_FROM_ELM
 	iftrue .Squirtle
 	checkevent EVENT_GOT_MON3_FROM_ELM
 	iftrue .Chikorita
-	checkevent EVENT_GOT_BULBASAUR_FROM_ELM
+	checkevent EVENT_GOT_MON6_FROM_ELM
 	iftrue .Bulbasaur
 	winlosstext SilverCherrygroveWinText, SilverCherrygroveLossText
 	setlasttalked CHERRYGROVECITY_SILVER

@@ -2536,7 +2536,11 @@ wFarfetchdPosition:: db ; d964
 wRandomStarter1:: db ; d965
 wRandomStarter2:: db ; d966
 wRandomStarter3:: db ; d967
-	ds 10
+wRandomStarter4:: db ; d968
+wRandomStarter5:: db ; d969
+wRandomStarter6:: db ; d96a
+wRandomStarterItem:: db ; d96b
+	ds 6
 
 ; map scene ids
 wPokecenter2FSceneID::                            db ; d972
