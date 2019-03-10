@@ -7084,19 +7084,27 @@ GiveExperiencePoints:
 	ld a, [wEnemyMonLevel]	
 	sub b
 	ld b, a ; 'b' is opp level - party level
-	cp 5 ;
+	cp $fb ; player is up to 5 levels higher
+	ld a, 8
+	ld b, a
+	jr nc, .cont_calc
+	cp $f5 ; player is up to 6 to 10 levels higher
+	ld a, 12
+	ld b, a
+	jr nc, .cont_calc
+	cp 5 ; between 0 and 4 - normal exp
 	ld a, 7
 	ld b, a
 	jr c, .cont_calc
-	cp 7 ;
+	cp 7 ; between 5 and 6
 	ld a, 5
 	ld b, a
 	jr c, .cont_calc
-	cp 10 ;
+	cp 10 ; between 7 and 9
 	ld a, 4
 	ld b, a
 	jr c, .cont_calc
-	ld a, 3
+	ld a, 2 ; 10+
 	ld b, a
 .cont_calc
 	ld a, b
