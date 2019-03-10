@@ -7078,7 +7078,28 @@ GiveExperiencePoints:
 	ld a, [wEnemyMonLevel]
 	ldh [hMultiplier], a
 	call Multiply
+	; exp scaling when the diff is greater than 5
+	ld a, [wPartyMon1Level]
+	ld b, a
+	ld a, [wEnemyMonLevel]	
+	sub b
+	ld b, a ; 'b' is opp level - party level
+	cp 5 ;
 	ld a, 7
+	ld b, a
+	jr c, .cont_calc
+	cp 7 ;
+	ld a, 5
+	ld b, a
+	jr c, .cont_calc
+	cp 10 ;
+	ld a, 4
+	ld b, a
+	jr c, .cont_calc
+	ld a, 3
+	ld b, a
+.cont_calc
+	ld a, b
 	ldh [hDivisor], a
 	ld b, 4
 	call Divide
