@@ -7079,39 +7079,45 @@ GiveExperiencePoints:
 	ldh [hMultiplier], a
 	call Multiply
 	; exp scaling when the diff is greater than 5
-	ld a, [wPartyMon1Level]
+	ld a, [wBattleMonLevel]
 	ld b, a
-	ld a, [wEnemyMonLevel]	
+	ld a, [wEnemyMonLevel]
+	add $64
 	sub b
+	ld [$C002], a
 	ld b, a ; 'b' is opp level - party level
-	cp $fd ; player is up to 2 levels higher
-	ld a, 7
-	ld b, a
-	jr nc, .cont_calc
-	cp $fa ; player is up to 3 to 6 levels higher
-	ld a, 10
-	ld b, a
-	jr nc, .cont_calc
-	cp 100 ; player is over 10 levels higher
-	ld a, 20 ; kill the exp
-	ld b, a
-	jr nc, .cont_calc
-	cp 5 ; between 0 and 4 - normal exp
-	ld a, 7
-	ld b, a
+	
+	ld a, b
+	cp $5a ; player is over 10 levels higher
+	ld a, $1c ; 1/4 exp (28)
 	jr c, .cont_calc
-	cp 7 ; between 5 and 6
+	ld a, b
+	cp $5e ; player is up to 7 to 10 levels higher
+	ld a, $15 ; 1/3 exp (21)
+	jr c, .cont_calc
+	ld a, b
+	cp $62 ; player is up to 3 to 6 levels higher
+	ld a, $e ; half exp (14)
+	jr c, .cont_calc
+	ld a, b
+	cp $64 ; player is up to 2 levels higher
+	ld a, 7 ; normal exp
+	jr c, .cont_calc
+	ld a, b
+	cp $68 ; between 0 and 4 - normal exp
+	ld a, 7
+	jr c, .cont_calc
+	ld a, b
+	cp $6a ; between 5 and 6
 	ld a, 5
-	ld b, a
 	jr c, .cont_calc
-	cp 10 ; between 7 and 9
+	ld a, b
+	cp $6c ; between 7 and 9
 	ld a, 4
-	ld b, a
 	jr c, .cont_calc
 	ld a, 2 ; 10+
-	ld b, a
 .cont_calc
-	ld a, b
+	ld [$C000], a
 	ldh [hDivisor], a
 	ld b, 4
 	call Divide
