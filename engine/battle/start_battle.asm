@@ -57,7 +57,10 @@ PlayBattleMusic:
 	ld a, e
 	and a
 	jr nz, .kantowild
-
+	ld de, MUSIC_ALOLA_WILD
+	ld a, [wSpecialWildBattle]
+	cp 1
+	jr z, .done
 	ld de, MUSIC_JOHTO_WILD_BATTLE
 	ld a, [wTimeOfDay]
 	cp NITE_F
@@ -157,6 +160,7 @@ ClearBattleRAM:
 	ld [wPlayerTurnsTaken], a
 	ld [wEnemyTurnsTaken], a
 	ld [wEvolvableFlags], a
+	ld [wSpecialWildBattle], a
 
 	ld hl, wPlayerHPPal
 	ld [hli], a

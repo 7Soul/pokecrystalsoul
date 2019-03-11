@@ -589,6 +589,8 @@ ChooseWildEncounter:
 .randomize
 	call Random
 	cp 92 percent
+	ld a, 1
+	ld [wSpecialWildBattle], a
 	jp nc, .continue_with_legendary ; 8% chance to keep the legendary
 	
 	pop hl

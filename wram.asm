@@ -546,7 +546,7 @@ wEnemyDamageTaken:: dw ; c684
 wBattleReward:: ds 3 ; c686
 wBattleAnimParam::
 wKickCounter::
-wPresentPower::	db ; c689 ; unused
+wSpecialWildBattle:: db ; c689 ; unused
 wBattleScriptBuffer:: ds 40 ; c68a
 
 wBattleScriptBufferAddress:: dw ; c6b2
