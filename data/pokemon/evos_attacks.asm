@@ -1621,12 +1621,11 @@ MarowakEvosAttacks:
 HitmonleeEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, DOUBLE_KICK
+	db 1, FOCUS_ENERGY
 	db 6, MEDITATE
 	db 11, ROLLING_KICK
-	db 14, JUMP_KICK
-	db 17, BRICK_BREAK
-	db 21, FOCUS_ENERGY
-	db 24, BULK_UP
+	db 18, BULK_UP
+	db 25, BRICK_BREAK
 	db 31, LOCK_ON
 	db 36, FORESIGHT
 	db 41, ENDURE
@@ -1638,9 +1637,9 @@ HitmonleeEvosAttacks:
 HitmonchanEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, COMET_PUNCH
-	db 7, AGILITY
-	db 13, PURSUIT
-	db 22, BULK_UP
+	db 16, AGILITY
+	db 18, BULK_UP
+	db 20, PURSUIT
 	db 26, THUNDERPUNCH
 	db 26, ICE_PUNCH
 	db 26, FIRE_PUNCH
@@ -2108,17 +2107,17 @@ PorygonEvosAttacks:
 	db 0 ; no more level-up moves
 
 OmanyteEvosAttacks:
-	db EVOLVE_LEVEL, 40, OMASTAR
+	db EVOLVE_LEVEL, 35, OMASTAR
 	db 0 ; no more evolutions
 	db 1, CONSTRICT
 	db 1, HARDEN
-	db 1, BITE
-	db 11, BITE
-	db 13, ROLLOUT
-	db 16, WATER_GUN
-	db 28, LEER
-	db 31, PROTECT
-	db 34, ANCIENTPOWER
+	db 6, BITE
+	db 10, WATER_GUN
+	db 15, ROLLOUT
+	db 19, LEER
+	db 25, JET_STREAM
+	db 32, PROTECT
+	db 37, ANCIENTPOWER
 	db 46, ROCK_BLAST
 	db 52, HYDRO_PUMP
 	db 0 ; no more level-up moves
@@ -2127,30 +2126,30 @@ OmastarEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, CONSTRICT
 	db 1, HARDEN
-	db 1, BITE
-	db 13, BITE
-	db 16, ROLLOUT
-	db 19, WATER_GUN
-	db 31, LEER
-	db 34, PROTECT
-	db 37, ANCIENTPOWER
-	db 39, SPIKE_CANNON	
-	db 52, ROCK_BLAST
-	db 58, HYDRO_PUMP
+	db 6, BITE
+	db 10, WATER_GUN
+	db 15, ROLLOUT
+	db 19, LEER
+	db 25, JET_STREAM
+	db 32, PROTECT
+	db 38, ANCIENTPOWER
+	db 48, ROCK_BLAST
+	db 55, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 KabutoEvosAttacks:
-	db EVOLVE_LEVEL, 40, KABUTOPS
+	db EVOLVE_LEVEL, 35, KABUTOPS
 	db 0 ; no more evolutions
 	db 1, SCRATCH
 	db 1, HARDEN
-	db 10, ABSORB
-	db 19, LEER
-	db 24, BUBBLEBEAM
-	db 28, SAND_ATTACK
-	db 37, ENDURE
-	db 40, ANCIENTPOWER
-	db 46, MEGA_DRAIN
+	db 7, ABSORB
+	db 13, LEER
+	db 18, BUBBLEBEAM
+	db 24, SAND_ATTACK
+	db 30, ENDURE
+	db 37, AQUA_TAIL
+	db 40, MEGA_DRAIN
+	db 46, ANCIENTPOWER
 	db 50, ROCK_SLIDE
 	db 0 ; no more level-up moves
 
@@ -3503,31 +3502,32 @@ HoundourEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, LEER
 	db 1, EMBER
-	db 1, SHARPEN
-	db 7, ROAR
-	db 13, SMOG
-	db 20, BITE
-	db 24, SMOKESCREEN
-	db 27, FAINT_ATTACK
-	db 35, FLAMETHROWER
-	db 43, CRUNCH
-	db 52, NASTY_PLOT
-	db 59, SKULL_BASH
+	db 4, SHARPEN
+	db 8, SMOG
+	db 12, ROAR
+	db 14, BITE
+	db 19, FORESIGHT
+	db 24, FAINT_ATTACK
+	db 30, PURSUIT
+	db 35, SHADOW_BALL
+	db 41, FLAMETHROWER
+	db 46, CRUNCH
+	db 50, NASTY_PLOT
+	db 54, INFERNO
 	db 0 ; no more level-up moves
 
 HoundoomEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, LEER
-	db 1, EMBER
-	db 7, ROAR
-	db 13, SMOG
-	db 20, BITE
-	db 24, SMOKESCREEN
-	db 27, FAINT_ATTACK
-	db 35, FLAMETHROWER
-	db 43, CRUNCH
-	db 52, NASTY_PLOT
-	db 59, SKULL_BASH
+	db 1, ROAR
+	db 1, BITE
+	db 1, FORESIGHT
+	db 1, FAINT_ATTACK
+	db 32, PURSUIT
+	db 38, SHADOW_BALL
+	db 45, FLAMETHROWER
+	db 51, CRUNCH
+	db 55, NASTY_PLOT
+	db 60, INFERNO
 	db 0 ; no more level-up moves
 
 KingdraEvosAttacks:
@@ -3629,6 +3629,18 @@ TyrogueEvosAttacks:
 	db EVOLVE_STAT, 15, ATK_EQ_DEF, HITMONTOP
 	db 0 ; no more evolutions
 	db 1, TACKLE
+	db 1, LEER
+	db 6, MACH_PUNCH
+	db 9, FOCUS_ENERGY	
+	db 14, BRICK_BREAK
+	db 19, LOCK_ON
+	db 25, VITAL_THROW
+	db 34, SUBMISSION
+	db 38, BULK_UP
+	db 39, CROSS_CHOP
+	db 42, MIMIC	
+	db 45, DYNAMICPUNCH
+	db 52, CLOSE_COMBAT
 	db 0 ; no more level-up moves
 
 HitmontopEvosAttacks:
@@ -3647,7 +3659,7 @@ HitmontopEvosAttacks:
 	db 0 ; no more level-up moves
 
 SmoochumEvosAttacks:
-	db EVOLVE_LEVEL, 30, JYNX
+	db EVOLVE_LEVEL, 25, JYNX
 	db 0 ; no more evolutions
 	db 1, POUND
 	db 1, LICK
@@ -3664,7 +3676,7 @@ SmoochumEvosAttacks:
 	db 0 ; no more level-up moves
 
 ElekidEvosAttacks:
-	db EVOLVE_LEVEL, 30, ELECTABUZZ
+	db EVOLVE_LEVEL, 25, ELECTABUZZ
 	db 0 ; no more evolutions
 	db 1, QUICK_ATTACK
 	db 1, LEER
@@ -3677,7 +3689,7 @@ ElekidEvosAttacks:
 	db 0 ; no more level-up moves
 
 MagbyEvosAttacks:
-	db EVOLVE_LEVEL, 30, MAGMAR
+	db EVOLVE_LEVEL, 25, MAGMAR
 	db 0 ; no more evolutions
 	db 1, EMBER
 	db 7, LEER

@@ -170,11 +170,6 @@ BattleText_TheSandstormRages:
 	line "rages."
 	prompt
 
-BattleText_EasyBreezeBlows:
-	text "An EASY BREEZE"
-	line "continues to blow."
-	prompt
-
 BattleText_TheRainStopped:
 	text "The rain stopped."
 	prompt
@@ -189,11 +184,6 @@ BattleText_TheSandstormSubsided:
 	line "subsided."
 	prompt
 
-BattleText_TheBreezeEnded:
-	text "The EASY BREEZE"
-	line "dwindled."
-	prompt
-	
 BattleText_EnemyMonFainted:
 	text "Enemy @"
 	text_from_ram wEnemyMonNick
@@ -496,14 +486,12 @@ MagmaStormTrapText:
 	
 WrappedByText:
 	text "<TARGET>"
-	line "was WRAPPED by"
-	cont "<USER>!"
+	line "was WRAPPED"
 	prompt
 
 ClampedByText:
 	text "<TARGET>"
-	line "was CLAMPED by"
-	cont "<USER>!"
+	line "was CLAMPED"
 	prompt
 
 StoringEnergyText:
@@ -690,12 +678,6 @@ SketchedText:
 	cont "@"
 	text_from_ram wStringBuffer1
 	text "!"
-	prompt
-
-DestinyBondEffectText:
-	text "<USER>'s"
-	line "trying to take its"
-	cont "opponent with it!"
 	prompt
 
 SpiteEffectText:
@@ -963,8 +945,7 @@ DraggedOutText:
 
 ParalyzedText:
 	text "<TARGET>'s"
-	line "paralyzed! Maybe"
-	cont "it can't attack!"
+	line "paralyzed!"
 	prompt
 
 FullyParalyzedText:
