@@ -215,7 +215,7 @@ MoveDescriptions::
 	dw AttractDescription
 	dw SleepTalkDescription
 	dw HealBellDescription
-	dw ReturnDescription
+	dw HarmonyDescription
 	dw HammerArmDescription
 	dw LeafShieldDescription
 	dw SafeguardDescription
@@ -1121,9 +1121,9 @@ HealBellDescription:
 	db   "Eliminates all"
 	next "status problems.@"
 
-ReturnDescription:
-	db   "An attack that is"
-	next "based on loyalty.@"
+HarmonyDescription:
+	db   "Moves become user's"
+	next "TYPE for one turn.@"
 
 HammerArmDescription:
 	db   "Lowers the user's"

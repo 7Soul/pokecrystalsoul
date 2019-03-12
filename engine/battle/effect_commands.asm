@@ -6035,6 +6035,7 @@ BattleCommand_ModType:
 	ld [hl], a
 	ld de, wPlayerTypeMod
 .got_mod
+	call AnimateCurrentMove
 	inc [hl]
 	inc [hl]
 	ld a, [wBattleMonType1]

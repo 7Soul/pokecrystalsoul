@@ -1811,7 +1811,7 @@ HandleTypeMod:
 
 .do_it
 	ld hl, wEnemyTypeModCounter
-	ld de, wEnemyTypeMod
+	ld de, wPlayerTypeMod
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .got_addrs
@@ -1836,7 +1836,6 @@ HandleTypeMod:
 .harmony_over
 	xor a
 	ld [wPlayerTypeMod], a
-	ld [wEnemyTypeMod], a
 	ld hl, BattleText_HarmonyOver
 	jp StdBattleTextBox
 
@@ -3652,7 +3651,6 @@ endr
 	ld [wPlayerWrapCount], a
 	ld [wEnemyWrapCount], a
 	ld [wEnemyTypeModCounter], a
-	ld [wEnemyTypeMod], a
 	ld [wEnemyTurnsTaken], a
 	ld hl, wPlayerSubStatus5
 	res SUBSTATUS_CANT_RUN, [hl]

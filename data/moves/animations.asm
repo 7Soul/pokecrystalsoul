@@ -216,7 +216,7 @@ BattleAnimations::
 	dw BattleAnim_Attract
 	dw BattleAnim_SleepTalk
 	dw BattleAnim_HealBell
-	dw BattleAnim_Return
+	dw BattleAnim_Harmony
 	dw BattleAnim_HammerArm
 	dw BattleAnim_LeafShield
 	dw BattleAnim_Safeguard
@@ -4048,20 +4048,27 @@ BattleAnim_HealBell:
 	anim_wait 64
 	anim_ret
 
-BattleAnim_Return:
-	anim_1gfx ANIM_GFX_HIT
-	anim_call BattleAnim_FollowPlayerHead_0
-	anim_bgeffect ANIM_BG_BOUNCE_DOWN, $0, $1, $0
-	anim_sound 0, 0, SFX_RETURN
-	anim_wait 64
-	anim_incbgeffect ANIM_BG_BOUNCE_DOWN
+BattleAnim_Harmony:
+	anim_1gfx ANIM_GFX_SHINE
+	
+	anim_bgeffect ANIM_BG_06, $0, $2, $0
+	anim_bgeffect ANIM_BG_ALTERNATE_HUES, $0, $2, $0
+	anim_bgeffect ANIM_BG_PSYCHIC, $0, $0, $0
+.loop
+	anim_sound 0, 0, SFX_METRONOME
+	anim_obj ANIM_OBJ_GLIMMER, 24, 64, $0
+	anim_wait 5
+	anim_obj ANIM_OBJ_GLIMMER, 56, 104, $0
+	anim_wait 5
+	anim_obj ANIM_OBJ_GLIMMER, 24, 104, $0
+	anim_wait 5
+	anim_obj ANIM_OBJ_GLIMMER, 56, 64, $0
+	anim_wait 5
+	anim_obj ANIM_OBJ_GLIMMER, 40, 84, $0
+	anim_wait 5
+	anim_loop 2, .loop
+	anim_incbgeffect ANIM_BG_PSYCHIC
 	anim_wait 32
-	anim_bgeffect ANIM_BG_25, $0, $1, $0
-	anim_wait 4
-	anim_sound 0, 1, SFX_COMET_PUNCH
-	anim_obj ANIM_OBJ_03, 136, 40, $0
-	anim_wait 8
-	anim_call BattleAnim_ShowMon_0
 	anim_ret
 
 BattleAnim_HammerArm:
