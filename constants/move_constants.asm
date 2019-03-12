@@ -221,7 +221,7 @@
 	const ATTRACT      ; d5
 	const SLEEP_TALK   ; d6
 	const HEAL_BELL    ; d7
-	const RETURN       ; d8
+	const HARMONY      ; d8
 	const HAMMER_ARM   ; d9
 	const LEAF_SHIELD  ; da
 	const SAFEGUARD    ; db

@@ -26,7 +26,7 @@ Moves: ; 41afb
 	move GUILLOTINE,   EFFECT_OHKO,                1, NORMAL,   PHYSICAL,  30,  5,   0
 	move CHARGE_BEAM,  EFFECT_SP_ATK_UP_HIT,      50, ELECTRIC, SPECIAL,   90, 10,  70
 	move SWORDS_DANCE, EFFECT_ATTACK_UP_2,         0, NORMAL,   STATUS,   100, 30,   0
-	move AQUA_TAIL,    EFFECT_NORMAL_HIT,         90, WATER,    PHYSICAL,  90, 10,   0
+	move AQUA_TAIL,    EFFECT_NORMAL_HIT,         60, WATER,    PHYSICAL,  90, 10,   0
 	move GUST,         EFFECT_GUST,               40, FLYING,   SPECIAL,  100, 35,   0
 	move WING_ATTACK,  EFFECT_NORMAL_HIT,         60, FLYING,   PHYSICAL, 100, 35,   0
 	move WHIRLWIND,    EFFECT_FORCE_SWITCH,        0, NORMAL,   STATUS,   100, 20,   0
@@ -227,7 +227,7 @@ Moves: ; 41afb
 	move ATTRACT,      EFFECT_ATTRACT,             0, NORMAL,   STATUS,   100, 15,   0
 	move SLEEP_TALK,   EFFECT_SLEEP_TALK,          0, NORMAL,   STATUS,   100, 10,   0
 	move HEAL_BELL,    EFFECT_HEAL_BELL,           0, NORMAL,   STATUS,   100,  5,   0
-	move RETURN,       EFFECT_RETURN,              1, NORMAL,   PHYSICAL, 100, 20,   0
+	move HARMONY,      EFFECT_MOD_TYPE,            0, NORMAL,   STATUS,   100, 15,   0
 	move HAMMER_ARM,   EFFECT_SELFSPEED_DOWN_HIT,100, FIGHTING, PHYSICAL,  90, 10,   0
 	move LEAF_SHIELD,  EFFECT_LEAF_SHIELD,         1, GRASS,    STATUS,   100, 10,   0
 	move SAFEGUARD,    EFFECT_SAFEGUARD,           0, NORMAL,   STATUS,   100, 25,   0

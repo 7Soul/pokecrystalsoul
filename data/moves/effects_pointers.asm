@@ -121,7 +121,7 @@ MoveEffectsPointers:
 	dw Swagger
 	dw FuryCutter
 	dw Attract
-	dw Return
+	dw ModType
 	dw Frustration
 	dw Safeguard
 	dw SacredFire

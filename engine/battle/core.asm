@@ -261,6 +261,9 @@ HandleBetweenTurnEffects:
 	call HandleWrap
 	call CheckFaint_PlayerThenEnemy
 	ret c
+	call HandleTypeMod
+	call CheckFaint_PlayerThenEnemy
+	ret c
 	call HandlePerishSong
 	call CheckFaint_PlayerThenEnemy
 	ret c
@@ -276,6 +279,9 @@ HandleBetweenTurnEffects:
 	call CheckFaint_EnemyThenPlayer
 	ret c
 	call HandleWrap
+	call CheckFaint_EnemyThenPlayer
+	ret c
+	call HandleTypeMod
 	call CheckFaint_EnemyThenPlayer
 	ret c
 	call HandlePerishSong
@@ -1269,8 +1275,8 @@ SwitchTurnCore:
 	ldh a, [hBattleTurn]
 	xor 1
 	ldh [hBattleTurn], a
-	ret
-
+	ret	
+	
 HandleLeftovers:
 	ldh a, [hSerialConnectionStatus]
 	cp USING_EXTERNAL_CLOCK
@@ -1788,6 +1794,51 @@ HandleWeather:
 	dw BattleText_TheRainStopped
 	dw BattleText_TheSunlightFaded
 	dw BattleText_TheSandstormSubsided
+
+HandleTypeMod:
+	ldh a, [hSerialConnectionStatus]
+	cp USING_EXTERNAL_CLOCK
+	jr z, .EnemyFirst
+	call SetPlayerTurn
+	call .do_it
+	call SetEnemyTurn
+	jp .do_it
+
+.EnemyFirst:
+	call SetEnemyTurn
+	call .do_it
+	call SetPlayerTurn
+
+.do_it
+	ld hl, wEnemyTypeModCounter
+	ld de, wEnemyTypeMod
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_addrs
+	ld hl, wPlayerTypeModCounter
+	ld de, wPlayerTypeMod
+
+.got_addrs
+	ld a, [hl]
+	and a
+	ret z
+	
+	push hl
+	ld a, [de]
+	ld [wNamedObjectIndexBuffer], a
+	push de
+	farcall GetTypeName
+	pop de
+	pop hl
+	dec [hl]
+	jr z, .harmony_over
+	ret
+.harmony_over
+	xor a
+	ld [wPlayerTypeMod], a
+	ld [wEnemyTypeMod], a
+	ld hl, BattleText_HarmonyOver
+	jp StdBattleTextBox
 
 SubtractHPFromTarget:
 	call SubtractHP
@@ -3190,6 +3241,8 @@ ResetEnemyBattleVars:
 	ld [wEnemyItemState], a
 	xor a
 	ld [wPlayerWrapCount], a
+	ld [wPlayerTypeModCounter], a
+	ld [wPlayerTypeMod], a
 	hlcoord 18, 0
 	ld a, 8
 	call SlideBattlePicOut
@@ -3598,6 +3651,8 @@ endr
 	ld [wEnemyMinimized], a
 	ld [wPlayerWrapCount], a
 	ld [wEnemyWrapCount], a
+	ld [wEnemyTypeModCounter], a
+	ld [wEnemyTypeMod], a
 	ld [wEnemyTurnsTaken], a
 	ld hl, wPlayerSubStatus5
 	res SUBSTATUS_CANT_RUN, [hl]

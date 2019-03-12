@@ -235,7 +235,7 @@ ENDM
 	add_tm HYDRO_PUMP   ; d7
 	add_tm THUNDER      ; d8
 	add_tm EARTHQUAKE   ; d9
-	add_tm RETURN       ; da
+	add_tm HARMONY      ; da
 	add_tm DIG          ; db
 	const ITEM_DC       ; dc
 	add_tm PSYCHIC_M    ; dd

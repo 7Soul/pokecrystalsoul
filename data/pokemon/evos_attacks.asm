@@ -116,6 +116,7 @@ SquirtleEvosAttacks:
 	db 1, TACKLE
 	db 4, TAIL_WHIP
 	db 7, BUBBLE
+	db 8, HARMONY
 	db 10, HARDEN
 	db 13, WATER_GUN
 	db 19, BITE

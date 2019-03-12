@@ -504,6 +504,21 @@ UnleashedEnergyText:
 	line "unleashed energy!"
 	prompt
 
+BattleText_HarmonyStart:
+	text "<USER> began a"
+	line "@"
+	text_from_ram wStringBuffer1
+	text " harmony!"
+	prompt
+	
+BattleText_HarmonyOver:
+	text "<TARGET>'s"
+	line "@"
+	text_from_ram wStringBuffer1
+	text " harmony"
+	cont "is over!"
+	prompt
+
 HungOnText:
 	text "<TARGET>"
 	line "hung on with"

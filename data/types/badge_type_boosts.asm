@@ -1,6 +1,6 @@
 BadgeTypeBoosts:
 ; entries correspond to wJohtoBadges constants
-	db POISON   ; ZEPHYRBADGE
+	db FLYING   ; ZEPHYRBADGE
 	db BUG      ; HIVEBADGE
 	db NORMAL   ; PLAINBADGE
 	db DARK     ; FOGBADGE
@@ -14,8 +14,8 @@ BadgeTypeBoosts:
 	db WATER    ; CASCADEBADGE
 	db ELECTRIC ; THUNDERBADGE
 	db GRASS    ; RAINBOWBADGE
-	db POISON   ; SOULBADGE
+	db DARK   ; SOULBADGE
 	db PSYCHIC  ; MARSHBADGE
 	db FIRE     ; VOLCANOBADGE
-	db GROUND   ; EARTHBADGE
+	db ROCK   ; EARTHBADGE
 	db -1 ; end

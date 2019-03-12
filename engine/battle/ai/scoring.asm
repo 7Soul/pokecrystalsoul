@@ -362,7 +362,6 @@ AI_Smart:
 	dbw EFFECT_FLAME_WHEEL,      AI_Smart_FlameWheel
 	dbw EFFECT_CURSE,            AI_Smart_Curse
 	dbw EFFECT_PROTECT,          AI_Smart_Protect
-	dbw EFFECT_FORESIGHT,        AI_Smart_Foresight
 	dbw EFFECT_PERISH_SONG,      AI_Smart_PerishSong
 	dbw EFFECT_SANDSTORM,        AI_Smart_Sandstorm
 	dbw EFFECT_ENDURE,           AI_Smart_Endure
@@ -1988,10 +1987,10 @@ endr
 
 AI_Smart_Curse:
 	ld a, [wEnemyMonType1]
-	cp GHOST
+	cp CURSE_T
 	jr z, .ghostcurse
 	ld a, [wEnemyMonType2]
-	cp GHOST
+	cp CURSE_T
 	jr z, .ghostcurse
 
 	call AICheckEnemyHalfHP
@@ -2004,7 +2003,7 @@ AI_Smart_Curse:
 	ret nc
 
 	ld a, [wBattleMonType1]
-	cp GHOST
+	cp CURSE_T
 	jr z, .asm_38e92
 	call AI_80_20
 	ret c
@@ -2116,35 +2115,6 @@ AI_Smart_Protect:
 	inc [hl]
 	inc [hl]
 	ret
-
-AI_Smart_Foresight:
-	ld a, [wEnemyAccLevel]
-	cp $5
-	jr c, .asm_38f41
-	ld a, [wPlayerEvaLevel]
-	cp $a
-	jr nc, .asm_38f41
-
-	ld a, [wBattleMonType1]
-	cp GHOST
-	jr z, .asm_38f41
-	ld a, [wBattleMonType2]
-	cp GHOST
-	jr z, .asm_38f41
-
-	call Random
-	cp 8 percent
-	ret c
-	inc [hl]
-	ret
-
-.asm_38f41
-	call Random
-	cp 39 percent + 1
-	ret c
-	dec [hl]
-	dec [hl]
-	ret
 	
 AI_Smart_LeafShield:
 	ld a, [wBattleMonType1]
@@ -2244,8 +2214,6 @@ AI_Smart_Sandstorm:
 
 .SandstormImmuneTypes:
 	db ROCK
-	db GROUND
-	db STEEL
 	db -1 ; end
 
 AI_Smart_Endure:
@@ -3353,10 +3321,10 @@ AI_Status:
 	call AIGetEnemyMove
 
 	ld a, [wEnemyMoveStruct + MOVE_EFFECT]
-	cp EFFECT_TOXIC
-	jr z, .poisonimmunity
-	cp EFFECT_POISON
-	jr z, .poisonimmunity
+	; cp EFFECT_TOXIC
+	; jr z, .poisonimmunity
+	; cp EFFECT_POISON
+	; jr z, .poisonimmunity
 	cp EFFECT_SLEEP
 	jr z, .typeimmunity
 	cp EFFECT_PARALYZE
@@ -3369,14 +3337,14 @@ AI_Status:
 	jr z, .checkmove
 	jr .typeimmunity
 
-.poisonimmunity
-	ld a, [wBattleMonType1]
-	cp POISON
-	jr z, .immune
-	ld a, [wBattleMonType2]
-	cp POISON
-	jr z, .immune
-	jr .typeimmunity
+; .poisonimmunity
+	; ld a, [wBattleMonType1]
+	; cp POISON
+	; jr z, .immune
+	; ld a, [wBattleMonType2]
+	; cp POISON
+	; jr z, .immune
+	; jr .typeimmunity
 
 .paraimmunity
 	ld a, [wBattleMonType1]

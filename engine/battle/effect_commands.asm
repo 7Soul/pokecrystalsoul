@@ -1224,9 +1224,15 @@ BattleCommand_Critical:
 	jr z, .ok
 	ld de, wEnemyMonType1
 .ok
-	ld a, BATTLE_VARS_MOVE_TYPE ; Check if its a flying move
-	call GetBattleVarAddr
+	ld hl, wPlayerTypeMod
+	ld a, [hl]
+	and a
+	jr nz, .has_mod
+	
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
 	and TYPE_MASK
+.has_mod
 	ld b, a
 	ld a, [de]
 	cp b
@@ -1443,9 +1449,17 @@ BattleCommand_Stab:
 	ld e, [hl]
 
 .go
+	push hl
+	ld hl, wPlayerTypeMod
+	ld a, [hl]
+	pop hl
+	and a
+	jr nz, .has_mod
+	
 	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVarAddr
+	call GetBattleVar
 	and TYPE_MASK
+.has_mod
 	ld [wCurType], a
 
 	push hl
@@ -1503,8 +1517,14 @@ BattleCommand_Stab:
 	set 7, [hl]
 
 .SkipStab:
+	ld hl, wPlayerTypeMod
+	ld a, [hl]
+	and a
+	jr nz, .has_mod2
+	
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
+.has_mod2
 	ld b, a
 	ld hl, TypeMatchups
 
@@ -1626,13 +1646,21 @@ CheckTypeMatchup:
 	push hl
 	push de
 	push bc
+	
+	ld de, wPlayerTypeMod
+	ld a, [de]	
+	and a
+	jr nz, .has_mod
+	
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK
-	ld d, a
-	ld b, [hl]
+.has_mod
+	ld d, a ; move type
+	ld [$C000], a
+	ld b, [hl] ; mon type 1
 	inc hl
-	ld c, [hl]
+	ld c, [hl] ; mon type 2
 	ld a, 10 ; 1.0
 	ld [wTypeMatchup], a
 	ld hl, TypeMatchups
@@ -2814,9 +2842,16 @@ PlayerAttackDamage:
 	bit SCREENS_LEAF_SHIELD, a
 	jr z, .no_leaf_shield
 	
+	ld de, wPlayerTypeMod
+	ld a, [de]	
+	and a
+	jr nz, .has_mod
+	
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK
+.has_mod
+	ld d, a
 	cp WATER
 	jr nz, .no_leaf_shield
 	
@@ -2987,9 +3022,16 @@ EnemyAttackDamage:
 	bit SCREENS_LEAF_SHIELD, a
 	jr z, .no_leaf_shield
 	
+	ld de, wPlayerTypeMod
+	ld a, [de]	
+	and a
+	jr nz, .has_mod
+	
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK
+.has_mod
+	ld d, a
 	cp WATER
 	jr nz, .no_leaf_shield
 	
@@ -3217,8 +3259,14 @@ BattleCommand_DamageCalc:
 
 ; Type
 	ld b, a
+	ld de, wPlayerTypeMod
+	ld a, [de]
+	and a
+	jr nz, .has_mod
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
+	and TYPE_MASK
+.has_mod
 	cp b
 	jr nz, .DoneItem
 
@@ -3876,8 +3924,8 @@ BattleCommand_PoisonTarget:
 	ld a, [wTypeModifier]
 	and $7f
 	ret z
-	farcall CheckIfTargetIsPoisonType
-	ret z
+	;farcall CheckIfTargetIsPoisonType
+	;ret z
 	call GetOpponentItem
 	ld a, b
 	cp HELD_PREVENT_POISON
@@ -3907,8 +3955,8 @@ BattleCommand_Poison:
 	and $7f
 	jp z, .failed
 
-	farcall CheckIfTargetIsPoisonType
-	jp z, .failed
+	;farcall CheckIfTargetIsPoisonType
+	;jp z, .failed
 
 	ld a, BATTLE_VARS_STATUS_OPP
 	call GetBattleVar
@@ -5974,6 +6022,36 @@ BattleCommand_TrapTarget:
 	dbw CLAMP,      ClampedByText      ; 'was CLAMPED by'
 	dbw WHIRLPOOL,  WhirlpoolTrapText  ; 'was trapped!'
 
+BattleCommand_ModType:
+	xor a
+	ld hl, wPlayerTypeModCounter
+	ld [hl], a
+	ld de, wPlayerTypeMod
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_mod
+	xor a
+	ld hl, wEnemyTypeModCounter
+	ld [hl], a
+	ld de, wPlayerTypeMod
+.got_mod
+	inc [hl]
+	inc [hl]
+	ld a, [wBattleMonType1]
+	ld [wPlayerTypeMod], a
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player_type
+	ld a, [wEnemyMonType1]
+	ld [wPlayerTypeMod], a
+.player_type
+	ld a, [de]
+	ld [wNamedObjectIndexBuffer], a
+	farcall GetTypeName
+	
+	ld hl, BattleText_HarmonyStart
+	jp StdBattleTextBox
+	
 INCLUDE "engine/battle/move_effects/mist.asm"
 
 INCLUDE "engine/battle/move_effects/focus_energy.asm"

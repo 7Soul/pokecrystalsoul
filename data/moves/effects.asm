@@ -1618,25 +1618,11 @@ Attract:
 	attract
 	endmove
 
-Return:
+ModType:
 	checkobedience
 	usedmovetext
 	doturn
-	critical
-	damagestats
-	happinesspower
-	damagecalc
-	stab
-	damagevariation
-	checkhit
-	moveanim
-	failuretext
-	applydamage
-	criticaltext
-	supereffectivetext
-	checkfaint
-	buildopponentrage
-	kingsrock
+	modtype
 	endmove
 
 Frustration:

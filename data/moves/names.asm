@@ -214,7 +214,7 @@ MoveNames::
 	db "Attract@"
 	db "Sleep Talk@"
 	db "Heal Bell@"
-	db "Return@"
+	db "Harmony@"
 	db "Hammer Arm@"
 	db "Leaf Shield@"
 	db "Safeguard@"

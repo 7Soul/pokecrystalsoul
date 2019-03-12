@@ -14,11 +14,11 @@ BattleCommand_Curse:
 ; Curse is different for Ghost-types.
 
 	ld a, [de]
-	cp GHOST
+	cp CURSE_T
 	jr z, .ghost
 	inc de
 	ld a, [de]
-	cp GHOST
+	cp CURSE_T
 	jr z, .ghost
 
 ; If no stats can be increased, don't.

@@ -61,7 +61,7 @@ GoldenrodDeptStore5FReceptionistScript:
 	opentext
 	checkcode VAR_WEEKDAY
 	ifnotequal SUNDAY, .EventIsOver
-	checkflag ENGINE_GOLDENROD_DEPT_STORE_TM27_RETURN
+	checkflag ENGINE_GOLDENROD_DEPT_STORE_TM27_HARMONY
 	iftrue .EventIsOver
 	special GetFirstPokemonHappiness
 	writetext UnknownText_0x56143
@@ -73,9 +73,9 @@ GoldenrodDeptStore5FReceptionistScript:
 .VeryHappy:
 	writetext UnknownText_0x5615a
 	buttonsound
-	verbosegiveitem TM_RETURN
+	verbosegiveitem TM_HARMONY
 	iffalse .Done
-	setflag ENGINE_GOLDENROD_DEPT_STORE_TM27_RETURN
+	setflag ENGINE_GOLDENROD_DEPT_STORE_TM27_HARMONY
 	closetext
 	end
 
@@ -90,7 +90,7 @@ GoldenrodDeptStore5FReceptionistScript:
 	buttonsound
 	verbosegiveitem TM_LEAF_SHIELD
 	iffalse .Done
-	setflag ENGINE_GOLDENROD_DEPT_STORE_TM27_RETURN
+	setflag ENGINE_GOLDENROD_DEPT_STORE_TM27_HARMONY
 	closetext
 	end
 

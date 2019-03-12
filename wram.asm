@@ -546,7 +546,7 @@ wEnemyDamageTaken:: dw ; c684
 wBattleReward:: ds 3 ; c686
 wBattleAnimParam::
 wKickCounter::
-wSpecialWildBattle:: db ; c689 ; unused
+wSpecialWildBattle:: db ; c689 ; custom
 wBattleScriptBuffer:: ds 40 ; c68a
 
 wBattleScriptBufferAddress:: dw ; c6b2
@@ -599,13 +599,13 @@ wEnemyEvaLevel:: db ; c6da
 
 wEnemyTurnsTaken:: db ; c6dc
 wPlayerTurnsTaken:: db ; c6dd
-	ds 1
+wPlayerTypeModCounter:: db ; c6de ; custom
 
 wPlayerSubstituteHP:: db ; c6df
 wEnemySubstituteHP:: db ; c6e0
 
 wUnusedPlayerLockedMove:: db ; c6e1
-	ds 1
+wEnemyTypeModCounter:: db ; c6e2 ; custom
 
 wCurPlayerMove:: db ; c6e3
 wCurEnemyMove:: db ; c6e4
@@ -615,7 +615,8 @@ wLinkBattleRNCount:: ; c6e5
 	db
 
 wEnemyItemState:: db ; c6e6
-	ds 2
+wPlayerTypeMod:: db ; c6e7 ; custom
+wEnemyTypeMod:: db ; c6e8 ; custom
 wCurEnemyMoveNum:: db ; c6e9
 
 wEnemyHPAtTimeOfPlayerSwitch:: dw ; c6ea

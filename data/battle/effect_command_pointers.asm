@@ -99,7 +99,7 @@ BattleCommandPointers:
 	dw BattleCommand5d
 	dw BattleCommand_FuryCutter
 	dw BattleCommand_Attract
-	dw BattleCommand_HappinessPower
+	dw BattleCommand_ModType
 	dw BattleCommand_DamageCalc
 	dw BattleCommand_FrustrationPower
 	dw BattleCommand_Safeguard

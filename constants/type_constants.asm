@@ -9,13 +9,8 @@
 	const NORMAL
 	const FIGHTING
 	const FLYING
-	const POISON
-	const GROUND
 	const ROCK
-	const BIRD
 	const BUG
-	const GHOST
-	const STEEL
 
 UNUSED_TYPES EQU const_value
 	const TYPE_10
@@ -36,7 +31,6 @@ UNUSED_TYPES_END EQU const_value
 	const ELECTRIC
 	const PSYCHIC
 	const ICE
-	const DRAGON
 	const DARK
 TYPES_END EQU const_value
 
