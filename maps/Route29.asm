@@ -7,6 +7,7 @@
 	const ROUTE29_COOLTRAINER_M2
 	const ROUTE29_TUSCANY
 	const ROUTE29_POKE_BALL
+	const ROUTE29_MOVETUTOR
 
 Route29_MapScripts:
 	db 2 ; scene scripts
@@ -35,6 +36,76 @@ Route29_MapScripts:
 	ifnotequal TUESDAY, .TuscanyDisappears
 	appear ROUTE29_TUSCANY
 	return
+	
+MoveTutorScript29:
+	faceplayer
+	opentext
+	writetext Route29_Tutor_Intro
+	yesorno
+	iffalse .Refused
+	special PlaceMoneyTopRight
+	writetext Route29_Tutor_Cost
+	yesorno
+	iffalse .Refused2
+	checkmoney YOUR_MONEY, 5000
+	ifequal HAVE_LESS, .NotEnoughMoney
+	writetext Route29_HasMoney
+	jump .Harmony
+	jump .Incompatible
+
+.Harmony:
+	writebyte MOVETUTOR_HARMONY
+	writetext Route29_Tutor_Start
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	jump .Incompatible
+
+.MoveMenuHeader:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 5, 11, TEXTBOX_Y - 1
+	dw .MenuData
+	db 1 ; default option
+
+.MenuData:
+	db STATICMENU_CURSOR ; flags
+	db 2 ; items
+	db "Harmony@"
+	db "Cancel@"
+
+.Refused:
+	writetext Route29_Tutor_Refused
+	waitbutton
+	closetext
+	end
+
+.Refused2:
+	writetext Route29_Tutor_Refused2
+	waitbutton
+	closetext
+	end
+
+.TeachMove:
+	writetext Route29_Tutor_Teach
+	buttonsound
+	takemoney YOUR_MONEY, 5000
+	waitsfx
+	playsound SFX_TRANSACTION
+	special PlaceMoneyTopRight
+	writetext Route29_Tutor_Farewell
+	waitbutton
+	closetext
+	
+.Incompatible:
+	writetext Route29_Tutor_Incompatible
+	waitbutton
+	closetext
+	end
+
+.NotEnoughMoney:
+	writetext Route29_NotEnoughMoney
+	waitbutton
+	closetext
+	end
 
 Route29Tutorial1:
 	turnobject ROUTE29_COOLTRAINER_M1, UP
@@ -412,6 +483,72 @@ Route29Sign2Text:
 	para "CHERRYGROVE CITY -"
 	line "NEW BARK TOWN"
 	done
+	
+Route29_Tutor_Intro:
+	text "I can teach your"
+	line "#MON the move"
+	cont "Harmony."
+	
+	para "It turns all moves"
+	line "from both sides"
+	
+	para "into your primary"
+	line "type for 1 turn."
+
+	para "Should I teach a"
+	line "new move?"
+	done
+
+Route29_Tutor_Cost:
+	text "It will cost you"
+	line "5000¥. Okay?"
+	done
+
+Route29_Tutor_Refused:
+	text "Come back if you"
+	line "change your mind."
+	done
+
+Route29_HasMoney:
+	text "Wahahah! You won't"
+	line "regret it!"
+
+	para "Which move should"
+	line "I teach?"
+	done
+
+Route29_Tutor_Refused2:
+	text "Hm, too bad. I'll"
+	line "have to get some"
+	cont "cash from home…"
+	done
+
+Route29_Tutor_Teach:
+	text "If you understand"
+	line "what's so amazing"
+
+	para "about this move,"
+	line "you've made it as"
+	cont "a trainer."
+	done
+
+Route29_Tutor_Farewell:
+	text "Wahahah!"
+	line "Farewell, kid!"
+	done
+
+Route29_Tutor_Incompatible:
+	text "B-but…"
+	done
+
+Route29_NotEnoughMoney:
+	text "…You don't have"
+	line "enough coins here…"
+	done
+
+Route29_Tutor_Start:
+	text_start
+	done
 
 Route29_MapEvents:
 	db 0, 0 ; filler
@@ -427,7 +564,7 @@ Route29_MapEvents:
 	bg_event 51,  7, BGEVENT_READ, Route29Sign1
 	bg_event  7,  7, BGEVENT_READ, Route29Sign2
 
-	db 8 ; object events
+	db 9 ; object events
 	object_event 50, 12, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CatchingTutorialDudeScript, -1
 	object_event 29, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route29YoungsterScript, -1
 	object_event 34,  8, SPRITE_TEACHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route29TeacherScript, -1
@@ -436,3 +573,4 @@ Route29_MapEvents:
 	object_event 16, 10, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Route29CooltrainerMScript, -1
 	object_event 36,  6, SPRITE_TEACHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, TuscanyScript, EVENT_ROUTE_29_TUSCANY_OF_TUESDAY
 	object_event 23, 12, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route29Potion, EVENT_ROUTE_29_POTION
+	object_event  9,  4, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, MoveTutorScript29, -1

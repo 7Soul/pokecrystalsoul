@@ -39,8 +39,10 @@ MoveTutor:
 	jr z, .flamethrower
 	cp MOVETUTOR_THUNDERBOLT
 	jr z, .thunderbolt
-	; MOVETUTOR_ICE_BEAM
-	ld a, ICE_BEAM
+	cp MOVETUTOR_ICE_BEAM
+	jr z, .icebeam
+	; MOVETUTOR_HARMONY
+	ld a, HARMONY
 	ret
 
 .flamethrower
@@ -49,6 +51,10 @@ MoveTutor:
 
 .thunderbolt
 	ld a, THUNDERBOLT
+	ret
+
+.icebeam
+	ld a, ICE_BEAM
 	ret
 
 CheckCanLearnMoveTutorMove:
