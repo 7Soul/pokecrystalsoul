@@ -153,7 +153,7 @@ MoveNames::
 	db "Crabhammer@"
 	db "Explosion@"
 	db "Jet Stream@"
-	db "Bonemerang@"
+	db "Feathergale@"
 	db "Rest@"
 	db "Rock Slide@"
 	db "Hyper Fang@"

@@ -162,7 +162,7 @@ CaterpieEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, STRING_SHOT
-	db 5, PIN_MISSILE
+	db 5, FEATHERGALE
 	db 10, LEECH_LIFE
 	db 14, NASTY_PLOT
 	db 19, PURSUIT
@@ -1594,7 +1594,7 @@ CuboneEvosAttacks:
 	db 11, HEADBUTT
 	db 17, FOCUS_ENERGY
 	db 22, LEAF_SHIELD
-	db 25, BONEMERANG
+	db 25, DIG
 	db 29, RAGE
 	db 33, FALSE_SWIPE
 	db 37, THRASH
@@ -1610,7 +1610,7 @@ MarowakEvosAttacks:
 	db 11, HEADBUTT
 	db 17, FOCUS_ENERGY
 	db 22, LEAF_SHIELD
-	db 25, BONEMERANG
+	db 25, DIG
 	db 32, RAGE
 	db 36, FALSE_SWIPE
 	db 42, THRASH

@@ -154,7 +154,7 @@ MoveDescriptions::
 	dw CrabhammerDescription
 	dw ExplosionDescription
 	dw JetStreamDescription
-	dw BonemerangDescription
+	dw FeathergaleDescription
 	dw RestDescription
 	dw RockSlideDescription
 	dw HyperFangDescription
@@ -877,7 +877,7 @@ JetStreamDescription:
 	db   "Washes away WATER"
 	next "types with a jet.@"
 
-BonemerangDescription:
+FeathergaleDescription:
 	db   "An attack that"
 	next "strikes twice.@"
 

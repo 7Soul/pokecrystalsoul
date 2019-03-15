@@ -155,7 +155,7 @@ BattleAnimations::
 	dw BattleAnim_Crabhammer
 	dw BattleAnim_Explosion
 	dw BattleAnim_JetStream
-	dw BattleAnim_Bonemerang
+	dw BattleAnim_Feathergale
 	dw BattleAnim_Rest
 	dw BattleAnim_RockSlide
 	dw BattleAnim_HyperFang
@@ -2440,7 +2440,7 @@ BattleAnim_Stampede:
 	anim_wait 6
 	anim_ret
 
-BattleAnim_Bonemerang:
+BattleAnim_Feathergale:
 	anim_2gfx ANIM_GFX_MISC, ANIM_GFX_HIT
 	anim_sound 6, 2, SFX_HYDRO_PUMP
 	anim_obj ANIM_OBJ_BONEMERANG, 88, 56, $1c
