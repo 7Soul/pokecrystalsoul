@@ -499,6 +499,7 @@ BATTLEANIMSTRUCT_LENGTH EQU const_value
 	const BATTLEANIMFRAMESET_B8
 	const BATTLEANIMFRAMESET_B9
 	const BATTLEANIMFRAMESET_BA
+	const BATTLEANIMFRAMESET_BB
 
 ; BattleAnimOAMData indexes (see data/battle_anims/oam.asm)
 	const_def

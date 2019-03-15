@@ -124,7 +124,7 @@ MoveDescriptions::
 	dw LickDescription
 	dw SmogDescription
 	dw SludgeDescription
-	dw BoneClubDescription
+	dw MakeshiftDescription
 	dw FireBlastDescription
 	dw DarkPulseDescription
 	dw ClampDescription
@@ -757,9 +757,9 @@ SludgeDescription:
 	db   "An attack that may"
 	next "poison the foe.@"
 
-BoneClubDescription:
-	db   "An attack that may"
-	next "cause flinching.@"
+MakeshiftDescription:
+	db   "Improvised weapon"
+	next "hit may raise ATK.@"
 
 FireBlastDescription:
 	db   "An attack that"

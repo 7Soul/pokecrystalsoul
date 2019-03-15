@@ -125,7 +125,7 @@ BattleAnimations::
 	dw BattleAnim_Lick
 	dw BattleAnim_Smog
 	dw BattleAnim_Sludge
-	dw BattleAnim_BoneClub
+	dw BattleAnim_Makeshift
 	dw BattleAnim_FireBlast
 	dw BattleAnim_DarkPulse
 	dw BattleAnim_Clamp
@@ -2975,7 +2975,7 @@ BattleAnim_Agility:
 	anim_call BattleAnim_ShowMon_0
 	anim_ret
 
-BattleAnim_BoneClub:
+BattleAnim_Makeshift:
 	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_MISC
 	anim_obj ANIM_OBJ_BONE_CLUB, 64, 88, $2
 	anim_wait 32

@@ -136,7 +136,7 @@ Moves: ; 41afb
 	move LICK,         EFFECT_PARALYZE_HIT,       20, DARK,     PHYSICAL, 100, 30,  30
 	move SMOG,         EFFECT_POISON_HIT,         20, DARK,     SPECIAL,   70, 20,  40
 	move SLUDGE,       EFFECT_POISON_HIT,         65, DARK,     SPECIAL,  100, 20,  30
-	move BONE_CLUB,    EFFECT_FLINCH_HIT,         65, ROCK,     PHYSICAL,  85, 20,  10
+	move MAKESHIFT,    EFFECT_ATTACK_UP_HIT,      50, NORMAL,   PHYSICAL,  70, 20, 100
 	move FIRE_BLAST,   EFFECT_BURN_HIT,          120, FIRE,     SPECIAL,   85,  5,  10
 	move DARK_PULSE,   EFFECT_FLINCH_HIT,         80, DARK,     SPECIAL,  100, 15,  30
 	move CLAMP,        EFFECT_TRAP_TARGET,        35, WATER,    PHYSICAL,  85, 15,   0

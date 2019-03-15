@@ -162,7 +162,7 @@ CaterpieEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, STRING_SHOT
-	db 5, FEATHERGALE
+	db 6, MAKESHIFT
 	db 10, LEECH_LIFE
 	db 14, NASTY_PLOT
 	db 19, PURSUIT
@@ -328,6 +328,7 @@ SpearowEvosAttacks:
 	db 4, LEER
 	db 8, PURSUIT
 	db 11, FURY_ATTACK
+	db 20, FEATHERGALE
 	db 25, PURSUIT
 	db 31, MIRROR_MOVE
 	db 32, RECOVER
@@ -342,6 +343,7 @@ FearowEvosAttacks:
 	db 1, LEER
 	db 1, FURY_ATTACK
 	db 13, FURY_ATTACK
+	db 19, FEATHERGALE
 	db 26, PURSUIT
 	db 32, MIRROR_MOVE
 	db 40, DRILL_PECK
@@ -1278,12 +1280,15 @@ FarfetchDEvosAttacks:
 	db 1, PECK
 	db 1, POISON_STING
 	db 7, SAND_ATTACK
-	db 13, LEER
+	db 10, LEER
+	db 12, MAKESHIFT
 	db 19, FURY_ATTACK
+	db 21, FEATHERGALE
 	db 25, SWORDS_DANCE
 	db 31, AGILITY
 	db 37, SLASH
 	db 44, FALSE_SWIPE
+	db 49, AIR_SLASH
 	db 0 ; no more level-up moves
 
 DoduoEvosAttacks:
@@ -1589,10 +1594,11 @@ CuboneEvosAttacks:
 	db EVOLVE_LEVEL, 28, MAROWAK
 	db 0 ; no more evolutions
 	db 1, GROWL
-	db 1, LEER
-	db 1, BONE_CLUB
-	db 11, HEADBUTT
-	db 17, FOCUS_ENERGY
+	db 1, TACKLE
+	db 7, MAKESHIFT
+	db 11, LEER
+	db 15, HEADBUTT
+	db 18, FOCUS_ENERGY
 	db 22, LEAF_SHIELD
 	db 25, DIG
 	db 29, RAGE
@@ -1604,10 +1610,7 @@ CuboneEvosAttacks:
 
 MarowakEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, GROWL
-	db 1, LEER
-	db 1, BONE_CLUB
-	db 11, HEADBUTT
+	db 11, MAKESHIFT
 	db 17, FOCUS_ENERGY
 	db 22, LEAF_SHIELD
 	db 25, DIG
@@ -2464,7 +2467,7 @@ SentretEvosAttacks:
 	db 4, DEFENSE_CURL
 	db 7, QUICK_ATTACK
 	db 12, LEAF_SHIELD
-	db 17, FURY_ATTACK
+	db 17, MAKESHIFT
 	db 19, CHARM
 	db 25, SLAM
 	db 33, REST
@@ -2480,7 +2483,7 @@ FurretEvosAttacks:
 	db 7, QUICK_ATTACK
 	db 12, LEAF_SHIELD
 	db 14, AGILITY
-	db 19, FURY_ATTACK
+	db 17, MAKESHIFT
 	db 21, CHARM
 	db 27, SLAM
 	db 35, REST
@@ -2914,7 +2917,8 @@ AipomEvosAttacks:
 	db 6, SAND_ATTACK
 	db 8, LEAF_SHIELD
 	db 12, BATON_PASS
-	db 19, FURY_ATTACK
+	db 19, MAKESHIFT
+	db 22, FURY_ATTACK
 	db 27, SWIFT
 	db 36, SCREECH
 	db 39, NASTY_PLOT
@@ -3034,13 +3038,14 @@ MurkrowEvosAttacks:
 	db 1, PECK
 	db 11, PURSUIT
 	db 16, HAZE
-	db 20, WING_ATTACK
-	db 26, NIGHT_SHADE
+	db 20, FEATHERGALE
+	db 24, NIGHT_SHADE
 	db 31, FAINT_ATTACK
 	db 33, WHIRLWIND
 	db 41, MEAN_LOOK
 	db 44, SWORDS_DANCE
-	db 50, SLAM
+	db 48, HARMONY
+	db 51, SLAM
 	db 0 ; no more level-up moves
 
 SlowkingEvosAttacks:
