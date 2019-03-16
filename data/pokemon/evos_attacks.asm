@@ -162,8 +162,8 @@ CaterpieEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, STRING_SHOT
-	db 6, MAKESHIFT
-	db 10, LEECH_LIFE
+	db 5, PIN_MISSILE
+	db 9, LEECH_LIFE
 	db 14, NASTY_PLOT
 	db 19, PURSUIT
 	db 22, TWINEEDLE
@@ -3299,6 +3299,7 @@ SneaselEvosAttacks:
 	db 1, LEER
 	db 1, LICK
 	db 9, QUICK_ATTACK
+	db 13, MAKESHIFT
 	db 17, SCREECH
 	db 25, FAINT_ATTACK
 	db 33, FURY_ATTACK

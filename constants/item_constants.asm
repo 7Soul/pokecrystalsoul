@@ -260,6 +260,12 @@ ENDM
 	add_tm FIRE_PUNCH   ; f0
 	add_tm FURY_CUTTER  ; f1
 	add_tm NIGHTMARE    ; f2
+	add_tm ROCK_TOMB    ; f3
+	add_tm JET_STREAM   ; f4
+	add_tm THUNDERBOLT  ; f5
+	add_tm PSYWAVE      ; f6
+	add_tm INFERNO      ; f7
+	add_tm AIR_SLASH    ; f8
 NUM_TMS = const_value - TM01
 
 add_hm: MACRO
