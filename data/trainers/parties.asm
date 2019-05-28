@@ -18,10 +18,10 @@ FalknerGroup:
 	; FALKNER (1)
 	db "FALKNER@", TRAINERTYPE_ITEM
 	db  0, 19, 5,  1, HOOTHOOT, 0, NO_ITEM
-	db  0, 19, 5,  1, MURKROW, 1, BERRY
+	db  0, 19, 5,  1, MURKROW, 1, BERRY ;  from 0 badges to 19, level 5, can evolve, Murkrow, at 1 badge give Berry
 	db  0, 3,  9,  1, PIDGEOTTO, 0, NO_ITEM
 	db  0, 19, 9,  1, SKARMORY, 0, NO_ITEM
-	db  3, 19, 13, 1, PIDGEOTTO, 0, BERRY ; at 3 badges Pidgeotto gets replaced by a stronger one
+	db  3, 19, 13, 1, PIDGEOTTO, 0, BERRY ; at 3 badges Pidgeotto gets replaced by a stronger one with Berry
 	db -1 ; end
 	
 BugsyGroup:
@@ -362,12 +362,14 @@ ErikaGroup:
 YoungsterGroup:
 	; YOUNGSTER (1)
 	db "JOEY@", TRAINERTYPE_ITEM
-	db  0, 5, 0, RATTATA, 1, CUTE_RIBBON
+	;  from 0 badges to 19, level 5, doesn't evolve, Rattata, at 1 badge give Cute Ribbon
+	db  0, 19, 5, 0, RATTATA, 1, CUTE_RIBBON
 	db -1 ; end
 
 	; YOUNGSTER (2)
-	db "MIKEY@", TRAINERTYPE_NORMAL
-	db  7, PIKACHU
+	db "MIKEY@", TRAINERTYPE_ITEM
+	db  0, 19, 2, 0, PIKACHU, 1, BATTERY
+	db  2, 19, 5, 1, PIKACHU, 0, NO_ITEM
 	db -1 ; end
 
 	; YOUNGSTER (3)
@@ -1523,9 +1525,9 @@ SabrinaGroup:
 
 BugCatcherGroup:
 	; BUG_CATCHER (1)
-	db "DON@", TRAINERTYPE_NORMAL
-	db  5, CATERPIE
-	db  5, METAPOD
+	db "DON@", TRAINERTYPE_ITEM
+	db  0, 19, 2, 1, CATERPIE, 4, MIRACLEBERRY
+	db  0, 19, 2, 1, METAPOD, 4, MIRACLEBERRY
 	db -1 ; end
 
 	; BUG_CATCHER (2)
@@ -2841,12 +2843,12 @@ PicnickerGroup:
 	db -1 ; end
 
 	; PICNICKER (10)
-	db "ERIN@", TRAINERTYPE_ITEM
-	db  0, 17, 5,  1, HOOTHOOT, 0, NO_ITEM
-	db  0, 17, 5,  1, MURKROW, 0, NO_ITEM
-	db  0, 2,  9,  1, PIDGEOTTO, 0, NO_ITEM
-	db  0, 17, 9,  1, SKARMORY, 0, NO_ITEM
-	db  2, 17, 13, 1, PIDGEOTTO, 0, BERRY
+	db "ERIN@", TRAINERTYPE_ITEM_MOVES
+	db  0, 17, 5,  1, HOOTHOOT, 0, NO_ITEM, GUST, PECK, TACKLE, NO_MOVE
+	db  0, 17, 5,  1, MURKROW, 0, NO_ITEM, GUST, PECK, TACKLE, NO_MOVE
+	db  0, 2,  9,  1, PIDGEOTTO, 0, NO_ITEM, GUST, PECK, TACKLE, NO_MOVE
+	db  0, 17, 9,  1, SKARMORY, 0, NO_ITEM, GUST, PECK, TACKLE, NO_MOVE
+	db  2, 17, 13, 1, PIDGEOTTO, 0, BERRY, GUST, PECK, TACKLE, NO_MOVE
 	db -1 ; end
 
 	; PICNICKER (11)

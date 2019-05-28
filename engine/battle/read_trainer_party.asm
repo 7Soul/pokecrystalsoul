@@ -331,7 +331,7 @@ TrainerType3:
 	ld a, [hli]
 	ld b, a
 	ld a, [wNumSetBits]
-	cp b
+	cp b ; compare badges to item badge requirement
 	push hl
 	jp c, .skip_item
 	
@@ -376,6 +376,13 @@ TrainerType4:
 	cp $ff
 	ret z
 	
+	ld a, [wNumSetBits]
+	ld b, a
+	ld a, [hli]
+	cp b
+	jp c, .skip
+	jp z, .skip
+	
 	; stop if -1
 	ld a, [hli]
 	cp $ff
@@ -401,9 +408,16 @@ TrainerType4:
 
 	ld a, OTPARTYMON
 	ld [wMonType], a
-
 	push hl
 	predef TryAddMonToParty
+	pop hl
+	ld a, [hli]
+	ld b, a
+	ld a, [wNumSetBits]
+	cp b ; compare badges to item badge requirement
+	push hl
+	jp c, .skip_item	
+	
 	ld a, [wOTPartyCount]
 	dec a
 	ld hl, wOTPartyMon1Item
@@ -412,7 +426,8 @@ TrainerType4:
 	ld d, h
 	ld e, l
 	pop hl
-
+.skip_item
+	pop hl
 	ld a, [hli]
 	ld [de], a
 
@@ -475,6 +490,18 @@ TrainerType4:
 .copied_pp
 
 	pop hl
+	jp .loop
+	
+.skip
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl ; 4 moves
+	inc hl ;
+	inc hl ;
+	inc hl ;
 	jp .loop
 	
 BadgeLevels:

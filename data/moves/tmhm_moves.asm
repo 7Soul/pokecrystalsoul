@@ -51,12 +51,12 @@ TMHMMoves:
 	db FIRE_PUNCH
 	db FURY_CUTTER
 	db NIGHTMARE
-	db ROCK_TOMB
-	db JET_STREAM
-	db THUNDERBOLT
-	db PSYWAVE
-	db INFERNO
-	db AIR_SLASH
+	; db ROCK_TOMB
+	; db JET_STREAM
+	; db GUST
+	; db PSYWAVE
+	; db INFERNO
+	; db AIR_SLASH
 ; HMs
 	db AQUA_TAIL
 	db FLY
@@ -69,4 +69,5 @@ TMHMMoves:
 	db FLAMETHROWER
 	db THUNDERBOLT
 	db ICE_BEAM
+	db HARMONY
 	db 0 ; end

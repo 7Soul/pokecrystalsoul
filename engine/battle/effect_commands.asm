@@ -1509,9 +1509,9 @@ BattleCommand_Stab:
 	add hl, bc
 
 	ld a, h
-	ld [wCurDamage], a
+	ld [wCurDamage], a ; damage after stab
 	ld a, l
-	ld [wCurDamage + 1], a
+	ld [wCurDamage + 1], a ; damage after stab
 
 	ld hl, wTypeModifier
 	set 7, [hl]
@@ -1524,6 +1524,7 @@ BattleCommand_Stab:
 	
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
+	and TYPE_MASK
 .has_mod2
 	ld b, a
 	ld hl, TypeMatchups
@@ -1608,9 +1609,9 @@ BattleCommand_Stab:
 	ldh [hMultiplicand + 2], a
 
 .ok
-	ldh a, [hMultiplicand + 1]
+	ldh a, [hMultiplicand + 1] ; damage after type matchup
 	ld [hli], a
-	ldh a, [hMultiplicand + 2]
+	ldh a, [hMultiplicand + 2] ; damage after type matchup
 	ld [hl], a
 	pop bc
 	pop hl
@@ -1626,7 +1627,7 @@ BattleCommand_Stab:
 	ld b, a
 	ld a, [wTypeModifier]
 	and %10000000
-	or b
+	or b	
 	ld [wTypeModifier], a
 	ret
 
@@ -2448,7 +2449,7 @@ BattleCommand_ApplyDamage:
 	ld b, a
 	ld a, [de]
 	adc b
-	ld [de], a
+	ld [de], a	
 	ret nc
 	ld a, $ff
 	ld [de], a
@@ -3682,7 +3683,7 @@ DoEnemyDamage:
 
 DoPlayerDamage:
 	ld hl, wCurDamage
-	ld a, [hli]
+	ld a, [hli]	
 	ld b, a
 	ld a, [hl]
 	or b
