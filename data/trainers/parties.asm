@@ -2843,12 +2843,12 @@ PicnickerGroup:
 	db -1 ; end
 
 	; PICNICKER (10)
-	db "ERIN@", TRAINERTYPE_ITEM_MOVES
-	db  0, 17, 5,  1, HOOTHOOT, 0, BERRY, GUST, PECK, TACKLE, NO_MOVE
-	db  0, 17, 5,  1, MURKROW, 0, NO_ITEM, GUST, PECK, TACKLE, NO_MOVE
-	db  0, 2,  9,  1, PIDGEOTTO, 0, NO_ITEM, GUST, PECK, TACKLE, NO_MOVE
-	db  0, 17, 9,  1, SKARMORY, 0, NO_ITEM, GUST, PECK, TACKLE, NO_MOVE
-	db  2, 17, 13, 1, PIDGEOTTO, 0, BERRY, GUST, PECK, TACKLE, NO_MOVE
+	db "ERIN@", TRAINERTYPE_ITEM
+	db  0,  5, 5, 0, PONYTA, 0, NO_ITEM ; ponyta from 0 to 5 badges
+	db  1,  6, 6, 0, PONYTA, 0, NO_ITEM	; ponyta from 1 to 5 badges
+	db  2, 17, 6, 1, PIKACHU, 8, MIRACLEBERRY ; pikachu from 2 badges, item at 8
+	db  5, 17, 5, 1, PONYTA, 0, NO_ITEM ; evolving ponyta from 5 badges
+	db  6, 17, 9, 1, PONYTA, 0, NO_ITEM ; evolving ponyta from 6 badges
 	db -1 ; end
 
 	; PICNICKER (11)
@@ -3009,7 +3009,9 @@ CamperGroup:
 
 	; CAMPER (11)
 	db "TED@", TRAINERTYPE_NORMAL
-	db 17, MANKEY
+	db  0, 8, 5, 0, MANKEY
+	db  5, 17, 5, 0, TAUROS
+	db  8, 17, 10, 1, MANKEY
 	db -1 ; end
 
 	; CAMPER (12)

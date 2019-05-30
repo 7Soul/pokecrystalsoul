@@ -508,13 +508,13 @@ BadgeLevels:
 	
 .case0; 0 badges
 	ld a, b
-	add a, 4
+	add a, 0
 	jp .switch_end	
 	
 .case1; 1 badges
 	ld a, b
 	;add a, a
-	add a, 8
+	add a, 4
 	jp .switch_end	
 	
 .case2; 2 badges
