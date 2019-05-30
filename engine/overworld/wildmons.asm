@@ -1475,18 +1475,35 @@ RandomPhoneMon:
 	ld a, BANK(Trainers)
 	call GetFarByte
 	inc hl
-	ld bc, 2 ; level, species
-	cp TRAINERTYPE_NORMAL
-	jr z, .got_mon_length
-	ld bc, 2 + NUM_MOVES ; level, species, moves
-	cp TRAINERTYPE_MOVES
-	jr z, .got_mon_length
-	ld bc, 2 + 1 ; level, species, item
-	cp TRAINERTYPE_ITEM
-	jr z, .got_mon_length
-	; TRAINERTYPE_ITEM_MOVES
-	ld bc, 2 + 1 + NUM_MOVES ; level, species, item, moves
-.got_mon_length
+; b = trainer type
+	ld b, a
+; TRAINERTYPE_NICKNAME has uneven length, so always use the first mon
+	bit TRAINERTYPE_NICKNAME_F, b
+	jr nz, .got_mon
+; c = mon length
+; All trainers use 2 bytes for level and species
+	ld c, 2
+; TRAINERTYPE_DVS uses 2 more bytes
+	bit TRAINERTYPE_DVS_F, b
+	jr z, .no_dvs
+	inc c
+	inc c
+.no_dvs
+; TRAINERTYPE_ITEM uses 1 more byte
+	bit TRAINERTYPE_ITEM_F, b
+	jr z, .no_item
+	inc c
+.no_item
+; TRAINERTYPE_MOVES uses NUM_MOVES (4) more bytes
+	bit TRAINERTYPE_MOVES_F, b
+	jr z, .no_moves
+	ld a, NUM_MOVES
+	add c
+	ld c, a
+.no_moves
+; bc = mon length
+	xor a
+	ld b, a
 
 	ld e, 0
 	push hl

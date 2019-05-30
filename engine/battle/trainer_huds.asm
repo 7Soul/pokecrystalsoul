@@ -151,11 +151,17 @@ DrawEnemyHUDBorder:
 	jr z, .no_trainer_item
 	hlcoord 1, 2
 	ld [hl], $5e
-.no_trainer_item
+.no_trainer_item	
+	farcall BattleCheckEnemyShininess
+	jr nc, .not_shiny
+	hlcoord 10, 1
+	ld [hl], $5f
+.not_shiny
 	ld a, [wBattleMode]
 	dec a
 	ret nz
-	
+	ld a, [wTempEnemyMonSpecies]
+	dec a
 	call CheckCaughtMon
 	jr z, .not_caught
 	hlcoord 1, 2
@@ -182,10 +188,10 @@ DrawEnemyHUDBorder:
 	ld [hl], $5e
 	
 .check_shiny
-	farcall BattleCheckEnemyShininess
-	ret nc
-	hlcoord 10, 1
-	ld [hl], $5f
+	; farcall BattleCheckEnemyShininess
+	; ret nc
+	; hlcoord 10, 1
+	; ld [hl], $5f
 	ret
 
 .tiles

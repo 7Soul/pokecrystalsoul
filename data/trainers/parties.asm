@@ -4,11 +4,11 @@ Trainers:
 ; Trainer data structure:
 ; - db "NAME@", TRAINERTYPE_* constant
 ; - 1 to 6 Pokémon:
-;    * for TRAINERTYPE_NORMAL:     db badges, level, evolve_bit, species
-;    * for TRAINERTYPE_MOVES:      db badges, level, evolve_bit, species, 4 moves
-;    * for TRAINERTYPE_ITEM:       db badges, level, evolve_bit, species, item
-;    * for TRAINERTYPE_ITEM_MOVES: db badges, level, evolve_bit, species, item, 4 moves
-; badge number is -1 from number (0 means 1 badges, 1 means 2 badges, etc)
+;	 * Always:                       db badges min, badges max, level, evolve bit, species
+;	 * with TRAINERTYPE_NICKNAME:	 db "NICK@      " <- 11 characters (10 + @)
+;	 * with TRAINERTYPE_DVS:		 db atk|def, spd|spc
+;	 * with TRAINERTYPE_ITEM:		 db badges, item
+;	 * with TRAINERTYPE_MOVES:		 db move 1, move 2, move 3, move 4
 ; evolve bit dictates if the mon scaling causes it to evolve
 ;	0 = never evolve
 ;	1+ = evolve
@@ -3008,10 +3008,10 @@ CamperGroup:
 	db -1 ; end
 
 	; CAMPER (11)
-	db "TED@", TRAINERTYPE_NORMAL
-	db  0, 8, 5, 0, MANKEY
-	db  5, 17, 5, 0, TAUROS
-	db  8, 17, 10, 1, MANKEY
+	db "TED@", TRAINERTYPE_NICKNAME | TRAINERTYPE_DVS | TRAINERTYPE_MOVES
+	db  0, 8, 5, 0, MANKEY,  "Boy@       ", $95, $55, SCRATCH, METRONOME, NO_MOVE, NO_MOVE
+	db  5, 17, 5, 0, TAUROS, "Tauros@    ", $55, $55, SCRATCH, METRONOME, NO_MOVE, NO_MOVE
+	db  8, 17, 10, 1, MANKEY,"Boy@       ", $87, $77, SCRATCH, METRONOME, NO_MOVE, NO_MOVE
 	db -1 ; end
 
 	; CAMPER (12)

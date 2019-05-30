@@ -55,19 +55,10 @@ ReadTrainerParty:
 	jr nz, .skip_name
 
 	ld a, [hli]
-	ld c, a
-	ld b, 0
+	ld [wOtherTrainerType], a
 	ld d, h
 	ld e, l
-	ld hl, TrainerTypes
-	add hl, bc
-	add hl, bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ld bc, .done
-	push bc
-	jp hl
+	call ReadTrainerPartyPieces
 
 .done
 	jp ComputeTrainerReward
@@ -75,87 +66,17 @@ ReadTrainerParty:
 .cal2
 	ld a, BANK(sMysteryGiftTrainer)
 	call GetSRAMBank
+	ld a, TRAINERTYPE_MOVES
+	ld [wOtherTrainerType], a
 	ld de, sMysteryGiftTrainer
-	call TrainerType2
+	call ReadTrainerPartyPieces
 	call CloseSRAM
 	jr .done
-
-TrainerTypes:
-; entries correspond to TRAINERTYPE_* constants
-	dw TrainerType1 ; level, species
-	dw TrainerType2 ; level, species, moves
-	dw TrainerType3 ; level, species, item
-	dw TrainerType4 ; level, species, item, moves
-
-TrainerType1:
-; normal (level, species)
+	
+ReadTrainerPartyPieces:
 	ld h, d
 	ld l, e
-.loop	
-	; check badges
-	push hl
-	ld hl, wBadges
-	ld b, 2
-	call CountSetBits	
-	ld a, [wNumSetBits]
-	inc a
-	ld b, a
-	pop hl
-	ld a, [hl]
-	cp b
-	ret nc	
-	ld a, [hli]
-	cp $ff
-	ret z
-	
-	ld a, [wNumSetBits]
-	ld b, a
-	ld a, [hli]
-	cp b
-	jp c, .skip
-	jp z, .skip
-	
-	; stop if -1
-	ld a, [hli]
-	cp $ff
-	ret z
-	
-	ld d, a ; put level in d
-	; change level
-	ld a, [wNumSetBits] ; a is number of badges
-	ld b, d ; b is level
-	call BadgeLevels	
-	ld [wCurPartyLevel], a
-	
-	ld a, [hli] ; get evolve bit
-	ld [$C000], a
-	
-	ld a, [hli] ; get speciess
-	ld b, a
-	call EvolveTrainerMon
-	ld a, b
-	call EvolveTrainerMon
-	ld a, b
-	ld [wCurPartySpecies], a
-	
-	ld a, OTPARTYMON
-	ld [wMonType], a
 
-	push hl
-	predef TryAddMonToParty
-	pop hl
-	jp .loop
-
-.skip
-	inc hl
-	inc hl
-	inc hl
-	jp .loop
-
-TrainerType2:
-; moves
-	ld h, d
-	ld l, e
 .loop
 	; check badges
 	push hl
@@ -166,19 +87,18 @@ TrainerType2:
 	inc a
 	ld b, a
 	pop hl
-	ld a, [hl]
-	cp b
-	ret nc	
 	ld a, [hli]
 	cp $ff
 	ret z
+	cp b
+	jp nc, .skip_2more ; stop badge low
 	
 	ld a, [wNumSetBits]
 	ld b, a
 	ld a, [hli]
 	cp b
-	jp c, .skip
-	jp z, .skip
+	jp c, .skip ;
+	jp z, .skip ; skip badge high
 	
 	; stop if -1
 	ld a, [hli]
@@ -203,239 +123,115 @@ TrainerType2:
 	ld a, b
 	ld [wCurPartySpecies], a
 
+; add to party
 	ld a, OTPARTYMON
 	ld [wMonType], a
-
 	push hl
 	predef TryAddMonToParty
-	ld a, [wOTPartyCount]
-	dec a
-	ld hl, wOTPartyMon1Moves
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld d, h
-	ld e, l
 	pop hl
+	
+; nickname?
+	ld a, [wOtherTrainerType]
+	bit TRAINERTYPE_NICKNAME_F, a
+	jr z, .no_nickname
 
-	ld b, NUM_MOVES
-.copy_moves
+	push de
+	ld de, wStringBuffer2
+	ld c, 12
+.copy_nickname
+	dec c
 	ld a, [hli]
 	ld [de], a
 	inc de
-	dec b
-	jr nz, .copy_moves
+	cp "@"
+	jr nz, .copy_nickname
+.extra_char
+	dec c
+	inc hl
+	ld a, c
+	cp 0
+	jr nz, .extra_char
 
 	push hl
-
 	ld a, [wOTPartyCount]
 	dec a
-	ld hl, wOTPartyMon1Species
-	ld bc, PARTYMON_STRUCT_LENGTH
+	ld hl, wOTPartyMonNicknames
+	ld bc, MON_NAME_LENGTH
 	call AddNTimes
 	ld d, h
 	ld e, l
-	ld hl, MON_PP
-	add hl, de
-	push hl
-	ld hl, MON_MOVES
-	add hl, de
+	ld hl, wStringBuffer2
+	ld bc, MON_NAME_LENGTH
+	call CopyBytes
+	pop hl
 	pop de
+.no_nickname
 
-	ld b, NUM_MOVES
-.copy_pp
-	ld a, [hli]
-	and a
-	jr z, .copied_pp
+; dvs?
+	ld a, [wOtherTrainerType]
+	bit TRAINERTYPE_DVS_F, a
+	jr z, .no_dvs
 
 	push hl
-	push bc
+	ld a, [wOTPartyCount]
 	dec a
-	ld hl, Moves + MOVE_PP
-	ld bc, MOVE_LENGTH
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-	pop bc
+	ld hl, wOTPartyMon1DVs
+	call GetPartyLocation
+	ld d, h
+	ld e, l
 	pop hl
 
+; When reading DVs, treat PERFECT_DV as $ff
+	ld a, [hli]
+	cp PERFECT_DV
+	jr nz, .atk_def_dv_ok
+	ld a, $ff
+.atk_def_dv_ok
 	ld [de], a
 	inc de
-	dec b
-	jr nz, .copy_pp
-.copied_pp
-	pop hl
-	jp .loop
-.skip
-	inc hl
-	inc hl
-	inc hl
-	inc hl
-	inc hl
-	jp .loop
+	ld a, [hli]
+	cp PERFECT_DV
+	jr nz, .spd_spc_dv_ok
+	ld a, $ff
+.spd_spc_dv_ok
+	ld [de], a
+.no_dvs
 
-TrainerType3:
-; item
-	ld h, d
-	ld l, e
-.loop
-	push hl
-	ld hl, wBadges
-	ld b, 2
-	call CountSetBits	
-	ld a, [wNumSetBits]
-	inc a
-	ld b, a
-	pop hl
-	ld a, [hl]
-	cp b
-	ret nc
-	ld a, [hli]
-	cp $ff
-	ret z	
+; item?
+	ld a, [wOtherTrainerType]
+	bit TRAINERTYPE_ITEM_F, a
+	jr z, .no_item
 	
-	ld a, [wNumSetBits]
-	ld b, a
-	ld a, [hli]
-	cp b
-	jp c, .skip
-	jp z, .skip
-	
-	; stop if -1
-	ld a, [hli]
-	cp $ff
-	ret z
-	ld d, a ; put level in d
-	; change level
-	ld a, [wNumSetBits] ; a is number of badges
-	ld b, d ; b is level
-	call BadgeLevels
-	
-	ld [wCurPartyLevel], a
-	
-	ld a, [hli] ; get evolve bit
-	ld [$C000], a
-	
-	ld a, [hli] ; get speciess
-	ld b, a
-	call EvolveTrainerMon
-	ld a, b
-	call EvolveTrainerMon
-	ld a, b
-	ld [wCurPartySpecies], a
-	
-	ld a, OTPARTYMON
-	ld [wMonType], a
-	push hl
-	predef TryAddMonToParty
-	pop hl
 	ld a, [hli]
 	ld b, a
 	ld a, [wNumSetBits]
 	cp b ; compare badges to item badge requirement
 	push hl
-	jp c, .skip_item
-	
+	jp c, .no_item
+
+	push hl
 	ld a, [wOTPartyCount]
 	dec a
 	ld hl, wOTPartyMon1Item
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
+	call GetPartyLocation
 	ld d, h
 	ld e, l
-.skip_item
 	pop hl
+
 	ld a, [hli]
 	ld [de], a
-	jp .loop
-.skip
-	inc hl
-	inc hl
-	inc hl
-	inc hl
-	inc hl
-	jp .loop
+.no_item
 
-TrainerType4:
-; item + moves
-	ld h, d
-	ld l, e
-.loop
-	; check badges
-	push hl
-	ld hl, wBadges
-	ld b, 2
-	call CountSetBits	
-	ld a, [wNumSetBits]
-	inc a
-	ld b, a
-	pop hl
-	ld a, [hl]
-	cp b
-	ret nc	
-	ld a, [hli]
-	cp $ff
-	ret z
-	
-	ld a, [wNumSetBits]
-	ld b, a
-	ld a, [hli]
-	cp b
-	jp c, .skip
-	jp z, .skip
-	
-	; stop if -1
-	ld a, [hli]
-	cp $ff
-	ret z
-	ld d, a ; put level in d
-	; change level
-	ld a, [wNumSetBits] ; a is number of badges
-	ld b, d ; b is level
-	call BadgeLevels
-	
-	ld [wCurPartyLevel], a
-	
-	ld a, [hli] ; get evolve bit
-	ld [$C000], a
-	
-	ld a, [hli] ; get speciess
-	ld b, a
-	call EvolveTrainerMon
-	ld a, b
-	call EvolveTrainerMon
-	ld a, b
-	ld [wCurPartySpecies], a
-
-	ld a, OTPARTYMON
-	ld [wMonType], a
-	push hl
-	predef TryAddMonToParty
-	pop hl
-	ld a, [hli]
-	ld b, a
-	ld a, [wNumSetBits]
-	cp b ; compare badges to item badge requirement
-	push hl
-	jp c, .skip_item	
-	
-	ld a, [wOTPartyCount]
-	dec a
-	ld hl, wOTPartyMon1Item
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld d, h
-	ld e, l
-.skip_item
-	pop hl
-	ld a, [hli]
-	ld [de], a
+; moves?
+	ld a, [wOtherTrainerType]
+	bit TRAINERTYPE_MOVES_F, a
+	jr z, .no_moves
 
 	push hl
 	ld a, [wOTPartyCount]
 	dec a
 	ld hl, wOTPartyMon1Moves
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
+	call GetPartyLocation
 	ld d, h
 	ld e, l
 	pop hl
@@ -453,8 +249,7 @@ TrainerType4:
 	ld a, [wOTPartyCount]
 	dec a
 	ld hl, wOTPartyMon1
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
+	call GetPartyLocation
 	ld d, h
 	ld e, l
 	ld hl, MON_PP
@@ -486,22 +281,99 @@ TrainerType4:
 	inc de
 	dec b
 	jr nz, .copy_pp
+	
 .copied_pp
-
 	pop hl
-	jp .loop
+	jp .no_moves
 	
 .skip
 	inc hl
 	inc hl
 	inc hl
-	inc hl ; item badge req
-	inc hl ; item
-	inc hl ; 4 moves
-	inc hl ;
-	inc hl ;
-	inc hl ;
+	
+	ld a, [wOtherTrainerType]
+	bit TRAINERTYPE_NICKNAME_F, a
+	jp nz, .extra_skip1
+.skip_after_check1
+	ld a, [wOtherTrainerType]
+	bit TRAINERTYPE_DVS_F, a
+	jp nz, .extra_skip4
+.skip_after_check4
+	ld a, [wOtherTrainerType]
+	bit TRAINERTYPE_ITEM_F, a
+	jp nz, .extra_skip2
+.skip_after_check2
+	ld a, [wOtherTrainerType]
+	bit TRAINERTYPE_MOVES_F, a
+	jp nz, .extra_skip3
+.skip_after_check3
+
+.no_moves
+; Custom DVs affect stats, so recalculate them after TryAddMonToParty
+	ld a, [wOtherTrainerType]
+	and TRAINERTYPE_DVS
+	jr z, .no_stat_recalc
+
+	push hl
+
+	ld a, [wOTPartyCount]
+	dec a
+	ld hl, wOTPartyMon1MaxHP
+	call GetPartyLocation
+	ld d, h
+	ld e, l
+
+	ld a, [wOTPartyCount]
+	dec a
+	ld hl, wOTPartyMon1StatExp - 1
+	call GetPartyLocation
+
+; recalculate stats
+	ld b, TRUE
+	push de
+	predef CalcMonStats
+	pop hl
+
+; copy max HP to current HP
+	inc hl
+	ld c, [hl]
+	dec hl
+	ld b, [hl]
+	dec hl
+	ld [hl], c
+	dec hl
+	ld [hl], b
+
+	pop hl
+.no_stat_recalc
 	jp .loop
+	
+.skip_2more
+	inc hl
+	jp .skip
+	
+.extra_skip1 ; skips 1 bit for nickname info
+rept 11
+	inc hl
+endr
+	jp .skip_after_check1
+	
+.extra_skip2 ; skips 2 bits for item info
+	inc hl
+	inc hl
+	jp .skip_after_check2
+	
+.extra_skip3 ; skips 4 bits for moves info
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	jp .skip_after_check3
+	
+.extra_skip4 ; skips 2 bits for dvs info
+	inc hl
+	inc hl
+	jp .skip_after_check4
 	
 BadgeLevels:
 	jp .switch_start
