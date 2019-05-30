@@ -425,7 +425,6 @@ TrainerType4:
 	call AddNTimes
 	ld d, h
 	ld e, l
-	pop hl
 .skip_item
 	pop hl
 	ld a, [hli]
@@ -496,8 +495,8 @@ TrainerType4:
 	inc hl
 	inc hl
 	inc hl
-	inc hl
-	inc hl
+	inc hl ; item badge req
+	inc hl ; item
 	inc hl ; 4 moves
 	inc hl ;
 	inc hl ;
