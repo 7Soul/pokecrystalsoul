@@ -1,103 +1,117 @@
 INCLUDE "engine/gfx/sgb_layouts.asm"
 
+	; ld a, [hl]
+	; swap a
+	; and $f
+	; ld [$C005], a ; atk
+	
+	; ld a, [hl]
+	; and $f
+	; ld [$C006], a ; def
+	
+	; inc hl
+	; ld a, [hl]
+	; swap a
+	; and $f
+	; ld [$C007], a ; speed
+	
+	; ld a, [hl]
+	; and $f
+	; ld [$C008], a ; special
+	
+	; ld l, c
+	; ld h, b
+
 CheckShininess:
 ; Check if a mon is shiny by DVs at bc.
 ; Return carry if shiny.
-
 	ld l, c
 	ld h, b
-
+	push de
+	
 ; Attack must be off
 	ld a, [hl]
-	and $1 << 4
-	jr z, .NotShiny
+	swap a
+	and $f
+	ld [$c003], a ; save atk at c003
+	ld d, a ; atk
+	and %1000
+	jp z, .NotShiny
 
-; Defense must be 13 or 14
+; Defense must be 0, 5, 10 or 15
+	ld a, [hl]
+	and $f
+	ld [$c004], a ; save def at c004
+	add d
+	ld d, a
+	
 	ld a, [hli]
 	and $f
-	cp $d
+	cp $0
 	jr z, .MaybeShiny1
-	cp $e
-	jr nz, .NotShiny
+	cp $5
+	jr z, .MaybeShiny1
+	cp $a
+	jr z, .MaybeShiny1
+	cp $f
+	jp nz, .NotShiny
 
-; Speed must be 13 or 14
+; Speed must be 0, 5, 10 or 15
 .MaybeShiny1
 	ld a, [hl]
 	and $f0
-	cp $d << 4
+	ld [$c005], a ; save spd at c005
+	add d
+	ld d, a
+	
+	ld a, [hl]
+	and $f0
+	cp $0 << 4
 	jr z, .MaybeShiny2
-	cp $e << 4
-	jr nz, .NotShiny
+	cp $5 << 4
+	jr z, .MaybeShiny2
+	cp $4 << 4
+	jr z, .MaybeShiny2
+	cp $f << 4
+	jp nz, .NotShiny
 
-; Special must be 15
+; Special must be 0, 5, 10 or 15
 .MaybeShiny2
 	ld a, [hl]
 	and $f
+	ld [$c006], a ; save spcl at c006
+	add d
+	ld d, a
+	
+	ld a, [hl]
+	and $f
+	cp $0
+	jr z, .Shiny
+	cp $5
+	jr z, .Shiny
+	cp $a
+	jr z, .Shiny
 	cp $f
-	jr nz, .NotShiny
+	jp nz, .NotShiny
 
 .Shiny:
-	scf
-	ret
-
-.NotShiny:
-	and a
-	ret
-
-Unused_CheckShininess:
-; Return carry if the DVs at hl are all 10 or higher.
-
-; Attack
-	ld a, [hl]
-	cp 10 << 4
-	jr c, .NotShiny
-
-; Defense
-	ld a, [hli]
-	and $f
-	cp 10
-	jr c, .NotShiny
-
-; Speed
-	ld a, [hl]
-	cp 10 << 4
-	jr c, .NotShiny
-
-; Special
-	ld a, [hl]
-	and $f
-	cp 10
-	jr c, .NotShiny
-
-.Shiny:
-	scf
-	ret
-
-.NotShiny:
-	and a
-	ret
-
-Unreferenced_Function8aa4:
-	push de
-	push bc
-	ld hl, PalPacket_9ce6
-	ld de, wSGBPals
-	ld bc, PALPACKET_LENGTH
-	call CopyBytes
-	pop bc
 	pop de
-	ld a, c
-	ld [wSGBPals + 3], a
-	ld a, b
-	ld [wSGBPals + 4], a
-	ld a, e
-	ld [wSGBPals + 5], a
-	ld a, d
-	ld [wSGBPals + 6], a
-	ld hl, wSGBPals
-	call PushSGBPals
-	ld hl, BlkPacket_9a86
-	call PushSGBPals
+	ld a, 1
+	ld [$c002], a ; save shiny bit at c002
+	;ld a, d
+	;cp $1e
+	;jp nc, .NotShiny
+	scf
+	ret
+
+.NotShiny:
+	pop de
+	xor a
+	ld [$c002], a ; save not shiny bit at c002
+	ld [$c003], a
+	ld [$c004], a
+	ld [$c005], a	
+	and a
 	ret
 
 InitPartyMenuPalettes:
@@ -513,14 +527,14 @@ LoadPalette_White_Col1_Col2_Black:
 	push af
 	ld a, BANK(wBGPals1)
 	ldh [rSVBK], a
-
+	; add white
 	ld a, LOW(PALRGB_WHITE)
 	ld [de], a
 	inc de
 	ld a, HIGH(PALRGB_WHITE)
 	ld [de], a
 	inc de
-
+	; add colors
 	ld c, 2 * PAL_COLOR_SIZE
 .loop
 	ld a, [hli]
@@ -528,13 +542,274 @@ LoadPalette_White_Col1_Col2_Black:
 	inc de
 	dec c
 	jr nz, .loop
-
+	; add black
 	xor a
 	ld [de], a
 	inc de
 	ld [de], a
 	inc de
 
+	pop af
+	ldh [rSVBK], a
+	ret
+	
+FlipBitBasedOnShinyValueAtk:
+	ld b, a
+	ld a, [$c003]
+	and %1000
+	cp 0
+	jp nz, .skip1
+	ld a, b
+	xor 2
+	ret
+.skip1
+	ld a, [$c003]
+	and %100
+	cp 0
+	jp nz, .skip2
+	ld a, b
+	xor 3
+	ret
+.skip2
+	ld a, [$c003]
+	and %10
+	cp 0
+	jp nz, .skip3
+	ld a, b
+	xor 4
+	ret
+.skip3
+	ld a, [$c003]
+	and %1
+	cp 0
+	jp nz, .skip4
+	ld a, b
+	xor 5
+	ret
+.skip4
+	ld a, b
+	ret	
+	
+FlipBitBasedOnShinyValueDef:
+	ld b, a
+	ld a, [$c004]
+	and %1000
+	cp 0
+	jp nz, .skip1
+	ld a, b
+	xor 2
+	ret
+.skip1
+	ld a, [$c004]
+	and %100
+	cp 0
+	jp nz, .skip2
+	ld a, b
+	xor 3
+	ret
+.skip2
+	ld a, [$c004]
+	and %10
+	cp 0
+	jp nz, .skip3
+	ld a, b
+	xor 4
+	ret
+.skip3	
+	ld a, [$c004]
+	and %1
+	cp 0
+	jp nz, .skip4
+	ld a, b
+	xor 5
+	ret
+.skip4	
+	ld a, b
+	ret
+	
+FlipBitBasedOnShinyValueSpcl:
+	ld b, a
+	ld a, [$c005]
+	and %1000
+	cp 0
+	jp nz, .skip1
+	ld a, b
+	xor 2
+	ret
+.skip1
+	ld a, [$c005]
+	and %100
+	cp 0
+	jp nz, .skip2
+	ld a, b
+	xor 3
+	ret
+.skip2
+	ld a, [$c005]
+	and %10
+	cp 0
+	jp nz, .skip3
+	ld a, b
+	xor 4
+	ret
+.skip3
+	ld a, [$c005]
+	and %1
+	cp 0
+	jp nz, .skip4
+	ld a, b
+	xor 5
+	ret
+.skip4
+	ld a, b
+	ret
+	
+LoadPalette_White_Col1_Col2_Black2:
+	ldh a, [rSVBK]
+	push af
+	ld a, BANK(wBGPals1)
+	ldh [rSVBK], a
+	; add white
+	ld a, LOW(PALRGB_WHITE)
+	ld [de], a
+	inc de
+	ld a, HIGH(PALRGB_WHITE)
+	ld [de], a
+	inc de
+	; add colors
+	ld a, [$c002]
+	cp 1
+	jp z, .is_shiny1
+	
+	ld c, 2 * PAL_COLOR_SIZE
+.loop
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, .loop
+	jp .add_black
+	
+.is_shiny1
+	;;; low 1 (gggrrrrr)
+	ld a, [hl]
+	and %11100000
+rept 5
+	sra a
+endr
+	ld c, a ; first 3 'g' bits
+	
+	ld a, [hli]
+	and %11111 
+	push bc
+	call FlipBitBasedOnShinyValueAtk ; inverts last 3 bits
+	pop bc
+	ld b, a ; 'r' bits
+	
+	ld a, c
+	push bc	
+	call FlipBitBasedOnShinyValueDef ; inverts last 3 bits
+	pop bc
+rept 5 ; puts 'g' bits back in place
+	sla a
+endr	
+	add b ; reform original format
+	ld [de], a
+	inc de
+	
+	;;; high 1 (0bbbbbgg)
+	ld a, [hl]	
+	and %1111100
+	sra a
+	sra a
+	push bc
+	call FlipBitBasedOnShinyValueSpcl
+	pop bc
+	ld c, a ; 'b' bits
+	
+	ld a, [hli]
+	and %11
+	ld b, a ; last 2 bits 'gg'
+	
+	ld a, c 
+	sla a ; puts 'b' bits back in place
+	sla a
+	add b ; reform original format
+	
+	ld [de], a
+	inc de
+	
+	
+	
+	;;; low 2 (gggrrrrr)
+	ld a, [hl]
+	and %11100000
+rept 5
+	sra a
+endr
+	ld c, a ; first 3 'g' bits
+	
+	ld a, [hli]
+	and %11111
+	push bc
+	call FlipBitBasedOnShinyValueAtk ; inverts last 3 bits
+	pop bc
+	ld b, a ; 'r' bits
+	
+	ld a, c	
+	push bc
+	call FlipBitBasedOnShinyValueDef ; inverts last 3 bits
+	pop bc
+rept 5 ; puts 'g' bits back in place
+	sla a
+endr	
+	add b ; reform original format
+	ld [de], a
+	inc de
+	
+	;;; high 2 (0bbbbbgg)
+	ld a, [hl]	
+	and %1111100
+	sra a
+	sra a
+	push bc 
+	call FlipBitBasedOnShinyValueSpcl
+	pop bc
+	ld c, a ; 'b' bits
+	
+	ld a, [hli]
+	and %11
+	ld b, a ; last 2 bits 'gg'
+	
+	ld a, c 
+	sla a ; puts 'b' bits back in place
+	sla a
+	add b ; reform original format
+	
+	ld [de], a
+	inc de
+	
+	
+	; add black	
+.add_black
+	ld a, [$c002]
+	cp 1
+	jr z, .is_shiny2
+	
+	xor a
+	ld [de], a
+	inc de
+	ld [de], a
+	inc de
+	jr .end_black
+.is_shiny2
+	ld a, $A0
+	ld [de], a
+	inc de
+	ld a, $24
+	ld [de], a
+	inc de
+.end_black
 	pop af
 	ldh [rSVBK], a
 	ret
@@ -797,7 +1072,7 @@ GetMonNormalOrShinyPalettePointer:
 	call _GetMonPalettePointer
 	pop bc
 	push hl
-	call CheckShininess
+	call CheckShininess	
 	pop hl
 	ret nc
 rept 4

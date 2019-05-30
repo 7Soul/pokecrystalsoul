@@ -1599,24 +1599,24 @@ JohtoGrassWildMons:
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
 	db 1, GEODUDE
-	db 1, GEODUDE
-	db 1, GEODUDE
+	db 1, EKANS
+	db 1, MANKEY
 	db 1, SUNKERN
 	db 1, PIDGEY
 	db 1, SUNKERN
 	db 1, IGGLYBUFF
 	; day
 	db 1, GEODUDE
-	db 1, GEODUDE
-	db 1, GEODUDE
+	db 1, EKANS
+	db 1, MANKEY
 	db 1, SUNKERN
 	db 1, PIDGEY
 	db 1, SUNKERN
 	db 1, IGGLYBUFF
 	; nite
 	db 1, GEODUDE
-	db 1, GEODUDE
-	db 1, GEODUDE
+	db 1, EKANS
+	db 1, MANKEY
 	db 1, GRIMER
 	db 1, RATTATA
 	db 1, GRIMER
