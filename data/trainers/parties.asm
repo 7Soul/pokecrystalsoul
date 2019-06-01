@@ -3008,10 +3008,8 @@ CamperGroup:
 	db -1 ; end
 
 	; CAMPER (11)
-	db "TED@", TRAINERTYPE_NICKNAME | TRAINERTYPE_DVS | TRAINERTYPE_MOVES
-	db  0, 8, 5, 0, MANKEY,  "Boy@       ", $95, $55, SCRATCH, METRONOME, NO_MOVE, NO_MOVE
-	db  5, 17, 5, 0, TAUROS, "Tauros@    ", $55, $55, SCRATCH, METRONOME, NO_MOVE, NO_MOVE
-	db  8, 17, 10, 1, MANKEY,"Boy@       ", $87, $77, SCRATCH, METRONOME, NO_MOVE, NO_MOVE
+	db "TED@", TRAINERTYPE_MOVES
+	db  0, 8, 5, 0, PARAS, $FF, $FF, $FF, ROLLOUT
 	db -1 ; end
 
 	; CAMPER (12)

@@ -91,7 +91,7 @@ ReadTrainerPartyPieces:
 	cp $ff
 	ret z
 	cp b
-	jp nc, .skip_2more ; stop badge low
+	jp nc, .skip_2more ; skip badge low
 	
 	ld a, [wNumSetBits]
 	ld b, a
@@ -149,7 +149,7 @@ ReadTrainerPartyPieces:
 	dec c
 	inc hl
 	ld a, c
-	cp 0
+	cp 1
 	jr nz, .extra_char
 
 	push hl
@@ -206,7 +206,6 @@ ReadTrainerPartyPieces:
 	ld b, a
 	ld a, [wNumSetBits]
 	cp b ; compare badges to item badge requirement
-	push hl
 	jp c, .no_item
 
 	push hl
@@ -225,7 +224,7 @@ ReadTrainerPartyPieces:
 ; moves?
 	ld a, [wOtherTrainerType]
 	bit TRAINERTYPE_MOVES_F, a
-	jr z, .no_moves
+	jp z, .no_moves
 
 	push hl
 	ld a, [wOTPartyCount]
@@ -238,9 +237,24 @@ ReadTrainerPartyPieces:
 
 	ld b, NUM_MOVES
 .copy_moves
-	ld a, [hli]
+	ld a, [hl]
+	cp $FF
+	jp z, .new_is_ff
+
+	ld a, [hl]
 	ld [de], a
 	inc de
+	jr .skip_no_move2
+	
+.new_is_ff
+	ld a, [de]
+	and a ; and old move is 0
+	jr z, .new_is_ff_stay ; don't move to next slot if old move is NO_MOVE
+	inc de ; move to next slot if new is FF but mon already had a move
+	
+.new_is_ff_stay
+.skip_no_move2
+	inc hl
 	dec b
 	jr nz, .copy_moves
 
@@ -262,10 +276,8 @@ ReadTrainerPartyPieces:
 
 	ld b, NUM_MOVES
 .copy_pp
-	ld a, [hli]
-	and a
-	jr z, .copied_pp
-
+	ld a, [hli] ; move (after moves were added)
+	
 	push hl
 	push bc
 	dec a
@@ -276,9 +288,12 @@ ReadTrainerPartyPieces:
 	call GetFarByte
 	pop bc
 	pop hl
-
+	
+	;and a
+	;jr z, .skip_pp
 	ld [de], a
 	inc de
+;.skip_pp
 	dec b
 	jr nz, .copy_pp
 	
@@ -352,7 +367,7 @@ ReadTrainerPartyPieces:
 	inc hl
 	jp .skip
 	
-.extra_skip1 ; skips 1 bit for nickname info
+.extra_skip1 ; skips 11 bits for nickname info
 rept 11
 	inc hl
 endr
@@ -375,6 +390,24 @@ endr
 	inc hl
 	jp .skip_after_check4
 	
+; .skip_no_move
+	; dec b
+	; ld a, b
+	; cp 1
+	; jp z, .skip_no_move1
+	; cp 2
+	; jp z, .skip_no_move2
+	; cp 3
+	; jp z, .skip_no_move3
+
+; .skip_no_move3
+	; inc hl
+; .skip_no_move2
+	; inc hl
+; .skip_no_move1
+	; inc hl	
+	; jp .no_moves
+	
 BadgeLevels:
 	jp .switch_start
 	
@@ -392,13 +425,13 @@ BadgeLevels:
 .case2; 2 badges
 	ld a, b
 	;add a, a
-	add a, 15
+	add a, 10
 	jp .switch_end
 	
 .case3; 3 badges
 	ld a, b
 	add a, a
-	add a, 22
+	add a, 15
 	jp .switch_end
 	
 .case4; 4 badges
@@ -638,7 +671,7 @@ EvolveTrainerMon:
 .evolve_stat
 	pop bc
 	ld a, d ; a = wild level
-	ld [$C005], a
+	;ld [$C005], a
 	cp 15
 	jp c, .donezo
 	pop hl
