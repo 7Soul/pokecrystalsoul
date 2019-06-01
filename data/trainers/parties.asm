@@ -3008,8 +3008,9 @@ CamperGroup:
 	db -1 ; end
 
 	; CAMPER (11)
-	db "TED@", TRAINERTYPE_MOVES
-	db  0, 8, 5, 0, PARAS, $FF, $FF, $FF, ROLLOUT
+	db "TED@", TRAINERTYPE_MOVES | TRAINERTYPE_DVS
+	db  0, 8, 5, 0, UNOWN, $B4, $39, $FF, $FF, $FF, ROLLOUT
+	db  0, 8, 5, 0, PARAS, $B4, $39, $FF, $FF, $FF, ROLLOUT
 	db -1 ; end
 
 	; CAMPER (12)

@@ -574,7 +574,7 @@ EvolveTrainerMon:
 	ret
 .evolve_gloom
 	ld a, d ; a = wild level
-	cp 25
+	cp 35
 	jp c, .donezo
 	pop hl
 	ld a, [$C000]
@@ -626,6 +626,49 @@ EvolveTrainerMon:
 	ld a, SLOWKING
 	ld b, a
 	ret
+.evolve_weepinbell
+	ld a, d ; a = wild level
+	cp 35
+	jp c, .donezo
+	ld a, VICTREEBEL
+	ld b, a
+	ret
+.evolve_exeggcute
+	ld a, d ; a = wild level
+	cp 38
+	jp c, .donezo
+	ld a, EXEGGUTOR
+	ld b, a
+	ret
+.evolve_growlithe
+	ld a, d ; a = wild level
+	cp 39
+	jp c, .donezo
+	ld a, ARCANINE
+	ld b, a
+	ret
+.evolve_nidorina
+	ld a, d ; a = wild level
+	cp 33
+	jp c, .donezo
+	ld a, NIDOQUEEN
+	ld b, a
+	ret
+.evolve_nidorino
+	ld a, d ; a = wild level
+	cp 33
+	jp c, .donezo
+	ld a, NIDOKING
+	ld b, a
+	ret
+.evolve_seadra
+	ld a, d ; a = wild level
+	cp 45
+	jp c, .donezo
+	ld a, KINGDRA
+	ld b, a
+	ret
+	
 .hitmonlee
 	ld a, HITMONLEE
 	ld b, a
@@ -649,6 +692,18 @@ EvolveTrainerMon:
 	jp z, .evolve_poliwhirl
 	cp SLOWPOKE
 	jp z, .evolve_slowpoke
+	cp WEEPINBELL
+	jp z, .evolve_weepinbell
+	cp EXEGGCUTE
+	jp z, .evolve_exeggcute
+	cp GROWLITHE
+	jp z, .evolve_growlithe
+	cp NIDORINA
+	jp z, .evolve_nidorina
+	cp NIDORINO
+	jp z, .evolve_nidorino
+	cp SEADRA
+	jp z, .evolve_seadra
 	
 	ld a, d ; a = wild level
 	cp 23
@@ -658,8 +713,28 @@ EvolveTrainerMon:
 	call GetFarByte ; a = evolved species
 	ld b, a
 	jp .donezo
+	
+.evolve_chansey
+	ld a, d ; a = wild level
+	cp 40
+	jp c, .donezo
+	ld a, BLISSEY
+	ld b, a
+	ret
+.evolve_golbat
+	ld a, d ; a = wild level
+	cp 40
+	jp c, .donezo	
+	ld a, CROBAT
+	ld b, a
+	ret
+	
 .evolve_happy
 	pop bc
+	cp CHANSEY
+	jp z, .evolve_chansey
+	cp GOLBAT
+	jp z, .evolve_golbat
 	ld a, d ; a = wild level
 	cp 13
 	jp c, .donezo
@@ -671,8 +746,7 @@ EvolveTrainerMon:
 .evolve_stat
 	pop bc
 	ld a, d ; a = wild level
-	;ld [$C005], a
-	cp 15
+	cp 20
 	jp c, .donezo
 	pop hl
 	ld a, [$C000]

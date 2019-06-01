@@ -5,6 +5,11 @@ GetUnownLetter:
 ;	atk  def  spd  spc
 ;	.ww..xx.  .yy..zz.
 
+; To do it backwards:
+; Pick letter (0-index)
+; Multiply by 10
+; Each 2 bits is the 2 middle bits of the 4 DV bytes
+
 	; atk
 	ld a, [hl]
 	and %01100000
