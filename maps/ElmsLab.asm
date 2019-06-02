@@ -676,8 +676,332 @@ AideScript_GivePotion:
 	scall AideScript_ReceiveTheBalls
 	giveitem POKE_BALL, 5
 	itemnotify
-	closetext
 	setscene SCENE_ELMSLAB_NOTHING
+	jump .GoOptions	
+	end
+	
+.GoOptions:
+	writetext AideText_WhereToGo	
+	waitbutton
+	loadmenu .GoToChoices
+	verticalmenu
+	closewindow
+	ifequal 1, .GoRandom
+	ifequal 2, .GoRandomJohto
+	ifequal 3, .GoRandomKanto
+	ifequal 4, .GoChoose
+	ifequal 0, .GoOptions
+	closetext
+	ret
+	
+.GoToChoices:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 2, 15, TEXTBOX_Y - 1
+	dw .MenuData
+	db 1 ; default option
+	
+.MenuData:
+	db STATICMENU_CURSOR ; flags
+	db 4 ; items
+	db "Random@"
+	db "Random Johto@"
+	db "Random Kanto@"
+	db "Choose...@"
+	
+.GoRandom:
+	writetext AideText_GoRandomConfirm
+	yesorno
+	iffalse .GoOptions
+	jump .RandomizeAny
+	
+.RandomizeAny
+	random 2
+	ifequal 0, .RandomizeJohto
+	ifequal 1, .RandomizeKanto	
+	
+.GoRandomJohto:
+	writetext AideText_GoRandomJohtoConfirm
+	yesorno
+	iffalse .GoOptions
+	jump .RandomizeJohto
+	
+.GoRandomKanto:
+	writetext AideText_GoRandomKantoConfirm
+	yesorno
+	iffalse .GoOptions
+	jump .RandomizeKanto
+	
+.GoChoose:
+	writetext AideText_GoChooseConfirm
+	waitbutton
+	loadmenu .TownChoicesStart
+	verticalmenu
+	closewindow
+	ifequal 1, .ChooseInKanto
+	ifequal 2, .ChooseInJohto
+	ifequal 3, .GoOptions
+	ifequal 0, .GoOptions ; B button
+	writetext AideText_OffYouGo
+	closetext
+	end
+	
+.TownChoicesStart:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 4, 15, TEXTBOX_Y - 1
+	dw .TownChoicesStartList
+	db 1 ; default option
+	
+.TownChoicesStartList:
+	db STATICMENU_CURSOR ; flags
+	db 3 ; items
+	db "Kanto@"
+	db "Johto@"
+	db "Cancel@"
+
+; In kanto...
+.ChooseInKanto:
+	writetext AideText_WhichTown
+	waitbutton
+	loadmenu .MenuTownChoicesKanto1
+	verticalmenu
+	closewindow
+	ifequal 1, .ChoosePallet
+	ifequal 2, .ChooseViridian
+	ifequal 3, .ChoosePewter
+	ifequal 4, .ChooseCerulean
+	ifequal 5, .ChooseVermilion
+	ifequal 6, .ChooseLavender
+	ifequal 7, .NextKanto
+	ifequal 0, .GoChoose ; B button
+	
+.MenuTownChoicesKanto1:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 2, 15, 17
+	dw .TownChoicesKanto1
+	db 1 ; default option
+
+.TownChoicesKanto1:
+	db STATICMENU_CURSOR ; flags
+	db 7 ; items
+	db "Pallet@"
+	db "Viridian@"
+	db "Pewter@"
+	db "Cerulean@"
+	db "Vermilion@"
+	db "Lavender@"
+	db "(next)@"
+	
+.NextKanto
+	loadmenu .MenuTownChoicesKanto2
+	verticalmenu
+	closewindow
+	ifequal 1, .ChooseInKanto ; prev
+	ifequal 2, .ChooseSaffron
+	ifequal 3, .ChooseCeladon
+	ifequal 4, .ChooseFuchsia
+	ifequal 5, .ChooseCinnabar
+	ifequal 6, .GoChoose ; cancel
+	
+.MenuTownChoicesKanto2:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 4, 15, 17
+	dw .TownChoicesKanto2
+	db 1 ; default option
+	
+.TownChoicesKanto2:
+	db STATICMENU_CURSOR ; flags
+	db 6 ; items
+	db "(prev)@"
+	db "Saffron@"
+	db "Celadon@"
+	db "Fuchsia@"
+	db "Cinnabar@"
+	db "Cancel@"
+	
+.RandomizeKanto
+	random 9
+	ifequal 0, .ChooseViridian
+	ifequal 1, .ChoosePewter
+	ifequal 2, .ChooseCerulean
+	ifequal 3, .ChooseVermilion
+	ifequal 4, .ChooseLavender
+	ifequal 5, .ChooseSaffron
+	ifequal 6, .ChooseCeladon
+	ifequal 7, .ChooseFuchsia
+	ifequal 8, .ChooseCinnabar
+	
+.ChoosePallet
+.ChooseViridian
+.ChoosePewter
+.ChooseCerulean
+.ChooseVermilion
+.ChooseLavender
+.ChooseSaffron
+.ChooseCeladon
+.ChooseFuchsia
+.ChooseCinnabar
+	end
+	
+; In johto...
+.ChooseInJohto:
+	writetext AideText_WhichTown
+	waitbutton
+	loadmenu .MenuTownChoicesJohto1
+	verticalmenu
+	closewindow
+	ifequal 1, .ChooseNewBark
+	ifequal 2, .ChooseCherrygrove
+	ifequal 3, .ChooseViolet
+	ifequal 4, .ChooseAzalea
+	ifequal 5, .ChooseGoldenrod
+	ifequal 6, .ChooseEcruteak
+	ifequal 7, .NextJohto
+	ifequal 0, .GoChoose ; B button
+	
+.MenuTownChoicesJohto1:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 2, 15, 17
+	dw .TownChoicesJohto1
+	db 1 ; default option
+
+.TownChoicesJohto1:
+	db STATICMENU_CURSOR ; flags
+	db 7 ; items
+	db "New Bark@"
+	db "Cherrygrove@"
+	db "Violet@"
+	db "Azalea@"
+	db "Goldenrod@"
+	db "Ecruteak@"
+	db "(next)@"
+	
+.NextJohto
+	loadmenu .MenuTownChoicesJohto2
+	verticalmenu
+	closewindow
+	ifequal 1, .ChooseInJohto ; prev
+	ifequal 2, .ChooseOlivine
+	ifequal 3, .ChooseCianwood
+	ifequal 4, .ChooseMahogany
+	ifequal 5, .ChooseBlackthorn
+	ifequal 6, .GoChoose ; cancel
+	
+.MenuTownChoicesJohto2:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 4, 15, 17
+	dw .TownChoicesJohto2
+	db 1 ; default option
+	
+.TownChoicesJohto2:
+	db STATICMENU_CURSOR ; flags
+	db 6 ; items
+	db "(prev)@"
+	db "Olivine@"
+	db "Cianwood@"
+	db "Mahogany@"
+	db "Blackthorn@"
+	db "Cancel@"
+	
+.RandomizeJohto
+	random 9
+	ifequal 0, .ChooseCherrygrove
+	ifequal 1, .ChooseViolet
+	ifequal 2, .ChooseAzalea
+	ifequal 3, .ChooseGoldenrod
+	ifequal 4, .ChooseEcruteak
+	ifequal 5, .ChooseOlivine
+	ifequal 6, .ChooseCianwood
+	ifequal 7, .ChooseMahogany
+	ifequal 8, .ChooseBlackthorn
+
+.ChooseNewBark:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp NEW_BARK_TOWN, 13, 6
+	end
+	
+.ChooseCherrygrove:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp CHERRYGROVE_CITY, 29, 4
+	end
+	
+.ChooseViolet:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp VIOLET_CITY, 31, 26
+	end
+	
+.ChooseAzalea:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp AZALEA_TOWN, 15, 10
+	end
+	
+.ChooseGoldenrod:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp GOLDENROD_CITY, 15, 28
+	end
+	
+.ChooseEcruteak:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp ECRUTEAK_CITY, 23, 28
+	end
+	
+.ChooseOlivine:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp OLIVINE_CITY, 13, 22
+	end
+	
+.ChooseCianwood:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp CIANWOOD_CITY, 23, 44
+	end
+	
+.ChooseMahogany:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp MAHOGANY_TOWN, 15, 14
+	end
+	
+.ChooseBlackthorn:
+	writetext AideText_OffYouGo
+	waitbutton
+	closetext
+	special BattleTowerFade
+	wait 1
+	warp BLACKTHORN_CITY, 21, 30
 	end
 
 AideScript_ReceiveTheBalls:
@@ -1365,7 +1689,43 @@ AideText_GiveYouPotion:
 	line "you to have this"
 	cont "for your errand."
 	done
-
+	
+AideText_WhereToGo:
+	text "Where to start?"
+	done
+	
+AideText_GoRandomConfirm:
+	text "Go to a random"
+	line "town?"
+	cont "(excludes Pallet"
+	cont "and New Bark)"
+	done
+	
+AideText_GoRandomJohtoConfirm:
+	text "Go to a random"
+	line "town in Johto?"
+	cont "(except New Bark)"
+	done
+	
+AideText_GoRandomKantoConfirm:
+	text "Go to a random"
+	line "town in Kanto?"
+	cont "(except Pallet)"
+	done
+	
+AideText_WhichTown:
+	text "Which town?"
+	done
+	
+AideText_GoChooseConfirm:
+	text "Which region?"
+	done
+	
+AideText_OffYouGo:
+	text "Good luck out"
+	line "there!"
+	done
+	
 AideText_AlwaysBusy:
 	text "There are only two"
 	line "of us, so we're"

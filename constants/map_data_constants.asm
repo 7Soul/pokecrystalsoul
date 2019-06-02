@@ -66,37 +66,37 @@ MAP_NONE   EQU 0
 
 ; SpawnPoints indexes (see data/maps/spawn_points.asm)
 const_value = -1
-	const SPAWN_N_A
-	const SPAWN_HOME
-	const SPAWN_DEBUG
+	const SPAWN_N_A				; 0
+	const SPAWN_HOME			; 1
+	const SPAWN_DEBUG			; 2
 ; kanto
-	const SPAWN_PALLET
-	const SPAWN_VIRIDIAN
-	const SPAWN_PEWTER
-	const SPAWN_CERULEAN
-	const SPAWN_ROCK_TUNNEL
-	const SPAWN_VERMILION
-	const SPAWN_LAVENDER
-	const SPAWN_SAFFRON
-	const SPAWN_CELADON
-	const SPAWN_FUCHSIA
-	const SPAWN_CINNABAR
-	const SPAWN_INDIGO
+	const SPAWN_PALLET			; 3 
+	const SPAWN_VIRIDIAN		; 4
+	const SPAWN_PEWTER			; 5
+	const SPAWN_CERULEAN		; 6
+	const SPAWN_ROCK_TUNNEL		; 7
+	const SPAWN_VERMILION		; 8
+	const SPAWN_LAVENDER		; 9
+	const SPAWN_SAFFRON			; a
+	const SPAWN_CELADON			; b
+	const SPAWN_FUCHSIA			; c
+	const SPAWN_CINNABAR		; d
+	const SPAWN_INDIGO			; e
 ; johto
-	const SPAWN_NEW_BARK
-	const SPAWN_CHERRYGROVE
-	const SPAWN_VIOLET
-	const SPAWN_UNION_CAVE
-	const SPAWN_AZALEA
-	const SPAWN_CIANWOOD
-	const SPAWN_GOLDENROD
-	const SPAWN_OLIVINE
-	const SPAWN_ECRUTEAK
-	const SPAWN_MAHOGANY
-	const SPAWN_LAKE_OF_RAGE
-	const SPAWN_BLACKTHORN
-	const SPAWN_MT_SILVER
-	const SPAWN_FAST_SHIP
+	const SPAWN_NEW_BARK 		; f
+	const SPAWN_CHERRYGROVE		; 10
+	const SPAWN_VIOLET			; 11
+	const SPAWN_UNION_CAVE		; 12
+	const SPAWN_AZALEA			; 13
+	const SPAWN_CIANWOOD		; 14
+	const SPAWN_GOLDENROD		; 15
+	const SPAWN_OLIVINE			; 16
+	const SPAWN_ECRUTEAK		; 17
+	const SPAWN_MAHOGANY		; 18
+	const SPAWN_LAKE_OF_RAGE	; 19
+	const SPAWN_BLACKTHORN		; 1a
+	const SPAWN_MT_SILVER		; 1b
+	const SPAWN_FAST_SHIP		; 1c
 NUM_SPAWNS EQU const_value
 
 ; outdoor sprite limits (see engine/overworld/overworld.asm)
