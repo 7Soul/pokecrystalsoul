@@ -7153,7 +7153,7 @@ GiveExperiencePoints:
 	ld a, [wEnemyMonLevel]
 	add $64
 	sub b
-	ld [$C002], a
+	ld [wMonIsShiny], a
 	ld b, a ; 'b' is opp level - party level
 	
 	ld a, b

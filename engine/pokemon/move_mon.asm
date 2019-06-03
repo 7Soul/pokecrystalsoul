@@ -1620,7 +1620,7 @@ CalcMonStatC:
 
  ; double stats if using held item
 	ld a, c	
-	ld [$C001], a
+	ld [wBattleMonStat], a
 	ld hl, SimpleList3
 	
 .load_species
@@ -1647,7 +1647,7 @@ CalcMonStatC:
 	jp .load_species
 
 .found_item
-	ld a, [$C001]
+	ld a, [wBattleMonStat]
 	cp STAT_ATK
 	jr z, .loadAtkItems
 	cp STAT_DEF

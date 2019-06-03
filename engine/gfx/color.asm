@@ -1,27 +1,5 @@
 INCLUDE "engine/gfx/sgb_layouts.asm"
 
-	; ld a, [hl]
-	; swap a
-	; and $f
-	; ld [$C005], a ; atk
-	
-	; ld a, [hl]
-	; and $f
-	; ld [$C006], a ; def
-	
-	; inc hl
-	; ld a, [hl]
-	; swap a
-	; and $f
-	; ld [$C007], a ; speed
-	
-	; ld a, [hl]
-	; and $f
-	; ld [$C008], a ; special
-	
-	; ld l, c
-	; ld h, b
-
 CheckShininess:
 ; Check if a mon is shiny by DVs at bc.
 ; Return carry if shiny.
@@ -33,7 +11,7 @@ CheckShininess:
 	ld a, [hl]
 	swap a
 	and $f
-	ld [$c003], a ; save atk at c003
+	ld [wBattleDvAtk], a ; save atk at c003
 	ld d, a ; atk
 	and %1000
 	jp z, .NotShiny
@@ -41,7 +19,7 @@ CheckShininess:
 ; Defense must be 0, 5, 10 or 15
 	ld a, [hl]
 	and $f
-	ld [$c004], a ; save def at c004
+	ld [wBattleDvDef], a ; save def at c004
 	add d
 	ld d, a
 	
@@ -60,7 +38,7 @@ CheckShininess:
 .MaybeShiny1
 	ld a, [hl]
 	and $f0
-	ld [$c005], a ; save spd at c005
+	ld [wBattleDvSpd], a ; save spd at c005
 	add d
 	ld d, a
 	
@@ -79,7 +57,7 @@ CheckShininess:
 .MaybeShiny2
 	ld a, [hl]
 	and $f
-	ld [$c006], a ; save spcl at c006
+	ld [wBattleDvSpc], a ; save spcl at c006
 	add d
 	ld d, a
 	
@@ -97,7 +75,7 @@ CheckShininess:
 .Shiny:
 	pop de
 	ld a, 1
-	ld [$c002], a ; save shiny bit at c002
+	ld [wMonIsShiny], a ; save shiny bit at c002
 	;ld a, d
 	;cp $1e
 	;jp nc, .NotShiny
@@ -107,10 +85,10 @@ CheckShininess:
 .NotShiny:
 	pop de
 	xor a
-	ld [$c002], a ; save not shiny bit at c002
-	ld [$c003], a
-	ld [$c004], a
-	ld [$c005], a	
+	ld [wMonIsShiny], a ; save not shiny bit at c002
+	ld [wBattleDvAtk], a
+	ld [wBattleDvDef], a
+	ld [wBattleDvSpd], a	
 	and a
 	ret
 
@@ -555,7 +533,7 @@ LoadPalette_White_Col1_Col2_Black:
 	
 FlipBitBasedOnShinyValueAtk:
 	ld b, a
-	ld a, [$c003]
+	ld a, [wBattleDvAtk]
 	and %1000
 	cp 0
 	jp nz, .skip1
@@ -563,7 +541,7 @@ FlipBitBasedOnShinyValueAtk:
 	xor 2
 	ret
 .skip1
-	ld a, [$c003]
+	ld a, [wBattleDvAtk]
 	and %100
 	cp 0
 	jp nz, .skip2
@@ -571,7 +549,7 @@ FlipBitBasedOnShinyValueAtk:
 	xor 3
 	ret
 .skip2
-	ld a, [$c003]
+	ld a, [wBattleDvAtk]
 	and %10
 	cp 0
 	jp nz, .skip3
@@ -579,7 +557,7 @@ FlipBitBasedOnShinyValueAtk:
 	xor 4
 	ret
 .skip3
-	ld a, [$c003]
+	ld a, [wBattleDvAtk]
 	and %1
 	cp 0
 	jp nz, .skip4
@@ -592,7 +570,7 @@ FlipBitBasedOnShinyValueAtk:
 	
 FlipBitBasedOnShinyValueDef:
 	ld b, a
-	ld a, [$c004]
+	ld a, [wBattleDvDef]
 	and %1000
 	cp 0
 	jp nz, .skip1
@@ -600,7 +578,7 @@ FlipBitBasedOnShinyValueDef:
 	xor 2
 	ret
 .skip1
-	ld a, [$c004]
+	ld a, [wBattleDvDef]
 	and %100
 	cp 0
 	jp nz, .skip2
@@ -608,7 +586,7 @@ FlipBitBasedOnShinyValueDef:
 	xor 3
 	ret
 .skip2
-	ld a, [$c004]
+	ld a, [wBattleDvDef]
 	and %10
 	cp 0
 	jp nz, .skip3
@@ -616,7 +594,7 @@ FlipBitBasedOnShinyValueDef:
 	xor 4
 	ret
 .skip3	
-	ld a, [$c004]
+	ld a, [wBattleDvDef]
 	and %1
 	cp 0
 	jp nz, .skip4
@@ -629,7 +607,7 @@ FlipBitBasedOnShinyValueDef:
 	
 FlipBitBasedOnShinyValueSpcl:
 	ld b, a
-	ld a, [$c005]
+	ld a, [wBattleDvSpd]
 	and %1000
 	cp 0
 	jp nz, .skip1
@@ -637,7 +615,7 @@ FlipBitBasedOnShinyValueSpcl:
 	xor 2
 	ret
 .skip1
-	ld a, [$c005]
+	ld a, [wBattleDvSpd]
 	and %100
 	cp 0
 	jp nz, .skip2
@@ -645,7 +623,7 @@ FlipBitBasedOnShinyValueSpcl:
 	xor 3
 	ret
 .skip2
-	ld a, [$c005]
+	ld a, [wBattleDvSpd]
 	and %10
 	cp 0
 	jp nz, .skip3
@@ -653,7 +631,7 @@ FlipBitBasedOnShinyValueSpcl:
 	xor 4
 	ret
 .skip3
-	ld a, [$c005]
+	ld a, [wBattleDvSpd]
 	and %1
 	cp 0
 	jp nz, .skip4
@@ -677,7 +655,7 @@ LoadPalette_White_Col1_Col2_Black2:
 	ld [de], a
 	inc de
 	; add colors
-	ld a, [$c002]
+	ld a, [wMonIsShiny]
 	cp 1
 	jp z, .is_shiny1
 	
@@ -792,7 +770,7 @@ endr
 	
 	; add black	
 .add_black
-	ld a, [$c002]
+	ld a, [wMonIsShiny]
 	cp 1
 	jr z, .is_shiny2
 	

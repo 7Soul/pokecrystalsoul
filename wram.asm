@@ -412,11 +412,11 @@ wEnemyMonNick::  ds MON_NAME_LENGTH ; c616
 wBattleMonNick:: ds MON_NAME_LENGTH ; c621
 
 wBattleMon:: battle_struct wBattleMon ; c62c
-
-	ds 2
+wBattleMonStat:: ; c62d
+wMonIsShiny:: ; c62e
 
 wWildMon:: db ; c64e
-	ds 1
+wEnemyMonEvolve:: db ; c64f
 wEnemyTrainerItem1:: db ; c650
 wEnemyTrainerItem2:: db ; c651
 wEnemyTrainerBaseReward:: db ; c652
@@ -2449,7 +2449,10 @@ wVariableSprites:: ds $100 - SPRITE_VARS ; d82e
 wEnteredMapFromContinue:: db ; d83e
 	ds 2
 wTimeOfDayPal:: db ; d841
-	ds 4
+wBattleDvAtk:: db
+wBattleDvDef:: db
+wBattleDvSpd:: db
+wBattleDvSpc:: db
 wTimeOfDayPalFlags:: db ; d846
 wTimeOfDayPalset:: db
 wCurTimeOfDay:: db ; d848

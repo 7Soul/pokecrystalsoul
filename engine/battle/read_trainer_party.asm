@@ -110,7 +110,7 @@ ReadTrainerPartyPieces:
 	pop hl
 	
 	ld a, [hli] ; get evolve bit
-	ld [$C000], a
+	ld [wEnemyMonEvolve], a
 	
 	ld a, [hli] ; get speciess
 	ld b, a
@@ -419,7 +419,7 @@ EvolveTrainerMon:
 	ld hl, EvosAttacksPointers
 	add hl, bc
 	add hl, bc
-	ld a, [$C000] ; check evolve bit
+	ld a, [wEnemyMonEvolve] ; check evolve bit
 	cp 0
 	jp z, .done
 	ld a, [wCurPartyLevel]
@@ -465,7 +465,7 @@ EvolveTrainerMon:
 	cp 20
 	jp c, .donezo
 	pop hl
-	ld a, [$C000]
+	ld a, [wEnemyMonEvolve]
 	cp 1
 	jp z, .eevee_1
 	cp 2
@@ -502,7 +502,7 @@ EvolveTrainerMon:
 	cp 35
 	jp c, .donezo
 	pop hl
-	ld a, [$C000]
+	ld a, [wEnemyMonEvolve]
 	cp 1
 	jp z, .gloom_1
 	cp 2
@@ -520,7 +520,7 @@ EvolveTrainerMon:
 	cp 29
 	jp c, .donezo
 	pop hl
-	ld a, [$C000]
+	ld a, [wEnemyMonEvolve]
 	cp 1
 	jp z, .poliwhirl_1
 	cp 2
@@ -538,7 +538,7 @@ EvolveTrainerMon:
 	cp 37
 	jp c, .donezo
 	pop hl
-	ld a, [$C000]
+	ld a, [wEnemyMonEvolve]
 	cp 1
 	jp z, .slowpoke_1
 	cp 2
@@ -674,7 +674,7 @@ EvolveTrainerMon:
 	cp 20
 	jp c, .donezo
 	pop hl
-	ld a, [$C000]
+	ld a, [wEnemyMonEvolve]
 	cp 1
 	jp z, .hitmonlee
 	cp 2
