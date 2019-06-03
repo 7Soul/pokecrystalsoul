@@ -93,24 +93,21 @@ ReadTrainerPartyPieces:
 	cp b
 	jp nc, .skip_2more ; skip badge low
 	
-	ld a, [wNumSetBits]
-	ld b, a
 	ld a, [hli]
 	cp b
 	jp c, .skip ;
 	jp z, .skip ; skip badge high
 	
-	; stop if -1
 	ld a, [hli]
-	cp $ff
-	ret z
 	ld d, a ; put level in d
 	; change level
 	ld a, [wNumSetBits] ; a is number of badges
 	ld b, d ; b is level
+	push hl
+	push de
 	call BadgeLevels
-	
-	ld [wCurPartyLevel], a
+	pop de
+	pop hl
 	
 	ld a, [hli] ; get evolve bit
 	ld [$C000], a
@@ -390,98 +387,26 @@ endr
 	inc hl
 	jp .skip_after_check4
 	
-; .skip_no_move
-	; dec b
-	; ld a, b
-	; cp 1
-	; jp z, .skip_no_move1
-	; cp 2
-	; jp z, .skip_no_move2
-	; cp 3
-	; jp z, .skip_no_move3
-
-; .skip_no_move3
-	; inc hl
-; .skip_no_move2
-	; inc hl
-; .skip_no_move1
-	; inc hl	
-	; jp .no_moves
-	
 BadgeLevels:
-	jp .switch_start
-	
-.case0; 0 badges
-	ld a, b
-	add a, 0
-	jp .switch_end	
-	
-.case1; 1 badges
-	ld a, b
-	;add a, a
-	add a, 4
-	jp .switch_end	
-	
-.case2; 2 badges
-	ld a, b
-	;add a, a
-	add a, 10
-	jp .switch_end
-	
-.case3; 3 badges
-	ld a, b
-	add a, a
-	add a, 15
-	jp .switch_end
-	
-.case4; 4 badges
-	ld a, b
-	add a, a
-	add a, 24
-	jp .switch_end
-	
-.case5; 5 badges
-	ld a, b
-	add a, 28
-	jp .switch_end
-	
-.case6; 6 badges
-	ld a, b
-	add a, 30
-	jp .switch_end
-	
-.case7; 7 badges
-	ld a, b
-	add a, 35
-	jp .switch_end
-	
-.case8; 8 badges
-	ld a, b
-	add a, 44
-	jp .switch_end
-	
-.switch_start
-	cp a, 0
-	jp z, .case0
-	cp a, 1
-	jp z, .case1
-	cp a, 2
-	jp z, .case2
-	cp a, 3
-	jp z, .case3
-	cp a, 4
-	jp z, .case4
-	cp a, 5
-	jp z, .case5
-	cp a, 6
-	jp z, .case6
-	cp a, 7
-	jp z, .case7
-	cp a, 8
-	jp z, .case8
-
-.switch_end
+	ld hl, .levels
+	ld e, a
+	ld d, 0
+	add hl, de
+	ld a, [hl]
+	add b
+	ld [wCurPartyLevel], a
 	ret
+	
+.levels:
+	db $0
+	db $4
+	db $a
+	db $f
+	db $18
+	db $1c
+	db $1e
+	db $23
+	db $2c
 	
 EvolveTrainerMon:
 ; check if the defender has any evolutions

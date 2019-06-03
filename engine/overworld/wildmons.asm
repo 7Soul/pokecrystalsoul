@@ -330,10 +330,11 @@ ChooseWildEncounter:
 	ld hl, wBadges
 	ld b, 2
 	call CountSetBits	
-	ld a, [wNumSetBits]
+	ld a, [wNumSetBits]	
 	pop de
 	pop hl
 	ld b, d
+	inc a
 	jp .switch_start
 	
 .case0; 0 badges
@@ -512,41 +513,26 @@ ChooseWildEncounter:
 	jp .switch_end
 	
 .switch_start
-	ld a, [wNumSetBits]
-	cp a, 0
+	dec a
 	jp z, .case0
-	cp a, 1
+	dec a
 	jp z, .case1
-	cp a, 2
+	dec a
 	jp z, .case2
-	cp a, 3
+	dec a
 	jp z, .case3
-	cp a, 4
+	dec a
 	jp z, .case4
-	cp a, 5
+	dec a
 	jp z, .case5
-	cp a, 6
+	dec a
 	jp z, .case6
-	cp a, 7
+	dec a
 	jp z, .case7
-	cp a, 8
+	dec a
 	jp z, .case8
-
+	
 .switch_end
-; multiply Badge number by 2
-	; ld a, [wNumSetBits]
-	; ld [$C003], a
-	; ld c, 2
-	; call SimpleMultiply
-	; add b
-	; ld b, a
-	; ld [$C004], a
-
-; If the Pokemon is encountered by surfing, we need to give the levels some variety.
-	; call CheckOnWater
-	; jr nz, .ok
-; Store the level
-.ok
 	ld a, b
 	ld [wCurPartyLevel], a
 	ld b, [hl]
