@@ -31,6 +31,8 @@ ShowPlayerMonsRemaining:
 
 ShowOTTrainerMonsRemaining:
 	call DrawEnemyHUDBorder
+	hlcoord 10, 1 ;
+	ld [hl], $7f ; replace shiny tile from previous pokemon
 	ld hl, wOTPartyMon1HP
 	ld de, wOTPartyCount
 	call StageBallTilesData

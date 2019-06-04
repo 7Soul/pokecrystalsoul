@@ -1033,7 +1033,7 @@ MachopEvosAttacks:
 MachokeEvosAttacks:
 	db EVOLVE_LEVEL, 42, MACHAMP
 	db 0 ; no more evolutions
-	db 7, FOCUS_ENERGY	
+	db 7, FOCUS_ENERGY
 	db 15, SEISMIC_TOSS
 	db 21, FORESIGHT
 	db 26, VITAL_THROW
@@ -1983,8 +1983,15 @@ MagikarpEvosAttacks:
 	db EVOLVE_LEVEL, 20, GYARADOS
 	db 0 ; no more evolutions
 	db 1, BUBBLE
-	db 15, TACKLE
-	db 30, REVERSAL
+	db 4, TACKLE
+	db 9, WHIRLPOOL
+	db 18, HARMONY
+	db 21, SWIFT
+	db 26, MIRROR_MOVE
+	db 31, PSYCH_UP
+	db 40, REVERSAL
+	db 46, CLOSE_COMBAT
+	db 51, SKY_ATTACK
 	db 0 ; no more level-up moves
 
 GyaradosEvosAttacks:
