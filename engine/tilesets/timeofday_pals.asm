@@ -143,7 +143,7 @@ BattleTowerFade:
 	jr nz, .asm_8c09c
 	ret
 
-FadeInQuickly:
+FadeInQuickly: ; from black to palette
 	ld c, $0
 	call GetTimePalFade
 	ld b, $4
@@ -303,7 +303,7 @@ ConvertTimePalsDecHL:
 	dec b
 	jr nz, .loop
 	ret
-
+	
 GetTimePalFade:
 ; check cgb
 	ldh a, [hCGB]

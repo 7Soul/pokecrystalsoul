@@ -3,10 +3,10 @@ BattleIntroSlidingPics:
 	push af
 	ld a, BANK(wLYOverrides)
 	ldh [rSVBK], a
-	call .subfunction1
+	;call .subfunction1
 	ld a, LOW(rSCX)
 	ldh [hLCDCPointer], a
-	call .subfunction2
+	;call .subfunction2
 	xor a
 	ldh [hLCDCPointer], a
 	pop af
@@ -26,7 +26,7 @@ BattleIntroSlidingPics:
 .subfunction2
 	ld d, $90
 	ld e, $72
-	ld a, $24 ; Faster slide, was 48
+	ld a, $48
 	inc a
 .loop1
 	push af
@@ -39,10 +39,6 @@ BattleIntroSlidingPics:
 	call .subfunction5
 	inc e
 	inc e
-	inc e
-	inc e ; also doubled these
-	dec d
-	dec d
 	dec d
 	dec d
 	pop af
@@ -66,8 +62,6 @@ BattleIntroSlidingPics:
 	ld de, SPRITEOAMSTRUCT_LENGTH
 .loop3 ; Player's head
 	dec [hl] ; doubled these too
-	dec [hl]
-	dec [hl]
 	dec [hl]
 	add hl, de
 	dec c

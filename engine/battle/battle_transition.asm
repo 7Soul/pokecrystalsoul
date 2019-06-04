@@ -24,13 +24,16 @@ DoBattleTransition:
 
 .loop
 	ld a, [wJumptableIndex]
-	bit 7, a ; BATTLETRANSITION_END?
+	bit 5, a ; BATTLETRANSITION_END?
 	jr nz, .done
 	call BattleTransitionJumptable
 	call DelayFrame
 	jr .loop
 
 .done
+	call DelayFrame
+	call FadeOutPalettes
+	call DelayFrame
 	ldh a, [rSVBK]
 	push af
 	ld a, BANK(wBGPals1)
@@ -38,7 +41,7 @@ DoBattleTransition:
 
 	ld hl, wBGPals1
 	ld bc, 8 palettes
-	xor a
+	ld a, $ff
 	call ByteFill
 
 	pop af

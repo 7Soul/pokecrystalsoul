@@ -398,15 +398,15 @@ BadgeLevels:
 	ret
 	
 .levels:
-	db $0
-	db $4
-	db $a
-	db $f
-	db $18
-	db $1c
-	db $1e
-	db $23
-	db $2c
+	db $0  ; 0
+	db $4  ; 4
+	db $a  ; 10
+	db $f  ; 15
+	db $18 ; 24
+	db $1c ; 28
+	db $1e ; 30
+	db $21 ; 33
+	db $24 ; 36
 	
 EvolveTrainerMon:
 ; check if the defender has any evolutions

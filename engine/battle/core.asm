@@ -9036,10 +9036,10 @@ InitBattleDisplay:
 	ld a, $90
 	ldh [hWY], a
 	ldh [rWY], a
-	call WaitBGMap
+	call WaitBGMap	
 	xor a
-	ldh [hBGMapMode], a
-	farcall BattleIntroSlidingPics
+	ldh [hBGMapMode], a	
+	;farcall BattleIntroSlidingPics
 	ld a, $1
 	ldh [hBGMapMode], a
 	ld a, $31
@@ -9055,6 +9055,7 @@ InitBattleDisplay:
 	ld b, SCGB_BATTLE_COLORS
 	call GetSGBLayout
 	call SetPalettes
+	farcall FadeInPalettes
 	ld a, $90
 	ldh [hWY], a
 	xor a
