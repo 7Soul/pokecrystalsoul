@@ -12,7 +12,7 @@ Route46_MapScripts:
 	db 0 ; callbacks
 
 TrainerCamperTed:
-	trainer CAMPER, TED, EVENT_BEAT_CAMPER_TED, CamperTedSeenText, CamperTedBeatenText, 0, .Script
+	trainer VIDEOGAMEBOY, ARIN, EVENT_BEAT_CAMPER_TED, CamperTedSeenText, CamperTedBeatenText, 0, .Script
 
 .Script:
 	endifjustbattled
@@ -186,15 +186,16 @@ HikerBaileyAfterBattleText:
 	done
 
 CamperTedSeenText:
-	text "I'm raising #-"
-	line "MON too!"
+	text "You're gonna need"
+	line "ketchup for these"
 
-	para "Will you battle"
-	line "with me?"
+	para "hashbrowns I'm"
+	line "serving."
 	done
 
 CamperTedBeatenText:
-	text "Wha…?"
+	text "But… I'm the"
+	line "video-game boy…"
 	done
 
 CamperTedAfterBattleText:

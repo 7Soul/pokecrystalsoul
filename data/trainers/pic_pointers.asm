@@ -68,4 +68,5 @@ TrainerPicPointers::
 	dba_pic BluePic
 	dba_pic OfficerPic
 	dba_pic GruntfPic
+	dba_pic ArinPic
 	dba_pic MysticalmanPic

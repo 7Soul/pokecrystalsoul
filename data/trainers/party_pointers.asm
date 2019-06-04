@@ -68,4 +68,5 @@ TrainerGroups:
 	dw BlueGroup
 	dw OfficerGroup
 	dw GruntFGroup
+	dw VideoGameBoyGroup
 	dw MysticalmanGroup

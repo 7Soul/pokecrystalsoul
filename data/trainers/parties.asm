@@ -15,7 +15,7 @@ Trainers:
 ; - db -1 ; end
 
 FalknerGroup:
-	;  (1)
+	; FALKNER (1)
 	db "Falkner@", TRAINERTYPE_DVS
 	db 0, 7, 6, 1, MURKROW, $77, $77
 	db 0, 5, 6, 1, HOOTHOOT, $AF, $9F
@@ -33,7 +33,7 @@ FalknerGroup:
 
 
 BugsyGroup:
-	;  (1)
+	; BUGSY (1)
 	db "Bugsy@", TRAINERTYPE_DVS | TRAINERTYPE_ITEM
 	db 0, 4, 8, 0, PINSIR, $77, $77, 0, NO_ITEM
 	db 0, 2, 6, 0, EEVEE, $77, $77, 0, NO_ITEM
@@ -50,7 +50,7 @@ BugsyGroup:
 	db -1 ; end
 
 WhitneyGroup:
-	;  (1)
+	; WHITNEY (1)
 	db "Whitney@", TRAINERTYPE_DVS | TRAINERTYPE_ITEM
 	db 0, 3, 6, 0, DITTO, $E7,$F2, 0, NO_ITEM
 	db 0, 1, 6, 0, MAGBY, $77, $77, 0, NO_ITEM
@@ -67,7 +67,7 @@ WhitneyGroup:
 	db -1 ; end
 
 MortyGroup:
-	;  (1)
+	; MORTY (1)
 	db "Morty@", TRAINERTYPE_DVS
 	db 0, 4, 6, 0, MISDREAVUS, $8F,$5F
 	db 1, 2, 6, 0, UNOWN, $7F,$22
@@ -83,7 +83,7 @@ MortyGroup:
 	db -1 ; end
 
 PryceGroup:
-	;  (1)
+	; PRYCE (1)
 	db "Pryce@", TRAINERTYPE_DVS | TRAINERTYPE_ITEM | TRAINERTYPE_MOVES
 	db 0, 4, 9, 0, SWINUB, $A5,$F0, 0, NO_ITEM, $FF, $FF, $FF, POWDER_SNOW
 	db 0, 4, 6, 0, SEEL, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, ICY_WIND
@@ -100,7 +100,7 @@ PryceGroup:
 	db -1 ; end
 
 JasmineGroup:
-	;  (1)
+	; JASMINE (1)
 	db "Jasmine@", TRAINERTYPE_DVS | TRAINERTYPE_MOVES
 	db 0, 6, 6, 1, CUBONE, $77, $77, $FF, $FF, $FF, MAKESHIFT
 	db 0, 1, 6, 1, SHELLDER, $77, $77, $FF, $FF, $FF, LICK
@@ -117,7 +117,7 @@ JasmineGroup:
 	db -1 ; end
 
 ChuckGroup:
-	;  (1)
+	; CHUCK (1)
 	db "Chuck@", TRAINERTYPE_MOVES | TRAINERTYPE_DVS | TRAINERTYPE_ITEM
 	db 0, 17, 10, 0, MANKEY, $77, $77, 7, GOLD_BERRY, $FF, $FF, $FF, $FF
 	db 0, 3, 6, 1, POLIWAG, $D5, $AA, 2, BERRY, $FF, BUBBLE, HYPNOSIS, WAKEUP_SLAP
@@ -131,201 +131,201 @@ ChuckGroup:
 	db -1 ; end
 
 ClairGroup:
-	;  (1)
+	; CLAIR (1)
 	db "Clair@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 Rival1Group:
-	;  (1)
+	; RIVAL1 (1)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; RIVAL1 (2)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; RIVAL1 (3)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; RIVAL1 (4)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; RIVAL1 (5)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; RIVAL1 (6)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; RIVAL1 (7)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; RIVAL1 (8)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; RIVAL1 (9)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; RIVAL1 (10)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; RIVAL1 (11)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; RIVAL1 (12)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; RIVAL1 (13)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; RIVAL1 (14)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; RIVAL1 (15)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; RIVAL1 (16)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; RIVAL1 (17)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; RIVAL1 (18)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 PokemonProfGroup:
 WillGroup:
-	;  (1)
+	; WILL (1)
 	db "Will@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 PKMNTrainerGroup:
-	;  (1)
+	; PKMNTRAINER (1)
 	db "Cal@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; PKMNTRAINER (2)
 	db "Cal@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; PKMNTRAINER (3)
 	db "Cal@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BrunoGroup:
-	;  (1)
+	; BRUNO (1)
 	db "Bruno@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 KarenGroup:
-	;  (1)
+	; KAREN (1)
 	db "Karen@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 KogaGroup:
-	;  (1)
+	; KOGA (1)
 	db "Koga@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 ChampionGroup:
-	;  (1)
+	; CHAMPION (1)
 	db "Lance@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BrockGroup:
-	;  (1)
+	; BROCK (1)
 	db "Brock@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 MistyGroup:
-	;  (1)
+	; MISTY (1)
 	db "Misty@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 LtSurgeGroup:
-	;  (1)
+	; LTSURGE (1)
 	db "Lt.Surge@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 ScientistGroup:
-	;  (1)
+	; SCIENTIST (1)
 	db "Ross@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; SCIENTIST (2)
 	db "Mitch@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; SCIENTIST (3)
 	db "Jed@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; SCIENTIST (4)
 	db "Marc@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; SCIENTIST (5)
 	db "Rich@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 ErikaGroup:
-	;  (1)
+	; ERIKA (1)
 	db "Erika@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 YoungsterGroup:
-	;  (1)
+	; YOUNGSTER (1)
 	db "Joey@", TRAINERTYPE_ITEM | TRAINERTYPE_DVS
 	db 0, 4, 4, 0, RATTATA, $FF,$FF, 1, CUTE_RIBBON
 	db 4, 6, 8, 0, RATTATA, $FF,$FF, 1, CUTE_RIBBON
@@ -333,262 +333,262 @@ YoungsterGroup:
 	db 8, 17, 26, 0, RATTATA, $FF,$FF, 1, CUTE_RIBBON
 	db -1 ; end
 
-	;  (2)
+	; YOUNGSTER (2)
 	db "Mikey@", TRAINERTYPE_ITEM
 	db 0, 6, 5, 0, CHARMANDER, 1, CINDERS
 	db 2, 17, 0, 1, PIKACHU, 0, NO_ITEM
 	db -1 ; end
 
-	;  (3)
+	; YOUNGSTER (3)
 	db "Albert@", TRAINERTYPE_NORMAL
 	db 0, 17, 4, 1, RATTATA
 	db 0, 4, 5, 1, ZUBAT
 	db 4, 17, 8, 1, AIPOM
 	db -1 ; end
 
-	;  (4)
+	; YOUNGSTER (4)
 	db "Gordon@", TRAINERTYPE_NORMAL
 	db 0, 6, 6, 0, DODUO
 	db 4, 17, 4, 1, ELEKID
 	db 6, 17, 7, 1, DODUO
 	db -1 ; end
 
-	;  (5)
+	; YOUNGSTER (5)
 	db "Samuel@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; YOUNGSTER (6)
 	db "Ian@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; YOUNGSTER (7)
 	db "Joey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; YOUNGSTER (8)
 	db "Joey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; YOUNGSTER (9)
 	db "Warren@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; YOUNGSTER (10)
 	db "Jimmy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; YOUNGSTER (11)
 	db "Owen@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; YOUNGSTER (12)
 	db "Jason@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; YOUNGSTER (13)
 	db "Joey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; YOUNGSTER (14)
 	db "Joey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 SchoolboyGroup:
-	;  (1)
+	; SCHOOLBOY (1)
 	db "Jack@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; SCHOOLBOY (2)
 	db "Kipp@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; SCHOOLBOY (3)
 	db "Alan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; SCHOOLBOY (4)
 	db "Johnny@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; SCHOOLBOY (5)
 	db "Danny@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; SCHOOLBOY (6)
 	db "Tommy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; SCHOOLBOY (7)
 	db "Dudley@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; SCHOOLBOY (8)
 	db "Joe@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; SCHOOLBOY (9)
 	db "Billy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; SCHOOLBOY (10)
 	db "Chad@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; SCHOOLBOY (11)
 	db "Nate@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; SCHOOLBOY (12)
 	db "Ricky@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; SCHOOLBOY (13)
 	db "Jack@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; SCHOOLBOY (14)
 	db "Jack@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; SCHOOLBOY (15)
 	db "Alan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; SCHOOLBOY (16)
 	db "Alan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; SCHOOLBOY (17)
 	db "Chad@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; SCHOOLBOY (18)
 	db "Jack@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; SCHOOLBOY (19)
 	db "Jack@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (20)
+	; SCHOOLBOY (20)
 	db "Alan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (21)
+	; SCHOOLBOY (21)
 	db "Alan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (22)
+	; SCHOOLBOY (22)
 	db "Alan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (23)
+	; SCHOOLBOY (23)
 	db "Chad@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (24)
+	; SCHOOLBOY (24)
 	db "Chad@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BirdKeeperGroup:
-	;  (1)
+	; BIRD_KEEPER (1)
 	db "Rod@", TRAINERTYPE_ITEM
 	db 0, 17, 9, 1, SPEAROW, 0, PSNCUREBERRY
 	db 0, 17, 9, 1, PIDGEY, 0, PSNCUREBERRY
 	db -1 ; end
 
-	;  (2)
+	; BIRD_KEEPER (2)
 	db "Abe@", TRAINERTYPE_ITEM
 	db 0, 17, 9, 0, FARFETCH_D, 0, NO_ITEM
 	db 0, 6, 10, 0, DELIBIRD, 0, BERRY
 	db 6, 17, 12, 0, DELIBIRD, 0, GOLD_BERRY
 	db -1 ; end
 
-	;  (3)
+	; BIRD_KEEPER (3)
 	db "Bryan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; BIRD_KEEPER (4)
 	db "Theo@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; BIRD_KEEPER (5)
 	db "Toby@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; BIRD_KEEPER (6)
 	db "Denis@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; BIRD_KEEPER (7)
 	db "Vance@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; BIRD_KEEPER (8)
 	db "Hank@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; BIRD_KEEPER (9)
 	db "Roy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; BIRD_KEEPER (10)
 	db "Boris@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; BIRD_KEEPER (11)
 	db "Bob@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; BIRD_KEEPER (12)
 	db "Jose@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; BIRD_KEEPER (13)
 	db "Peter@", TRAINERTYPE_NORMAL
 	db 0, 6, 5, 1, PIDGEY
 	db 6, 17, 10, 1, PIDGEOTTO
@@ -596,233 +596,233 @@ BirdKeeperGroup:
 	db 1, 17, 8, 1, NATU
 	db -1 ; end
 
-	;  (14)
+	; BIRD_KEEPER (14)
 	db "Jose@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; BIRD_KEEPER (15)
 	db "Perry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; BIRD_KEEPER (16)
 	db "Bret@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; BIRD_KEEPER (17)
 	db "Jose@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; BIRD_KEEPER (18)
 	db "Vance@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; BIRD_KEEPER (19)
 	db "Vance@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 LassGroup:
-	;  (1)
+	; LASS (1)
 	db "Carrie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; LASS (2)
 	db "Bridget@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; LASS (3)
 	db "Alice@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; LASS (4)
 	db "Krise@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; LASS (5)
 	db "Connie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; LASS (6)
 	db "Linda@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; LASS (7)
 	db "Laura@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; LASS (8)
 	db "Shannon@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; LASS (9)
 	db "Michelle@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; LASS (10)
 	db "Dana@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; LASS (11)
 	db "Ellen@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; LASS (12)
 	db "Connie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; LASS (13)
 	db "Connie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; LASS (14)
 	db "Dana@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; LASS (15)
 	db "Dana@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; LASS (16)
 	db "Dana@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; LASS (17)
 	db "Dana@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 JanineGroup:
-	;  (1)
+	; JANINE (1)
 	db "Janine@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 CooltrainerMGroup:
-	;  (1)
+	; COOLTRAINERM (1)
 	db "Nick@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, CHARMANDER
 	db 0, 17, 5, 1, BULBASAUR
 	db 0, 17, 5, 1, SQUIRTLE
 	db -1 ; end
 
-	;  (2)
+	; COOLTRAINERM (2)
 	db "Aaron@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; COOLTRAINERM (3)
 	db "Paul@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; COOLTRAINERM (4)
 	db "Cody@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; COOLTRAINERM (5)
 	db "Mike@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; COOLTRAINERM (6)
 	db "Gaven@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; COOLTRAINERM (7)
 	db "Gaven@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; COOLTRAINERM (8)
 	db "Ryan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; COOLTRAINERM (9)
 	db "Jake@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; COOLTRAINERM (10)
 	db "Gaven@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; COOLTRAINERM (11)
 	db "Blake@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; COOLTRAINERM (12)
 	db "Brian@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; COOLTRAINERM (13)
 	db "Erick@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; COOLTRAINERM (14)
 	db "Andy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; COOLTRAINERM (15)
 	db "Tyler@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; COOLTRAINERM (16)
 	db "Sean@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; COOLTRAINERM (17)
 	db "Kevin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; COOLTRAINERM (18)
 	db "Steve@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; COOLTRAINERM (19)
 	db "Allen@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (20)
+	; COOLTRAINERM (20)
 	db "Darin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 CooltrainerFGroup:
-	;  (1)
+	; COOLTRAINERF (1)
 	db "Gwen@", TRAINERTYPE_ITEM | TRAINERTYPE_DVS
 	db 0, 6, 9, 0, EEVEE, $77, $77, 4, CUTE_RIBBON
 	db 6, 17, 11, 0, EEVEE, $FD,$FD, 4, CUTE_RIBBON
@@ -831,495 +831,495 @@ CooltrainerFGroup:
 	db 1, 17, 4, 0, VAPOREON, $77, $77, 0, NO_ITEM
 	db -1 ; end
 
-	;  (2)
+	; COOLTRAINERF (2)
 	db "Lois@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; COOLTRAINERF (3)
 	db "Fran@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; COOLTRAINERF (4)
 	db "Lola@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; COOLTRAINERF (5)
 	db "Kate@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; COOLTRAINERF (6)
 	db "Irene@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; COOLTRAINERF (7)
 	db "Kelly@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; COOLTRAINERF (8)
 	db "Joyce@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; COOLTRAINERF (9)
 	db "Beth@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; COOLTRAINERF (10)
 	db "Reena@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; COOLTRAINERF (11)
 	db "Megan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; COOLTRAINERF (12)
 	db "Beth@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; COOLTRAINERF (13)
 	db "Carol@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; COOLTRAINERF (14)
 	db "Quinn@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; COOLTRAINERF (15)
 	db "Emma@", TRAINERTYPE_ITEM
 	db 0, 17, 6, 2, POLIWAG, 4, GOLD_BERRY
 	db 0, 5, 4, 1, POLIWAG, 4, GOLD_BERRY
 	db 5, 17, 6, 0, POLIWHIRL, 4, GOLD_BERRY
 	db -1 ; end
 
-	;  (16)
+	; COOLTRAINERF (16)
 	db "Cybil@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; COOLTRAINERF (17)
 	db "Jenn@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; COOLTRAINERF (18)
 	db "Beth@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; COOLTRAINERF (19)
 	db "Reena@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (20)
+	; COOLTRAINERF (20)
 	db "Reena@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (21)
+	; COOLTRAINERF (21)
 	db "Cara@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BeautyGroup:
-	;  (1)
+	; BEAUTY (1)
 	db "Victoria@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; BEAUTY (2)
 	db "Samantha@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; BEAUTY (3)
 	db "Julie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; BEAUTY (4)
 	db "Jaclyn@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; BEAUTY (5)
 	db "Brenda@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; BEAUTY (6)
 	db "Cassie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; BEAUTY (7)
 	db "Caroline@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; BEAUTY (8)
 	db "Carlene@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; BEAUTY (9)
 	db "Jessica@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; BEAUTY (10)
 	db "Rachael@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; BEAUTY (11)
 	db "Angelica@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; BEAUTY (12)
 	db "Kendra@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; BEAUTY (13)
 	db "Veronica@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; BEAUTY (14)
 	db "Julia@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; BEAUTY (15)
 	db "Theresa@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; BEAUTY (16)
 	db "Valerie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; BEAUTY (17)
 	db "Olivia@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 PokemaniacGroup:
-	;  (1)
+	; POKEMANIAC (1)
 	db "Larry@", TRAINERTYPE_NORMAL
 	db 2, 17, 4, 1, CHIKORITA
 	db 0, 17, 6, 2, SLOWPOKE
 	db 6, 17, 8, 2, LARVITAR
 	db -1 ; end
 
-	;  (2)
+	; POKEMANIAC (2)
 	db "Andrew@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, CUBONE
 	db 0, 17, 5, 1, CHARMANDER
 	db -1 ; end
 
-	;  (3)
+	; POKEMANIAC (3)
 	db "Calvin@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 0, GLIGAR
 	db 2, 17, 3, 0, KANGASKHAN
 	db -1 ; end
 
-	;  (4)
+	; POKEMANIAC (4)
 	db "Shane@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; POKEMANIAC (5)
 	db "Ben@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; POKEMANIAC (6)
 	db "Brent@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; POKEMANIAC (7)
 	db "Ron@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; POKEMANIAC (8)
 	db "Ethan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; POKEMANIAC (9)
 	db "Brent@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; POKEMANIAC (10)
 	db "Brent@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; POKEMANIAC (11)
 	db "Issac@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; POKEMANIAC (12)
 	db "Donald@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; POKEMANIAC (13)
 	db "Zach@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; POKEMANIAC (14)
 	db "Brent@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; POKEMANIAC (15)
 	db "Miller@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 GruntMGroup:
-	;  (1)
+	; GRUNTM (1)
 	db "Grunt Dund@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, KOFFING
 	db 0, 17, 5, 1, HOUNDOUR
 	db -1 ; end
 
-	;  (2)
+	; GRUNTM (2)
 	db "Grunt Cain@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, RATTATA
 	db 0, 17, 5, 1, ZUBAT
 	db 0, 17, 5, 1, ZUBAT
 	db -1 ; end
 
-	;  (3)
+	; GRUNTM (3)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; GRUNTM (4)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; GRUNTM (5)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; GRUNTM (6)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; GRUNTM (7)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; GRUNTM (8)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; GRUNTM (9)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; GRUNTM (10)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; GRUNTM (11)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; GRUNTM (12)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; GRUNTM (13)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; GRUNTM (14)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; GRUNTM (15)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; GRUNTM (16)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; GRUNTM (17)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; GRUNTM (18)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; GRUNTM (19)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (20)
+	; GRUNTM (20)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (21)
+	; GRUNTM (21)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (22)
+	; GRUNTM (22)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (23)
+	; GRUNTM (23)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (24)
+	; GRUNTM (24)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (25)
+	; GRUNTM (25)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (26)
+	; GRUNTM (26)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (27)
+	; GRUNTM (27)
 	db "Executive@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (28)
+	; GRUNTM (28)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (29)
+	; GRUNTM (29)
 	db "Grunt Junior@", TRAINERTYPE_NORMAL
 	db 0, 17, 0, 1, RATTATA
 	db 0, 17, 0, 1, GRIMER
 	db -1 ; end
 
-	;  (30)
+	; GRUNTM (30)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (31)
+	; GRUNTM (31)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 GentlemanGroup:
-	;  (1)
+	; GENTLEMAN (1)
 	db "Preston@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; GENTLEMAN (2)
 	db "Edward@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; GENTLEMAN (3)
 	db "Gregory@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; GENTLEMAN (4)
 	db "Virgil@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; GENTLEMAN (5)
 	db "Alfred@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 SkierGroup:
-	;  (1)
+	; SKIER (1)
 	db "Roxanne@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; SKIER (2)
 	db "Clarissa@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 TeacherGroup:
-	;  (1)
+	; TEACHER (1)
 	db "Colette@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; TEACHER (2)
 	db "Hillary@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; TEACHER (3)
 	db "Shirley@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 SabrinaGroup:
-	;  (1)
+	; SABRINA (1)
 	db "Sabrina@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BugCatcherGroup:
-	;  (1)
+	; BUG_CATCHER (1)
 	db "Don@", TRAINERTYPE_NORMAL
 	db 0, 17, 4, 1, CATERPIE
 	db 0, 5, 4, 1, METAPOD
@@ -1327,17 +1327,17 @@ BugCatcherGroup:
 	db 5, 17, 12, 0, BUTTERFREE
 	db -1 ; end
 
-	;  (2)
+	; BUG_CATCHER (2)
 	db "Rob@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; BUG_CATCHER (3)
 	db "Ed@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; BUG_CATCHER (4)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 4, 4, 1, SPINARAK
 	db 0, 4, 4, 1, SPINARAK
@@ -1345,212 +1345,212 @@ BugCatcherGroup:
 	db 4, 17, 11, 1, SPINARAK
 	db -1 ; end
 
-	;  (5)
+	; BUG_CATCHER (5)
 	db "Benny@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; BUG_CATCHER (6)
 	db "Al@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; BUG_CATCHER (7)
 	db "Josh@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; BUG_CATCHER (8)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; BUG_CATCHER (9)
 	db "Ken@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; BUG_CATCHER (10)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; BUG_CATCHER (11)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; BUG_CATCHER (12)
 	db "Doug@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; BUG_CATCHER (13)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; BUG_CATCHER (14)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; BUG_CATCHER (15)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; BUG_CATCHER (16)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; BUG_CATCHER (17)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; BUG_CATCHER (18)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; BUG_CATCHER (19)
 	db "Wayne@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 FisherGroup:
-	;  (1)
+	; FISHER (1)
 	db "Justin@", TRAINERTYPE_DVS
 	db 0, 17, 5, 1, GOLDEEN, $77, $77
 	db 1, 17, 8, 1, SLOWPOKE, $77, $77
 	db 2, 17, 10, 0, GOLDEEN, $FA,$AA
 	db -1 ; end
 
-	;  (2)
+	; FISHER (2)
 	db "Ralph@", TRAINERTYPE_NORMAL
 	db 0, 17, 6, 1, MAGIKARP
 	db 1, 17, 10, 0, DITTO
 	db -1 ; end
 
-	;  (3)
+	; FISHER (3)
 	db "Arnold@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, WOOPER
 	db 1, 17, 10, 1, KRABBY
 	db -1 ; end
 
-	;  (4)
+	; FISHER (4)
 	db "Kyle@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; FISHER (5)
 	db "Henry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; FISHER (6)
 	db "Marvin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; FISHER (7)
 	db "Tully@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; FISHER (8)
 	db "Andre@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; FISHER (9)
 	db "Raymond@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; FISHER (10)
 	db "Wilton@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; FISHER (11)
 	db "Edgar@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; FISHER (12)
 	db "Jonah@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; FISHER (13)
 	db "Martin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; FISHER (14)
 	db "Stephen@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; FISHER (15)
 	db "Barney@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; FISHER (16)
 	db "Ralph@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; FISHER (17)
 	db "Ralph@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; FISHER (18)
 	db "Tully@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; FISHER (19)
 	db "Tully@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (20)
+	; FISHER (20)
 	db "Wilton@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (21)
+	; FISHER (21)
 	db "Scott@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (22)
+	; FISHER (22)
 	db "Wilton@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (23)
+	; FISHER (23)
 	db "Ralph@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (24)
+	; FISHER (24)
 	db "Ralph@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (25)
+	; FISHER (25)
 	db "Tully@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (26)
+	; FISHER (26)
 	db "Terry@", TRAINERTYPE_NORMAL
 	db 0, 5, 9, 0, DRATINI
 	db 3, 17, 11, 0, DRATINI
@@ -1558,393 +1558,393 @@ FisherGroup:
 	db -1 ; end
 
 SwimmerMGroup:
-	;  (1)
+	; SWIMMERM (1)
 	db "Harold@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; SWIMMERM (2)
 	db "Simon@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; SWIMMERM (3)
 	db "Randall@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; SWIMMERM (4)
 	db "Charlie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; SWIMMERM (5)
 	db "George@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; SWIMMERM (6)
 	db "Berke@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; SWIMMERM (7)
 	db "Kirk@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; SWIMMERM (8)
 	db "Mathew@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; SWIMMERM (9)
 	db "Hal@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; SWIMMERM (10)
 	db "Paton@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; SWIMMERM (11)
 	db "Daryl@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; SWIMMERM (12)
 	db "Walter@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; SWIMMERM (13)
 	db "Tony@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; SWIMMERM (14)
 	db "Jerome@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; SWIMMERM (15)
 	db "Tucker@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; SWIMMERM (16)
 	db "Rick@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; SWIMMERM (17)
 	db "Cameron@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; SWIMMERM (18)
 	db "Seth@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; SWIMMERM (19)
 	db "James@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (20)
+	; SWIMMERM (20)
 	db "Lewis@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (21)
+	; SWIMMERM (21)
 	db "Parker@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 SwimmerFGroup:
-	;  (1)
+	; SWIMMERF (1)
 	db "Elaine@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; SWIMMERF (2)
 	db "Paula@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; SWIMMERF (3)
 	db "Kaylee@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; SWIMMERF (4)
 	db "Susie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; SWIMMERF (5)
 	db "Denise@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; SWIMMERF (6)
 	db "Kara@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; SWIMMERF (7)
 	db "Wendy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; SWIMMERF (8)
 	db "Lisa@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; SWIMMERF (9)
 	db "Jill@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; SWIMMERF (10)
 	db "Mary@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; SWIMMERF (11)
 	db "Katie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; SWIMMERF (12)
 	db "Dawn@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; SWIMMERF (13)
 	db "Tara@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; SWIMMERF (14)
 	db "Nicole@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; SWIMMERF (15)
 	db "Lori@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; SWIMMERF (16)
 	db "Jody@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; SWIMMERF (17)
 	db "Nikki@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; SWIMMERF (18)
 	db "Diana@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; SWIMMERF (19)
 	db "Briana@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 SailorGroup:
-	;  (1)
+	; SAILOR (1)
 	db "Eugene@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; SAILOR (2)
 	db "Huey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; SAILOR (3)
 	db "Terrell@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; SAILOR (4)
 	db "Kent@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; SAILOR (5)
 	db "Ernest@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; SAILOR (6)
 	db "Jeff@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; SAILOR (7)
 	db "Garrett@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; SAILOR (8)
 	db "Kenneth@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; SAILOR (9)
 	db "Stanly@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; SAILOR (10)
 	db "Harry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; SAILOR (11)
 	db "Huey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; SAILOR (12)
 	db "Huey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; SAILOR (13)
 	db "Huey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 SuperNerdGroup:
-	;  (1)
+	; SUPER_NERD (1)
 	db "Stan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; SUPER_NERD (2)
 	db "Eric@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; SUPER_NERD (3)
 	db "Gregg@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; SUPER_NERD (4)
 	db "Jay@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; SUPER_NERD (5)
 	db "Dave@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; SUPER_NERD (6)
 	db "Sam@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; SUPER_NERD (7)
 	db "Tom@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; SUPER_NERD (8)
 	db "Pat@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; SUPER_NERD (9)
 	db "Shawn@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; SUPER_NERD (10)
 	db "Teru@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; SUPER_NERD (11)
 	db "Russ@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; SUPER_NERD (12)
 	db "Norton@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; SUPER_NERD (13)
 	db "Hugh@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; SUPER_NERD (14)
 	db "Markus@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 Rival2Group:
-	;  (1)
+	; RIVAL2 (1)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; RIVAL2 (2)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; RIVAL2 (3)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; RIVAL2 (4)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; RIVAL2 (5)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; RIVAL2 (6)
 	db "?@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 GuitaristGroup:
-	;  (1)
+	; GUITARIST (1)
 	db "Clyde@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; GUITARIST (2)
 	db "Vincent@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 HikerGroup:
-	;  (1)
+	; HIKER (1)
 	db "Anthony@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; HIKER (2)
 	db "Russell@", TRAINERTYPE_NORMAL
 	db 0, 6, 4, 1, GEODUDE
 	db 1, 17, 6, 1, GEODUDE
@@ -1952,383 +1952,383 @@ HikerGroup:
 	db 1, 17, 8, 1, GEODUDE
 	db -1 ; end
 
-	;  (3)
+	; HIKER (3)
 	db "Phillip@", TRAINERTYPE_NORMAL
 	db 0, 17, 6, 1, MAREEP
 	db 0, 17, 9, 1, SENTRET
 	db 4, 17, 9, 0, MURKROW
 	db -1 ; end
 
-	;  (4)
+	; HIKER (4)
 	db "Leonard@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, MACHOP
 	db 1, 17, 9, 1, GEODUDE
 	db -1 ; end
 
-	;  (5)
+	; HIKER (5)
 	db "Anthony@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; HIKER (6)
 	db "Benjamin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; HIKER (7)
 	db "Erik@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; HIKER (8)
 	db "Michael@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; HIKER (9)
 	db "Parry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; HIKER (10)
 	db "Timothy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; HIKER (11)
 	db "Bailey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; HIKER (12)
 	db "Anthony@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; HIKER (13)
 	db "Tim@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; HIKER (14)
 	db "Noland@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; HIKER (15)
 	db "Sidney@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; HIKER (16)
 	db "Kenny@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; HIKER (17)
 	db "Jim@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; HIKER (18)
 	db "Daniel@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 0, ONIX
 	db 6, 17, 10, 0, HITMONLEE
 	db -1 ; end
 
-	;  (19)
+	; HIKER (19)
 	db "Parry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (20)
+	; HIKER (20)
 	db "Parry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (21)
+	; HIKER (21)
 	db "Anthony@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (22)
+	; HIKER (22)
 	db "Anthony@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BikerGroup:
-	;  (1)
+	; BIKER (1)
 	db "Benny@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; BIKER (2)
 	db "Kazu@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; BIKER (3)
 	db "Dwayne@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; BIKER (4)
 	db "Harris@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; BIKER (5)
 	db "Zeke@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; BIKER (6)
 	db "Charles@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; BIKER (7)
 	db "Riley@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; BIKER (8)
 	db "Joel@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; BIKER (9)
 	db "Glenn@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BlaineGroup:
-	;  (1)
+	; BLAINE (1)
 	db "Blaine@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BurglarGroup:
-	;  (1)
+	; BURGLAR (1)
 	db "Duncan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; BURGLAR (2)
 	db "Eddie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; BURGLAR (3)
 	db "Corey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 FirebreatherGroup:
-	;  (1)
+	; FIREBREATHER (1)
 	db "Otis@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; FIREBREATHER (2)
 	db "Dick@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; FIREBREATHER (3)
 	db "Ned@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; FIREBREATHER (4)
 	db "Burt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; FIREBREATHER (5)
 	db "Bill@", TRAINERTYPE_MOVES
 	db 0, 17, 4, 1, KOFFING, $FF, $FF, $FF, WILL_O_WISP
 	db 0, 17, 4, 1, KOFFING, $FF, $FF, $FF, WILL_O_WISP
 	db 5, 17, 0, 1, KOFFING, $FF, $FF, FIRE_FLICK, WILL_O_WISP
 	db -1 ; end
 
-	;  (6)
+	; FIREBREATHER (6)
 	db "Walt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; FIREBREATHER (7)
 	db "Ray@", TRAINERTYPE_MOVES
 	db 0, 17, 6, 1, VULPIX, $FF, $FF, ZEN_HEADBUTT, $FF
 	db 3, 17, 10, 1, VULPIX, $FF, $FF, ZEN_HEADBUTT, $FF
 	db -1 ; end
 
-	;  (8)
+	; FIREBREATHER (8)
 	db "Lyle@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 JugglerGroup:
-	;  (1)
+	; JUGGLER (1)
 	db "Irwin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; JUGGLER (2)
 	db "Fritz@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; JUGGLER (3)
 	db "Horton@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; JUGGLER (4)
 	db "Irwin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; JUGGLER (5)
 	db "Irwin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; JUGGLER (6)
 	db "Irwin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BlackbeltGroup:
-	;  (1)
+	; BLACKBELT_T (1)
 	db "Kenji@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; BLACKBELT_T (2)
 	db "Yoshi@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; BLACKBELT_T (3)
 	db "Kenji@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; BLACKBELT_T (4)
 	db "Lao@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; BLACKBELT_T (5)
 	db "Nob@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; BLACKBELT_T (6)
 	db "Kiyo@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; BLACKBELT_T (7)
 	db "Lung@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; BLACKBELT_T (8)
 	db "Kenji@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; BLACKBELT_T (9)
 	db "Wai@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 ExecutiveMGroup:
-	;  (1)
+	; EXECUTIVEM (1)
 	db "Executive@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; EXECUTIVEM (2)
 	db "Executive@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; EXECUTIVEM (3)
 	db "Executive@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; EXECUTIVEM (4)
 	db "Executive@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 PsychicGroup:
-	;  (1)
+	; PSYCHIC_T (1)
 	db "Nathan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; PSYCHIC_T (2)
 	db "Franklin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; PSYCHIC_T (3)
 	db "Hernan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; PSYCHIC_T (4)
 	db "Fidel@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; PSYCHIC_T (5)
 	db "Greg@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; PSYCHIC_T (6)
 	db "Norman@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; PSYCHIC_T (7)
 	db "Mark@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; PSYCHIC_T (8)
 	db "Phil@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; PSYCHIC_T (9)
 	db "Richard@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; PSYCHIC_T (10)
 	db "Gilbert@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; PSYCHIC_T (11)
 	db "Jared@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; PSYCHIC_T (12)
 	db "Rodney@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 PicnickerGroup:
-	;  (1)
+	; PICNICKER (1)
 	db "Liz@", TRAINERTYPE_NORMAL
 	db 0, 2, 7, 0, NIDORAN_F
 	db 2, 4, 3, 1, NIDORAN_F
@@ -2336,133 +2336,133 @@ PicnickerGroup:
 	db 4, 17, 10, 1, SNEASEL
 	db -1 ; end
 
-	;  (2)
+	; PICNICKER (2)
 	db "Gina@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; PICNICKER (3)
 	db "Brooke@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; PICNICKER (4)
 	db "Kim@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; PICNICKER (5)
 	db "Cindy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; PICNICKER (6)
 	db "Hope@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; PICNICKER (7)
 	db "Sharon@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; PICNICKER (8)
 	db "Debra@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; PICNICKER (9)
 	db "Gina@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; PICNICKER (10)
 	db "Erin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; PICNICKER (11)
 	db "Liz@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; PICNICKER (12)
 	db "Liz@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; PICNICKER (13)
 	db "Heidi@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; PICNICKER (14)
 	db "Edna@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; PICNICKER (15)
 	db "Gina@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; PICNICKER (16)
 	db "Tiffany@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; PICNICKER (17)
 	db "Tiffany@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; PICNICKER (18)
 	db "Erin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; PICNICKER (19)
 	db "Tanya@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (20)
+	; PICNICKER (20)
 	db "Tiffany@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (21)
+	; PICNICKER (21)
 	db "Erin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (22)
+	; PICNICKER (22)
 	db "Liz@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (23)
+	; PICNICKER (23)
 	db "Liz@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (24)
+	; PICNICKER (24)
 	db "Gina@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (25)
+	; PICNICKER (25)
 	db "Gina@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (26)
+	; PICNICKER (26)
 	db "Tiffany@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 CamperGroup:
-	;  (1)
+	; CAMPER (1)
 	db "Roland@", TRAINERTYPE_ITEM
 	db 0, 2, 0, 0, NIDORAN_M, 0, NO_ITEM
 	db 1, 17, 2, 1, NIDORAN_M, 6, MINT_BERRY
@@ -2471,126 +2471,126 @@ CamperGroup:
 	db 6, 17, 10, 0, NIDORINO, 0, MINT_BERRY
 	db -1 ; end
 
-	;  (2)
+	; CAMPER (2)
 	db "Todd@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; CAMPER (3)
 	db "Ivan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; CAMPER (4)
 	db "Elliot@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; CAMPER (5)
 	db "Barry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; CAMPER (6)
 	db "Lloyd@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; CAMPER (7)
 	db "Dean@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; CAMPER (8)
 	db "Sid@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; CAMPER (9)
 	db "Harvey@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 0, MANKEY
 	db 4, 17, 5, 0, TAUROS
 	db -1 ; end
 
-	;  (10)
+	; CAMPER (10)
 	db "Dale@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; CAMPER (11)
 	db "Ted@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, MANKEY
 	db 4, 17, 5, 0, TAUROS
 	db -1 ; end
 
-	;  (12)
+	; CAMPER (12)
 	db "Todd@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; CAMPER (13)
 	db "Todd@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; CAMPER (14)
 	db "Thomas@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (15)
+	; CAMPER (15)
 	db "Leroy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (16)
+	; CAMPER (16)
 	db "David@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (17)
+	; CAMPER (17)
 	db "John@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (18)
+	; CAMPER (18)
 	db "Jerry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (19)
+	; CAMPER (19)
 	db "Spencer@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (20)
+	; CAMPER (20)
 	db "Todd@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (21)
+	; CAMPER (21)
 	db "Todd@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (22)
+	; CAMPER (22)
 	db "Quentin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 ExecutiveFGroup:
-	;  (1)
+	; EXECUTIVEF (1)
 	db "Executive@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; EXECUTIVEF (2)
 	db "Executive@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 SageGroup:
-	;  (1)
+	; SAGE (1)
 	db "Chow@", TRAINERTYPE_NORMAL
 	db 0, 4, 3, 1, BELLSPROUT
 	db 0, 4, 4, 1, BELLSPROUT
@@ -2599,7 +2599,7 @@ SageGroup:
 	db 0, 17, 4, 1, HOOTHOOT
 	db -1 ; end
 
-	;  (2)
+	; SAGE (2)
 	db "Nico@", TRAINERTYPE_NORMAL
 	db 0, 6, 3, 1, BELLSPROUT
 	db 0, 5, 3, 1, POLIWAG
@@ -2607,7 +2607,7 @@ SageGroup:
 	db 5, 17, 6, 2, POLIWAG
 	db -1 ; end
 
-	;  (3)
+	; SAGE (3)
 	db "Jin@", TRAINERTYPE_ITEM
 	db 0, 17, 4, 0, BELLSPROUT, 3, GOLD_BERRY
 	db 0, 17, 4, 0, BELLSPROUT, 4, GOLD_BERRY
@@ -2616,34 +2616,34 @@ SageGroup:
 	db 4, 17, 10, 0, WEEPINBELL, 0, NO_ITEM
 	db -1 ; end
 
-	;  (4)
+	; SAGE (4)
 	db "Troy@", TRAINERTYPE_NORMAL
 	db 0, 6, 9, 0, PSYDUCK
 	db 6, 17, 13, 1, PSYDUCK
 	db -1 ; end
 
-	;  (5)
+	; SAGE (5)
 	db "Jeffrey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; SAGE (6)
 	db "Ping@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; SAGE (7)
 	db "Edmond@", TRAINERTYPE_NORMAL
 	db 0, 17, 7, 1, HOOTHOOT
 	db 6, 17, 12, 0, UMBREON
 	db -1 ; end
 
-	;  (8)
+	; SAGE (8)
 	db "Neal@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; SAGE (9)
 	db "Li@", TRAINERTYPE_DVS
 	db 0, 4, 7, 1, BELLSPROUT, $77, $77
 	db 4, 17, 8, 1, BELLSPROUT, $77, $77
@@ -2655,308 +2655,323 @@ SageGroup:
 	db 5, 17, 15, 1, VULPIX, $8A,$AA
 	db -1 ; end
 
-	;  (10)
+	; SAGE (10)
 	db "Gaku@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; SAGE (11)
 	db "Masa@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; SAGE (12)
 	db "Koji@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 MediumGroup:
-	;  (1)
+	; MEDIUM (1)
 	db "Martha@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; MEDIUM (2)
 	db "Grace@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; MEDIUM (3)
 	db "Bethany@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; MEDIUM (4)
 	db "Margret@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; MEDIUM (5)
 	db "Ethel@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; MEDIUM (6)
 	db "Rebecca@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; MEDIUM (7)
 	db "Doris@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BoarderGroup:
-	;  (1)
+	; BOARDER (1)
 	db "Ronald@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; BOARDER (2)
 	db "Brad@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; BOARDER (3)
 	db "Douglas@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 PokefanMGroup:
-	;  (1)
+	; POKEFANM (1)
 	db "William@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; POKEFANM (2)
 	db "Derek@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; POKEFANM (3)
 	db "Robert@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; POKEFANM (4)
 	db "Joshua@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; POKEFANM (5)
 	db "Carter@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; POKEFANM (6)
 	db "Trevor@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; POKEFANM (7)
 	db "Brandon@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; POKEFANM (8)
 	db "Jeremy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; POKEFANM (9)
 	db "Colin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; POKEFANM (10)
 	db "Derek@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (11)
+	; POKEFANM (11)
 	db "Derek@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (12)
+	; POKEFANM (12)
 	db "Alex@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (13)
+	; POKEFANM (13)
 	db "Rex@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (14)
+	; POKEFANM (14)
 	db "Allan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 KimonoGirlGroup:
-	;  (1)
+	; KIMONO_GIRL (1)
 	db "Naoko@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; KIMONO_GIRL (2)
 	db "Naoko@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; KIMONO_GIRL (3)
 	db "Sayo@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; KIMONO_GIRL (4)
 	db "Zuki@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; KIMONO_GIRL (5)
 	db "Kuni@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; KIMONO_GIRL (6)
 	db "Miki@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 TwinsGroup:
-	;  (1)
+	; TWINS (1)
 	db "Amy & May@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; TWINS (2)
 	db "Ann & Anne@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; TWINS (3)
 	db "Ann & Anne@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; TWINS (4)
 	db "Amy  & May@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; TWINS (5)
 	db "Jo & Zoe@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; TWINS (6)
 	db "Jo & Zoe@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (7)
+	; TWINS (7)
 	db "Meg & Peg@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (8)
+	; TWINS (8)
 	db "Meg & Peg@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (9)
+	; TWINS (9)
 	db "Lea & Pia@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (10)
+	; TWINS (10)
 	db "Lea & Pia@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 PokefanFGroup:
-	;  (1)
+	; POKEFANF (1)
 	db "Beverly@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; POKEFANF (2)
 	db "Ruth@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; POKEFANF (3)
 	db "Beverly@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; POKEFANF (4)
 	db "Beverly@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; POKEFANF (5)
 	db "Georgia@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (6)
+	; POKEFANF (6)
 	db "Jaime@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 RedGroup:
-	;  (1)
+	; RED (1)
 	db "Red@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 BlueGroup:
-	;  (1)
+	; BLUE (1)
 	db "Blue@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 OfficerGroup:
-	;  (1)
+	; OFFICER (1)
 	db "Keith@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (2)
+	; OFFICER (2)
 	db "Dirk@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 GruntFGroup:
-	;  (1)
+	; GRUNTF (1)
 	db "Grunt Fenna@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, EKANS
 	db -1 ; end
 
-	;  (2)
+	; GRUNTF (2)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (3)
+	; GRUNTF (3)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (4)
+	; GRUNTF (4)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	;  (5)
+	; GRUNTF (5)
 	db "Grunt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
+	db -1 ; end
+
+VideoGameBoyGroup:
+	; VIDEOGAMEBOY (1)
+	db "Arin@", TRAINERTYPE_DVS | TRAINERTYPE_MOVES | TRAINERTYPE_NICKNAME
+	db 0, 6, 5, 1, CHARMANDER, "Sch@       ", $D2, $AA, $FF, $FF, $FF, $FF
+	db 0, 6, 5, 1, GEODUDE, "TurntSNACO@", $EE, $EF, $FF, $FF, $FF, $FF
+	db 6, 17, 10, 1, GRAVELER, "TurntSNACO@", $EE, $EF, $FF, $FF, $FF, $FF
+	db 0, 17, 5, 0, RATTATA, "Knurttt@   ", $5D, $FE, $FF, $FF, $FF, $FF
+	db 0, 17, 5, 1, DIGLETT, "Buttnuttz!@", $BA, $CC, $FF, $FF, $FF, $FF
+	db 0, 17, 5, 1, PIKACHU, "SPLAART!!!@", $79, $EF, $FF, $FF, $FF, $FF
+	db 6, 17, 10, 1, CHARMANDER, "Sch@       ", $D2, $AA, WING_ATTACK, CRUNCH, FIRE_SPIN, SCARY_FACE
+	db 0, 5, 5, 1, WEEDLE, "Bundt,@    ", $FE, $EF, $FF, $FF, $FF, $FF
+	db 5, 7, 12, 1, WEEDLE, "Bundt,@    ", $FE, $EF, $FF, $FF, $FF, $FF
+	db 7, 17, 30, 1, WEEDLE, "Bundt,@    ", $FE, $EF, $FF, $FF, $FF, $FF
 	db -1 ; end
 
 MysticalmanGroup:
-	;  (1)
+	; MYSTICALMAN (1)
 	db "Eusine@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end

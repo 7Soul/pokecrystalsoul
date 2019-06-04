@@ -134,21 +134,22 @@ ReadTrainerPartyPieces:
 
 	push de
 	ld de, wStringBuffer2
-	ld c, 12
+	ld c, 0
 .copy_nickname
-	dec c
+	inc c
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp "@"
 	jr nz, .copy_nickname
 .extra_char
-	dec c
-	inc hl
+	inc c
+	ld a, [hli]
 	ld a, c
-	cp 1
+	cp $c
 	jr nz, .extra_char
-
+	dec hl
+	
 	push hl
 	ld a, [wOTPartyCount]
 	dec a

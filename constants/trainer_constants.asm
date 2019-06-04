@@ -700,8 +700,11 @@ KRIS EQU __enum__
 	const GRUNTF_3
 	const GRUNTF_4
 	const GRUNTF_5
+	
+	trainerclass VIDEOGAMEBOY ;43
+	const ARIN
 
-	trainerclass MYSTICALMAN ; 43
+	trainerclass MYSTICALMAN ; 44
 	const EUSINE
 
 NUM_TRAINER_CLASSES EQU __enum__

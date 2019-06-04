@@ -782,6 +782,7 @@ GolemBackpic:        INCBIN "gfx/pokemon/golem/back.2bpp.lz"
 TangelaBackpic:      INCBIN "gfx/pokemon/tangela/back.2bpp.lz"
 MetapodBackpic:      INCBIN "gfx/pokemon/metapod/back.2bpp.lz"
 DelibirdBackpic:     INCBIN "gfx/pokemon/delibird/back.2bpp.lz"
+ArinPic:     		 INCBIN "gfx/trainers/arin.2bpp.lz"
 
 SECTION "Pics 21", ROMX
 
