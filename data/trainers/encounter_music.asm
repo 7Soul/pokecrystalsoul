@@ -70,4 +70,5 @@ TrainerEncounterMusic::
 	db MUSIC_HIKER_ENCOUNTER       ; officer
 	db MUSIC_ROCKET_ENCOUNTER      ; gruntf
 	db MUSIC_HIKER_ENCOUNTER       ; videogameboy
+	db MUSIC_HIKER_ENCOUNTER       ; danny
 	db MUSIC_HIKER_ENCOUNTER       ; mysticalman

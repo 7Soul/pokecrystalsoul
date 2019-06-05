@@ -69,4 +69,5 @@ BTTrainerClassGenders:
 	db MALE   ; OFFICER
 	db FEMALE ; GRUNTF
 	db MALE   ; ARIN
+	db MALE   ; DANNY
 	db MALE   ; EUSINE

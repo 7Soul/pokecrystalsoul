@@ -27,6 +27,7 @@ MaleTrainers:
 	db BIKER
 	db SCIENTIST
 	db VIDEOGAMEBOY
+	db TRAINERDANNY
 .End
 
 FemaleTrainers:

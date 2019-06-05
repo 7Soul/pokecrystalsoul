@@ -703,8 +703,11 @@ KRIS EQU __enum__
 	
 	trainerclass VIDEOGAMEBOY ;43
 	const ARIN
+	
+	trainerclass TRAINERDANNY ;44
+	const SEXBANG
 
-	trainerclass MYSTICALMAN ; 44
+	trainerclass MYSTICALMAN ; 45
 	const EUSINE
 
 NUM_TRAINER_CLASSES EQU __enum__

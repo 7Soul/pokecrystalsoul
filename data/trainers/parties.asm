@@ -2970,6 +2970,13 @@ VideoGameBoyGroup:
 	db 7, 17, 30, 1, WEEDLE, "Bundt,@    ", $FE, $EF, $FF, $FF, $FF, $FF
 	db -1 ; end
 
+TrainerDannyGroup:
+	; TRAINERDANNY (1)
+	db "Sexbang@", TRAINERTYPE_NORMAL
+	db 0, 17, 3, 0, STANTLER
+	db 0, 17, 3, 0, LAPRAS
+	db -1 ; end
+
 MysticalmanGroup:
 	; MYSTICALMAN (1)
 	db "Eusine@", TRAINERTYPE_NORMAL
