@@ -62,21 +62,21 @@ MeetMomScript:
 	iffalse .SetDayOfWeek
 .DayOfWeekDone:
 	writetext ComeHomeForDSTText
-	yesorno
-	iffalse .ExplainPhone
-	jump .KnowPhone
+	; yesorno
+	; iffalse .ExplainPhone
+	; jump .KnowPhone
 
-.KnowPhone:
-	writetext KnowTheInstructionsText
-	buttonsound
-	jump .FinishPhone
+; .KnowPhone:
+	; writetext KnowTheInstructionsText
+	; buttonsound
+	; jump .FinishPhone
 
-.ExplainPhone:
-	writetext DontKnowTheInstructionsText
-	buttonsound
-	jump .FinishPhone
+; .ExplainPhone:
+	; writetext DontKnowTheInstructionsText
+	; buttonsound
+	; jump .FinishPhone
 
-.FinishPhone:
+; .FinishPhone:
 	writetext InstructionsNextText
 	waitbutton
 	closetext
@@ -231,14 +231,7 @@ ElmsLookingForYouText:
 	done
 
 MomGivesPokegearText:
-	text "#MON GEAR, or"
-	line "just #GEAR."
-
-	para "It's essential if"
-	line "you want to be a"
-	cont "good trainer."
-
-	para "Oh, the day of the"
+	text "Oh, the day of the"
 	line "week isn't set."
 
 	para "You mustn't forget"
@@ -256,38 +249,11 @@ ComeHomeForDSTText:
 
 	para "for Daylight"
 	line "Saving Time."
-
-	para "By the way, do you"
-	line "know how to use"
-	cont "the PHONE?"
-	done
-
-KnowTheInstructionsText:
-	text "Don't you just"
-	line "turn the #GEAR"
-
-	para "on and select the"
-	line "PHONE icon?"
-	done
-
-DontKnowTheInstructionsText:
-	text "I'll read the"
-	line "instructions."
-
-	para "Turn the #GEAR"
-	line "on and select the"
-	cont "PHONE icon."
 	done
 
 InstructionsNextText:
-	text "Phone numbers are"
-	line "stored in memory."
-
-	para "Just choose a name"
-	line "you want to call."
-
-	para "Gee, isn't that"
-	line "convenient?"
+	text "Go now, Prof."
+	line "Elm is waiting."
 	done
 
 HurryUpElmIsWaitingText:

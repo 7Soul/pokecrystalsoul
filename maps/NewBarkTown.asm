@@ -80,6 +80,26 @@ NewBarkTownTeacherScript:
 	iftrue .MonIsAdorable
 	writetext Text_GearIsImpressive
 	waitbutton
+	
+if DEF(_DEBUG)
+	setflag ENGINE_POKEDEX
+	setflag ENGINE_MAP_CARD	
+	setevent EVENT_GOT_A_POKEMON_FROM_ELM
+	clearevent EVENT_ROUTE_30_YOUNGSTER_JOEY
+	setevent EVENT_ROUTE_30_BATTLE
+	setevent EVENT_RIVAL_CHERRYGROVE_CITY
+	setmapscene NEW_BARK_TOWN, SCENE_FINISHED
+	givecoins 9999
+	givemoney 0, 100000
+	giveitem MASTER_BALL, 99
+	giveitem RARE_CANDY, 99
+	giveitem MAX_REPEL, 99
+	giveitem SHINY_CORAL
+	givepoke KRABBY, 5
+	givepoke CLEFAIRY, 5
+	givepoke NINETALES, 60
+	callasm CheatFillPokedex	
+endc
 	closetext
 	end
 
@@ -302,3 +322,22 @@ NewBarkTown_MapEvents:
 	object_event  6,  8, SPRITE_TEACHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, NewBarkTownTeacherScript, -1
 	object_event 12,  9, SPRITE_FISHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, NewBarkTownFisherScript, -1
 	object_event  3,  2, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, NewBarkTownSilverScript, EVENT_RIVAL_NEW_BARK_TOWN
+
+if def(_DEBUG)
+CheatFillPokedex:
+	ld hl, wPokedexSeen
+	ld a, BULBASAUR
+.loop
+	ld [$C000], a
+	cp UNOWN
+	jr z, .skip
+	dec a
+	call SetSeenAndCaughtMon
+	ld a, [$C000]
+.skip
+	inc a
+	cp CELEBI
+	jr nz, .loop	
+	ret
+endc
+	
