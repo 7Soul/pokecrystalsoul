@@ -189,11 +189,11 @@ ENDM
 
 	map_attributes Route45, ROUTE_45, $71, NORTH | WEST
 	connection north, BlackthornCity, BLACKTHORN_CITY, 0, 0, 13
-	connection west, Route46, ROUTE_46, 36, 0, 12
+	connection west, Route46, ROUTE_46, 35, 0, 12
 
 	map_attributes Route46, ROUTE_46, $05, SOUTH | EAST
 	connection south, Route29, ROUTE_29, -3, 7, 16
-	connection east, Route45, ROUTE_45, -3, 33, 12
+	connection east, Route45, ROUTE_45, -3, 32, 12
 
 	map_attributes PewterCity, PEWTER_CITY, $0f, SOUTH | EAST
 	connection south, Route2, ROUTE_2, 5, 0, 10

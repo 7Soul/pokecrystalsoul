@@ -3193,6 +3193,55 @@ BattleCommand_DamageCalc:
 	ld c, 1
 .not_dividing_by_zero
 
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	cp BUBBLE
+	jr nz, .not_bubble
+	push hl
+	push de
+	push bc
+	ld de, wBattleMonHP
+	ld hl, wBattleMonMaxHP
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .battlemonhp
+	ld de, wEnemyMonHP
+	ld hl, wEnemyMonMaxHP
+	
+.battlemonhp
+	ld a, [hli]
+	srl a
+	ldh [hDividend], a
+	ld b, a
+	ld a, [hl]
+	rr a
+	ldh [hDividend + 1], a
+	
+	ld a, [de]
+	ld b, a
+	ldh a, [hDividend] ; half max hp (second half) (hp over 255)
+	cp b
+	jr nc, .dont_double
+	inc de
+	ld a, [de]
+	ld b, a
+	ldh a, [hDividend + 1] ; half max hp (first half)
+	cp b
+	jr nc, .dont_double ; if half max hp is under curret hp. That means hp is over 50%
+
+	pop bc
+	pop de
+	pop hl	
+	sla d
+	jr .not_bubble
+	
+.dont_double
+	pop bc
+	pop de
+	pop hl
+	
+.not_bubble
+
 	xor a
 	ld hl, hDividend
 	ld [hli], a
@@ -3238,7 +3287,7 @@ BattleCommand_DamageCalc:
 	ld [hl], 50
 	ld b, $4
 	call Divide
-
+	
 ; Item boosts
 	call GetUserItem
 
