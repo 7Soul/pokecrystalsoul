@@ -6003,6 +6003,25 @@ CheckEnemyLockedIn:
 LinkBattleSendReceiveAction:
 	farcall _LinkBattleSendReceiveAction
 	ret
+	
+BerryMonItems:
+	db 31, BERRY
+	db 6, PSNCUREBERRY
+	db 6, PRZCUREBERRY
+	db 6, BURNT_BERRY
+	db 6, ICE_BERRY
+	db 6, BITTER_BERRY
+	db 6, MINT_BERRY
+	db 6, MIRACLEBERRY
+	db 6, GOLD_BERRY
+	db 3, RED_APRICORN
+	db 3, YLW_APRICORN
+	db 3, BLU_APRICORN
+	db 3, GRN_APRICORN
+	db 3, WHT_APRICORN
+	db 3, BLK_APRICORN
+	db 3, PNK_APRICORN
+	db -1
 
 LoadEnemyMon:
 ; Initialize enemy monster parameters
@@ -6059,7 +6078,10 @@ LoadEnemyMon:
 	cp BATTLETYPE_FORCEITEM
 	ld a, [wBaseItem1]
 	jr z, .UpdateItem
-
+	ld a, [wBattleType]
+	cp BATTLETYPE_BERRY_TREE
+	jr z, .BerryTree
+	
 ; Failing that, it's all up to chance
 ;  Effective chances:
 ;    85% None
@@ -6078,6 +6100,28 @@ LoadEnemyMon:
 	ld a, [wBaseItem1]
 	jr nc, .UpdateItem
 	ld a, [wBaseItem2]
+	jr .UpdateItem
+
+.BerryTree:
+	push hl
+	ld hl, BerryMonItems
+	ld a, 100
+	call RandomRange
+.loopberry
+	sub [hl]
+	jr c, .okberry
+	inc hl
+	inc hl
+	jr .loopberry
+	
+.okberry
+	inc hl
+	ld a, [hli]
+	pop hl
+	cp -1
+	and a
+	jr z, .UpdateItem
+	ld [wEnemyMonItem], a
 
 .UpdateItem:
 	ld [wEnemyMonItem], a
@@ -6166,12 +6210,28 @@ LoadEnemyMon:
 ; Forced shiny battle type
 ; Used by Red Gyarados at Lake of Rage
 	cp BATTLETYPE_SHINY
-	jr nz, .GenerateDVs
+	jr nz, .check_shiny2
 
 	ld b, ATKDEFDV_SHINY ; $ea
 	ld c, SPDSPCDV_SHINY ; $aa
 	jr .UpdateDVs
 
+.check_shiny2:
+	ld a, [wLuckyWild]
+	cp 0
+	jr z, .GenerateDVs
+	dec a
+	ld [wLuckyWild], a
+	push de
+	farcall GetAShinyDV1
+	farcall GetAShinyDV2
+	pop de
+	; ld a, [$c003]
+	; ld b, a
+	; ld a, [$c006]
+	; ld c, a
+	jr .UpdateDVs
+	
 .GenerateDVs:
 ; Generate new random DVs
 	call BattleRandom
@@ -6490,7 +6550,7 @@ LoadEnemyMon:
 	call CopyBytes
 
 	ret
-
+	
 CheckSleepingTreeMon:
 ; Return carry if species is in the list
 ; for the current time of day

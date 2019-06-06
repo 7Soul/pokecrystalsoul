@@ -95,10 +95,11 @@ if DEF(_DEBUG)
 	giveitem RARE_CANDY, 99
 	giveitem MAX_REPEL, 99
 	giveitem SHINY_CORAL
-	givepoke KRABBY, 5
 	givepoke CLEFAIRY, 5
+	givepoke KRABBY, 5
 	givepoke NINETALES, 60
-	callasm CheatFillPokedex	
+	callasm CheatFillPokedex
+	warp ROUTE_46, $8, $F
 endc
 	closetext
 	end

@@ -222,3 +222,6 @@ GetKrisBackpic:
 
 KrisBackpic:
 INCBIN "gfx/player/kris_back.2bpp"
+
+ChrisBackpic:
+INCBIN "gfx/player/chris_back.2bpp.lz"

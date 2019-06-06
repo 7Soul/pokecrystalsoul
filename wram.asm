@@ -1541,13 +1541,12 @@ wPlaceBallsY:: db ; cfc5
 wTileAnimationTimer:: db ; cfc6
 
 ; palette backups?
-wBGP:: db
-wOBP0:: db
-wOBP1:: db
+wBGP:: db ; cfc7
+wOBP0:: db ; cfc8
+wOBP1:: db ; cfc9
 
-wNumHits:: db
-
-	ds 1
+wNumHits:: db ; cfca
+wLuckyWild:: db ; cfcb
 
 wOptions:: ; cfcc
 ; bit 0-2: number of frames to delay when printing text

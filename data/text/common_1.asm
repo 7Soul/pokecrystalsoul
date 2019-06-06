@@ -26,6 +26,16 @@ _NothingHereText::
 	text "There's nothing"
 	line "here…"
 	done
+	
+_CheckingForBerries::
+	text "Checking for"
+	line "berries…"
+	done
+	
+_APokemonAttacks::
+	text "A #MON was"
+	line "hidding in there!"
+	done
 
 UnknownText_0x1bc06b::
 	text "Which APRICORN"
