@@ -6210,13 +6210,13 @@ LoadEnemyMon:
 ; Forced shiny battle type
 ; Used by Red Gyarados at Lake of Rage
 	cp BATTLETYPE_SHINY
-	jr nz, .check_shiny2
+	jr nz, .check_lucky
 
 	ld b, ATKDEFDV_SHINY ; $ea
 	ld c, SPDSPCDV_SHINY ; $aa
 	jr .UpdateDVs
 
-.check_shiny2:
+.check_lucky:
 	ld a, [wLuckyWild]
 	cp 0
 	jr z, .GenerateDVs
@@ -6226,18 +6226,15 @@ LoadEnemyMon:
 	farcall GetAShinyDV1
 	farcall GetAShinyDV2
 	pop de
-	; ld a, [$c003]
-	; ld b, a
-	; ld a, [$c006]
-	; ld c, a
 	jr .UpdateDVs
 	
 .GenerateDVs:
 ; Generate new random DVs
-	call BattleRandom
-	ld b, a
-	call BattleRandom
+	call RandomDVs ; 1 to 10
+	ld d, a	
+	call RandomDVs ; 1 to 10
 	ld c, a
+	ld b, d
 
 .UpdateDVs:
 ; Input DVs in register bc

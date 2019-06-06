@@ -78,3 +78,23 @@ RandomRange::
 
 	pop bc
 	ret
+
+RandomDVs::
+	ld a, $a
+	call RandomRange ; 0 to 9
+	inc a
+	sla a
+	sla a
+	sla a
+	sla a	
+	ld b, a
+	
+	ld a, $a
+	call RandomRange
+	ld c, a
+	add a
+	add a
+	add c
+	add b
+	inc a
+	ret

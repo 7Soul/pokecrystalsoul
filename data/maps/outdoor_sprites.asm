@@ -312,5 +312,11 @@ Route46GroupSprites:
 	; 3 of max 9 walking sprites
 	db SPRITE_FRUIT_TREE
 	db SPRITE_POKE_BALL
+	db SPRITE_GEODUDE
+	db SPRITE_EKANS
+	db SPRITE_MANKEY
+	db SPRITE_PIDGEY
+	db SPRITE_SUNKERN
+	db SPRITE_IGGLYBUFF
 	db 0 ; end
 	
