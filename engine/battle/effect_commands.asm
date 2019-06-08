@@ -1535,17 +1535,6 @@ BattleCommand_Stab:
 	cp -1
 	jr z, .end
 
-	; foresight
-	cp -2
-	jr nz, .SkipForesightCheck
-	ld a, BATTLE_VARS_SUBSTATUS1_OPP
-	call GetBattleVar
-	bit SUBSTATUS_IDENTIFIED, a
-	jr nz, .end
-
-	jr .TypesLoop
-
-.SkipForesightCheck:
 	cp b
 	jr nz, .SkipType
 	ld a, [hl]

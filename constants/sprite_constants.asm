@@ -143,15 +143,15 @@ SPRITE_POKEMON EQU const_value
 	const SPRITE_GYARADOS ; a0
 	const SPRITE_LUGIA ; a1
 	const SPRITE_HO_OH ; a2
-	const SPRITE_MANKEY ; a3
-	const SPRITE_PIDGEY ; a4
-	const SPRITE_SUNKERN ; a5
-	const SPRITE_IGGLYBUFF ; a6
+	const SPRITE_MANKEY
+	const SPRITE_PIDGEY
+	const SPRITE_SUNKERN
+	const SPRITE_IGGLYBUFF
 
 ; special GetMonSprite values (see engine/overworld/overworld.asm)
-	const_def $ee
-	const SPRITE_DAY_CARE_MON_1 ; ee
-	const SPRITE_DAY_CARE_MON_2 ; ef
+	const_def $e0
+	const SPRITE_DAY_CARE_MON_1 ; e0
+	const SPRITE_DAY_CARE_MON_2 ; e1
 
 ; wVariableSprites indexes (see wram.asm)
 	const_def $f0

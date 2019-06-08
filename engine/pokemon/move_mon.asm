@@ -1511,19 +1511,19 @@ CalcMonStatC:
 	add b
 	pop bc
 
-	cp $d ; 15,14,13 turns to 10
-	jr c, .dvMin1
-	ld a, $a
-	jr .dvMin2
-.dvMin1
-	cp $9 ; 11,10,9 turns to 9
-	jr c, .dvMin2
-	ld a, $9
-.dvMin2
-	cp $0 ; limit min DV to 1
-	jr nz, .dvMax
-	ld a, $1
-.dvMax
+	; cp $d ; 15,14,13 turns to 10
+	; jr c, .dvMin1
+	; ld a, $a
+	; jr .dvMin2
+; .dvMin1
+	; cp $9 ; 11,10,9 turns to 9
+	; jr c, .dvMin2
+	; ld a, $9
+; .dvMin2
+	; cp $0 ; limit min DV to 1
+	; jr nz, .dvMax
+	; ld a, $1
+; .dvMax
 	jr .GotDV
 
 .Attack:

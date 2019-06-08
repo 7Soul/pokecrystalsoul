@@ -89,6 +89,7 @@ if DEF(_DEBUG)
 	setevent EVENT_ROUTE_30_BATTLE
 	setevent EVENT_RIVAL_CHERRYGROVE_CITY
 	setmapscene NEW_BARK_TOWN, SCENE_FINISHED
+	addcellnum PHONE_BILL
 	givecoins 9999
 	givemoney 0, 100000
 	giveitem MASTER_BALL, 99
