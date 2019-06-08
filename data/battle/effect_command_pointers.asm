@@ -90,13 +90,13 @@ BattleCommandPointers:
 	dw BattleCommand_Curse
 	dw BattleCommand_Protect
 	dw BattleCommand_Spikes
-	dw BattleCommand_Foresight
+	dw BattleCommand_PrismLight
 	dw BattleCommand_PerishSong
 	dw BattleCommand_StartSandstorm
 	dw BattleCommand_Endure
 	dw BattleCommand_CheckCurl
 	dw BattleCommand_RolloutPower
-	dw BattleCommand5d
+	;dw BattleCommand5d
 	dw BattleCommand_FuryCutter
 	dw BattleCommand_Attract
 	dw BattleCommand_ModType

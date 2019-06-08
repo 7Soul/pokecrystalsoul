@@ -91,13 +91,13 @@ ENDM
 	command curse                   ; 54
 	command protect                 ; 55
 	command spikes                  ; 56
-	command foresight               ; 57
+	command prismlight              ; 57
 	command perishsong              ; 58
 	command startsandstorm          ; 59
 	command endure                  ; 5a
 	command checkcurl               ; 5b
 	command rolloutpower            ; 5c
-	command effect0x5d              ; 5d
+	;command effect0x5d              ; 5d
 	command furycutter              ; 5e
 	command attract                 ; 5f
 	command modtype			        ; 60

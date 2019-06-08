@@ -60,6 +60,11 @@ TypeMatchups:
 	db FLYING,    FIGHTING,  SUPER_EFFECTIVE
 	db FLYING,    BUG,       SUPER_EFFECTIVE
 
-	db -2 ; end (with Foresight)
+	db -2 ; end (with Prism Light)
+	
+	db FIRE,	  NORMAL,	 SUPER_EFFECTIVE
+	db GRASS,	  NORMAL,	 SUPER_EFFECTIVE
+	db WATER,	  NORMAL,	 SUPER_EFFECTIVE
+	db ELECTRIC,  NORMAL,	 SUPER_EFFECTIVE
 
 	db -1 ; end

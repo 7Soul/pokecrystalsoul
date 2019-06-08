@@ -113,7 +113,7 @@ MoveEffectsPointers:
 	dw NormalHit
 	dw Protect
 	dw Spikes
-	dw Foresight
+	dw PrismLight
 	dw PerishSong
 	dw Sandstorm
 	dw Endure

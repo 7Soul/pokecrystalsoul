@@ -192,7 +192,7 @@ MoveDescriptions::
 	dw OctazookaDescription
 	dw SpikesDescription
 	dw ZapCannonDescription
-	dw ForesightDescription
+	dw PrismatismDescription
 	dw WakeupSlapDescription
 	dw PerishSongDescription
 	dw IcyWindDescription
@@ -1029,9 +1029,9 @@ ZapCannonDescription:
 	db   "An attack that"
 	next "always paralyzes.@"
 
-ForesightDescription:
-	db   "Negates accuracy"
-	next "reduction moves.@"
+PrismatismDescription:
+	db   "NORMAL foe is weak"
+	next "to the 4 elements.@"
 
 WakeupSlapDescription:
 	db   "Does double damage"

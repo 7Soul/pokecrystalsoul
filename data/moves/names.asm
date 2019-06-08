@@ -191,7 +191,7 @@ MoveNames::
 	db "Octazooka@"
 	db "Spikes@"
 	db "Zap Cannon@"
-	db "Foresight@"
+	db "Prism Light@"
 	db "Wake-up Slap@"
 	db "Perish Song@"
 	db "Icy Wind@"

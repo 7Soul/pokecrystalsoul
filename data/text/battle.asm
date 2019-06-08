@@ -1035,9 +1035,12 @@ SpikesText:
 	prompt
 
 IdentifiedText:
-	text "<USER>"
-	line "identified"
-	cont "<TARGET>!"
+	text "<TARGET> is"
+	line "under the prism"
+	cont "light."
+	
+	para "It became weak"
+	line "to the elements!"
 	prompt
 
 StartPerishText:

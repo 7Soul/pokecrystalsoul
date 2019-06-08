@@ -545,6 +545,7 @@ ClefairyEvosAttacks:
 	db 1, POUND
 	db 1, GROWL
 	db 4, ENCORE
+	db 6, PRISM_LIGHT
 	db 8, SING
 	db 13, DOUBLESLAP
 	db 19, MINIMIZE
@@ -751,7 +752,6 @@ VenonatEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, DISABLE
-	db 1, FORESIGHT
 	db 9, SUPERSONIC
 	db 13, POISONPOWDER
 	db 17, NIGHT_SHADE
@@ -766,7 +766,6 @@ VenonatEvosAttacks:
 
 VenomothEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, FORESIGHT
 	db 9, SUPERSONIC
 	db 13, POISONPOWDER
 	db 17, NIGHT_SHADE
@@ -1020,7 +1019,6 @@ MachopEvosAttacks:
 	db 5, KARATE_CHOP
 	db 7, FOCUS_ENERGY	
 	db 15, SEISMIC_TOSS
-	db 21, FORESIGHT
 	db 25, VITAL_THROW
 	db 33, SUBMISSION
 	db 37, BULK_UP
@@ -1035,7 +1033,6 @@ MachokeEvosAttacks:
 	db 0 ; no more evolutions
 	db 7, FOCUS_ENERGY
 	db 15, SEISMIC_TOSS
-	db 21, FORESIGHT
 	db 26, VITAL_THROW
 	db 36, SUBMISSION
 	db 39, BULK_UP
@@ -1047,7 +1044,6 @@ MachokeEvosAttacks:
 
 MachampEvosAttacks:
 	db 0 ; no more evolutions
-	db 21, FORESIGHT
 	db 25, VITAL_THROW
 	db 40, SUBMISSION
 	db 43, BULK_UP
@@ -1254,6 +1250,7 @@ MagnemiteEvosAttacks:
 	db EVOLVE_LEVEL, 30, MAGNETON
 	db 0 ; no more evolutions
 	db 1, TACKLE
+	db 5, DISABLE
 	db 6, THUNDERSHOCK
 	db 11, SUPERSONIC
 	db 16, SONICBOOM
@@ -1270,8 +1267,8 @@ MagnetonEvosAttacks:
 	db 20, THUNDER_WAVE
 	db 23, CHARGE_BEAM
 	db 27, LOCK_ON
-	db 29, TRI_ATTACK
-	db 43, SCREECH
+	db 37, SWIFT
+	db 45, SCREECH
 	db 53, ZAP_CANNON
 	db 0 ; no more level-up moves
 
@@ -1630,7 +1627,6 @@ HitmonleeEvosAttacks:
 	db 18, BULK_UP
 	db 25, BRICK_BREAK
 	db 31, LOCK_ON
-	db 36, FORESIGHT
 	db 41, ENDURE
 	db 46, MEGA_KICK
 	db 51, REVERSAL
@@ -1775,7 +1771,7 @@ HorseaEvosAttacks:
 	db EVOLVE_LEVEL, 32, SEADRA
 	db 0 ; no more evolutions
 	db 1, BUBBLE
-	db 6, SMOKESCREEN
+	db 5, SMOKESCREEN
 	db 9, WATER_GUN
 	db 15, LEER
 	db 18, BUBBLEBEAM
@@ -1794,9 +1790,9 @@ SeadraEvosAttacks:
 	db 1, BUBBLEBEAM
 	db 1, OCTAZOOKA
 	db 1, FOCUS_ENERGY
-	db 32, TWISTER
-	db 39, AGILITY
-	db 46, HYDRO_PUMP
+	db 31, TWISTER
+	db 34, AGILITY
+	db 48, HYDRO_PUMP
 	db 55, SPARK
 	db 59, EXTREMESPEED
 	db 0 ; no more level-up moves
@@ -1846,6 +1842,7 @@ StaryuEvosAttacks:
 	db 43, LIGHT_SCREEN
 	db 46, POWER_GEM
 	db 50, HYDRO_PUMP
+	db 54, PRISM_LIGHT
 	db 0 ; no more level-up moves
 
 StarmieEvosAttacks:
@@ -1861,6 +1858,7 @@ StarmieEvosAttacks:
 	db 47, LIGHT_SCREEN
 	db 50, POWER_GEM
 	db 54, HYDRO_PUMP
+	db 59, PRISM_LIGHT
 	db 0 ; no more level-up moves
 
 MrMimeEvosAttacks:
@@ -2251,9 +2249,11 @@ DratiniEvosAttacks:
 	db 1, LEER
 	db 1, BUBBLE
 	db 8, THUNDER_WAVE
-	db 15, TWISTER	
+	db 11, TWISTER
+	db 15, PRISM_LIGHT
+	db 21, SLAM
 	db 25, AGILITY
-	db 29, SLAM
+	db 31, CHARGE_BEAM
 	db 35, AQUA_TAIL
 	db 43, SAFEGUARD
 	db 49, THRASH
@@ -2266,8 +2266,10 @@ DragonairEvosAttacks:
 	db 1, TWISTER
 	db 8, THUNDER_WAVE
 	db 15, TWISTER
-	db 24, AGILITY
-	db 29, SLAM
+	db 15, PRISM_LIGHT
+	db 21, SLAM
+	db 25, AGILITY
+	db 31, CHARGE_BEAM
 	db 36, AQUA_TAIL
 	db 47, SAFEGUARD
 	db 52, THRASH
@@ -2276,10 +2278,10 @@ DragonairEvosAttacks:
 
 DragoniteEvosAttacks:
 	db 0 ; no more evolutions
-	db 15, TWISTER
+	db 21, SLAM
 	db 25, AGILITY
-	db 31, SLAM
-	db 37, AQUA_TAIL
+	db 31, CHARGE_BEAM
+	db 36, AQUA_TAIL
 	db 39, WING_ATTACK
 	db 47, SAFEGUARD
 	db 52, HYDRO_PUMP
@@ -2470,7 +2472,6 @@ SentretEvosAttacks:
 	db EVOLVE_LEVEL, 15, FURRET
 	db 0 ; no more evolutions
 	db 1, SCRATCH
-	db 1, FORESIGHT
 	db 4, DEFENSE_CURL
 	db 7, QUICK_ATTACK
 	db 12, LEAF_SHIELD
@@ -2485,7 +2486,6 @@ SentretEvosAttacks:
 FurretEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SCRATCH
-	db 1, FORESIGHT
 	db 4, DEFENSE_CURL
 	db 7, QUICK_ATTACK
 	db 12, LEAF_SHIELD
@@ -2503,7 +2503,6 @@ HoothootEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, GROWL
-	db 6, FORESIGHT
 	db 11, PECK
 	db 16, HYPNOSIS
 	db 22, REFLECT
@@ -2517,9 +2516,7 @@ NoctowlEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, GROWL
-	db 1, FORESIGHT
 	db 1, PECK
-	db 6, FORESIGHT
 	db 11, PECK
 	db 16, HYPNOSIS
 	db 21, FAINT_ATTACK
@@ -2968,7 +2965,6 @@ SunfloraEvosAttacks:
 YanmaEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
-	db 1, FORESIGHT
 	db 7, QUICK_ATTACK
 	db 9, TWINEEDLE
 	db 13, DOUBLE_TEAM
@@ -3518,8 +3514,7 @@ HoundourEvosAttacks:
 	db 4, SHARPEN
 	db 8, SMOG
 	db 12, ROAR
-	db 14, BITE
-	db 19, FORESIGHT
+	db 15, BITE
 	db 24, FAINT_ATTACK
 	db 30, PURSUIT
 	db 35, SHADOW_BALL
@@ -3533,7 +3528,6 @@ HoundoomEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, ROAR
 	db 1, BITE
-	db 1, FORESIGHT
 	db 1, FAINT_ATTACK
 	db 32, PURSUIT
 	db 38, SHADOW_BALL
@@ -3549,8 +3543,9 @@ KingdraEvosAttacks:
 	db 1, OCTAZOOKA
 	db 1, LEER
 	db 32, TWISTER
-	db 39, AGILITY
-	db 46, AQUA_TAIL
+	db 38, AGILITY
+	db 44, AQUA_TAIL
+	db 49, PRISM_LIGHT
 	db 55, ICE_BEAM
 	db 59, FROZEN_TAIL
 	db 0 ; no more level-up moves

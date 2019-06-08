@@ -1520,12 +1520,12 @@ Spikes:
 	spikes
 	endmove
 
-Foresight:
+PrismLight:
 	checkobedience
 	usedmovetext
 	doturn
 	checkhit
-	foresight
+	prismlight
 	endmove
 
 PerishSong:

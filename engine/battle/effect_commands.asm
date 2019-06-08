@@ -1453,7 +1453,7 @@ BattleCommand_Stab:
 	ld hl, wPlayerTypeMod
 	ld a, [hl]
 	pop hl
-	and a
+	cp 0
 	jr nz, .has_mod
 	
 	ld a, BATTLE_VARS_MOVE_TYPE
@@ -1517,9 +1517,11 @@ BattleCommand_Stab:
 	set 7, [hl]
 
 .SkipStab:
+	push hl
 	ld hl, wPlayerTypeMod
 	ld a, [hl]
-	and a
+	pop hl
+	cp 0
 	jr nz, .has_mod2
 	
 	ld a, BATTLE_VARS_MOVE_TYPE
@@ -1535,6 +1537,17 @@ BattleCommand_Stab:
 	cp -1
 	jr z, .end
 
+	; prism light
+	cp -2
+	jr nz, .SkipPrismLightCheck
+	ld a, BATTLE_VARS_SUBSTATUS1_OPP
+	call GetBattleVar
+	bit SUBSTATUS_IDENTIFIED, a
+	jr nz, .end
+
+	jr .TypesLoop
+
+.SkipPrismLightCheck:
 	cp b
 	jr nz, .SkipType
 	ld a, [hl]
@@ -1639,7 +1652,7 @@ CheckTypeMatchup:
 	
 	ld de, wPlayerTypeMod
 	ld a, [de]	
-	and a
+	cp 0
 	jr nz, .has_mod
 	
 	ld a, BATTLE_VARS_MOVE_TYPE
@@ -1647,13 +1660,13 @@ CheckTypeMatchup:
 	and TYPE_MASK
 .has_mod
 	ld d, a ; move type
-	ld [$C000], a
 	ld b, [hl] ; mon type 1
 	inc hl
 	ld c, [hl] ; mon type 2
 	ld a, 10 ; 1.0
 	ld [wTypeMatchup], a
 	ld hl, TypeMatchups
+	
 .TypesLoop:
 	ld a, [hli]
 	cp -1
@@ -2017,17 +2030,6 @@ BattleCommand_CheckHit:
 	ld c, a
 
 .got_acc_eva
-	cp b
-	jr c, .skip_foresight_check
-
-	; if the target's evasion is greater than the user's accuracy,
-	; check the target's foresight status
-	ld a, BATTLE_VARS_SUBSTATUS1_OPP
-	call GetBattleVar
-	bit SUBSTATUS_IDENTIFIED, a
-	ret nz
-
-.skip_foresight_check
 	; subtract evasion from 14
 	ld a, MAX_STAT_LEVEL + 1
 	sub c
@@ -2834,7 +2836,7 @@ PlayerAttackDamage:
 	
 	ld de, wPlayerTypeMod
 	ld a, [de]	
-	and a
+	cp 0
 	jr nz, .has_mod
 	
 	ld a, BATTLE_VARS_MOVE_TYPE
@@ -3014,7 +3016,7 @@ EnemyAttackDamage:
 	
 	ld de, wPlayerTypeMod
 	ld a, [de]	
-	and a
+	cp 0
 	jr nz, .has_mod
 	
 	ld a, BATTLE_VARS_MOVE_TYPE
@@ -3300,7 +3302,7 @@ BattleCommand_DamageCalc:
 	ld b, a
 	ld de, wPlayerTypeMod
 	ld a, [de]
-	and a
+	cp 0
 	jr nz, .has_mod
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
@@ -6794,11 +6796,7 @@ INCLUDE "engine/battle/move_effects/endure.asm"
 
 INCLUDE "engine/battle/move_effects/spikes.asm"
 
-INCLUDE "engine/battle/move_effects/foresight.asm"
-
-BattleCommand5d:
-; unused
-	ret
+INCLUDE "engine/battle/move_effects/prism_light.asm"
 
 INCLUDE "engine/battle/move_effects/perish_song.asm"
 

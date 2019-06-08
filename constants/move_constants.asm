@@ -198,7 +198,7 @@
 	const OCTAZOOKA    ; be
 	const SPIKES       ; bf
 	const ZAP_CANNON   ; c0
-	const FORESIGHT    ; c1
+	const PRISM_LIGHT  ; c1
 	const WAKEUP_SLAP  ; c2
 	const PERISH_SONG  ; c3
 	const ICY_WIND     ; c4

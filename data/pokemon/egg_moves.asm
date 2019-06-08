@@ -18,6 +18,10 @@ BulbasaurEggMoves:
 	db SKULL_BASH
 	db SAFEGUARD
 	db PETAL_DANCE
+	db AMNESIA
+	db CHARM
+	db MAGICAL_LEAF
+	db SLUDGE
 	db -1 ; end
 
 CharmanderEggMoves:
@@ -26,6 +30,7 @@ CharmanderEggMoves:
 	db ROCK_SLIDE
 	db BITE
 	db THRASH
+	db FIRE_FLICK
 	db -1 ; end
 
 SquirtleEggMoves:
@@ -33,14 +38,14 @@ SquirtleEggMoves:
 	db HAZE
 	db MIST
 	db CONFUSION
-	db FORESIGHT
+	db JET_STREAM
 	db REVERSAL
+	db MUD_BOMB
 	db -1 ; end
 
 PidgeyEggMoves:
 	db PURSUIT
 	db FAINT_ATTACK
-	db FORESIGHT
 	db AIR_SLASH
 if !_CRYSTAL
 	db ICICLE_WING
@@ -161,7 +166,6 @@ PsyduckEggMoves:
 	db ICE_BEAM
 	db HYPNOSIS
 	db PSYBEAM
-	db FORESIGHT
 	db LIGHT_SCREEN
 	db FUTURE_SIGHT
 	db PSYCHIC_M
@@ -172,7 +176,6 @@ endc
 
 MankeyEggMoves:
 	db ROCK_SLIDE
-	db FORESIGHT
 	db MEDITATE
 	db COUNTER
 	db REVERSAL
@@ -248,7 +251,6 @@ FarfetchDEggMoves:
 if !_CRYSTAL
 	db ICICLE_WING
 endc
-	db FORESIGHT
 	db MIRROR_MOVE
 	db GUST
 	db QUICK_ATTACK
@@ -370,7 +372,6 @@ TangelaEggMoves:
 
 KangaskhanEggMoves:
 	db STOMP
-	db FORESIGHT
 	db FOCUS_ENERGY
 	db SAFEGUARD
 	db DISABLE
@@ -419,7 +420,6 @@ PinsirEggMoves:
 
 LaprasEggMoves:
 	db AURORA_BEAM
-	db FORESIGHT
 	db -1 ; end
 
 EeveeEggMoves:
@@ -446,7 +446,6 @@ KabutoEggMoves:
 AerodactylEggMoves:
 	db WHIRLWIND
 	db PURSUIT
-	db FORESIGHT
 if !_CRYSTAL
 	db ICICLE_WING
 endc
@@ -480,7 +479,6 @@ CyndaquilEggMoves:
 	db QUICK_ATTACK
 	db REVERSAL
 	db THRASH
-	db FORESIGHT
 if _CRYSTAL
 	db SUBMISSION
 endc
@@ -553,7 +551,6 @@ IgglybuffEggMoves:
 TogepiEggMoves:
 	db MIRROR_MOVE
 	db PECK
-	db FORESIGHT
 	db FUTURE_SIGHT
 	db -1 ; end
 
@@ -581,7 +578,6 @@ MarillEggMoves:
 	db BELLY_DRUM
 	db PERISH_SONG
 	db SUPERSONIC
-	db FORESIGHT
 	db -1 ; end
 
 SudowoodoEggMoves:
@@ -638,7 +634,6 @@ MisdreavusEggMoves:
 GirafarigEggMoves:
 	db TAKE_DOWN
 	db AMNESIA
-	db FORESIGHT
 	db FUTURE_SIGHT
 	db -1 ; end
 
@@ -691,7 +686,6 @@ HeracrossEggMoves:
 SneaselEggMoves:
 	db COUNTER
 	db SPITE
-	db FORESIGHT
 	db REFLECT
 	db BITE
 	db -1 ; end
