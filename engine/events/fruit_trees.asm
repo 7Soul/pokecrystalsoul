@@ -52,7 +52,7 @@ SetBattle:
 	pop hl
 	
 	call Random 
-	cp 99 percent
+	cp 45 percent
 	jp nc, NoMon
 	
 	farcall RegionCheck

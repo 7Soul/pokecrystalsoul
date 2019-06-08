@@ -508,10 +508,76 @@ LearnLevelMoves:
 	ld a, [wCurPartySpecies]
 	ld [wTempSpecies], a
 	ret
+	
+FillEggMove:
+	push hl
+	push de
+	push bc
+	ld hl, EggMovePointers
+	ld a, [wCurPartySpecies]
+	dec a
+	ld c, a
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	ld a, BANK(EggMovePointers)
+	call GetFarHalfword
+	push hl
+	ld c, 0
+	dec hl
+.count_moves_loop
+	inc c
+	inc hl
+	ld a, BANK("Egg Moves")
+	call GetFarByte
+	cp -1	
+	jr nz, .count_moves_loop
+	
+.reached_end
+	pop hl
+	ld a, c
+	call RandomRange
+	ld c, a
+	ld b, 0
+	add hl, bc
+	
+	ld a, BANK("Egg Moves")
+	call GetFarByte
+	ld b, a
+	ld c, NUM_MOVES
+.loop ; finds first slot that isn't empty (or last slot)
+	ld a, [de]
+	and a
+	jr z, .LearnMove
+	inc de
+	dec c
+	jr nz, .loop
+; if all moves are filled, go back to move 1
+	dec de
+	dec de
+	dec de
+	dec de
+.LearnMove
+	ld a, b
+	cp $FF
+	jp z, .no_moves
+	ld [de], a
+; set pp
+	dec a
+	ld hl, Moves + MOVE_PP
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte
+	pop hl
+.no_moves
+	pop bc
+	pop de
+	pop hl
+	ret
 
 FillMoves:
 ; Fill in moves at de for wCurPartySpecies at wCurPartyLevel
-
 	push hl
 	push de
 	push bc
@@ -618,6 +684,25 @@ FillMoves:
 	pop bc
 	pop de
 	pop hl
+
+	ld a, [wLuckyWild]
+	cp 0
+	jr z, .notLucky
+; 10% chance to have egg move in a lucky battle
+	ld a, 100
+	call RandomRange
+	cp 10
+	jr nc, .notLucky
+	call FillEggMove
+	jr .noEggMove
+.notLucky
+; 2.7% chance to have egg move in a normal battle
+	ld a, 255
+	call RandomRange
+	cp 7
+	jr nc, .noEggMove
+	call FillEggMove
+.noEggMove
 	ret
 
 ShiftMoves:

@@ -513,23 +513,23 @@ ChooseWildEncounter:
 	jp .switch_end
 	
 .switch_start
-	dec a
+	cp 0
 	jp z, .case0
-	dec a
+	cp 1
 	jp z, .case1
-	dec a
+	cp 2
 	jp z, .case2
-	dec a
+	cp 3
 	jp z, .case3
-	dec a
+	cp 4
 	jp z, .case4
-	dec a
+	cp 5
 	jp z, .case5
-	dec a
+	cp 6
 	jp z, .case6
-	dec a
+	cp 7
 	jp z, .case7
-	dec a
+	cp 8
 	jp z, .case8
 	
 .switch_end

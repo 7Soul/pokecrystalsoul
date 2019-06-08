@@ -47,9 +47,7 @@ PidgeyEggMoves:
 	db PURSUIT
 	db FAINT_ATTACK
 	db AIR_SLASH
-if !_CRYSTAL
 	db ICICLE_WING
-endc
 	db -1 ; end
 
 RattataEggMoves:
@@ -73,9 +71,7 @@ EkansEggMoves:
 	db PURSUIT
 	db SLAM
 	db SPITE
-if _CRYSTAL
 	db CRUNCH
-endc
 	db -1 ; end
 
 SandshrewEggMoves:
@@ -83,9 +79,7 @@ SandshrewEggMoves:
 	db SAFEGUARD
 	db COUNTER
 	db RAPID_SPIN
-if _CRYSTAL
 	db FROZEN_CLAW
-endc
 	db -1 ; end
 
 NidoranFEggMoves:
