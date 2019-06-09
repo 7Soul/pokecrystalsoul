@@ -60,7 +60,7 @@ TypeMatchups:
 	db FLYING,    FIGHTING,  SUPER_EFFECTIVE
 	db FLYING,    BUG,       SUPER_EFFECTIVE
 
-	db -2 ; end (with Prism Light)
+	db -2 ; only continue if you have Prism status
 	
 	db FIRE,	  NORMAL,	 SUPER_EFFECTIVE
 	db GRASS,	  NORMAL,	 SUPER_EFFECTIVE

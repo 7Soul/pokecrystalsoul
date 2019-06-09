@@ -1476,16 +1476,16 @@ BattleCommand_Stab:
 .TypesLoop:
 	ld a, [hli]
 
-	cp -1
-	jr z, .end
-
 	; prism light
 	cp -2
 	jr nz, .SkipPrismLightCheck
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
 	call GetBattleVar
 	bit SUBSTATUS_IDENTIFIED, a
-	jr nz, .end
+	jr z, .end
+
+	cp -1
+	jr z, .end
 
 	jr .TypesLoop
 
@@ -1611,14 +1611,17 @@ CheckTypeMatchup:
 	
 .TypesLoop:
 	ld a, [hli]
-	cp -1
-	jr z, .End
+	
 	cp -2
 	jr nz, .Next
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
 	call GetBattleVar
 	bit SUBSTATUS_IDENTIFIED, a
-	jr nz, .End
+	jr z, .End
+	
+	cp -1
+	jr z, .End
+	
 	jr .TypesLoop
 
 .Next:
