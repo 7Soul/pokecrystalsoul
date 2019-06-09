@@ -1,18 +1,3 @@
-; CheckIfTargetIsPoisonType:
-	; ld de, wEnemyMonType1
-	; ldh a, [hBattleTurn]
-	; and a
-	; jr z, .ok
-	; ld de, wBattleMonType1
-; .ok
-	; ld a, [de]
-	; inc de
-	; cp POISON
-	; ret z
-	; ld a, [de]
-	; cp POISON
-	; ret
-	
 CheckIfTargetIsElectricType:
 	ld de, wEnemyMonType1
 	ld a, [hBattleTurn]
@@ -201,3 +186,61 @@ CheckAnyOtherAliveMons:
 	ld a, b
 	and a
 	ret
+
+IgnoreSleepOnly:
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+
+	; Snore and Sleep Talk bypass sleep.
+	cp SNORE
+	jr z, .CheckSleep
+	cp SLEEP_TALK
+	jr z, .CheckSleep
+	and a
+	ret
+
+.CheckSleep:
+	ld a, BATTLE_VARS_STATUS
+	call GetBattleVar
+	and SLP
+	ret z
+
+; 'ignored orders…sleeping!'
+	ld hl, IgnoredSleepingText
+	call StdBattleTextBox
+
+	call EndMoveEffect
+
+	scf
+	ret
+	
+CheckMimicUsed:
+	ldh a, [hBattleTurn]
+	and a
+	ld a, [wCurMoveNum]
+	jr z, .player
+	ld a, [wCurEnemyMoveNum]
+
+.player
+	ld c, a
+	ld a, MON_MOVES
+	call UserPartyAttr
+
+	ld a, BATTLE_VARS_MOVE
+	call GetBattleVar
+	cp MIMIC
+	jr z, .mimic
+;
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	cp MIMIC
+	jr nz, .mimic
+
+	scf
+	ret
+
+.mimic
+	and a
+	ret
+	

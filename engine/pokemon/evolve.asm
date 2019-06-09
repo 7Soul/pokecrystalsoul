@@ -535,15 +535,34 @@ FillEggMove:
 	
 .reached_end
 	pop hl
+; higher chance of giving moves from 1st and 2nd slot in the egg moves list
+; 50% chance of being move 1 or 2
+; 50% chance of any move (including 1 and 2)
+	ld a, 1
+	call RandomRange
+	cp 0
+	jr z, .high_moves
+	
+; get move 1 or 2
+	ld a, 2
+	call RandomRange
+	jr .get_position
+	
+; get move between 1 and max
+.high_moves
 	ld a, c
 	call RandomRange
+
+; go to hl according to move number
+.get_position
 	ld c, a
 	ld b, 0
 	add hl, bc
-	
+
+; get move from hl
 	ld a, BANK("Egg Moves")
 	call GetFarByte
-	ld b, a
+	ld b, a ; this is our move
 	ld c, NUM_MOVES
 .loop ; finds first slot that isn't empty (or last slot)
 	ld a, [de]

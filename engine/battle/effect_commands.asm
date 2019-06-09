@@ -758,7 +758,7 @@ BattleCommand_CheckObedience:
 
 ; Sleep-only moves have separate handling, and a higher chance of
 ; being ignored. Lazy monsters like their sleep.
-	call IgnoreSleepOnly
+	farcall IgnoreSleepOnly
 	ret c
 
 ; Another random number from 0 to obedience level + monster level
@@ -935,33 +935,6 @@ BattleCommand_CheckObedience:
 
 	jp EndMoveEffect
 
-IgnoreSleepOnly:
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-
-	; Snore and Sleep Talk bypass sleep.
-	cp SNORE
-	jr z, .CheckSleep
-	cp SLEEP_TALK
-	jr z, .CheckSleep
-	and a
-	ret
-
-.CheckSleep:
-	ld a, BATTLE_VARS_STATUS
-	call GetBattleVar
-	and SLP
-	ret z
-
-; 'ignored orders…sleeping!'
-	ld hl, IgnoredSleepingText
-	call StdBattleTextBox
-
-	call EndMoveEffect
-
-	scf
-	ret
-
 BattleCommand_UsedMoveText:
 ; usedmovetext
 	farcall DisplayUsedMoveText
@@ -1040,7 +1013,7 @@ BattleCommand_DoTurn:
 .player
 	call GetPartyLocation
 	push hl
-	call CheckMimicUsed
+	farcall CheckMimicUsed
 	pop hl
 	ret c
 
@@ -1109,39 +1082,8 @@ BattleCommand_DoTurn:
 	db EFFECT_SOLARBEAM
 	db EFFECT_FLY
 	db EFFECT_ROLLOUT
-	db EFFECT_BIDE
 	db EFFECT_RAMPAGE
 	db -1
-
-CheckMimicUsed:
-	ldh a, [hBattleTurn]
-	and a
-	ld a, [wCurMoveNum]
-	jr z, .player
-	ld a, [wCurEnemyMoveNum]
-
-.player
-	ld c, a
-	ld a, MON_MOVES
-	call UserPartyAttr
-
-	ld a, BATTLE_VARS_MOVE
-	call GetBattleVar
-	cp MIMIC
-	jr z, .mimic
-;
-	ld b, 0
-	add hl, bc
-	ld a, [hl]
-	cp MIMIC
-	jr nz, .mimic
-
-	scf
-	ret
-
-.mimic
-	and a
-	ret
 
 BattleCommand_Critical:
 ; critical
@@ -3446,6 +3388,22 @@ BattleCommand_ConstantDamage:
 	ld b, [hl]
 	ld a, 0
 	jr z, .got_power
+; limit sonic boom at lower levels
+	ld a, BATTLE_VARS_MOVE_EFFECT
+	call GetBattleVar
+	cp EFFECT_STATIC_DAMAGE
+	ld a, [hl] ; level
+	cp $6
+	ld a, $a ; 10 dmg
+	jr c, .below
+	cp $b
+	ld a, $f ; 15 dmb
+	jr c, .below
+	ld a, $14 ; 20 dmg
+.below
+	ld b, a 
+	ld a, $0
+	jr z, .got_power
 
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
@@ -5269,7 +5227,7 @@ CalcStats:
 
 	ret
 
-INCLUDE "engine/battle/move_effects/bide.asm"
+;INCLUDE "engine/battle/move_effects/bide.asm"
 
 INCLUDE "engine/battle/move_effects/stampede.asm"
 
@@ -6845,6 +6803,8 @@ BattleCommand_CheckSafeguard:
 	jp EndMoveEffect
 
 INCLUDE "engine/battle/move_effects/magnitude.asm"
+
+INCLUDE "engine/battle/move_effects/wild_storm.asm"
 
 INCLUDE "engine/battle/move_effects/baton_pass.asm"
 

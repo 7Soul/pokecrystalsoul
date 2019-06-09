@@ -789,17 +789,22 @@ ResetStats:
 	resetstats
 	endmove
 
-Bide:
-	storeenergy
+WildStorm:
 	checkobedience
-	doturn
 	usedmovetext
-	unleashenergy
-	resettypematchup
+	doturn
+	critical
+	damagestats
+	getwildstorm
+	damagecalc
+	stab
+	damagevariation
 	checkhit
 	moveanim
-	bidefailtext
+	failuretext
 	applydamage
+	criticaltext
+	supereffectivetext
 	checkfaint
 	buildopponentrage
 	kingsrock
@@ -2291,3 +2296,4 @@ JetStream:
 	checkfaint
 	buildopponentrage
 	endmove
+	

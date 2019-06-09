@@ -322,7 +322,7 @@ AI_Smart:
 	dbw EFFECT_ALWAYS_HIT,       AI_Smart_AlwaysHit
 	dbw EFFECT_ACCURACY_DOWN,    AI_Smart_AccuracyDown
 	dbw EFFECT_RESET_STATS,      AI_Smart_ResetStats
-	dbw EFFECT_BIDE,             AI_Smart_Bide
+	;dbw EFFECT_BIDE,             AI_Smart_Bide
 	dbw EFFECT_FORCE_SWITCH,     AI_Smart_ForceSwitch
 	dbw EFFECT_HEAL,             AI_Smart_Heal
 	dbw EFFECT_TOXIC,            AI_Smart_Toxic
@@ -923,16 +923,16 @@ AI_Smart_ResetStats:
 	inc [hl]
 	ret
 
-AI_Smart_Bide:
+; AI_Smart_Bide:
 ; 90% chance to discourage this move unless enemy's HP is full.
 
-	call AICheckEnemyMaxHP
-	ret c
-	call Random
-	cp 10 percent
-	ret c
-	inc [hl]
-	ret
+	; call AICheckEnemyMaxHP
+	; ret c
+	; call Random
+	; cp 10 percent
+	; ret c
+	; inc [hl]
+	; ret
 
 AI_Smart_ForceSwitch:
 ; Whirlwind, Roar.

@@ -188,6 +188,7 @@ ENDM
 	command stampede				; b6
 	command jetstream				; b7
 	command wakeupfoe				; b8
+	command getwildstorm			; b9
 	
 
 	enum_start $fe

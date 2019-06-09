@@ -128,7 +128,7 @@ Moves: ; 41afb
 	move HAZE,         EFFECT_RESET_STATS,         0, ICE,      STATUS,   100, 30,   0
 	move REFLECT,      EFFECT_REFLECT,             0, PSYCHIC,  STATUS,   100, 20,   0
 	move FOCUS_ENERGY, EFFECT_FOCUS_ENERGY,        0, NORMAL,   STATUS,   100, 30,   0
-	move BIDE,         EFFECT_BIDE,                0, NORMAL,   PHYSICAL, 100, 10,   0
+	move WILD_STORM,   EFFECT_WILD_STORM,          1, ELECTRIC, SPECIAL,  100, 25,   0
 	move METRONOME,    EFFECT_METRONOME,           0, NORMAL,   STATUS,   100, 10,   0
 	move MIRROR_MOVE,  EFFECT_MIRROR_MOVE,         0, FLYING,   STATUS,   100, 20,   0
 	move SELFDESTRUCT, EFFECT_SELFDESTRUCT,      200, NORMAL,   PHYSICAL, 100,  5,   0

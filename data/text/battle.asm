@@ -1080,6 +1080,13 @@ MagnitudeText:
 	text "!"
 	prompt
 
+WildStormText:
+	text "@"
+	deciram wDeciramBuffer, 1, 1
+	text " bolts strike"
+	cont "the target!"
+	prompt
+
 ReleasedByText:
 	text "<USER>"
 	line "was released by"

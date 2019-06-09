@@ -8,10 +8,10 @@ EggMovePointers::
 	dw SquirtleEggMoves
 	dw NoEggMoves
 	dw NoEggMoves
+	dw CaterpieEggMoves
 	dw NoEggMoves
 	dw NoEggMoves
-	dw NoEggMoves
-	dw NoEggMoves
+	dw WeedleEggMoves
 	dw NoEggMoves
 	dw NoEggMoves
 	dw PidgeyEggMoves
@@ -23,7 +23,7 @@ EggMovePointers::
 	dw NoEggMoves
 	dw EkansEggMoves
 	dw NoEggMoves
-	dw NoEggMoves
+	dw NoEggMoves ; pichu
 	dw NoEggMoves
 	dw SandshrewEggMoves
 	dw NoEggMoves
@@ -33,11 +33,11 @@ EggMovePointers::
 	dw NidoranMEggMoves
 	dw NoEggMoves
 	dw NoEggMoves
-	dw NoEggMoves
+	dw NoEggMoves ; cleffa
 	dw NoEggMoves
 	dw VulpixEggMoves
 	dw NoEggMoves
-	dw NoEggMoves
+	dw NoEggMoves ; igglybuff
 	dw NoEggMoves
 	dw ZubatEggMoves
 	dw NoEggMoves
@@ -79,7 +79,7 @@ EggMovePointers::
 	dw NoEggMoves
 	dw SlowpokeEggMoves
 	dw NoEggMoves
-	dw NoEggMoves
+	dw MagnemiteEggMoves
 	dw NoEggMoves
 	dw FarfetchDEggMoves
 	dw DoduoEggMoves
@@ -97,15 +97,15 @@ EggMovePointers::
 	dw DrowzeeEggMoves
 	dw NoEggMoves
 	dw KrabbyEggMoves
-	dw NoEggMoves
+	dw VoltorbEggMoves
 	dw NoEggMoves
 	dw NoEggMoves
 	dw ExeggcuteEggMoves
 	dw NoEggMoves
 	dw CuboneEggMoves
 	dw NoEggMoves
-	dw NoEggMoves
-	dw NoEggMoves
+	dw NoEggMoves ; tyrogue
+	dw NoEggMoves ; tyrogue
 	dw LickitungEggMoves
 	dw KoffingEggMoves
 	dw NoEggMoves
@@ -118,20 +118,16 @@ EggMovePointers::
 	dw NoEggMoves
 	dw GoldeenEggMoves
 	dw NoEggMoves
-if _CRYSTAL
-	dw NoEggMoves
-else
 	dw StaryuEggMoves
-endc
 	dw NoEggMoves
 	dw MrMimeEggMoves
 	dw ScytherEggMoves
-	dw NoEggMoves
-	dw NoEggMoves
-	dw NoEggMoves
+	dw NoEggMoves ; smoochum
+	dw NoEggMoves ; elekid
+	dw NoEggMoves ; magby
 	dw PinsirEggMoves
-	dw NoEggMoves
-	dw NoEggMoves
+	dw TaurosEggMoves
+	dw MagikarpEggMoves
 	dw NoEggMoves
 	dw LaprasEggMoves
 	dw NoEggMoves
@@ -139,7 +135,7 @@ endc
 	dw NoEggMoves
 	dw NoEggMoves
 	dw NoEggMoves
-	dw NoEggMoves
+	dw PorygonEggMoves
 	dw OmanyteEggMoves
 	dw NoEggMoves
 	dw KabutoEggMoves
@@ -193,7 +189,7 @@ endc
 	dw NoEggMoves
 	dw NoEggMoves
 	dw AipomEggMoves
-	dw NoEggMoves
+	dw SunkernEggMoves
 	dw NoEggMoves
 	dw YanmaEggMoves
 	dw WooperEggMoves
@@ -204,7 +200,7 @@ endc
 	dw NoEggMoves
 	dw MisdreavusEggMoves
 	dw NoEggMoves
-	dw NoEggMoves
+	dw WobbuffetEggMoves
 	dw GirafarigEggMoves
 	dw PinecoEggMoves
 	dw NoEggMoves

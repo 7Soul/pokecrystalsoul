@@ -116,7 +116,7 @@ MoveDescriptions::
 	dw HazeDescription
 	dw ReflectDescription
 	dw FocusEnergyDescription
-	dw BideDescription
+	dw WildStormDescription
 	dw MetronomeDescription
 	dw MirrorMoveDescription
 	dw SelfdestructDescription
@@ -725,9 +725,9 @@ FocusEnergyDescription:
 	db   "Raises the criti-"
 	next "cal hit ratio.@"
 
-BideDescription:
-	db   "Waits 2-3 turns &"
-	next "hits back double.@"
+WildStormDescription:
+	db   "Wildly shoots many"
+	next "lightning bolts.@"
 
 MetronomeDescription:
 	db   "Randomly uses any"

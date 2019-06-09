@@ -545,7 +545,6 @@ ClefairyEvosAttacks:
 	db 1, POUND
 	db 1, GROWL
 	db 4, ENCORE
-	db 6, PRISM_LIGHT
 	db 8, SING
 	db 13, DOUBLESLAP
 	db 19, MINIMIZE
@@ -1531,8 +1530,8 @@ VoltorbEvosAttacks:
 	db EVOLVE_LEVEL, 30, ELECTRODE
 	db 0 ; no more evolutions
 	db 1, SONICBOOM
-	db 8, EERIEIMPULSE
-	db 10, SPARK
+	db 5, EERIEIMPULSE
+	db 9, SPARK
 	db 13, ROLLOUT
 	db 15, SCREECH
 	db 18, SELFDESTRUCT
@@ -1914,18 +1913,18 @@ JynxEvosAttacks:
 
 ElectabuzzEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, QUICK_ATTACK
+	db 4, THUNDERSHOCK
 	db 1, LEER
-	db 1, THUNDERSHOCK
-	db 8, LOW_KICK
-	db 12, SWIFT
+	db 8, QUICK_ATTACK
+	db 13, LOW_KICK
 	db 15, THUNDER_WAVE
-	db 20, CHARGE_BEAM
-	db 26, LIGHT_SCREEN
-	db 29, THUNDERPUNCH
-	db 42, SCREECH
-	db 49, THUNDERBOLT
-	db 55, THUNDER
+	db 19, LIGHT_SCREEN
+	db 23, WILD_STORM
+	db 28, SWIFT
+	db 33, THUNDERPUNCH
+	db 39, SCREECH
+	db 46, THUNDERBOLT
+	db 54, THUNDER
 	db 0 ; no more level-up moves
 
 MagmarEvosAttacks:
@@ -2224,6 +2223,7 @@ ZapdosEvosAttacks:
 	db 13, THUNDER_WAVE
 	db 25, AGILITY
 	db 37, PROTECT
+	db 45, WILD_STORM
 	db 49, DRILL_PECK
 	db 61, LIGHT_SCREEN
 	db 65, THUNDER
@@ -3121,7 +3121,7 @@ PinecoEvosAttacks:
 	db 8, SELFDESTRUCT
 	db 15, TAKE_DOWN
 	db 22, RAPID_SPIN
-	db 29, BIDE
+	;db 29, BIDE
 	db 32, ZOOM_FLIGHT
 	db 36, EXPLOSION
 	db 43, SPIKES
@@ -3137,7 +3137,7 @@ ForretressEvosAttacks:
 	db 8, SELFDESTRUCT
 	db 15, TAKE_DOWN
 	db 22, RAPID_SPIN
-	db 29, BIDE
+	;db 29, BIDE
 	db 32, ZOOM_FLIGHT
 	db 39, EXPLOSION
 	db 49, SPIKES
@@ -3686,14 +3686,17 @@ SmoochumEvosAttacks:
 ElekidEvosAttacks:
 	db EVOLVE_LEVEL, 25, ELECTABUZZ
 	db 0 ; no more evolutions
-	db 1, QUICK_ATTACK
+	db 4, THUNDERSHOCK
 	db 1, LEER
-	db 9, THUNDERPUNCH
+	db 8, QUICK_ATTACK
+	db 13, LOW_KICK
 	db 17, LIGHT_SCREEN
+	db 21, WILD_STORM
 	db 25, SWIFT
-	db 33, SCREECH
+	db 29, THUNDERPUNCH
+	db 34, SCREECH
 	db 41, THUNDERBOLT
-	db 49, THUNDER
+	db 47, THUNDER
 	db 0 ; no more level-up moves
 
 MagbyEvosAttacks:
@@ -3717,7 +3720,7 @@ MiltankEvosAttacks:
 	db 8, DEFENSE_CURL
 	db 13, STOMP
 	db 19, MILK_DRINK
-	db 26, BIDE
+	;db 26, BIDE
 	db 34, ROLLOUT
 	db 43, BODY_SLAM
 	db 53, HEAL_BELL

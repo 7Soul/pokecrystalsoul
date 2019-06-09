@@ -115,7 +115,7 @@ MoveNames::
 	db "Haze@"
 	db "Reflect@"
 	db "Focus Energy@"
-	db "Bide@"
+	db "Wild Storm@"
 	db "Metronome@"
 	db "Mirror Move@"
 	db "Selfdestruct@"
