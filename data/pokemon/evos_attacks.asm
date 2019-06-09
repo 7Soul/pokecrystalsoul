@@ -545,6 +545,7 @@ ClefairyEvosAttacks:
 	db 1, POUND
 	db 1, GROWL
 	db 4, ENCORE
+	db 6, WILD_STORM
 	db 8, SING
 	db 13, DOUBLESLAP
 	db 19, MINIMIZE

@@ -37,8 +37,8 @@ ENDM
 	command payday                  ; 1e
 	command conversion              ; 1f
 	command resetstats              ; 20
-	command storeenergy             ; 21
-	command unleashenergy           ; 22
+	;command storeenergy             ; 21
+	;command unleashenergy           ; 22
 	command forceswitch             ; 23
 	command endloop                 ; 24
 	command flinchtarget            ; 25

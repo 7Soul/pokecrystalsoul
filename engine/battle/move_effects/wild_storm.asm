@@ -15,7 +15,7 @@ BattleCommand_GetWildStorm:
 
 .ok
 	ld d, [hl]
-	
+	push hl
 	ld hl, wBattleMonType1
 	ldh a, [hBattleTurn]
 	and a
@@ -34,6 +34,7 @@ BattleCommand_GetWildStorm:
 	add a ; inc power by 50%
 	ld d, a
 .not_flying
+	pop hl
 	push de
 	inc hl
 	ld a, [hl]
