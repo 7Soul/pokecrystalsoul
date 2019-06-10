@@ -545,7 +545,6 @@ ClefairyEvosAttacks:
 	db 1, POUND
 	db 1, GROWL
 	db 4, ENCORE
-	db 6, WILD_STORM
 	db 8, SING
 	db 13, DOUBLESLAP
 	db 19, MINIMIZE
@@ -813,7 +812,7 @@ MeowthEvosAttacks:
 	db 1, SCRATCH
 	db 1, GROWL
 	db 11, BITE
-	db 20, PAY_DAY
+	;db 20, PAY_DAY
 	db 28, FAINT_ATTACK
 	db 33, SLASH
 	db 35, SCREECH
@@ -827,7 +826,7 @@ PersianEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SCRATCH
 	db 11, BITE
-	db 20, PAY_DAY
+	;db 20, PAY_DAY
 	db 27, POWER_GEM
 	db 29, FAINT_ATTACK
 	db 34, SLASH
@@ -2474,13 +2473,17 @@ SentretEvosAttacks:
 	db 1, SCRATCH
 	db 4, DEFENSE_CURL
 	db 7, QUICK_ATTACK
-	db 12, LEAF_SHIELD
+	db 10, LEAF_SHIELD
+	db 13, FURY_ATTACK
 	db 17, MAKESHIFT
 	db 19, CHARM
 	db 25, SLAM
-	db 33, REST
-	db 39, BATON_PASS
-	db 41, SWORDS_DANCE
+	db 29, REST
+	db 35, EXTREMESPEED
+	db 39, AMNESIA
+	db 42, BATON_PASS
+	db 45, SWORDS_DANCE
+	db 51, HYPER_SONAR
 	db 0 ; no more level-up moves
 
 FurretEvosAttacks:
@@ -2488,14 +2491,18 @@ FurretEvosAttacks:
 	db 1, SCRATCH
 	db 4, DEFENSE_CURL
 	db 7, QUICK_ATTACK
-	db 12, LEAF_SHIELD
+	db 10, LEAF_SHIELD
+	db 13, FURY_ATTACK
 	db 14, AGILITY
-	db 17, MAKESHIFT
+	db 18, MAKESHIFT
 	db 21, CHARM
-	db 27, SLAM
-	db 35, REST
-	db 41, BATON_PASS
-	db 43, SWORDS_DANCE
+	db 28, SLAM
+	db 32, REST
+	db 39, EXTREMESPEED
+	db 42, AMNESIA
+	db 46, BATON_PASS
+	db 50, SWORDS_DANCE
+	db 55, HYPER_SONAR
 	db 0 ; no more level-up moves
 
 HoothootEvosAttacks:
@@ -2503,10 +2510,13 @@ HoothootEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, GROWL
-	db 11, PECK
-	db 16, HYPNOSIS
+	db 7, PECK
+	db 10, CONFUSION
+	db 14, HYPNOSIS
+	db 16, ZEN_HEADBUTT
 	db 22, REFLECT
 	db 28, TAKE_DOWN
+	db 31, AIR_SLASH
 	db 34, CONFUSION
 	db 45, MOONLIGHT
 	db 48, DREAM_EATER
@@ -2517,14 +2527,16 @@ NoctowlEvosAttacks:
 	db 1, TACKLE
 	db 1, GROWL
 	db 1, PECK
-	db 11, PECK
+	db 10, CONFUSION
 	db 16, HYPNOSIS
-	db 21, FAINT_ATTACK
+	db 16, ZEN_HEADBUTT
+	db 22, FAINT_ATTACK
 	db 25, REFLECT
 	db 33, TAKE_DOWN
+	db 36, AIR_SLASH
 	db 41, CONFUSION
 	db 49, MOONLIGHT
-	db 57, DREAM_EATER
+	db 55, DREAM_EATER
 	db 0 ; no more level-up moves
 
 LedybaEvosAttacks:
@@ -2542,8 +2554,8 @@ LedybaEvosAttacks:
 	db 28, ZOOM_FLIGHT
 	db 31, AGILITY
 	db 36, SWIFT
-	db 42, DOUBLE_EDGE
-	db 46, BUG_BUZZ
+	db 43, DOUBLE_EDGE
+	db 50, BUG_BUZZ
 	db 0 ; no more level-up moves
 
 LedianEvosAttacks:
@@ -2554,14 +2566,14 @@ LedianEvosAttacks:
 	db 12, SAFEGUARD
 	db 12, REFLECT
 	db 15, MACH_PUNCH
-	db 20, SILVER_WIND
+	db 19, SILVER_WIND
 	db 25, COMET_PUNCH	
 	db 29, BATON_PASS
 	db 31, ZOOM_FLIGHT
 	db 34, AGILITY
 	db 39, SWIFT
-	db 45, DOUBLE_EDGE
-	db 50, BUG_BUZZ
+	db 46, DOUBLE_EDGE
+	db 55, BUG_BUZZ
 	db 0 ; no more level-up moves
 
 SpinarakEvosAttacks:
@@ -2700,9 +2712,11 @@ TogepiEvosAttacks:
 	db 21, DOUBLESLAP
 	db 25, ENCORE
 	db 33, ANCIENTPOWER
-	db 37, SAFEGUARD
-	db 40, DOUBLE_EDGE
-	db 46, EGG_BOMB
+	db 38, ZEN_HEADBUTT
+	db 41, SAFEGUARD
+	db 43, DOUBLE_EDGE
+	db 47, EGG_BOMB
+	db 51, HYPER_SONAR
 	db 0 ; no more level-up moves
 
 TogeticEvosAttacks:
@@ -2712,11 +2726,13 @@ TogeticEvosAttacks:
 	db 7, METRONOME
 	db 18, SWEET_KISS
 	db 21, DOUBLESLAP
-	db 25, ENCORE
-	db 33, ANCIENTPOWER
-	db 37, SAFEGUARD
-	db 40, DOUBLE_EDGE	
-	db 46, EGG_BOMB
+	db 26, ENCORE
+	db 35, ANCIENTPOWER
+	db 40, ZEN_HEADBUTT
+	db 43, SAFEGUARD
+	db 46, DOUBLE_EDGE	
+	db 50, EGG_BOMB
+	db 54, SKY_ATTACK
 	db 0 ; no more level-up moves
 
 NatuEvosAttacks:

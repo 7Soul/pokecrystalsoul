@@ -212,6 +212,7 @@ TryWildEncounter::
 	call CheckRepelEffect
 	jr nc, .no_battle
 	xor a
+	ld [wScriptVar], a
 	ret
 
 .no_battle
@@ -219,6 +220,7 @@ TryWildEncounter::
 	ld [wTempWildMonSpecies], a
 	ld [wBattleType], a
 	ld a, 1
+	ld [wScriptVar], a
 	and a
 	ret
 

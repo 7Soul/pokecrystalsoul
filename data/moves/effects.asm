@@ -754,7 +754,7 @@ AllUpHit:
 	allstatsup
 	endmove
 
-PayDay:
+AccuracyUpHit:
 	checkobedience
 	usedmovetext
 	doturn
@@ -764,15 +764,16 @@ PayDay:
 	stab
 	damagevariation
 	checkhit
+	effectchance
 	moveanim
 	failuretext
 	applydamage
 	criticaltext
 	supereffectivetext
-	payday
 	checkfaint
 	buildopponentrage
-	kingsrock
+	accuracyup
+	statupmessage
 	endmove
 
 Conversion:

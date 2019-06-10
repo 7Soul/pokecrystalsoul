@@ -34,7 +34,7 @@ ENDM
 	command mirrormove              ; 1b
 	command statup                  ; 1c
 	command statdown                ; 1d
-	command payday                  ; 1e
+	;command payday                  ; 1e
 	command conversion              ; 1f
 	command resetstats              ; 20
 	;command storeenergy             ; 21

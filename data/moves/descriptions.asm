@@ -5,7 +5,7 @@ MoveDescriptions::
 	dw DoubleslapDescription
 	dw CometPunchDescription
 	dw MegaPunchDescription
-	dw PayDayDescription
+	dw HyperSonarDescription
 	dw FirePunchDescription
 	dw IcePunchDescription
 	dw ThunderpunchDescription
@@ -281,9 +281,9 @@ MegaPunchDescription:
 	db   "A powerful punch"
 	next "thrown very hard.@"
 
-PayDayDescription:
-	db   "Throws coins. Gets"
-	next "them back later.@"
+HyperSonarDescription:
+	db   "Sonar impact that"
+	next "locates enemies.@"
 
 FirePunchDescription:
 	db   "A fiery punch. May"

@@ -6367,7 +6367,7 @@ INCLUDE "engine/battle/move_effects/splash.asm"
 
 INCLUDE "engine/battle/move_effects/disable.asm"
 
-INCLUDE "engine/battle/move_effects/pay_day.asm"
+;INCLUDE "engine/battle/move_effects/pay_day.asm"
 
 INCLUDE "engine/battle/move_effects/conversion.asm"
 

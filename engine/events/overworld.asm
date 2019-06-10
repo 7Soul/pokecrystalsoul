@@ -1279,6 +1279,27 @@ UnknownText_0xcea2:
 	; Nope. Nothing…
 	text_jump UnknownText_0x1c08ac
 	db "@"
+	
+; OWEncounterTest::
+	; ld a, BANK(AskHeadbuttScript)
+	; ld hl, AskHeadbuttScript
+	; call CallScript
+	; scf
+	; ret
+	
+; EncounterTest:
+	; callasm TTT
+	; iffalse .ok
+	; end
+; .ok
+	; randomwildmon
+	; startbattle
+	; reloadmapafterbattle
+	; end
+
+; TTT:
+	; farcall TryWildEncounter
+	; ret
 
 HeadbuttFromMenuScript:
 	reloadmappart

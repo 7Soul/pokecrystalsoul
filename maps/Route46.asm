@@ -7,9 +7,22 @@
 	const ROUTE46_POKE_BALL
 
 Route46_MapScripts:
-	db 0 ; scene scripts
-
+	db 0 ; scene scripts	
 	db 0 ; callbacks
+	
+GrassScene:
+	callasm TryWild
+	iffalse .ok
+	end
+.ok
+	randomwildmon
+	startbattle
+	reloadmapafterbattle
+	end
+
+TryWild:
+	farcall TryWildEncounter
+	ret
 
 TrainerCamperTed:
 	trainer CAMPER, TED, EVENT_BEAT_CAMPER_TED, CamperTedSeenText, CamperTedBeatenText, 0, .Script
@@ -256,12 +269,20 @@ Route46_MapEvents:
 	warp_event  8, 35, ROUTE_29_ROUTE_46_GATE, 2
 	warp_event  8,  5, DARK_CAVE_VIOLET_ENTRANCE, 3
 
-	db 0 ; coord events
+	db 8 ; coord events
+	coord_event 11, 14, SCENE_DEFAULT, GrassScene
+	coord_event 10, 14, SCENE_DEFAULT, GrassScene
+	coord_event  9, 14, SCENE_DEFAULT, GrassScene
+	coord_event  8, 14, SCENE_DEFAULT, GrassScene
+	coord_event 11, 15, SCENE_DEFAULT, GrassScene
+	coord_event 10, 15, SCENE_DEFAULT, GrassScene
+	coord_event  9, 15, SCENE_DEFAULT, GrassScene
+	coord_event  8, 15, SCENE_DEFAULT, GrassScene
 
 	db 1 ; bg events
 	bg_event  9, 29, BGEVENT_READ, Route46Sign
 
-	db 6 ; object events
+	db 7 ; object events
 	object_event 10, 10, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerHikerBailey, -1
 	object_event  3, 12, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerCamperTed, -1
 	object_event  2, 17, SPRITE_LASS, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerPicnickerErin1, -1

@@ -33,7 +33,7 @@ BattleCommandPointers:
 	dw BattleCommand_MirrorMove
 	dw BattleCommand_StatUp
 	dw BattleCommand_StatDown
-	dw BattleCommand_PayDay
+	;dw BattleCommand_PayDay
 	dw BattleCommand_Conversion
 	dw BattleCommand_ResetStats
 	;dw BattleCommand_StoreEnergy

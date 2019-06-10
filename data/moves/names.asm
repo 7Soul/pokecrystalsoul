@@ -4,7 +4,7 @@ MoveNames::
 	db "Doubleslap@"
 	db "Comet Punch@"
 	db "Mega Punch@"
-	db "Pay Day@"
+	db "Hyper Sonar@"
 	db "Fire Punch@"
 	db "Ice Punch@"
 	db "Thunderpunch@"

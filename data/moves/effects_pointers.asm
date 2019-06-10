@@ -33,8 +33,8 @@ MoveEffectsPointers:
 	dw Conversion
 	dw FlinchHit
 	dw Heal
-	dw Toxic
-	dw PayDay
+	dw Toxic	
+	dw AccuracyUpHit
 	dw LightScreen
 	dw TriAttack
 	dw NormalHit
