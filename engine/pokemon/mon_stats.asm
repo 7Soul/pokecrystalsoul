@@ -503,39 +503,43 @@ ListMoves:
 	ld a, [de]
 	inc de
 	and a
-	jr z, .no_more_moves
+	jp z, .no_more_moves
 	push de
 	push hl
 	push hl
 	ld [wCurSpecies], a
 ; move name replacer ; 7soul
-	ld a, [wBaseType1]
+	ld a, [wBattleMonType1]
 	cp WATER
 	jp z, .water
 	cp FIRE
 	jp z, .fire
-	ld a, [wBaseType2]
+	ld a, [wBattleMonType2]
 	cp WATER
 	jp z, .water
 	cp FIRE
 	jp z, .fire
 	jp .no_type
 .water
+	ld a, [wCurSpecies]
+	cp FIRE_PLAY ; fire play
+	jp z, .replace_name_water
+	jr .no_type
 .fire
 	ld a, [wCurSpecies]
-	cp POUND ; fire play
-	jp nz, .not_pound
-
-	jr .replace_name
+	cp FIRE_PLAY ; fire play
+	jp z, .replace_name_fire
 .no_type
-.not_pound
 	ld a, MOVE_NAME
 	ld [wNamedObjectTypeBuffer], a
 	call GetName
 	ld de, wStringBuffer1
 	jr .ok
-.replace_name
-	ld de, .Water1
+.replace_name_water
+	ld de, .WaterPlay
+	jr .ok
+.replace_name_fire
+	ld de, .FirePlay
 .ok
 	pop hl
 	push bc
@@ -555,7 +559,7 @@ ListMoves:
 	ld a, b
 	cp NUM_MOVES
 	jr z, .done
-	jr .moves_loop
+	jp .moves_loop
 
 .no_more_moves
 	ld a, b
@@ -573,6 +577,9 @@ ListMoves:
 
 .done
 	ret
+; name in status screen and battle menu
+.WaterPlay:
+	db "Water Play@"
 
-.Water1:
-	db "Water1@"
+.FirePlay:
+	db "Fire Play@"

@@ -230,6 +230,7 @@ AbraEggMoves:
 	db ICE_PUNCH
 	db FIRE_PUNCH
 	db THUNDERPUNCH
+	db FIRE_PLAY
 	db -1 ; end
 
 MachopEggMoves:
@@ -329,6 +330,7 @@ SeelEggMoves:
 	db ENCORE
 	db HORN_DRILL
 	db JET_STREAM
+	db FIRE_PLAY
 	db -1 ; end
 
 GrimerEggMoves:
@@ -553,6 +555,7 @@ EeveeEggMoves:
 	db CHARM
 	db ENDURE
 	db MIMIC
+	db FIRE_PLAY
 	db HYPER_FANG
 	db -1 ; end
 
@@ -634,6 +637,7 @@ TotodileEggMoves:
 	db ICE_PUNCH
 	db SEISMIC_TOSS
 	db FAINT_ATTACK
+	db FIRE_PLAY
 	db -1 ; end
 
 SentretEggMoves:
@@ -779,6 +783,7 @@ WooperEggMoves:
 	db BODY_SLAM
 	db ANCIENTPOWER
 	db SAFEGUARD
+	db FIRE_PLAY
 	db -1 ; end
 
 MurkrowEggMoves:

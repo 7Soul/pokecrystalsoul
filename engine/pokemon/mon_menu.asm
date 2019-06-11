@@ -1424,6 +1424,10 @@ SetUpMoveList:
 	ld a, SCREEN_WIDTH * 2
 	ld [wBuffer1], a
 	hlcoord 2, 3
+	ld a, [wBaseType1]
+	ld [wBattleMonType1], a
+	ld a, [wBaseType2]
+	ld [wBattleMonType2], a
 	predef ListMoves
 	hlcoord 14, 3
 	predef ListMovePP

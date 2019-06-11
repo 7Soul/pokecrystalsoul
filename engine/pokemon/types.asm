@@ -43,6 +43,7 @@ PrintMoveType:
 
 	push hl
 	ld a, b
+	ld [wCurSpecies], a
 	dec a
 	ld bc, MOVE_LENGTH
 	ld hl, Moves
@@ -55,7 +56,25 @@ PrintMoveType:
 	pop hl
 
 	ld b, a
-
+	
+	ld a, [wCurSpecies]
+	cp FIRE_PLAY
+	jr nz, .skip
+	ld a, [wBattleMonType1]
+	cp WATER
+	jr z, .water_play
+	ld a, [wBattleMonType2]
+	cp WATER
+	jr z, .water_play
+	jr .fire_play
+.water_play
+	ld a, WATER
+	jr .end
+.fire_play
+	ld a, FIRE
+.end
+	ld b, a
+.skip
 PrintType:
 ; Print type b at hl.
 

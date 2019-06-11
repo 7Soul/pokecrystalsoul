@@ -1403,7 +1403,23 @@ BattleCommand_Stab:
 	and TYPE_MASK
 .has_mod
 	ld [wCurType], a
+	
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	cp FIRE_PLAY
+	jp nz, .not_fire_play
+	
+	ld a, b
+	cp WATER
+	jr z, .water_play
+	ld a, c
+	cp WATER
+	jr nz, .not_fire_play
+.water_play
+	ld a, WATER
+	ld [wCurType], a
 
+.not_fire_play
 	push hl
 	push de
 	push bc
@@ -1459,17 +1475,19 @@ BattleCommand_Stab:
 	set 7, [hl]
 
 .SkipStab:
-	push hl
-	ld hl, wPlayerTypeMod
-	ld a, [hl]
-	pop hl
-	cp 0
-	jr nz, .has_mod2
+	; push hl
+	; ld hl, wPlayerTypeMod
+	; ld a, [hl]
+	; pop hl
+	; cp 0
+	; jr nz, .has_mod2
 	
-	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVar
-	and TYPE_MASK
-.has_mod2
+	; ld a, BATTLE_VARS_MOVE_TYPE
+	; call GetBattleVar
+	; and TYPE_MASK
+; .has_mod2
+	; ld b, a
+	ld a, [wCurType]
 	ld b, a
 	ld hl, TypeMatchups
 
@@ -1592,16 +1610,33 @@ CheckTypeMatchup:
 	push de
 	push bc
 	
-	ld de, wPlayerTypeMod
-	ld a, [de]	
-	cp 0
-	jr nz, .has_mod
+	; ld de, wPlayerTypeMod
+	; ld a, [de]	
+	; cp 0
+	; jr nz, .has_mod
 	
-	ld a, BATTLE_VARS_MOVE_TYPE
+	; ld a, BATTLE_VARS_MOVE_TYPE
+	; call GetBattleVar
+	; and TYPE_MASK
+; .has_mod
+	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	and TYPE_MASK
-.has_mod
+	cp FIRE_PLAY
+	jp nz, .not_fire_play
+	
+	ld a, b
+	cp WATER
+	jr z, .water_play
+	ld a, c
+	cp WATER
+	jr nz, .not_fire_play
+.water_play
+	ld a, WATER
+	ld [wCurType], a
+
+.not_fire_play
 	ld d, a ; move type
+	
 	ld b, [hl] ; mon type 1
 	inc hl
 	ld c, [hl] ; mon type 2
@@ -3829,24 +3864,25 @@ UpdateMoveData:
 	
 .water
 	ld a, [wCurSpecies]
-	cp POUND
+	cp FIRE_PLAY
 	jr nz, .no_type
-	ld de, .Water1
+	ld de, .WaterPlay
 	jp .no_type
 .fire
 	ld a, [wCurSpecies]
-	cp POUND
+	cp FIRE_PLAY
 	jr nz, .no_type
-	ld de, .Fire1
+	ld de, .FirePlay
 .no_type
 	call CopyName1
 	ret
 	
-.Water1:
-	db "Water1@"
-	
-.Fire1:
-	db "Fire1@"
+; name when using move
+.WaterPlay:
+	db "Water Play@"
+
+.FirePlay:
+	db "Fire Play@"
 
 BattleCommand_SleepTarget:
 ; sleeptarget

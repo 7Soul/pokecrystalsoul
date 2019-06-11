@@ -207,7 +207,7 @@ MoveDescriptions::
 	dw RolloutDescription
 	dw FalseSwipeDescription
 	dw SwaggerDescription
-	dw MilkDrinkDescription
+	dw FirePlayDescription
 	dw SparkDescription
 	dw FuryCutterDescription
 	dw SteelWingDescription
@@ -1089,9 +1089,9 @@ SwaggerDescription:
 	db   "Causes confusion"
 	next "and raises ATTACK.@"
 
-MilkDrinkDescription:
-	db   "Restores HP by 1/2"
-	next "the max HP.@"
+FirePlayDescription:
+	db   "Forces switching"
+	next "if type matches.@"
 
 SparkDescription:
 	db   "An attack that may"

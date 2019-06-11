@@ -213,7 +213,7 @@
 	const ROLLOUT      ; cd
 	const FALSE_SWIPE  ; ce
 	const SWAGGER      ; cf
-	const MILK_DRINK   ; d0
+	const FIRE_PLAY    ; d0
 	const SPARK        ; d1
 	const FURY_CUTTER  ; d2
 	const ICICLE_WING  ; d3

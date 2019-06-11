@@ -5,22 +5,28 @@ LearnMove:
 	call GetNick
 	
 	ld a, [wBaseType1]
-	ld [$c001], a
 	cp WATER
 	jp z, .water
 	cp FIRE
 	jp z, .fire
 	ld a, [wBaseType2]
-	ld [$c002], a
 	cp WATER
 	jp z, .water
 	cp FIRE
 	jp z, .fire
 	jp .no_type
 .water
+	ld a, [wCurSpecies]
+	cp FIRE_PLAY ; fire play
+	jp nz, .no_type
+	ld de, .WaterPlay
+	call CopyName1
+	jr .no_type
 .fire
-
-	ld de, .Fire1
+	ld a, [wCurSpecies]
+	cp FIRE_PLAY ; fire play
+	jp nz, .no_type
+	ld de, .FirePlay
 	call CopyName1
 .no_type
 	ld hl, wStringBuffer1
@@ -137,8 +143,11 @@ LearnMove:
 	ld b, 1
 	ret
 	
-.Fire1:
-	db "Fire1@"
+.WaterPlay:
+	db "Water Play@"
+
+.FirePlay:
+	db "Fire Play@"
 
 ForgetMove:
 	push hl

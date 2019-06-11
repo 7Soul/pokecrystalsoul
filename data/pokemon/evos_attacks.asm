@@ -545,6 +545,7 @@ ClefairyEvosAttacks:
 	db 1, POUND
 	db 1, GROWL
 	db 4, ENCORE
+	db 6, FIRE_PLAY
 	db 8, SING
 	db 13, DOUBLESLAP
 	db 19, MINIMIZE
@@ -598,6 +599,7 @@ NinetalesEvosAttacks:
 	db 35, FLAMETHROWER
 	db 44, FIRE_BLAST
 	db 53, INFERNO
+	db 60, FIRE_PLAY
 	db 0 ; no more level-up moves
 
 JigglypuffEvosAttacks:
@@ -1506,7 +1508,7 @@ KrabbyEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BUBBLE
 	db 5, LEER
-	db 6, POUND
+	db 6, FIRE_PLAY
 	db 10, VICEGRIP
 	db 14, HARDEN
 	db 16, BUBBLEBEAM
@@ -1732,7 +1734,7 @@ ChanseyEvosAttacks:
 	db 5, GROWL
 	db 9, TAIL_WHIP
 	db 12, DOUBLESLAP
-	db 16, MILK_DRINK
+	;db 16, MILK_DRINK
 	db 20, MINIMIZE
 	db 25, TAKE_DOWN
 	db 30, SING
@@ -2883,7 +2885,7 @@ PolitoedEvosAttacks:
 	db 19, RAIN_DANCE
 	db 29, BODY_SLAM
 	db 35, PERISH_SONG
-	db 40, TWISTER
+	db 40, FIRE_PLAY
 	db 44, HYPER_SONAR
 	db 51, SWAGGER
 	db 55, HYDRO_PUMP
@@ -3742,7 +3744,8 @@ MagbyEvosAttacks:
 	db 25, SMOKESCREEN
 	db 31, SUNNY_DAY
 	db 37, FLAMETHROWER
-	db 43, CONFUSE_RAY
+	db 43, FIRE_PLAY
+	db 45, CONFUSE_RAY
 	db 49, FIRE_BLAST
 	db 0 ; no more level-up moves
 
@@ -3752,7 +3755,7 @@ MiltankEvosAttacks:
 	db 4, GROWL
 	db 8, DEFENSE_CURL
 	db 13, STOMP
-	db 19, MILK_DRINK
+	;db 19, MILK_DRINK
 	db 34, ROLLOUT
 	db 43, BODY_SLAM
 	db 53, HEAL_BELL
@@ -3765,7 +3768,7 @@ BlisseyEvosAttacks:
 	db 5, GROWL
 	db 10, TAIL_WHIP
 	db 14, DOUBLESLAP
-	db 18, MILK_DRINK
+	;db 18, MILK_DRINK
 	db 23, MINIMIZE
 	db 28, TAKE_DOWN
 	db 34, SING
