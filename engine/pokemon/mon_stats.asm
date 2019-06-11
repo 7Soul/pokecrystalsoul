@@ -508,10 +508,35 @@ ListMoves:
 	push hl
 	push hl
 	ld [wCurSpecies], a
+; move name replacer ; 7soul
+	ld a, [wBaseType1]
+	cp WATER
+	jp z, .water
+	cp FIRE
+	jp z, .fire
+	ld a, [wBaseType2]
+	cp WATER
+	jp z, .water
+	cp FIRE
+	jp z, .fire
+	jp .no_type
+.water
+.fire
+	ld a, [wCurSpecies]
+	cp POUND ; fire play
+	jp nz, .not_pound
+
+	jr .replace_name
+.no_type
+.not_pound
 	ld a, MOVE_NAME
 	ld [wNamedObjectTypeBuffer], a
 	call GetName
 	ld de, wStringBuffer1
+	jr .ok
+.replace_name
+	ld de, .Water1
+.ok
 	pop hl
 	push bc
 	call PlaceString
@@ -548,3 +573,6 @@ ListMoves:
 
 .done
 	ret
+
+.Water1:
+	db "Water1@"

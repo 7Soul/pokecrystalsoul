@@ -3,6 +3,26 @@ LearnMove:
 	ld a, [wCurPartyMon]
 	ld hl, wPartyMonNicknames
 	call GetNick
+	
+	ld a, [wBaseType1]
+	ld [$c001], a
+	cp WATER
+	jp z, .water
+	cp FIRE
+	jp z, .fire
+	ld a, [wBaseType2]
+	ld [$c002], a
+	cp WATER
+	jp z, .water
+	cp FIRE
+	jp z, .fire
+	jp .no_type
+.water
+.fire
+
+	ld de, .Fire1
+	call CopyName1
+.no_type
 	ld hl, wStringBuffer1
 	ld de, wMonOrItemNameBuffer
 	ld bc, MON_NAME_LENGTH
@@ -116,6 +136,9 @@ LearnMove:
 	call PrintText
 	ld b, 1
 	ret
+	
+.Fire1:
+	db "Fire1@"
 
 ForgetMove:
 	push hl

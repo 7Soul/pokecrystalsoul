@@ -3813,7 +3813,40 @@ UpdateMoveData:
 	dec a
 	call GetMoveData
 	call GetMoveName
-	jp CopyName1
+	;call CopyName1
+	
+	ld a, [wBattleMonType1]
+	cp WATER
+	jp z, .water
+	cp FIRE
+	jp z, .fire
+	ld a, [wBattleMonType2]
+	cp WATER
+	jp z, .water
+	cp FIRE
+	jp z, .fire
+	jp .no_type
+	
+.water
+	ld a, [wCurSpecies]
+	cp POUND
+	jr nz, .no_type
+	ld de, .Water1
+	jp .no_type
+.fire
+	ld a, [wCurSpecies]
+	cp POUND
+	jr nz, .no_type
+	ld de, .Fire1
+.no_type
+	call CopyName1
+	ret
+	
+.Water1:
+	db "Water1@"
+	
+.Fire1:
+	db "Fire1@"
 
 BattleCommand_SleepTarget:
 ; sleeptarget

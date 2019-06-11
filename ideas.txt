@@ -21,3 +21,11 @@ Skull Helmet
 Makeshift
 	Does damage and increases ATK
 (Cubone would have Leaf Shield, Skull Helmet and Makeshift)
+
+Mirage
+	Flying move
+	Raises evasion. If foe uses physical attack, confuses them
+	
+Fire Play
+Water Play
+	If the opponent is a # type, swap it out and then does damage
