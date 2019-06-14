@@ -6,14 +6,14 @@ BattleAnimations::
 	dw BattleAnim_Doubleslap
 	dw BattleAnim_CometPunch
 	dw BattleAnim_MegaPunch
-	dw BattleAnim_PayDay
+	dw BattleAnim_HyperSonar
 	dw BattleAnim_FirePunch
 	dw BattleAnim_IcePunch
 	dw BattleAnim_Thunderpunch
 	dw BattleAnim_Scratch
 	dw BattleAnim_Vicegrip
 	dw BattleAnim_Guillotine
-	dw BattleAnim_EnergyBeam
+	dw BattleAnim_ChargeBeam
 	dw BattleAnim_SwordsDance
 	dw BattleAnim_AquaTail
 	dw BattleAnim_Gust
@@ -117,7 +117,7 @@ BattleAnimations::
 	dw BattleAnim_Haze
 	dw BattleAnim_Reflect
 	dw BattleAnim_FocusEnergy
-	dw BattleAnim_Bide
+	dw BattleAnim_WildStorm
 	dw BattleAnim_Metronome
 	dw BattleAnim_MirrorMove
 	dw BattleAnim_Selfdestruct
@@ -193,7 +193,7 @@ BattleAnimations::
 	dw BattleAnim_Octazooka
 	dw BattleAnim_Spikes
 	dw BattleAnim_ZapCannon
-	dw BattleAnim_Foresight
+	dw BattleAnim_PrismLight
 	dw BattleAnim_WakeupSlap
 	dw BattleAnim_PerishSong
 	dw BattleAnim_IcyWind
@@ -713,7 +713,6 @@ BattleAnim_CometPunch_branch_c9641:
 	anim_wait 8
 	anim_ret
 
-BattleAnim_Bide_branch_c9651:
 BattleAnim_MegaPunch:
 	anim_1gfx ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_1F, $40, $2, $0
@@ -1288,7 +1287,7 @@ BattleAnim_Thunder:
 	anim_wait 48
 	anim_ret
 
-BattleAnim_EnergyBeam:
+BattleAnim_ChargeBeam:
 	anim_2gfx ANIM_GFX_BEAM,ANIM_GFX_LIGHTNING
 	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $6, $20
 	anim_call BattleAnim_EnergyBeam_branch
@@ -1717,15 +1716,31 @@ BattleAnim_SkyAttack_branch_c9fb5:
 	anim_call BattleAnim_ShowMon_0
 	anim_ret
 
-BattleAnim_Bide:
-	anim_if_param_equal $0, BattleAnim_Bide_branch_c9651
-	anim_1gfx ANIM_GFX_HIT
+BattleAnim_WildStorm:
+	anim_1gfx ANIM_GFX_LIGHTNING
 	anim_call BattleAnim_FollowEnemyFeet_0
-	anim_sound 0, 0, SFX_ESCAPE_ROPE
-	anim_bgeffect ANIM_BG_1A, $0, $1, $20
-	anim_wait 72
-	anim_incbgeffect ANIM_BG_1A
+	anim_bgeffect ANIM_BG_2C, $0, $1, $0
+	
+	anim_wait 32
+	anim_sound 0, 1, SFX_THUNDER
+	anim_obj ANIM_OBJ_2E, 72, 68, $0
+	anim_wait 8
+	anim_sound 16, 2, SFX_THUNDER
+	anim_obj ANIM_OBJ_2F, 136, 60, $0
+	anim_wait 8
+	anim_sound 0, 1, SFX_THUNDER
+	anim_obj ANIM_OBJ_2D, 112, 68, $0	
+	anim_wait 8
+	anim_sound 16, 2, SFX_THUNDER
+	anim_obj ANIM_OBJ_2E, 64, 60, $0
+	
+	anim_incbgeffect ANIM_BG_2C
 	anim_call BattleAnim_ShowMon_0
+	
+	anim_wait 8	
+	anim_sound 0, 1, SFX_THUNDER
+	anim_obj ANIM_OBJ_2F, 152, 68, $0
+	anim_wait 32
 	anim_ret
 
 BattleAnim_MagicalLeaf:
@@ -2379,14 +2394,26 @@ BattleAnim_RockBlast:
 	anim_wait 4
 	anim_ret
 
-BattleAnim_PayDay:
-	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_STATUS
-	anim_sound 0, 1, SFX_POUND
-	anim_obj ANIM_OBJ_01, 128, 56, $0
+BattleAnim_HyperSonar:
+	anim_1gfx ANIM_GFX_NOISE
+	anim_cry $3
+	anim_obj ANIM_OBJ_PERISH_SONG, 88, 0, $0
+	anim_obj ANIM_OBJ_PERISH_SONG, 88, 0, $10
+	anim_obj ANIM_OBJ_PERISH_SONG, 88, 0, $20
+	anim_obj ANIM_OBJ_PERISH_SONG, 88, 0, $30
+	
+	anim_wait 24
+	anim_cry $3
+	anim_obj ANIM_OBJ_PERISH_SONG, 88, 0, $8
+	anim_obj ANIM_OBJ_PERISH_SONG, 88, 0, $18
+	anim_obj ANIM_OBJ_PERISH_SONG, 88, 0, $28
+	anim_obj ANIM_OBJ_PERISH_SONG, 88, 0, $38
+	
+	anim_wait 24
+	anim_cry $0
+	anim_wait 8
+	anim_cry $0
 	anim_wait 16
-	anim_sound 0, 1, SFX_PAY_DAY
-	anim_obj ANIM_OBJ_PAY_DAY, 120, 76, $1
-	anim_wait 64
 	anim_ret
 
 BattleAnim_Mimic:
@@ -3627,18 +3654,29 @@ BattleAnim_ZapCannon:
 	anim_wait 128
 	anim_ret
 
-BattleAnim_Foresight:
-	anim_1gfx ANIM_GFX_SHINE
-	anim_call BattleAnim_FollowEnemyFeet_1
-	anim_bgeffect ANIM_BG_07, $0, $0, $0
-	anim_sound 0, 1, SFX_FORESIGHT
-	anim_obj ANIM_OBJ_FORESIGHT, 132, 40, $0
-	anim_wait 24
-	anim_bgeffect ANIM_BG_19, $0, $0, $40
-	anim_wait 64
-	anim_incbgeffect ANIM_BG_19
-	anim_call BattleAnim_ShowMon_1
-	anim_wait 8
+BattleAnim_PrismLight:
+	anim_2gfx ANIM_GFX_SHINE, ANIM_GFX_SPEED
+	anim_bgeffect ANIM_BG_1D, $0, $1, $40
+.loop
+	anim_sound 0, 0, SFX_METRONOME
+	anim_obj ANIM_OBJ_GLIMMER, 112, 20, $0
+	anim_obj ANIM_OBJ_AE, 64, 72, $4
+	anim_wait 5
+	anim_obj ANIM_OBJ_GLIMMER, 144, 60, $0
+	anim_obj ANIM_OBJ_AE, 64, 88, $4
+	anim_wait 5
+	anim_obj ANIM_OBJ_GLIMMER, 112, 60, $0
+	anim_obj ANIM_OBJ_AE, 64, 80, $4
+	anim_wait 5
+	anim_obj ANIM_OBJ_GLIMMER, 144, 20, $0
+	anim_obj ANIM_OBJ_AE, 64, 96, $4
+	anim_wait 5
+	anim_obj ANIM_OBJ_GLIMMER, 128, 40, $0
+	anim_obj ANIM_OBJ_AE, 64, 88, $4
+	anim_wait 5
+	anim_loop 2, .loop
+	anim_wait 32
+	anim_incbgeffect ANIM_BG_1D
 	anim_ret
 
 BattleAnim_WakeupSlap:

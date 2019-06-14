@@ -5429,9 +5429,9 @@ BattleCommand_ForceSwitch:
 .trainer
 	call FindAliveEnemyMons
 	jr c, .switch_fail
-	ld a, [wEnemyGoesFirst]
-	and a
-	jr z, .switch_fail
+	; ld a, [wEnemyGoesFirst]
+	; and a
+	; jr z, .switch_fail
 	call UpdateEnemyMonInParty
 	ld a, $1
 	ld [wKickCounter], a

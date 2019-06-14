@@ -1084,7 +1084,7 @@ WildStormText:
 	text "@"
 	deciram wDeciramBuffer, 1, 1
 	text " bolts strike"
-	line "the target!"
+	line "forward!"
 	prompt
 
 ReleasedByText:

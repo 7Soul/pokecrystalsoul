@@ -794,14 +794,14 @@ WildStorm:
 	checkobedience
 	usedmovetext
 	doturn
+	moveanim
 	critical
-	damagestats
+	damagestats	
 	getwildstorm
 	damagecalc
 	stab
 	damagevariation
 	checkhit
-	moveanim
 	failuretext
 	applydamage
 	criticaltext
@@ -1463,10 +1463,6 @@ AtkDefUp:
 	doturn
 	statupanim
 	atkdefup
-	;lowersub	
-	;raisesub
-	;statupmessage
-	;statupfailtext
 	endmove
 
 MeanLook:
@@ -2298,3 +2294,21 @@ JetStream:
 	buildopponentrage
 	endmove
 	
+FirePlay:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	forceswitch

@@ -883,6 +883,10 @@ StatsScreen_LoadGFX:
 	hlcoord 1, 10
 	ld a, SCREEN_WIDTH * 2
 	ld [wBuffer1], a
+	ld a, [wBaseType1]
+	ld [wBattleMonType1], a
+	ld a, [wBaseType2]
+	ld [wBattleMonType2], a
 	predef ListMoves
 	hlcoord 14, 10
 	ld a, SCREEN_WIDTH * 2

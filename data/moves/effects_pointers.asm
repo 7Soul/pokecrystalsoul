@@ -169,5 +169,5 @@ MoveEffectsPointers:
 	dw Stampede
 	dw LeafShield
 	dw JetStream
-	dw WildStorm
+	dw FirePlay
 	

@@ -16,7 +16,7 @@ BattleCommand_GetWildStorm:
 .ok
 	ld d, [hl]
 	push hl
-	ld hl, wBattleMonType1
+	ld hl, wBattleMonType1 ; USER type
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .player_type
@@ -28,9 +28,10 @@ BattleCommand_GetWildStorm:
 	ld a, [hl]
 	cp FLYING
 	jr nz, .not_flying
-.flying
+.flying ; USER is flying
 	ld a, d
 	srl a
+	add a
 	add a ; inc power by 50%
 	ld d, a
 .not_flying

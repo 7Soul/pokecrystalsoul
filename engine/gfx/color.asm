@@ -48,7 +48,7 @@ CheckShininess:
 	jr z, .MaybeShiny2
 	cp $5 << 4
 	jr z, .MaybeShiny2
-	cp $4 << 4
+	cp $a << 4
 	jr z, .MaybeShiny2
 	cp $f << 4
 	jp nz, .NotShiny

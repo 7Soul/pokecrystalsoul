@@ -6,20 +6,20 @@ BattleCommand_PrismLight:
 	jr nz, .failed
 	
 ; fail if target isn't NORMAL type	
-	ld hl, wBattleMonType1
+	ld hl, wEnemyMonType1
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .got_type
-	ld hl, wEnemyMonType1
+	ld hl, wBattleMonType1
 	
 .got_type
 	ld a, [hli]
 	cp NORMAL
-	jr nz, .failed
+	jr z, .skip_type_check
 	ld a, [hl]
 	cp NORMAL
 	jr nz, .failed
-	
+.skip_type_check
 ; fail if target is hidden
 	call CheckHiddenOpponent
 	jr nz, .failed

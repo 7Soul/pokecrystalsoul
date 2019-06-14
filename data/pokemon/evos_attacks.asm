@@ -545,7 +545,7 @@ ClefairyEvosAttacks:
 	db 1, POUND
 	db 1, GROWL
 	db 4, ENCORE
-	db 6, FIRE_PLAY
+	db 6, HYPER_SONAR
 	db 8, SING
 	db 13, DOUBLESLAP
 	db 19, MINIMIZE
@@ -1508,7 +1508,6 @@ KrabbyEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BUBBLE
 	db 5, LEER
-	db 6, FIRE_PLAY
 	db 10, VICEGRIP
 	db 14, HARDEN
 	db 16, BUBBLEBEAM
