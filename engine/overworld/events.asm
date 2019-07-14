@@ -1138,7 +1138,7 @@ RandomEncounter::
 
 	call CheckWildEncounterCooldown
 	jr c, .nope
-	call CanUseSweetScent
+	call CanUseSweetScent ; also checks if in grass
 	jr nc, .nope
 	ld hl, wStatusFlags2
 	bit STATUSFLAGS2_BUG_CONTEST_TIMER_F, [hl]

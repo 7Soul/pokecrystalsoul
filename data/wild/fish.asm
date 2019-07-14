@@ -22,52 +22,61 @@ FishGroups:
 	fishgroup 50 percent + 1, .Qwilfish_NoSwarm_Old, .Qwilfish_NoSwarm_Good, .Qwilfish_NoSwarm_Super
 
 .Shore_Old:
-	db  50 percent + 1, MAGIKARP,	10
-	db  75 percent + 1, MAGIKARP,	12
-	db  90 percent + 1, GOLDEEN,	10
-	db 100 percent,     REMORAID,	10
+	db  40 percent + 1, MAGIKARP,	1 ; 40%
+	db  65 percent + 1, KRABBY,		1 ; 25%
+	db  85 percent + 1, GOLDEEN,	1 ; 20%
+	db  95 percent + 1, REMORAID,	1 ; 10%
+	db 100 percent,     KRABBY,		4 ; 5%
 .Shore_Good:
-	db  50 percent + 1, REMORAID,	15
-	db  75 percent + 1, GOLDEEN,	18
-	db  90 percent + 1, MAGIKARP,	20
-	db 100 percent,     SQUIRTLE,	20
+	db  40 percent + 1, REMORAID,	1 ; 40%
+	db  65 percent + 1, GOLDEEN,	1 ; 25%
+	db  85 percent + 1, time_group 0 ; 20%
+	db  95 percent + 1, SQUIRTLE,	1 ; 10%
+	db 100 percent,     MAGIKARP,	4 ; 5%
 .Shore_Super:
-	db  50 percent + 1, GOLDEEN,	35
-	db  75 percent + 1, GOLDEEN,	40
-	db  90 percent + 1, KRABBY,		40
-	db 100 percent,     SQUIRTLE,	40
+	db  40 percent + 1, GOLDEEN,	1 ; 40%
+	db  65 percent + 1, time_group 0 ; 25%
+	db  85 percent + 1, SHELLDER,	1 ; 20%
+	db  95 percent + 1, SQUIRTLE,	1 ; 10%
+	db 100 percent,     SQUIRTLE,	4 ; 5%
 
 .Ocean_Old:
-	db  50 percent + 1, MAGIKARP,   35
-	db  75 percent + 1, MAGIKARP,   40
-	db  90 percent + 1, TENTACOOL,  40
-	db 100 percent,     REMORAID,   40
+	db  40 percent + 1, MAGIKARP,	1 ; 40%
+	db  65 percent + 1, TENTACOOL,	1 ; 25%
+	db  85 percent + 1, GOLDEEN,	1 ; 20%
+	db  95 percent + 1, HORSEA,		1 ; 10%
+	db 100 percent,     REMORAID,	4 ; 5%
 .Ocean_Good:
-	db  35 percent,     REMORAID,   15
-	db  70 percent,     TENTACOOL,  18
-	db  90 percent + 1, MAGIKARP,   20
-	db 100 percent,     HORSEA,     20
+	db  40 percent + 1, TENTACOOL,	1 ; 40%
+	db  65 percent + 1, GOLDEEN,	1 ; 25%
+	db  85 percent + 1, HORSEA,		1 ; 20%
+	db  95 percent + 1, REMORAID,	1 ; 10%
+	db 100 percent,     TENTACOOL,	4 ; 5%
 .Ocean_Super:
-	db  40 percent,     TENTACOOL,  35
-	db  70 percent,     TENTACRUEL, 40
-	db  90 percent + 1, MANTINE,    40
-	db 100 percent,     OCTILLERY,  40
+	db  40 percent + 1, TENTACOOL,	1 ; 40%
+	db  65 percent + 1, HORSEA,		1 ; 25%
+	db  85 percent + 1, REMORAID,	1 ; 20%
+	db  95 percent + 1, time_group 0 ; 10%
+	db 100 percent,     MANTINE,	4 ; 5%
 
 .Lake_Old:
-	db  50 percent + 1, MAGIKARP,   10
-	db  75 percent + 1, MAGIKARP,   12
-	db  90 percent + 1, POLIWAG,    10
-	db 100 percent,     POLIWAG,    10
+	db  40 percent + 1, MAGIKARP,	1 ; 40%
+	db  65 percent + 1, POLIWAG,	1 ; 25%
+	db  85 percent + 1, CHINCHOU,	1 ; 20%
+	db  95 percent + 1, PSYDUCK,	1 ; 10%
+	db 100 percent,     DRATINI,	1 ; 5%
 .Lake_Good:
-	db  35 percent,     POLIWAG,    15
-	db  70 percent,     POLIWAG,    18
-	db  90 percent + 1, MAGIKARP,   20
-	db 100 percent,     CHINCHOU,   20
+	db  40 percent + 1, POLIWAG,	1 ; 40%
+	db  65 percent + 1, CHINCHOU,	1 ; 25%
+	db  85 percent + 1, PSYDUCK,	1 ; 20%
+	db  95 percent + 1, DRATINI,	1 ; 10%
+	db 100 percent,     SQUIRTLE,	1 ; 5%
 .Lake_Super:
-	db  40 percent,     POLIWHIRL,  35
-	db  70 percent,     POLITOED,   40
-	db  90 percent + 1, SEAKING,    40
-	db 100 percent,     CROCONAW,   40
+	db  40 percent + 1, POLIWAG,	1 ; 40%
+	db  65 percent + 1, DRATINI,	1 ; 25%
+	db  85 percent + 1, PSYDUCK,	1 ; 20%
+	db  95 percent + 1, GOLDEEN,	1 ; 10%
+	db 100 percent,     SQUIRTLE,	4 ; 5%
 
 .Pond_Old:
 	db  50 percent + 1, MAGIKARP,   35
@@ -211,8 +220,8 @@ FishGroups:
 
 TimeFishGroups:
 	;  day              nite
-	db CORSOLA,    20,  STARYU,     20 ; 0
-	db CORSOLA,    40,  STARYU,     40 ; 1
+	db CORSOLA,    1,   STARYU,     1 ; 0
+	db CORSOLA,    1,   STARYU,     1 ; 1
 	db SHELLDER,   20,  SHELLDER,   20 ; 2
 	db SHELLDER,   40,  SHELLDER,   40 ; 3
 	db GOLDEEN,    20,  GOLDEEN,    20 ; 4

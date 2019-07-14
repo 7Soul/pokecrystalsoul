@@ -135,6 +135,11 @@ CheckGrassTile::
 	scf
 	ret
 
+CheckShallowWaterTile::
+	ld a, [wPlayerStandingTile]
+	cp COLL_SHALLOW_WATER
+	ret
+
 CheckSuperTallGrassTile::
 	cp COLL_LONG_GRASS
 	ret z
@@ -176,8 +181,6 @@ CheckIceTile::
 CheckWhirlpoolTile::
 	nop
 	cp COLL_WHIRLPOOL
-	ret z
-	cp COLL_WHIRLPOOL_2C
 	ret z
 	scf
 	ret

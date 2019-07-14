@@ -886,18 +886,18 @@ AnimateWaterPalette:
 	and %110 ; frames 0 2 4 6
 	jr z, .color0
 	cp %100 ; frame 4
-	jr z, .color2
+	jr z, .color0
 
-.color1
-	ld hl, wBGPals1 palette PAL_BG_WATER color 1
+.color0
+	ld hl, wBGPals1 palette PAL_BG_WATER color 0
 	ld a, [hli]
 	ldh [rBGPD], a
 	ld a, [hli]
 	ldh [rBGPD], a
 	jr .end
 
-.color0
-	ld hl, wBGPals1 palette PAL_BG_WATER color 0
+.color1
+	ld hl, wBGPals1 palette PAL_BG_WATER color 1
 	ld a, [hli]
 	ldh [rBGPD], a
 	ld a, [hli]

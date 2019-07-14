@@ -39,6 +39,8 @@ FindNest:
 	decoord 0, 0
 	ld hl, JohtoGrassWildMons
 	call .FindGrass
+	ld hl, JohtoShallowWildMons
+	call .FindShallow
 	ld hl, JohtoWaterWildMons
 	call .FindWater
 	call .RoamMon1
@@ -75,6 +77,28 @@ FindNest:
 	ld bc, GRASS_WILDDATA_LENGTH
 	add hl, bc
 	jr .FindGrass
+	
+.FindShallow:
+	ld a, [hl]
+	cp -1
+	ret z
+	push hl
+	ld a, [hli]
+	ld b, a
+	ld a, [hli]
+	ld c, a
+	inc hl
+	ld a, NUM_SHALLOWMON
+	call .SearchMapForMon
+	jr nc, .next_shallow
+	ld [de], a
+	inc de
+
+.next_shallow
+	pop hl
+	ld bc, SHALLOW_WILDDATA_LENGTH
+	add hl, bc
+	jr .FindShallow
 
 .FindWater:
 	ld a, [hl]
@@ -292,6 +316,9 @@ ChooseWildEncounter:
 	inc hl
 	call CheckOnWater
 	ld de, WaterMonProbTable
+	jr z, .watermon
+	call CheckShallowWaterTile
+	ld de, GrassMonProbTable
 	jr z, .watermon
 	inc hl
 	inc hl
@@ -594,7 +621,7 @@ ChooseWildEncounter:
 .not_legendary
 	pop hl
 	pop bc
-	pop de	
+	pop de
 	; Check if it's Nidoran F and randomizes to Nidoran M
 	ld a, b
 	cp NIDORAN_F
@@ -933,6 +960,8 @@ endr
 LoadWildMonDataPointer:
 	call CheckOnWater
 	jr z, _WaterWildmonLookup
+	call CheckShallowWaterTile
+	jr z, _ShallowWildmonLookup
 
 _GrassWildmonLookup:
 	ld hl, SwarmGrassWildMons
@@ -954,6 +983,13 @@ _WaterWildmonLookup:
 	ld de, KantoWaterWildMons
 	call _JohtoWildmonCheck
 	ld bc, WATER_WILDDATA_LENGTH
+	jr _NormalWildmonOK
+	
+_ShallowWildmonLookup:
+	ld hl, JohtoShallowWildMons
+	ld de, KantoShallowWildMons
+	call _JohtoWildmonCheck
+	ld bc, SHALLOW_WILDDATA_LENGTH
 	jr _NormalWildmonOK
 
 _JohtoWildmonCheck:
@@ -1530,8 +1566,10 @@ RandomPhoneMon:
 
 INCLUDE "data/wild/johto_grass.asm"
 INCLUDE "data/wild/johto_water.asm"
+INCLUDE "data/wild/johto_shallow.asm"
 INCLUDE "data/wild/kanto_grass.asm"
 INCLUDE "data/wild/kanto_water.asm"
+INCLUDE "data/wild/kanto_shallow.asm"
 INCLUDE "data/wild/swarm_grass.asm"
 INCLUDE "data/wild/swarm_water.asm"
 
