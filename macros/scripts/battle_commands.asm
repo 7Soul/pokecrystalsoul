@@ -58,7 +58,7 @@ ENDM
 	command mimic                   ; 33
 	command metronome               ; 34
 	command leechseed               ; 35
-	command splash                  ; 36
+	;command splash                  ; 36
 	command disable                 ; 37
 	command cleartext               ; 38
 	command charge                  ; 39
@@ -102,7 +102,7 @@ ENDM
 	command attract                 ; 5f
 	command modtype			        ; 60
 	command damagecalc              ; 62
-	command frustrationpower        ; 63
+	;command frustrationpower        ; 63
 	command safeguard               ; 64
 	command checksafeguard          ; 65
 	command getmagnitude            ; 66

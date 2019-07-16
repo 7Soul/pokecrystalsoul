@@ -85,7 +85,7 @@ MoveEffectsPointers:
 	dw Mimic
 	dw Metronome
 	dw LeechSeed
-	dw Splash
+	;dw Splash
 	dw Disable
 	dw StaticDamage
 	dw Psywave
@@ -122,7 +122,7 @@ MoveEffectsPointers:
 	dw FuryCutter
 	dw Attract
 	dw ModType
-	dw Frustration
+	;dw Frustration
 	dw Safeguard
 	dw SacredFire
 	dw Magnitude

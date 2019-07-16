@@ -6432,11 +6432,7 @@ INCLUDE "engine/battle/move_effects/mimic.asm"
 
 INCLUDE "engine/battle/move_effects/leech_seed.asm"
 
-INCLUDE "engine/battle/move_effects/splash.asm"
-
 INCLUDE "engine/battle/move_effects/disable.asm"
-
-;INCLUDE "engine/battle/move_effects/pay_day.asm"
 
 INCLUDE "engine/battle/move_effects/conversion.asm"
 
@@ -6837,10 +6833,6 @@ INCLUDE "engine/battle/move_effects/rollout.asm"
 INCLUDE "engine/battle/move_effects/fury_cutter.asm"
 
 INCLUDE "engine/battle/move_effects/attract.asm"
-
-INCLUDE "engine/battle/move_effects/return.asm"
-
-INCLUDE "engine/battle/move_effects/frustration.asm"
 
 INCLUDE "engine/battle/move_effects/safeguard.asm"
 

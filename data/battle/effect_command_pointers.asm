@@ -57,7 +57,7 @@ BattleCommandPointers:
 	dw BattleCommand_Mimic
 	dw BattleCommand_Metronome
 	dw BattleCommand_LeechSeed
-	dw BattleCommand_Splash
+	;dw BattleCommand_Splash
 	dw BattleCommand_Disable
 	dw BattleCommand_ClearText
 	dw BattleCommand_Charge
@@ -101,7 +101,7 @@ BattleCommandPointers:
 	dw BattleCommand_Attract
 	dw BattleCommand_ModType
 	dw BattleCommand_DamageCalc
-	dw BattleCommand_FrustrationPower
+	;dw BattleCommand_FrustrationPower
 	dw BattleCommand_Safeguard
 	dw BattleCommand_CheckSafeguard
 	dw BattleCommand_GetMagnitude

@@ -545,7 +545,6 @@ ClefairyEvosAttacks:
 	db 1, POUND
 	db 1, GROWL
 	db 4, ENCORE
-	db 6, HYPER_SONAR
 	db 8, SING
 	db 13, DOUBLESLAP
 	db 19, MINIMIZE
@@ -1504,31 +1503,37 @@ HypnoEvosAttacks:
 	db 0 ; no more level-up moves
 
 KrabbyEvosAttacks:
-	db EVOLVE_LEVEL, 28, KINGLER
+	db EVOLVE_LEVEL, 22, KINGLER
 	db 0 ; no more evolutions
 	db 1, BUBBLE
-	db 5, LEER
-	db 10, VICEGRIP
-	db 14, HARDEN
-	db 16, BUBBLEBEAM
-	db 22, DIG
+	db 5, VICEGRIP
+	db 8, LEER
+	db 10, HARDEN
+	db 13, BUBBLEBEAM
+	db 19, DIG
+	db 22, FROZEN_CLAW
 	db 26, STOMP
-	db 30, PROTECT
-	db 34, SLAM
-	db 37, CRABHAMMER
-	db 42, GUILLOTINE
+	db 29, PROTECT
+	db 31, GUILLOTINE
+	db 35, SLAM
+	db 41, CRABHAMMER
+	db 45, REVERSAL
+	db 50, SHARPEN
 	db 0 ; no more level-up moves
 
 KinglerEvosAttacks:
 	db 0 ; no more evolutions
-	db 14, HARDEN
-	db 16, BUBBLEBEAM
-	db 22, DIG
-	db 26, STOMP
-	db 32, PROTECT
-	db 37, SLAM
-	db 41, CRABHAMMER
-	db 48, GUILLOTINE
+	db 10, HARDEN
+	db 13, BUBBLEBEAM
+	db 19, DIG
+	db 21, FROZEN_CLAW
+	db 27, STOMP
+	db 33, PROTECT
+	db 35, GUILLOTINE
+	db 39, SLAM
+	db 46, CRABHAMMER
+	db 52, REVERSAL
+	db 55, SHARPEN
 	db 0 ; no more level-up moves
 
 VoltorbEvosAttacks:

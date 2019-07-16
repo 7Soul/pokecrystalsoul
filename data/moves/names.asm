@@ -230,7 +230,7 @@ MoveNames::
 	db "Rapid Spin@"
 	db "Fell Stinger@"
 	db "Frozen Tail@"
-	db "Frozen Claw@"
+	db "Ice Claw@"
 	db "Vital Throw@"
 	db "Morning Sun@"
 	db "Synthesis@"

@@ -1168,13 +1168,6 @@ LeechSeed:
 	leechseed
 	endmove
 
-Splash:
-	checkobedience
-	usedmovetext
-	doturn
-	splash
-	endmove
-
 Disable:
 	checkobedience
 	usedmovetext
@@ -1625,27 +1618,6 @@ ModType:
 	usedmovetext
 	doturn
 	modtype
-	endmove
-
-Frustration:
-	checkobedience
-	usedmovetext
-	doturn
-	critical
-	damagestats
-	frustrationpower
-	damagecalc
-	stab
-	damagevariation
-	checkhit
-	moveanim
-	failuretext
-	applydamage
-	criticaltext
-	supereffectivetext
-	checkfaint
-	buildopponentrage
-	kingsrock
 	endmove
 
 Safeguard:
