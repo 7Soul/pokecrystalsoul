@@ -84,6 +84,7 @@ NewBarkTownTeacherScript:
 if DEF(_DEBUG)
 	setflag ENGINE_POKEDEX
 	setflag ENGINE_MAP_CARD	
+	setflag ENGINE_RADIO_CARD
 	setevent EVENT_GOT_A_POKEMON_FROM_ELM
 	clearevent EVENT_ROUTE_30_YOUNGSTER_JOEY
 	setevent EVENT_ROUTE_30_BATTLE

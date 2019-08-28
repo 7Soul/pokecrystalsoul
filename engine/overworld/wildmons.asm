@@ -634,11 +634,14 @@ ChooseWildEncounter:
 	ld a, b ; save mon species for later
 	ld [wTempWildMonSpecies], a
 
-	; 2% chance to lucky shiny chance between midnight and 1 AM
+	; 2% chance to lucky shiny chance between midnight and 0:59 AM and between noon and 12:59 PM
 	ld a, [hHours]
-	cp 2
-	jr nc, .lucky_isset
+	cp 0
+	jr z, .oneam
+	cp 12
+	jr nz, .lucky_isset
 
+.oneam
 	call Random 
 	cp 2 percent 
 	jp nc, .lucky_isset
@@ -650,9 +653,18 @@ ChooseWildEncounter:
 	ld [wLuckyWild], a
 
 .lucky_isset	
-	; 10% chance of special map encounter that replaces current encounter if conditions are met
+	; 15% (38/255 -> 26 hex) chance of special map encounter that replaces current encounter if conditions are met
+	ld a, $26
+	ld b, a
+	; Doubles chance if playing pokemon march
+	ld a, [wMapMusic]
+	cp MUSIC_POKEMON_MARCH
+	jr nz, .no_double
+	sla b
+
+.no_double
 	call Random 
-	cp 10 percent
+	cp b
 	jp nc, .notmap
 	;push hl
 	call CheckOnWater
@@ -678,9 +690,7 @@ ChooseWildEncounter:
 	jr z, .notmap
 	inc hl
 	inc hl
-	inc hl
-	inc hl
-	inc hl
+
 	inc hl
 	jr .loop
 .group
@@ -689,36 +699,58 @@ ChooseWildEncounter:
 	ld a, [wMapNumber]
 	cp b
 	jr nz, .notmap
+
 .number
-	ld a, [hli] ; get min time
+	ld a, [hl] ; get week day
 	ld b, a
+	call GetWeekday
+	cp b
+	jr z, .right_day
+	
+	ld a, [hl] ; get week day + 1
+	inc a
+.mod
+	sub 7
+	jr nc, .mod
+	add 7	
+	ld b, a
+	call GetWeekday
+	cp b
+	jr z, .right_day
+	
+	ld a, [hl] ; get week day + 2
+	inc a
+	inc a
+.mod2
+	sub 7
+	jr nc, .mod2
+	add 7
+	ld b, a
+	call GetWeekday
+	cp b
+	jr z, .right_day
+	jr .notmap
+
+.right_day
+	inc hl
+	ld a, [hl] ; get species
+.mod_species
+	sub 24
+	jr nc, .mod_species
+	add 24
+	ld b, a ; species number turned to time
+
 	ld a, [hHours]
 	cp b
-	jr c, .notmap
-	ld a, [hli] ; get max time
-	inc a ; increases 'a' to include the time. So if the time max is 3, it counts until 3:59
-	ld b, a
-	ld a, [hHours]
-	cp b
+	jr nc, .lower_than ; min time >= cur time
+	add 24 ; cur time is lower than min time, add 24
+
+.lower_than
+	sub b ; a is now the difference between cur time and min time
+	cp 8
 	jr nc, .notmap
 
-	ld a, [hli] ; get week day 1
-	ld b, a
-	call GetWeekday
-	cp b
-	jr z, .right_day1
-
-	ld a, [hli] ; get week day 2
-	ld b, a
-	call GetWeekday
-	cp b
-	jr z, .right_day2
-
-.right_day1
-	inc hl
-
-.right_day2
-	ld a, [hli] ; get mon species
+	ld a, [hl] ; get mon species
 	ld [wTempWildMonSpecies], a
 
 ; rare pokemon gain 0-2 levels
