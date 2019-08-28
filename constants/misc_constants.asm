@@ -21,8 +21,8 @@ SAVE_CHECK_VALUE_2 EQU 127
 ; time of day boundaries
 MORN_HOUR EQU 6  ; 6 AM
 DAY_HOUR  EQU 10 ; 10 AM
-NITE_HOUR EQU 18 ; 6 PM
 NOON_HOUR EQU 12 ; 12 PM
+NITE_HOUR EQU 18 ; 6 PM
 MAX_HOUR  EQU 24 ; 12 AM
 
 ; significant money values

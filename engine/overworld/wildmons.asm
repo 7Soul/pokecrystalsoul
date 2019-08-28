@@ -262,6 +262,10 @@ GetMapEncounterRate:
 	ld a, wWaterEncounterRate - wMornEncounterRate
 	jr z, .ok
 	ld a, [wTimeOfDay]
+	cp 0
+	jr z, .continue_with_timeofday
+	dec a
+.continue_with_timeofday
 .ok
 	ld c, a
 	ld b, 0
@@ -318,11 +322,15 @@ ChooseWildEncounter:
 	ld de, WaterMonProbTable
 	jr z, .watermon
 	call CheckShallowWaterTile
-	ld de, GrassMonProbTable
+	ld de, ShallowMonProbTable
 	jr z, .watermon
 	inc hl
 	inc hl
 	ld a, [wTimeOfDay]
+	cp 0
+	jr z, .continue_with_timeofday
+	dec a
+.continue_with_timeofday
 	ld bc, NUM_GRASSMON * 2
 	call AddNTimes
 	ld de, GrassMonProbTable
@@ -363,7 +371,7 @@ ChooseWildEncounter:
 	pop de
 	pop hl
 	ld b, d
-	inc a
+	;inc a
 	jp .switch_start
 	
 .case0; 0 badges
@@ -622,6 +630,109 @@ ChooseWildEncounter:
 	pop hl
 	pop bc
 	pop de
+
+	ld a, b ; save mon species for later
+	ld [wTempWildMonSpecies], a
+
+	; 2% chance to lucky shiny chance between midnight and 1 AM
+	ld a, [hHours]
+	cp 2
+	jr nc, .lucky_isset
+
+	call Random 
+	cp 2 percent 
+	jp nc, .lucky_isset
+
+	; Add 2 lucky encounters
+	ld a, [wLuckyWild]
+	inc a
+	inc a
+	ld [wLuckyWild], a
+
+.lucky_isset	
+	; 10% chance of special map encounter that replaces current encounter if conditions are met
+	call Random 
+	cp 10 percent
+	jp nc, .notmap
+	;push hl
+	call CheckOnWater
+	jr z, .water
+	call CheckShallowWaterTile
+	jr z, .shallow_water
+
+	ld hl, JohtoGrassRareWildMons
+	jr .loop
+.water
+	ld hl, JohtoWaterRareWildMons
+	jr .loop
+.shallow_water
+	ld hl, JohtoShallowRareWildMons
+	; compare to current map group and map id
+.loop
+	ld a, [hli] ; get map group
+	ld b, a
+	ld a, [wMapGroup]
+	cp b
+	jr z, .group
+	cp $ff
+	jr z, .notmap
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	jr .loop
+.group
+	ld a, [hli] ; get map number
+	ld b, a
+	ld a, [wMapNumber]
+	cp b
+	jr nz, .notmap
+.number
+	ld a, [hli] ; get min time
+	ld b, a
+	ld a, [hHours]
+	cp b
+	jr c, .notmap
+	ld a, [hli] ; get max time
+	inc a ; increases 'a' to include the time. So if the time max is 3, it counts until 3:59
+	ld b, a
+	ld a, [hHours]
+	cp b
+	jr nc, .notmap
+
+	ld a, [hli] ; get week day 1
+	ld b, a
+	call GetWeekday
+	cp b
+	jr z, .right_day1
+
+	ld a, [hli] ; get week day 2
+	ld b, a
+	call GetWeekday
+	cp b
+	jr z, .right_day2
+
+.right_day1
+	inc hl
+
+.right_day2
+	ld a, [hli] ; get mon species
+	ld [wTempWildMonSpecies], a
+
+; rare pokemon gain 0-2 levels
+	ld a, [wCurPartyLevel]
+	ld b, a
+	ld a, 3
+	call RandomRange
+	add b
+	ld [wCurPartyLevel], a
+
+	;pop hl ; clears rare pokemon table from the stack
+.notmap
+	ld a, [wTempWildMonSpecies]
+	ld b, a
 	; Check if it's Nidoran F and randomizes to Nidoran M
 	ld a, b
 	cp NIDORAN_F
@@ -629,7 +740,8 @@ ChooseWildEncounter:
 	call Random 
 	cp 50 percent
 	jp nc, .not_nidoran_f	
-	jp .change_3species
+	ld a, NIDORAN_M
+	ld b, a
 .not_nidoran_f
 	; Check if it's Omanyte and randomizes to Kabuto
 	ld a, b
@@ -638,7 +750,8 @@ ChooseWildEncounter:
 	call Random 
 	cp 50 percent
 	jp nc, .not_omanyte	
-	jp .change_2species
+	ld a, KABUTO
+	ld b, a
 .not_omanyte
 	; Check if it's Bulbasaur and randomizes to Chikorita
 	ld a, b
@@ -677,17 +790,8 @@ ChooseWildEncounter:
 	call Random 
 	cp 50 percent
 	jp nc, .not_caterpie
-
-.change_3species
-	inc b
-	inc b
-	inc b
-	jp .not_caterpie
-	
-.change_2species
-	inc b
-	inc b
-	jp .not_caterpie
+	ld a, WEEDLE
+	ld b, a
 	
 .not_caterpie	
 	call Random 
@@ -1565,6 +1669,7 @@ RandomPhoneMon:
 	jp CopyBytes
 
 INCLUDE "data/wild/johto_grass.asm"
+INCLUDE "data/wild/johto_grass_rare.asm"
 INCLUDE "data/wild/johto_water.asm"
 INCLUDE "data/wild/johto_shallow.asm"
 INCLUDE "data/wild/kanto_grass.asm"

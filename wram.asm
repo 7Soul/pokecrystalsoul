@@ -2722,11 +2722,11 @@ wWhichMomItemSet:: db ; dc18
 wMomItemTriggerBalance:: ds 3 ; dc19
 
 wDailyResetTimer:: dw ; dc1c
-wDailyFlags1:: db
-wDailyFlags2:: db
-wSwarmFlags:: db
-	ds 2
-wTimerEventStartDay:: db
+wDailyFlags1:: db ; 
+wDailyFlags2:: db ; 
+wSwarmFlags:: db ; 
+	ds 2 
+wTimerEventStartDay:: db ; 
 	ds 3
 
 wFruitTreeFlags:: flag_array NUM_FRUIT_TREES ; dc27
