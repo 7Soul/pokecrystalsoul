@@ -65,8 +65,7 @@ FindNest:
 	ld c, a
 	inc hl
 	inc hl
-	inc hl
-	ld a, NUM_GRASSMON * 3
+	ld a, NUM_GRASSMON * 2
 	call .SearchMapForMon
 	jr nc, .next_grass
 	ld [de], a
@@ -88,7 +87,8 @@ FindNest:
 	ld a, [hli]
 	ld c, a
 	inc hl
-	ld a, NUM_SHALLOWMON
+	inc hl
+	ld a, NUM_SHALLOWMON * 2
 	call .SearchMapForMon
 	jr nc, .next_shallow
 	ld [de], a
@@ -323,17 +323,28 @@ ChooseWildEncounter:
 	jr z, .watermon
 	call CheckShallowWaterTile
 	ld de, ShallowMonProbTable
-	jr z, .watermon
-	inc hl
+	jr z, .shallowmon
+
 	inc hl
 	ld a, [wTimeOfDay]
 	cp 0
 	jr z, .continue_with_timeofday
-	dec a
+	dec a	
 .continue_with_timeofday
 	ld bc, NUM_GRASSMON * 2
 	call AddNTimes
 	ld de, GrassMonProbTable
+	jr .watermon
+
+.shallowmon
+	inc hl
+	ld a, [wTimeOfDay]
+	cp 0
+	jr z, .continue_with_timeofday2
+	dec a
+.continue_with_timeofday2
+	ld bc, NUM_SHALLOWMON * 2
+	call AddNTimes
 
 .watermon
 ; hl contains the pointer to the wild mon data, let's save that to the stack
@@ -653,8 +664,8 @@ ChooseWildEncounter:
 	ld [wLuckyWild], a
 
 .lucky_isset	
-	; 15% (38/255 -> 26 hex) chance of special map encounter that replaces current encounter if conditions are met
-	ld a, $26
+	; 11% (11*255/100 -> 1c hex) chance of special map encounter that replaces current encounter if conditions are met
+	ld a, $1c
 	ld b, a
 	; Doubles chance if playing pokemon march
 	ld a, [wMapMusic]
@@ -666,39 +677,42 @@ ChooseWildEncounter:
 	call Random 
 	cp b
 	jp nc, .notmap
-	;push hl
+	
 	call CheckOnWater
 	jr z, .water
 	call CheckShallowWaterTile
 	jr z, .shallow_water
 
 	ld hl, JohtoGrassRareWildMons
-	jr .loop
+	jr .loop_group
 .water
 	ld hl, JohtoWaterRareWildMons
-	jr .loop
+	jr .loop_group
 .shallow_water
 	ld hl, JohtoShallowRareWildMons
 	; compare to current map group and map id
-.loop
+.loop_group
 	ld a, [hli] ; get map group
 	ld b, a
 	ld a, [wMapGroup]
 	cp b
-	jr z, .group
+	jr z, .right_group
 	cp $ff
 	jr z, .notmap
 	inc hl
 	inc hl
-
 	inc hl
-	jr .loop
-.group
+	jr .loop_group
+	
+.right_group
 	ld a, [hli] ; get map number
 	ld b, a
 	ld a, [wMapNumber]
 	cp b
-	jr nz, .notmap
+	jr z, .number
+	inc hl
+	inc hl
+	jr .loop_group
 
 .number
 	ld a, [hl] ; get week day
@@ -761,7 +775,6 @@ ChooseWildEncounter:
 	add b
 	ld [wCurPartyLevel], a
 
-	;pop hl ; clears rare pokemon table from the stack
 .notmap
 	ld a, [wTempWildMonSpecies]
 	ld b, a

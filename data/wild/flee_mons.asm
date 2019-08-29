@@ -19,6 +19,7 @@ SometimesFleeMons:
 
 OftenFleeMons:
 	db CUBONE
+	db FARFETCH_D
 	db ARTICUNO
 	db ZAPDOS
 	db MOLTRES

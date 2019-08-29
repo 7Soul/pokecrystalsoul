@@ -77,7 +77,7 @@ TilesetForestAnim:
 
 TilesetJohtoAnim:
 	dw vTiles2 tile $01, AnimateWaterTile
-	dw NULL,  WaitTileAnimation
+	dw vTiles2 tile $0E, AnimateShallowTile
 	dw NULL,  WaitTileAnimation
 	dw NULL,  AnimateWaterPalette
 	dw NULL,  WaitTileAnimation
@@ -463,6 +463,41 @@ AnimateWaterTile:
 
 WaterTileFrames:
 	INCBIN "gfx/tilesets/water/water.2bpp"
+
+AnimateShallowTile:
+; Draw a water tile for the current frame in VRAM tile at de.
+
+; Save sp in bc (see WriteTile).
+	ld hl, sp+0
+	ld b, h
+	ld c, l
+
+	ld a, [wTileAnimationTimer]
+
+; 4 tile graphics, updated every other frame.
+	and %110
+
+; 2 x 8 = 16 bytes per tile
+	add a
+	add a
+	add a
+
+	add LOW(ShallowTileFrames)
+	ld l, a
+	ld a, 0
+	adc HIGH(ShallowTileFrames)
+	ld h, a
+
+; The stack now points to the start of the tile for this frame.
+	ld sp, hl
+
+	ld l, e
+	ld h, d
+
+	jp WriteTile
+
+ShallowTileFrames:
+	INCBIN "gfx/tilesets/shallow-water/shallow-water.2bpp"
 
 ForestTreeLeftAnimation:
 	ld hl, sp+0
