@@ -172,6 +172,7 @@ KRIS EQU __enum__
 	const JOSE3
 	const VANCE2
 	const VANCE3
+	const CHESTER
 
 	trainerclass LASS ; 19
 	const CARRIE
@@ -348,6 +349,8 @@ KRIS EQU __enum__
 	const ARNIE4
 	const ARNIE5
 	const WAYNE
+	const MAIMO
+	const PIPPA
 
 	trainerclass FISHER ; 26
 	const JUSTIN

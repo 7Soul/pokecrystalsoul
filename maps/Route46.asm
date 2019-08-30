@@ -5,11 +5,24 @@
 	const ROUTE46_FRUIT_TREE1
 	const ROUTE46_FRUIT_TREE2
 	const ROUTE46_POKE_BALL
+	const ROUTE46_SCYTHER
 
 Route46_MapScripts:
-	db 0 ; scene scripts	
+	db 1 ; scene scripts
+	scene_script .DummyScene ; SCENE_DEFAULT	
+
 	db 0 ; callbacks
 	
+.DummyScene:
+	end
+
+Route46Swarm
+	callasm TryWild
+	randomwildmon
+	startbattle
+	reloadmapafterbattle
+	end
+
 GrassScene:
 	callasm TryWild
 	iffalse .ok
@@ -269,23 +282,18 @@ Route46_MapEvents:
 	warp_event  8, 35, ROUTE_29_ROUTE_46_GATE, 2
 	warp_event  8,  5, DARK_CAVE_VIOLET_ENTRANCE, 3
 
-	db 8 ; coord events
+	db 2 ; coord events
 	coord_event 11, 14, SCENE_DEFAULT, GrassScene
 	coord_event 10, 14, SCENE_DEFAULT, GrassScene
-	coord_event  9, 14, SCENE_DEFAULT, GrassScene
-	coord_event  8, 14, SCENE_DEFAULT, GrassScene
-	coord_event 11, 15, SCENE_DEFAULT, GrassScene
-	coord_event 10, 15, SCENE_DEFAULT, GrassScene
-	coord_event  9, 15, SCENE_DEFAULT, GrassScene
-	coord_event  8, 15, SCENE_DEFAULT, GrassScene
 
 	db 1 ; bg events
 	bg_event  9, 29, BGEVENT_READ, Route46Sign
 
-	db 7 ; object events
+	db 8 ; object events
 	object_event 10, 10, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerHikerBailey, -1
 	object_event  3, 12, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerCamperTed, -1
 	object_event  2, 17, SPRITE_LASS, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerPicnickerErin1, -1
 	object_event  8,  8, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route46FruitTree1, -1
 	object_event  9,  9, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route46FruitTree2, -1
 	object_event  0, 14, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, (1 << 3) | PAL_NPC_BLUE, OBJECTTYPE_ITEMBALL, 0, Route46XSpeed, EVENT_ROUTE_46_X_SPEED
+	object_event  3, 14, SPRITE_SCYTHER, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route46Swarm, EVENT_ROUTE_46_SWARM

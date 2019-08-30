@@ -85,6 +85,7 @@ if DEF(_DEBUG)
 	setflag ENGINE_POKEDEX
 	setflag ENGINE_MAP_CARD	
 	setflag ENGINE_RADIO_CARD
+	callasm SetHallOfFameFlag
 	setevent EVENT_GOT_A_POKEMON_FROM_ELM
 	clearevent EVENT_ROUTE_30_YOUNGSTER_JOEY
 	setevent EVENT_ROUTE_30_BATTLE
@@ -97,11 +98,13 @@ if DEF(_DEBUG)
 	giveitem RARE_CANDY, 99
 	giveitem MAX_REPEL, 99
 	giveitem SHINY_CORAL
-	givepoke CLEFAIRY, 5
-	givepoke KRABBY, 5
+	;givepoke CLEFAIRY, 5
+	;givepoke KRABBY, 5
 	givepoke NINETALES, 60
 	callasm CheatFillPokedex
-	warp ROUTE_46, $8, $F
+	;warp ROUTE_2, $5, $22
+	;warp ROUTE_46, $8, $10
+	warp ROUTE_34, $D, $24
 endc
 	closetext
 	end
@@ -341,6 +344,11 @@ CheatFillPokedex:
 	inc a
 	cp CELEBI
 	jr nz, .loop	
+	ret
+
+SetHallOfFameFlag:
+	ld hl, wStatusFlags
+	set STATUSFLAGS_HALL_OF_FAME_F, [hl]
 	ret
 endc
 	

@@ -281,7 +281,7 @@ VioletCity_MapEvents:
 
 	db 9 ; warp events
 	warp_event 23, 17, VIOLET_MART, 2
-	warp_event 14, 15, VIOLET_GYM, 1
+	warp_event 15, 16, VIOLET_GYM, 1
 	warp_event 30, 17, EARLS_POKEMON_ACADEMY, 1
 	warp_event 25, 31, VIOLET_NICKNAME_SPEECH_HOUSE, 1
 	warp_event 31, 25, VIOLET_POKECENTER_1F, 1
@@ -294,7 +294,7 @@ VioletCity_MapEvents:
 
 	db 7 ; bg events
 	bg_event 25, 23, BGEVENT_READ, VioletCitySign
-	bg_event 11, 15, BGEVENT_READ, VioletGymSign
+	bg_event 16, 17, BGEVENT_READ, VioletGymSign
 	bg_event 31,  5, BGEVENT_READ, SproutTowerSign
 	bg_event 27, 17, BGEVENT_READ, EarlsPokemonAcademySign
 	bg_event 32, 25, BGEVENT_READ, VioletCityPokecenterSign
@@ -302,7 +302,7 @@ VioletCity_MapEvents:
 	bg_event 36,  2, BGEVENT_ITEM, VioletCityHiddenHyperPotion
 
 	db 8 ; object events
-	object_event 13, 16, SPRITE_FISHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, VioletCityEarlScript, EVENT_VIOLET_CITY_EARL
+	object_event 13, 17, SPRITE_FISHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, VioletCityEarlScript, EVENT_VIOLET_CITY_EARL
 	object_event 25, 23, SPRITE_LASS, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, VioletCityLassScript, -1
 	object_event 34, 10, SPRITE_SUPER_NERD, SPRITEMOVEDATA_WANDER, 1, 2, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, VioletCitySuperNerdScript, -1
 	object_event 17, 20, SPRITE_GRAMPS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, VioletCityGrampsScript, -1

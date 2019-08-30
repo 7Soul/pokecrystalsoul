@@ -494,4 +494,5 @@ ENDM
 	newgroup ; 27
 	
 	map_const ROUTE_46,                                    10, 19 ;  1
+	map_const VIRIDIAN_FOREST,                             19, 24 ;  2
 	

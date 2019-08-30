@@ -626,6 +626,11 @@ BirdKeeperGroup:
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
+	; BIRD_KEEPER (20)
+	db "Chester@", TRAINERTYPE_NORMAL
+	db 0, 17, 3, 0, BULBASAUR
+	db -1 ; end
+
 LassGroup:
 	; LASS (1)
 	db "Carrie@", TRAINERTYPE_NORMAL
@@ -1417,6 +1422,16 @@ BugCatcherGroup:
 
 	; BUG_CATCHER (19)
 	db "Wayne@", TRAINERTYPE_NORMAL
+	db 0, 17, 3, 0, BULBASAUR
+	db -1 ; end
+
+	; BUG_CATCHER (20)
+	db "Maimo@", TRAINERTYPE_NORMAL
+	db 0, 17, 3, 0, BULBASAUR
+	db -1 ; end
+
+	; BUG_CATCHER (21)
+	db "Pippin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 

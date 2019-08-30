@@ -35,7 +35,4 @@ SpriteMons:
 	db GYARADOS
 	db LUGIA
 	db HO_OH
-	db MANKEY
-	db PIDGEY
-	db SUNKERN
-	db IGGLYBUFF
+	db SCYTHER

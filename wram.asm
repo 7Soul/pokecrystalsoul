@@ -1081,7 +1081,7 @@ wca02:: db
 
 NEXTU ; ca00
 ; link data
-	ds 191
+ds 191
 wcabf:: ds 79
 wcb0e:: ds 5
 wcb13:: ds 23
@@ -2627,8 +2627,9 @@ wFastShipB1FSceneID::                             db ; d9bd
 wMountMoonSquareSceneID::                         db ; d9be
 wMobileTradeRoomSceneID::                         db ; d9bf
 wMobileBattleRoomSceneID::                        db ; d9c0
+wRoute46SceneID::                        		  db ; d9c0
 
-	ds 49
+	ds 48
 
 ; fight counts
 wJackFightCount::    db ; d9f2
@@ -2882,6 +2883,7 @@ wContestMon:: party_struct wContestMon ; df9c
 wDunsparceMapGroup:: db
 wDunsparceMapNumber:: db
 wFishingSwarmFlag:: db
+wSwarmSet:: db
 
 wRoamMon1:: roam_struct wRoamMon1 ; dfcf
 wRoamMon2:: roam_struct wRoamMon2 ; dfd6

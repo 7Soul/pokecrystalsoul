@@ -41,8 +41,10 @@ MoveTutor:
 	jr z, .thunderbolt
 	cp MOVETUTOR_ICE_BEAM
 	jr z, .icebeam
-	; MOVETUTOR_HARMONY
-	ld a, HARMONY
+	cp MOVETUTOR_HARMONY
+	jr z, .harmony
+	cp MOVETUTOR_SILVER_WIND
+	jr z, .silver_wind
 	ret
 
 .flamethrower
@@ -55,6 +57,14 @@ MoveTutor:
 
 .icebeam
 	ld a, ICE_BEAM
+	ret
+
+.harmony
+	ld a, HARMONY
+	ret
+
+.silver_wind
+	ld a, SILVER_WIND
 	ret
 
 CheckCanLearnMoveTutorMove:

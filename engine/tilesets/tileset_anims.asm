@@ -70,7 +70,7 @@ TilesetForestAnim:
 	dw NULL,  ForestTreeLeftAnimation2
 	dw NULL,  ForestTreeRightAnimation2
 	dw NULL,  AnimateFlowerTile
-	dw vTiles2 tile $01, AnimateWaterTile
+	dw vTiles2 tile $14, AnimateWaterTile
 	dw NULL,  AnimateWaterPalette
 	dw NULL,  StandingTileFrame8
 	dw NULL,  DoneTileAnimation

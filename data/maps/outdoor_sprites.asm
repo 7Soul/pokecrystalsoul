@@ -30,6 +30,7 @@ OutdoorSprites:
 	dw SaffronGroupSprites
 	dw CherrygroveGroupSprites
 	dw Route46GroupSprites
+	dw ViridianForestGroupSprites
 
 ; Route1 and ViridianCity are connected
 ; Route2 and PewterCity are connected
@@ -306,7 +307,9 @@ CableClubGroupSprites:
 Route46GroupSprites:
 	db SPRITE_POKEFAN_M
 	db SPRITE_YOUNGSTER
+	db SPRITE_BUG_CATCHER
 	db SPRITE_LASS
+	db SPRITE_BLUE
 	db SPRITE_ARIN
 	db SPRITE_DANNY
 	; 3 of max 9 walking sprites
@@ -314,3 +317,15 @@ Route46GroupSprites:
 	db SPRITE_POKE_BALL
 	db 0 ; end
 	
+ViridianForestGroupSprites:
+	db SPRITE_POKEFAN_M
+	db SPRITE_YOUNGSTER
+	db SPRITE_BUG_CATCHER
+	db SPRITE_LASS
+	db SPRITE_BLUE
+	db SPRITE_ARIN
+	db SPRITE_DANNY
+	; 3 of max 9 walking sprites
+	db SPRITE_FRUIT_TREE
+	db SPRITE_POKE_BALL
+	db 0 ; end

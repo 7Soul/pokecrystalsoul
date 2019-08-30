@@ -666,6 +666,7 @@ ChooseWildEncounter:
 .lucky_isset	
 	; 11% (11*255/100 -> 1c hex) chance of special map encounter that replaces current encounter if conditions are met
 	ld a, $1c
+	;ld a, $ff
 	ld b, a
 	; Doubles chance if playing pokemon march
 	ld a, [wMapMusic]
@@ -677,7 +678,7 @@ ChooseWildEncounter:
 	call Random 
 	cp b
 	jp nc, .notmap
-	
+	xor c ; 150 possible land swarms
 	call CheckOnWater
 	jr z, .water
 	call CheckShallowWaterTile
@@ -687,11 +688,18 @@ ChooseWildEncounter:
 	jr .loop_group
 .water
 	ld hl, JohtoWaterRareWildMons
+	xor a
+	add a, 150 ; 50 possible water swarms
+	ld c, a
 	jr .loop_group
 .shallow_water
 	ld hl, JohtoShallowRareWildMons
+	xor a
+	add a, 200 ; 54 possible shallow swarms
+	ld c, a
 	; compare to current map group and map id
-.loop_group
+
+.loop_group	
 	ld a, [hli] ; get map group
 	ld b, a
 	ld a, [wMapGroup]
@@ -702,6 +710,7 @@ ChooseWildEncounter:
 	inc hl
 	inc hl
 	inc hl
+	inc c
 	jr .loop_group
 	
 .right_group
@@ -712,6 +721,7 @@ ChooseWildEncounter:
 	jr z, .number
 	inc hl
 	inc hl
+	inc c
 	jr .loop_group
 
 .number
@@ -764,15 +774,28 @@ ChooseWildEncounter:
 	cp 8
 	jr nc, .notmap
 
+	push hl
+	ld hl, wSwarmSet
+	ld a, [hl]
+	cp c
+	jr nz, .keep_swarm ; if the current saved swarm encounter is the same id
+	ld [hl], c ; save last swarm encounter
+	pop hl
+	jr .notmap
+
+.keep_swarm
+	ld [hl], c ; save last swarm encounter
+	pop hl
 	ld a, [hl] ; get mon species
 	ld [wTempWildMonSpecies], a
 
-; rare pokemon gain 0-2 levels
+; rare pokemon gain 1-4 levels
 	ld a, [wCurPartyLevel]
 	ld b, a
-	ld a, 3
+	ld a, 4
 	call RandomRange
 	add b
+	inc a
 	ld [wCurPartyLevel], a
 
 .notmap

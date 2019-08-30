@@ -942,7 +942,7 @@ JohtoGrassWildMons:
 	db 1, RHYHORN
 	db 1, SNUBBULL
 	db 1, ABRA
-	db 2, MR__MIME
+	db 1, DITTO
 	; nite
 	db 1, DROWZEE
 	db 1, PONYTA
@@ -950,7 +950,7 @@ JohtoGrassWildMons:
 	db 1, RHYHORN
 	db 2, CLEFFA
 	db 1, ABRA
-	db 2, MR__MIME
+	db 1, DITTO
 
 	map_id ROUTE_35
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite
@@ -995,7 +995,7 @@ JohtoGrassWildMons:
 	; morn/day
 	db 1, GIRAFARIG
 	db 1, CHANSEY
-	db 1, SKARMORY
+	db 1, SANDSHREW
 	db 1, MEOWTH
 	db 1, GROWLITHE
 	db 1, MILTANK
@@ -1003,7 +1003,7 @@ JohtoGrassWildMons:
 	; nite
 	db 1, GIRAFARIG
 	db 1, CHANSEY
-	db 1, SKARMORY
+	db 1, EKANS
 	db 1, MEOWTH
 	db 1, VULPIX
 	db 1, MILTANK
@@ -1110,7 +1110,7 @@ JohtoGrassWildMons:
 	db 1, NIDORAN_F
 	db 2, DODUO
 	db 1, VULPIX
-	db 1, SKARMORY
+	db 1, GEODUDE
 	db 1, PHANPY
 	db 1, DRATINI
 	db 1, ZAPDOS
@@ -1118,7 +1118,7 @@ JohtoGrassWildMons:
 	db 1, NIDORAN_F
 	db 2, DODUO
 	db 1, VULPIX
-	db 1, SKARMORY
+	db 1, GEODUDE
 	db 1, PHANPY
 	db 2, DRATINI
 	db 1, ZAPDOS

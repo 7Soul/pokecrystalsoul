@@ -1047,3 +1047,6 @@ SECTION "Map Blocks 4", ROMX
 
 Route33_Blocks:
 	INCBIN "maps/Route33.blk"
+
+ViridianForest_Blocks:
+	INCBIN "maps/ViridianForest.blk"
