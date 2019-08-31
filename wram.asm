@@ -414,7 +414,10 @@ wBattleMonNick:: ds MON_NAME_LENGTH ; c621
 wBattleMon:: battle_struct wBattleMon ; c62c
 wBattleMonStat:: ; c62d
 wMonIsShiny:: db ; c62e
-
+wBattleDvAtk:: db
+wBattleDvDef:: db
+wBattleDvSpd:: db
+wBattleDvSpc:: db
 wWildMon:: db ; c64e
 wEnemyMonEvolve:: db ; c64f
 wEnemyTrainerItem1:: db ; c650
@@ -2421,7 +2424,7 @@ wObjectStructsEnd:: ; d6de
 
 wCmdQueue:: ds CMDQUEUE_CAPACITY * CMDQUEUE_ENTRY_SIZE
 
-	ds 40
+;;;	ds 40
 
 wMapObjects:: ; d71e
 wPlayerObject:: map_object wPlayer
@@ -2544,7 +2547,7 @@ wRandomStarter4:: db ; d968
 wRandomStarter5:: db ; d969
 wRandomStarter6:: db ; d96a
 wRandomStarterItem:: db ; d96b
-	ds 6
+;;;	ds 6
 
 ; map scene ids
 wPokecenter2FSceneID::                            db ; d972
@@ -2628,7 +2631,7 @@ wMobileTradeRoomSceneID::                         db ; d9bf
 wMobileBattleRoomSceneID::                        db ; d9c0
 wRoute46SceneID::                        		  db ; d9c0
 
-	ds 48
+;;;	ds 48
 
 ; fight counts
 wJackFightCount::    db ; d9f2
@@ -2731,10 +2734,8 @@ wTimerEventStartDay:: db ;
 
 wFruitTreeFlags:: flag_array NUM_FRUIT_TREES ; dc27
 wNuzlockeLandmarkFlags :: flag_array NUM_LANDMARKS
-wBattleDvAtk:: db
-wBattleDvDef:: db
-wBattleDvSpd:: db
-wBattleDvSpc:: db
+wSwarmLandmarkFlags :: flag_array NUM_LANDMARKS
+wSwarmLearnedFlags :: flag_array NUM_LANDMARKS
 
 wLuckyNumberDayBuffer:: dw ; dc2d
 	ds 2
@@ -2772,7 +2773,7 @@ wSafariTimeRemaining:: dw ; dc7a
 
 wPhoneList:: ds CONTACT_LIST_SIZE ; dc7c
 ; dc86
-	ds 23
+;;;	ds 23
 
 wLuckyNumberShowFlag:: db ; dc9d
 wRepelType:: db
