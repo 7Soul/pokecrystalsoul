@@ -99,9 +99,10 @@ if DEF(_DEBUG)
 	giveitem POKE_BALL, 99
 	giveitem RARE_CANDY, 99
 	giveitem MAX_REPEL, 99
+	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
 	;givepoke CLEFAIRY, 5
-	;givepoke KRABBY, 5
+	givepoke KRABBY, 5
 	givepoke NINETALES, 60
 	;callasm CheatFillPokedex
 	;warp ROUTE_2, $5, $22

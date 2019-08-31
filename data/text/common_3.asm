@@ -1513,3 +1513,9 @@ Text_NuzlockeBallFailure::
 	cont "#mon here."
 	prompt
 	
+Text_NuzlockeReviveFailure::
+	text "You can't revive"
+	line "#mon in"
+	cont "Nuzlocke mode!"
+	prompt
+	

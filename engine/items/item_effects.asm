@@ -194,9 +194,9 @@ ItemEffects:
 	dw NoEffect            ; ITEM_B3
 
 PokeBallEffect:
-	farcall DoesNuzlockeModePreventCapture
-	jp c, Ball_NuzlockeFailureMessage
-
+	; farcall DoesNuzlockeModePreventCapture
+	; jp c, Ball_NuzlockeFailureMessage
+	
 .NoNuzlockeCheck
 	ld a, [wBattleMode]
 	dec a
@@ -218,7 +218,7 @@ PokeBallEffect:
 	ld [wWildMon], a
 	ld a, [wBattleType]
 	cp BATTLETYPE_CONTEST
-	call nz, ReturnToBattle_UseBall
+ 	call nz, ReturnToBattle_UseBall
 
 	ld hl, wOptions
 	res NO_TEXT_SCROLL, [hl]
@@ -490,19 +490,19 @@ PokeBallEffect:
 
 	call ClearSprites
 
-	; Get current landmark
-	ld a, [wMapGroup]
-	ld b, a
-	ld a, [wMapNumber]
-	ld c, a
-	call GetWorldMapLocation
-	; Use landmark as index into flag array
-	ld c, a
-	ld hl, wNuzlockeLandmarkFlags
-	ld b, SET_FLAG
-	predef SmallFarFlagAction
+	; ; Get current landmark
+	; ld a, [wMapGroup]
+	; ld b, a
+	; ld a, [wMapNumber]
+	; ld c, a
+	; call GetWorldMapLocation
+	; ; Use landmark as index into flag array
+	; ld c, a
+	; ld hl, wNuzlockeLandmarkFlags
+	; ld b, SET_FLAG
+	; predef SmallFarFlagAction
 
-	callba GiveExperiencePointsAfterCatch
+	farcall GiveExperiencePointsAfterCatch
 	ld a, [wEnemyMonLevel]
 	ld [wCurPartyLevel], a
 	pop af
@@ -510,6 +510,7 @@ PokeBallEffect:
 	ld [wCurPartySpecies], a
 	ld [wTempSpecies], a
 	
+	ld a, [wTempSpecies]
 	dec a
 	call CheckCaughtMon
 
@@ -685,7 +686,7 @@ PokeBallEffect:
 	jr .return_from_capture
 
 .FinishTutorial:
-	pop af
+	;pop af
 	ld hl, Text_GotchaMonWasCaught
 
 .shake_and_break_free
@@ -1538,6 +1539,10 @@ StatusHealer_Jumptable:
 	dw StatusHealer_ExitMenu
 
 RevivalHerbEffect:
+	; ld a, [wNuzlocke]
+	; cp 1
+	; jp z, Revive_NuzlockeFailureMessage
+	
 	ld b, PARTYMENUACTION_HEALING_ITEM
 	call UseItem_SelectMon
 	jp c, StatusHealer_ExitMenu
@@ -1555,6 +1560,10 @@ RevivalHerbEffect:
 	jp StatusHealer_Jumptable
 
 ReviveEffect:
+	; ld a, [wNuzlocke]
+	; cp 1
+	; jp z, Revive_NuzlockeFailureMessage
+
 	ld b, PARTYMENUACTION_HEALING_ITEM
 	call UseItem_SelectMon
 	jp c, StatusHealer_ExitMenu
@@ -2672,20 +2681,29 @@ LooksBitterMessage:
 	ld hl, LooksBitterText
 	jp PrintText
 
-Ball_NuzlockeFailureMessage:
-	ld hl, Ball_NuzlockeFailureText
-	call PrintText
+; Ball_NuzlockeFailureMessage:
+; 	ld hl, Ball_NuzlockeFailureText
+; 	call PrintText
 	
-	ld a, [wCurItem]
-	cp PARK_BALL
-	ret z
-	cp SAFARI_BALL
-	ret z
+; 	ld a, [wCurItem]
+; 	cp PARK_BALL
+; 	ret z
+; 	cp SAFARI_BALL
+; 	ret z
 
-	; Item wasn't used.
-	ld a, $2
-	ld [wItemEffectSucceeded], a
-	ret
+; 	; Item wasn't used.
+; 	ld a, $2
+; 	ld [wItemEffectSucceeded], a
+; 	ret
+
+; Revive_NuzlockeFailureMessage:
+; 	ld hl, Revive_NuzlockeFailureText
+; 	call PrintText
+
+; 	; Item wasn't used.
+; 	ld a, $2
+; 	ld [wItemEffectSucceeded], a
+; 	ret
 
 Ball_BoxIsFullMessage:
 	ld hl, Ball_BoxIsFullText
@@ -2793,6 +2811,11 @@ GotOffTheItemText:
 Ball_NuzlockeFailureText:
 	; You already encountered a #MON here.
 	text_jump Text_NuzlockeBallFailure
+	db "@"
+
+Revive_NuzlockeFailureText:
+	; You already encountered a #MON here.
+	text_jump Text_NuzlockeReviveFailure
 	db "@"
 
 ApplyPPUp:

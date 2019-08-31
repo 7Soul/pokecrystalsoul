@@ -1992,7 +1992,7 @@ CheckUserHasEnoughHP:
 	sbc [hl]
 	ret
 
-RestoreHP
+RestoreHP:
 	ld hl, wEnemyMonMaxHP
 	ldh a, [hBattleTurn]
 	and a
@@ -7243,7 +7243,6 @@ GiveExperiencePoints:
 	jr c, .cont_calc
 	ld a, 2 ; 10+
 .cont_calc
-	ld [$C000], a
 	ldh [hDivisor], a
 	ld b, 4
 	call Divide
@@ -8431,7 +8430,7 @@ Unreferenced_Function3f662:
 
 ExitBattle:
 	call .HandleEndOfBattle
-	farcall HandleNuzlockeFlags
+	;farcall HandleNuzlockeFlags
 	call CleanUpBattleRAM
 	ret
 

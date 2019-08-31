@@ -95,7 +95,7 @@ GetOptionPointer:
 	;dw Options_Print
 	;dw Options_MenuAccount
 	dw Options_Frame
-	dw Options_Nuzlocke
+	;dw Options_Nuzlocke
 	dw Options_Cancel
 
 	const_def
@@ -261,48 +261,48 @@ Options_BattleStyle:
 .Shift: db "SWITCH@"
 .Set:   db "STAY  @"
 
-Options_Nuzlocke:
-	ld hl, wNuzlocke
-	ldh a, [hJoyPressed]
-	bit D_LEFT_F, a
-	jr nz, .LeftPressed
-	bit D_RIGHT_F, a
-	jr z, .NonePressed
-	ld a, [wNuzlocke]
-	cp 1
-	jr nz, .ToggleOn
-	jr .ToggleOff
+; Options_Nuzlocke:
+; 	ld hl, wNuzlocke
+; 	ldh a, [hJoyPressed]
+; 	bit D_LEFT_F, a
+; 	jr nz, .LeftPressed
+; 	bit D_RIGHT_F, a
+; 	jr z, .NonePressed
+; 	ld a, [wNuzlocke]
+; 	cp 1
+; 	jr nz, .ToggleOn
+; 	jr .ToggleOff
 
-.LeftPressed:
-	ld a, [wNuzlocke]
-	cp 1
-	jr z, .ToggleOff
-	jr .ToggleOn
+; .LeftPressed:
+; 	ld a, [wNuzlocke]
+; 	cp 1
+; 	jr z, .ToggleOff
+; 	jr .ToggleOn
 
-.NonePressed:
-	ld a, [wNuzlocke]
-	cp 1
-	jr nz, .ToggleOff
+; .NonePressed:
+; 	ld a, [wNuzlocke]
+; 	cp 1
+; 	jr nz, .ToggleOff
 
-.ToggleOn:
-	ld a, 1
-	ld [wNuzlocke], a
-	ld de, .On
-	jr .Display
+; .ToggleOn:
+; 	ld a, 1
+; 	ld [wNuzlocke], a
+; 	ld de, .On
+; 	jr .Display
 
-.ToggleOff:
-	ld a, 0
-	ld [wNuzlocke], a
-	ld de, .Off
+; .ToggleOff:
+; 	ld a, 0
+; 	ld [wNuzlocke], a
+; 	ld de, .Off
 
-.Display:
-	hlcoord 12, 13
-	call PlaceString
-	and a
-	ret
+; .Display:
+; 	hlcoord 12, 13
+; 	call PlaceString
+; 	and a
+; 	ret
 
-.On:    db "ON   @"
-.Off:   db "OFF  @"
+; .On:    db "ON   @"
+; .Off:   db "OFF  @"
 
 Options_Sound:
 	ld hl, wOptions

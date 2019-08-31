@@ -1573,7 +1573,7 @@ wGBPrinter:: ; cfd0
 ;   darker:   $60
 ;   darkest:  $7F
 	db
-wNuzlocke:: db
+;wNuzlocke:: db
 wOptions2:: ; cfd1
 ; bit 1: menu account off/on
 	db
@@ -2732,8 +2732,8 @@ wTimerEventStartDay:: db ;
 	ds 3
 
 wFruitTreeFlags:: flag_array NUM_FRUIT_TREES ; dc27
-wNuzlockeLandmarkFlags :: flag_array NUM_LANDMARKS
-	ds 1
+;wNuzlockeLandmarkFlags :: db
+	ds 2
 
 wLuckyNumberDayBuffer:: dw ; dc2d
 	ds 2
