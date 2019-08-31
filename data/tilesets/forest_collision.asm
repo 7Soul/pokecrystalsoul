@@ -51,6 +51,6 @@
 	tilecoll WALL, WALL, WALL, WALL ; 32
 	tilecoll TALL_GRASS, TALL_GRASS, WALL, TALL_GRASS ; 33
 	tilecoll WALL, WALL, WALL, DOOR ; 34
-	tilecoll , , ,  ; 35
-	tilecoll , , ,  ; 36
-	tilecoll , , ,  ; 37
+	tilecoll WALL, WALL, WALL, WALL ; 35
+	tilecoll WALL, WALL, WALL, WALL ; 36
+	tilecoll WALL, WALL, WALL, WALL ; 37

@@ -162,38 +162,42 @@ DrawEnemyHUDBorder:
 	ld a, [wBattleMode]
 	dec a
 	ret nz
+; wild pokemon
 	ld a, [wTempEnemyMonSpecies]
 	dec a
 	call CheckCaughtMon
 	jr z, .not_caught
 	hlcoord 1, 2
 	ld [hl], $5d
+
 	; check wild mon item and show icon
 	push hl
 	ld hl, wEnemyMonItem
 	ld a, [hl]
 	pop hl
 	cp NO_ITEM
-	jr z, .check_shiny
+	jr z, .end
 	hlcoord 1, 3
-	ld [hl], $5e
-	jr .check_shiny
-	
+	ld [hl], $5e ; item icon
+	jr .end
+
 .not_caught
 	push hl
 	ld hl, wEnemyMonItem
 	ld a, [hl]
 	pop hl
 	cp NO_ITEM
-	jr z, .check_shiny
+	jr z, .end
 	hlcoord 1, 2
-	ld [hl], $5e
-	
-.check_shiny
-	; farcall BattleCheckEnemyShininess
-	; ret nc
-	; hlcoord 10, 1
-	; ld [hl], $5f
+	ld [hl], $5e ; item icon
+.end
+	call DoesNuzlockeModePreventCapture
+	jr c, .nuzlocke
+	ret
+
+.nuzlocke
+	hlcoord 1, 1
+	ld [hl], $75
 	ret
 
 .tiles
@@ -301,4 +305,68 @@ _ShowLinkBattleParticipants:
 	call SetPalettes
 	ld a, $e4
 	ldh [rOBP0], a
+	ret
+
+DoesNuzlockeModePreventCapture:
+	; Is nuzlocke mode on?
+	ld a, [wNuzlocke]
+	cp 0
+	jr z, .no
+
+	; Is enemy shiny?
+	farcall BattleCheckEnemyShininess
+	jr c, .no
+
+	; Is location already done?
+	ld a, [wMapGroup]
+	ld b, a
+	ld a, [wMapNumber]
+	ld c, a
+	call GetWorldMapLocation
+	ld c, a
+	ld hl, wNuzlockeLandmarkFlags
+	; Use landmark as index into flag array
+	ld b, CHECK_FLAG
+	ld d, $0
+	predef SmallFarFlagAction
+	ld a, c
+	and a
+	jr z, .no
+
+	scf
+	ret
+
+.no
+	xor a
+	ret
+
+HandleNuzlockeFlags:
+	ld a, [wBattleMode]
+	cp WILD_BATTLE
+	ret nz
+
+	; Dupes clause: don't count duplicate encounters
+	ld a, [wTempEnemyMonSpecies]
+	dec a
+	call CheckCaughtMon
+	ret nz
+
+	; Only flag landmarks for Nuzlocke runs after getting Poké Balls
+	ld de, EVENT_LEARNED_TO_CATCH_POKEMON
+	ld b, CHECK_FLAG
+	call EventFlagAction
+	ld a, c
+	ret z
+
+	; Get current landmark
+	ld a, [wMapGroup]
+	ld b, a
+	ld a, [wMapNumber]
+	ld c, a
+	call GetWorldMapLocation
+	; Use landmark as index into flag array
+	ld c, a
+	ld hl, wNuzlockeLandmarkFlags
+	ld b, SET_FLAG
+	predef SmallFarFlagAction
 	ret

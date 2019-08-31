@@ -102,6 +102,8 @@ KANTO_LANDMARK EQU const_value
 	const ROUTE_28          ; 5e
 	const FAST_SHIP         ; 5f
 
+NUM_LANDMARKS EQU const_value
+
 ; used in CaughtData
 GIFT_LOCATION  EQU $7e
 EVENT_LOCATION EQU $7f

@@ -1506,3 +1506,10 @@ UnknownText_0x1c60d1::
 	para "Come back again in"
 	line "a while."
 	prompt
+
+Text_NuzlockeBallFailure::
+	text "You already"
+	line "encountered a"
+	cont "#mon here."
+	prompt
+	

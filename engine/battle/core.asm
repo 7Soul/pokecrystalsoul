@@ -8431,6 +8431,7 @@ Unreferenced_Function3f662:
 
 ExitBattle:
 	call .HandleEndOfBattle
+	farcall HandleNuzlockeFlags
 	call CleanUpBattleRAM
 	ret
 

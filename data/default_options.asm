@@ -9,6 +9,8 @@ DefaultOptions:
 	db 1 << FAST_TEXT_DELAY_F
 ; wGBPrinter: normal brightness
 	db GBPRINTER_NORMAL
+; wNuzlocke
+	db 0
 ; wOptions2: menu account on
 	db 0 << MENU_ACCOUNT
 

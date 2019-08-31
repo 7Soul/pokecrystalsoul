@@ -16,13 +16,6 @@ Route46_MapScripts:
 .DummyScene:
 	end
 
-Route46Swarm
-	callasm TryWild
-	randomwildmon
-	startbattle
-	reloadmapafterbattle
-	end
-
 GrassScene:
 	callasm TryWild
 	iffalse .ok
@@ -296,4 +289,3 @@ Route46_MapEvents:
 	object_event  8,  8, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route46FruitTree1, -1
 	object_event  9,  9, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route46FruitTree2, -1
 	object_event  0, 14, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, (1 << 3) | PAL_NPC_BLUE, OBJECTTYPE_ITEMBALL, 0, Route46XSpeed, EVENT_ROUTE_46_X_SPEED
-	object_event  3, 14, SPRITE_SCYTHER, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route46Swarm, EVENT_ROUTE_46_SWARM

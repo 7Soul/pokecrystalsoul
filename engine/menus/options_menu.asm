@@ -13,7 +13,7 @@ _OptionsMenu:
 	call PlaceString
 	xor a
 	ld [wJumptableIndex], a
-	ld c, $4 ; number of items on the menu minus 1 (for cancel)
+	ld c, $6 ; number of items on the menu minus 1 (for cancel)
 
 .print_text_loop ; this text will display the settings of each option when the menu is opened
 	push bc
@@ -71,6 +71,8 @@ StringOptions:
 	db "         <LF>"
 	db "Frame<LF>"
 	db "          Type<LF>"
+	db "Nuzlocke<LF>"
+	db "         <LF>"
 	db "CANCEL@"
 
 GetOptionPointer:
@@ -93,6 +95,7 @@ GetOptionPointer:
 	;dw Options_Print
 	;dw Options_MenuAccount
 	dw Options_Frame
+	dw Options_Nuzlocke
 	dw Options_Cancel
 
 	const_def
@@ -257,6 +260,49 @@ Options_BattleStyle:
 
 .Shift: db "SWITCH@"
 .Set:   db "STAY  @"
+
+Options_Nuzlocke:
+	ld hl, wNuzlocke
+	ldh a, [hJoyPressed]
+	bit D_LEFT_F, a
+	jr nz, .LeftPressed
+	bit D_RIGHT_F, a
+	jr z, .NonePressed
+	ld a, [wNuzlocke]
+	cp 1
+	jr nz, .ToggleOn
+	jr .ToggleOff
+
+.LeftPressed:
+	ld a, [wNuzlocke]
+	cp 1
+	jr z, .ToggleOff
+	jr .ToggleOn
+
+.NonePressed:
+	ld a, [wNuzlocke]
+	cp 1
+	jr nz, .ToggleOff
+
+.ToggleOn:
+	ld a, 1
+	ld [wNuzlocke], a
+	ld de, .On
+	jr .Display
+
+.ToggleOff:
+	ld a, 0
+	ld [wNuzlocke], a
+	ld de, .Off
+
+.Display:
+	hlcoord 12, 13
+	call PlaceString
+	and a
+	ret
+
+.On:    db "ON   @"
+.Off:   db "OFF  @"
 
 Options_Sound:
 	ld hl, wOptions
@@ -497,16 +543,16 @@ OptionsControl:
 
 .DownPressed:
 	ld a, [hl] ; load the cursor position to a
-	cp $5 ; maximum number of items in option menu
+	cp $6 ; maximum number of items in option menu
 	jr nz, .CheckFive
 	ld [hl], $0
 	scf
 	ret
 
 .CheckFive: ; I have no idea why this exists...
-	cp $5
+	cp $6
 	jr nz, .Increase
-	ld [hl], $5
+	ld [hl], $6
 
 .Increase:
 	inc [hl]
@@ -515,16 +561,16 @@ OptionsControl:
 
 .UpPressed:
 	ld a, [hl]
-	cp $6
+	cp $7
 	jr nz, .NotSix
-	ld [hl], $5 ; Another thing where I'm not sure why it exists
+	ld [hl], $6 ; Another thing where I'm not sure why it exists
 	scf
 	ret
 
 .NotSix:
 	and a
 	jr nz, .Decrease
-	ld [hl], $6 ; number of option items +1
+	ld [hl], $7 ; number of option items +1
 
 .Decrease:
 	dec [hl]

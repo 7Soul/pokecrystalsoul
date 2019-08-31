@@ -87,6 +87,7 @@ if DEF(_DEBUG)
 	setflag ENGINE_RADIO_CARD
 	callasm SetHallOfFameFlag
 	setevent EVENT_GOT_A_POKEMON_FROM_ELM
+	setevent EVENT_LEARNED_TO_CATCH_POKEMON
 	clearevent EVENT_ROUTE_30_YOUNGSTER_JOEY
 	setevent EVENT_ROUTE_30_BATTLE
 	setevent EVENT_RIVAL_CHERRYGROVE_CITY
@@ -95,16 +96,17 @@ if DEF(_DEBUG)
 	givecoins 9999
 	givemoney 0, 100000
 	giveitem MASTER_BALL, 99
+	giveitem POKE_BALL, 99
 	giveitem RARE_CANDY, 99
 	giveitem MAX_REPEL, 99
 	giveitem SHINY_CORAL
 	;givepoke CLEFAIRY, 5
 	;givepoke KRABBY, 5
 	givepoke NINETALES, 60
-	callasm CheatFillPokedex
+	;callasm CheatFillPokedex
 	;warp ROUTE_2, $5, $22
-	;warp ROUTE_46, $8, $10
-	warp ROUTE_34, $D, $24
+	warp ROUTE_46, $8, $10
+	;warp ROUTE_34, $D, $24
 endc
 	closetext
 	end

@@ -194,6 +194,10 @@ ItemEffects:
 	dw NoEffect            ; ITEM_B3
 
 PokeBallEffect:
+	farcall DoesNuzlockeModePreventCapture
+	jp c, Ball_NuzlockeFailureMessage
+
+.NoNuzlockeCheck
 	ld a, [wBattleMode]
 	dec a
 	jp nz, UseBallInTrainerBattle
@@ -486,6 +490,18 @@ PokeBallEffect:
 
 	call ClearSprites
 
+	; Get current landmark
+	ld a, [wMapGroup]
+	ld b, a
+	ld a, [wMapNumber]
+	ld c, a
+	call GetWorldMapLocation
+	; Use landmark as index into flag array
+	ld c, a
+	ld hl, wNuzlockeLandmarkFlags
+	ld b, SET_FLAG
+	predef SmallFarFlagAction
+
 	callba GiveExperiencePointsAfterCatch
 	ld a, [wEnemyMonLevel]
 	ld [wCurPartyLevel], a
@@ -702,7 +718,7 @@ PokeBallEffect:
 	ld hl, wParkBallsRemaining
 	dec [hl]
 	ret
-
+	
 BallMultiplierFunctionTable:
 ; table of routines that increase or decrease the catch rate based on
 ; which ball is used in a certain situation.
@@ -2656,6 +2672,21 @@ LooksBitterMessage:
 	ld hl, LooksBitterText
 	jp PrintText
 
+Ball_NuzlockeFailureMessage:
+	ld hl, Ball_NuzlockeFailureText
+	call PrintText
+	
+	ld a, [wCurItem]
+	cp PARK_BALL
+	ret z
+	cp SAFARI_BALL
+	ret z
+
+	; Item wasn't used.
+	ld a, $2
+	ld [wItemEffectSucceeded], a
+	ret
+
 Ball_BoxIsFullMessage:
 	ld hl, Ball_BoxIsFullText
 	call PrintText
@@ -2757,6 +2788,11 @@ GotOnTheItemText:
 GotOffTheItemText:
 	; got off@ the @ .
 	text_jump UnknownText_0x1c5e90
+	db "@"
+
+Ball_NuzlockeFailureText:
+	; You already encountered a #MON here.
+	text_jump Text_NuzlockeBallFailure
 	db "@"
 
 ApplyPPUp:
