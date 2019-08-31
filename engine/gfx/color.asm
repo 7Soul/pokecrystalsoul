@@ -5,13 +5,12 @@ CheckShininess:
 ; Return carry if shiny.
 	ld l, c
 	ld h, b
-	push de
 	
 ; Attack must be off
 	ld a, [hl]
 	swap a
 	and $f
-	ld [wBattleDvAtk], a ; save atk at c003
+	ld [wBattleDvAtk], a ; save atk
 	ld d, a ; atk
 	and %1000
 	jp z, .NotShiny
@@ -19,7 +18,7 @@ CheckShininess:
 ; Defense must be 0, 5, 10 or 15
 	ld a, [hl]
 	and $f
-	ld [wBattleDvDef], a ; save def at c004
+	ld [wBattleDvDef], a ; save def
 	add d
 	ld d, a
 	
@@ -38,7 +37,7 @@ CheckShininess:
 .MaybeShiny1
 	ld a, [hl]
 	and $f0
-	ld [wBattleDvSpd], a ; save spd at c005
+	ld [wBattleDvSpd], a ; save spd
 	add d
 	ld d, a
 	
@@ -57,7 +56,7 @@ CheckShininess:
 .MaybeShiny2
 	ld a, [hl]
 	and $f
-	ld [wBattleDvSpc], a ; save spcl at c006
+	ld [wBattleDvSpc], a ; save spcl
 	add d
 	ld d, a
 	
@@ -73,22 +72,17 @@ CheckShininess:
 	jp nz, .NotShiny
 
 .Shiny:
-	pop de
 	ld a, 1
-	ld [wMonIsShiny], a ; save shiny bit at c002
-	;ld a, d
-	;cp $1e
-	;jp nc, .NotShiny
+	ld [wMonIsShiny], a ; save shiny bit at wMonIsShiny
 	scf
 	ret
 
 .NotShiny:
-	pop de
 	xor a
-	ld [wMonIsShiny], a ; save not shiny bit at c002
+	ld [wMonIsShiny], a ; save not shiny bit at wMonIsShiny
 	ld [wBattleDvAtk], a
 	ld [wBattleDvDef], a
-	ld [wBattleDvSpd], a	
+	ld [wBattleDvSpd], a
 	and a
 	ret
 
@@ -1049,9 +1043,11 @@ GetMonNormalOrShinyPalettePointer:
 	push bc
 	call _GetMonPalettePointer
 	pop bc
+	push de
 	push hl
 	call CheckShininess	
 	pop hl
+	pop de
 	ret nc
 rept 4
 	inc hl

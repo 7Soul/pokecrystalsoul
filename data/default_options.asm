@@ -10,7 +10,7 @@ DefaultOptions:
 ; wGBPrinter: normal brightness
 	db GBPRINTER_NORMAL
 ; wNuzlocke
-	;db 0
+	db 0
 ; wOptions2: menu account on
 	db 0 << MENU_ACCOUNT
 

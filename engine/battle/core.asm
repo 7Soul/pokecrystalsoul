@@ -7210,7 +7210,7 @@ GiveExperiencePoints:
 	ld a, [wEnemyMonLevel]
 	add $64
 	sub b
-	ld [wMonIsShiny], a
+	;ld [wMonIsShiny], a
 	ld b, a ; 'b' is opp level - party level
 	
 	ld a, b
@@ -8430,7 +8430,7 @@ Unreferenced_Function3f662:
 
 ExitBattle:
 	call .HandleEndOfBattle
-	;farcall HandleNuzlockeFlags
+	farcall HandleNuzlockeFlags
 	call CleanUpBattleRAM
 	ret
 

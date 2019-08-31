@@ -413,7 +413,7 @@ wBattleMonNick:: ds MON_NAME_LENGTH ; c621
 
 wBattleMon:: battle_struct wBattleMon ; c62c
 wBattleMonStat:: ; c62d
-wMonIsShiny:: ; c62e
+wMonIsShiny:: db ; c62e
 
 wWildMon:: db ; c64e
 wEnemyMonEvolve:: db ; c64f
@@ -1573,7 +1573,7 @@ wGBPrinter:: ; cfd0
 ;   darker:   $60
 ;   darkest:  $7F
 	db
-;wNuzlocke:: db
+wNuzlocke:: db
 wOptions2:: ; cfd1
 ; bit 1: menu account off/on
 	db
@@ -2449,10 +2449,8 @@ wVariableSprites:: ds $100 - SPRITE_VARS ; d82e
 wEnteredMapFromContinue:: db ; d83e
 	ds 2
 wTimeOfDayPal:: db ; d841
-wBattleDvAtk:: db
-wBattleDvDef:: db
-wBattleDvSpd:: db
-wBattleDvSpc:: db
+	ds 4
+
 wTimeOfDayPalFlags:: db ; d846
 wTimeOfDayPalset:: db
 wCurTimeOfDay:: db ; d848
@@ -2732,8 +2730,11 @@ wTimerEventStartDay:: db ;
 	ds 3
 
 wFruitTreeFlags:: flag_array NUM_FRUIT_TREES ; dc27
-;wNuzlockeLandmarkFlags :: db
-	ds 2
+wNuzlockeLandmarkFlags :: flag_array NUM_LANDMARKS
+wBattleDvAtk:: db
+wBattleDvDef:: db
+wBattleDvSpd:: db
+wBattleDvSpc:: db
 
 wLuckyNumberDayBuffer:: dw ; dc2d
 	ds 2
