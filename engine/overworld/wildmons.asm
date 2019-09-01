@@ -38,13 +38,13 @@ FindNest:
 	jr nz, .kanto
 	decoord 0, 0
 	ld hl, JohtoGrassWildMons
-	call .FindGrass
+	call .FindGrass	
 	ld hl, JohtoShallowWildMons
 	call .FindShallow
 	ld hl, JohtoWaterWildMons
 	call .FindWater
 	call .RoamMon1
-	call .RoamMon2
+	call .RoamMon2	
 	ret
 
 .kanto
@@ -63,8 +63,8 @@ FindNest:
 	ld b, a
 	ld a, [hli]
 	ld c, a
-	inc hl
-	inc hl
+	inc hl ; ;
+	inc hl ; skip encounter chance
 	ld a, NUM_GRASSMON * 2
 	call .SearchMapForMon
 	jr nc, .next_grass
@@ -123,7 +123,7 @@ FindNest:
 	jr .FindWater
 
 .SearchMapForMon:
-	inc hl
+	inc hl ; skip level data
 .ScanMapLoop:
 	push af
 	ld a, [wNamedObjectIndexBuffer]
@@ -225,6 +225,99 @@ FindNest:
 	ret nc
 	ld [de], a
 	inc de
+	ret
+
+FindNest2:
+; Parameters:
+; e: 0 = Johto, 1 = Kanto
+; wNamedObjectIndexBuffer: species
+	hlcoord 0, 0
+	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
+	xor a
+	call ByteFill
+	ld a, e
+	and a
+	jr nz, .kanto
+	decoord 0, 0
+	ld hl, JohtoGrassRareWildMons
+	call .FindSwarm
+	ret
+
+.kanto
+	decoord 0, 0
+	ld hl, KantoGrassRareWildMons
+	call .FindSwarm
+
+.FindSwarm:
+	ld a, [hl]
+	cp -1
+	ret z
+	push hl
+	ld a, [hli]
+	ld c, a ; c has swarm map landmark
+
+	inc hl ; go to pokemon species
+	call .CheckSwarmMonMatch
+	jr nc, .next_swarm
+	ld [de], a
+	inc de
+
+.next_swarm
+	pop hl
+	ld bc, $3
+	add hl, bc
+	jr .FindSwarm
+	
+.CheckSwarmMonMatch:
+	push af
+	ld a, [wNamedObjectIndexBuffer]
+	cp [hl]
+	jr z, .foundSwarm
+	pop af	
+	and a
+	ret
+
+.foundSwarm
+	pop af
+	dec hl
+	dec hl
+	jp .AppendNestSwarm
+
+.AppendNestSwarm
+	push de
+	hlcoord 0, 0
+	ld de, SCREEN_WIDTH * SCREEN_HEIGHT
+.AppendNestSwarmLoop:
+	ld a, [hl]
+	cp c
+	jr z, .end_nest_swarm
+	dec de
+	ld a, e
+	or d
+	jr nz, .AppendNestSwarmLoop
+	ld a, c
+	ld [$C001], a
+	pop de
+
+	ld hl, wSwarmLandmarkFlags
+	ld b, CHECK_FLAG
+	;ld d, $0
+	predef SmallFarFlagAction
+	ld a, c
+	and a
+	jr nz, .knows_swarm ;have swarm knowledge
+	and a
+	ret
+
+.knows_swarm
+	ld a, [$C001]
+	ld c, a
+	scf
+	ret
+
+.end_nest_swarm
+	pop de
+	and a
 	ret
 
 TryWildEncounter::
@@ -763,23 +856,24 @@ ChooseWildEncounter:
 	jr nc, .notmap
 ; Swarm area and time is right
 	push hl
-	ld hl, wNuzlockeLandmarkFlags
-	ld b, CHECK_FLAG
-	ld d, $0
-	predef SmallFarFlagAction
-	ld a, c
-	and a
-	jr z, .keep_swarm ; if the current saved swarm encounter is the same id
 
-	ld b, SET_FLAG
-	predef SmallFarFlagAction ; save last swarm encounter
+	ld hl, wSwarmSet
+	ld a, [hl]
+	cp c
+	jr nz, .keep_swarm ; if the current saved swarm encounter is the same id
 
 	pop hl
 	jr .notmap
 
 .keep_swarm 
+	ld hl, wSwarmSet ; save last swarm (c) encounter
+	ld a, c
+	ld [hl], a
+
+	ld hl, wSwarmLandmarkFlags ; set swarm as learned
 	ld b, SET_FLAG
-	predef SmallFarFlagAction ; save last swarm encounter
+	predef SmallFarFlagAction  
+
 	pop hl
 	ld a, [hl] ; get mon species
 	ld [wTempWildMonSpecies], a
@@ -1736,6 +1830,7 @@ INCLUDE "data/wild/johto_grass_rare.asm"
 INCLUDE "data/wild/johto_water.asm"
 INCLUDE "data/wild/johto_shallow.asm"
 INCLUDE "data/wild/kanto_grass.asm"
+INCLUDE "data/wild/kanto_grass_rare.asm"
 INCLUDE "data/wild/kanto_water.asm"
 INCLUDE "data/wild/kanto_shallow.asm"
 INCLUDE "data/wild/swarm_grass.asm"

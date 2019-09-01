@@ -1878,7 +1878,7 @@ wItemsPocketScrollPosition::    db
 wKeyItemsPocketScrollPosition:: db
 wBallsPocketScrollPosition::    db
 wTMHMPocketScrollPosition::     db
-
+wPokedexSwarmBuffer:: db
 wSwitchMon::
 wSwitchItem::
 wMoveSwapBuffer::

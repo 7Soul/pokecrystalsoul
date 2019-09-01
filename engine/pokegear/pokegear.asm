@@ -2371,11 +2371,17 @@ Pokedex_GetArea:
 	ld a, $1
 	ldh [hInMenu], a
 	ld de, PokedexNestIconGFX
-	ld hl, vTiles0 tile $7f
-	lb bc, BANK(PokedexNestIconGFX), 1
+	ld hl, vTiles0 tile $77
+	lb bc, BANK(PokedexNestIconGFX), 9
 	call Request2bpp
+
+	ld de, PokedexNestIconGFX
+	ld hl, vTiles2 tile $3A ; load swarm/nest instructions
+	lb bc, BANK(PokedexNestIconGFX), 9
+	call Request2bpp
+
 	call .GetPlayerOrFastShipIcon
-	ld hl, vTiles0 tile $78
+	ld hl, vTiles0 tile $73
 	ld c, 4
 	call Request2bpp
 	call LoadTownMapGFX
@@ -2405,7 +2411,8 @@ Pokedex_GetArea:
 	ldh a, [hJoypadDown]
 	and SELECT
 	jr nz, .select
-	call .LeftRightInput
+	call .UpDownInput
+	call .LeftRightInput	
 	call .BlinkNestIcons
 	jr .next
 
@@ -2444,15 +2451,53 @@ Pokedex_GetArea:
 	ret
 
 .right
-	; ld a, [wStatusFlags]
-	; bit STATUSFLAGS_HALL_OF_FAME_F, a
-	; ret z
 	ldh a, [hWY]
 	and a
 	ret z
 	call ClearSprites
 	xor a
 	ldh [hWY], a
+	ld a, KANTO_REGION
+	call .GetAndPlaceNest
+	ret
+
+.UpDownInput:
+	ld a, [hl]
+	and D_UP
+	jr nz, .up
+	ld a, [hl]
+	and D_DOWN
+	jr nz, .down
+	ret
+
+.up
+	call ClearSprites
+	; ld a, 1
+	; ld [wPokedexSwarmBuffer], a
+
+	ldh a, [hWY]
+	and a
+	jr z, .setKanto
+	xor a
+	call .GetAndPlaceNest2
+	ret
+.setKanto
+	ld a, KANTO_REGION
+	call .GetAndPlaceNest2
+	ret
+
+.down
+	call ClearSprites
+	; ld a, 0
+	; ld [wPokedexSwarmBuffer], a
+
+	ldh a, [hWY]
+	and a
+	jr z, .setKanto2
+	xor a
+	call .GetAndPlaceNest
+	ret
+.setKanto2
 	ld a, KANTO_REGION
 	call .GetAndPlaceNest
 	ret
@@ -2488,16 +2533,20 @@ Pokedex_GetArea:
 	call ByteFill
 	ld [hl], $17
 	call GetPokemonName
-	hlcoord 2, 0
+	hlcoord 1, 0
 	call PlaceString
-	ld h, b
-	ld l, c
-	ld de, .String_SNest
-	call PlaceString
+	hlcoord 12, 0
+	ld de, .String_Instructions
+.loop2
+	ld a, [de]
+	cp -1
+	ret z
+	ld [hli], a
+	inc de
+	jr .loop2
 	ret
 
-.String_SNest:
-	db "'s Nest@"
+.String_Instructions:	db $3c, $3d, $3e, $3f, $40, $41, $42, -1
 
 .GetAndPlaceNest:
 	ld [wTownMapCursorLandmark], a
@@ -2521,7 +2570,7 @@ Pokedex_GetArea:
 	ld a, e
 	sub 4
 	ld [hli], a ; x
-	ld a, $7f ; nest icon
+	ld a, $78 ; nest icon
 	ld [hli], a ; tile id
 	xor a
 	ld [hli], a ; attributes
@@ -2531,6 +2580,44 @@ Pokedex_GetArea:
 	jr .nestloop
 
 .done_nest
+	ld hl, wVirtualOAM
+	decoord 0, 0
+	ld bc, wVirtualOAMEnd - wVirtualOAM
+	call CopyBytes
+	ret
+
+.GetAndPlaceNest2:
+	ld [wTownMapCursorLandmark], a
+	ld e, a
+	farcall FindNest2 ; load nest landmarks into wTileMap[0,0]
+	decoord 0, 0
+	ld hl, wVirtualOAMSprite00
+.nestloop2
+	ld a, [de]
+	and a
+	jr z, .done_nest2
+	push de
+	ld e, a
+	push hl
+	farcall GetLandmarkCoords
+	pop hl
+	; load into OAM
+	ld a, d
+	sub 4
+	ld [hli], a ; y
+	ld a, e
+	sub 4
+	ld [hli], a ; x
+	ld a, $77 ; nest icon
+	ld [hli], a ; tile id
+	xor a
+	ld [hli], a ; attributes
+	; next
+	pop de
+	inc de
+	jr .nestloop2
+
+.done_nest2
 	ld hl, wVirtualOAM
 	decoord 0, 0
 	ld bc, wVirtualOAMEnd - wVirtualOAM
@@ -2559,7 +2646,7 @@ Pokedex_GetArea:
 	ld [hli], a ; x
 	inc de
 	ld a, [de]
-	add $78 ; where the player's sprite is loaded
+	add $73 ; where the player's sprite is loaded
 	ld [hli], a ; tile id
 	inc de
 	push bc

@@ -421,16 +421,15 @@ Pokedex_ReinitDexEntryScreen:
 
 DexEntryScreen_ArrowCursorData:
 	db D_RIGHT | D_LEFT, 3
-	dwcoord 1, 17  ; PAGE
-	dwcoord 6, 17  ; AREA
-	dwcoord 11, 17 ; SWARM
+	dwcoord 2, 17  ; PAGE
+	dwcoord 8, 17  ; AREA
+	dwcoord 14, 17 ; CRY
 	;dwcoord 15, 17 ; PRNT
 
 DexEntryScreen_MenuActionJumptable:
 	dw Pokedex_Page
 	dw .Area
-	dw .Swarm
-	;dw .Cry
+	dw .Cry
 	;dw .Print
 
 .Area:
@@ -446,7 +445,10 @@ DexEntryScreen_MenuActionJumptable:
 	ld a, [wDexCurLocation]
 	ld e, a
 	predef Pokedex_GetArea
+	; get back
 	call Pokedex_BlackOutBG
+	call Pokedex_LoadGFX
+	call Pokedex_LoadCurrentFootprint
 	call DelayFrame
 	xor a
 	ldh [hBGMapMode], a
@@ -464,41 +466,10 @@ DexEntryScreen_MenuActionJumptable:
 	call Pokedex_GetSGBLayout
 	ret
 
-.Swarm:
-	call Pokedex_BlackOutBG
-	xor a
-	ldh [hSCX], a
-	call DelayFrame
-	ld a, $7
-	ldh [hWX], a
-	ld a, $90
-	ldh [hWY], a
-	call Pokedex_GetSelectedMon
-	ld a, [wDexCurLocation]
-	ld e, a
-	predef Pokedex_GetArea
-	call Pokedex_BlackOutBG
-	call DelayFrame
-	xor a
-	ldh [hBGMapMode], a
-	ld a, $90
-	ldh [hWY], a
-	ld a, POKEDEX_SCX
-	ldh [hSCX], a
-	call DelayFrame
-	call Pokedex_RedisplayDexEntry
-	call Pokedex_LoadSelectedMonTiles
-	call WaitBGMap
-	call Pokedex_GetSelectedMon
-	ld [wCurPartySpecies], a
-	ld a, SCGB_POKEDEX
-	call Pokedex_GetSGBLayout
+.Cry:
+	ld a, [wCurPartySpecies]
+	call PlayMonCry
 	ret
-
-; .Cry:
-; 	ld a, [wCurPartySpecies]
-; 	call PlayMonCry
-; 	ret
 
 .Print:
 	call Pokedex_ApplyPrintPals
@@ -1203,7 +1174,7 @@ Pokedex_DrawDexEntryScreenBG:
 .Weight:
 	db "WT   ???lb", -1 ; WT   ???lb
 .MenuItems:
-	db $3b, " PAGE AREA SWARM   ", -1
+	db $3b, "  PAGE  AREA  CRY  ", -1
 
 Pokedex_DrawOptionScreenBG:
 	call Pokedex_FillBackgroundColor2
