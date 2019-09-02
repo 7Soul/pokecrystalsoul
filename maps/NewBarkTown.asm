@@ -102,12 +102,13 @@ if DEF(_DEBUG)
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
 	;givepoke CLEFAIRY, 5
+	givepoke NINETALES, 60
 	givepoke MACHOP, 5
 	givepoke KRABBY, 5
-	givepoke NINETALES, 60
-	callasm CheatFillPokedex
+	;callasm CheatFillPokedex
 	;warp ROUTE_2, $5, $22
-	warp ROUTE_46, $8, $10
+	; warp ROUTE_46, $8, $10
+	warp ILEX_FOREST, $0, $21
 	;warp ROUTE_34, $D, $24
 endc
 	closetext

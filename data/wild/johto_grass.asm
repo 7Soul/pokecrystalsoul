@@ -385,21 +385,21 @@ JohtoGrassWildMons:
 	map_id ILEX_FOREST
 	db 4 percent, 4 percent ; encounter rates: morn/day/nite
 	; morn/day
-	db 1, SCYTHER
-	db 1, PINSIR
-	db 2, LEDYBA
-	db 1, SPEAROW
-	db 1, YANMA
-	db 2, HERACROSS
-	db 5, CELEBI
+	db 1, CATERPIE
+	db 1, PARAS
+	db 1, LEDYBA
+	db 1, PINECO
+	db 3, SPINARAK
+	db 1, STANTLER	
+	db 2, FARFETCH_D
 	; nite
-	db 1, SCYTHER
-	db 1, PINSIR
-	db 2, LEDYBA
-	db 1, ZUBAT
-	db 1, GLIGAR
-	db 2, MURKROW
-	db 5, CELEBI
+	db 1, CATERPIE
+	db 1, VENONAT
+	db 1, SPINARAK
+	db 1, PINECO
+	db 3, LEDYBA
+	db 1, MURKROW	
+	db 2, FARFETCH_D
 
 	map_id MOUNT_MORTAR_1F_OUTSIDE
 	db 6 percent, 6 percent ; encounter rates: morn/day/nite
@@ -980,7 +980,7 @@ JohtoGrassWildMons:
 	db 1, ABRA
 	db 1, NIDORAN_F
 	db 2, VULPIX
-	db 5, MEW
+	db 2, GRIMER
 	; nite
 	db 1, VULPIX
 	db 1, HOOTHOOT
@@ -988,7 +988,7 @@ JohtoGrassWildMons:
 	db 1, ABRA
 	db 1, NIDORAN_F
 	db 2, GROWLITHE
-	db 5, MEW
+	db 2, GRIMER
 
 	map_id ROUTE_37
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite

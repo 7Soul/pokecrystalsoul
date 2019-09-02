@@ -701,10 +701,10 @@ OakSpeech:
 	call GetSGBLayout
 	call Intro_WipeInFrontpic
 
-	ld hl, OakText2
-	call PrintText
-	ld hl, OakText4
-	call PrintText
+	; ld hl, OakText2
+	; call PrintText
+	; ld hl, OakText4
+	; call PrintText
 	call RotateThreePalettesRight
 	call ClearTileMap
 
@@ -718,8 +718,8 @@ OakSpeech:
 	call GetSGBLayout
 	call Intro_RotatePalettesLeftFrontpic
 
-	ld hl, OakText5
-	call PrintText
+	; ld hl, OakText5
+	; call PrintText
 	call RotateThreePalettesRight
 	call ClearTileMap
 
@@ -734,8 +734,8 @@ OakSpeech:
 	ld hl, OakText6
 	call PrintText
 	call NamePlayer
-	ld hl, OakText7
-	call PrintText
+	;ld hl, OakText7
+	;call PrintText
 	ret
 
 OakText1:

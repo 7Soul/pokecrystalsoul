@@ -5,9 +5,12 @@ KantoGrassRareWildMons:
 	; landmark, base weekday, species
 	; species id is used to define base hour
 	; Encounter runs from base hour to + 8h, from base weekday to +2 days
-	db ROUTE_1, 	 	TUESDAY, 	CHARMANDER	; Route 29, between 4 AM and Noon	
-	db ROUTE_2,	        MONDAY, 	BELLSPROUT	; Sprout Tower, 9PM to 5AM
-	db ROUTE_3,         TUESDAY, 	MACHOP	; Ruins of Alph, 10PM to 6AM
+	db VIRIDIAN_FOREST, FRIDAY,		SCYTHER ; 3AM to 11AM
+	db VIRIDIAN_FOREST, MONDAY,		PINSIR ; 7AM to 3PM
+	db ROUTE_1, 	 	TUESDAY, 	CHARMANDER	; 4AM to Noon	
+	db ROUTE_2,	        MONDAY, 	BELLSPROUT	; 9PM to 5AM
+	db ROUTE_3,         TUESDAY, 	MACHOP	; 10PM to 6AM
+	db ROUTE_15,        SATURDAY, 	SCYTHER	; 3AM to 11AM, right of Fuchsia
 	
 	db -1 ; end
 

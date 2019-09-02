@@ -316,12 +316,11 @@ FindNest2:
 	or d
 	jr nz, .AppendNestSwarmLoop
 	ld a, c
-	ld [$C001], a
+	ld [wMonOrItemNameBuffer], a
 	pop de
 
 	ld hl, wSwarmLandmarkFlags
 	ld b, CHECK_FLAG
-	;ld d, $0
 	predef SmallFarFlagAction
 	ld a, c
 	and a
@@ -330,7 +329,7 @@ FindNest2:
 	ret
 
 .knows_swarm
-	ld a, [$C001]
+	ld a, [wMonOrItemNameBuffer]
 	ld c, a
 	scf
 	ret
@@ -715,41 +714,61 @@ ChooseWildEncounter:
 	push hl
 	push bc
 	push de
-	ld a, b
-	ld hl, IsLegendary
-	ld de, 1
-	call IsInArray
-	jp nc, .not_legendary ; continue operations if it isn't in the legendaries list
+
+	call Random
+	cp 255
+	jr nc, .not_legendary ; 0 or 1 out of 255 (0.7% chance)
 
 	ld a, [wNumSetBits]
+	ld c, 6
+	call SimpleMultiply
 	ld b, a
-	ld a, 100
+	ld a, 106
 	sub b
-	sub b
-	ld b, a ; b contains 68 to 100, lower with more badges
+	ld b, a ; b contains 10 to 106, lower with more badges
 	ld a, 101
 	call RandomRange ; 0 to 100
 	cp b
-	jp c, .randomize ; 68~100% chance to cancel and return to choosing a pokemon based on badges
+	jp c, .not_legendary ; 4~100% chance to cancel and return to choosing a pokemon based on badges
 	call TryWildEncounter
-	; Total 3% plus 92% plus 90% chance to get a random mon (around 0.3%)
-.randomize
-	call Random
-	cp 92 percent
-	ld a, 1
-	ld [wSpecialWildBattle], a
-	jp nc, .continue_with_legendary ; 8% chance to keep the legendary
-	
+
+	ld hl, LegendaryMon ; pick legendary
+	ld a, 7
+	call RandomRange
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld a, [hl]
+	ld [wTempWildMonSpecies], a
+
+	; legendary pokemon gain 5 levels
+	ld a, [wCurPartyLevel]
+	ld b, a
+	ld a, 5
+	add b
+	ld [wCurPartyLevel], a
+
 	pop hl
 	pop bc
 	pop de
-	ld a, 251
-	call RandomRange
-	inc a
-	ld b, a
-	jp .done
+	jr .continue_with_legendary
+
+.randomize
+	; call Random
+	; cp 92 percent
+	; ld a, 1
+	; ld [wSpecialWildBattle], a
+	; jp nc, .continue_with_legendary ; 8% chance to keep the legendary
 	
-.continue_with_legendary	
+	; pop hl
+	; pop bc
+	; pop de
+	; ld a, 251
+	; call RandomRange
+	; inc a
+	; ld b, a
+	; jp .done	
+	
 .not_legendary
 	pop hl
 	pop bc
@@ -757,7 +776,7 @@ ChooseWildEncounter:
 
 	ld a, b ; save mon species for later
 	ld [wTempWildMonSpecies], a
-
+.continue_with_legendary
 	; 2% chance to lucky shiny chance between midnight and 0:59 AM and between noon and 12:59 PM
 	ld a, [hHours]
 	cp 0
@@ -778,7 +797,7 @@ ChooseWildEncounter:
 
 .lucky_isset	
 	; 11% (11*255/100 -> 1c hex) chance of special map encounter that replaces current encounter if conditions are met
-	ld a, $1c
+	;ld a, $1c
 	ld a, $ff
 	ld b, a
 	; Doubles chance if playing pokemon march
@@ -818,14 +837,14 @@ ChooseWildEncounter:
 .loop_landmark
 	ld a, [hli] ; get raremon landmark
 	cp c
-	jr z, .number
+	jr z, .got_landmark
 	cp $ff
  	jr z, .notmap
 	inc hl
 	inc hl
 	jr .loop_landmark
 
-.number
+.got_landmark
 	ld a, [hl] ; get week day
 	ld b, a
 	call GetWeekday
@@ -854,7 +873,11 @@ ChooseWildEncounter:
 	call GetWeekday
 	cp b
 	jr z, .right_day
-	jr .notmap
+
+.wrong_day
+	inc hl
+	inc hl
+	jr .loop_landmark
 
 .right_day
 	inc hl
@@ -1011,7 +1034,7 @@ ChooseWildEncounter:
 
 INCLUDE "data/wild/probabilities.asm"
 
-IsLegendary:
+LegendaryMon:
 	db ARTICUNO
 	db ZAPDOS
 	db MOLTRES

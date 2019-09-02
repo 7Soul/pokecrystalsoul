@@ -8,6 +8,8 @@ JohtoGrassRareWildMons:
 	db ROUTE_29, 	 	TUESDAY, 	CHARMANDER	; Route 29, between 4 AM and Noon	
 	db SPROUT_TOWER,	MONDAY, 	BELLSPROUT	; Sprout Tower, 9PM to 5AM
 	db RUINS_OF_ALPH,	TUESDAY, 	AERODACTYL	; Ruins of Alph, 10PM to 6AM
+	db ILEX_FOREST,		FRIDAY, 	PINSIR  	; Ilex Forest, 7AM to 3PM
+	db ILEX_FOREST,		TUESDAY, 	HERACROSS 	; Ilex Forest, 10PM to 6AM
 	db ROUTE_32,		WEDNESDAY, 	BULBASAUR	; Route 32, 1AM to 9AM
 	db ROUTE_33, 		MONDAY, 	LEDYBA		; Route 33, 9PM to 5AM
 	db ROUTE_44, 		SATURDAY, 	AERODACTYL	; Route 44, 10PM to 6AM
