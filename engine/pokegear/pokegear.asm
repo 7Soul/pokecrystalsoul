@@ -2401,6 +2401,15 @@ Pokedex_GetArea:
 	xor a
 	ldh [hBGMapMode], a
 	xor a ; JOHTO_REGION
+
+	ld a, [wNamedObjectIndexBuffer]
+	ld [wCurPartySpecies], a
+	predef GetPreEvolution
+	predef GetPreEvolution
+	ld a, [wCurPartySpecies]
+	ld [wNamedObjectIndexBuffer], a
+
+	xor a
 	call .GetAndPlaceNest
 .loop
 	call JoyTextDelay
@@ -2411,7 +2420,6 @@ Pokedex_GetArea:
 	ldh a, [hJoypadDown]
 	and SELECT
 	jr nz, .select
-	call .UpDownInput
 	call .LeftRightInput	
 	call .BlinkNestIcons
 	jr .next
@@ -2437,6 +2445,12 @@ Pokedex_GetArea:
 	ld a, [hl]
 	and D_RIGHT
 	jr nz, .right
+	ld a, [hl]
+	and D_UP
+	jr nz, .up
+	ld a, [hl]
+	and D_DOWN
+	jr nz, .down
 	ret
 
 .left
@@ -2459,15 +2473,6 @@ Pokedex_GetArea:
 	ldh [hWY], a
 	ld a, KANTO_REGION
 	call .GetAndPlaceNest
-	ret
-
-.UpDownInput:
-	ld a, [hl]
-	and D_UP
-	jr nz, .up
-	ld a, [hl]
-	and D_DOWN
-	jr nz, .down
 	ret
 
 .up
@@ -2551,6 +2556,14 @@ Pokedex_GetArea:
 .GetAndPlaceNest:
 	ld [wTownMapCursorLandmark], a
 	ld e, a
+
+	; ld a, [wNamedObjectIndexBuffer]
+	; ld [wCurPartySpecies], a
+	; predef GetPreEvolution
+	; predef GetPreEvolution
+	; ld a, [wCurPartySpecies]
+	; ld [wNamedObjectIndexBuffer], a
+
 	farcall FindNest ; load nest landmarks into wTileMap[0,0]
 	decoord 0, 0
 	ld hl, wVirtualOAMSprite00
@@ -2589,6 +2602,13 @@ Pokedex_GetArea:
 .GetAndPlaceNest2:
 	ld [wTownMapCursorLandmark], a
 	ld e, a
+
+	; ld a, [wNamedObjectIndexBuffer]
+	; ld [wCurPartySpecies], a
+	; predef GetPreEvolution
+	; predef GetPreEvolution
+	; ld [wNamedObjectIndexBuffer], a
+
 	farcall FindNest2 ; load nest landmarks into wTileMap[0,0]
 	decoord 0, 0
 	ld hl, wVirtualOAMSprite00

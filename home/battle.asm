@@ -223,3 +223,14 @@ GetBattleAnimByte::
 
 	ld a, [wBattleAnimByte]
 	ret
+
+HalveBC::
+	srl b
+	rr c
+FloorBC::
+	ld a, c
+	or b
+	ret nz
+	inc c
+	ret
+	

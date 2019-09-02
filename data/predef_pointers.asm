@@ -82,4 +82,5 @@ PredefPointers::
 	add_predef Unused_HOF_AnimateAlignedFrontpic ; $48
 	add_predef HOF_AnimateFrontpic
 	add_predef PrintTempMonStatsShort
+	add_predef GetPreEvolution
 	dbw -1, InexplicablyEmptyFunction ; ???

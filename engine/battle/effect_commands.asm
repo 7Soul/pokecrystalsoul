@@ -2906,19 +2906,8 @@ TruncateHL_BC:
 	or b
 	jr z, .finish
 
-	srl b
-	rr c
-	srl b
-	rr c
-
-	ld a, c
-	or b
-	jr nz, .done_bc
-	inc c
-
-.done_bc
-	srl h
-	rr l
+	call HalveBC
+	
 	srl h
 	rr l
 

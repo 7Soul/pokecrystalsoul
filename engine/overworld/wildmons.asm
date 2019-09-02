@@ -130,33 +130,28 @@ FindNest:
 	cp CYNDAQUIL
 	jr nz, .n_cyndaquil
 	ld a, CHARMANDER
-	ld [wTempSpecies], a
 .n_cyndaquil
 	cp TOTODILE
 	jr nz, .n_totodile
 	ld a, SQUIRTLE
-	ld [wTempSpecies], a
 .n_totodile
 	cp CHIKORITA
 	jr nz, .n_bulba
 	ld a, BULBASAUR
-	ld [wTempSpecies], a
 .n_bulba
 	cp WEEDLE
 	jr nz, .n_caterpie
 	ld a, CATERPIE
-	ld [wTempSpecies], a
 .n_caterpie
 	cp NIDORAN_M
 	jr nz, .n_nidoran
 	ld a, NIDORAN_F
-	ld [wTempSpecies], a
 .n_nidoran
 	cp KABUTO
 	jr nz, .n_omanyte
-	ld a, OMANYTE
-	ld [wTempSpecies], a
+	ld a, OMANYTE	
 .n_omanyte
+	ld [wTempSpecies], a
 	cp [hl]
 	jr z, .found
 	inc hl
@@ -271,6 +266,31 @@ FindNest2:
 .CheckSwarmMonMatch:
 	push af
 	ld a, [wNamedObjectIndexBuffer]
+	cp CYNDAQUIL
+	jr nz, .n_cyndaquil
+	ld a, CHARMANDER
+.n_cyndaquil
+	cp TOTODILE
+	jr nz, .n_totodile
+	ld a, SQUIRTLE
+.n_totodile
+	cp CHIKORITA
+	jr nz, .n_bulba
+	ld a, BULBASAUR
+.n_bulba
+	cp WEEDLE
+	jr nz, .n_caterpie
+	ld a, CATERPIE
+.n_caterpie
+	cp NIDORAN_M
+	jr nz, .n_nidoran
+	ld a, NIDORAN_F
+.n_nidoran
+	cp KABUTO
+	jr nz, .n_omanyte
+	ld a, OMANYTE	
+.n_omanyte
+	ld [wTempSpecies], a
 	cp [hl]
 	jr z, .foundSwarm
 	pop af	

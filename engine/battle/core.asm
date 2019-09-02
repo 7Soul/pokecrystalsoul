@@ -1928,18 +1928,7 @@ GetQuarterMaxHP:
 GetHalfMaxHP:
 ; output: bc
 	call GetMaxHP
-
-; halve result
-	srl b
-	rr c
-
-; floor = 1
-	ld a, c
-	or b
-	jr nz, .end
-	inc c
-.end
-	ret
+	jp HalveBC
 
 GetMaxHP:
 ; output: bc, wBuffer1-2

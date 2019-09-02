@@ -16,8 +16,8 @@ Landmarks:
 	landmark  85,  58, SproutTowerName
 	landmark  84,  92, Route32Name
 	landmark  76,  76, RuinsOfAlphName
-	landmark  84, 124, UnionCaveName
-	landmark  82, 124, Route33Name
+	landmark  84, 116, UnionCaveName
+	landmark  84, 124, Route33Name
 	landmark  68, 124, AzaleaTownName
 	landmark  70, 122, SlowpokeWellName
 	landmark  52, 120, IlexForestName
