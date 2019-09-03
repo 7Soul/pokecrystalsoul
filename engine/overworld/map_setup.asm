@@ -99,13 +99,15 @@ MapSetupCommands:
 	dba DelayClearingOldSprites ; 24
 	dba DelayLoadingNewSprites ; 25
 	dba UpdateRoamMons ; 26
-	dba JumpRoamMons ; 27
-	dba FadeOldMapMusic ; 28
-	dba ActivateMapAnims ; 29
-	dba SuspendMapAnims ; 2a
-	dba RetainOldPalettes ; 2b
-	dba DontScrollText ; 2c
-	dba ReturnFromMapSetupScript ; 2d
+	dba UpdateRoamMonsKanto ; 27
+	dba JumpRoamMons ; 28
+	dba JumpRoamMonsKanto ; 29
+	dba FadeOldMapMusic ; 2a
+	dba ActivateMapAnims ; 2b
+	dba SuspendMapAnims ; 2c
+	dba RetainOldPalettes ; 2d
+	dba DontScrollText ; 2e
+	dba ReturnFromMapSetupScript ; 2f
 
 DontScrollText:
 	xor a

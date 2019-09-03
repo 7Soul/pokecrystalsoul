@@ -2407,8 +2407,11 @@ Pokedex_GetArea:
 	predef GetPreEvolution
 	predef GetPreEvolution
 	ld a, [wCurPartySpecies]
+	cp EEVEE
+	jr nz, .not_eevee
+	ld a, [wNamedObjectIndexBuffer]
 	ld [wNamedObjectIndexBuffer], a
-
+.not_eevee
 	xor a
 	call .GetAndPlaceNest
 .loop
@@ -2556,14 +2559,6 @@ Pokedex_GetArea:
 .GetAndPlaceNest:
 	ld [wTownMapCursorLandmark], a
 	ld e, a
-
-	; ld a, [wNamedObjectIndexBuffer]
-	; ld [wCurPartySpecies], a
-	; predef GetPreEvolution
-	; predef GetPreEvolution
-	; ld a, [wCurPartySpecies]
-	; ld [wNamedObjectIndexBuffer], a
-
 	farcall FindNest ; load nest landmarks into wTileMap[0,0]
 	decoord 0, 0
 	ld hl, wVirtualOAMSprite00
@@ -2602,13 +2597,6 @@ Pokedex_GetArea:
 .GetAndPlaceNest2:
 	ld [wTownMapCursorLandmark], a
 	ld e, a
-
-	; ld a, [wNamedObjectIndexBuffer]
-	; ld [wCurPartySpecies], a
-	; predef GetPreEvolution
-	; predef GetPreEvolution
-	; ld [wNamedObjectIndexBuffer], a
-
 	farcall FindNest2 ; load nest landmarks into wTileMap[0,0]
 	decoord 0, 0
 	ld hl, wVirtualOAMSprite00

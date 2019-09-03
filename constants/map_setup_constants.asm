@@ -57,13 +57,15 @@
 	const map_prolong_sprites     ; 24
 	const map_delay_sprites       ; 25
 	const map_update_roam         ; 26
-	const map_keep_roam           ; 27
-	const map_fade_out_music      ; 28
-	const map_animations_on       ; 29
-	const map_animations_off      ; 2a
-	const map_keep_palettes       ; 2b
-	const map_text_scroll_off     ; 2c
-	const map_stop_script         ; 2d
+	const map_update_roam_kanto   ; 27
+	const map_keep_roam           ; 28
+	const map_keep_roam_kanto     ; 29
+	const map_fade_out_music      ; 2a
+	const map_animations_on       ; 2b
+	const map_animations_off      ; 2c
+	const map_keep_palettes       ; 2d
+	const map_text_scroll_off     ; 2e
+	const map_stop_script         ; 2f
 map_end EQU -1
 
 ; callback types

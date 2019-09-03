@@ -18,6 +18,7 @@ MapSetupScript_Teleport:
 MapSetupScript_Fly:
 	db map_fade_out_palettes
 	db map_keep_roam
+	db map_keep_roam_kanto
 MapSetupScript_Warp:
 	db map_lcd_off
 	db map_sound_off
@@ -83,6 +84,7 @@ MapSetupScript_Connection:
 	db map_keep_palettes
 	db map_wildmons
 	db map_update_roam
+	db map_update_roam_kanto
 	db map_animations_on
 	db map_end
 
@@ -111,6 +113,7 @@ MapSetupScript_Train:
 	db map_animations_on
 	db map_wildmons
 	db map_update_roam
+	db map_update_roam_kanto
 	db map_end
 
 MapSetupScript_ReloadMap:

@@ -996,13 +996,6 @@ verbosegiveitem2: MACRO
 	db \2 ; var
 ENDM
 
-	enum swarm_command ; $a0
-swarm: MACRO
-	db swarm_command
-	db \1 ; flag
-	map_id \2 ; map
-ENDM
-
 	enum halloffame_command ; $a1
 halloffame: MACRO
 	db halloffame_command
@@ -1059,6 +1052,11 @@ ENDM
 	enum checksave_command ; $a9
 checksave: MACRO
 	db checksave_command
+ENDM
+
+	enum respawn_one_offs_command ; $aa
+respawn_one_offs: MACRO
+	db respawn_one_offs_command
 ENDM
 
 	; enum randomfromarray_command ; $a9

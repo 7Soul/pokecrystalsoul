@@ -83,8 +83,7 @@ SpecialsPointers::
 	add_special DayCareMon1
 	add_special DayCareMon2
 	add_special SelectRandomBugContestContestants
-	add_special ActivateFishingSwarm ; $48
-	add_special ToggleMaptileDecorations
+	add_special ToggleMaptileDecorations ; $48
 	add_special ToggleDecorationsVisibility
 	add_special GiveShuckle
 	add_special ReturnShuckle
@@ -117,6 +116,7 @@ SpecialsPointers::
 	add_special TrainerHouse
 	add_special PhotoStudio ; $68
 	add_special InitRoamMons
+	add_special InitKantoRoamMons
 	add_special FadeOutMusic
 	add_special Diploma
 	add_special PrintDiploma

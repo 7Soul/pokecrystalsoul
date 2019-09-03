@@ -14,7 +14,7 @@ ENDM
 RoamMaps:
 ; there are NUM_ROAMMON_MAPS entries
 	; start map, ...other maps
-	roam_map ROUTE_29, ROUTE_30, ROUTE_46, ROUTE_27
+	roam_map ROUTE_29, ROUTE_30, ROUTE_46
 	roam_map ROUTE_30, ROUTE_29, ROUTE_31
 	roam_map ROUTE_31, ROUTE_30, ROUTE_32, ROUTE_36
 	roam_map ROUTE_32, ROUTE_36, ROUTE_31, ROUTE_33
@@ -30,8 +30,9 @@ RoamMaps:
 	roam_map ROUTE_44, ROUTE_42, ROUTE_43, ROUTE_45
 	roam_map ROUTE_45, ROUTE_44, ROUTE_46
 	roam_map ROUTE_46, ROUTE_45, ROUTE_29
-	roam_map ROUTE_27, ROUTE_26
-	roam_map ROUTE_26, ROUTE_22
+	db -1 ; end
+
+RoamMapsKanto:
 	roam_map ROUTE_22, ROUTE_1, ROUTE_2
 	roam_map ROUTE_1,  ROUTE_2, ROUTE_17, ROUTE_22
 	roam_map ROUTE_2,  ROUTE_1, ROUTE_22

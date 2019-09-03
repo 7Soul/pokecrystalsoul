@@ -83,4 +83,5 @@ PredefPointers::
 	add_predef HOF_AnimateFrontpic
 	add_predef PrintTempMonStatsShort
 	add_predef GetPreEvolution
+	add_predef RespawnOneOffs
 	dbw -1, InexplicablyEmptyFunction ; ???

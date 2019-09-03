@@ -10,10 +10,11 @@ JohtoGrassRareWildMons:
 	db RUINS_OF_ALPH,	TUESDAY, 	AERODACTYL	; Ruins of Alph, 10PM to 6AM
 	db ILEX_FOREST,		FRIDAY, 	PINSIR  	; Ilex Forest, 7AM to 3PM
 	db ILEX_FOREST,		TUESDAY, 	HERACROSS 	; Ilex Forest, 10PM to 6AM
+	db BURNED_TOWER,	TUESDAY, 	FLAREON 	; 4PM to Midnight
 	db ROUTE_32,		WEDNESDAY, 	BULBASAUR	; Route 32, 1AM to 9AM
 	db ROUTE_33, 		MONDAY, 	LEDYBA		; Route 33, 9PM to 5AM
 	db ROUTE_44, 		SATURDAY, 	AERODACTYL	; Route 44, 10PM to 6AM
-	db ROUTE_46, 		WEDNESDAY, 	MACHOP		; Route 46, 6PM to 2AM
+	db ROUTE_46, 		WEDNESDAY, 	FLAREON		; Route 46, 6PM to 2AM
 	
 	db -1 ; end
 

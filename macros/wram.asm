@@ -204,6 +204,7 @@ roam_struct: MACRO
 \1MapNumber:: db
 \1HP::        db
 \1DVs::       dw
+\1End::
 ENDM
 
 bugcontestwinner: MACRO

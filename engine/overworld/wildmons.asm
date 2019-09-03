@@ -45,6 +45,7 @@ FindNest:
 	call .FindWater
 	call .RoamMon1
 	call .RoamMon2	
+	call .RoamMon3	
 	ret
 
 .kanto
@@ -52,7 +53,10 @@ FindNest:
 	ld hl, KantoGrassWildMons
 	call .FindGrass
 	ld hl, KantoWaterWildMons
-	jp .FindWater
+	call .FindWater
+	call .RoamMon4
+	call .RoamMon5	
+	jp .RoamMon6	
 
 .FindGrass:
 	ld a, [hl]
@@ -215,6 +219,70 @@ FindNest:
 	ld a, [wRoamMon2MapGroup]
 	ld b, a
 	ld a, [wRoamMon2MapNumber]
+	ld c, a
+	call .AppendNest
+	ret nc
+	ld [de], a
+	inc de
+	ret
+
+.RoamMon3:
+	ld a, [wRoamMon3Species]
+	ld b, a
+	ld a, [wNamedObjectIndexBuffer]
+	cp b
+	ret nz
+	ld a, [wRoamMon3MapGroup]
+	ld b, a
+	ld a, [wRoamMon3MapNumber]
+	ld c, a
+	call .AppendNest
+	ret nc
+	ld [de], a
+	inc de
+	ret
+
+.RoamMon4:
+	ld a, [wRoamMon4Species]
+	ld b, a
+	ld a, [wNamedObjectIndexBuffer]
+	cp b
+	ret nz
+	ld a, [wRoamMon4MapGroup]
+	ld b, a
+	ld a, [wRoamMon4MapNumber]
+	ld c, a
+	call .AppendNest
+	ret nc
+	ld [de], a
+	inc de
+	ret
+
+.RoamMon5:
+	ld a, [wRoamMon5Species]
+	ld b, a
+	ld a, [wNamedObjectIndexBuffer]
+	cp b
+	ret nz
+	ld a, [wRoamMon5MapGroup]
+	ld b, a
+	ld a, [wRoamMon5MapNumber]
+	ld c, a
+	call .AppendNest
+	ret nc
+	ld [de], a
+	inc de
+	ret
+
+.RoamMon6:
+	ld a, [wRoamMon6Species]
+	ld b, a
+	ld a, [wNamedObjectIndexBuffer]
+	cp b
+	ret nz
+	ld a, [wRoamMon6MapGroup]
+	ld b, a
+	ld a, [wRoamMon6MapNumber]
 	ld c, a
 	call .AppendNest
 	ret nc
@@ -1268,10 +1336,10 @@ LoadWildMonDataPointer:
 	jr z, _ShallowWildmonLookup
 
 _GrassWildmonLookup:
-	ld hl, SwarmGrassWildMons
-	ld bc, GRASS_WILDDATA_LENGTH
-	call _SwarmWildmonCheck
-	ret c
+	; ld hl, SwarmGrassWildMons
+	; ld bc, GRASS_WILDDATA_LENGTH
+	; call _SwarmWildmonCheck
+	; ret c
 	ld hl, JohtoGrassWildMons
 	ld de, KantoGrassWildMons
 	call _JohtoWildmonCheck
@@ -1279,10 +1347,10 @@ _GrassWildmonLookup:
 	jr _NormalWildmonOK
 
 _WaterWildmonLookup:
-	ld hl, SwarmWaterWildMons
-	ld bc, WATER_WILDDATA_LENGTH
-	call _SwarmWildmonCheck
-	ret c
+	; ld hl, SwarmWaterWildMons
+	; ld bc, WATER_WILDDATA_LENGTH
+	; call _SwarmWildmonCheck
+	; ret c
 	ld hl, JohtoWaterWildMons
 	ld de, KantoWaterWildMons
 	call _JohtoWildmonCheck
@@ -1391,11 +1459,14 @@ InitRoamMons:
 	ld [wRoamMon1Species], a
 	ld a, ENTEI
 	ld [wRoamMon2Species], a
+	ld a, SUICUNE
+	ld [wRoamMon3Species], a
 
 ; level
-	ld a, 40
+	ld a, 5
 	ld [wRoamMon1Level], a
 	ld [wRoamMon2Level], a
+	ld [wRoamMon3Level], a
 
 ; raikou starting map
 	ld a, GROUP_ROUTE_42
@@ -1409,10 +1480,60 @@ InitRoamMons:
 	ld a, MAP_ROUTE_37
 	ld [wRoamMon2MapNumber], a
 
+; suicune starting map
+	ld a, GROUP_ROUTE_38
+	ld [wRoamMon3MapGroup], a
+	ld a, MAP_ROUTE_38
+	ld [wRoamMon3MapNumber], a
+
 ; hp
 	xor a ; generate new stats
 	ld [wRoamMon1HP], a
 	ld [wRoamMon2HP], a
+	ld [wRoamMon3HP], a
+
+	ret
+
+InitKantoRoamMons:
+; initialize wRoamMon structs
+
+; species
+	ld a, ARTICUNO
+	ld [wRoamMon4Species], a
+	ld a, ZAPDOS
+	ld [wRoamMon5Species], a
+	ld a, MOLTRES
+	ld [wRoamMon6Species], a
+
+; level
+	ld a, 5
+	ld [wRoamMon4Level], a
+	ld [wRoamMon5Level], a
+	ld [wRoamMon6Level], a
+
+; articuno starting map
+	ld a, GROUP_ROUTE_19
+	ld [wRoamMon4MapGroup], a
+	ld a, MAP_ROUTE_19
+	ld [wRoamMon4MapNumber], a
+
+; zapdos starting map
+	ld a, GROUP_ROUTE_9
+	ld [wRoamMon5MapGroup], a
+	ld a, MAP_ROUTE_9
+	ld [wRoamMon5MapNumber], a
+
+; moltres starting map
+	ld a, GROUP_ROUTE_3
+	ld [wRoamMon6MapGroup], a
+	ld a, MAP_ROUTE_3
+	ld [wRoamMon6MapNumber], a
+
+; hp
+	xor a ; generate new stats
+	ld [wRoamMon1HP], a
+	ld [wRoamMon2HP], a
+	ld [wRoamMon3HP], a
 
 	ret
 
@@ -1434,7 +1555,7 @@ CheckEncounterRoamMon:
 	ld hl, wRoamMon1MapGroup
 	ld c, a
 	ld b, 0
-	ld a, 7 ; length of the roam_struct
+	ld a, wRoamMon1End - wRoamMon1 ; length of the RoamMon struct
 	call AddNTimes
 	ld a, d
 	cp [hl]
@@ -1538,7 +1659,7 @@ UpdateRoamMons:
 ; Choose which map to warp to.
 	call Random
 	and %00011111 ; 1/8n chance it moves to a completely random map, where n is the number of roaming connections from the current map.
-	jr z, JumpRoamMon
+	jp z, JumpRoamMon
 	and %11
 	cp [hl]
 	jr nc, .update_loop ; invalid index, try again
@@ -1630,6 +1751,173 @@ JumpRoamMon:
 	ld c, [hl]
 	ret
 
+UpdateRoamMonsKanto:
+	ld a, [wRoamMon4MapGroup]
+	cp GROUP_N_A
+	jr z, .SkipArticuno
+	ld b, a
+	ld a, [wRoamMon4MapNumber]
+	ld c, a
+	call .Update
+	ld a, b
+	ld [wRoamMon4MapGroup], a
+	ld a, c
+	ld [wRoamMon4MapNumber], a
+
+.SkipArticuno:
+	ld a, [wRoamMon5MapGroup]
+	cp GROUP_N_A
+	jr z, .SkipZapdos
+	ld b, a
+	ld a, [wRoamMon5MapNumber]
+	ld c, a
+	call .Update
+	ld a, b
+	ld [wRoamMon5MapGroup], a
+	ld a, c
+	ld [wRoamMon5MapNumber], a
+
+.SkipZapdos:
+	ld a, [wRoamMon6MapGroup]
+	cp GROUP_N_A
+	jr z, .Finished
+	ld b, a
+	ld a, [wRoamMon6MapNumber]
+	ld c, a
+	call .Update
+	ld a, b
+	ld [wRoamMon6MapGroup], a
+	ld a, c
+	ld [wRoamMon6MapNumber], a
+
+.Finished:
+	jp _BackUpMapIndices
+
+.Update:
+	ld hl, RoamMapsKanto
+.loop
+; Are we at the end of the table?
+	ld a, [hl]
+	cp -1
+	ret z
+; Is this the correct entry?
+	ld a, b
+	cp [hl]
+	jr nz, .next
+	inc hl
+	ld a, c
+	cp [hl]
+	jr z, .yes
+; We don't have the correct entry yet, so let's continue.  A 0 terminates each entry.
+.next
+	ld a, [hli]
+	and a
+	jr nz, .next
+	jr .loop
+
+; We have the correct entry now, so let's choose a random map from it.
+.yes
+	inc hl
+	ld d, h
+	ld e, l
+.update_loop
+	ld h, d
+	ld l, e
+; Choose which map to warp to.
+	call Random
+	and %00011111 ; 1/8n chance it moves to a completely random map, where n is the number of roaming connections from the current map.
+	jp z, JumpRoamMonKanto
+	and %11
+	cp [hl]
+	jr nc, .update_loop ; invalid index, try again
+	inc hl
+	ld c, a
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	ld a, [wRoamMons_LastMapGroup]
+	cp [hl]
+	jr nz, .done
+	inc hl
+	ld a, [wRoamMons_LastMapNumber]
+	cp [hl]
+	jr z, .update_loop
+	dec hl
+
+.done
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	ret
+
+JumpRoamMonsKanto:
+	ld a, [wRoamMon4MapGroup]
+	cp GROUP_N_A
+	jr z, .SkipArticuno
+	call JumpRoamMonKanto
+	ld a, b
+	ld [wRoamMon4MapGroup], a
+	ld a, c
+	ld [wRoamMon4MapNumber], a
+
+.SkipArticuno:
+	ld a, [wRoamMon5MapGroup]
+	cp GROUP_N_A
+	jr z, .SkipZapdos
+	call JumpRoamMonKanto
+	ld a, b
+	ld [wRoamMon5MapGroup], a
+	ld a, c
+	ld [wRoamMon5MapNumber], a
+
+.SkipZapdos:
+	ld a, [wRoamMon6MapGroup]
+	cp GROUP_N_A
+	jr z, .Finished
+	call JumpRoamMonKanto
+	ld a, b
+	ld [wRoamMon6MapGroup], a
+	ld a, c
+	ld [wRoamMon6MapNumber], a
+
+.Finished:
+	jp _BackUpMapIndices
+
+JumpRoamMonKanto:
+.loop
+	ld hl, RoamMapsKanto
+.innerloop1								; This loop happens to be unnecessary.
+	call Random         		    	; Choose a random number.
+	maskbits NUM_ROAMMON_MAPS_KANTO		; Mask the number to limit it between 0 and 20.
+	cp NUM_ROAMMON_MAPS_KANTO    	   	; If the number is not less than 21, try again.
+	jr nc, .innerloop1      		  	; I'm sure you can guess why this check is bogus.
+	inc a
+	ld b, a
+.innerloop2 ; Loop to get hl to the address of the chosen roam map.
+	dec b
+	jr z, .ok
+.innerloop3 ; Loop to skip the current roam map, which is terminated by a 0.
+	ld a, [hli]
+	and a
+	jr nz, .innerloop3
+	jr .innerloop2
+; Check to see if the selected map is the one the player is currently in.  If so, try again.
+.ok
+	ld a, [wMapGroup]
+	cp [hl]
+	jr nz, .done
+	inc hl
+	ld a, [wMapNumber]
+	cp [hl]
+	jr z, .loop
+	dec hl
+; Return the map group and number in bc.
+.done
+	ld a, [hli]
+	ld b, a
+	ld c, [hl]
+	ret
+
 _BackUpMapIndices:
 	ld a, [wRoamMons_CurMapNumber]
 	ld [wRoamMons_LastMapNumber], a
@@ -1642,6 +1930,97 @@ _BackUpMapIndices:
 	ret
 
 INCLUDE "data/wild/roammon_maps.asm"
+
+GetRoamMonMapGroup:
+	call GetRoamMonIndex
+
+	ld hl, wRoamMon1MapGroup ; get starting point
+	ld c, a
+	ld b, 0
+	jr z, .index_zero
+	ld a, wRoamMon1End - wRoamMon1 ; length of the RoamMon struct
+	call AddNTimes ; move hl to wanted mon
+.index_zero
+	ret
+
+GetRoamMonMapNumber:
+	call GetRoamMonIndex
+
+	ld hl, wRoamMon1MapNumber ; get starting point
+	ld c, a
+	ld b, 0
+	jr z, .index_zero
+	ld a, wRoamMon1End - wRoamMon1 ; length of the RoamMon struct
+	call AddNTimes ; move hl to wanted mon
+.index_zero
+	ret
+
+GetRoamMonHP:
+; output: hl = wRoamMonHP
+	call GetRoamMonIndex
+
+	ld hl, wRoamMon1HP ; get starting point
+	ld c, a
+	ld b, 0
+	jr z, .index_zero
+	ld a, wRoamMon1End - wRoamMon1 ; length of the RoamMon struct
+	call AddNTimes ; move hl to wanted mon
+.index_zero
+	ret
+
+GetRoamMonDVs:
+; output: hl = wRoamMonDVs
+	call GetRoamMonIndex
+
+	ld hl, wRoamMon1DVs ; get starting point
+	ld c, a
+	ld b, 0
+	jr z, .index_zero
+	ld a, wRoamMon1End - wRoamMon1 ; length of the RoamMon struct
+	call AddNTimes ; move hl to wanted mon
+.index_zero
+	ret
+
+GetRoamMonSpecies:
+; output: hl = wRoamMonSpecies
+	call GetRoamMonIndex
+
+	ld hl, wRoamMon1Species ; get starting point
+	ld c, a
+	ld b, 0
+	jr z, .index_zero
+	ld a, wRoamMon1End - wRoamMon1 ; length of the RoamMon struct
+	call AddNTimes ; move hl to wanted mon
+.index_zero
+	ret
+
+GetRoamMonIndex:
+	ld a, [wTempEnemyMonSpecies]
+	ld hl, .index
+	ld c, 0
+.loop
+	ld a, [hli]
+	cp -1
+	ret z
+	ld b, a
+	ld a, [wTempEnemyMonSpecies]
+	cp b
+	jr z, .ok
+	inc c
+	jr .loop
+.ok
+	ld a, c ; id of encounter into a (0 to 5)
+	ret
+
+.index:
+	db RAIKOU
+	db ENTEI
+	db SUICUNE
+	db ARTICUNO
+	db ZAPDOS
+	db MOLTRES
+	db -1
+
 
 ValidateTempWildMonSpecies:
 	and a
@@ -1868,6 +2247,94 @@ RandomPhoneMon:
 	ld bc, MON_NAME_LENGTH
 	jp CopyBytes
 
+RespawnOneOffs:
+	ld hl, .RoamMons
+	ld c, 0
+.loop
+	ld a, [hli]
+	ld [wTempEnemyMonSpecies], a
+	cp -1
+	ret z
+	dec a
+	call CheckCaughtMon ; caught it?
+	jr z, .caught
+	push hl
+	ld hl, wRoamMon1Species ; get starting point
+	jr .IncreseHLIndex
+	ld a, [hl]
+	and a ; killed it?
+	pop hl
+	jr nz, .caught
+	inc c
+	jr .loop
+
+.caught
+	ld hl, wRoamMon1Species
+	jr .IncreseHLIndex
+	ld a, [wTempEnemyMonSpecies]
+	ld [hl], a
+	
+	ld hl, wRoamMon1Level
+	jr .IncreseHLIndex
+	ld a, 5
+	ld [hl], a
+
+	ld hl, .RoamMonsGroup
+	jr .IncreseHLIndex
+	ld e, [hl]
+	ld hl, wRoamMon1MapGroup
+	jr .IncreseHLIndex
+	ld [hl], e
+
+	ld hl, .RoamMonsMap
+	jr .IncreseHLIndex
+	ld e, [hl]
+	ld hl, wRoamMon1MapNumber
+	jr .IncreseHLIndex
+	ld [hl], e
+
+	; generate new stats
+	ld hl, wRoamMon1HP
+	jr .IncreseHLIndex
+	xor a
+	ld [wRoamMon1HP], a
+	ret
+
+.IncreseHLIndex ; needs index in c
+	ld b, 0
+	jr z, .index_zero
+	ld a, wRoamMon1End - wRoamMon1 ; length of the RoamMon struct
+	call AddNTimes ; move hl to wanted mon
+.index_zero
+	ret
+
+.RoamMons:
+	db RAIKOU
+	db ENTEI
+	db SUICUNE
+	db ARTICUNO
+	db ZAPDOS
+	db MOLTRES
+	db -1
+
+.RoamMonsGroup:
+	db GROUP_ROUTE_42
+	db GROUP_ROUTE_37
+	db GROUP_ROUTE_38
+	db GROUP_ROUTE_19
+	db GROUP_ROUTE_9
+	db GROUP_ROUTE_3
+	db -1
+
+.RoamMonsMap:
+	db MAP_ROUTE_42
+	db MAP_ROUTE_37
+	db MAP_ROUTE_38
+	db MAP_ROUTE_19
+	db MAP_ROUTE_9
+	db MAP_ROUTE_3
+	db -1
+
 INCLUDE "data/wild/johto_grass.asm"
 INCLUDE "data/wild/johto_grass_rare.asm"
 INCLUDE "data/wild/johto_water.asm"
@@ -1876,6 +2343,4 @@ INCLUDE "data/wild/kanto_grass.asm"
 INCLUDE "data/wild/kanto_grass_rare.asm"
 INCLUDE "data/wild/kanto_water.asm"
 INCLUDE "data/wild/kanto_shallow.asm"
-INCLUDE "data/wild/swarm_grass.asm"
-INCLUDE "data/wild/swarm_water.asm"
 

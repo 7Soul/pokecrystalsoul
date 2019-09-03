@@ -93,6 +93,9 @@ if DEF(_DEBUG)
 	setevent EVENT_RIVAL_CHERRYGROVE_CITY
 	setmapscene NEW_BARK_TOWN, SCENE_FINISHED
 	addcellnum PHONE_BILL
+	setevent EVENT_RELEASED_THE_BEASTS
+	special InitRoamMons
+	special InitKantoRoamMons
 	givecoins 9999
 	givemoney 0, 100000
 	giveitem MASTER_BALL, 99
@@ -105,10 +108,11 @@ if DEF(_DEBUG)
 	givepoke NINETALES, 60
 	givepoke MACHOP, 5
 	givepoke KRABBY, 5
-	;callasm CheatFillPokedex
+	callasm CheatFillPokedex
 	;warp ROUTE_2, $5, $22
-	; warp ROUTE_46, $8, $10
-	warp ILEX_FOREST, $0, $21
+	warp ROUTE_46, $8, $10
+	;warp ROUTE_37, $e, $a
+	;warp ILEX_FOREST, $0, $21
 	;warp ROUTE_34, $D, $24
 endc
 	closetext

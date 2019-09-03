@@ -225,7 +225,7 @@ endc
 	dw Script_checkphonecall             ; 9d
 	dw Script_verbosegiveitem            ; 9e
 	dw Script_verbosegiveitem2           ; 9f
-	dw Script_swarm                      ; a0
+	;dw Script_swarm                      ; a0
 	dw Script_halloffame                 ; a1
 	dw Script_credits                    ; a2
 	dw Script_warpfacing                 ; a3
@@ -235,7 +235,8 @@ endc
 	dw Script_name                       ; a7
 	dw Script_wait                       ; a8
 	dw Script_checksave                  ; a9
-	;dw Script_randomfromarray            ; aa
+	;dw Script_respawn_one_offs           ; a9
+	;dw Script_randomfromarray           ; aa
 
 StartScript:
 	ld hl, wScriptFlags
@@ -739,19 +740,6 @@ Script_fruittree:
 	ld b, BANK(FruitTreeScript)
 	ld hl, FruitTreeScript
 	jp ScriptJump
-
-Script_swarm:
-; script command 0xa0
-; parameters: flag, map_group, map_id
-
-	call GetScriptByte
-	ld c, a
-	call GetScriptByte
-	ld d, a
-	call GetScriptByte
-	ld e, a
-	farcall StoreSwarmMapIndices
-	ret
 
 Script_trainertext:
 ; script command 0x62
@@ -2823,13 +2811,10 @@ Script_checksave:
 	ld [wScriptVar], a
 	ret
 
-; unused
-	ld a, [.byte]
-	ld [wScriptVar], a
+Script_respawn_one_offs:
+	predef RespawnOneOffs
 	ret
-
-.byte
-	db 0
+	
 
 ; Script_randomfromarray:
 ; ; script command 0xaa

@@ -781,14 +781,14 @@ RalphPhoneScript1:
 	iftrue .Rematch
 	farscall PhoneScript_AnswerPhone_Male
 	checkflag ENGINE_RALPH_WEDNESDAY_MORNING
-	iftrue .CheckSwarm
-	checkcode VAR_WEEKDAY
-	ifnotequal WEDNESDAY, .CheckSwarm
-	checktime MORN
-	iftrue Ralph_WednesdayMorning
-.CheckSwarm:
-	checkflag ENGINE_FISH_SWARM
-	iftrue .ReportSwarm
+; 	iftrue .CheckSwarm
+; 	checkcode VAR_WEEKDAY
+; 	ifnotequal WEDNESDAY, .CheckSwarm
+; 	checktime MORN
+; 	iftrue Ralph_WednesdayMorning
+; .CheckSwarm:
+; 	checkflag ENGINE_FISH_SWARM
+; 	iftrue .ReportSwarm
 	farjump UnknownScript_0xa0940
 
 .Rematch:
@@ -803,16 +803,16 @@ RalphPhoneScript2:
 	trainertotext FISHER, RALPH1, MEM_BUFFER_0
 	farscall PhoneScript_GreetPhone_Male
 	checkflag ENGINE_FLYPOINT_GOLDENROD
-	iffalse .CheckSwarm
-	checkflag ENGINE_RALPH
-	iftrue .CheckSwarm
-	checkflag ENGINE_RALPH_WEDNESDAY_MORNING
-	iftrue .CheckSwarm
-	farscall PhoneScript_Random2
-	ifequal 0, Ralph_FightMe
-.CheckSwarm:
-	farscall PhoneScript_Random5
-	ifequal 0, Ralph_SetUpSwarm
+; 	iffalse .CheckSwarm
+; 	checkflag ENGINE_RALPH
+; 	iftrue .CheckSwarm
+; 	checkflag ENGINE_RALPH_WEDNESDAY_MORNING
+; 	iftrue .CheckSwarm
+; 	farscall PhoneScript_Random2
+; 	ifequal 0, Ralph_FightMe
+; .CheckSwarm:
+; 	farscall PhoneScript_Random5
+; 	ifequal 0, Ralph_SetUpSwarm
 	farjump Phone_GenericCall_Male
 
 Ralph_WednesdayMorning:
@@ -823,13 +823,13 @@ Ralph_FightMe:
 	farjump PhoneScript_WantsToBattle_Male
 
 Ralph_SetUpSwarm:
-	checkflag ENGINE_FISH_SWARM
-	iftrue .Generic
-	setflag ENGINE_FISH_SWARM
-	pokenamemem QWILFISH, MEM_BUFFER_1
-	landmarktotext ROUTE_32, MEM_BUFFER_2
-	writebyte FISHSWARM_QWILFISH
-	special ActivateFishingSwarm
+	; checkflag ENGINE_FISH_SWARM
+	; iftrue .Generic
+	; setflag ENGINE_FISH_SWARM
+	; pokenamemem QWILFISH, MEM_BUFFER_1
+	; landmarktotext ROUTE_32, MEM_BUFFER_2
+	; writebyte FISHSWARM_QWILFISH
+	; special ActivateFishingSwarm
 	farjump UnknownScript_0xa05d6
 
 .Generic:
@@ -955,8 +955,8 @@ AnthonyPhoneScript1:
 	iftrue AnthonyFridayNight
 
 .NotFriday:
-	checkflag ENGINE_DUNSPARCE_SWARM
-	iftrue .AlreadySwarming
+	; checkflag ENGINE_DUNSPARCE_SWARM
+	; iftrue .AlreadySwarming
 	farjump UnknownScript_0xa0950
 
 .WantsBattle:
@@ -971,17 +971,17 @@ AnthonyPhoneScript2:
 	trainertotext HIKER, ANTHONY2, MEM_BUFFER_0
 	farscall PhoneScript_GreetPhone_Male
 	checkflag ENGINE_FLYPOINT_GOLDENROD
-	iffalse .TriesSwarm
-	checkflag ENGINE_ANTHONY
-	iftrue .TriesSwarm
-	checkflag ENGINE_ANTHONY_FRIDAY_NIGHT
-	iftrue .TriesSwarm
-	farscall PhoneScript_Random2
-	ifequal 0, AnthonyWantsBattle
+; 	iffalse .TriesSwarm
+; 	checkflag ENGINE_ANTHONY
+; 	iftrue .TriesSwarm
+; 	checkflag ENGINE_ANTHONY_FRIDAY_NIGHT
+; 	iftrue .TriesSwarm
+; 	farscall PhoneScript_Random2
+; 	ifequal 0, AnthonyWantsBattle
 
-.TriesSwarm:
-	farscall PhoneScript_Random5
-	ifequal 0, AnthonyTriesDunsparceSwarm
+; .TriesSwarm:
+; 	farscall PhoneScript_Random5
+; 	ifequal 0, AnthonyTriesDunsparceSwarm
 	farjump Phone_GenericCall_Male
 
 AnthonyFridayNight:
@@ -993,13 +993,13 @@ AnthonyWantsBattle:
 	farjump PhoneScript_WantsToBattle_Male
 
 AnthonyTriesDunsparceSwarm:
-	checkflag ENGINE_DUNSPARCE_SWARM
-	iftrue .Generic
-	setflag ENGINE_DUNSPARCE_SWARM
-	pokenamemem DUNSPARCE, MEM_BUFFER_1
-	swarm SWARM_DUNSPARCE, DARK_CAVE_VIOLET_ENTRANCE
-	landmarktotext DARK_CAVE, MEM_BUFFER_2
-	farjump UnknownScript_0xa05de
+	; checkflag ENGINE_DUNSPARCE_SWARM
+	; iftrue .Generic
+	; setflag ENGINE_DUNSPARCE_SWARM
+	; pokenamemem DUNSPARCE, MEM_BUFFER_1
+	; swarm SWARM_DUNSPARCE, DARK_CAVE_VIOLET_ENTRANCE
+	; landmarktotext DARK_CAVE, MEM_BUFFER_2
+	; farjump UnknownScript_0xa05de
 
 .Generic:
 	farjump Phone_GenericCall_Male
@@ -1178,8 +1178,8 @@ ArniePhoneScript1:
 	iftrue ArnieTuesdayMorning
 
 .NotTuesday:
-	checkflag ENGINE_YANMA_SWARM
-	iftrue .AlreadySwarming
+	; checkflag ENGINE_YANMA_SWARM
+	; iftrue .AlreadySwarming
 	farjump UnknownScript_0xa0968
 
 .WantsBattle:
@@ -1194,15 +1194,15 @@ ArniePhoneScript2:
 	trainertotext BUG_CATCHER, ARNIE1, MEM_BUFFER_0
 	farscall PhoneScript_GreetPhone_Male
 	checkflag ENGINE_ARNIE
-	iftrue .Swarm
-	checkflag ENGINE_ARNIE_TUESDAY_MORNING
-	iftrue .Swarm
-	farscall PhoneScript_Random2
-	ifequal 0, ArnieWantsBattle
+; 	iftrue .Swarm
+; 	checkflag ENGINE_ARNIE_TUESDAY_MORNING
+; 	iftrue .Swarm
+; 	farscall PhoneScript_Random2
+; 	ifequal 0, ArnieWantsBattle
 
-.Swarm:
-	farscall PhoneScript_Random5
-	ifequal 0, ArnieYanmaSwarm
+; .Swarm:
+; 	farscall PhoneScript_Random5
+; 	ifequal 0, ArnieYanmaSwarm
 	farscall PhoneScript_Random3
 	ifequal 0, ArnieFoundRare
 	farjump Phone_GenericCall_Male
@@ -1216,13 +1216,13 @@ ArnieWantsBattle:
 	farjump PhoneScript_WantsToBattle_Male
 
 ArnieYanmaSwarm: ; start swarm
-	checkflag ENGINE_YANMA_SWARM
-	iftrue ArnieYanmaAlreadySwarming
-	setflag ENGINE_YANMA_SWARM
-	pokenamemem YANMA, MEM_BUFFER_1
-	swarm SWARM_YANMA, ROUTE_35
-	landmarktotext ROUTE_35, MEM_BUFFER_2
-	farjump UnknownScript_0xa05ce
+	; checkflag ENGINE_YANMA_SWARM
+	; iftrue ArnieYanmaAlreadySwarming
+	; setflag ENGINE_YANMA_SWARM
+	; pokenamemem YANMA, MEM_BUFFER_1
+	; swarm SWARM_YANMA, ROUTE_35
+	; landmarktotext ROUTE_35, MEM_BUFFER_2
+	; farjump UnknownScript_0xa05ce
 
 ArnieFoundRare:
 	farjump Phone_CheckIfUnseenRare_Male

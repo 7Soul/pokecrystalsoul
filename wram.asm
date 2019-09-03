@@ -2891,6 +2891,9 @@ wSwarmSet:: db
 wRoamMon1:: roam_struct wRoamMon1 ; dfcf
 wRoamMon2:: roam_struct wRoamMon2 ; dfd6
 wRoamMon3:: roam_struct wRoamMon3 ; dfdd
+wRoamMon4:: roam_struct wRoamMon4 ; dfdd
+wRoamMon5:: roam_struct wRoamMon5 ; dfdd
+wRoamMon6:: roam_struct wRoamMon6 ; dfdd
 
 wRoamMons_CurMapNumber:: db
 wRoamMons_CurMapGroup:: db

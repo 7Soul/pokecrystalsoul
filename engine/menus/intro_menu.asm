@@ -194,13 +194,22 @@ _ResetWRAM:
 	ld [wRoamMon1Species], a
 	ld [wRoamMon2Species], a
 	ld [wRoamMon3Species], a
+	ld [wRoamMon4Species], a
+	ld [wRoamMon5Species], a
+	ld [wRoamMon6Species], a
 	ld a, -1
 	ld [wRoamMon1MapGroup], a
 	ld [wRoamMon2MapGroup], a
 	ld [wRoamMon3MapGroup], a
+	ld [wRoamMon4MapGroup], a
+	ld [wRoamMon5MapGroup], a
+	ld [wRoamMon6MapGroup], a
 	ld [wRoamMon1MapNumber], a
 	ld [wRoamMon2MapNumber], a
 	ld [wRoamMon3MapNumber], a
+	ld [wRoamMon4MapNumber], a
+	ld [wRoamMon5MapNumber], a
+	ld [wRoamMon6MapNumber], a
 
 	ld a, BANK(sMysteryGiftItem)
 	call GetSRAMBank
@@ -399,6 +408,7 @@ Continue:
 	ld c, 20
 	call DelayFrames
 	farcall JumpRoamMons
+	farcall JumpRoamMonsKanto
 	farcall MysteryGift_CopyReceivedDecosToPC ; Mystery Gift
 	farcall Function140ae ; time-related
 	ld a, [wSpawnAfterChampion]

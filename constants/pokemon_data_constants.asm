@@ -157,7 +157,8 @@ WATER_WILDDATA_LENGTH EQU (NUM_WATERMON * 2 + 1) * 1 + 2
 SHALLOW_WILDDATA_LENGTH EQU (NUM_SHALLOWMON * 2 + 1) * 2 + 2
 FISHGROUP_DATA_LENGTH EQU 1 + 2 * 3
 
-NUM_ROAMMON_MAPS EQU 38 ; RoamMaps table size (see data/wild/roammon_maps.asm)
+NUM_ROAMMON_MAPS EQU 16 ; RoamMaps table size (see data/wild/roammon_maps.asm)
+NUM_ROAMMON_MAPS_KANTO EQU 20 ; RoamMaps table size (see data/wild/roammon_maps.asm)
 
 ; treemon sets
 ; TreeMons indexes (see data/wild/treemons.asm)
