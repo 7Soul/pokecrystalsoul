@@ -172,8 +172,6 @@ TrainerFisherRalph1:
 	opentext
 	checkflag ENGINE_RALPH
 	iftrue .Rematch
-	checkflag ENGINE_FISH_SWARM
-	iftrue .Swarm
 	checkcellnum PHONE_FISHER_RALPH
 	iftrue .NumberAccepted
 	checkevent EVENT_RALPH_ASKED_FOR_PHONE_NUMBER
@@ -252,12 +250,6 @@ TrainerFisherRalph1:
 	startbattle
 	reloadmapafterbattle
 	clearflag ENGINE_RALPH
-	end
-
-.Swarm:
-	writetext FisherRalphSwarmText
-	waitbutton
-	closetext
 	end
 
 .AskNumber1:
@@ -667,60 +659,6 @@ FisherRalphAfterText:
 	para "#MON are life-"
 	line "long friends!"
 	done
-
-FisherRalphSwarmText:
-	text "One, two, three…"
-	line "Muahahaha, what a"
-
-	para "great haul!"
-	line "I'm done! Go ahead"
-
-	para "and catch as many"
-	line "as you can, kid!"
-	done
-
-; --- start a segment of unused text
-
-Route32UnusedFisher1SeenText:
-	text "I keep catching"
-	line "the same #MON…"
-
-	para "Maybe a battle"
-	line "will turn things"
-	cont "around for me."
-	done
-
-Route32UnusedFisher1BeatenText:
-	text "Nothing ever goes"
-	line "right for me now…"
-	done
-
-Route32UnusedFisher1AfterText:
-	text "How come the guy"
-	line "next to me catches"
-	cont "good #MON?"
-	done
-
-Route32UnusedFisher2SeenText:
-	text "Heh, I'm on a roll"
-	line "today. How about a"
-	cont "battle, kid?"
-	done
-
-Route32UnusedFisher2BeatenText:
-	text "Oof. I wasn't"
-	line "lucky that time."
-	done
-
-Route32UnusedFisher2AfterText:
-	text "You have to have a"
-	line "good ROD if you"
-
-	para "want to catch good"
-	line "#MON."
-	done
-
-; --- end a segment of unused texts
 
 FisherHenrySeenText:
 	text "My #MON?"

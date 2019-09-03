@@ -2727,7 +2727,7 @@ wMomItemTriggerBalance:: ds 3 ; dc19
 wDailyResetTimer:: dw ; dc1c
 wDailyFlags1:: db ; 
 wDailyFlags2:: db ; 
-wSwarmFlags:: db ; 
+wDailyFlags3:: db ; 
 	ds 2 
 wTimerEventStartDay:: db ; 
 	ds 3
@@ -2735,7 +2735,7 @@ wTimerEventStartDay:: db ;
 wFruitTreeFlags:: flag_array NUM_FRUIT_TREES ; dc27
 wNuzlockeLandmarkFlags :: flag_array NUM_LANDMARKS
 wSwarmLandmarkFlags :: flag_array NUM_LANDMARKS
-wSwarmLearnedFlags :: flag_array NUM_LANDMARKS
+;wSwarmLearnedFlags :: flag_array NUM_LANDMARKS
 
 wLuckyNumberDayBuffer:: dw ; dc2d
 	ds 2

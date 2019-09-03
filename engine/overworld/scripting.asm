@@ -225,17 +225,16 @@ endc
 	dw Script_checkphonecall             ; 9d
 	dw Script_verbosegiveitem            ; 9e
 	dw Script_verbosegiveitem2           ; 9f
-	;dw Script_swarm                      ; a0
-	dw Script_halloffame                 ; a1
-	dw Script_credits                    ; a2
-	dw Script_warpfacing                 ; a3
-	dw Script_battletowertext            ; a4
-	dw Script_landmarktotext             ; a5
-	dw Script_trainerclassname           ; a6
-	dw Script_name                       ; a7
-	dw Script_wait                       ; a8
-	dw Script_checksave                  ; a9
-	;dw Script_respawn_one_offs           ; a9
+	dw Script_halloffame                 ; a0
+	dw Script_credits                    ; a1
+	dw Script_warpfacing                 ; a2
+	dw Script_battletowertext            ; a3
+	dw Script_landmarktotext             ; a4
+	dw Script_trainerclassname           ; a5
+	dw Script_name                       ; a6
+	dw Script_wait                       ; a7
+	dw Script_checksave                  ; a8
+	dw Script_respawn_one_offs           ; a9
 	;dw Script_randomfromarray           ; aa
 
 StartScript:

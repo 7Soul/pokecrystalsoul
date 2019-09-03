@@ -4244,7 +4244,7 @@ Function11581e:
 
 Function1158c2:
 	ld a, e
-	ld [wSwarmFlags], a
+	ld [wDailyFlags3], a
 	ld a, d
 	ld [$dc21], a
 	xor a
@@ -4311,7 +4311,7 @@ Function1158c2:
 	ld [$dc1a], a
 	push de
 	push hl
-	ld hl, wSwarmFlags
+	ld hl, wDailyFlags3
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -4405,7 +4405,7 @@ endr
 	ld a, $a
 	ld [hli], a
 	push hl
-	ld hl, wSwarmFlags
+	ld hl, wDailyFlags3
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -4892,7 +4892,7 @@ Function115c49:
 	ld a, e
 	ld [wDailyFlags2], a
 	ld a, d
-	ld [wSwarmFlags], a
+	ld [wDailyFlags3], a
 	xor a
 	ld [de], a
 	inc de
@@ -5072,7 +5072,7 @@ Function115cfd:
 	push hl
 	ld a, [wDailyFlags2]
 	ld l, a
-	ld a, [wSwarmFlags]
+	ld a, [wDailyFlags3]
 	ld h, a
 	ld e, [hl]
 	inc hl

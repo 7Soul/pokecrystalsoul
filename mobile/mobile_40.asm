@@ -7440,8 +7440,8 @@ Function1036f9:
 
 Function103700:
 	ld c, $0a
-	ld hl, wSwarmFlags
-	bit SWARMFLAGS_MOBILE_4_F, [hl]
+	ld hl, wDailyFlags3
+	bit DAILYFLAGS3_MOBILE_4_F, [hl]
 	jr z, .asm_10370f
 	farcall Function1008a6
 
@@ -7527,12 +7527,12 @@ Function103780:
 
 Function10378c:
 	ld c, 0
-	ld hl, wSwarmFlags
-	bit SWARMFLAGS_MOBILE_4_F, [hl]
+	ld hl, wDailyFlags3
+	bit DAILYFLAGS3_MOBILE_4_F, [hl]
 	jr nz, .already_set
 	ld c, 1
-	ld hl, wSwarmFlags
-	set SWARMFLAGS_MOBILE_4_F, [hl]
+	ld hl, wDailyFlags3
+	set DAILYFLAGS3_MOBILE_4_F, [hl]
 
 .already_set
 	push bc
@@ -7553,8 +7553,8 @@ Function10378c:
 	ld a, c
 	and a
 	ret z
-	ld hl, wSwarmFlags
-	res SWARMFLAGS_MOBILE_4_F, [hl]
+	ld hl, wDailyFlags3
+	res DAILYFLAGS3_MOBILE_4_F, [hl]
 	ret
 
 Function1037c2:

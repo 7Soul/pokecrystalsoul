@@ -94,8 +94,8 @@ CheckDailyResetTimer::
 	ld hl, wDailyFlags1
 	ld [hli], a ; wDailyFlags1
 	ld [hli], a ; wDailyFlags2
-	ld [hli], a ; wSwarmFlags
-	ld [hl], a  ; wSwarmFlags + 1
+	ld [hli], a ; wDailyFlags3
+	ld [hl], a  ; wDailyFlags3 + 1
 	ld hl, wDailyRematchFlags
 rept 4
 	ld [hli], a
@@ -208,13 +208,13 @@ CheckUnusedTwoDayTimer:
 
 ; unused
 	ld hl, wDailyFlags1
-	set DAILYFLAGS1_FISH_SWARM_F, [hl]
+	set DAILYFLAGS1_UNUSED, [hl]
 	ret
 
 ; unused
 	and a
 	ld hl, wDailyFlags1
-	bit DAILYFLAGS1_FISH_SWARM_F, [hl]
+	bit DAILYFLAGS1_UNUSED, [hl]
 	ret nz
 	scf
 	ret

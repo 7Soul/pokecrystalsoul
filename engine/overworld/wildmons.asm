@@ -1103,9 +1103,6 @@ ChooseWildEncounter:
 INCLUDE "data/wild/probabilities.asm"
 
 LegendaryMon:
-	db ARTICUNO
-	db ZAPDOS
-	db MOLTRES
 	db MEW
 	db MEWTWO
 	db LUGIA
@@ -1336,10 +1333,6 @@ LoadWildMonDataPointer:
 	jr z, _ShallowWildmonLookup
 
 _GrassWildmonLookup:
-	; ld hl, SwarmGrassWildMons
-	; ld bc, GRASS_WILDDATA_LENGTH
-	; call _SwarmWildmonCheck
-	; ret c
 	ld hl, JohtoGrassWildMons
 	ld de, KantoGrassWildMons
 	call _JohtoWildmonCheck
@@ -1347,10 +1340,6 @@ _GrassWildmonLookup:
 	jr _NormalWildmonOK
 
 _WaterWildmonLookup:
-	; ld hl, SwarmWaterWildMons
-	; ld bc, WATER_WILDDATA_LENGTH
-	; call _SwarmWildmonCheck
-	; ret c
 	ld hl, JohtoWaterWildMons
 	ld de, KantoWaterWildMons
 	call _JohtoWildmonCheck
@@ -1370,45 +1359,6 @@ _JohtoWildmonCheck:
 	ret z
 	ld h, d
 	ld l, e
-	ret
-
-_SwarmWildmonCheck:
-	call CopyCurrMapDE
-	push hl
-	ld hl, wSwarmFlags
-	bit SWARMFLAGS_DUNSPARCE_SWARM_F, [hl]
-	pop hl
-	jr z, .CheckYanma
-	ld a, [wDunsparceMapGroup]
-	cp d
-	jr nz, .CheckYanma
-	ld a, [wDunsparceMapNumber]
-	cp e
-	jr nz, .CheckYanma
-	call LookUpWildmonsForMapDE
-	jr nc, _NoSwarmWildmon
-	scf
-	ret
-
-.CheckYanma:
-	push hl
-	ld hl, wSwarmFlags
-	bit SWARMFLAGS_YANMA_SWARM_F, [hl]
-	pop hl
-	jr z, _NoSwarmWildmon
-	ld a, [wYanmaMapGroup]
-	cp d
-	jr nz, _NoSwarmWildmon
-	ld a, [wYanmaMapNumber]
-	cp e
-	jr nz, _NoSwarmWildmon
-	call LookUpWildmonsForMapDE
-	jr nc, _NoSwarmWildmon
-	scf
-	ret
-
-_NoSwarmWildmon:
-	and a
 	ret
 
 _NormalWildmonOK:

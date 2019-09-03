@@ -20,8 +20,6 @@ TrainerHikerAnthony:
 	opentext
 	checkflag ENGINE_ANTHONY
 	iftrue .Rematch
-	checkflag ENGINE_DUNSPARCE_SWARM
-	iftrue .Swarm
 	checkcellnum PHONE_HIKER_ANTHONY
 	iftrue .NumberAccepted
 	checkevent EVENT_ANTHONY_ASKED_FOR_PHONE_NUMBER
@@ -100,12 +98,6 @@ TrainerHikerAnthony:
 	startbattle
 	reloadmapafterbattle
 	clearflag ENGINE_ANTHONY
-	end
-
-.Swarm:
-	writetext HikerAnthonyDunsparceText
-	waitbutton
-	closetext
 	end
 
 .AskNumber1:
