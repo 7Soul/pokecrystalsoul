@@ -2410,8 +2410,9 @@ Pokedex_GetArea:
 	cp EEVEE
 	jr nz, .not_eevee
 	ld a, [wNamedObjectIndexBuffer]
-	ld [wNamedObjectIndexBuffer], a
+	
 .not_eevee
+	ld [wNamedObjectIndexBuffer], a
 	xor a
 	call .GetAndPlaceNest
 .loop

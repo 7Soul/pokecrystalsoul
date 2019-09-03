@@ -199,13 +199,21 @@ ReadTrainerPartyPieces:
 	ld a, [wOtherTrainerType]
 	bit TRAINERTYPE_ITEM_F, a
 	jr z, .no_item
-	
-	ld a, [hli]
-	ld b, a
-	ld a, [wNumSetBits]
-	cp b ; compare badges to item badge requirement
-	jp c, .no_item
 
+	ld a, [hli] ; a has item badge req
+	ld b, a
+
+	push hl
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits	
+	ld a, [wNumSetBits]
+	pop hl
+
+	cp b ; compare badges to item badge requirement
+	inc hl
+	jp c, .no_item
+	
 	push hl
 	ld a, [wOTPartyCount]
 	dec a
@@ -215,6 +223,7 @@ ReadTrainerPartyPieces:
 	ld e, l
 	pop hl
 
+	dec hl
 	ld a, [hli]
 	ld [de], a
 .no_item
