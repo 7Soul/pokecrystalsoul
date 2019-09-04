@@ -2,9 +2,9 @@
 	dw 507, 1690 ; height, weight
 
 	db   "It swims grace-"
-	next "fully along on the"
-	next "quiet, slow-moving"
+	line2 "fully along on the"
+	line2 "quiet, slow-moving"
 
 	page "rivers and lakes"
-	next "of which it is so"
-	next "fond.@"
+	line2 "of which it is so"
+	line2 "fond.@"

@@ -2,9 +2,9 @@
 	dw 211, 550 ; height, weight
 
 	db   "Once it has stored"
-	next "up enough heat,"
-	next "this #MON's"
+	line2 "up enough heat,"
+	line2 "this #MON's"
 
 	page "body temperature"
-	next "can reach up to"
-	next "1700 degrees.@"
+	line2 "can reach up to"
+	line2 "1700 degrees.@"

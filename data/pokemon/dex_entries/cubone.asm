@@ -2,9 +2,9 @@
 	dw 104, 140 ; height, weight
 
 	db   "It lost its mother"
-	next "after its birth."
-	next "It wears its"
+	line2 "after its birth."
+	line2 "It wears its"
 
 	page "mother's skull,"
-	next "never revealing"
-	next "its true face.@"
+	line2 "never revealing"
+	line2 "its true face.@"

@@ -2,9 +2,9 @@
 	dw 104, 190 ; height, weight
 
 	db   "The fur on its"
-	next "body naturally"
-	next "repels water. It"
+	line2 "body naturally"
+	line2 "repels water. It"
 
 	page "can stay dry, even"
-	next "when it plays in"
-	next "the water.@"
+	line2 "when it plays in"
+	line2 "the water.@"

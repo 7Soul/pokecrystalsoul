@@ -2,9 +2,9 @@
 	dw 307, 660 ; height, weight
 
 	db   "When two"
-	next "ELECTABUZZ touch,"
-	next "they control the"
+	line2 "ELECTABUZZ touch,"
+	line2 "they control the"
 
 	page "electric currents"
-	next "to communicate"
-	next "their feelings.@"
+	line2 "to communicate"
+	line2 "their feelings.@"

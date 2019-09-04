@@ -2,9 +2,9 @@
 	dw 303, 660 ; height, weight
 
 	db   "The small bugs it"
-	next "eats appear only"
-	next "at night, so it"
+	line2 "eats appear only"
+	line2 "at night, so it"
 
 	page "sleeps in a hole"
-	next "in a tree until"
-	next "night falls.@"
+	line2 "in a tree until"
+	line2 "night falls.@"

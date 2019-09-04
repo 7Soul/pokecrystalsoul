@@ -2,9 +2,9 @@
 	dw 108, 90 ; height, weight
 
 	db   "When faced with a"
-	next "larger opponent,"
-	next "it swallows as"
+	line2 "larger opponent,"
+	line2 "it swallows as"
 
 	page "much water as it"
-	next "can to match the"
-	next "opponent's size.@"
+	line2 "can to match the"
+	line2 "opponent's size.@"

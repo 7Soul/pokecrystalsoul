@@ -2,9 +2,9 @@
 	dw 411, 910 ; height, weight
 
 	db   "When it is in"
-	next "danger, its tail"
-	next "uses some sort of"
+	line2 "danger, its tail"
+	line2 "uses some sort of"
 
 	page "mysterious powers"
-	next "to drive away the"
-	next "enemy.@"
+	line2 "to drive away the"
+	line2 "enemy.@"

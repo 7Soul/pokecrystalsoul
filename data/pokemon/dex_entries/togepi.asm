@@ -2,9 +2,9 @@
 	dw 100, 30 ; height, weight
 
 	db   "It is considered"
-	next "to be a symbol of"
-	next "good luck. Its"
+	line2 "to be a symbol of"
+	line2 "good luck. Its"
 
 	page "shell is said to"
-	next "be filled with"
-	next "happiness.@"
+	line2 "be filled with"
+	line2 "happiness.@"

@@ -2,9 +2,9 @@
 	dw 507, 1220 ; height, weight
 
 	db   "Legendary bird"
-	next "#MON. As it"
-	next "flies through the"
+	line2 "#MON. As it"
+	line2 "flies through the"
 
 	page "sky, it cools the"
-	next "air, causing snow"
-	next "to fall.@"
+	line2 "air, causing snow"
+	line2 "to fall.@"

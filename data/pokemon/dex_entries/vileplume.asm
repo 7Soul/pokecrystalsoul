@@ -2,9 +2,9 @@
 	dw 311, 410 ; height, weight
 
 	db   "By shaking its big"
-	next "petals, it scat-"
-	next "ters toxic pollen"
+	line2 "petals, it scat-"
+	line2 "ters toxic pollen"
 
 	page "into the air,"
-	next "turning the air"
-	next "yellow.@"
+	line2 "turning the air"
+	line2 "yellow.@"

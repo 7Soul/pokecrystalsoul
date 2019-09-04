@@ -86,13 +86,13 @@ DisplayDexEntry:
 	call GetDexEntryPointer
 	ld a, b
 	push af
-	hlcoord 10, 2
+	hlcoord 9, 2
 	call FarString ; dex species
 	ld h, b
 	ld l, c
 	push de
 ; Print dex number
-	hlcoord 2, 9
+	hlcoord 2, 8
 	ld a, $5c ; No
 	ld [hli], a
 	ld a, $5d ; .
@@ -111,6 +111,7 @@ DisplayDexEntry:
 	
 	call GetBaseData
 	call DrawBaseStats
+	call DrawEggGroups
 	
 ; Check to see if we caught it.  Get out of here if we haven't.
 	ld a, [wTempSpecies]
@@ -176,19 +177,31 @@ DisplayDexEntry:
 	call ClearBox
 
 	call DrawBaseStats
+	call DrawEggGroups
 
-	lb bc, 5, SCREEN_WIDTH - 2
-	hlcoord 2, 11
+	; egg group
+	hlcoord 2, 10
+	ld de, .egg_text
+	call PlaceString
+
+	hlcoord 7, 10
+	ld a, $5a
+	ld [hl], a
+	hlcoord 7, 11
+	ld a, $5a
+	ld [hl], a
+
+	lb bc, 3, SCREEN_WIDTH - 2
+	hlcoord 2, 13
 	call ClearBox
-	; hlcoord 1, 10
-	; ld bc, SCREEN_WIDTH - 1
-	; ld a, $61 ; horizontal divider
-	; call ByteFill
-	; page number
-	; hlcoord 1, 9
-	; ld [hl], $7f
-	; inc hl
-	; ld [hl], $7f
+; horizontal divider
+	hlcoord 1, 12
+	ld bc, SCREEN_WIDTH - 1
+	ld a, $6e 
+	call ByteFill
+	hlcoord 1, 12
+	ld [hl], $5f
+; page number
 	hlcoord 9, 3
 	ld [hl], $56 ; P.
 	inc hl
@@ -196,7 +209,7 @@ DisplayDexEntry:
 	pop de
 	inc de
 	pop af
-	hlcoord 2, 11
+	hlcoord 2, 13
 	push af
 	call FarString
 	pop bc
@@ -211,18 +224,17 @@ DisplayDexEntry:
 	hlcoord 9, 4
 	call ClearBox
 
-	lb bc, 5, SCREEN_WIDTH - 2
-	hlcoord 2, 11
+	lb bc, 3, SCREEN_WIDTH - 2
+	hlcoord 2, 13
 	call ClearBox
-	; hlcoord 1, 10
-	; ld bc, SCREEN_WIDTH - 1
-	; ld a, $61
-	; call ByteFill
-	; page number
-	; hlcoord 1, 9
-	; ld [hl], $7f
-	; inc hl
-	; ld [hl], $7f
+; horizontal divider
+	hlcoord 1, 12
+	ld bc, SCREEN_WIDTH - 1
+	ld a, $6e 
+	call ByteFill
+	hlcoord 2, 12
+	ld [hl], $5f
+; page number
 	hlcoord 9, 3
 	ld [hl], $56 ; P.
 	inc hl
@@ -230,13 +242,79 @@ DisplayDexEntry:
 	pop de
 	inc de
 	pop af
-	hlcoord 2, 11
+	hlcoord 2, 13
 	call FarString
 	ret
+
+.egg_text:
+	db "  Egg"
+	line2 "Group@"
 
 UnreferencedPOKeString:
 ; unused
 	db "#@"
+
+DrawEggGroups:
+	;call GetBaseData
+	ld a, [wBaseEggGroups]
+	ld [$C001], a
+	push af
+	and $f
+	ld d, a
+	pop af
+	and $f0
+	swap a
+	ld e, a
+
+	ld hl, .EggNames
+	ld a, d
+	ld bc, $d
+	call AddNTimes
+	ld d, h
+	ld e, l
+	hlcoord 8, 10
+	call PlaceString ; egg group 1
+
+	ld a, [wBaseEggGroups]
+	push af
+	and $f
+	ld d, a
+	pop af
+	and $f0
+	swap a
+	ld e, a
+	cp d
+	jr z, .equal
+
+	ld hl, .EggNames
+	ld a, e
+	ld bc, $d
+	call AddNTimes
+	ld d, h
+	ld e, l
+	hlcoord 8, 11
+	call PlaceString ; egg group 2
+.equal
+	ret
+
+	
+.EggNames:
+	db "None        @"
+	db "Monster     @"
+	db "Amphibian   @"
+	db "Bug         @"
+	db "Flying      @"
+	db "Field       @"
+	db "Fairy       @"
+	db "Grass       @"
+	db "Human-Like  @"
+	db "Invertebrate@"
+	db "Mineral     @"
+	db "Amorphous   @"
+	db "Fish        @"
+	db "Ditto       @"
+	db "Dragon      @"
+	db "Undiscovered@"
 
 DrawBaseStats:
 	hlcoord 9, 4 ; hp

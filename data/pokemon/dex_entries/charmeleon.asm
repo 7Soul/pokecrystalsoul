@@ -2,9 +2,9 @@
 	dw 307, 420 ; height, weight
 
 	db   "If it becomes"
-	next "agitated during"
-	next "battle, it spouts"
+	line2 "agitated during"
+	line2 "battle, it spouts"
 
 	page "intense flames,"
-	next "incinerating its"
-	next "surroundings.@"
+	line2 "incinerating its"
+	line2 "surroundings.@"

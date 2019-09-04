@@ -2,9 +2,9 @@
 	dw 100, 90 ; height, weight
 
 	db   "Clamping on to an"
-	next "opponent reveals"
-	next "its vulnerable"
+	line2 "opponent reveals"
+	line2 "its vulnerable"
 
 	page "parts, so it uses"
-	next "this move only as"
-	next "a last resort.@"
+	line2 "this move only as"
+	line2 "a last resort.@"

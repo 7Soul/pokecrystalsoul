@@ -2,9 +2,9 @@
 	dw 2104, 5180 ; height, weight
 
 	db   "It appears when-"
-	next "ever there is"
-	next "world conflict,"
+	line2 "ever there is"
+	line2 "world conflict,"
 
 	page "burning down any"
-	next "place it travels"
-	next "through.@"
+	line2 "place it travels"
+	line2 "through.@"

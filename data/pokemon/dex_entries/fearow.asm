@@ -2,9 +2,9 @@
 	dw 311, 840 ; height, weight
 
 	db   "It uses its long"
-	next "beak to attack. It"
-	next "has a surprisingly"
+	line2 "beak to attack. It"
+	line2 "has a surprisingly"
 
 	page "long reach, so it"
-	next "must be treated"
-	next "with caution.@"
+	line2 "must be treated"
+	line2 "with caution.@"

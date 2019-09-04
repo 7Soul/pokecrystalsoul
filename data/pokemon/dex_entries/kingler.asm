@@ -2,9 +2,9 @@
 	dw 403, 1320 ; height, weight
 
 	db   "Its oversized claw"
-	next "is very powerful,"
-	next "but when it's not"
+	line2 "is very powerful,"
+	line2 "but when it's not"
 
 	page "in battle, the"
-	next "claw just gets in"
-	next "the way.@"
+	line2 "claw just gets in"
+	line2 "the way.@"

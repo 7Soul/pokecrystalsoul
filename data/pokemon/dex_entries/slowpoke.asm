@@ -2,9 +2,9 @@
 	dw 311, 790 ; height, weight
 
 	db   "It is always so"
-	next "absent-minded that"
-	next "it won't react,"
+	line2 "absent-minded that"
+	line2 "it won't react,"
 
 	page "even if its"
-	next "flavorful tail is"
-	next "bitten.@"
+	line2 "flavorful tail is"
+	line2 "bitten.@"

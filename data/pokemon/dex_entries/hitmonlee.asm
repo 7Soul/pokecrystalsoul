@@ -2,9 +2,9 @@
 	dw 411, 1100 ; height, weight
 
 	db   "It is also called"
-	next "the Kick Master."
-	next "It uses its"
+	line2 "the Kick Master."
+	line2 "It uses its"
 
 	page "elastic legs to"
-	next "execute every"
-	next "known kick.@"
+	line2 "execute every"
+	line2 "known kick.@"

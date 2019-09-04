@@ -2,9 +2,9 @@
 	dw 407, 900 ; height, weight
 
 	db   "It has several"
-	next "different cry pat-"
-	next "terns, each of"
+	line2 "different cry pat-"
+	line2 "terns, each of"
 
 	page "which seems to"
-	next "have its own"
-	next "meaning.@"
+	line2 "have its own"
+	line2 "meaning.@"

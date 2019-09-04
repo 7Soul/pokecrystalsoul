@@ -2,9 +2,9 @@
 	dw 607, 4120 ; height, weight
 
 	db   "This divine"
-	next "#MON blows"
-	next "around the world,"
+	line2 "#MON blows"
+	line2 "around the world,"
 
 	page "always in search"
-	next "of a pure"
-	next "reservoir.@"
+	line2 "of a pure"
+	line2 "reservoir.@"

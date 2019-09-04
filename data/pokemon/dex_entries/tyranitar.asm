@@ -2,9 +2,9 @@
 	dw 607, 4450 ; height, weight
 
 	db   "In just one of its"
-	next "mighty hands, it"
-	next "has the power to"
+	line2 "mighty hands, it"
+	line2 "has the power to"
 
 	page "make the ground"
-	next "shake and moun-"
-	next "tains crumble.@"
+	line2 "shake and moun-"
+	line2 "tains crumble.@"

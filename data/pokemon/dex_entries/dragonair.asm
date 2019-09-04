@@ -2,9 +2,9 @@
 	dw 1301, 360 ; height, weight
 
 	db   "It is called the"
-	next "divine #MON."
-	next "When its entire"
+	line2 "divine #MON."
+	line2 "When its entire"
 
 	page "body brightens"
-	next "slightly, the"
-	next "weather changes.@"
+	line2 "slightly, the"
+	line2 "weather changes.@"

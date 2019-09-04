@@ -2,9 +2,9 @@
 	dw 108, 740 ; height, weight
 
 	db   "During the desert-"
-	next "ed morning hours,"
-	next "it comes ashore"
+	line2 "ed morning hours,"
+	line2 "it comes ashore"
 
 	page "where it deftly"
-	next "uses its trunk to"
-	next "take a shower.@"
+	line2 "uses its trunk to"
+	line2 "take a shower.@"

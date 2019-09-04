@@ -2,9 +2,9 @@
 	dw 503, 1730 ; height, weight
 
 	db   "An attached"
-	next "SHELLDER won't let"
-	next "go because of the"
+	line2 "SHELLDER won't let"
+	line2 "go because of the"
 
 	page "tasty flavor that"
-	next "oozes out of its"
-	next "tail.@"
+	line2 "oozes out of its"
+	line2 "tail.@"

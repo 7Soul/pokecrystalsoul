@@ -2,9 +2,9 @@
 	dw 411, 330 ; height, weight
 
 	db   "Once it begins to"
-	next "meditate at sun-"
-	next "rise, the entire"
+	line2 "meditate at sun-"
+	line2 "rise, the entire"
 
 	page "day will pass"
-	next "before it will"
-	next "move again.@"
+	line2 "before it will"
+	line2 "move again.@"

@@ -2,9 +2,9 @@
 	dw 211, 420 ; height, weight
 
 	db   "Before battle, it"
-	next "turns its back on"
-	next "its opponent to"
+	line2 "turns its back on"
+	line2 "its opponent to"
 
 	page "demonstrate how"
-	next "ferociously its"
-	next "fire blazes.@"
+	line2 "ferociously its"
+	line2 "fire blazes.@"

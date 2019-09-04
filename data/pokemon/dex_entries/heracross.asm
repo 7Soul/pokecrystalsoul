@@ -2,9 +2,9 @@
 	dw 411, 1190 ; height, weight
 
 	db   "With its Herculean"
-	next "powers, it can"
-	next "easily throw arou-"
+	line2 "powers, it can"
+	line2 "easily throw arou-"
 
 	page "nd an object that"
-	next "is 100 times its"
-	next "own weight.@"
+	line2 "is 100 times its"
+	line2 "own weight.@"

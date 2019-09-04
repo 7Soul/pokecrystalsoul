@@ -2,9 +2,9 @@
 	dw 1106, 1430 ; height, weight
 
 	db   "To intimidate"
-	next "foes, it spreads"
-	next "its chest wide and"
+	line2 "foes, it spreads"
+	line2 "its chest wide and"
 
 	page "makes eerie sounds"
-	next "by expelling air"
-	next "from its mouth.@"
+	line2 "by expelling air"
+	line2 "from its mouth.@"

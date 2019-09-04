@@ -2,9 +2,9 @@
 	dw 411, 1210 ; height, weight
 
 	db   "When the tempera-"
-	next "ture drops at"
-	next "night, it sleeps"
+	line2 "ture drops at"
+	line2 "night, it sleeps"
 
 	page "on treetops or"
-	next "among roots where"
-	next "it is well hidden.@"
+	line2 "among roots where"
+	line2 "it is well hidden.@"

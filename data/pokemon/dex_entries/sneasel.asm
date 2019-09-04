@@ -2,9 +2,9 @@
 	dw 211, 620 ; height, weight
 
 	db   "This cunning"
-	next "#MON hides"
-	next "under the cover"
+	line2 "#MON hides"
+	line2 "under the cover"
 
 	page "of darkness,"
-	next "waiting to attack"
-	next "its prey.@"
+	line2 "waiting to attack"
+	line2 "its prey.@"

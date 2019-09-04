@@ -2,9 +2,9 @@
 	dw 200, 260 ; height, weight
 
 	db   "To escape from an"
-	next "attacker, it may"
-	next "shoot water out of"
+	line2 "attacker, it may"
+	line2 "shoot water out of"
 
 	page "its mouth, then"
-	next "use that force to"
-	next "swim backward.@"
+	line2 "use that force to"
+	line2 "swim backward.@"

@@ -2,9 +2,9 @@
 	dw 100, 40 ; height, weight
 
 	db   "To protect its"
-	next "territory, it"
-	next "flies around"
+	line2 "territory, it"
+	line2 "flies around"
 
 	page "ceaselessly,"
-	next "making high-"
-	next "pitched cries.@"
+	line2 "making high-"
+	line2 "pitched cries.@"

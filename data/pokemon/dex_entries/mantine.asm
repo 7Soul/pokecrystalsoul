@@ -2,9 +2,9 @@
 	dw 611, 4850 ; height, weight
 
 	db   "It swims along"
-	next "freely, eating"
-	next "things that swim"
+	line2 "freely, eating"
+	line2 "things that swim"
 
 	page "into its mouth."
-	next "Its whole body is"
-	next "very coarse.@"
+	line2 "Its whole body is"
+	line2 "very coarse.@"

@@ -2,9 +2,9 @@
 	dw 104, 130 ; height, weight
 
 	db   "When it is anger-"
-	next "ed, it immediately"
-	next "discharges the"
+	line2 "ed, it immediately"
+	line2 "discharges the"
 
 	page "energy stored in"
-	next "the pouches in its"
-	next "cheeks.@"
+	line2 "the pouches in its"
+	line2 "cheeks.@"

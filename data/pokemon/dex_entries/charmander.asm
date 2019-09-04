@@ -2,9 +2,9 @@
 	dw 200, 190 ; height, weight
 
 	db   "If it's healthy,"
-	next "the flame on the"
-	next "tip of its tail"
+	line2 "the flame on the"
+	line2 "tip of its tail"
 
 	page "will burn vigor-"
-	next "ously, even if it"
-	next "gets a bit wet.@"
+	line2 "ously, even if it"
+	line2 "gets a bit wet.@"

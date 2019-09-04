@@ -2,9 +2,9 @@
 	dw 411, 1060 ; height, weight
 
 	db   "It has an IQ of"
-	next "5000. It calcu-"
-	next "lates many things"
+	line2 "5000. It calcu-"
+	line2 "lates many things"
 
 	page "in order to gain"
-	next "the edge in every"
-	next "battle.@"
+	line2 "the edge in every"
+	line2 "battle.@"

@@ -2,9 +2,9 @@
 	dw 311, 210 ; height, weight
 
 	db   "When it inhales"
-	next "poisonous gases"
-	next "from garbage, its"
+	line2 "poisonous gases"
+	line2 "from garbage, its"
 
 	page "body expands, and"
-	next "its insides smell"
-	next "much worse.@"
+	line2 "its insides smell"
+	line2 "much worse.@"

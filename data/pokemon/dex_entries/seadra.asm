@@ -2,9 +2,9 @@
 	dw 311, 550 ; height, weight
 
 	db   "The male raises"
-	next "the young. If it"
-	next "is approached, it"
+	line2 "the young. If it"
+	line2 "is approached, it"
 
 	page "uses its toxic"
-	next "spikes to fend off"
-	next "the intruder.@"
+	line2 "spikes to fend off"
+	line2 "the intruder.@"

@@ -2,9 +2,9 @@
 	dw 511, 2770 ; height, weight
 
 	db   "Although it has a"
-	next "large body, it is"
-	next "quite skilled at"
+	line2 "large body, it is"
+	line2 "quite skilled at"
 
 	page "climbing trees. It"
-	next "eats and sleeps in"
-	next "the treetops.@"
+	line2 "eats and sleeps in"
+	line2 "the treetops.@"

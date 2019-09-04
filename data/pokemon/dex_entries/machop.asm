@@ -2,9 +2,9 @@
 	dw 207, 430 ; height, weight
 
 	db   "It trains by"
-	next "lifting rocks in"
-	next "the mountains. It"
+	line2 "lifting rocks in"
+	line2 "the mountains. It"
 
 	page "can even pick up a"
-	next "GRAVELER with"
-	next "ease.@"
+	line2 "GRAVELER with"
+	line2 "ease.@"

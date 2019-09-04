@@ -2,9 +2,9 @@
 	dw 403, 630 ; height, weight
 
 	db   "In order to con-"
-	next "ceal its black"
-	next "tail, it lives in"
+	line2 "ceal its black"
+	line2 "tail, it lives in"
 
 	page "a dark cave and"
-	next "only moves about"
-	next "at night.@"
+	line2 "only moves about"
+	line2 "at night.@"

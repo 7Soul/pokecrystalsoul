@@ -2,9 +2,9 @@
 	dw 207, 660 ; height, weight
 
 	db   "If its electric"
-	next "pouches run empty,"
-	next "it raises its tail"
+	line2 "pouches run empty,"
+	line2 "it raises its tail"
 
 	page "to gather electri-"
-	next "city from the"
-	next "atmosphere.@"
+	line2 "city from the"
+	line2 "atmosphere.@"

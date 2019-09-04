@@ -2,9 +2,9 @@
 	dw 503, 1670 ; height, weight
 
 	db   "The longer it"
-	next "swings its"
-	next "pendulum, the"
+	line2 "swings its"
+	line2 "pendulum, the"
 
 	page "longer the effects"
-	next "of its hypnosis"
-	next "last.@"
+	line2 "of its hypnosis"
+	line2 "last.@"

@@ -2,9 +2,9 @@
 	dw 507, 2000 ; height, weight
 
 	db   "It uses its wings"
-	next "to fly high. The"
-	next "temperature of its"
+	line2 "to fly high. The"
+	line2 "temperature of its"
 
 	page "fire increases as"
-	next "it gains exper-"
-	next "ience in battle.@"
+	line2 "it gains exper-"
+	line2 "ience in battle.@"

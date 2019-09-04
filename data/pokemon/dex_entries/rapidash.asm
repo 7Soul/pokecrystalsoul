@@ -2,9 +2,9 @@
 	dw 507, 2090 ; height, weight
 
 	db   "It just loves to"
-	next "gallop. The faster"
-	next "it goes, the long-"
+	line2 "gallop. The faster"
+	line2 "it goes, the long-"
 
 	page "er the swaying"
-	next "flames of its mane"
-	next "will become.@"
+	line2 "flames of its mane"
+	line2 "will become.@"

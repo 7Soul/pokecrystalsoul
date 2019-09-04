@@ -2,9 +2,9 @@
 	dw 307, 760 ; height, weight
 
 	db   "People try to"
-	next "catch it for its"
-	next "extremely"
+	line2 "catch it for its"
+	line2 "extremely"
 
 	page "nutritious eggs,"
-	next "but it rarely can"
-	next "be found.@"
+	line2 "but it rarely can"
+	line2 "be found.@"

@@ -2,9 +2,9 @@
 	dw 407, 770 ; height, weight
 
 	db   "The pungent-"
-	next "smelling flame"
-	next "that shoots from"
+	line2 "smelling flame"
+	line2 "that shoots from"
 
 	page "its mouth results"
-	next "from toxins burn-"
-	next "ing in its body.@"
+	line2 "from toxins burn-"
+	line2 "ing in its body.@"

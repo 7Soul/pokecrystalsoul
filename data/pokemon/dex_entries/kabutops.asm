@@ -2,9 +2,9 @@
 	dw 403, 890 ; height, weight
 
 	db   "It was able to"
-	next "swim quickly thro-"
-	next "ugh the water by"
+	line2 "swim quickly thro-"
+	line2 "ugh the water by"
 
 	page "compactly folding"
-	next "up its razor-sharp"
-	next "sickles.@"
+	line2 "up its razor-sharp"
+	line2 "sickles.@"

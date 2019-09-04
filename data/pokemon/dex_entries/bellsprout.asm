@@ -2,9 +2,9 @@
 	dw 204, 90 ; height, weight
 
 	db   "If it notices"
-	next "anything that"
-	next "moves, it"
+	line2 "anything that"
+	line2 "moves, it"
 
 	page "immediately flings"
-	next "its vine at the"
-	next "object.@"
+	line2 "its vine at the"
+	line2 "object.@"

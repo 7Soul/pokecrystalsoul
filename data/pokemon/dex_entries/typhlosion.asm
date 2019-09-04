@@ -2,9 +2,9 @@
 	dw 507, 1750 ; height, weight
 
 	db   "When heat from its"
-	next "body causes the"
-	next "air around it to"
+	line2 "body causes the"
+	line2 "air around it to"
 
 	page "shimmer, this is a"
-	next "sign that it is"
-	next "ready to battle.@"
+	line2 "sign that it is"
+	line2 "ready to battle.@"

@@ -2,9 +2,9 @@
 	dw 108, 120 ; height, weight
 
 	db   "During the day, it"
-	next "stays in the cold"
-	next "underground to"
+	line2 "stays in the cold"
+	line2 "underground to"
 
 	page "avoid the sun."
-	next "It grows by bath-"
-	next "ing in moonlight.@"
+	line2 "It grows by bath-"
+	line2 "ing in moonlight.@"

@@ -2,9 +2,9 @@
 	dw 104, 130 ; height, weight
 
 	db   "When these dance"
-	next "together, their"
-	next "petals rub against"
+	line2 "together, their"
+	line2 "petals rub against"
 
 	page "each other,"
-	next "making pretty,"
-	next "relaxing sounds.@"
+	line2 "making pretty,"
+	line2 "relaxing sounds.@"

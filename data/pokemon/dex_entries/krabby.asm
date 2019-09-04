@@ -2,9 +2,9 @@
 	dw 104, 140 ; height, weight
 
 	db   "If it is unable"
-	next "to find food, it"
-	next "will absorb"
+	line2 "to find food, it"
+	line2 "will absorb"
 
 	page "nutrients by"
-	next "swallowing a"
-	next "mouthful of sand.@"
+	line2 "swallowing a"
+	line2 "mouthful of sand.@"

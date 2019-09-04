@@ -2,9 +2,9 @@
 	dw 403, 2 ; height, weight
 
 	db   "It wraps its op-"
-	next "ponent in its gas-"
-	next "like body, slowly"
+	line2 "ponent in its gas-"
+	line2 "like body, slowly"
 
 	page "weakening its prey"
-	next "by poisoning it"
-	next "through the skin.@"
+	line2 "by poisoning it"
+	line2 "through the skin.@"

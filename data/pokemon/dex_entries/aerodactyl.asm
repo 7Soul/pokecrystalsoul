@@ -2,9 +2,9 @@
 	dw 511, 1300 ; height, weight
 
 	db   "In prehistoric"
-	next "times, this"
-	next "#MON flew"
+	line2 "times, this"
+	line2 "#MON flew"
 
 	page "freely and"
-	next "fearlessly through"
-	next "the skies.@"
+	line2 "fearlessly through"
+	line2 "the skies.@"

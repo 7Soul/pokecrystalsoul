@@ -2,9 +2,9 @@
 	dw 207, 430 ; height, weight
 
 	db   "The only time it"
-	next "can use its psy-"
-	next "chic power is when"
+	line2 "can use its psy-"
+	line2 "chic power is when"
 
 	page "its sleeping brain"
-	next "cells happen to"
-	next "wake.@"
+	line2 "cells happen to"
+	line2 "wake.@"

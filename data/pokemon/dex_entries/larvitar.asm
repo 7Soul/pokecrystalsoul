@@ -2,9 +2,9 @@
 	dw 200, 1590 ; height, weight
 
 	db   "Born deep under-"
-	next "ground, this"
-	next "#MON becomes a"
+	line2 "ground, this"
+	line2 "#MON becomes a"
 
 	page "pupa after eating"
-	next "enough dirt to"
-	next "make a mountain.@"
+	line2 "enough dirt to"
+	line2 "make a mountain.@"

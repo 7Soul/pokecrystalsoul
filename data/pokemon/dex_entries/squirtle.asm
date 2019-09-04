@@ -2,9 +2,9 @@
 	dw 108, 200 ; height, weight
 
 	db   "When it feels"
-	next "threatened, it"
-	next "draws its legs"
+	line2 "threatened, it"
+	line2 "draws its legs"
 
 	page "inside its shell"
-	next "and sprays water"
-	next "from its mouth.@"
+	line2 "and sprays water"
+	line2 "from its mouth.@"

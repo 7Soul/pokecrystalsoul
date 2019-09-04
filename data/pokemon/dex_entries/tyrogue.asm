@@ -2,9 +2,9 @@
 	dw 204, 460 ; height, weight
 
 	db   "To brush up on its"
-	next "fighting skills,"
-	next "it will challenge"
+	line2 "fighting skills,"
+	line2 "it will challenge"
 
 	page "anyone. It has a"
-	next "very strong com-"
-	next "petitive spirit.@"
+	line2 "very strong com-"
+	line2 "petitive spirit.@"

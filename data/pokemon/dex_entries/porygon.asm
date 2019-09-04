@@ -2,9 +2,9 @@
 	dw 207, 800 ; height, weight
 
 	db   "An artificial"
-	next "#MON created"
-	next "due to extensive"
+	line2 "#MON created"
+	line2 "due to extensive"
 
 	page "research, it can"
-	next "perform only what"
-	next "is in its program.@"
+	line2 "perform only what"
+	line2 "is in its program.@"

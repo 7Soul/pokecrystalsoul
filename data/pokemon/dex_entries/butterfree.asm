@@ -2,9 +2,9 @@
 	dw 307, 710 ; height, weight
 
 	db   "It flits from"
-	next "flower to flower,"
-	next "collecting honey."
+	line2 "flower to flower,"
+	line2 "collecting honey."
 
 	page "It can even"
-	next "identify distant"
-	next "flowers in bloom.@"
+	line2 "identify distant"
+	line2 "flowers in bloom.@"

@@ -2,9 +2,9 @@
 	dw 200, 270 ; height, weight
 
 	db   "The swirl on its"
-	next "belly is its"
-	next "insides showing"
+	line2 "belly is its"
+	line2 "insides showing"
 
 	page "through the skin."
-	next "It looks clearer"
-	next "after it eats.@"
+	line2 "It looks clearer"
+	line2 "after it eats.@"

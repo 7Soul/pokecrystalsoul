@@ -2,9 +2,9 @@
 	dw 303, 710 ; height, weight
 
 	db   "Behind its lithe,"
-	next "elegant appearance"
-	next "lies a barbaric"
+	line2 "elegant appearance"
+	line2 "lies a barbaric"
 
 	page "side. It will tear"
-	next "apart its prey on"
-	next "a mere whim.@"
+	line2 "apart its prey on"
+	line2 "a mere whim.@"

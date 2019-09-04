@@ -2,9 +2,9 @@
 	dw 403, 1320 ; height, weight
 
 	db   "The hard scales"
-	next "that cover its"
-	next "strong body serve"
+	line2 "that cover its"
+	line2 "strong body serve"
 
 	page "as excellent"
-	next "protection from"
-	next "any attack.@"
+	line2 "protection from"
+	line2 "any attack.@"

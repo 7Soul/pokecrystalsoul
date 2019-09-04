@@ -2,9 +2,9 @@
 	dw 603, 2650 ; height, weight
 
 	db   "By lightly spin-"
-	next "ning its drill-"
-	next "like horn, it can"
+	line2 "ning its drill-"
+	line2 "like horn, it can"
 
 	page "easily shatter"
-	next "even a diamond in"
-	next "the rough.@"
+	line2 "even a diamond in"
+	line2 "the rough.@"

@@ -2,9 +2,9 @@
 	dw 503, 2870 ; height, weight
 
 	db   "With four arms"
-	next "that react more"
-	next "quickly than it"
+	line2 "that react more"
+	line2 "quickly than it"
 
 	page "can think, it can"
-	next "execute many"
-	next "punches at once.@"
+	line2 "execute many"
+	line2 "punches at once.@"

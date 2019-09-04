@@ -2,9 +2,9 @@
 	dw 100, 70 ; height, weight
 
 	db   "If the impact site"
-	next "of a meteorite is"
-	next "found, this"
+	line2 "of a meteorite is"
+	line2 "found, this"
 
 	page "#MON is certain"
-	next "to be within the"
-	next "immediate area.@"
+	line2 "to be within the"
+	line2 "immediate area.@"

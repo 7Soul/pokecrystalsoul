@@ -2,9 +2,9 @@
 	dw 303, 290 ; height, weight
 
 	db   "The bulb on its"
-	next "back grows as it"
-	next "absorbs nutrients."
+	line2 "back grows as it"
+	line2 "absorbs nutrients."
 
 	page "The bulb gives off"
-	next "a pleasant aroma"
-	next "when it blooms.@"
+	line2 "a pleasant aroma"
+	line2 "when it blooms.@"

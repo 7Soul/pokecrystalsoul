@@ -2,9 +2,9 @@
 	dw 311, 350 ; height, weight
 
 	db   "The scent that"
-	next "wafts from the"
-	next "leaves on its neck"
+	line2 "wafts from the"
+	line2 "leaves on its neck"
 
 	page "causes anyone who"
-	next "smells it to"
-	next "become energetic.@"
+	line2 "smells it to"
+	line2 "become energetic.@"

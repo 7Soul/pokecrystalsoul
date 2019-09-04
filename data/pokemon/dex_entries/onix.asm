@@ -2,9 +2,9 @@
 	dw 2810, 4630 ; height, weight
 
 	db   "As it digs through"
-	next "the ground, it"
-	next "absorbs many hard"
+	line2 "the ground, it"
+	line2 "absorbs many hard"
 
 	page "objects. This is"
-	next "what makes its"
-	next "body so solid.@"
+	line2 "what makes its"
+	line2 "body so solid.@"

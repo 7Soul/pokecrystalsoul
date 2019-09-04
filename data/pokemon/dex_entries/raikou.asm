@@ -2,9 +2,9 @@
 	dw 603, 3920 ; height, weight
 
 	db   "This rough #MON"
-	next "stores energy"
-	next "inside its body,"
+	line2 "stores energy"
+	line2 "inside its body,"
 
 	page "then sweeps across"
-	next "the land, shooting"
-	next "off electricity.@"
+	line2 "the land, shooting"
+	line2 "off electricity.@"

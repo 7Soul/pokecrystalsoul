@@ -2,9 +2,9 @@
 	dw 207, 190 ; height, weight
 
 	db   "As the hot season"
-	next "approaches, the"
-	next "petals on this"
+	line2 "approaches, the"
+	line2 "petals on this"
 
 	page "#MON's face"
-	next "become more vivid"
-	next "and lively.@"
+	line2 "become more vivid"
+	line2 "and lively.@"

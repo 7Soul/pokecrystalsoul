@@ -2,9 +2,9 @@
 	dw 503, 1890 ; height, weight
 
 	db   "It firmly plants"
-	next "its feet on the"
-	next "ground before"
+	line2 "its feet on the"
+	line2 "ground before"
 
 	page "shooting water"
-	next "from the jets on"
-	next "its back.@"
+	line2 "from the jets on"
+	line2 "its back.@"

@@ -2,9 +2,9 @@
 	dw 311, 1660 ; height, weight
 
 	db   "In order to milk a"
-	next "MILTANK, one must"
-	next "have a knack for"
+	line2 "MILTANK, one must"
+	line2 "have a knack for"
 
 	page "rhythmically pull-"
-	next "ing up and down"
-	next "on its udders.@"
+	line2 "ing up and down"
+	line2 "on its udders.@"

@@ -2,9 +2,9 @@
 	dw 511, 70 ; height, weight
 
 	db   "It sheds many lay-"
-	next "ers of skin as it"
-	next "grows larger. Dur-"
+	line2 "ers of skin as it"
+	line2 "grows larger. Dur-"
 
 	page "ing this process,"
-	next "it is protected by"
-	next "a rapid waterfall.@"
+	line2 "it is protected by"
+	line2 "a rapid waterfall.@"

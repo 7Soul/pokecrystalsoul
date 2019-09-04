@@ -2,9 +2,9 @@
 	dw 207, 250 ; height, weight
 
 	db   "It uses its tail"
-	next "to hang on to tree"
-	next "branches. It uses"
+	line2 "to hang on to tree"
+	line2 "branches. It uses"
 
 	page "its momentum to"
-	next "swing from one"
-	next "branch to another.@"
+	line2 "swing from one"
+	line2 "branch to another.@"

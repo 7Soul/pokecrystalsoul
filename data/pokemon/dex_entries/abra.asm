@@ -2,9 +2,9 @@
 	dw 211, 430 ; height, weight
 
 	db   "It hypnotizes"
-	next "itself so that it"
-	next "can teleport away"
+	line2 "itself so that it"
+	line2 "can teleport away"
 
 	page "when it senses"
-	next "danger, even"
-	next "if it is asleep.@"
+	line2 "danger, even"
+	line2 "if it is asleep.@"

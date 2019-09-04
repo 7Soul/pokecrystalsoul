@@ -2,9 +2,9 @@
 	dw 403, 880 ; height, weight
 
 	db   "Said to live in"
-	next "quiet, remote"
-	next "mountains, this"
+	line2 "quiet, remote"
+	line2 "mountains, this"
 
 	page "type of fairy has"
-	next "a strong aversion"
-	next "to being seen.@"
+	line2 "a strong aversion"
+	line2 "to being seen.@"

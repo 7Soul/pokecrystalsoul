@@ -2,9 +2,9 @@
 	dw 207, 630 ; height, weight
 
 	db   "The bubble-like"
-	next "pattern on its"
-	next "stomach helps it"
+	line2 "pattern on its"
+	line2 "stomach helps it"
 
 	page "camouflage itself"
-	next "when it's in the"
-	next "water.@"
+	line2 "when it's in the"
+	line2 "water.@"

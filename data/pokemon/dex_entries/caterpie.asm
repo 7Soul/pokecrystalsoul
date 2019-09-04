@@ -2,9 +2,9 @@
 	dw 100, 60 ; height, weight
 
 	db   "It crawls into"
-	next "foliage where it"
-	next "camouflages itself"
+	line2 "foliage where it"
+	line2 "camouflages itself"
 
 	page "among leaves that"
-	next "are the same color"
-	next "as its body.@"
+	line2 "are the same color"
+	line2 "as its body.@"

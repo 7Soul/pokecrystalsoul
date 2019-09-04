@@ -2,9 +2,9 @@
 	dw 1206, 4390 ; height, weight
 
 	db   "It will reveal"
-	next "itself before a"
-	next "pure-hearted"
+	line2 "itself before a"
+	line2 "pure-hearted"
 
 	page "trainer by shining"
-	next "its bright rain-"
-	next "bow-colored wings.@"
+	line2 "its bright rain-"
+	line2 "bow-colored wings.@"

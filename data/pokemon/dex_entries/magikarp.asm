@@ -2,9 +2,9 @@
 	dw 211, 220 ; height, weight
 
 	db   "This weak and"
-	next "pathetic #MON"
-	next "gets easily pushed"
+	line2 "pathetic #MON"
+	line2 "gets easily pushed"
 
 	page "along rivers when"
-	next "there are strong"
-	next "currents.@"
+	line2 "there are strong"
+	line2 "currents.@"

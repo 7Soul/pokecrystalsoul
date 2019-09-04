@@ -2,9 +2,9 @@
 	dw 411, 2920 ; height, weight
 
 	db   "Even a missile"
-	next "can't break the"
-	next "spikes it uses to"
+	line2 "can't break the"
+	line2 "spikes it uses to"
 
 	page "stab opponents."
-	next "They're even hard-"
-	next "er than its shell.@"
+	line2 "They're even hard-"
+	line2 "er than its shell.@"

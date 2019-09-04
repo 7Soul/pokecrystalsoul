@@ -2,9 +2,9 @@
 	dw 411, 1550 ; height, weight
 
 	db   "This tough #MON"
-	next "always stays in"
-	next "the zone. Its"
+	line2 "always stays in"
+	line2 "the zone. Its"
 
 	page "muscles become"
-	next "thicker after"
-	next "every battle.@"
+	line2 "thicker after"
+	line2 "every battle.@"

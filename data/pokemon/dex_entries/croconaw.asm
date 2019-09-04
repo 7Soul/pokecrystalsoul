@@ -2,9 +2,9 @@
 	dw 307, 550 ; height, weight
 
 	db   "The tips of its"
-	next "fangs are slanted"
-	next "backward. Once"
+	line2 "fangs are slanted"
+	line2 "backward. Once"
 
 	page "those fangs clamp"
-	next "down, the prey has"
-	next "no hope of escape.@"
+	line2 "down, the prey has"
+	line2 "no hope of escape.@"

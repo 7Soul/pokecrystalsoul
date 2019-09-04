@@ -2,9 +2,9 @@
 	dw 311, 1280 ; height, weight
 
 	db   "The color of the"
-	next "mysterious fluid"
-	next "secreted from its"
+	line2 "mysterious fluid"
+	line2 "secreted from its"
 
 	page "tail is predeter-"
-	next "mined for each"
-	next "SMEARGLE.@"
+	line2 "mined for each"
+	line2 "SMEARGLE.@"

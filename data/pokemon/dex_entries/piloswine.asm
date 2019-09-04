@@ -2,9 +2,9 @@
 	dw 307, 1230 ; height, weight
 
 	db   "Although its legs"
-	next "are short, its"
-	next "rugged hooves"
+	line2 "are short, its"
+	line2 "rugged hooves"
 
 	page "prevent it from"
-	next "slipping, even on"
-	next "icy ground.@"
+	line2 "slipping, even on"
+	line2 "icy ground.@"

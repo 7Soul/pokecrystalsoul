@@ -2,9 +2,9 @@
 	dw 307, 750 ; height, weight
 
 	db   "When it expands"
-	next "its throat to"
-	next "croak out a tune,"
+	line2 "its throat to"
+	line2 "croak out a tune,"
 
 	page "nearby POLIWAG and"
-	next "POLIWHIRL gather"
-	next "immediately.@"
+	line2 "POLIWHIRL gather"
+	line2 "immediately.@"

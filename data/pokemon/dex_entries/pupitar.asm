@@ -2,9 +2,9 @@
 	dw 311, 3350 ; height, weight
 
 	db   "It will not stay"
-	next "still, even while"
-	next "it's a pupa. It"
+	line2 "still, even while"
+	line2 "it's a pupa. It"
 
 	page "already has arms"
-	next "and legs under its"
-	next "solid shell.@"
+	line2 "and legs under its"
+	line2 "solid shell.@"

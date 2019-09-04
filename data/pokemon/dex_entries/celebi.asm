@@ -2,9 +2,9 @@
 	dw 200, 110 ; height, weight
 
 	db   "Revered as a"
-	next "guardian of the"
-	next "forest, CELEBI"
+	line2 "guardian of the"
+	line2 "forest, CELEBI"
 
 	page "appears wherever"
-	next "beautiful forests"
-	next "exist.@"
+	line2 "beautiful forests"
+	line2 "exist.@"

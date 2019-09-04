@@ -2,9 +2,9 @@
 	dw 403, 980 ; height, weight
 
 	db   "It moves more"
-	next "frequently in hot"
-	next "areas. It can heal"
+	line2 "frequently in hot"
+	line2 "areas. It can heal"
 
 	page "itself by dipping"
-	next "its wound into"
-	next "lava.@"
+	line2 "its wound into"
+	line2 "lava.@"

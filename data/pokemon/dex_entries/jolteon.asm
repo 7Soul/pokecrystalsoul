@@ -2,9 +2,9 @@
 	dw 207, 540 ; height, weight
 
 	db   "The negatively"
-	next "charged ions"
-	next "generated in its"
+	line2 "charged ions"
+	line2 "generated in its"
 
 	page "fur create a"
-	next "constant sparking"
-	next "noise.@"
+	line2 "constant sparking"
+	line2 "noise.@"

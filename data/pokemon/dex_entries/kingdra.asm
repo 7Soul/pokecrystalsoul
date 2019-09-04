@@ -2,9 +2,9 @@
 	dw 511, 3350 ; height, weight
 
 	db   "It stores energy"
-	next "by sleeping at"
-	next "underwater depths"
+	line2 "by sleeping at"
+	line2 "underwater depths"
 
 	page "at which no other"
-	next "life forms can"
-	next "survive.@"
+	line2 "life forms can"
+	line2 "survive.@"

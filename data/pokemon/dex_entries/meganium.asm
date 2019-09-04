@@ -2,9 +2,9 @@
 	dw 511, 2220 ; height, weight
 
 	db   "Anyone who stands"
-	next "beside it becomes"
-	next "refreshed, just as"
+	line2 "beside it becomes"
+	line2 "refreshed, just as"
 
 	page "if they were"
-	next "relaxing in a"
-	next "sunny forest.@"
+	line2 "relaxing in a"
+	line2 "sunny forest.@"

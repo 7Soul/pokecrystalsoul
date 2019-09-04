@@ -2,9 +2,9 @@
 	dw 703, 1760 ; height, weight
 
 	db   "To avoid"
-	next "crushing the"
-	next "baby it carries in"
+	line2 "crushing the"
+	line2 "baby it carries in"
 
 	page "its pouch, it"
-	next "always sleeps"
-	next "standing up.@"
+	line2 "always sleeps"
+	line2 "standing up.@"

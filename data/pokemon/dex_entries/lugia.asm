@@ -2,9 +2,9 @@
 	dw 1701, 4760 ; height, weight
 
 	db   "It has an incred-"
-	next "ible ability to"
-	next "calm raging sto-"
+	line2 "ible ability to"
+	line2 "calm raging sto-"
 
 	page "rms. It is said"
-	next "that LUGIA appears"
-	next "when storms start.@"
+	line2 "that LUGIA appears"
+	line2 "when storms start.@"

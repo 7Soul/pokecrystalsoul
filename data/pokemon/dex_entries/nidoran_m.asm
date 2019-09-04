@@ -2,9 +2,9 @@
 	dw 108, 200 ; height, weight
 
 	db   "It constantly"
-	next "moves its large"
-	next "ears in many"
+	line2 "moves its large"
+	line2 "ears in many"
 
 	page "directions in"
-	next "order to detect"
-	next "danger right away.@"
+	line2 "order to detect"
+	line2 "danger right away.@"

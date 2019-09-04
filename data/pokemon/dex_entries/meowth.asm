@@ -2,9 +2,9 @@
 	dw 104, 90 ; height, weight
 
 	db   "It loves things"
-	next "that sparkle. When"
-	next "it sees a shiny"
+	line2 "that sparkle. When"
+	line2 "it sees a shiny"
 
 	page "object, the gold"
-	next "coin on its head"
-	next "shines too.@"
+	line2 "coin on its head"
+	line2 "shines too.@"

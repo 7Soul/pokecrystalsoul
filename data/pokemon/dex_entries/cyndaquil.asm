@@ -2,9 +2,9 @@
 	dw 108, 170 ; height, weight
 
 	db   "The fire that"
-	next "spouts from its"
-	next "back burns hottest"
+	line2 "spouts from its"
+	line2 "back burns hottest"
 
 	page "when it is angry."
-	next "The flaring flames"
-	next "intimidate foes.@"
+	line2 "The flaring flames"
+	line2 "intimidate foes.@"

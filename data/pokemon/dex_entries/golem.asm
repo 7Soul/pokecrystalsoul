@@ -2,9 +2,9 @@
 	dw 407, 6620 ; height, weight
 
 	db   "Its rock-like body"
-	next "is so durable,"
-	next "even high-powered"
+	line2 "is so durable,"
+	line2 "even high-powered"
 
 	page "dynamite blasts"
-	next "fail to scratch"
-	next "its rugged hide.@"
+	line2 "fail to scratch"
+	line2 "its rugged hide.@"

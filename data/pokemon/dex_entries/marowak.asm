@@ -2,9 +2,9 @@
 	dw 303, 990 ; height, weight
 
 	db   "Somewhere in the"
-	next "world is a ceme-"
-	next "tery just for"
+	line2 "world is a ceme-"
+	line2 "tery just for"
 
 	page "MAROWAK. It gets"
-	next "its bones from"
-	next "those graves.@"
+	line2 "its bones from"
+	line2 "those graves.@"

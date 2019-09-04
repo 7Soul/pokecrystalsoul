@@ -2,9 +2,9 @@
 	dw 200, 20 ; height, weight
 
 	db   "If one gets close"
-	next "enough to it when"
-	next "it expels poison-"
+	line2 "enough to it when"
+	line2 "it expels poison-"
 
 	page "ous gas, the gas"
-	next "swirling inside it"
-	next "can be seen.@"
+	line2 "swirling inside it"
+	line2 "can be seen.@"

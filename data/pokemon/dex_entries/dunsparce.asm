@@ -2,9 +2,9 @@
 	dw 411, 310 ; height, weight
 
 	db   "It hides deep"
-	next "inside caves where"
-	next "no light ever"
+	line2 "inside caves where"
+	line2 "no light ever"
 
 	page "reaches it and"
-	next "remains virtually"
-	next "motionless there.@"
+	line2 "remains virtually"
+	line2 "motionless there.@"

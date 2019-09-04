@@ -2,9 +2,9 @@
 	dw 303, 240 ; height, weight
 
 	db   "It is timid and"
-	next "clusters together"
-	next "with others. The"
+	line2 "clusters together"
+	line2 "with others. The"
 
 	page "fluid secreted by"
-	next "its feet indicates"
-	next "its location.@"
+	line2 "its feet indicates"
+	line2 "its location.@"

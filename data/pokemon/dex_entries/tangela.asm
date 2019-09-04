@@ -2,9 +2,9 @@
 	dw 303, 770 ; height, weight
 
 	db   "During battle, it"
-	next "constantly moves"
-	next "the vines that"
+	line2 "constantly moves"
+	line2 "the vines that"
 
 	page "cover its body in"
-	next "order to annoy its"
-	next "opponent.@"
+	line2 "order to annoy its"
+	line2 "opponent.@"

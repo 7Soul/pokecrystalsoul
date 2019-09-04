@@ -2,9 +2,9 @@
 	dw 503, 900 ; height, weight
 
 	db   "Its extremely soft"
-	next "feathers make no"
-	next "sound in flight."
+	line2 "feathers make no"
+	line2 "sound in flight."
 
 	page "It silently sneaks"
-	next "up on prey without"
-	next "being detected.@"
+	line2 "up on prey without"
+	line2 "being detected.@"

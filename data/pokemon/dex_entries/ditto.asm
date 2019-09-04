@@ -2,9 +2,9 @@
 	dw 100, 90 ; height, weight
 
 	db   "When it encount-"
-	next "ers another DITTO,"
-	next "it will move"
+	line2 "ers another DITTO,"
+	line2 "it will move"
 
 	page "faster than normal"
-	next "to duplicate that"
-	next "opponent exactly.@"
+	line2 "to duplicate that"
+	line2 "opponent exactly.@"

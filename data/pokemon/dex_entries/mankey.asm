@@ -2,9 +2,9 @@
 	dw 108, 620 ; height, weight
 
 	db   "It lives in groups"
-	next "in the treetops."
-	next "If it loses sight"
+	line2 "in the treetops."
+	line2 "If it loses sight"
 
 	page "of its group, it"
-	next "becomes infuriated"
-	next "by its loneliness.@"
+	line2 "becomes infuriated"
+	line2 "by its loneliness.@"

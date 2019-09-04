@@ -2,9 +2,9 @@
 	dw 411, 1030 ; height, weight
 
 	db   "Biting into one"
-	next "of the delicious"
-	next "eggs that BLISSEY"
+	line2 "of the delicious"
+	line2 "eggs that BLISSEY"
 
 	page "provides will make"
-	next "everyone around"
-	next "smile with joy.@"
+	line2 "everyone around"
+	line2 "smile with joy.@"

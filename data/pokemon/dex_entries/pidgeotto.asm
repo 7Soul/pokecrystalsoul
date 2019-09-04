@@ -2,9 +2,9 @@
 	dw 307, 660 ; height, weight
 
 	db   "It slowly flies in"
-	next "a circular pat-"
-	next "tern, all the"
+	line2 "a circular pat-"
+	line2 "tern, all the"
 
 	page "while keeping a"
-	next "sharp lookout for"
-	next "prey.@"
+	line2 "sharp lookout for"
+	line2 "prey.@"

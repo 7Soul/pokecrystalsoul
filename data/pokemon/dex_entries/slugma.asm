@@ -2,9 +2,9 @@
 	dw 204, 770 ; height, weight
 
 	db   "These group to-"
-	next "gether in areas"
-	next "that are hotter"
+	line2 "gether in areas"
+	line2 "that are hotter"
 
 	page "than normal. If it"
-	next "cools off, its"
-	next "skin hardens.@"
+	line2 "cools off, its"
+	line2 "skin hardens.@"

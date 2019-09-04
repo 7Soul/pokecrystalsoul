@@ -2,9 +2,9 @@
 	dw 503, 2 ; height, weight
 
 	db   "It hides in the"
-	next "dark, planning to"
-	next "take the life of"
+	line2 "dark, planning to"
+	line2 "take the life of"
 
 	page "the next living"
-	next "thing that wanders"
-	next "close by.@"
+	line2 "thing that wanders"
+	line2 "close by.@"

@@ -2,9 +2,9 @@
 	dw 100, 80 ; height, weight
 
 	db   "This #MON's"
-	next "impressive vital-"
-	next "ity allows it to"
+	line2 "impressive vital-"
+	line2 "ity allows it to"
 
 	page "live anywhere. It"
-	next "also multiplies"
-	next "very quickly.@"
+	line2 "also multiplies"
+	line2 "very quickly.@"

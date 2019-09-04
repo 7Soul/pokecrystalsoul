@@ -2,9 +2,9 @@
 	dw 108, 190 ; height, weight
 
 	db   "If prey becomes"
-	next "ensnared in its"
-	next "nest of spun"
+	line2 "ensnared in its"
+	line2 "nest of spun"
 
 	page "string, it waits"
-	next "motionlessly until"
-	next "it becomes dark.@"
+	line2 "motionlessly until"
+	line2 "it becomes dark.@"

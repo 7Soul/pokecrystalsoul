@@ -2,9 +2,9 @@
 	dw 104, 180 ; height, weight
 
 	db   "When they're in a"
-	next "safe location,"
-	next "they can be seen"
+	line2 "safe location,"
+	line2 "they can be seen"
 
 	page "playfully tangling"
-	next "their tails"
-	next "together.@"
+	line2 "their tails"
+	line2 "together.@"

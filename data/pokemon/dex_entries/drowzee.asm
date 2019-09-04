@@ -2,9 +2,9 @@
 	dw 303, 710 ; height, weight
 
 	db   "When it twitches"
-	next "its nose, it can"
-	next "tell where someone"
+	line2 "its nose, it can"
+	line2 "tell where someone"
 
 	page "is sleeping and"
-	next "what that person"
-	next "is dreaming about.@"
+	line2 "what that person"
+	line2 "is dreaming about.@"

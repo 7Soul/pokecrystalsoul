@@ -2,9 +2,9 @@
 	dw 503, 1210 ; height, weight
 
 	db   "When it plunges"
-	next "its fangs into its"
-	next "prey, it instantly"
+	line2 "its fangs into its"
+	line2 "prey, it instantly"
 
 	page "draws and gulps"
-	next "down more than ten"
-	next "ounces of blood.@"
+	line2 "down more than ten"
+	line2 "ounces of blood.@"

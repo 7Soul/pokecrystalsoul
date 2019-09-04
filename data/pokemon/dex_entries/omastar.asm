@@ -2,9 +2,9 @@
 	dw 303, 770 ; height, weight
 
 	db   "Its heavy shell"
-	next "allowed it to"
-	next "reach only nearby"
+	line2 "allowed it to"
+	line2 "reach only nearby"
 
 	page "food. This could"
-	next "be the reason it"
-	next "is extinct.@"
+	line2 "be the reason it"
+	line2 "is extinct.@"

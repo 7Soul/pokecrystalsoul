@@ -2,9 +2,9 @@
 	dw 207, 440 ; height, weight
 
 	db   "It has a docile"
-	next "nature. If it is"
-	next "threatened with"
+	line2 "nature. If it is"
+	line2 "threatened with"
 
 	page "attack, it raises"
-	next "the barbs that are"
-	next "all over its body.@"
+	line2 "the barbs that are"
+	line2 "all over its body.@"

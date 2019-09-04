@@ -2,9 +2,9 @@
 	dw 607, 4370 ; height, weight
 
 	db   "This brawny"
-	next "#MON courses"
-	next "around the earth,"
+	line2 "#MON courses"
+	line2 "around the earth,"
 
 	page "spouting flames"
-	next "hotter than a"
-	next "volcano's magma.@"
+	line2 "hotter than a"
+	line2 "volcano's magma.@"

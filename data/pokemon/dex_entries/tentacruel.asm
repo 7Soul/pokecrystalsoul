@@ -2,9 +2,9 @@
 	dw 503, 1210 ; height, weight
 
 	db   "When its 80 feel-"
-	next "ers absorb water,"
-	next "it stretches to"
+	line2 "ers absorb water,"
+	line2 "it stretches to"
 
 	page "become like a net"
-	next "to entangle its"
-	next "prey.@"
+	line2 "to entangle its"
+	line2 "prey.@"

@@ -2,9 +2,9 @@
 	dw 200, 260 ; height, weight
 
 	db   "It prefers dry,"
-	next "sandy places"
-	next "because it uses"
+	line2 "sandy places"
+	line2 "because it uses"
 
 	page "the sand to"
-	next "protect itself"
-	next "when threatened.@"
+	line2 "protect itself"
+	line2 "when threatened.@"

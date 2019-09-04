@@ -2,9 +2,9 @@
 	dw 303, 2540 ; height, weight
 
 	db   "It can remember"
-	next "only one thing at"
-	next "a time. Once it"
+	line2 "only one thing at"
+	line2 "a time. Once it"
 
 	page "starts rushing, it"
-	next "forgets why it"
-	next "started.@"
+	line2 "forgets why it"
+	line2 "started.@"

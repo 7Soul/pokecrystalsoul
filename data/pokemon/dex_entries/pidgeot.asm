@@ -2,9 +2,9 @@
 	dw 411, 870 ; height, weight
 
 	db   "Its outstanding"
-	next "vision allows it"
-	next "to spot splashing"
+	line2 "vision allows it"
+	line2 "to spot splashing"
 
 	page "MAGIKARP, even"
-	next "while flying at"
-	next "3300 feet.@"
+	line2 "while flying at"
+	line2 "3300 feet.@"

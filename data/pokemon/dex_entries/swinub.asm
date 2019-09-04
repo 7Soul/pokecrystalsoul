@@ -2,9 +2,9 @@
 	dw 104, 140 ; height, weight
 
 	db   "It uses the tip of"
-	next "its nose to dig"
-	next "for food. Its nose"
+	line2 "its nose to dig"
+	line2 "for food. Its nose"
 
 	page "is so tough that"
-	next "even frozen ground"
-	next "poses no problem.@"
+	line2 "even frozen ground"
+	line2 "poses no problem.@"

@@ -2,9 +2,9 @@
 	dw 407, 1370 ; height, weight
 
 	db   "It uses its thick"
-	next "arms, legs and"
-	next "tail to attack"
+	line2 "arms, legs and"
+	line2 "tail to attack"
 
 	page "forcefully. Melee"
-	next "combat is its"
-	next "specialty.@"
+	line2 "combat is its"
+	line2 "specialty.@"

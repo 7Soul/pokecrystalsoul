@@ -2,9 +2,9 @@
 	dw 100, 120 ; height, weight
 
 	db   "The tochukaso"
-	next "growing on this"
-	next "#MON's back"
+	line2 "growing on this"
+	line2 "#MON's back"
 
 	page "orders it to"
-	next "extract juice from"
-	next "tree trunks.@"
+	line2 "extract juice from"
+	line2 "tree trunks.@"

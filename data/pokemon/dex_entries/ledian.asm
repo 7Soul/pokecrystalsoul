@@ -2,9 +2,9 @@
 	dw 407, 780 ; height, weight
 
 	db   "In the daytime"
-	next "when it gets warm,"
-	next "it curls up inside"
+	line2 "when it gets warm,"
+	line2 "it curls up inside"
 
 	page "a big leaf and"
-	next "drifts off into"
-	next "a deep slumber.@"
+	line2 "drifts off into"
+	line2 "a deep slumber.@"

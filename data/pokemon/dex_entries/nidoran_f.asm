@@ -2,9 +2,9 @@
 	dw 104, 150 ; height, weight
 
 	db   "Small and very"
-	next "docile, it pro-"
-	next "tects itself with"
+	line2 "docile, it pro-"
+	line2 "tects itself with"
 
 	page "its small, poison-"
-	next "ous horn when"
-	next "attacked.@"
+	line2 "ous horn when"
+	line2 "attacked.@"

@@ -2,9 +2,9 @@
 	dw 8, 20 ; height, weight
 
 	db   "It digs under-"
-	next "ground and chews"
-	next "on tree roots,"
+	line2 "ground and chews"
+	line2 "on tree roots,"
 
 	page "sticking its head"
-	next "out only when the"
-	next "sun isn't bright.@"
+	line2 "out only when the"
+	line2 "sun isn't bright.@"

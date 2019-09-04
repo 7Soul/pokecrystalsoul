@@ -2,9 +2,9 @@
 	dw 511, 2600 ; height, weight
 
 	db   "This #MON's"
-	next "pincers, which"
-	next "contain steel, can"
+	line2 "pincers, which"
+	line2 "contain steel, can"
 
 	page "crush any hard"
-	next "object it gets a"
-	next "hold of into bits.@"
+	line2 "object it gets a"
+	line2 "hold of into bits.@"

@@ -2,9 +2,9 @@
 	dw 207, 70 ; height, weight
 
 	db   "Even in the fierc-"
-	next "est wind, it can"
-	next "control its fluff"
+	line2 "est wind, it can"
+	line2 "control its fluff"
 
 	page "to make its way to"
-	next "any place in the"
-	next "world it wants.@"
+	line2 "any place in the"
+	line2 "world it wants.@"

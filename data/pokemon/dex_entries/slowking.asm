@@ -2,9 +2,9 @@
 	dw 607, 1750 ; height, weight
 
 	db   "Every time it ya-"
-	next "wns, SHELLDER"
-	next "injects more poi-"
+	line2 "wns, SHELLDER"
+	line2 "injects more poi-"
 
 	page "son into it. The"
-	next "poison makes it"
-	next "more intelligent.@"
+	line2 "poison makes it"
+	line2 "more intelligent.@"

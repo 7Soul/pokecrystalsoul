@@ -2,9 +2,9 @@
 	dw 403, 1190 ; height, weight
 
 	db   "It can use its"
-	next "well-developed"
-	next "arms and legs to"
+	line2 "well-developed"
+	line2 "arms and legs to"
 
 	page "run on the surface"
-	next "of the water for a"
-	next "split second.@"
+	line2 "of the water for a"
+	line2 "split second.@"

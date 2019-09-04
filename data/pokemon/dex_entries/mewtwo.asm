@@ -2,9 +2,9 @@
 	dw 607, 2690 ; height, weight
 
 	db   "Said to rest qui-"
-	next "etly in an"
-	next "undiscovered cave,"
+	line2 "etly in an"
+	line2 "undiscovered cave,"
 
 	page "this #MON was"
-	next "created solely for"
-	next "battling.@"
+	line2 "created solely for"
+	line2 "battling.@"

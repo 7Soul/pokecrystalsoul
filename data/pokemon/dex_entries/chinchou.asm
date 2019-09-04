@@ -2,9 +2,9 @@
 	dw 108, 260 ; height, weight
 
 	db   "Its antennae, whi-"
-	next "ch evolved from a"
-	next "fin, have both po-"
+	line2 "ch evolved from a"
+	line2 "fin, have both po-"
 
 	page "sitive and neg-"
-	next "ative charges flo-"
-	next "wing through them.@"
+	line2 "ative charges flo-"
+	line2 "wing through them.@"

@@ -2,9 +2,9 @@
 	dw 207, 1210 ; height, weight
 
 	db   "Its body is as hot"
-	next "as lava and is"
-	next "always billowing."
+	line2 "as lava and is"
+	line2 "always billowing."
 
 	page "Flames will"
-	next "occasionally burst"
-	next "from its shell.@"
+	line2 "occasionally burst"
+	line2 "from its shell.@"

@@ -2,9 +2,9 @@
 	dw 511, 1880 ; height, weight
 
 	db   "An enemy that"
-	next "takes its eyes off"
-	next "any of the three"
+	line2 "takes its eyes off"
+	line2 "any of the three"
 
 	page "heads--even for a"
-	next "second--will get"
-	next "pecked severely.@"
+	line2 "second--will get"
+	line2 "pecked severely.@"

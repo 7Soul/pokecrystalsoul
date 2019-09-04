@@ -2,9 +2,9 @@
 	dw 802, 4850 ; height, weight
 
 	db   "This gentle"
-	next "#MON loves to"
-	next "give people rides"
+	line2 "#MON loves to"
+	line2 "give people rides"
 
 	page "and provides a ve-"
-	next "ry comfortable way"
-	next "to get around.@"
+	line2 "ry comfortable way"
+	line2 "to get around.@"

@@ -2,9 +2,9 @@
 	dw 311, 840 ; height, weight
 
 	db   "It can see in all"
-	next "directions without"
-	next "moving its big"
+	line2 "directions without"
+	line2 "moving its big"
 
 	page "eyes, helping it"
-	next "spot attackers and"
-	next "food right away.@"
+	line2 "spot attackers and"
+	line2 "food right away.@"

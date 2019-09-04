@@ -2,9 +2,9 @@
 	dw 200, 210 ; height, weight
 
 	db   "This rough critter"
-	next "chomps at any"
-	next "moving object it"
+	line2 "chomps at any"
+	line2 "moving object it"
 
 	page "sees. Turning your"
-	next "back on it is not"
-	next "recommended.@"
+	line2 "back on it is not"
+	line2 "recommended.@"

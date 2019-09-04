@@ -2,9 +2,9 @@
 	dw 3002, 8820 ; height, weight
 
 	db   "The many small"
-	next "metal particles"
-	next "that cover this"
+	line2 "metal particles"
+	line2 "that cover this"
 
 	page "#MON's body"
-	next "reflect bright"
-	next "light well.@"
+	line2 "reflect bright"
+	line2 "light well.@"

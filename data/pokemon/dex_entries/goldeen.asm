@@ -2,9 +2,9 @@
 	dw 200, 330 ; height, weight
 
 	db   "During spawning"
-	next "season, they swim"
-	next "gracefully in the"
+	line2 "season, they swim"
+	line2 "gracefully in the"
 
 	page "water, searching"
-	next "for their perfect"
-	next "mate.@"
+	line2 "for their perfect"
+	line2 "mate.@"

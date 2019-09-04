@@ -2,9 +2,9 @@
 	dw 204, 410 ; height, weight
 
 	db   "The webs on its"
-	next "hind legs enable"
-	next "it to cross"
+	line2 "hind legs enable"
+	line2 "it to cross"
 
 	page "rivers. It search-"
-	next "es wide areas for"
-	next "food.@"
+	line2 "es wide areas for"
+	line2 "food.@"

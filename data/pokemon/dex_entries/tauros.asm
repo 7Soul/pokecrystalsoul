@@ -2,9 +2,9 @@
 	dw 407, 1950 ; height, weight
 
 	db   "These violent"
-	next "#MON fight"
-	next "with other mem-"
+	line2 "#MON fight"
+	line2 "with other mem-"
 
 	page "bers of their herd"
-	next "in order to prove"
-	next "their strength.@"
+	line2 "in order to prove"
+	line2 "their strength.@"

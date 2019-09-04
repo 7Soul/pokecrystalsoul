@@ -2,9 +2,9 @@
 	dw 100, 40 ; height, weight
 
 	db   "It is unskilled at"
-	next "storing electric"
-	next "power. Any kind of"
+	line2 "storing electric"
+	line2 "power. Any kind of"
 
 	page "shock causes it to"
-	next "discharge energy"
-	next "spontaneously.@"
+	line2 "discharge energy"
+	line2 "spontaneously.@"

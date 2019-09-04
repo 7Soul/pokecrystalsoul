@@ -2,9 +2,9 @@
 	dw 303, 1320 ; height, weight
 
 	db   "When many"
-	next "MAGNETON gather"
-	next "together, the"
+	line2 "MAGNETON gather"
+	line2 "together, the"
 
 	page "resulting magnetic"
-	next "storm disrupts"
-	next "radio waves.@"
+	line2 "storm disrupts"
+	line2 "radio waves.@"

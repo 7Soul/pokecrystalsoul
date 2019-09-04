@@ -2,9 +2,9 @@
 	dw 607, 2210 ; height, weight
 
 	db   "As it warms it-"
-	next "self and absorbs"
-	next "the sunlight, its"
+	line2 "self and absorbs"
+	line2 "the sunlight, its"
 
 	page "flower petals"
-	next "release a pleasant"
-	next "fragrance.@"
+	line2 "release a pleasant"
+	line2 "fragrance.@"

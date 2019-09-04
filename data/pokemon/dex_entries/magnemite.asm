@@ -2,9 +2,9 @@
 	dw 100, 130 ; height, weight
 
 	db   "The electricity"
-	next "emitted by the"
-	next "units on each side"
+	line2 "emitted by the"
+	line2 "units on each side"
 
 	page "of its body cause"
-	next "it to become a"
-	next "strong magnet.@"
+	line2 "it to become a"
+	line2 "strong magnet.@"

@@ -2,9 +2,9 @@
 	dw 104, 440 ; height, weight
 
 	db   "Proud of their"
-	next "sturdy bodies,"
-	next "they bash against"
+	line2 "sturdy bodies,"
+	line2 "they bash against"
 
 	page "each other in a"
-	next "contest to prove"
-	next "whose is harder.@"
+	line2 "contest to prove"
+	line2 "whose is harder.@"

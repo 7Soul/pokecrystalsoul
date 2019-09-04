@@ -2,9 +2,9 @@
 	dw 200, 220 ; height, weight
 
 	db   "Nearly incapable"
-	next "of movement, it"
-	next "leans against"
+	line2 "of movement, it"
+	line2 "leans against"
 
 	page "stout trees while"
-	next "waiting for its"
-	next "evolution.@"
+	line2 "waiting for its"
+	line2 "evolution.@"

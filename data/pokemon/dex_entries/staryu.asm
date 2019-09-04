@@ -2,9 +2,9 @@
 	dw 207, 760 ; height, weight
 
 	db   "When the stars"
-	next "twinkle at night,"
-	next "it floats up from"
+	line2 "twinkle at night,"
+	line2 "it floats up from"
 
 	page "the sea floor, and"
-	next "its body's center"
-	next "core flickers.@"
+	line2 "its body's center"
+	line2 "core flickers.@"

@@ -2,9 +2,9 @@
 	dw 303, 2320 ; height, weight
 
 	db   "It travels by rol-"
-	next "ling on mountain"
-	next "paths. If it gains"
+	line2 "ling on mountain"
+	line2 "paths. If it gains"
 
 	page "too much speed, it"
-	next "stops by running"
-	next "into huge rocks.@"
+	line2 "stops by running"
+	line2 "into huge rocks.@"

@@ -2,9 +2,9 @@
 	dw 211, 1000 ; height, weight
 
 	db   "As it floats along"
-	next "on the waves, it"
-	next "uses its toxic"
+	line2 "on the waves, it"
+	line2 "uses its toxic"
 
 	page "feelers to stab"
-	next "anything it"
-	next "touches.@"
+	line2 "anything it"
+	line2 "touches.@"

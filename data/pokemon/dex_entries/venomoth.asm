@@ -2,9 +2,9 @@
 	dw 411, 280 ; height, weight
 
 	db   "The scales it"
-	next "scatters will"
-	next "paralyze anyone"
+	line2 "scatters will"
+	line2 "paralyze anyone"
 
 	page "who touches them,"
-	next "making that person"
-	next "unable to stand.@"
+	line2 "making that person"
+	line2 "unable to stand.@"

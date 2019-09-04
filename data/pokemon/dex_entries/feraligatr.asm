@@ -2,9 +2,9 @@
 	dw 707, 1960 ; height, weight
 
 	db   "Although it has a"
-	next "massive body, its"
-	next "powerful hind legs"
+	line2 "massive body, its"
+	line2 "powerful hind legs"
 
 	page "enable it to move"
-	next "quickly, even on"
-	next "the ground.@"
+	line2 "quickly, even on"
+	line2 "the ground.@"

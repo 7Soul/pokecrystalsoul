@@ -2,9 +2,9 @@
 	dw 207, 130 ; height, weight
 
 	db   "When acting as a"
-	next "lookout, it warns"
-	next "others of danger"
+	line2 "lookout, it warns"
+	line2 "others of danger"
 
 	page "by screeching and"
-	next "hitting the ground"
-	next "with its tail.@"
+	line2 "hitting the ground"
+	line2 "with its tail.@"

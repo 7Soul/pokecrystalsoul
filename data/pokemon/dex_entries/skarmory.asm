@@ -2,9 +2,9 @@
 	dw 507, 1110 ; height, weight
 
 	db   "The feathers that"
-	next "it sheds are very"
-	next "sharp. It is said"
+	line2 "it sheds are very"
+	line2 "sharp. It is said"
 
 	page "that people once"
-	next "used the feathers"
-	next "as swords.@"
+	line2 "used the feathers"
+	line2 "as swords.@"

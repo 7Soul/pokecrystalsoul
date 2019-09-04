@@ -2,9 +2,9 @@
 	dw 303, 710 ; height, weight
 
 	db   "It will beat up"
-	next "anyone who makes"
-	next "it mad, even if it"
+	line2 "anyone who makes"
+	line2 "it mad, even if it"
 
 	page "has to chase them"
-	next "until the end of"
-	next "the world.@"
+	line2 "until the end of"
+	line2 "the world.@"

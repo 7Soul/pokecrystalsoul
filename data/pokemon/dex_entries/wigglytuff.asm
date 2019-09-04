@@ -2,9 +2,9 @@
 	dw 303, 260 ; height, weight
 
 	db   "The rich, fluffy"
-	next "fur that covers"
-	next "its body feels so"
+	line2 "fur that covers"
+	line2 "its body feels so"
 
 	page "good that anyone"
-	next "who feels it can't"
-	next "stop touching it.@"
+	line2 "who feels it can't"
+	line2 "stop touching it.@"
