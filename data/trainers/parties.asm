@@ -2535,6 +2535,8 @@ CamperGroup:
 	; CAMPER (11)
 	db "Ted@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, MANKEY
+	db 0, 17, 5, 1, MANKEY
+	db 0, 17, 5, 1, MANKEY
 	db 4, 17, 5, 0, TAUROS
 	db -1 ; end
 

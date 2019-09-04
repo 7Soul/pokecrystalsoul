@@ -398,13 +398,68 @@ endr
 	jp .skip_after_check4
 	
 BadgeLevels:
+	push bc
 	ld hl, .levels
 	ld e, a
 	ld d, 0
 	add hl, de
 	ld a, [hl]
 	add b
+	ld b, a
+	
+	ld a, [wPartyCount]
+	dec a
+	ld hl, .levels_per_partycount
+	ld e, a
+	ld d, 0
+	add hl, de
+	ld a, [hl]
+	add b
 	ld [wCurPartyLevel], a
+
+	xor a
+	ld d, a
+
+	ld bc, PARTYMON_STRUCT_LENGTH
+	ld hl, wPartyMon1Level
+	ld a, [wPartyCount]
+
+.party_loop
+	push af
+	ld a, [hl] ; get current
+	ld d, a	; save current
+	ld a, e ; get total
+	add d   ; add current to total
+	ld e, a ; save total
+
+	pop af
+	dec a
+	jr z, .end_loop
+	add hl, bc ; go to next pokemon level
+	jr nz, .party_loop
+	pop af
+.end_loop
+	ld a, [wPartyCount]
+	ld c, a
+	ld a, e
+	call SimpleDivide ; b has average level of party
+
+	ld c, 0
+.loop_increase
+	ld a, [wCurPartyLevel]
+	cp b
+	jr c, .add_average ; if player average level is higher than enemy level
+	pop bc
+	ret
+.add_average
+	ld a, [wCurPartyLevel]
+	inc a
+	ld [wCurPartyLevel], a
+	ld a, c ; check how many loops we done
+	cp $3
+	inc c
+	jr c, .loop_increase
+	pop bc
 	ret
 	
 .levels:
@@ -417,6 +472,14 @@ BadgeLevels:
 	db $1e ; 30
 	db $21 ; 33
 	db $24 ; 36
+
+.levels_per_partycount:
+	db $0
+	db $0
+	db $1
+	db $1
+	db $2
+	db $2
 	
 EvolveTrainerMon:
 ; check if the defender has any evolutions

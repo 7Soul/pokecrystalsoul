@@ -7549,7 +7549,7 @@ GiveExperiencePoints:
 	ret
 
 BoostExp:
-; Multiply experience by 1.5x
+; Multiply experience by 1.87x
 	push bc
 ; load experience value
 	ldh a, [hProduct + 2]
@@ -7557,6 +7557,23 @@ BoostExp:
 	ldh a, [hProduct + 3]
 	ld c, a
 ; halve it
+	srl b
+	rr c
+; add it back to the whole exp value
+	add c
+	ldh [hProduct + 3], a
+	ldh a, [hProduct + 2]
+	adc b
+	ldh [hProduct + 2], a
+
+; load experience value
+	ldh a, [hProduct + 2]
+	ld b, a
+	ldh a, [hProduct + 3]
+	ld c, a
+; halve it
+	srl b
+	rr c
 	srl b
 	rr c
 ; add it back to the whole exp value
