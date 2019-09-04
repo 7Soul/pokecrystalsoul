@@ -2148,6 +2148,7 @@ wOtherTrainerID:: ; d231
 	db
 
 wForcedSwitch:: db
+wForcedPlayerSwitch:: db
 
 wTrainerClass:: db ; d233
 

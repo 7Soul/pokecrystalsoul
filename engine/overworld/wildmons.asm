@@ -784,7 +784,7 @@ ChooseWildEncounter:
 	push de
 
 	call Random
-	cp 255
+	cp 2
 	jr nc, .not_legendary ; 0 or 1 out of 255 (0.7% chance)
 
 	ld a, [wNumSetBits]

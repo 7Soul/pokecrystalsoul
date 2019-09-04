@@ -8454,7 +8454,7 @@ ExitBattle:
 	ld a, [wBattleResult]
 	and $f
 	ret nz
-	call CheckPayDay
+	;call CheckPayDay
 	xor a
 	ld [wForceEvolution], a
 	predef EvolveAfterBattle
@@ -8473,6 +8473,7 @@ CleanUpBattleRAM:
 	ld [wFailedToFlee], a
 	ld [wNumFleeAttempts], a
 	ld [wForcedSwitch], a
+	ld [wForcedPlayerSwitch], a
 	ld [wPartyMenuCursor], a
 	ld [wKeyItemsPocketCursor], a
 	ld [wItemsPocketCursor], a

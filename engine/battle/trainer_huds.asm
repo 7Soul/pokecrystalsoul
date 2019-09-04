@@ -317,6 +317,15 @@ DoesNuzlockeModePreventCapture:
 	farcall BattleCheckEnemyShininess
 	jr c, .no
 
+	; Dupes clause: don't count duplicate encounters
+	ld a, [wTempEnemyMonSpecies]
+	dec a
+	call CheckCaughtMon
+	jr z, .not_caught
+	scf
+	ret
+
+.not_caught
 	; Is location already done?
 	ld a, [wMapGroup]
 	ld b, a
@@ -343,6 +352,11 @@ DoesNuzlockeModePreventCapture:
 HandleNuzlockeFlags:
 	ld a, [wBattleMode]
 	cp WILD_BATTLE
+	ret nz
+
+	; Don't flag when forced out of battle by the wild mon
+	ld a, [wForcedPlayerSwitch]
+	cp 0
 	ret nz
 
 	; Dupes clause: don't count duplicate encounters

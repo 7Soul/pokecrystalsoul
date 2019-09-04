@@ -770,7 +770,16 @@ ComputeTrainerReward:
 	ld [hli], a ; hMultiplicand + 0
 	ld [hli], a ; hMultiplicand + 1
 	ld a, [wEnemyTrainerBaseReward]
+
+	ld a, [wNuzlocke]
+	and a
+	ld a, [wEnemyTrainerBaseReward]
 	ld [hli], a ; hMultiplicand + 2
+	jr z, .not_nuzlocke ; not set
+
+	rra ; base reward is halved in nuzlocke
+	ld [hli], a ; hMultiplicand + 2
+.not_nuzlocke
 	ld a, [wCurPartyLevel]
 	ld [hl], a ; hMultiplier
 	call Multiply

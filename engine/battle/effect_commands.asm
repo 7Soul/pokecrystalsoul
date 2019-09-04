@@ -5504,6 +5504,7 @@ BattleCommand_ForceSwitch:
 	ld [wNumHits], a
 	inc a
 	ld [wForcedSwitch], a
+	ld [wForcedPlayerSwitch], a
 	call SetBattleDraw
 	ld a, [wEnemyMoveStructAnimation]
 	jr .succeed

@@ -78,20 +78,21 @@ DoDexSearchSlowpokeFrame:
 
 DisplayDexEntry:
 	call GetPokemonName
-	hlcoord 9, 3
+	hlcoord 9, 1
 	call PlaceString ; mon species
 	ld a, [wTempSpecies]
+	ld [wCurSpecies], a
 	ld b, a
 	call GetDexEntryPointer
 	ld a, b
 	push af
-	hlcoord 9, 5
+	hlcoord 10, 2
 	call FarString ; dex species
 	ld h, b
 	ld l, c
 	push de
 ; Print dex number
-	hlcoord 2, 8
+	hlcoord 2, 9
 	ld a, $5c ; No
 	ld [hli], a
 	ld a, $5d ; .
@@ -99,6 +100,18 @@ DisplayDexEntry:
 	ld de, wTempSpecies
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
 	call PrintNum
+
+	hlcoord 9, 3
+	ld bc, SCREEN_WIDTH - 9
+	ld a, $6e ; horizontal divider
+	call ByteFill
+	hlcoord 8, 3
+	ld a, $6f
+	ld [hli], a
+	
+	call GetBaseData
+	call DrawBaseStats
+	
 ; Check to see if we caught it.  Get out of here if we haven't.
 	ld a, [wTempSpecies]
 	dec a
@@ -124,14 +137,14 @@ DisplayDexEntry:
 	jr z, .skip_height
 	push hl
 	push de
-	ld hl, sp+$0
-	ld d, h
-	ld e, l
-	hlcoord 12, 7
-	lb bc, 2, PRINTNUM_MONEY | 4
-	call PrintNum
-	hlcoord 14, 7
-	ld [hl], $5e ; ft symbol
+	; ld hl, sp+$0
+	; ld d, h
+	; ld e, l
+	; hlcoord 12, 7
+	; lb bc, 2, PRINTNUM_MONEY | 4
+	; call PrintNum
+	; hlcoord 14, 7
+	; ld [hl], $5e ; ft symbol
 	pop af
 	pop hl
 
@@ -148,29 +161,35 @@ DisplayDexEntry:
 	or d
 	jr z, .skip_weight
 	push de
-	ld hl, sp+$0
-	ld d, h
-	ld e, l
-	hlcoord 11, 9
-	lb bc, 2, PRINTNUM_RIGHTALIGN | 5
-	call PrintNum
+	; ld hl, sp+$0
+	; ld d, h
+	; ld e, l
+	; hlcoord 11, 9
+	; lb bc, 2, PRINTNUM_RIGHTALIGN | 5
+	; call PrintNum
 	pop de
 
 .skip_weight
 ; Page 1
+	lb bc, 6, 11
+	hlcoord 9, 4
+	call ClearBox
+
+	call DrawBaseStats
+
 	lb bc, 5, SCREEN_WIDTH - 2
 	hlcoord 2, 11
 	call ClearBox
-	hlcoord 1, 10
-	ld bc, SCREEN_WIDTH - 1
-	ld a, $61 ; horizontal divider
-	call ByteFill
+	; hlcoord 1, 10
+	; ld bc, SCREEN_WIDTH - 1
+	; ld a, $61 ; horizontal divider
+	; call ByteFill
 	; page number
-	hlcoord 1, 9
-	ld [hl], $7f
-	inc hl
-	ld [hl], $7f
-	hlcoord 1, 10
+	; hlcoord 1, 9
+	; ld [hl], $7f
+	; inc hl
+	; ld [hl], $7f
+	hlcoord 9, 3
 	ld [hl], $56 ; P.
 	inc hl
 	ld [hl], $57 ; 1
@@ -188,19 +207,23 @@ DisplayDexEntry:
 ; Page 2
 	push bc
 	push de
+	lb bc, 6, 11
+	hlcoord 9, 4
+	call ClearBox
+
 	lb bc, 5, SCREEN_WIDTH - 2
 	hlcoord 2, 11
 	call ClearBox
-	hlcoord 1, 10
-	ld bc, SCREEN_WIDTH - 1
-	ld a, $61
-	call ByteFill
+	; hlcoord 1, 10
+	; ld bc, SCREEN_WIDTH - 1
+	; ld a, $61
+	; call ByteFill
 	; page number
-	hlcoord 1, 9
-	ld [hl], $7f
-	inc hl
-	ld [hl], $7f
-	hlcoord 1, 10
+	; hlcoord 1, 9
+	; ld [hl], $7f
+	; inc hl
+	; ld [hl], $7f
+	hlcoord 9, 3
 	ld [hl], $56 ; P.
 	inc hl
 	ld [hl], $58 ; 2
@@ -215,6 +238,72 @@ UnreferencedPOKeString:
 ; unused
 	db "#@"
 
+DrawBaseStats:
+	hlcoord 9, 4 ; hp
+	ld a, "H"
+	ld [hli], a
+	ld a, "P"
+	ld [hli], a	
+	
+	ld de, wBaseHP
+	hlcoord 11, 5
+	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
+	call PrintNum
+	inc de
+
+	hlcoord 9, 6 ; atk
+	ld a, $62
+	ld [hli], a
+	ld a, $63
+	ld [hli], a
+	hlcoord 11, 7
+	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
+	call PrintNum
+	inc de
+
+	hlcoord 9, 8 ; def
+	ld a, $64
+	ld [hli], a
+	ld a, $65
+	ld [hli], a
+	hlcoord 11, 9
+	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
+	call PrintNum
+	inc de
+
+	hlcoord 15, 4 ; speed
+	ld a, $6c
+	ld [hli], a
+	ld a, $6d
+	ld [hli], a
+	hlcoord 17, 5
+	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
+	call PrintNum
+	inc de
+
+	hlcoord 15, 6 ; sp.atk
+	ld a, $5e
+	ld [hli], a
+	ld a, $62
+	ld [hli], a
+	ld a, $63
+	ld [hli], a	
+	hlcoord 17, 7
+	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
+	call PrintNum
+	inc de
+
+	hlcoord 15, 8 ; sp.def
+	ld a, $5e
+	ld [hli], a
+	ld a, $64
+	ld [hli], a
+	ld a, $65
+	ld [hli], a
+	hlcoord 17, 9
+	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
+	call PrintNum
+	ret
 GetDexEntryPointer:
 ; return dex entry pointer b:de
 	push hl

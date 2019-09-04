@@ -330,13 +330,13 @@ Pokedex_InitDexEntryScreen:
 	xor a
 	ldh [hBGMapMode], a
 	call ClearSprites
-	call Pokedex_LoadCurrentFootprint
+	;call Pokedex_LoadCurrentFootprint
 	call Pokedex_DrawDexEntryScreenBG
 	call Pokedex_InitArrowCursor
 	call Pokedex_GetSelectedMon
 	ld [wPrevDexEntry], a
 	farcall DisplayDexEntry
-	call Pokedex_DrawFootprint
+	;call Pokedex_DrawFootprint
 	call WaitBGMap
 	ld a, $a7
 	ldh [hWX], a
@@ -402,11 +402,11 @@ Pokedex_ReinitDexEntryScreen:
 	ldh [hBGMapMode], a
 	call Pokedex_DrawDexEntryScreenBG
 	call Pokedex_InitArrowCursor
-	call Pokedex_LoadCurrentFootprint
+	;call Pokedex_LoadCurrentFootprint
 	call Pokedex_GetSelectedMon
 	ld [wPrevDexEntry], a
 	farcall DisplayDexEntry
-	call Pokedex_DrawFootprint
+	;call Pokedex_DrawFootprint
 	call Pokedex_LoadSelectedMonTiles
 	call WaitBGMap
 	call Pokedex_GetSelectedMon
@@ -448,7 +448,7 @@ DexEntryScreen_MenuActionJumptable:
 	; get back
 	call Pokedex_BlackOutBG
 	call Pokedex_LoadGFX
-	call Pokedex_LoadCurrentFootprint
+	;call Pokedex_LoadCurrentFootprint
 	call DelayFrame
 	xor a
 	ldh [hBGMapMode], a
@@ -503,7 +503,7 @@ Pokedex_RedisplayDexEntry:
 	call Pokedex_DrawDexEntryScreenBG
 	call Pokedex_GetSelectedMon
 	farcall DisplayDexEntry
-	call Pokedex_DrawFootprint
+	;call Pokedex_DrawFootprint
 	ret
 
 Pokedex_InitOptionScreen:
@@ -1147,20 +1147,20 @@ Pokedex_DrawDexEntryScreenBG:
 	ld b, 15
 	call Pokedex_FillColumn
 	ld [hl], $39
-	hlcoord 1, 10
-	ld bc, 19
-	ld a, $61
-	call ByteFill
+	; hlcoord 1, 10
+	; ld bc, 19
+	; ld a, $61
+	; call ByteFill
 	hlcoord 1, 17
 	ld bc, 18
 	ld a, " "
 	call ByteFill
-	hlcoord 9, 7
-	ld de, .Height
-	call Pokedex_PlaceString
-	hlcoord 9, 9
-	ld de, .Weight
-	call Pokedex_PlaceString
+	; hlcoord 9, 7
+	; ld de, .Height
+	; call Pokedex_PlaceString
+	; hlcoord 9, 9
+	; ld de, .Weight
+	; call Pokedex_PlaceString
 	hlcoord 0, 17
 	ld de, .MenuItems
 	call Pokedex_PlaceString
@@ -2521,7 +2521,7 @@ _NewPokedexEntry:
 	ld a, [wTempSpecies]
 	ld [wCurPartySpecies], a
 	call Pokedex_DrawDexEntryScreenBG
-	call Pokedex_DrawFootprint
+	;call Pokedex_DrawFootprint
 	hlcoord 0, 17
 	ld [hl], $3b
 	inc hl
