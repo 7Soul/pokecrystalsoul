@@ -2045,6 +2045,8 @@ UpdateHPBar:
 	ret
 
 HandleEnemyMonFaint:
+	predef AddFoughtPokemon
+
 	call FaintEnemyPokemon
 	ld hl, wBattleMonHP
 	ld a, [hli]
@@ -6529,8 +6531,6 @@ LoadEnemyMon:
 	ld b, SET_FLAG
 	ld hl, wPokedexSeen
 	predef SmallFarFlagAction
-
-	predef AddFoughtPokemon
 
 	ld hl, wEnemyMonStats
 	ld de, wEnemyStats
