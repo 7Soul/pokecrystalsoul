@@ -86,7 +86,7 @@ DisplayDexEntry:
 	call GetDexEntryPointer
 	ld a, b
 	push af
-	hlcoord 9, 2
+	hlcoord 8, 2
 	call FarString ; dex species
 	ld h, b
 	ld l, c
@@ -110,16 +110,22 @@ DisplayDexEntry:
 	ld [hli], a
 	
 	call GetBaseData
-	call DrawBaseStats
-	call DrawEggGroups
-	
-; Check to see if we caught it.  Get out of here if we haven't.
+
 	ld a, [wTempSpecies]
 	dec a
 	call CheckCaughtMon
+	ld [wPokedexInfoSeenCheck], a
+	;call DrawBaseStats
+	;call DrawEggGroups
+
+; ; Check to see if we caught it.  Get out of here if we haven't.
+; 	ld a, [wTempSpecies]
+; 	dec a
+; 	call CheckCaughtMon
 	pop hl
 	pop bc
-	ret z
+	; ret z
+	
 ; Get the height of the Pokemon.
 	ld a, [wCurPartySpecies]
 	ld [wCurSpecies], a
@@ -161,29 +167,35 @@ DisplayDexEntry:
 	ld a, e
 	or d
 	jr z, .skip_weight
-	push de
+	; push de
 	; ld hl, sp+$0
 	; ld d, h
 	; ld e, l
 	; hlcoord 11, 9
 	; lb bc, 2, PRINTNUM_RIGHTALIGN | 5
 	; call PrintNum
-	pop de
+	; pop de
 
 .skip_weight
 ; Page 1
+; clear area
 	lb bc, 6, 11
 	hlcoord 9, 4
-	call ClearBox
+	call ClearBox ; clear top-right area
+	lb bc, 3, SCREEN_WIDTH - 2
+	hlcoord 2, 9
+	call ClearBox ; clear middle area
+	lb bc, 3, SCREEN_WIDTH - 2
+	hlcoord 2, 13
+	call ClearBox ; clear text area
 
-	call DrawBaseStats
-	call DrawEggGroups
+	call DrawBaseStatsNames
 
-	; egg group
+; egg group text
 	hlcoord 2, 10
 	ld de, .egg_text
 	call PlaceString
-
+; vertical line after egg group text
 	hlcoord 7, 10
 	ld a, $5a
 	ld [hl], a
@@ -191,28 +203,49 @@ DisplayDexEntry:
 	ld a, $5a
 	ld [hl], a
 
-	lb bc, 3, SCREEN_WIDTH - 2
-	hlcoord 2, 13
-	call ClearBox
-; horizontal divider
+	ld a, [wPokedexInfoSeenCheck]
+	and a
+	jr nz, .skip_egg_groups ; skip not caught
+	hlcoord 8, 10
+	ld de, ThreeDashes
+	call PlaceString
+
+.skip_egg_groups
+; horizontal divider before text
 	hlcoord 1, 12
 	ld bc, SCREEN_WIDTH - 1
 	ld a, $6e 
 	call ByteFill
 	hlcoord 1, 12
-	ld [hl], $5f
+	ld [hl], $5f ; pencil icon
 ; page number
 	hlcoord 9, 3
 	ld [hl], $56 ; P.
 	inc hl
 	ld [hl], $57 ; 1
+	
+; Check to see if we caught it.  Get out of here if we haven't.
+	ld a, [wPokedexInfoSeenCheck]
+	and a
+	jr z, .skip_page1_info
+
+	call DrawBaseStats
+	call DrawEggGroups
+
 	pop de
 	inc de
 	pop af
 	hlcoord 2, 13
 	push af
-	call FarString
+	call FarString ; pokedex text part 1
 	pop bc
+	jr .check_page2
+
+.skip_page1_info
+	pop de
+	inc de
+	pop bc
+.check_page2
 	ld a, [wPokedexStatus]
 	or a ; check for page 2
 	ret z
@@ -220,44 +253,223 @@ DisplayDexEntry:
 ; Page 2
 	push bc
 	push de
+	; call GetBaseData
+; clear area
 	lb bc, 6, 11
 	hlcoord 9, 4
-	call ClearBox
-
+	call ClearBox ; clear top-right area
+	lb bc, 3, SCREEN_WIDTH - 2
+	hlcoord 2, 9
+	call ClearBox ; clear middle area
 	lb bc, 3, SCREEN_WIDTH - 2
 	hlcoord 2, 13
-	call ClearBox
+	call ClearBox ; clear text area
+
+; draw types
+	hlcoord 9, 4
+	ld a, [wBaseType1]
+	ld b, a
+	predef PrintType
+
+	ld a, [wBaseType1]
+	ld b, a
+	ld a, [wBaseType2]
+	cp b
+	jr z, .hide_type_2
+	hlcoord 11, 5
+	ld b, a
+	predef PrintType
+	hlcoord 10, 5
+	ld a, "/"
+	ld [hl], a
+
+.hide_type_2
+; catch text
+	hlcoord 9, 7
+	ld de, .catch_text
+	call PlaceString
+; vertical line after catch text
+	hlcoord 14, 7
+	ld a, $5a
+	ld [hl], a
+
+	ld a, [wPokedexInfoSeenCheck]
+	and a
+	jr nz, .print_rate_caught ; skip not caught
+	hlcoord 15, 7
+	ld de, ThreeDashes
+	call PlaceString
+	jr .skip_rate_notCaught
+
+.print_rate_caught
+	hlcoord 15, 7
+	ld de, wBaseCatchRate
+	ld a, [de]
+	cp 250
+	jr nc, .dontadd
+	add 5
+.dontadd
+	ld [de], a
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
+	call PrintNum
+
+.skip_rate_notCaught
+; exp text
+	hlcoord 9, 8
+	ld de, .exp_text
+	call PlaceString
+; vertical line after exp text
+	hlcoord 14, 8
+	ld a, $5a
+	ld [hl], a
+
+	ld a, [wPokedexInfoSeenCheck]
+	and a
+	jr nz, .print_exp_caught ; skip not caught
+	hlcoord 15, 8
+	ld de, ThreeDashes
+	call PlaceString
+	jr .skip_exp_notCaught
+
+.print_exp_caught
+	hlcoord 15, 8
+	ld de, wBaseExp
+	ld a, [de]
+	cp 128
+	jr nc, .dont_increase
+	add 6
+	
+	cp 80
+	jr nc, .dont_increase
+	add 9
+.dont_increase
+	ld [de], a
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
+	call PrintNum
+
+.skip_exp_notCaught
+; items text
+	hlcoord 2, 9
+	ld de, .items_text
+	call PlaceString
+; vertical line after items text
+	hlcoord 2, 10
+	ld a, $5a
+	ld [hl], a
+	hlcoord 2, 11
+	ld a, $5a
+	ld [hl], a
+	
+	ld a, [wPokedexInfoSeenCheck]
+	and a
+	jr nz, .print_items_caught ; skip not caught
+	hlcoord 4, 10
+	ld de, ThreeDashes
+	call PlaceString
+	jr .skip_items_notCaught
+
+.print_items_caught
+; item percentages text
+	hlcoord 3, 10
+	ld de, .item1_percent
+	call PlaceString
+	hlcoord 5, 10
+	ld a, $60
+	ld [hl], a
+	hlcoord 4, 11
+	ld de, .item2_percent
+	call PlaceString
+	hlcoord 5, 11
+	ld a, $60
+	ld [hl], a
+
+; item names
+	call .GetItem1Name	
+	hlcoord 7, 10
+	call PlaceString
+
+	call .GetItem2Name	
+	hlcoord 7, 11
+	call PlaceString
+
+.skip_items_notCaught
 ; horizontal divider
 	hlcoord 1, 12
 	ld bc, SCREEN_WIDTH - 1
 	ld a, $6e 
 	call ByteFill
 	hlcoord 2, 12
-	ld [hl], $5f
+	ld [hl], $5f ; pencil icon
 ; page number
 	hlcoord 9, 3
 	ld [hl], $56 ; P.
 	inc hl
 	ld [hl], $58 ; 2
+; Check to see if we caught it.  Get out of here if we haven't.
+	ld a, [wPokedexInfoSeenCheck]
+	and a
+	jr z, .skip_page2_info
+
 	pop de
 	inc de
 	pop af
 	hlcoord 2, 13
-	call FarString
+	call FarString ; pokedex text part 2
 	ret
+
+.skip_page2_info
+	pop de
+	inc de
+	pop af
+	ret
+
+.GetItem1Name:
+	ld de, ThreeDashes
+	ld a, [wBaseItem1]
+	and a
+	ret z
+	ld a, [wBaseItem1]
+	ld [wNamedObjectIndexBuffer], a	
+	call GetItemName
+	ret
+
+.GetItem2Name:
+	ld de, ThreeDashes
+	ld a, [wBaseItem2]
+	and a
+	ret z
+	ld a, [wBaseItem2]
+	ld [wNamedObjectIndexBuffer], a	
+	call GetItemName
+	ret
+
 
 .egg_text:
 	db "  Egg"
 	line2 "Group@"
+
+.catch_text:
+	db "Catch@"
+
+.exp_text:
+	db "Exp@"
+
+.items_text:
+	db "Items@"
+
+.item1_percent:
+	db "12@"
+
+.item2_percent:
+	db "3@"
+
 
 UnreferencedPOKeString:
 ; unused
 	db "#@"
 
 DrawEggGroups:
-	;call GetBaseData
 	ld a, [wBaseEggGroups]
-	ld [$C001], a
 	push af
 	and $f
 	ld d, a
@@ -296,7 +508,6 @@ DrawEggGroups:
 	call PlaceString ; egg group 2
 .equal
 	ret
-
 	
 .EggNames:
 	db "None        @"
@@ -316,72 +527,109 @@ DrawEggGroups:
 	db "Dragon      @"
 	db "Undiscovered@"
 
-DrawBaseStats:
-	hlcoord 9, 4 ; hp
+DrawBaseStatsNames:
+; hp
+	hlcoord 9, 4 
 	ld a, "H"
 	ld [hli], a
 	ld a, "P"
 	ld [hli], a	
 	
-	ld de, wBaseHP
-	hlcoord 11, 5
-	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
-	call PrintNum
-	inc de
-
-	hlcoord 9, 6 ; atk
+; atk
+	hlcoord 9, 6 
 	ld a, $62
 	ld [hli], a
 	ld a, $63
 	ld [hli], a
-	hlcoord 11, 7
-	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
-	call PrintNum
-	inc de
-
-	hlcoord 9, 8 ; def
+; def
+	hlcoord 9, 8 
 	ld a, $64
 	ld [hli], a
 	ld a, $65
 	ld [hli], a
-	hlcoord 11, 9
-	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
-	call PrintNum
-	inc de
-
-	hlcoord 15, 4 ; speed
+; speed
+	hlcoord 15, 4 
 	ld a, $6c
 	ld [hli], a
 	ld a, $6d
 	ld [hli], a
-	hlcoord 17, 5
-	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
-	call PrintNum
-	inc de
-
-	hlcoord 15, 6 ; sp.atk
+; sp.atk
+	hlcoord 15, 6 
 	ld a, $5e
 	ld [hli], a
 	ld a, $62
 	ld [hli], a
 	ld a, $63
-	ld [hli], a	
-	hlcoord 17, 7
-	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
-	call PrintNum
-	inc de
-
-	hlcoord 15, 8 ; sp.def
+	ld [hli], a
+; sp.def
+	hlcoord 15, 8 
 	ld a, $5e
 	ld [hli], a
 	ld a, $64
 	ld [hli], a
 	ld a, $65
-	ld [hli], a
+	ld [hli], a	
+
+	ld a, [wPokedexInfoSeenCheck]
+	and a
+	jr nz, .skip_unknown
+	ld de, ThreeDashes
+	hlcoord 11, 5
+	call PlaceString
+	ld de, ThreeDashes
+	hlcoord 11, 7
+	call PlaceString
+	ld de, ThreeDashes
+	hlcoord 11, 9
+	call PlaceString
+	ld de, ThreeDashes
+	hlcoord 17, 5
+	call PlaceString
+	ld de, ThreeDashes
+	hlcoord 17, 7
+	call PlaceString
+	ld de, ThreeDashes
 	hlcoord 17, 9
-	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
+	call PlaceString
+.skip_unknown
+	ret
+
+ThreeDashes:
+	db "---@"
+
+DrawBaseStats:
+; hp
+	ld de, wBaseHP
+	hlcoord 11, 5
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
+	call PrintNum
+	inc de
+; atk	
+	hlcoord 11, 7
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
+	call PrintNum
+	inc de
+; def
+	hlcoord 11, 9
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
+	call PrintNum
+	inc de
+; speed
+	hlcoord 17, 5
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
+	call PrintNum
+	inc de
+; sp.atk
+	hlcoord 17, 7
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
+	call PrintNum
+	inc de
+; sp.def
+	hlcoord 17, 9
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
 	call PrintNum
 	ret
+
 GetDexEntryPointer:
 ; return dex entry pointer b:de
 	push hl

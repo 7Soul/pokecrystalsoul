@@ -340,19 +340,18 @@ NewBarkTown_MapEvents:
 
 if def(_DEBUG)
 CheatFillPokedex:
-	ld hl, wPokedexSeen
 	ld a, BULBASAUR
-.loop
-	ld [$C000], a
-	cp UNOWN
-	jr z, .skip
 	dec a
+.loop
+	cp $c8 ; UNOWN - 1
+	jr z, .skip
+	push af
 	call SetSeenAndCaughtMon
-	ld a, [$C000]
+	pop af
 .skip
 	inc a
 	cp CELEBI
-	jr nz, .loop	
+	jr nz, .loop
 	ret
 
 SetHallOfFameFlag:

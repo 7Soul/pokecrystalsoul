@@ -1,4 +1,4 @@
-	db "VIRTUAL@" ; species name
+	db "     Virtual@" ; species name
 	dw 200, 720 ; height, weight
 
 	db   "This manmade"

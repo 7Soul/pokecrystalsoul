@@ -1,4 +1,4 @@
-	db "DIVING@" ; species name
+	db "      Diving@" ; species name
 	dw 1701, 4760 ; height, weight
 
 	db   "It has an incred-"

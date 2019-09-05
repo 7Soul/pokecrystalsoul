@@ -1,4 +1,4 @@
-	db "   Big Jaw@" ; species name
+	db "     Big Jaw@" ; species name
 	dw 307, 550 ; height, weight
 
 	db   "The tips of its"

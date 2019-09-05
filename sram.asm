@@ -88,7 +88,8 @@ sBackupPokemonData:: ds wPokemonDataEnd - wPokemonData
 sBackupGameDataEnd::
 
 ; bd83
-	ds $18a
+sPokemonFought:: ds NUM_POKEMON
+	ds $86
 ; bf0d
 
 sBackupChecksum:: dw

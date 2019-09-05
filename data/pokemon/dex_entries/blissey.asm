@@ -1,4 +1,4 @@
-	db "HAPPINESS@" ; species name
+	db "   Happiness@" ; species name
 	dw 411, 1030 ; height, weight
 
 	db   "Biting into one"

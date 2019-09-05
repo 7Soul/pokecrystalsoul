@@ -1,4 +1,4 @@
-	db "FISH@" ; species name
+	db "        Fish@" ; species name
 	dw 211, 220 ; height, weight
 
 	db   "This weak and"

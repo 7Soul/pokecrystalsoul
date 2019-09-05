@@ -226,11 +226,9 @@ PokeBallEffect:
 	call PrintText
 
 	ld a, [wEnemyMonCatchRate]
-	ld b, a
-	cp a, 251
-	jp c, .dontadd	
-	ld a, 5 ; all pokemon below 251 catch rate have +5 rate
-	add b
+	cp 250
+	jp nc, .dontadd	
+	add 5 ; all pokemon below 251 catch rate have +5 rate
 .dontadd
 	ld a, [wBattleType]
 	cp BATTLETYPE_TUTORIAL
@@ -330,13 +328,13 @@ PokeBallEffect:
 	ld b, a
 	ld a, [wEnemyMonStatus]
 	and 1 << FRZ | SLP
-	ld c, 20 ; FRZ or SLP adds 20 to catch rate
+	ld c, 15 ; FRZ or SLP adds 15 to catch rate
 	jr nz, .addstatus
 	ld a, [wEnemyMonStatus] 
 	and a
 	ld c, 10 ; BRN/PSN/PAR adds 10 to catch rate
 	jr nz, .addstatus
-	ld c, 5 ; no status adds 5
+	ld c, 0 ; no status
 .addstatus
 	ld a, b
 	add c

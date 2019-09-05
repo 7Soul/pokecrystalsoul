@@ -1,4 +1,4 @@
-	db "GENETIC@" ; species name
+	db "     Genetic@" ; species name
 	dw 607, 2690 ; height, weight
 
 	db   "Said to rest qui-"

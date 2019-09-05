@@ -1879,6 +1879,7 @@ wKeyItemsPocketScrollPosition:: db
 wBallsPocketScrollPosition::    db
 wTMHMPocketScrollPosition::     db
 wPokedexSwarmBuffer:: db
+wPokedexInfoSeenCheck:: db
 wSwitchMon::
 wSwitchItem::
 wMoveSwapBuffer::
@@ -2665,7 +2666,7 @@ wParryFightCount::   db
 wErinFightCount::    db
 ; da0e
 
-	ds 100
+	ds 50
 
 wEventFlags:: flag_array NUM_EVENTS ; da72
 ; db6c
@@ -2708,7 +2709,7 @@ wCurMapSceneScriptsPointer:: dw ; dc08
 wCurMapCallbackCount:: db ; dc0a
 wCurMapCallbacksPointer:: dw ; dc0b
 
-	ds 2
+
 
 ; Sprite id of each decoration
 wDecoBed::           db ; dc0f
@@ -2729,9 +2730,9 @@ wDailyResetTimer:: dw ; dc1c
 wDailyFlags1:: db ; 
 wDailyFlags2:: db ; 
 wDailyFlags3:: db ; 
-	ds 2 
+
 wTimerEventStartDay:: db ; 
-	ds 3
+
 
 wFruitTreeFlags:: flag_array NUM_FRUIT_TREES ; dc27
 wNuzlockeLandmarkFlags :: flag_array NUM_LANDMARKS
@@ -2739,17 +2740,17 @@ wSwarmLandmarkFlags :: flag_array NUM_LANDMARKS
 ;wSwarmLearnedFlags :: flag_array NUM_LANDMARKS
 
 wLuckyNumberDayBuffer:: dw ; dc2d
-	ds 2
+
 wSpecialPhoneCallID:: db ; dc31
-	ds 3
+
 wBugContestStartTime:: ds 4 ; day, hour, min, sec ; dc35
 wUnusedTwoDayTimerOn:: db ; dc39
 wUnusedTwoDayTimer:: db
 wUnusedTwoDayTimerStartDate:: db
-	ds 4
+
 wMobileOrCable_LastSelection:: db
 wdc41:: ds 1
-wdc42:: ds 8
+wdc42:: ds 1
 wBuenasPassword:: db
 wBlueCardBalance:: db
 wDailyRematchFlags:: ds 4
@@ -2760,7 +2761,7 @@ wYanmaMapGroup:: db ; dc5a
 wYanmaMapNumber:: db
 wPlayerMonSelection:: ds 3
 wdc5f:: ds 1
-wdc60:: ds 19
+wdc60:: ds 1
 
 wStepCount:: db ; dc73
 wPoisonStepCount:: db ; dc74
@@ -2773,12 +2774,11 @@ wSafariBallsRemaining:: db ; dc79
 wSafariTimeRemaining:: dw ; dc7a
 
 wPhoneList:: ds CONTACT_LIST_SIZE ; dc7c
-; dc86
-;;;	ds 23
 
 wLuckyNumberShowFlag:: db ; dc9d
 wRepelType:: db
 wLuckyIDNumber:: dw ; dc9f
+wPokemonFought:: ds 129 ; n base pokemon species
 
 wRepelEffect:: db ; If a Repel is in use, it contains the nr of steps it's still active
 wBikeStep:: dw
@@ -2883,10 +2883,6 @@ wEggMon::  box_struct wEggMon ; df7b
 
 wBugContestSecondPartySpecies:: db
 wContestMon:: party_struct wContestMon ; df9c
-
-wDunsparceMapGroup:: db
-wDunsparceMapNumber:: db
-wFishingSwarmFlag:: db
 wSwarmSet:: db
 
 wRoamMon1:: roam_struct wRoamMon1 ; dfcf

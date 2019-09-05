@@ -6530,6 +6530,22 @@ LoadEnemyMon:
 	ld hl, wPokedexSeen
 	predef SmallFarFlagAction
 
+	ld a, [wTempEnemyMonSpecies]	
+	predef GetPreEvolution
+	predef GetPreEvolution
+	ld a, [wCurPartySpecies]
+	dec a
+
+	ld c, a
+	ld b, 0
+	ld hl, wPokemonFought
+	add hl, bc
+	ld a, [hl]
+	cp $ff
+	jr z, .maxed
+	inc a
+	ld [hl], a
+.maxed
 	ld hl, wEnemyMonStats
 	ld de, wEnemyStats
 	ld bc, wEnemyMonStatsEnd - wEnemyMonStats
@@ -7189,6 +7205,15 @@ GiveExperiencePoints:
 	ldh [hMultiplicand + 0], a
 	ldh [hMultiplicand + 1], a
 	ld a, [wEnemyMonBaseExp]
+	cp 128
+	jr nc, .dont_increase
+	add 6
+
+	cp 80
+	jr nc, .dont_increase
+	add 9
+.dont_increase
+
 	ldh [hMultiplicand + 2], a
 	ld a, [wEnemyMonLevel]
 	ldh [hMultiplier], a
