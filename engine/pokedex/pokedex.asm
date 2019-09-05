@@ -2567,3 +2567,164 @@ Pokedex_ResetBGMapMode:
 	xor a
 	ldh [hBGMapMode], a
 	ret
+
+GetFoughtMonCount:
+	ld a, [wTempEnemyMonSpecies]
+	ld [wCurPartySpecies], a
+	predef GetPreEvolution
+	predef GetPreEvolution
+	ld a, [wCurPartySpecies]
+	ld b, a
+	ld c, 0
+
+	ld hl, EvolutionLinesList
+.loop
+	ld a, [hli]
+	cp b
+	jr z, .got_it
+	inc c
+	cp $ff
+	ret z
+	jr .loop
+.got_it
+	ld b, 0
+	ld hl, wPokemonFought
+	add hl, bc
+	ld a, [hl]
+	ld [wPokedexFoughtCount], a
+	ret
+
+AddFoughtPokemon:
+	ld a, [wTempEnemyMonSpecies]
+	ld [wCurPartySpecies], a
+	predef GetPreEvolution
+	predef GetPreEvolution
+	ld a, [wCurPartySpecies]
+	ld b, a
+	ld c, 0
+
+	ld hl, EvolutionLinesList
+.loop
+	ld a, [hli]
+	cp b
+	jr z, .increase
+	inc c
+	cp $ff
+	ret z
+	jr .loop
+
+.increase
+	ld b, 0
+	ld hl, wPokemonFought
+	add hl, bc
+	ld a, [hl]
+	cp $ff
+	jr z, .maxed
+	inc a
+	ld [hl], a
+.maxed
+	ret
+
+EvolutionLinesList:
+	db BULBASAUR
+	db CHARMANDER
+	db SQUIRTLE
+	db CATERPIE
+	db WEEDLE
+	db PIDGEY
+	db RATTATA
+	db EKANS
+	db SANDSHREW
+	db NIDORAN_F
+	db NIDORAN_M
+	db VULPIX
+	db ZUBAT
+	db PARAS
+	db VENONAT
+	db DIGLETT
+	db MEOWTH
+	db PSYDUCK
+	db MANKEY
+	db GROWLITHE
+	db POLIWAG
+	db ABRA
+	db MACHOP
+	db BELLSPROUT
+	db TENTACOOL
+	db PONYTA
+	db GEODUDE
+	db IGGLYBUFF
+	db SUNKERN
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	; db SQUIRTLE
+	dw -1

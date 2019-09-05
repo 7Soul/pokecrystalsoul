@@ -6530,29 +6530,15 @@ LoadEnemyMon:
 	ld hl, wPokedexSeen
 	predef SmallFarFlagAction
 
-	ld a, [wTempEnemyMonSpecies]	
-	predef GetPreEvolution
-	predef GetPreEvolution
-	ld a, [wCurPartySpecies]
-	dec a
+	predef AddFoughtPokemon
 
-	ld c, a
-	ld b, 0
-	ld hl, wPokemonFought
-	add hl, bc
-	ld a, [hl]
-	cp $ff
-	jr z, .maxed
-	inc a
-	ld [hl], a
-.maxed
 	ld hl, wEnemyMonStats
 	ld de, wEnemyStats
 	ld bc, wEnemyMonStatsEnd - wEnemyMonStats
 	call CopyBytes
 
 	ret
-	
+
 CheckSleepingTreeMon:
 ; Return carry if species is in the list
 ; for the current time of day

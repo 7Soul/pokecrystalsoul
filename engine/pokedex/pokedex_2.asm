@@ -81,6 +81,12 @@ DisplayDexEntry:
 	hlcoord 9, 1
 	call PlaceString ; mon species
 	ld a, [wTempSpecies]
+
+	ld [wTempEnemyMonSpecies], a
+	predef GetFoughtMonCount
+	ld a, [wPokedexFoughtCount]
+
+	ld a, [wTempSpecies]
 	ld [wCurSpecies], a
 	ld b, a
 	call GetDexEntryPointer

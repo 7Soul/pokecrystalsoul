@@ -84,4 +84,6 @@ PredefPointers::
 	add_predef PrintTempMonStatsShort
 	add_predef GetPreEvolution
 	add_predef RespawnOneOffs
+	add_predef AddFoughtPokemon
+	add_predef GetFoughtMonCount
 	dbw -1, InexplicablyEmptyFunction ; ???

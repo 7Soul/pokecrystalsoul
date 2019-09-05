@@ -1880,6 +1880,7 @@ wBallsPocketScrollPosition::    db
 wTMHMPocketScrollPosition::     db
 wPokedexSwarmBuffer:: db
 wPokedexInfoSeenCheck:: db
+wPokedexFoughtCount:: db
 wSwitchMon::
 wSwitchItem::
 wMoveSwapBuffer::
@@ -2778,7 +2779,7 @@ wPhoneList:: ds CONTACT_LIST_SIZE ; dc7c
 wLuckyNumberShowFlag:: db ; dc9d
 wRepelType:: db
 wLuckyIDNumber:: dw ; dc9f
-wPokemonFought:: ds 129 ; n base pokemon species
+
 
 wRepelEffect:: db ; If a Repel is in use, it contains the nr of steps it's still active
 wBikeStep:: dw
@@ -2900,6 +2901,7 @@ wRoamMons_LastMapGroup:: db
 wBestMagikarpLengthFeet:: db
 wBestMagikarpLengthInches:: db
 wMagikarpRecordHoldersName:: ds NAME_LENGTH
+wPokemonFought:: ds 129 ; n base pokemon species
 
 wPokemonDataEnd::
 wGameDataEnd::
