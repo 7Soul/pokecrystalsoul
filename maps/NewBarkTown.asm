@@ -83,6 +83,7 @@ NewBarkTownTeacherScript:
 	
 if DEF(_DEBUG)
 	setflag ENGINE_POKEDEX
+	setflag ENGINE_UNOWN_DEX
 	setflag ENGINE_MAP_CARD	
 	setflag ENGINE_RADIO_CARD
 	callasm SetHallOfFameFlag
@@ -343,8 +344,8 @@ CheatFillPokedex:
 	ld a, BULBASAUR
 	dec a
 .loop
-	cp $c8 ; UNOWN - 1
-	jr z, .skip
+	; cp $c8 ; UNOWN - 1
+	; jr z, .skip
 	push af
 	call SetSeenAndCaughtMon
 	pop af

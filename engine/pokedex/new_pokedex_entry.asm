@@ -21,6 +21,10 @@ NewPokedexEntry:
 	ld [wPokedexStatus], a
 	farcall DisplayDexEntry
 	call WaitPressAorB_BlinkCursor
+	; ld a, 2 ; page 3
+	; ld [wPokedexStatus], a
+	; farcall DisplayDexEntry
+	; call WaitPressAorB_BlinkCursor
 	pop af
 	ld [wPokedexStatus], a
 	call MaxVolume

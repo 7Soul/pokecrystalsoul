@@ -77,6 +77,12 @@ DoDexSearchSlowpokeFrame:
 	db -1
 
 DisplayDexEntry:
+	ld a, [wPokedexStatus]
+	cp 2 ; check for page 2
+	jp z, .skip_pic
+	farcall Pokedex_PlaceFrontpicTopLeftCorner
+.skip_pic
+
 	call GetPokemonName
 	hlcoord 9, 1
 	call PlaceString ; mon species
@@ -114,7 +120,7 @@ DisplayDexEntry:
 	hlcoord 8, 3
 	ld a, $6f
 	ld [hli], a
-	
+; .skip_pic
 	call GetBaseData
 
 	ld a, [wTempSpecies]
@@ -185,6 +191,11 @@ DisplayDexEntry:
 .skip_weight
 ; Page 1
 ; clear area
+
+	ld a, [wPokedexStatus]
+	cp 2 ; check for page 2
+	jp z, .page3
+
 	lb bc, 6, 11
 	hlcoord 9, 4
 	call ClearBox ; clear top-right area
@@ -253,8 +264,10 @@ DisplayDexEntry:
 	pop bc
 .check_page2
 	ld a, [wPokedexStatus]
-	or a ; check for page 2
+	cp 0 ; check for page 2
 	ret z
+	cp 2 ; check for page 2
+	jp z, .page3
 
 ; Page 2
 	push bc
@@ -421,9 +434,38 @@ DisplayDexEntry:
 	pop af
 	hlcoord 2, 13
 	call FarString ; pokedex text part 2
-	ret
+	jr .check_page3
 
 .skip_page2_info
+	pop de
+	inc de
+	pop af
+
+.check_page3
+	ld a, [wPokedexStatus]
+	cp 1 ; check for page 2
+	ret z
+
+.page3
+; page 3
+
+; clear area
+	lb bc, 8, 7
+	hlcoord 1, 1
+	call ClearBox ; clear top-right area
+	lb bc, 6, 11
+	hlcoord 9, 4
+	call ClearBox ; clear top-right area
+	lb bc, 3, SCREEN_WIDTH - 2
+	hlcoord 2, 9
+	call ClearBox ; clear middle area
+	lb bc, 4, SCREEN_WIDTH - 1
+	hlcoord 1, 12
+	call ClearBox ; clear text area
+	hlcoord 1, 3
+	ld bc, SCREEN_WIDTH - 1
+	ld a, $6e ; horizontal divider
+	call ByteFill
 	pop de
 	inc de
 	pop af

@@ -86,4 +86,5 @@ PredefPointers::
 	add_predef RespawnOneOffs
 	add_predef AddFoughtPokemon
 	add_predef GetFoughtMonCount
+	add_predef Pokedex_GetMoves
 	dbw -1, InexplicablyEmptyFunction ; ???
