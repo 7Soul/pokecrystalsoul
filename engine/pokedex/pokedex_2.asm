@@ -77,6 +77,10 @@ DoDexSearchSlowpokeFrame:
 	db -1
 
 DisplayDexEntry:
+	lb bc, 15,  SCREEN_WIDTH - 1
+	hlcoord 1, 1
+	call ClearBox ; clear area
+
 	ld a, [wPokedexStatus]
 	cp 2 ; check for page 2
 	jp z, .skip_pic
@@ -196,8 +200,8 @@ DisplayDexEntry:
 	cp 2 ; check for page 2
 	jp z, .page3
 
-	lb bc, 6, 11
-	hlcoord 9, 4
+	lb bc, 6, 12
+	hlcoord 8, 4
 	call ClearBox ; clear top-right area
 	lb bc, 3, SCREEN_WIDTH - 2
 	hlcoord 2, 9
@@ -450,22 +454,65 @@ DisplayDexEntry:
 ; page 3
 
 ; clear area
-	lb bc, 8, 7
+	lb bc, 15,  SCREEN_WIDTH - 1
 	hlcoord 1, 1
-	call ClearBox ; clear top-right area
-	lb bc, 6, 11
-	hlcoord 9, 4
-	call ClearBox ; clear top-right area
-	lb bc, 3, SCREEN_WIDTH - 2
-	hlcoord 2, 9
-	call ClearBox ; clear middle area
-	lb bc, 4, SCREEN_WIDTH - 1
-	hlcoord 1, 12
-	call ClearBox ; clear text area
-	hlcoord 1, 3
-	ld bc, SCREEN_WIDTH - 1
-	ld a, $6e ; horizontal divider
-	call ByteFill
+	call ClearBox ; clear area
+	; lb bc, 16, SCREEN_WIDTH - 1
+	; hlcoord 1, 1
+	; call ClearBox ; clear middle area
+	; lb bc, 4, SCREEN_WIDTH - 1
+	; hlcoord 1, 12
+	; call ClearBox ; clear text area
+	; hlcoord 1, 3
+	; ld bc, SCREEN_WIDTH - 1
+	; ld a, $6e ; horizontal divider
+	; call ByteFill
+
+; 	ld a, 0
+; 	ld [wPokedexStatus], a
+; 	ld a, [wTempSpecies]
+; 	ld [wCurPartySpecies], a
+; 	dec a
+	
+; 	ld c, a
+; 	ld b, 0
+; 	ld hl, EvosAttacksPointers
+; 	add hl, bc
+; 	add hl, bc
+; ; hl = the species' entry from EvosAttacksPointers
+; 	ld a, BANK(EvosAttacksPointers)
+; 	call GetFarHalfword
+; ; a = the first byte of the species' EvosAttacks data
+; 	ld a, BANK("Evolutions and Attacks")
+; 	call GetFarByte
+; .loop ; get to the first move
+; 	ld a, BANK("Evolutions and Attacks")
+; 	call GetFarByte
+; 	and a
+; 	cp 0	
+; 	jp z, .loop_moves
+; 	inc hl
+; 	jr .loop
+
+; .loop_moves
+; 	inc hl
+; 	ld a, BANK("Evolutions and Attacks")
+; 	call GetFarByte
+; 	cp 0
+; 	jp z, .no_moves
+; 	call .PlaceLevelString
+
+; 	inc hl
+; 	ld a, BANK("Evolutions and Attacks")
+; 	call GetFarByte
+; 	call .PlaceMoveString
+; 	ld a, [wPokedexStatus]
+; 	inc a
+; 	ld [wPokedexStatus], a
+; 	jr .loop_moves
+
+
+; .no_moves
 	pop de
 	inc de
 	pop af
@@ -491,7 +538,6 @@ DisplayDexEntry:
 	call GetItemName
 	ret
 
-
 .egg_text:
 	db "  Egg"
 	line2 "Group@"
@@ -510,7 +556,129 @@ DisplayDexEntry:
 
 .item2_percent:
 	db "3@"
+	
 
+
+Pokedex_GetMoves:
+	push af
+	call ClearSprites
+	call ClearTileMap
+	
+	xor a
+	ldh [hBGMapMode], a
+	ld b, SCGB_POKEDEX_SEARCH_OPTION
+	call GetSGBLayout
+	call SetPalettes
+	; ld a, $1
+	; ldh [hInMenu], a
+
+	ld a, 0
+	ld [wPokedexStatus], a
+	ld a, [wTempSpecies]
+	ld [wCurPartySpecies], a
+	dec a
+	
+	ld c, a
+	ld b, 0
+	ld hl, EvosAttacksPointers
+	add hl, bc
+	add hl, bc
+; hl = the species' entry from EvosAttacksPointers
+	ld a, BANK(EvosAttacksPointers)
+	call GetFarHalfword
+; a = the first byte of the species' EvosAttacks data
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+.loop_evo ; get to the first move
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	and a
+	cp 0	
+	jp z, .loop_moves
+	inc hl
+	jr .loop_evo
+
+.loop_moves
+	inc hl
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	cp 0
+	jp z, .no_moves
+	call .PlaceLevelString
+
+	inc hl
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	call .PlaceMoveString
+	ld a, [wPokedexStatus]
+	inc a
+	ld [wPokedexStatus], a
+	jr .loop_moves
+
+.no_moves
+	call WaitBGMap
+.loop
+	call JoyTextDelay
+	ld hl, hJoyPressed
+	ld a, [hl]
+	and A_BUTTON | B_BUTTON
+	jr nz, .a_b
+	call DelayFrame
+	jr .loop
+
+.a_b
+	xor a
+	ld [wPokedexStatus], a
+	call ClearSprites
+	pop af
+	ret
+
+.PlaceLevelString:
+	push hl
+	ld [wStringBuffer1], a
+	hlcoord 2, 1
+	ld a, [wPokedexStatus]
+	cp 13
+	jr z, .down_number
+	ld c, a
+	ld a, SCREEN_WIDTH
+	call SimpleMultiply
+
+	ld b, 0
+	ld c, a
+	add hl, bc
+	jr .normal_number
+.down_number
+	hlcoord 2, 14
+.normal_number
+	ld de, wStringBuffer1
+	lb bc, 1, 3
+	call PrintNum
+	pop hl
+	ret
+
+.PlaceMoveString:
+	push hl
+	ld [wNamedObjectIndexBuffer], a	
+	hlcoord 6, 1
+	ld a, [wPokedexStatus]
+	cp 13
+	jr z, .down_number2
+	ld c, a
+	ld a, SCREEN_WIDTH
+	call SimpleMultiply
+
+	ld b, 0
+	ld c, a
+	add hl, bc	
+	jr .normal_number2
+.down_number2
+	hlcoord 6, 14
+.normal_number2
+	call GetMoveName
+	call PlaceString
+	pop hl
+	ret
 
 UnreferencedPOKeString:
 ; unused

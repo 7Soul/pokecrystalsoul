@@ -482,17 +482,15 @@ DexEntryScreen_MenuActionJumptable:
 
 .Moves:
 	call Pokedex_BlackOutBG
-	call ClearSprites
-	call ClearTileMap
-	; xor a
-	; ldh [hSCX], a
+	xor a
+	ldh [hSCX], a
 	call DelayFrame
-	ld a, $0
+	ld a, $7
 	ldh [hWX], a
 	ld a, $90
 	ldh [hWY], a
 	call Pokedex_GetSelectedMon
-	call Pokedex_GetMoves
+	predef Pokedex_GetMoves	
 	; get back
 	call Pokedex_BlackOutBG
 	call Pokedex_LoadGFX
@@ -541,37 +539,6 @@ DexEntryScreen_MenuActionJumptable:
 	call Pokedex_ApplyUsualPals
 	ret
 
-Pokedex_GetMoves:
-	call ClearSprites
-	xor a
-	ldh [hBGMapMode], a
-	ld b, SCGB_POKEDEX_SEARCH_OPTION
-	call GetSGBLayout
-	call SetPalettes
-	xor a
-	ldh [hBGMapMode], a
-
-.loop
-	call JoyTextDelay
-	ld hl, hJoyPressed
-	ld a, [hl]
-	and A_BUTTON | B_BUTTON
-	jr nz, .a_b
-	ldh a, [hJoypadDown]
-	and SELECT
-	jr nz, .select
-	; call .LeftRightInput	
-	jr .next
-
-.select
-.next
-	call DelayFrame
-	jr .loop
-
-.a_b
-	call ClearSprites
-	pop af
-	ret
 
 Pokedex_RedisplayDexEntry:
 	call Pokedex_DrawDexEntryScreenBG

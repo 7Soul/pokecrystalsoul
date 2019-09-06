@@ -2393,7 +2393,6 @@ CyndaquilEvosAttacks:
 QuilavaEvosAttacks:
 	db EVOLVE_LEVEL, 36, TYPHLOSION
 	db 0 ; no more evolutions
-	db 1, TACKLE
 	db 1, LEER
 	db 6, SMOKESCREEN
 	db 10, EMBER
@@ -3318,8 +3317,7 @@ HeracrossEvosAttacks:
 	db 12, ENDURE
 	db 15, LEECH_LIFE
 	db 19, FURY_ATTACK
-	db 20, COUNTER
-	db 23, STOMP
+	db 23, COUNTER
 	db 28, BRICK_BREAK
 	db 31, PIN_MISSILE
 	db 34, TAKE_DOWN
