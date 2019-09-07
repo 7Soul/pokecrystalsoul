@@ -2656,9 +2656,22 @@ AddFoughtPokemon:
 	ld a, [hl]
 	cp $ff
 	jr z, .maxed
-	ld b, a
+	ld d, a ; d holds current total
+
 	ld a, [wTempMonLevel]
-	add b
+	cp 6
+	ld b, 1
+	jr c, .dontfloor
+	ld c, 6
+	call SimpleDivide
+	cp 6 ; check remainder
+	jr c, .dontfloor
+	inc b
+.dontfloor
+	ld a, b
+	inc a
+	call RandomRange
+	add d
 	ld [hl], a
 .maxed
 	ret

@@ -592,7 +592,18 @@ Pokedex_GetMoves:
 	ld [wTempEnemyMonSpecies], a
 	predef GetFoughtMonCount
 	ld a, [wPokedexFoughtCount]
-	ld [$c001], a
+
+	ldh [hMultiplicand + 0], a
+	ld a, 100
+	ldh [hMultiplier], a
+	call Multiply
+	ld a, $ff
+	ldh [hDivisor], a
+	ld b, 2
+	call Divide
+	ldh a, [hQuotient + 3]
+	ld [$c001], a ; has percentage of data collected
+
 	hlcoord 15, 2
 	ld [wStringBuffer1], a
 	ld de, wStringBuffer1
@@ -606,6 +617,7 @@ Pokedex_GetMoves:
 	ld a, 0
 	ld [wPokedexStatus], a
 	ld [wMovesPage], a
+	ld [wMovesMaxCount], a
 	ld a, [wTempSpecies]
 	ld [wCurPartySpecies], a	
 	dec a
@@ -648,6 +660,9 @@ Pokedex_GetMoves:
 	call GetFarByte ; a has move id
 	ld [de], a
 	inc de
+	ld a, [wMovesMaxCount]
+	inc a
+	ld [wMovesMaxCount], a
 	jr .loop_moves
 
 .print_list
@@ -765,11 +780,22 @@ Pokedex_GetMoves:
 	ld c, a
 	add hl, bc
 
-	ld de, .unknown_text
+	ld a, [wMovesMaxCount]
+	ldh [hMultiplicand + 0], a
 	ld a, [$c001]
-	ld c, $f
-	call SimpleDivide ; b holds value
-	inc b
+	ldh [hMultiplier], a
+	call Multiply
+	ld a, 100
+	ldh [hDivisor], a
+	ld b, 2
+	call Divide
+	ldh a, [hQuotient + 3]
+	cp 0
+	jr nz, .dont_increase_min
+	inc a
+.dont_increase_min
+	ld b, a ; b holds our limit
+	ld de, .unknown_text
 
 	ld a, [wMovesPage]
 	ld c, 8

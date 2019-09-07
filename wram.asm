@@ -176,8 +176,8 @@ wc2e6:: ds 4
 wMovementByteWasControlSwitch:: db
 wMovementPointer:: dw ; c2eb
 
-	ds 3
-
+	ds 2
+wMovesMaxCount:: db
 wTempObjectCopyMapObjectIndex:: db ; c2f0
 wTempObjectCopySprite:: db ; c2f1
 wTempObjectCopySpriteVTile:: db ; c2f2
@@ -188,6 +188,7 @@ wTempObjectCopyX:: db ; c2f6
 wTempObjectCopyY:: db ; c2f7
 wTempObjectCopyRadius:: db ; c2f8
 wMovesPage:: db
+
 
 wTileDown::  db ; c2fa
 wTileUp::    db ; c2fb
