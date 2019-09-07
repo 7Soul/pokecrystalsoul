@@ -106,7 +106,7 @@ if DEF(_DEBUG)
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
 	givepoke CLEFAIRY, 50
-	;givepoke NINETALES, 60
+	givepoke NINETALES, 60
 	givepoke MACHOP, 5
 	givepoke KRABBY, 5
 	; callasm CheatFillPokedex

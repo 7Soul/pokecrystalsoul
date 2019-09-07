@@ -80,21 +80,19 @@ RandomRange::
 	ret
 
 RandomDVs::
-	ld a, $a
-	call RandomRange ; 0 to 9
-	inc a
+	push bc
+	ld a, $c
+	call RandomRange ; 0 to 11
+	and $a
 	sla a
 	sla a
 	sla a
 	sla a	
 	ld b, a
 	
-	ld a, $a
-	call RandomRange
-	ld c, a
-	add a
-	add a
-	add c
+	ld a, $c
+	call RandomRange ; 0 to 11
+	and $a
 	add b
-	inc a
+	pop bc
 	ret

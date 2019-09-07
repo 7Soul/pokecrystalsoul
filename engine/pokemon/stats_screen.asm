@@ -1399,45 +1399,19 @@ TN_PrintDVs:
     call PlaceString
     
     ; print 16 bit value of DVs
-    ld de, wTempMonDVs
-    ld a, [de]
-    ld b, a
-    inc de
-    ld a, [de]
-    ld c, a
-    push bc
-     ld de, wTempMonDVs
-    xor a
-    ld [de], a
-    inc de
-    pop bc
-    ld a, b
-    push bc
-    and $f0
-    swap a
-	cp $d ; 15,14,13,12 turns to 10
-	jr c, .dvMinATK1
-	ld a, $a
-	jr .dvMinATK2
-.dvMinATK1
-	cp $9 ; 11,10,9 turns to 9
-	jr c, .dvMinATK2
-	ld a, $9
-.dvMinATK2
-	cp $0 ; limit min DV to 1 (1 to 10)
-	jr nz, .dvMaxATK
-	ld a, $1
-.dvMaxATK
-    ld [de], a
-	cp $3 ; less than 3
+    ld hl, wTempMonDVs
+    ld a, [hl]
+	swap a
+	and $f
+	cp $2 ; 0 to 1
 	jr c, .atkdv0
-	cp $5 ; 3 to 5 (less than 6)
+	cp $4 ; 2 to 3
 	jr c, .atkdv1
-	cp $7 ; 6 to 9 (less than a (10))
+	cp $7 ; 4 to 6
 	jr c, .atkdv2
-	cp $9 ; 10 to 13 (less than d (13))
+	cp $9 ; 7 to 9
 	jr c, .atkdv3
-	hlcoord 4, 9 ; atk disp coords 13 and +
+	hlcoord 4, 9 ; 10
 	jr .atkgo
 .atkdv0
 	hlcoord 8, 9
@@ -1451,34 +1425,18 @@ TN_PrintDVs:
 .atkdv3
 	hlcoord 5, 9
 .atkgo
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de, wTempMonDVs
+	ld [wStringBuffer1], a
+	ld de, wStringBuffer1
+    lb bc, 1, PRINTNUM_RIGHTALIGN | 2
     call PrintNum
-     ld de, wTempMonDVs
-    xor a
-    ld [de], a
-    inc de
-    pop bc
-    ld a, b
-    push bc
+
+	; DEF
+   	ld hl, wTempMonDVs
+	ld a, [hl]
     and $f
-	cp $d ; 15,14,13,12 turns to 10
-	jr c, .dvMinDEF1
-	ld a, $a
-	jr .dvMinDEF2
-.dvMinDEF1
-	cp $9 ; 11,10,9 turns to 9
-	jr c, .dvMinDEF2
-	ld a, $9	
-.dvMinDEF2
-	cp $0 ; limit min DV to 1 (1 to 10)
-	jr nz, .dvMaxDEF
-	ld a, $1
-.dvMaxDEF
-    ld [de],a
-    cp $3
+    cp $2
 	jr c, .defdv0
-	cp $5
+	cp $4
 	jr c, .defdv1
 	cp $7
 	jr c, .defdv2
@@ -1498,35 +1456,20 @@ TN_PrintDVs:
 .defdv3
 	hlcoord 5, 10
 .defgo
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de, wTempMonDVs
+	ld [wStringBuffer1], a
+	ld de, wStringBuffer1
+    lb bc, 1, PRINTNUM_RIGHTALIGN | 2    
     call PrintNum
-     ld de, wTempMonDVs
-    xor a
-    ld [de], a
-    inc de
-    pop bc
-    ld a, c
-    push bc
-    and $f0
+
+	; SPD
+    ld hl, wTempMonDVs
+	inc hl
+	ld a, [hl]
     swap a
-	cp $d ; 15,14,13,12 turns to 10
-	jr c, .dvMinSPE1
-	ld a, $a
-	jr .dvMinSPE2
-.dvMinSPE1
-	cp $9 ; 11,10,9 turns to 9
-	jr c, .dvMinSPE2
-	ld a, $9
-.dvMinSPE2
-	cp $0 ; limit min DV to 1 (1 to 10)
-	jr nz, .dvMaxSPE
-	ld a, $1
-.dvMaxSPE
-    ld [de], a
-    cp $3
+	and $f
+    cp $2
 	jr c, .spedv0
-	cp $5
+	cp $4
 	jr c, .spedv1
 	cp $7
 	jr c, .spedv2
@@ -1546,34 +1489,19 @@ TN_PrintDVs:
 .spedv3
 	hlcoord 5, 11
 .spego
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de, wTempMonDVs
+    ld [wStringBuffer1], a
+	ld de, wStringBuffer1
+    lb bc, 1, PRINTNUM_RIGHTALIGN | 2    
     call PrintNum
-     ld de, wTempMonDVs
-    xor a
-    ld [de], a
-    inc de
-    pop bc
-    ld a, c
-    push bc
-    and $f
-	cp $d ; 15,14,13,12 turns to 10
-	jr c, .dvMinSPC1
-	ld a, $a
-	jr .dvMinSPC2
-.dvMinSPC1
-	cp $9 ; 11,10,9 turns to 9
-	jr c, .dvMinSPC2
-	ld a, $9
-.dvMinSPC2
-	cp $0 ; limit min DV to 1 (1 to 10)
-	jr nz, .dvMaxSPC
-	ld a, $1
-.dvMaxSPC
-    ld [de], a
-    cp $3
+
+	; SPCL
+    ld hl, wTempMonDVs
+    inc hl
+	ld a, [hl]
+	and $f
+    cp $2
 	jr c, .spcdv0
-	cp $5
+	cp $4
 	jr c, .spcdv1
 	cp $7
 	jr c, .spcdv2
@@ -1593,52 +1521,43 @@ TN_PrintDVs:
 .spcdv3
 	hlcoord 5, 12
 .spcgo
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de, wTempMonDVs
+    ld [wStringBuffer1], a
+	ld de, wStringBuffer1
+    lb bc, 1, PRINTNUM_RIGHTALIGN | 2    
     call PrintNum
-     ld de, wTempMonDVs
-    xor a
-    ld [de], a
-    inc de
-    pop bc
-    bit 4, b
-    jr z, .noAttackHP
-    set 3, a
-.noAttackHP
-    bit 0, b
-    jr z, .noDefenseHP
-    set 2, a
-.noDefenseHP
-    bit 4, c
-    jr z, .noSpeedHP
-    set 1, a 
-.noSpeedHP
-    bit 0, c
-    jr z, .noSpecialHP
-    set 0, a
-.noSpecialHP
-    push bc
-	cp $d ; 15,14,13,12 turns to 10
-	jr c, .dvMinHP1
-	ld a, $a
-	jr .dvMinHP2
-.dvMinHP1
-	cp $9 ; 11,10,9 turns to 9
-	jr c, .dvMinHP2
-	ld a, $9
-.dvMinHP2
-	cp $0 ; limit min DV to 1 (1 to 10)
-	jr nz, .dvMaxHP
-	ld a, $1
-.dvMaxHP
-    ld [de], a	
-    cp $3 ; less than 3
+    
+	; HP
+	ld hl, wTempMonDVs
+    ld a, [hl]
+	swap a
+	and 1
+	add a
+	add a
+	add a
+	ld b, a
+	ld a, [hli]
+	and 1
+	add a
+	add a
+	add b
+	ld b, a
+	ld a, [hl]
+	swap a
+	and 1
+	add a
+	add b
+	ld b, a
+	ld a, [hl]
+	and 1
+	add b
+	and $a
+    cp $2
 	jr c, .hpdv0
-	cp $5 ; less than 6
+	cp $4
 	jr c, .hpdv1 
-	cp $7 ; less than 10
+	cp $7
 	jr c, .hpdv2
-	cp $9 ; less than 14
+	cp $9
 	jr c, .hpdv3
 	hlcoord 4, 8
 	jr .hpgo
@@ -1654,17 +1573,12 @@ TN_PrintDVs:
 .hpdv3
 	hlcoord 5, 8
 .hpgo
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de, wTempMonDVs
+    ld [wStringBuffer1], a
+	ld de, wStringBuffer1
+    lb bc, 1, PRINTNUM_RIGHTALIGN | 2    
     call PrintNum
-     ld de, wTempMonDVs
-    pop bc
-    ld a, b
-    ld [de], a
-    inc de
-    ld a, c
-    ld [de], a
 	ret
+
 .label_DV
     db "DVs:@"
 .label_HP

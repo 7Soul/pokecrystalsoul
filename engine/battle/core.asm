@@ -6221,12 +6221,11 @@ LoadEnemyMon:
 	
 .GenerateDVs:
 ; Generate new random DVs
-	call RandomDVs ; 1 to 10
-	ld d, a	
-	call RandomDVs ; 1 to 10
+	call RandomDVs ; 0 to 10
+	ld b, a	
+	call RandomDVs ; 0 to 10
 	ld c, a
-	ld b, d
-
+	
 .UpdateDVs:
 ; Input DVs in register bc
 	ld hl, wEnemyMonDVs

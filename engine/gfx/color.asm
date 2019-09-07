@@ -15,7 +15,7 @@ CheckShininess:
 	and %1000
 	jp z, .NotShiny
 
-; Defense must be 0, 5, 10 or 15
+; Defense must be 0, 5, 10
 	ld a, [hl]
 	and $f
 	ld [wBattleDvDef], a ; save def
@@ -29,13 +29,12 @@ CheckShininess:
 	cp $5
 	jr z, .MaybeShiny1
 	cp $a
-	jr z, .MaybeShiny1
-	cp $f
 	jp nz, .NotShiny
 
-; Speed must be 0, 5, 10 or 15
+; Speed must be 0, 5, 10
 .MaybeShiny1
 	ld a, [hl]
+	; swap a ; don't need because of the '<< 4' below
 	and $f0
 	ld [wBattleDvSpd], a ; save spd
 	add d
@@ -48,11 +47,9 @@ CheckShininess:
 	cp $5 << 4
 	jr z, .MaybeShiny2
 	cp $a << 4
-	jr z, .MaybeShiny2
-	cp $f << 4
 	jp nz, .NotShiny
 
-; Special must be 0, 5, 10 or 15
+; Special must be 0, 5, 10
 .MaybeShiny2
 	ld a, [hl]
 	and $f
@@ -67,8 +64,6 @@ CheckShininess:
 	cp $5
 	jr z, .Shiny
 	cp $a
-	jr z, .Shiny
-	cp $f
 	jp nz, .NotShiny
 
 .Shiny:

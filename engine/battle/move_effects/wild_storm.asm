@@ -31,8 +31,7 @@ BattleCommand_GetWildStorm:
 .flying ; USER is flying
 	ld a, d
 	srl a
-	add a
-	add a ; inc power by 50%
+	add d ; inc power by 50%
 	ld d, a
 .not_flying
 	pop hl
