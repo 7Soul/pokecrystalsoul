@@ -2401,7 +2401,7 @@ Unknown_100feb:
 	db -1
 
 Unknown_100ff3:
-	dbwww $80, wdc41, 1, NULL
+	dbwww $80, wMovesPage, 1, NULL
 	dbwww $80, wPlayerName, NAME_LENGTH, NULL
 	dbwww $80, wPlayerName, NAME_LENGTH, NULL
 	dbwww $80, wPlayerID, 2, NULL
@@ -2660,14 +2660,14 @@ Function1011f1:
 	ld a, $04
 	call GetSRAMBank
 	ld a, [$a60c]
-	ld [wdc41], a
+	ld [wMovesPage], a
 	call CloseSRAM
-	ld hl, wdc41
+	ld hl, wMovesPage
 	res 4, [hl]
 	ld hl, wGameTimerPause
 	bit GAMETIMERPAUSE_MOBILE_7_F, [hl]
 	jr z, .skip
-	ld hl, wdc41
+	ld hl, wMovesPage
 	set 4, [hl]
 
 .skip
@@ -4305,7 +4305,7 @@ Function101db2:
 	ret
 
 Function101dd0:
-	ld hl, wdc41
+	ld hl, wMovesPage
 	bit 1, [hl]
 	jr nz, .asm_101ddd
 	ld a, $19
@@ -4434,7 +4434,7 @@ Function101e98:
 	ret c
 	ld hl, wGameTimerPause
 	set GAMETIMERPAUSE_MOBILE_7_F, [hl]
-	ld hl, wdc41
+	ld hl, wMovesPage
 	set 4, [hl]
 	ret
 
@@ -4442,13 +4442,13 @@ Function101ead:
 	ld hl, wGameTimerPause
 	bit GAMETIMERPAUSE_MOBILE_7_F, [hl]
 	jr nz, .asm_101ec8
-	ld hl, wdc41
+	ld hl, wMovesPage
 	bit 2, [hl]
 	jr z, .asm_101eca
 	ld a, [wcd2f]
 	and a
 	jr nz, .asm_101ec8
-	ld hl, wdc41
+	ld hl, wMovesPage
 	bit 1, [hl]
 	jr z, .asm_101eca
 
@@ -4678,10 +4678,10 @@ Function1020bf:
 	ret
 
 Function1020ea:
-	ld hl, wdc41
+	ld hl, wMovesPage
 	bit 4, [hl]
 	jr z, .quit
-	ld hl, wdc41
+	ld hl, wMovesPage
 	bit 2, [hl]
 	jr nz, .quit
 	call Function10218d
@@ -6935,7 +6935,7 @@ Function103309:
 	call ByteFill
 	ld a, $04
 	call GetSRAMBank
-	ld a, [wdc41]
+	ld a, [wMovesPage]
 	ld [$a60c], a
 	ld [wBuffer1], a
 	call CloseSRAM
@@ -6989,7 +6989,7 @@ Function103362:
 	call GetSRAMBank
 	ld a, [wBuffer1]
 	ld [$a60c], a
-	ld [wdc41], a
+	ld [wMovesPage], a
 	call CloseSRAM
 	xor a
 	ret

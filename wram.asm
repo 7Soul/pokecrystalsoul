@@ -187,8 +187,7 @@ wTempObjectCopyRange:: db ; c2f5
 wTempObjectCopyX:: db ; c2f6
 wTempObjectCopyY:: db ; c2f7
 wTempObjectCopyRadius:: db ; c2f8
-
-	ds 1
+wMovesPage:: db
 
 wTileDown::  db ; c2fa
 wTileUp::    db ; c2fb
@@ -1613,6 +1612,7 @@ wSeerCaughtLevelString:: ds 4
 wSeerCaughtLevel:: db
 wSeerCaughtData:: db
 wSeerCaughtGender:: db
+wPokedexFoughtCount:: db
 
 NEXTU ; d002
 ; mon buffer
@@ -1880,7 +1880,6 @@ wBallsPocketScrollPosition::    db
 wTMHMPocketScrollPosition::     db
 wPokedexSwarmBuffer:: db
 wPokedexInfoSeenCheck:: db
-wPokedexFoughtCount:: db
 wSwitchMon::
 wSwitchItem::
 wMoveSwapBuffer::
@@ -2750,7 +2749,6 @@ wUnusedTwoDayTimer:: db
 wUnusedTwoDayTimerStartDate:: db
 
 wMobileOrCable_LastSelection:: db
-wdc41:: ds 1
 wdc42:: ds 1
 wBuenasPassword:: db
 wBlueCardBalance:: db
@@ -2779,7 +2777,6 @@ wPhoneList:: ds CONTACT_LIST_SIZE ; dc7c
 wLuckyNumberShowFlag:: db ; dc9d
 wRepelType:: db
 wLuckyIDNumber:: dw ; dc9f
-
 
 wRepelEffect:: db ; If a Repel is in use, it contains the nr of steps it's still active
 wBikeStep:: dw
@@ -2844,6 +2841,8 @@ wEndPokedexCaught::
 
 wPokedexSeen:: flag_array NUM_POKEMON ; deb9
 wEndPokedexSeen::
+wPokemonFought:: ds 129 ; n base pokemon species
+wEndPokemonFought::
 
 wUnownDex:: ds NUM_UNOWN ; ded9
 wUnlockedUnowns:: db ; def3
@@ -2901,7 +2900,7 @@ wRoamMons_LastMapGroup:: db
 wBestMagikarpLengthFeet:: db
 wBestMagikarpLengthInches:: db
 wMagikarpRecordHoldersName:: ds NAME_LENGTH
-wPokemonFought:: ds 129 ; n base pokemon species
+
 
 wPokemonDataEnd::
 wGameDataEnd::

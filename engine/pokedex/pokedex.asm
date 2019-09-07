@@ -2618,10 +2618,16 @@ GetFoughtMonCount:
 	jr .loop
 .got_it
 	ld b, 0
+	push af
+	; ld a, BANK(wPokemonFought)
+	; ldh [rSVBK], a
 	ld hl, wPokemonFought
 	add hl, bc
 	ld a, [hl]
 	ld [wPokedexFoughtCount], a
+	ld [$c001], a
+	pop af
+	; ldh [rSVBK], a
 	ret
 
 AddFoughtPokemon:
@@ -2650,7 +2656,9 @@ AddFoughtPokemon:
 	ld a, [hl]
 	cp $ff
 	jr z, .maxed
-	inc a
+	ld b, a
+	ld a, [wTempMonLevel]
+	add b
 	ld [hl], a
 .maxed
 	ret

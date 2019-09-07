@@ -91,12 +91,6 @@ DisplayDexEntry:
 	hlcoord 9, 1
 	call PlaceString ; mon species
 	ld a, [wTempSpecies]
-
-	ld [wTempEnemyMonSpecies], a
-	predef GetFoughtMonCount
-	ld a, [wPokedexFoughtCount]
-
-	ld a, [wTempSpecies]
 	ld [wCurSpecies], a
 	ld b, a
 	call GetDexEntryPointer
@@ -560,7 +554,9 @@ DisplayDexEntry:
 
 
 Pokedex_GetMoves:
+	ldh a, [rSVBK]
 	push af
+	push de
 	call ClearSprites
 	call ClearTileMap
 	
@@ -569,14 +565,52 @@ Pokedex_GetMoves:
 	ld b, SCGB_POKEDEX_SEARCH_OPTION
 	call GetSGBLayout
 	call SetPalettes
-	; ld a, $1
-	; ldh [hInMenu], a
+
+	hlcoord 0, 0
+	lb bc, 16, 18
+	call PokedexMoves_PlaceBorder
+	hlcoord 2, 3
+	ld bc, SCREEN_WIDTH - 4
+	ld a, $6e ; horizontal divider
+	call ByteFill
+	call GetPokemonName
+	hlcoord 2, 1
+	call PlaceString ; mon species
+	ld de, .lvl_moves_text
+	hlcoord 2, 4
+	call PlaceString 
+	ld de, .next_text
+	hlcoord 14, 16
+	call PlaceString 
+; page number	
+	hlcoord 2, 3
+	ld [hl], $56 ; P.
+	inc hl
+	ld [hl], $57 ; 1
+
+	ld a, [wTempSpecies]
+	ld [wTempEnemyMonSpecies], a
+	predef GetFoughtMonCount
+	ld a, [wPokedexFoughtCount]
+	ld [$c001], a
+	hlcoord 15, 2
+	ld [wStringBuffer1], a
+	ld de, wStringBuffer1
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
+	call PrintNum
+
+	hlcoord 18, 2
+	ld a, $60
+	ld [hl], a
 
 	ld a, 0
 	ld [wPokedexStatus], a
+	ld [wMovesPage], a
 	ld a, [wTempSpecies]
-	ld [wCurPartySpecies], a
+	ld [wCurPartySpecies], a	
 	dec a
+
+	ld de, wDecompressScratch
 	
 	ld c, a
 	ld b, 0
@@ -594,52 +628,114 @@ Pokedex_GetMoves:
 	call GetFarByte
 	and a
 	cp 0	
-	jp z, .loop_moves
+	jp z, .loop_moves1
 	inc hl
 	jr .loop_evo
 
+.loop_moves1
+	ld a, BANK(wDecompressScratch)
+	ldh [rSVBK], a
 .loop_moves
 	inc hl
 	ld a, BANK("Evolutions and Attacks")
-	call GetFarByte
+	call GetFarByte ; a has level
+	ld [de], a
+	inc de
 	cp 0
-	jp z, .no_moves
-	call .PlaceLevelString
-
+	jp z, .print_list
 	inc hl
 	ld a, BANK("Evolutions and Attacks")
-	call GetFarByte
-	call .PlaceMoveString
-	ld a, [wPokedexStatus]
-	inc a
-	ld [wPokedexStatus], a
+	call GetFarByte ; a has move id
+	ld [de], a
+	inc de
 	jr .loop_moves
 
-.no_moves
+.print_list
+	lb bc, 8,  17
+	hlcoord 2, 6
+	call ClearBox ; clear area
+
+	ld de, wDecompressScratch
+	ld a, [wMovesPage]
+	ld c, 8
+	call SimpleMultiply
+	ld c, a
+	ld b, 0
+	ld h, d
+	ld l, e
+	add hl, bc
+	add hl, bc
+	ld d, h
+	ld e, l
+
+.print_list_loop
+	ld a, [de]
+	cp 0
+	jr z, .list_end
+	inc de
+	call .PlaceLevelString
+	ld a, [de]
+	inc de
+	call .PlaceMoveString
+	ld a, [wPokedexStatus] ; number of moves temp
+	inc a
+	cp 8
+	jr z, .max
+	ld [wPokedexStatus], a
+	jr .print_list_loop
+.max
+.list_end
 	call WaitBGMap
+
 .loop
 	call JoyTextDelay
 	ld hl, hJoyPressed
 	ld a, [hl]
-	and A_BUTTON | B_BUTTON
-	jr nz, .a_b
+	and A_BUTTON
+	jr nz, .a
+	ld a, [hl]
+	and B_BUTTON
+	jr nz, .b
 	call DelayFrame
 	jr .loop
 
-.a_b
+.a
+	ld a, [wMovesPage]
+	xor 1
+	ld [wMovesPage], a
+	cp 1
+	hlcoord 2, 3
+	jr z, .page_2
+; page number	
+	ld [hl], $56 ; P.
+	inc hl
+	ld [hl], $57 ; 1
+	jr .finished_page_no
+.page_2
+	ld [hl], $56 ; P.
+	inc hl
+	ld [hl], $58 ; 2
+.finished_page_no
+	xor a
+	ld [wPokedexStatus], a
+	jp .print_list
+
+.b
 	xor a
 	ld [wPokedexStatus], a
 	call ClearSprites
+	pop de
 	pop af
+	ldh [rSVBK], a
 	ret
 
+;;;;;;;;;
 .PlaceLevelString:
 	push hl
+	push de
 	ld [wStringBuffer1], a
-	hlcoord 2, 1
+	hlcoord 2, 6
 	ld a, [wPokedexStatus]
-	cp 13
-	jr z, .down_number
 	ld c, a
 	ld a, SCREEN_WIDTH
 	call SimpleMultiply
@@ -647,42 +743,59 @@ Pokedex_GetMoves:
 	ld b, 0
 	ld c, a
 	add hl, bc
-	jr .normal_number
-.down_number
-	hlcoord 2, 14
-.normal_number
 	ld de, wStringBuffer1
 	lb bc, 1, 3
 	call PrintNum
+	pop de
 	pop hl
 	ret
 
 .PlaceMoveString:
 	push hl
+	push de
 	ld [wNamedObjectIndexBuffer], a	
-	hlcoord 6, 1
+	
+	hlcoord 6, 6
 	ld a, [wPokedexStatus]
-	cp 13
-	jr z, .down_number2
 	ld c, a
 	ld a, SCREEN_WIDTH
 	call SimpleMultiply
 
 	ld b, 0
 	ld c, a
-	add hl, bc	
-	jr .normal_number2
-.down_number2
-	hlcoord 6, 14
-.normal_number2
+	add hl, bc
+
+	ld de, .unknown_text
+	ld a, [$c001]
+	ld c, $f
+	call SimpleDivide ; b holds value
+	inc b
+
+	ld a, [wMovesPage]
+	ld c, 8
+	call SimpleMultiply
+	ld c, a
+	ld a, [wPokedexStatus]
+	add c ; current move index
+	
+	cp b
+	jr nc, .unknown_move
+
 	call GetMoveName
+.unknown_move
 	call PlaceString
+	pop de
 	pop hl
 	ret
 
-UnreferencedPOKeString:
-; unused
-	db "#@"
+.lvl_moves_text:
+	db "Lvl  Move@"
+
+.next_text:
+	db "Next▶@"
+
+.unknown_text:
+	db "???@"
 
 DrawEggGroups:
 	ld a, [wBaseEggGroups]
@@ -912,3 +1025,46 @@ endr
 	ret
 
 INCLUDE "data/pokemon/dex_entry_pointers.asm"
+
+PokedexMoves_PlaceBorder:
+	push hl
+	ld a, $33
+	ld [hli], a
+	ld d, $34
+	call .FillRow
+	ld a, $35
+	ld [hl], a
+	pop hl
+	ld de, SCREEN_WIDTH
+	add hl, de
+.loop
+	push hl
+	ld a, $36
+	ld [hli], a
+	ld d, $7f
+	call .FillRow
+	ld a, $37
+	ld [hl], a
+	pop hl
+	ld de, SCREEN_WIDTH
+	add hl, de
+	dec b
+	jr nz, .loop
+	ld a, $38
+	ld [hli], a
+	ld d, $39
+	call .FillRow
+	ld a, $3a
+	ld [hl], a
+	ret
+
+.FillRow:
+	ld e, c
+.row_loop
+	ld a, e
+	and a
+	ret z
+	ld a, d
+	ld [hli], a
+	dec e
+	jr .row_loop

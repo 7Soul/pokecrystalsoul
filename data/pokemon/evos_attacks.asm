@@ -2398,9 +2398,6 @@ QuilavaEvosAttacks:
 	db 10, EMBER
 	db 13, QUICK_ATTACK
 	db 20, FLAME_WHEEL
-	db 21, POWER_GEM
-	db 21, SANDSTORM
-	db 21, LEAF_SHIELD
 	db 24, DEFENSE_CURL
 	db 31, SWIFT
 	db 42, FLAMETHROWER
@@ -2429,7 +2426,7 @@ TotodileEvosAttacks:
 	db 1, LEER
 	db 6, WATER_GUN
 	db 8, RAGE
-	db 16, BITE
+	db 13, BITE
 	db 15, SCARY_FACE
 	db 20, FROZEN_CLAW
 	db 22, REVERSAL
@@ -2449,7 +2446,7 @@ CroconawEvosAttacks:
 	db 1, LEER
 	db 1, WATER_GUN
 	db 8, RAGE
-	db 16, BITE
+	db 13, BITE
 	db 15, SCARY_FACE
 	db 21, FROZEN_CLAW
 	db 24, REVERSAL
@@ -3723,7 +3720,7 @@ SmoochumEvosAttacks:
 ElekidEvosAttacks:
 	db EVOLVE_LEVEL, 25, ELECTABUZZ
 	db 0 ; no more evolutions
-	db 4, THUNDERSHOCK
+	db 1, THUNDERSHOCK
 	db 1, LEER
 	db 8, QUICK_ATTACK
 	db 13, LOW_KICK
