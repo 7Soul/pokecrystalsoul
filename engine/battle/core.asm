@@ -6079,6 +6079,23 @@ LoadEnemyMon:
 ;    12% Item1
 ;     3% Item2
 
+	call BattleRandom
+	cp 50 percent
+	jr nc, .GetHeldItem
+
+; 1% chance of getting a berry
+	call BattleRandom
+	cp 2 percent
+	ld a, STICK
+	jr c, .BerryTree
+
+; 1% chance of getting a useless stick
+	call BattleRandom
+	cp 2 percent
+	ld a, STICK
+	jr c, .UpdateItem
+
+.GetHeldItem
 ; 15% chance of getting an item
 	call BattleRandom
 	cp 85 percent + 1

@@ -30,7 +30,7 @@
 	const FIRE_STONE   ; 16
 	const THUNDERSTONE ; 17
 	const WATER_STONE  ; 18
-	const TOUGH_HORN   ; 19 ; unused
+	const TOUGH_HORN   ; 19 ; new
 	const HP_UP        ; 1a
 	const PROTEIN      ; 1b
 	const IRON         ; 1c
@@ -50,12 +50,12 @@
 	const SUPER_REPEL  ; 2a
 	const MAX_REPEL    ; 2b
 	const DIRE_HIT     ; 2c
-	const CARAPACE     ; 2d ; unused
+	const CARAPACE     ; 2d ; new
 	const FRESH_WATER  ; 2e
 	const SODA_POP     ; 2f
 	const LEMONADE     ; 30
 	const X_ATTACK     ; 31
-	const STEEL_WING   ; 32 ; unused
+	const STEEL_WING   ; 32 ; new
 	const X_DEFEND     ; 33
 	const X_SPEED      ; 34
 	const X_SPECIAL    ; 35
@@ -95,7 +95,7 @@
 	const BIG_MUSHROOM ; 57
 	const SILVERPOWDER ; 58
 	const BLU_APRICORN ; 59
-	const BATTERY      ; 5a ; unused
+	const BATTERY      ; 5a ; new
 	const AMULET_COIN  ; 5b
 	const YLW_APRICORN ; 5c
 	const GRN_APRICORN ; 5d
@@ -105,12 +105,12 @@
 	const WHT_APRICORN ; 61
 	const BLACKBELT    ; 62
 	const BLK_APRICORN ; 63
-	const CINDERS      ; 64 ; unused
+	const CINDERS      ; 64 ; new
 	const PNK_APRICORN ; 65
 	const BLACKGLASSES ; 66
 	const SLOWPOKETAIL ; 67
 	const PINK_BOW     ; 68
-	const STICK        ; 69
+	const LEEK         ; 69
 	const SMOKE_BALL   ; 6a
 	const NEVERMELTICE ; 6b
 	const MAGNET       ; 6c
@@ -125,7 +125,7 @@
 	const MIRACLE_SEED ; 75
 	const THICK_CLUB   ; 76
 	const FOCUS_BAND   ; 77
-	const DARK_MIRROR  ; 78 ; unused
+	const DARK_MIRROR  ; 78 ; new
 	const ENERGYPOWDER ; 79
 	const ENERGY_ROOT  ; 7a
 	const HEAL_POWDER  ; 7b
@@ -140,21 +140,21 @@
 	const STAR_PIECE   ; 84
 	const BASEMENT_KEY ; 85
 	const PASS         ; 86
-	const DUMBELL	   ; 87 ; unused
-	const GRASSWHISTLE ; 88 ; unused
-	const ACCELEROCK   ; 89 ; unused
+	const DUMBELL	   ; 87 ; new
+	const GRASSWHISTLE ; 88 ; new
+	const ACCELEROCK   ; 89 ; new
 	const CHARCOAL     ; 8a
 	const BERRY_JUICE  ; 8b
 	const SCOPE_LENS   ; 8c
-	const HARDENEDSAND ; 8d ; unused
-	const SHINY_CORAL  ; 8e ; unused
+	const HARDENEDSAND ; 8d ; new
+	const SHINY_CORAL  ; 8e ; new
 	const METAL_COAT   ; 8f
 	const DRAGON_FANG  ; 90
-	const CUTE_RIBBON  ; 91 ; unused
+	const CUTE_RIBBON  ; 91 ; new
 	const LEFTOVERS    ; 92
-	const FROZEN_DEW   ; 93 ; unused
-	const EYE_GLYPH    ; 94 ; unused
-	const ITEM_95      ; 95 ; unused
+	const FROZEN_DEW   ; 93 ; new
+	const EYE_GLYPH    ; 94 ; new
+	const STICK        ; 95 ; new
 	const MYSTERYBERRY ; 96
 	const DRAGON_SCALE ; 97
 	const BERSERK_GENE ; 98

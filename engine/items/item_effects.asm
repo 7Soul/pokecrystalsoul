@@ -117,7 +117,7 @@ ItemEffects:
 	dw NoEffect            ; BLACKGLASSES
 	dw NoEffect            ; SLOWPOKETAIL
 	dw NoEffect            ; PINK_BOW
-	dw NoEffect            ; STICK
+	dw NoEffect            ; LEEK
 	dw NoEffect            ; SMOKE_BALL
 	dw NoEffect            ; NEVERMELTICE
 	dw NoEffect            ; MAGNET
@@ -161,7 +161,7 @@ ItemEffects:
 	dw NoEffect            ; LEFTOVERS
 	dw NoEffect            ; ITEM_93
 	dw NoEffect            ; ITEM_94
-	dw NoEffect            ; ITEM_95
+	dw NoEffect            ; STICK
 	dw RestorePPEffect     ; MYSTERYBERRY
 	dw NoEffect            ; DRAGON_SCALE
 	dw NoEffect            ; BERSERK_GENE

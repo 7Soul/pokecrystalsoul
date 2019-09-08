@@ -104,7 +104,7 @@ ItemDescriptions:
 	dw BlackGlassesDesc
 	dw SlowpokeTailDesc
 	dw PinkBowDesc
-	dw StickDesc
+	dw LeekDesc
 	dw SmokeBallDesc
 	dw NeverMeltIceDesc
 	dw MagnetDesc
@@ -148,7 +148,7 @@ ItemDescriptions:
 	dw LeftoversDesc
 	dw FrozenDewDesc
 	dw EyeGlyphDesc
-	dw TeruSama17Desc
+	dw StickDesc
 	dw MysteryBerryDesc
 	dw DragonScaleDesc
 	dw BerserkGeneDesc
@@ -665,8 +665,8 @@ PinkBowDesc:
 	db   "Powers up normal-"
 	next "type moves. (HOLD)@"
 
-StickDesc:
-	db   "An ordinary stick."
+LeekDesc:
+	db   "A fresh leek."
 	next "Sell low.@"
 
 SmokeBallDesc:
@@ -840,8 +840,8 @@ EyeGlyphDesc:
 	db   "Powers unevolved"
 	next "PSYCHIC-Types.@"
 
-TeruSama17Desc:
-	db   "?@"
+StickDesc:
+	db   "A big stick.@"
 
 MysteryBerryDesc:
 	db   "A self-restore"

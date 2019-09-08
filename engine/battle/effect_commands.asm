@@ -1123,7 +1123,7 @@ BattleCommand_Critical:
 	cp FARFETCH_D
 	jr nz, .Steel_Wing_Check
 	ld a, [hl]
-	cp STICK
+	cp LEEK
 	jp nz, .FocusEnergy
 
 ; +2 critical level
