@@ -192,67 +192,103 @@ SetLucky:
 	ret
 	
 GetAShinyDV1:
+	push bc
 	call Random 
-	cp 20 percent
+	cp 10 percent
 	jr nc, .NoLuck
 	
 	; sets b to a shiny dv
-	ld a, 8
-	call RandomRange
-	ld b, 8
-	add b
-	sla a
-	sla a
-	sla a
-	sla a	
+.loop_atk
+	ld a, $c
+	call RandomRange ; 0 to 11
+	cp $b
+	jr c, .ok1 ; 2 chances of getting a 10
+	sub 1
+
+.ok1
 	ld b, a
-	
-	ld a, 4
-	call RandomRange
-	ld c, a
-	add a
-	add a
-	add c
-	add b
-	ld b, a
+	; get defense
+.loop_def
+	ld a, $c
+	call RandomRange ; 0 to 11
+	cp $b
+	jr c, .ok2 ; 2 chances of getting a 10
+	sub 1
+
+.ok2
+	ld c, a ; save def
+	add b ; add atk to def
+.mod_check
+	cp 10
+	jr c, .ok
+	sub 10
+	jr .mod_check
+.ok
+	cp 0 ; check if def + atk % 10 = 0
+	jr nz, .loop_def
+
+	ld a, b
+	sla a
+	sla a
+	sla a
+	sla a
+	add c ; found a valid Def
+	ld d, a
+	pop bc
 	ret
 .NoLuck
-	ld a, $FF
-	call RandomRange
-	ld b, a
+	pop bc
+	call RandomDVs
 	ret
-	
+
 GetAShinyDV2:
+	push bc
 	call Random 
-	cp 20 percent
+	cp 10 percent
 	jr nc, .NoLuck
 	
-	; sets c to a shiny dv
-	ld a, 4
-	call RandomRange
-	ld e, a
-	add a
-	add a
-	add e
+	; sets b to a shiny dv
+.loop_speed
+	ld a, $c
+	call RandomRange ; 0 to 11
+	cp $b
+	jr c, .ok1 ; 2 chances of getting a 10
+	sub 1
+
+.ok1
+	ld b, a
+	; get spcl
+.loop_spcl
+	ld a, $c
+	call RandomRange ; 0 to 11
+	cp $b
+	jr c, .ok2 ; 2 chances of getting a 10
+	sub 1
+
+.ok2
+	ld c, a ; save spcl
+	add b ; add spd to spcl
+.mod_check
+	cp 10
+	jr c, .ok
+	sub 10
+	jr .mod_check
+.ok
+	cp 0 ; check if spd + spcl % 10 = 0
+	jr nz, .loop_spcl
+
+	ld a, b
 	sla a
 	sla a
 	sla a
 	sla a
-	ld e, a
-	
-	ld a, 4
-	call RandomRange
-	ld c, a
-	add a
-	add a
 	add c
-	add e
-	ld c, a
+	ld e, a
+	pop bc
 	ret
 .NoLuck
-	ld a, $FF
-	call RandomRange
-	ld c, a
+	pop bc
+	call RandomDVs
 	ret
 
 EvolveWildMon2:

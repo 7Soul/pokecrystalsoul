@@ -5,51 +5,46 @@ CheckShininess:
 ; Return carry if shiny.
 	ld l, c
 	ld h, b
-	
-; Attack must be off
+
+; Attack (any)
 	ld a, [hl]
 	swap a
 	and $f
 	ld [wBattleDvAtk], a ; save atk
-	ld d, a ; atk
-	and %1000
-	jp z, .NotShiny
+	ld d, a ; atk (d has total DVs, but not used)
 
-; Defense must be 0, 5, 10
+.MaybeShiny0
+; Defense + Atk % 10 must be 0 (0,10,20) (13/100)
 	ld a, [hl]
 	and $f
 	ld [wBattleDvDef], a ; save def
 	add d
 	ld d, a
 	
+	ld a, [wBattleDvAtk]
+	ld b, a
 	ld a, [hli]
 	and $f
-	cp $0
-	jr z, .MaybeShiny1
-	cp $5
-	jr z, .MaybeShiny1
-	cp $a
+	add b
+.mod_def
+	cp 10
+	jr c, .ok
+	sub 10
+	jr .mod_def
+.ok
+	cp 0
 	jp nz, .NotShiny
 
-; Speed must be 0, 5, 10
+; Speed (any)
 .MaybeShiny1
 	ld a, [hl]
-	; swap a ; don't need because of the '<< 4' below
-	and $f0
+	swap a
+	and $f
 	ld [wBattleDvSpd], a ; save spd
 	add d
 	ld d, a
-	
-	ld a, [hl]
-	and $f0
-	cp $0 << 4
-	jr z, .MaybeShiny2
-	cp $5 << 4
-	jr z, .MaybeShiny2
-	cp $a << 4
-	jp nz, .NotShiny
 
-; Special must be 0, 5, 10
+; Special + Spd % 10 must be 0 (0,10,20)
 .MaybeShiny2
 	ld a, [hl]
 	and $f
@@ -57,13 +52,18 @@ CheckShininess:
 	add d
 	ld d, a
 	
+	ld a, [wBattleDvSpd]
+	ld b, a
 	ld a, [hl]
 	and $f
-	cp $0
-	jr z, .Shiny
-	cp $5
-	jr z, .Shiny
-	cp $a
+	add b
+.mod_spcl
+	cp 10
+	jr c, .ok2
+	sub 10
+	jr .mod_spcl
+.ok2
+	cp 0
 	jp nz, .NotShiny
 
 .Shiny:
@@ -78,8 +78,11 @@ CheckShininess:
 	ld [wBattleDvAtk], a
 	ld [wBattleDvDef], a
 	ld [wBattleDvSpd], a
+	ld [wBattleDvSpc], a
 	and a
 	ret
+
+
 
 InitPartyMenuPalettes:
 	ld hl, PalPacket_PartyMenu + 1

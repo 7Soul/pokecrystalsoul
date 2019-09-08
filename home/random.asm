@@ -83,7 +83,11 @@ RandomDVs::
 	push bc
 	ld a, $c
 	call RandomRange ; 0 to 11
-	and $a
+
+	cp $b
+	jr c, .ok ; 2 chances of getting a 10
+	sub 1
+.ok
 	sla a
 	sla a
 	sla a
@@ -92,7 +96,11 @@ RandomDVs::
 	
 	ld a, $c
 	call RandomRange ; 0 to 11
-	and $a
+
+	cp $b
+	jr c, .ok2 ; 2 chances of getting a 10
+	sub 1
+.ok2
 	add b
 	pop bc
 	ret

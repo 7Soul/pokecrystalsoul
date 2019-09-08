@@ -1550,7 +1550,12 @@ TN_PrintDVs:
 	ld a, [hl]
 	and 1
 	add b
-	and $a
+.mod_hp
+	cp 11
+	jr c, .hpok
+	sub 11
+	jr .mod_hp
+.hpok
     cp $2
 	jr c, .hpdv0
 	cp $4

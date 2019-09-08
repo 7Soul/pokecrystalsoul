@@ -6200,11 +6200,16 @@ LoadEnemyMon:
 
 ; Forced shiny battle type
 ; Used by Red Gyarados at Lake of Rage
+	push de
 	cp BATTLETYPE_SHINY
 	jr nz, .check_lucky
 
-	ld b, ATKDEFDV_SHINY ; $ea
-	ld c, SPDSPCDV_SHINY ; $aa
+	farcall GetAShinyDV1 ; puts result in d
+	farcall GetAShinyDV2 ; puts result in e
+	ld a, d
+	ld b, a
+	ld a, e
+	ld c, a
 	jr .UpdateDVs
 
 .check_lucky:
@@ -6213,10 +6218,12 @@ LoadEnemyMon:
 	jr z, .GenerateDVs
 	dec a
 	ld [wLuckyWild], a
-	push de
-	farcall GetAShinyDV1
-	farcall GetAShinyDV2
-	pop de
+	farcall GetAShinyDV1 ; puts result in d
+	farcall GetAShinyDV2 ; puts result in e
+	ld a, d
+	ld b, a
+	ld a, e
+	ld c, a
 	jr .UpdateDVs
 	
 .GenerateDVs:
@@ -6225,13 +6232,19 @@ LoadEnemyMon:
 	ld b, a	
 	call RandomDVs ; 0 to 10
 	ld c, a
-	
+	call Random
+	cp 25
+	jr c, .UpdateDVs ; 10% artificial reduction to shiny chance
+	call BattleCheckShininess
+	jr c, .GenerateDVs
+
 .UpdateDVs:
 ; Input DVs in register bc
 	ld hl, wEnemyMonDVs
 	ld a, b
 	ld [hli], a
 	ld [hl], c
+	pop de
 
 ; We've still got more to do if we're dealing with a wild monster
 	ld a, [wBattleMode]
@@ -6321,7 +6334,7 @@ LoadEnemyMon:
 ; Try again if length < 1024 mm (i.e. if HIGH(length) < 3 feet)
 	ld a, [wMagikarpLength]
 	cp HIGH(1024) ; should be "cp 3", since 1024 mm = 3'4", but HIGH(1024) = 4
-	jr c, .GenerateDVs ; try again
+	jp c, .GenerateDVs ; try again
 
 ; Finally done with DVs
 

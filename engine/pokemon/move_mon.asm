@@ -1509,7 +1509,12 @@ CalcMonStatC:
 	ld a, [hl]
 	and 1
 	add b
-	and $a
+.mod_hp
+	cp 11
+	jr c, .hpok
+	sub 11
+	jr .mod_hp
+.hpok
 	pop bc
 
 	jr .GotDV
