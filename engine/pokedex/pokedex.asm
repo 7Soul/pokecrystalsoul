@@ -2618,21 +2618,15 @@ GetFoughtMonCount:
 	jr .loop
 .got_it
 	ld b, 0
-	push af
-	; ld a, BANK(wPokemonFought)
-	; ldh [rSVBK], a
 	ld hl, wPokemonFought
 	add hl, bc
 	ld a, [hl]
 	ld [wPokedexFoughtCount], a
 	ld [$c001], a
-	pop af
-	; ldh [rSVBK], a
 	ret
 
-AddFoughtPokemon:
-	ld a, [wTempEnemyMonSpecies]
-	ld [wCurPartySpecies], a
+AddFoughtPokemon:	
+	ld a, [wCurPartySpecies]
 	predef GetPreEvolution
 	predef GetPreEvolution
 	ld a, [wCurPartySpecies]

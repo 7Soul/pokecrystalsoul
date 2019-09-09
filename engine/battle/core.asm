@@ -1948,24 +1948,24 @@ GetMaxHP:
 	ld c, a
 	ret
 
-Unreferenced_GetHalfHP:
-	ld hl, wBattleMonHP
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .ok
-	ld hl, wEnemyMonHP
-.ok
-	ld a, [hli]
-	ld b, a
-	ld a, [hli]
-	ld c, a
-	srl b
-	rr c
-	ld a, [hli]
-	ld [wBuffer2], a
-	ld a, [hl]
-	ld [wBuffer1], a
-	ret
+; Unreferenced_GetHalfHP:
+; 	ld hl, wBattleMonHP
+; 	ldh a, [hBattleTurn]
+; 	and a
+; 	jr z, .ok
+; 	ld hl, wEnemyMonHP
+; .ok
+; 	ld a, [hli]
+; 	ld b, a
+; 	ld a, [hli]
+; 	ld c, a
+; 	srl b
+; 	rr c
+; 	ld a, [hli]
+; 	ld [wBuffer2], a
+; 	ld a, [hl]
+; 	ld [wBuffer1], a
+; 	ret
 
 CheckUserHasEnoughHP:
 	ld hl, wBattleMonHP + 1
@@ -2045,6 +2045,8 @@ UpdateHPBar:
 	ret
 
 HandleEnemyMonFaint:
+	ld a, [wTempEnemyMonSpecies]
+	ld [wCurPartySpecies], a
 	predef AddFoughtPokemon
 
 	call FaintEnemyPokemon
@@ -6167,7 +6169,7 @@ LoadEnemyMon:
 	ld b, [hl]
 	inc hl
 	ld c, [hl]
-	jr .UpdateDVs
+	jp .UpdateDVs
 
 .WildDVs:
 ; Wild DVs
@@ -6220,8 +6222,11 @@ LoadEnemyMon:
 	push de
 	cp BATTLETYPE_SHINY
 	jr nz, .check_lucky
-
+	ld a, $ff ; 100%
+	ld b, a
 	farcall GetAShinyDV1 ; puts result in d
+	ld a, $ff ; 100%
+	ld b, a
 	farcall GetAShinyDV2 ; puts result in e
 	ld a, d
 	ld b, a
@@ -6235,7 +6240,11 @@ LoadEnemyMon:
 	jr z, .GenerateDVs
 	dec a
 	ld [wLuckyWild], a
+	ld a, 10 ; 10%
+	ld b, a
 	farcall GetAShinyDV1 ; puts result in d
+	ld a, 10 ; 10%
+	ld b, a
 	farcall GetAShinyDV2 ; puts result in e
 	ld a, d
 	ld b, a
@@ -6250,9 +6259,9 @@ LoadEnemyMon:
 	call RandomDVs ; 0 to 10
 	ld c, a
 	call Random
-	cp 25
+	cp 10 percent
 	jr c, .UpdateDVs ; 10% artificial reduction to shiny chance
-	call BattleCheckShininess
+	call BattleCheckShininess ; 90% chance to reroll if it's a shiny
 	jr c, .GenerateDVs
 
 .UpdateDVs:
@@ -6648,16 +6657,16 @@ CheckUnownLetter:
 
 INCLUDE "data/wild/unlocked_unowns.asm"
 
-Unreferenced_SwapBattlerLevels:
-	push bc
-	ld a, [wBattleMonLevel]
-	ld b, a
-	ld a, [wEnemyMonLevel]
-	ld [wBattleMonLevel], a
-	ld a, b
-	ld [wEnemyMonLevel], a
-	pop bc
-	ret
+; Unreferenced_SwapBattlerLevels:
+; 	push bc
+; 	ld a, [wBattleMonLevel]
+; 	ld b, a
+; 	ld a, [wEnemyMonLevel]
+; 	ld [wBattleMonLevel], a
+; 	ld a, b
+; 	ld [wEnemyMonLevel], a
+; 	pop bc
+; 	ret
 
 BattleWinSlideInEnemyTrainerFrontpic:
 	xor a
@@ -7010,19 +7019,19 @@ _LoadHPBar:
 	callfar LoadHPBar
 	ret
 
-Unreferenced_LoadHPExpBarGFX:
-	ld de, EnemyHPBarBorderGFX
-	ld hl, vTiles2 tile $6c
-	lb bc, BANK(EnemyHPBarBorderGFX), 4
-	call Get1bpp
-	ld de, HPExpBarBorderGFX
-	ld hl, vTiles2 tile $73
-	lb bc, BANK(HPExpBarBorderGFX), 6
-	call Get1bpp
-	ld de, ExpBarGFX
-	ld hl, vTiles2 tile $55
-	lb bc, BANK(ExpBarGFX), 8
-	jp Get2bpp
+; Unreferenced_LoadHPExpBarGFX:
+; 	ld de, EnemyHPBarBorderGFX
+; 	ld hl, vTiles2 tile $6c
+; 	lb bc, BANK(EnemyHPBarBorderGFX), 4
+; 	call Get1bpp
+; 	ld de, HPExpBarBorderGFX
+; 	ld hl, vTiles2 tile $73
+; 	lb bc, BANK(HPExpBarBorderGFX), 6
+; 	call Get1bpp
+; 	ld de, ExpBarGFX
+; 	ld hl, vTiles2 tile $55
+; 	lb bc, BANK(ExpBarGFX), 8
+; 	jp Get2bpp
 
 EmptyBattleTextBox:
 	ld hl, .empty
@@ -7537,6 +7546,10 @@ GiveExperiencePoints:
 	pop af
 	ld [wCurPartyLevel], a
 
+	ld a, [wCurSpecies]
+	ld [wCurPartySpecies], a
+	predef AddFoughtPokemon
+
 .skip_stats
 	ld a, [wPartyCount]
 	ld b, a
@@ -7984,45 +7997,45 @@ TextJump_GoodComeBack:
 	text_jump Text_GoodComeBack
 	db "@"
 
-Unreferenced_TextJump_ComeBack:
-; this function doesn't seem to be used
-	ld hl, TextJump_ComeBack
-	ret
+; Unreferenced_TextJump_ComeBack:
+; ; this function doesn't seem to be used
+; 	ld hl, TextJump_ComeBack
+; 	ret
 
 TextJump_ComeBack:
 	text_jump Text_ComeBack
 	db "@"
 
-Unreferenced_HandleSafariAngerEatingStatus:
-	ld hl, wSafariMonEating
-	ld a, [hl]
-	and a
-	jr z, .angry
-	dec [hl]
-	ld hl, BattleText_WildMonIsEating
-	jr .finish
+; Unreferenced_HandleSafariAngerEatingStatus:
+; 	ld hl, wSafariMonEating
+; 	ld a, [hl]
+; 	and a
+; 	jr z, .angry
+; 	dec [hl]
+; 	ld hl, BattleText_WildMonIsEating
+; 	jr .finish
 
-.angry
-	dec hl ; wSafariMonAngerCount
-	ld a, [hl]
-	and a
-	ret z
-	dec [hl]
-	ld hl, BattleText_WildMonIsAngry
-	jr nz, .finish
-	push hl
-	ld a, [wEnemyMonSpecies]
-	ld [wCurSpecies], a
-	call GetBaseData
-	ld a, [wBaseCatchRate]
-	ld [wEnemyMonCatchRate], a
-	pop hl
+; .angry
+; 	dec hl ; wSafariMonAngerCount
+; 	ld a, [hl]
+; 	and a
+; 	ret z
+; 	dec [hl]
+; 	ld hl, BattleText_WildMonIsAngry
+; 	jr nz, .finish
+; 	push hl
+; 	ld a, [wEnemyMonSpecies]
+; 	ld [wCurSpecies], a
+; 	call GetBaseData
+; 	ld a, [wBaseCatchRate]
+; 	ld [wEnemyMonCatchRate], a
+; 	pop hl
 
-.finish
-	push hl
-	call Call_LoadTempTileMapToTileMap
-	pop hl
-	jp StdBattleTextBox
+; .finish
+; 	push hl
+; 	call Call_LoadTempTileMapToTileMap
+; 	pop hl
+; 	jp StdBattleTextBox
 
 FillInExpBar:
 	push hl
@@ -8250,9 +8263,9 @@ StartBattle:
 	scf
 	ret
 
-Unreferenced_DoBattle:
-	call DoBattle
-	ret
+; Unreferenced_DoBattle:
+; 	call DoBattle
+; 	ret
 
 BattleIntro:
 	farcall StubbedTrainerRankings_Battles ; mobile
@@ -8423,56 +8436,56 @@ InitEnemyWildmon:
 	predef PlaceGraphic
 	ret
 
-Unreferenced_Function3f662:
-	ld hl, wEnemyMonMoves
-	ld de, wListMoves_MoveIndicesBuffer
-	ld b, NUM_MOVES
-.loop
-	ld a, [de]
-	inc de
-	ld [hli], a
-	and a
-	jr z, .clearpp
+; Unreferenced_Function3f662:
+; 	ld hl, wEnemyMonMoves
+; 	ld de, wListMoves_MoveIndicesBuffer
+; 	ld b, NUM_MOVES
+; .loop
+; 	ld a, [de]
+; 	inc de
+; 	ld [hli], a
+; 	and a
+; 	jr z, .clearpp
 
-	push bc
-	push hl
+; 	push bc
+; 	push hl
 
-	push hl
-	dec a
-	ld hl, Moves + MOVE_PP
-	ld bc, MOVE_LENGTH
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-	pop hl
+; 	push hl
+; 	dec a
+; 	ld hl, Moves + MOVE_PP
+; 	ld bc, MOVE_LENGTH
+; 	call AddNTimes
+; 	ld a, BANK(Moves)
+; 	call GetFarByte
+; 	pop hl
 
-	ld bc, wEnemyMonPP - (wEnemyMonMoves + 1)
-	add hl, bc
-	ld [hl], a
+; 	ld bc, wEnemyMonPP - (wEnemyMonMoves + 1)
+; 	add hl, bc
+; 	ld [hl], a
 
-	pop hl
-	pop bc
+; 	pop hl
+; 	pop bc
 
-	dec b
-	jr nz, .loop
-	ret
+; 	dec b
+; 	jr nz, .loop
+; 	ret
 
-.clear
-	xor a
-	ld [hli], a
+; .clear
+; 	xor a
+; 	ld [hli], a
 
-.clearpp
-	push bc
-	push hl
-	ld bc, wEnemyMonPP - (wEnemyMonMoves + 1)
-	add hl, bc
-	xor a
-	ld [hl], a
-	pop hl
-	pop bc
-	dec b
-	jr nz, .clear
-	ret
+; .clearpp
+; 	push bc
+; 	push hl
+; 	ld bc, wEnemyMonPP - (wEnemyMonMoves + 1)
+; 	add hl, bc
+; 	xor a
+; 	ld [hl], a
+; 	pop hl
+; 	pop bc
+; 	dec b
+; 	jr nz, .clear
+; 	ret
 
 ExitBattle:
 	call .HandleEndOfBattle

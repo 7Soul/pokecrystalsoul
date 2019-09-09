@@ -194,7 +194,7 @@ SetLucky:
 GetAShinyDV1:
 	push bc
 	call Random 
-	cp 10 percent
+	cp b
 	jr nc, .NoLuck
 	
 	; sets b to a shiny dv
@@ -244,7 +244,7 @@ GetAShinyDV1:
 GetAShinyDV2:
 	push bc
 	call Random 
-	cp 10 percent
+	cp b
 	jr nc, .NoLuck
 	
 	; sets b to a shiny dv

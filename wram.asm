@@ -176,8 +176,9 @@ wc2e6:: ds 4
 wMovementByteWasControlSwitch:: db
 wMovementPointer:: dw ; c2eb
 
-	ds 2
+	ds 1
 wMovesMaxCount:: db
+wMovesLevelOneCount:: db
 wTempObjectCopyMapObjectIndex:: db ; c2f0
 wTempObjectCopySprite:: db ; c2f1
 wTempObjectCopySpriteVTile:: db ; c2f2

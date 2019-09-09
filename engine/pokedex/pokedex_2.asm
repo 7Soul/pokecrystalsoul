@@ -591,24 +591,7 @@ Pokedex_GetMoves:
 	ld a, [wTempSpecies]
 	ld [wTempEnemyMonSpecies], a
 	predef GetFoughtMonCount
-	ld a, [wPokedexFoughtCount]
-
-	ldh [hMultiplicand + 0], a
-	ld a, 100
-	ldh [hMultiplier], a
-	call Multiply
-	ld a, $ff
-	ldh [hDivisor], a
-	ld b, 2
-	call Divide
-	ldh a, [hQuotient + 3]
-	ld [$c001], a ; has percentage of data collected
-
-	hlcoord 15, 2
-	ld [wStringBuffer1], a
-	ld de, wStringBuffer1
-	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
-	call PrintNum
+	ld a, [$c001]
 
 	hlcoord 18, 2
 	ld a, $60
@@ -618,6 +601,7 @@ Pokedex_GetMoves:
 	ld [wPokedexStatus], a
 	ld [wMovesPage], a
 	ld [wMovesMaxCount], a
+	ld [wMovesLevelOneCount], a
 	ld a, [wTempSpecies]
 	ld [wCurPartySpecies], a	
 	dec a
@@ -652,9 +636,18 @@ Pokedex_GetMoves:
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte ; a has level
 	ld [de], a
+	ld b, a
 	inc de
-	cp 0
-	jp z, .print_list
+	cp 0	
+	jp z, .calc_list
+
+	cp 1
+	jr nz, .notLevelOne
+	ld a, [wMovesLevelOneCount]
+	inc a
+	ld [wMovesLevelOneCount], a
+
+.notLevelOne
 	inc hl
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte ; a has move id
@@ -665,7 +658,27 @@ Pokedex_GetMoves:
 	ld [wMovesMaxCount], a
 	jr .loop_moves
 
-.print_list
+.calc_list
+	ld a, [$c001]
+	ldh [hMultiplicand + 0], a
+	ld a, 100
+	ldh [hMultiplier], a
+	call Multiply
+	
+	ld a, $ff
+	ldh [hDivisor], a
+	ld b, 2
+	call Divide
+	ldh a, [hQuotient + 3]
+	ld [$c001], a ; c001 now has percentage of data collected
+
+	hlcoord 15, 2
+	ld [wStringBuffer1], a
+	ld de, wStringBuffer1
+	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
+	call PrintNum
+
+.print_list	
 	lb bc, 8,  17
 	hlcoord 2, 6
 	call ClearBox ; clear area
@@ -770,6 +783,7 @@ Pokedex_GetMoves:
 	push de
 	ld [wNamedObjectIndexBuffer], a	
 	
+; get position
 	hlcoord 6, 6
 	ld a, [wPokedexStatus]
 	ld c, a
@@ -778,35 +792,43 @@ Pokedex_GetMoves:
 
 	ld b, 0
 	ld c, a
-	add hl, bc
+	add hl, bc ; save position to draw text
 
 	ld a, [wMovesMaxCount]
-	ldh [hMultiplicand + 0], a
-	ld a, [$c001]
+	ldh [hMultiplicand + 0], a	
+	ld a, [$c001] ; data collected
 	ldh [hMultiplier], a
 	call Multiply
+
 	ld a, 100
 	ldh [hDivisor], a
 	ld b, 2
 	call Divide
+
 	ldh a, [hQuotient + 3]
 	cp 0
 	jr nz, .dont_increase_min
 	inc a
 .dont_increase_min
-	ld b, a ; b holds our limit
+	ld b, a ; b holds how many moves we know
+	ld a, [wMovesLevelOneCount]
+	dec a ; level 1 count is 0-index
+	add b ; add level 1 moves to known count
+	ld b, a
 	ld de, .unknown_text
 
 	ld a, [wMovesPage]
 	ld c, 8
 	call SimpleMultiply
 	ld c, a
+
 	ld a, [wPokedexStatus]
-	add c ; current move index
-	
+	add c  ; current move index
+
 	cp b
 	jr nc, .unknown_move
 
+.levelOneMove
 	call GetMoveName
 .unknown_move
 	call PlaceString

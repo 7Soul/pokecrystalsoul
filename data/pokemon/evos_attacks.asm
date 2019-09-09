@@ -2549,38 +2549,36 @@ NoctowlEvosAttacks:
 LedybaEvosAttacks:
 	db EVOLVE_LEVEL, 20, LEDIAN
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 8, SUPERSONIC
+	db 1, COMET_PUNCH
+	db 1, WAKEUP_SLAP	
+	db 7, SUPERSONIC
+	db 9, SWIFT
 	db 12, LIGHT_SCREEN
 	db 12, SAFEGUARD
 	db 12, REFLECT
-	db 15, MACH_PUNCH
-	db 19, SILVER_WIND
-	db 22, COMET_PUNCH	
+	db 16, MACH_PUNCH
+	db 21, SILVER_WIND	
 	db 26, BATON_PASS
 	db 28, ZOOM_FLIGHT
 	db 31, AGILITY
-	db 36, SWIFT
+	db 36, AIR_SLASH
 	db 43, DOUBLE_EDGE
 	db 50, BUG_BUZZ
 	db 0 ; no more level-up moves
 
 LedianEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, SUPERSONIC
+	db 9, SWIFT
 	db 12, LIGHT_SCREEN
-	db 12, SAFEGUARD
 	db 12, REFLECT
-	db 15, MACH_PUNCH
-	db 19, SILVER_WIND
-	db 25, COMET_PUNCH	
+	db 16, MACH_PUNCH
+	db 22, SILVER_WIND
 	db 29, BATON_PASS
 	db 31, ZOOM_FLIGHT
 	db 34, AGILITY
-	db 39, SWIFT
-	db 46, DOUBLE_EDGE
-	db 55, BUG_BUZZ
+	db 40, AIR_SLASH
+	db 47, DOUBLE_EDGE
+	db 56, BUG_BUZZ
 	db 0 ; no more level-up moves
 
 SpinarakEvosAttacks:
