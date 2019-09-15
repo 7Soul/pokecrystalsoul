@@ -1431,7 +1431,7 @@ BugCatcherGroup:
 	db -1 ; end
 
 	; BUG_CATCHER (21)
-	db "Pippin@", TRAINERTYPE_NORMAL
+	db "Pippa@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
