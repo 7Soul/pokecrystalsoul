@@ -1,4 +1,4 @@
-	db "IMITATION@" ; species name
+	db "   Imitation@" ; species name
 	dw 311, 840 ; height, weight
 
 	db   "If a tree branch"

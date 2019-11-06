@@ -1,4 +1,4 @@
-	db "PAINTER@" ; species name
+	db "     Painter@" ; species name
 	dw 311, 1280 ; height, weight
 
 	db   "The color of the"

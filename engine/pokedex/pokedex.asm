@@ -385,15 +385,16 @@ Pokedex_UpdateDexEntryScreen:
 
 Pokedex_Page:
 	ld a, [wPokedexStatus]
-	inc a
-	ld c, 0
-.mod_3
-	cp 3
-	jr c, .ok
-	sub 3
-	inc c
-	jr .mod_3
-.ok
+	xor 1 ; toggle page
+; 	inc a
+; 	ld c, 0
+; .mod_3
+; 	cp 3
+; 	jr c, .ok
+; 	sub 3
+; 	inc c
+; 	jr .mod_3
+; .ok
 	ld [wPokedexStatus], a
 	call Pokedex_GetSelectedMon
 	ld [wPrevDexEntry], a

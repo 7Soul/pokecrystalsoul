@@ -1,4 +1,4 @@
-	db "   Volcano@" ; species name
+	db "     Volcano@" ; species name
 	dw 507, 1750 ; height, weight
 
 	db   "When heat from its"

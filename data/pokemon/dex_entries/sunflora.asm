@@ -1,4 +1,4 @@
-	db "SUN@" ; species name
+	db "         Sun@" ; species name
 	dw 207, 190 ; height, weight
 
 	db   "As the hot season"
