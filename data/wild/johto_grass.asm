@@ -353,7 +353,7 @@ JohtoGrassWildMons:
 	db 1, STARYU
 	db 1, SEEL
 	db 1, SWINUB
-	db 1, LAPRAS
+	db 1, SHELLDER
 	; nite
 	db 2, SLOWPOKE
 	db 1, KRABBY
@@ -361,7 +361,7 @@ JohtoGrassWildMons:
 	db 1, STARYU
 	db 1, SHELLDER
 	db 1, SWINUB
-	db 1, LAPRAS
+	db 1, SEEL
 
 	map_id SLOWPOKE_WELL_B2F
 	db 2 percent, 2 percent ; encounter rates: morn/day/nite
@@ -372,7 +372,7 @@ JohtoGrassWildMons:
 	db 1, STARYU
 	db 1, SEEL
 	db 2, SMOOCHUM
-	db 5, SNEASEL
+	db 5, SHELLDER
 	; nite
 	db 3, SLOWPOKE
 	db 1, KRABBY
@@ -380,7 +380,7 @@ JohtoGrassWildMons:
 	db 1, STARYU
 	db 1, SHELLDER
 	db 2, SMOOCHUM
-	db 5, SNEASEL
+	db 5, SEEL
 
 	map_id ILEX_FOREST
 	db 4 percent, 4 percent ; encounter rates: morn/day/nite
@@ -923,7 +923,7 @@ JohtoGrassWildMons:
 	db 1, SENTRET
 	db 1, CHINCHOU
 	db 1, FARFETCH_D
-	db 1, PORYGON
+	db 1, DODUO
 	; nite
 	db 1, EKANS
 	db 1, SPEAROW
@@ -931,7 +931,7 @@ JohtoGrassWildMons:
 	db 1, HOOTHOOT
 	db 1, CHINCHOU
 	db 1, FARFETCH_D
-	db 1, PORYGON
+	db 1, DODUO
 
 	map_id ROUTE_34
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite

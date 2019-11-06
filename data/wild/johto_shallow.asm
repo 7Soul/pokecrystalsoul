@@ -60,14 +60,14 @@ JohtoShallowWildMons:
 	db 1, SNUBBULL
 	db 1, RHYHORN
 	db 1, STARYU
-	db 1, GOLDEEN
+	db 2, PSYDUCK
 	db 1, SQUIRTLE
 	; nite
 	db 1, PSYDUCK
 	db 1, SNUBBULL
 	db 1, RHYHORN
 	db 1, STARYU
-	db 1, GOLDEEN
+	db 2, PSYDUCK
 	db 1, SQUIRTLE
 
 	map_id OLIVINE_CITY

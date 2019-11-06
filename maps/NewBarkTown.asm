@@ -109,7 +109,7 @@ if DEF(_DEBUG)
 	givepoke NINETALES, 60
 	givepoke MACHOP, 5
 	givepoke KRABBY, 5
-	; callasm CheatFillPokedex
+	callasm CheatFillPokedex
 	;warp ROUTE_2, $5, $22
 	warp ROUTE_46, $8, $10
 	;warp ROUTE_37, $e, $a

@@ -21,6 +21,7 @@ ShallowMonProbTable:
 	mon_prob 100, 5 ; 4% chance
 
 WaterMonProbTable:
-	mon_prob 40,  0 ; 40% chance
+	mon_prob 50,  0 ; 50% chance
 	mon_prob 80,  1 ; 30% chance
-	mon_prob 100, 2 ; 20% chance
+	mon_prob 95,  2 ; 15% chance
+	mon_prob 100, 3 ; 5% chance
