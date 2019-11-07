@@ -105,11 +105,14 @@ if DEF(_DEBUG)
 	giveitem MAX_REPEL, 99
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
+	giveitem HM_FLY
 	givepoke CLEFAIRY, 50
 	givepoke NINETALES, 60
-	givepoke MACHOP, 5
+	givepoke PIDGEY, 5
 	givepoke KRABBY, 5
 	callasm CheatFillPokedex
+	callasm CheatGiveBadges
+	callasm CheatSetFlypoints
 	;warp ROUTE_2, $5, $22
 	warp ROUTE_46, $8, $10
 	;warp ROUTE_37, $e, $a
@@ -335,8 +338,8 @@ NewBarkTown_MapEvents:
 	bg_event  9, 13, BGEVENT_READ, NewBarkTownElmsHouseSign
 
 	db 3 ; object events
-	object_event  6,  8, SPRITE_TEACHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, NewBarkTownTeacherScript, -1
-	object_event 12,  9, SPRITE_FISHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, NewBarkTownFisherScript, -1
+	object_event 10,  7, SPRITE_TEACHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, NewBarkTownTeacherScript, -1
+	object_event  8, 12, SPRITE_FISHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, NewBarkTownFisherScript, -1
 	object_event  3,  2, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, NewBarkTownSilverScript, EVENT_RIVAL_NEW_BARK_TOWN
 
 if def(_DEBUG)
@@ -358,6 +361,36 @@ CheatFillPokedex:
 SetHallOfFameFlag:
 	ld hl, wStatusFlags
 	set STATUSFLAGS_HALL_OF_FAME_F, [hl]
+	ret
+
+CheatGiveBadges:
+	ld a, ENGINE_ZEPHYRBADGE
+.loop
+	push af
+	ld d, 0
+	ld e, a
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+	pop af
+
+	inc a
+	cp ENGINE_EARTHBADGE
+	jr nz, .loop
+	ret
+
+CheatSetFlypoints:
+	ld a, ENGINE_FLYPOINT_PLAYERS_HOUSE
+.loop
+	push af
+	ld d, 0
+	ld e, a
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+	pop af
+
+	inc a
+	cp ENGINE_FLYPOINT_SILVER_CAVE
+	jr nz, .loop
 	ret
 endc
 	

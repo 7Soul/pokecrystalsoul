@@ -51,7 +51,7 @@ MonMenuLoop:
 	call PlaySFX
 	ldh a, [hJoyPressed]
 	bit A_BUTTON_F, a
-	jr nz, .select
+	jr nz, .choose
 	bit B_BUTTON_F, a
 	jr nz, .cancel
 	jr .loop
@@ -60,7 +60,7 @@ MonMenuLoop:
 	ld a, MONMENUITEM_CANCEL
 	ret
 
-.select
+.choose
 	ld a, [wMenuCursorY]
 	dec a
 	ld c, a
@@ -101,7 +101,7 @@ GetMonMenuString:
 	inc hl
 	ld a, [hl]
 	ld [wNamedObjectIndexBuffer], a
-	call GetMoveName
+	call GetFieldName
 	ret
 
 .NotMove:
@@ -113,6 +113,23 @@ GetMonMenuString:
 	ld d, h
 	ld e, l
 	ret
+
+GetFieldName::
+	push hl
+
+	ld hl, FieldNamesIds
+	ld de, 1
+	call IsInArray
+	ld a, b
+
+	ld hl, FieldNamesString
+	call GetNthString
+	ld d, h
+	ld e, l
+
+	pop hl
+	ret
+
 
 GetMonSubmenuItems:
 	call ResetMonSubmenu

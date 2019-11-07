@@ -21,7 +21,7 @@ TreeMonSet_Canyon:
 	db 30, AIPOM,		1
 	db 10, VENONAT,		1
 	db 10, ABRA,		1
-	db 10, MAGNEMITE,	1
+	db 10, MAGNEMITE,	2
 	db 10, HERACROSS,	1
 	db -1
 ; rare
@@ -29,7 +29,7 @@ TreeMonSet_Canyon:
 	db 30, AIPOM,		1
 	db 10, VENONAT,		1
 	db 10, ABRA,		1
-	db 10, MAGNEMITE,	1
+	db 10, MAGNEMITE,	2
 	db 10, HERACROSS,	1
 	db -1
 
@@ -58,7 +58,7 @@ TreeMonSet_Route:
 	db 10, CATERPIE,	1
 	db 10, MANKEY,		1
 	db 10, AIPOM,		1
-	db 10, EKANS,		1
+	db 10, EKANS,		2
 	db -1
 ; rare
 	db 30, HOOTHOOT,	1
@@ -66,7 +66,7 @@ TreeMonSet_Route:
 	db 10, CATERPIE,	1
 	db 10, MANKEY,		1
 	db 10, AIPOM,		1
-	db 10, EKANS,		1
+	db 10, EKANS,		2
 	db -1
 
 TreeMonSet_Kanto:
@@ -94,7 +94,7 @@ TreeMonSet_Lake:
 	db 10, PINECO,		1
 	db 10, AIPOM,		1
 	db 10, ABRA,		1
-	db 10, EXEGGCUTE,	1
+	db 10, EXEGGCUTE,	2
 	db -1
 ; rare
 	db 30, HOOTHOOT,	1
@@ -102,7 +102,7 @@ TreeMonSet_Lake:
 	db 10, PINECO,		1
 	db 10, AIPOM,		1
 	db 10, ABRA,		1
-	db 10, EXEGGCUTE,	1
+	db 10, EXEGGCUTE,	2
 	db -1
 
 TreeMonSet_Forest:
@@ -112,7 +112,7 @@ TreeMonSet_Forest:
 	db 10, HOOTHOOT,	1
 	db 10, PINECO,		1
 	db 10, HERACROSS,	1
-	db 10, EXEGGCUTE,	1
+	db 10, EXEGGCUTE,	2
 	db -1
 ; rare
 	db 30, CATERPIE,	1
@@ -120,7 +120,7 @@ TreeMonSet_Forest:
 	db 10, HOOTHOOT,	1
 	db 10, PINECO,		1
 	db 10, HERACROSS,	1
-	db 10, EXEGGCUTE,	1
+	db 10, EXEGGCUTE,	2
 	db -1
 
 TreeMonSet_Rock:

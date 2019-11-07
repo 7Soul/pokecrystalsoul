@@ -287,7 +287,7 @@ OlivineCity_MapEvents:
 
 	db 11 ; warp events
 	warp_event 13, 21, OLIVINE_POKECENTER_1F, 1
-	warp_event 10, 11, OLIVINE_GYM, 1
+	warp_event 10, 10, OLIVINE_GYM, 1
 	warp_event 25, 11, OLIVINE_TIMS_HOUSE, 1
 	warp_event  0,  0, OLIVINE_HOUSE_BETA, 1 ; inaccessible
 	warp_event 29, 11, OLIVINE_PUNISHMENT_SPEECH_HOUSE, 1
@@ -305,7 +305,7 @@ OlivineCity_MapEvents:
 	db 7 ; bg events
 	bg_event 17, 11, BGEVENT_READ, OlivineCitySign
 	bg_event 20, 24, BGEVENT_READ, OlivineCityPortSign
-	bg_event  7, 11, BGEVENT_READ, OlivineGymSign
+	bg_event 12, 11, BGEVENT_READ, OlivineGymSign
 	bg_event 30, 28, BGEVENT_READ, OlivineLighthouseSign
 	bg_event  3, 23, BGEVENT_READ, OlivineCityBattleTowerSign
 	bg_event 14, 21, BGEVENT_READ, OlivineCityPokecenterSign

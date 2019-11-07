@@ -212,7 +212,7 @@ CianwoodGroupSprites:
 	db SPRITE_SUPER_NERD
 	; 9 of max 9 walking sprites
 	db SPRITE_YOUNGSTER
-	db SPRITE_TAUROS
+	db SPRITE_MILTANK
 	db SPRITE_FRUIT_TREE
 	db SPRITE_ROCK
 	db SPRITE_SUICUNE

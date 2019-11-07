@@ -10,13 +10,83 @@
 
 MonMenuOptionStrings:
 ; entries correspond to MONMENUVALUE_* constants
-	db "STATS@"
-	db "SWITCH@"
-	db "ITEM@"
-	db "CANCEL@"
-	db "MOVE@"
-	db "MAIL@"
+	db "Stats@"
+	db "Switch@"
+	db "Item@"
+	db "Cancel@"
+	db "Move@"
+	db "Mail@"
 	db "ERROR!@"
+
+FieldNamesIds:
+	db RAZOR_LEAF
+	db FURY_CUTTER
+	db SLASH
+	db VICEGRIP
+	db X_SCISSOR
+	db GUILLOTINE
+	db EMBER
+	db FIRE_BLAST
+	db FIRE_SPIN
+	db FLAMETHROWER
+	db FLAME_WHEEL
+	db SACRED_FIRE
+	db FIRE_PUNCH
+	db FLY
+	db ZOOM_FLIGHT
+	db EXTREMESPEED
+	db SURF
+	db HAMMER_ARM
+	db SEISMIC_TOSS
+	db MEGA_PUNCH
+	db THUNDER
+	db WHIRLPOOL
+	db DIG
+	db SMOKESCREEN
+	db TELEPORT
+	db RECOVER
+	db HEADBUTT
+	db ROCK_SMASH
+	db ROCK_SLIDE
+	db ROCK_THROW
+	db FISSURE
+	db CRABHAMMER
+	db -1
+
+FieldNamesString:
+	db "Cut@"
+	db "Cut@"
+	db "Cut@"
+	db "Cut@"
+	db "Cut@"
+	db "Cut@"
+	db "Burn@"
+	db "Burn@"
+	db "Burn@"
+	db "Burn@"
+	db "Burn@"
+	db "Burn@"
+	db "Burn@"
+	db "Fly@"
+	db "Fly@"
+	db "Fly@"
+	db "Surf@"
+	db "Strength@"
+	db "Strength@"
+	db "Strength@"
+	db "Flash@"
+	db "Whirlpool@"
+	db "Escape@"
+	db "Escape@"
+	db "Teleport@"
+	db "Recover@"
+	db "Headbutt@"
+	db "Rock Smash@"
+	db "Rock Smash@"
+	db "Rock Smash@"
+	db "Rock Smash@"
+	db "Rock Smash@"
+	db -1
 
 MonMenuOptions:
 ; category, item, value; actions are in PokemonActionSubmenu (see engine/pokemon/mon_menu.asm)
@@ -39,8 +109,10 @@ MonMenuOptions:
 	db MONMENU_FIELD_MOVE, MONMENUITEM_FLY,        EXTREMESPEED
 	db MONMENU_FIELD_MOVE, MONMENUITEM_SURF,       SURF
 	db MONMENU_FIELD_MOVE, MONMENUITEM_STRENGTH,   HAMMER_ARM
+	db MONMENU_FIELD_MOVE, MONMENUITEM_STRENGTH,   SEISMIC_TOSS
+	db MONMENU_FIELD_MOVE, MONMENUITEM_STRENGTH,   MEGA_PUNCH
 	db MONMENU_FIELD_MOVE, MONMENUITEM_FLASH,      THUNDER
-	db MONMENU_FIELD_MOVE, MONMENUITEM_WATERFALL,  DARK_PULSE
+	; db MONMENU_FIELD_MOVE, MONMENUITEM_WATERFALL,  DARK_PULSE
 	db MONMENU_FIELD_MOVE, MONMENUITEM_WHIRLPOOL,  WHIRLPOOL
 	db MONMENU_FIELD_MOVE, MONMENUITEM_DIG,        DIG
 	db MONMENU_FIELD_MOVE, MONMENUITEM_DIG,        SMOKESCREEN
@@ -53,7 +125,7 @@ MonMenuOptions:
 	db MONMENU_FIELD_MOVE, MONMENUITEM_ROCKSMASH,  FISSURE
 	db MONMENU_FIELD_MOVE, MONMENUITEM_ROCKSMASH,  CRABHAMMER
 	;db MONMENU_FIELD_MOVE, MONMENUITEM_MILKDRINK,  MILK_DRINK
-	db MONMENU_FIELD_MOVE, MONMENUITEM_SWEETSCENT, FELL_STINGER
+	; db MONMENU_FIELD_MOVE, MONMENUITEM_SWEETSCENT, FELL_STINGER
 ; options
 	db MONMENU_MENUOPTION, MONMENUITEM_STATS,      MONMENUVALUE_STATS
 	db MONMENU_MENUOPTION, MONMENUITEM_SWITCH,     MONMENUVALUE_SWITCH
