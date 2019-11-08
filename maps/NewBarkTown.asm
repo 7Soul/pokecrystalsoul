@@ -406,7 +406,7 @@ CheatGiveTMs:
 
 	pop af
 	inc a
-	cp TM_NIGHTMARE
+	cp TM_AQUA_TAIL + 1
 	jr nz, .loop
 	ret
 endc

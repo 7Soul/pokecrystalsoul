@@ -8,8 +8,8 @@ IcePath1F_MapScripts:
 
 	db 0 ; callbacks
 
-IcePath1FHMWaterfall:
-	itemball HM_DARK_PULSE
+IcePath1FTMIcicleWing:
+	itemball TM_ICICLE_WING
 
 IcePath1FPPUp:
 	itemball PP_UP
@@ -31,6 +31,6 @@ IcePath1F_MapEvents:
 	db 0 ; bg events
 
 	db 3 ; object events
-	object_event 31,  7, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, IcePath1FHMWaterfall, EVENT_GOT_HM07_WATERFALL
+	object_event 31,  7, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, IcePath1FTMIcicleWing, EVENT_GOT_TM47_ICICLE_WING
 	object_event 32, 23, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, IcePath1FPPUp, EVENT_ICE_PATH_1F_PP_UP
 	object_event 35,  9, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, IcePath1FProtein, EVENT_ICE_PATH_1F_PROTEIN

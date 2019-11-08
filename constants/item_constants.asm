@@ -210,7 +210,7 @@ endc
 ENDM
 
 ; see data/moves/tmhm_moves.asm for moves
-	add_tm DYNAMICPUNCH ; c1
+	add_tm DYNAMICPUNCH ; c1 TM01
 	add_tm HEADBUTT     ; c2
 	add_tm CURSE        ; c3
 	add_tm ROLLOUT      ; c4
@@ -219,7 +219,7 @@ ENDM
 	add_tm ZAP_CANNON   ; c7
 	add_tm ROCK_SMASH   ; c8
 	add_tm PSYCH_UP     ; c9
-	add_tm HIDDEN_POWER ; ca
+	add_tm HIDDEN_POWER ; ca TM10
 	add_tm SUNNY_DAY    ; cb
 	add_tm FELL_STINGER ; cc
 	add_tm SNORE        ; cd
@@ -229,7 +229,7 @@ ENDM
 	add_tm PROTECT      ; d1
 	add_tm RAIN_DANCE   ; d2
 	add_tm GIGA_DRAIN   ; d3
-	add_tm ENDURE       ; d4
+	add_tm ENDURE       ; d4 TM20
 	add_tm LEAF_SHIELD  ; d5
 	add_tm SOLARBEAM    ; d6
 	add_tm FROZEN_TAIL  ; d7
@@ -239,7 +239,7 @@ ENDM
 	add_tm HARMONY      ; db
 	add_tm DIG          ; dc
 	add_tm PSYCHIC_M    ; dd
-	add_tm SHADOW_BALL  ; de
+	add_tm SHADOW_BALL  ; de TM30
 	add_tm MUD_BOMB     ; df
 	add_tm DOUBLE_TEAM  ; e0
 	add_tm ICE_PUNCH    ; e1
@@ -249,7 +249,7 @@ ENDM
 	add_tm SANDSTORM    ; e5
 	add_tm FIRE_BLAST   ; e6
 	add_tm SWIFT        ; e7
-	add_tm DEFENSE_CURL ; e8
+	add_tm DEFENSE_CURL ; e8 TM40
 	add_tm THUNDERPUNCH ; e9
 	add_tm DREAM_EATER  ; ea
 	add_tm BRICK_BREAK  ; eb
@@ -259,13 +259,14 @@ ENDM
 	add_tm ICICLE_WING  ; ef
 	add_tm FIRE_PUNCH   ; f0
 	add_tm FURY_CUTTER  ; f1
-	add_tm NIGHTMARE    ; f2
-	; add_tm ROCK_TOMB    ; f3
-	; add_tm JET_STREAM   ; f4
-	; add_tm GUST  		  ; f5
-	; add_tm PSYWAVE      ; f6
-	; add_tm INFERNO      ; f7
-	; add_tm AIR_SLASH    ; f8
+	add_tm NIGHTMARE    ; f2 TM50
+	add_tm ROCK_TOMB    ; f3
+	add_tm JET_STREAM   ; f4
+	add_tm THUNDERBOLT  ; f5
+	add_tm PSYWAVE      ; f6
+	add_tm INFERNO      ; f7
+	add_tm AIR_SLASH    ; f8
+	add_tm AQUA_TAIL    ; f9 TM60
 NUM_TMS = const_value - TM01
 
 add_hm: MACRO
@@ -283,7 +284,7 @@ ENDM
 	add_hm NASTY_PLOT   ; f6
 	add_hm MAGMA_STORM  ; f7
 	add_hm WHIRLPOOL    ; f8
-	add_hm DARK_PULSE   ; f9
+	; add_hm DARK_PULSE   ; f9
 NUM_HMS = const_value - HM01
 
 add_mt: MACRO
