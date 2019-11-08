@@ -111,7 +111,8 @@ if DEF(_DEBUG)
 	givepoke PIDGEY, 5
 	givepoke KRABBY, 5
 	callasm CheatFillPokedex
-	callasm CheatGiveBadges
+	callasm CheatGiveTMs
+	; callasm CheatGiveBadges
 	callasm CheatSetFlypoints
 	;warp ROUTE_2, $5, $22
 	warp ROUTE_46, $8, $10
@@ -390,6 +391,22 @@ CheatSetFlypoints:
 
 	inc a
 	cp ENGINE_FLYPOINT_SILVER_CAVE
+	jr nz, .loop
+	ret
+
+CheatGiveTMs:
+	ld a, TM_DYNAMICPUNCH
+.loop
+	push af
+	ld [wCurItem], a	
+	ld a, 1
+	ld [wItemQuantityChangeBuffer], a
+	ld hl, wNumItems
+	call ReceiveItem
+
+	pop af
+	inc a
+	cp TM_NIGHTMARE
 	jr nz, .loop
 	ret
 endc

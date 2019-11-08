@@ -573,192 +573,182 @@ ChooseWildEncounter:
 	call RandomRange
 	add b
 	ld b, a
+
+	ld a, [wPartyCount]
+	cp 2
+	jp c, .switch_end
 	call Random
-	cp 96 percent ; 4% chance of 1 extra level
+	cp 95 percent ; 5% chance of 1 extra level
+	jp c, .try3
+	inc b
+.try3
+	ld a, [wPartyCount]
+	cp 3
+	jp c, .switch_end
+	call Random
+	cp 90 percent ; 10% chance of 1 extra level
+	jp c, .try4
+	inc b
+.try4
+	ld a, [wPartyCount]
+	cp 4
+	jp c, .switch_end
+	call Random
+	cp 70 percent ; 30% chance of 1 extra level
+	jp c, .try5
+	inc b
+.try5
+	ld a, [wPartyCount]
+	cp 5
+	jp c, .switch_end
+	call Random
+	cp 50 percent ; 50% chance of 1 extra level
+	jp c, .try6
+	inc b
+.try6
+	ld a, [wPartyCount]
+	cp 6
+	jp c, .switch_end
+	call Random
+	cp 20 percent ; 80% chance of 1 extra level
 	jp c, .switch_end
 	inc b
+
+	push hl
+	ld hl, wPartyMon1Level
+	ld a, [hl]
+	ld c, a
+	cp b
+	jr nc, .firstMonHigher
+	pop hl
+	jp .switch_end
+
+.firstMonHigher
+	call Random
+	cp 25 percent
+	jp c, .skipFirstMonCompare
+
+	ld a, [hl]
+	inc b
+	dec c
+	ld a, c
+	cp b
+	jr nc, .firstMonHigher
+
+.skipFirstMonCompare
+	pop hl
 	jp .switch_end
 	
 .case1 ; 1 badge
+	push hl
+	ld hl, .badgeAddValue
+	push bc
+	ld b, 0
+	ld c, a
+	add hl, bc
+	pop bc
  ; doubles number of badges
 	add a ; add a(badges) to itself (doubles a)
 	add b ; add b(level) and a(badges) ; a holds level
- ; add more levels
-	ld b, 3 ; add 3
+	ld b, a
+ ; add X more levels
+	ld a, [hl]
 	add b
 	ld b, a ; b holds level
- ; adds 0 to 3 levels
-	ld a, 4
+ ; adds 0 to X levels
+	ld a, [hl]
+	pop hl
 	call RandomRange
 	add b
 	ld b, a
+
+	cp 6
+	jp c, .switch_end ; continue when level is greater than 6
+
 	call Random 
-	cp 95 percent ; 5% chance of 1 extra level
+	cp 95 percent ; 5% chance of 1 extra level between level 6 and 9
 	jp c, .switch_end
 	inc b
-	jp .switch_end
-	
-.case2	; 2 badges
- ; doubles number of badges
-	add a ; add a(badges) to itself (doubles a)
-	add b ; add b(level) and a(badges) ; a holds level
- ; add more levels
-	ld b, 4 ; add 4
-	add b
-	ld b, a ; b holds level
- ; adds 0 to 4 levels
-	ld a, 5
-	call RandomRange
-	add b
-	ld b, a
+
+	ld a, b
+	cp 10
+	jp c, .switch_end
+
 	call Random 
-	cp 90 percent ; 10% chance of 1 extra level
+	cp 94 percent ; 6% chance of 1 extra level between level 10 and 14
 	jp c, .switch_end
 	inc b
-	jp .switch_end
-	
-.case3	; 3 badges
- ; doubles number of badges
-	add a ; add a(badges) to itself (doubles a)
-	add b ; add b(level) and a(badges) ; a holds level
- ; add more levels
-	ld b, 4 ; add 4
-	add b
-	ld b, a ; b holds level
- ; adds 0 to 4 levels
-	ld a, 5
-	call RandomRange
-	add b
-	ld b, a
+
+	ld a, b
+	cp 15
+	jp c, .switch_end
+
 	call Random 
-	cp 90 percent ; 10% chance of 1 extra level
+	cp 90 percent ; 10% chance of 1 extra level between level 15 and 24
 	jp c, .switch_end
 	inc b
-	jp .switch_end
-	
-.case4	; 4 badges
- ; doubles number of badges
-	add a ; add a(badges) to itself (doubles a)
-	add b ; add b(level) and a(badges) ; a holds level
- ; add more levels
-	ld b, 5 ; add 5
-	add b
-	ld b, a ; b holds level
- ; adds 0 to 4 levels
-	ld a, 5
-	call RandomRange
-	add b
-	ld b, a
+
+	ld a, b
+	cp 25
+	jp c, .switch_end
+
 	call Random 
-	cp 90 percent ; 10% chance of 1 extra level
+	cp 85 percent ; 15% chance of 1 extra level between level 25 and 33 (and around 1% chance of 2 levels)
 	jp c, .switch_end
 	inc b
-	jp .switch_end
-	
-.case5	; 5 badges
- ; multiply mon level by number of badges+1
-	ld a, 6
-	ld c, b
-	call SimpleMultiply ; a has level at this point
- ; add more levels
-	ld b, 4 ; add 4
-	add b
-	ld b, a
- ; adds 0 to 4 levels
-	ld a, 5
-	call RandomRange
-	add b
-	ld b, a
-	call Random
-	cp 96 percent ; 4% chance of 1 extra level
+
+	ld a, b
+	cp 34
+	jp c, .switch_end
+
+	call Random 
+	cp 80 percent ; 20% chance of 1 extra level between level 34 and 39 (and around 3% chance of 2 levels)
 	jp c, .switch_end
 	inc b
-	jp .switch_end
-	
-.case6	; 6 badges
- ; multiply mon level by number of badges+1
-	ld a, 7
-	ld c, b
-	call SimpleMultiply ; a has level at this point
- ; add more levels
-	ld b, 5 ; add 5
-	add b
-	ld b, a
- ; adds 0 to 5 levels
-	ld a, 6
-	call RandomRange
-	add b
-	ld b, a
-	call Random
-	cp 96 percent ; 4% chance of 1 extra level
+
+	ld a, b
+	cp 40
+	jp c, .switch_end
+
+	call Random 
+	cp 65 percent ; 35% chance of 1 extra level between level 40 and 43 (and around 7% chance of 2 levels)
 	jp c, .switch_end
 	inc b
-	jp .switch_end
-	
-.case7	; 7 badges
- ; multiply mon level by number of badges+1
-	ld a, 8
-	ld c, b
-	call SimpleMultiply ; a has level at this point
- ; add more levels
-	ld b, 5 ; add 5
-	add b
-	ld b, a
- ; adds 0 to 5 levels
-	ld a, 6
-	call RandomRange
-	add b
-	ld b, a
-	call Random
-	cp 96 percent ; 4% chance of 1 extra level
+
+	ld a, b
+	cp 44
+	jp c, .switch_end
+
+	call Random 
+	cp 50 percent ; 50% chance of 1 extra level above level 44 (and around 17% chance of 2 levels, or 3.5% of 3 levels)
 	jp c, .switch_end
 	inc b
-	jp .switch_end
-	
-.case8	; 8 badges
- ; multiply mon level by number of badges
-	ld a, 9
-	ld c, b
-	call SimpleMultiply
- ; add more levels
-	ld b, 5
-	add b
-	ld b, a 
- ; adds 0 to 5 levels
-	ld a, 6
-	call RandomRange
-	add b
-	ld b, a
-	call Random
-	cp 96 percent ; 4% chance of 1 extra level
-	jp c, .switch_end
-	inc b
-	call Random
-	cp 96 percent ; 4% chance of 2 extra levels
-	jp c, .switch_end
-	inc b
-	inc b
+
 	jp .switch_end
 	
 .switch_start
 	cp 0
-	jp z, .case0
-	cp 1
-	jp z, .case1
-	cp 2
-	jp z, .case2
-	cp 3
-	jp z, .case3
-	cp 4
-	jp z, .case4
-	cp 5
-	jp z, .case5
-	cp 6
-	jp z, .case6
-	cp 7
-	jp z, .case7
-	cp 8
-	jp z, .case8
+	jp z, .case0 ; 0
+	jp .case1 ; over 0
+
+.badgeAddValue
+	db 2 ; 0
+	db 3
+	db 4
+	db 4
+	db 4 ; 4
+	db 4
+	db 5
+	db 5
+	db 5 ; 8
+	db 5
+	db 6
+	db 6
+	db 6 ; 12
+	db 6
+	db 7
+	db 7
+	db 7 ; 16
 	
 .switch_end
 	ld a, b
@@ -1067,7 +1057,7 @@ ChooseWildEncounter:
 	ld a, b
 	jp nc, .dont_check_evolve1
 	call EvolveWildMon
-	jp .dont_check_evolve2
+	; jp .dont_check_evolve2
 	
 .dont_check_evolve1
 	call Random 
