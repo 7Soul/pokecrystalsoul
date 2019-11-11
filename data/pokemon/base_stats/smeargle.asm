@@ -14,5 +14,5 @@
 	dn EGG_GROUND, EGG_GROUND ; egg groups
 
 	; tm/hm learnset
-	tmhm
+	tmhm CURSE, HIDDEN_POWER, SUNNY_DAY, PROTECT, RAIN_DANCE, ENDURE, SWAGGER, ATTRACT
 	; end

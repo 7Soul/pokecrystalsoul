@@ -221,7 +221,7 @@ ENDM
 	add_tm PSYCH_UP     ; c9
 	add_tm HIDDEN_POWER ; ca TM10
 	add_tm SUNNY_DAY    ; cb
-	add_tm FELL_STINGER ; cc
+	add_tm FELL_STINGER ; cc ; was SWEET_SCENT
 	add_tm FEATHERGALE  ; cd ; was SNORE
 	add_tm BLIZZARD     ; ce
 	add_tm HYPER_BEAM   ; cf
@@ -230,17 +230,17 @@ ENDM
 	add_tm RAIN_DANCE   ; d2
 	add_tm GIGA_DRAIN   ; d3
 	add_tm ENDURE       ; d4 TM20
-	add_tm LEAF_SHIELD  ; d5
+	add_tm LEAF_SHIELD  ; d5 ; was FRUSTRATION
 	add_tm SOLARBEAM    ; d6
-	add_tm FROZEN_TAIL  ; d7
-	add_tm HYDRO_PUMP   ; d8
+	add_tm PRISM_LIGHT  ; d7 ; was IRON_TAIL
+	add_tm AQUA_TAIL    ; d8 ; WAS DRAGON_BREATH
 	add_tm THUNDER      ; d9
 	add_tm EARTHQUAKE   ; da
-	add_tm MEGAHORN     ; db
+	add_tm MEGAHORN     ; db ; was RETURN
 	add_tm DIG          ; dc
 	add_tm PSYCHIC_M    ; dd
 	add_tm SHADOW_BALL  ; de TM30
-	add_tm MUD_BOMB     ; df
+	add_tm MUD_BOMB     ; df ; was MUD_SLAP
 	add_tm DOUBLE_TEAM  ; e0
 	add_tm ICE_PUNCH    ; e1
 	add_tm SWAGGER      ; e2
@@ -252,11 +252,11 @@ ENDM
 	add_tm DEFENSE_CURL ; e8 TM40
 	add_tm THUNDERPUNCH ; e9
 	add_tm DREAM_EATER  ; ea
-	add_tm BRICK_BREAK  ; eb
+	add_tm BRICK_BREAK  ; eb ; was DETECT
 	add_tm POWER_GEM    ; ec ; was REST
 	add_tm ATTRACT      ; ed
-	add_tm BULK_UP      ; ee
-	add_tm FIRE_FLICK   ; ef
+	add_tm CRUNCH       ; ee ; was THIEF
+	add_tm FIRE_FLICK   ; ef ; was STEEL_WING
 	add_tm FIRE_PUNCH   ; f0
 	add_tm FURY_CUTTER  ; f1
 	add_tm NIGHTMARE    ; f2 TM50

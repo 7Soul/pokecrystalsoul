@@ -14,5 +14,5 @@
 	dn EGG_DITTO, EGG_DITTO ; egg groups
 
 	; tm/hm learnset
-	tmhm
+	tmhm CURSE, HIDDEN_POWER, SUNNY_DAY, PROTECT, RAIN_DANCE, ENDURE, SWAGGER, ATTRACT, REST, SNORE, SLEEP_TALK
 	; end
