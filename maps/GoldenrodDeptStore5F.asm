@@ -73,7 +73,7 @@ GoldenrodDeptStore5FReceptionistScript:
 .VeryHappy:
 	writetext UnknownText_0x5615a
 	buttonsound
-	verbosegiveitem TM_INFERNO
+	; verbosegiveitem TM_INFERNO
 	iffalse .Done
 	setflag ENGINE_GOLDENROD_DEPT_STORE_TM27_HARMONY
 	closetext

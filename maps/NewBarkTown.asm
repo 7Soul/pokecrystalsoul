@@ -406,7 +406,7 @@ CheatGiveTMs:
 
 	pop af
 	inc a
-	cp TM_HYPER_SONAR + 1
+	cp HYPER_SONAR + 1
 	jr nz, .loop
 	ret
 endc

@@ -349,7 +349,7 @@ IlexForestCharcoalMasterScript:
 	iftrue .AlreadyGotCut
 	writetext Text_CharcoalMasterIntro
 	buttonsound
-	verbosegiveitem HM_AQUA_TAIL
+	; verbosegiveitem HM_AQUA_TAIL
 	setevent EVENT_GOT_HM01_AQUA_TAIL
 	writetext Text_CharcoalMasterOutro
 	waitbutton

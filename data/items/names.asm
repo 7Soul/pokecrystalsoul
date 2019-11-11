@@ -240,18 +240,18 @@ ItemNames::
 	db "TM47@"
 	db "TM48@"
 	db "TM49@"
-	db "TM50@"
-	db "TM51@"
-	db "HM01@"
-	db "HM02@"
-	db "HM03@"
-	db "HM04@"
-	db "HM05@"
-	db "HM06@"
-	db "HM07@"
-	db "Teru-Sama@"
-	db "Teru-Sama@"
-	db "Teru-Sama@"
-	db "Teru-Sama@"
-	db "Teru-Sama@"
+	db "TM50@" ; f2
+	db "TM51@" ; f3
+	db "TM52@" ; f4
+	db "TM53@" ; f5
+	db "TM54@" ; f6
+	db "TM55@" ; f7
+	db "TM56@" ; f8
+	db "TM57@" ; f9
+	db "TM58@" ; fa
+	db "TM59@" ; fb
+	db "TM60@" ; fc
+	db "Teru-Sama@"  ; fd
+	db "Teru-Sama@"  ; fe
+	db "Teru-Sama@"  ; ff
 	db "?@"

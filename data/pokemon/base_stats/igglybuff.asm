@@ -8,11 +8,8 @@
 	db 39 ; base exp
 	db NO_ITEM, CUTE_RIBBON ; items
 	db GENDER_F75 ; gender ratio
-	db 100 ; unknown 1
 	db 10 ; step cycles to hatch
-	db 5 ; unknown 2
 	INCBIN "gfx/pokemon/igglybuff/front.dimensions"
-	db 0, 0, 0, 0 ; padding
 	db GROWTH_FAST ; growth rate
 	dn EGG_NONE, EGG_NONE ; egg groups
 

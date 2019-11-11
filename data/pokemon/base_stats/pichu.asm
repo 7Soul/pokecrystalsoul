@@ -8,11 +8,8 @@
 	db 42 ; base exp
 	db BERRY, BATTERY ; items
 	db GENDER_F50 ; gender ratio
-	db 100 ; unknown 1
 	db 10 ; step cycles to hatch
-	db 5 ; unknown 2
 	INCBIN "gfx/pokemon/pichu/front.dimensions"
-	db 0, 0, 0, 0 ; padding
 	db GROWTH_MEDIUM_FAST ; growth rate
 	dn EGG_NONE, EGG_NONE ; egg groups
 

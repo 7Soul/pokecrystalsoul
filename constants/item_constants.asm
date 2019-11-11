@@ -266,23 +266,24 @@ ENDM
 	add_tm PSYWAVE      ; f6
 	add_tm INFERNO      ; f7
 	add_tm AIR_SLASH    ; f8
-	add_tm HAMMER_ARM   ; fa
-	add_tm MAGICAL_LEAF ; fb
-	add_tm X_SCISSOR    ; fc
-	add_tm HYPER_SONAR  ; fd TM60
+	add_tm HAMMER_ARM   ; f9
+	add_tm MAGICAL_LEAF ; fa
+	add_tm X_SCISSOR    ; fb
+	add_tm HYPER_SONAR  ; fc TM60
 NUM_TMS = const_value - TM01
 
-add_hm: MACRO
-if !DEF(HM01)
+; add_hm: MACRO
+; if !DEF(HM01)
 HM01 = const_value
-endc
-	define _\@_1, "HM_\1"
-	const _\@_1
-	enum \1_TMNUM
-ENDM
+; endc
+; 	define _\@_1, "HM_\1"
+; 	const _\@_1
+; 	enum \1_TMNUM
+; ENDM
 
-	add_hm AQUA_TAIL    ; fe
-NUM_HMS = const_value - HM01
+; 	add_hm AQUA_TAIL    ; fd
+; NUM_HMS = const_value - HM01
+NUM_HMS = 0
 
 add_mt: MACRO
 	enum \1_TMNUM
@@ -299,7 +300,7 @@ ENDM
 	add_mt SLEEP_TALK
 NUM_TM_HM_TUTOR = __enum__ + -1
 
-	const ITEM_FA       ; fa
+	const ITEM_FD       ; fd
 
 USE_SCRIPT_VAR EQU $00
 ITEM_FROM_MEM  EQU $ff

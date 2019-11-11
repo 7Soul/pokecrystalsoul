@@ -2,7 +2,7 @@ tmhm: MACRO
 ; used in data/pokemon/base_stats/*.asm
 tms1 = 0 ; TM01-TM24 (24)
 tms2 = 0 ; TM25-TM48 (24)
-tms3 = 0 ; TM49-TM50 + HM01-HM07 + MT01-MT03 (12/24)
+tms3 = 0 ; TM49-TM60 (11/24)
 rept _NARG
 	if DEF(\1_TMNUM)
 	if \1_TMNUM < 24 + 1
@@ -25,7 +25,7 @@ rept 3 ; TM25-TM48 (24/24)
 	db tms2 & $ff
 tms2 = tms2 >> 8
 endr
-rept 2 ; TM49-TM50 + HM01-HM07 + MT01-MT03 (12/16)
+rept 3 ; TM49-TM60
 	db tms3 & $ff
 tms3 = tms3 >> 8
 endr
