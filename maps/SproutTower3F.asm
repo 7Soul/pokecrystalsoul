@@ -76,7 +76,7 @@ SageLiScript:
 	opentext
 	writetext SageLiTakeThisFlashText
 	buttonsound
-	verbosegiveitem HM_MAGMA_STORM
+	; verbosegiveitem HM_MAGMA_STORM
 	setevent EVENT_GOT_HM05_MAGMA_STORM
 	setevent EVENT_BEAT_SAGE_LI
 	writetext SageLiFlashExplanationText

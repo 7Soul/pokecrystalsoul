@@ -7,7 +7,7 @@ IcePathB2FBlackthornSide_MapScripts:
 	db 0 ; callbacks
 
 IcePathB2FBlackthornSideTMRest:
-	itemball TM_REST
+	; itemball TM_REST
 
 IcePathB2FBlackthornSideHiddenIceHeal:
 	hiddenitem ICE_HEAL, EVENT_ICE_PATH_B2F_BLACKTHORN_SIDE_HIDDEN_ICE_HEAL

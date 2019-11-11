@@ -215,14 +215,14 @@ ENDM
 	add_tm CURSE        ; c3
 	add_tm ROLLOUT      ; c4
 	add_tm ROAR         ; c5
-	add_tm TOXIC        ; c6
+	add_tm VENOSHOCK    ; c6
 	add_tm ZAP_CANNON   ; c7
 	add_tm ROCK_SMASH   ; c8
 	add_tm PSYCH_UP     ; c9
 	add_tm HIDDEN_POWER ; ca TM10
 	add_tm SUNNY_DAY    ; cb
 	add_tm FELL_STINGER ; cc
-	add_tm SNORE        ; cd
+	add_tm FEATHERGALE  ; cd ; was SNORE
 	add_tm BLIZZARD     ; ce
 	add_tm HYPER_BEAM   ; cf
 	add_tm ICY_WIND     ; d0
@@ -236,7 +236,7 @@ ENDM
 	add_tm HYDRO_PUMP   ; d8
 	add_tm THUNDER      ; d9
 	add_tm EARTHQUAKE   ; da
-	add_tm HARMONY      ; db
+	add_tm MEGAHORN     ; db
 	add_tm DIG          ; dc
 	add_tm PSYCHIC_M    ; dd
 	add_tm SHADOW_BALL  ; de TM30
@@ -244,7 +244,7 @@ ENDM
 	add_tm DOUBLE_TEAM  ; e0
 	add_tm ICE_PUNCH    ; e1
 	add_tm SWAGGER      ; e2
-	add_tm SLEEP_TALK   ; e3
+	add_tm WATER_GUN    ; e3 ; was SLEEP_TALK
 	add_tm SLUDGE_BOMB  ; e4
 	add_tm SANDSTORM    ; e5
 	add_tm FIRE_BLAST   ; e6
@@ -253,20 +253,23 @@ ENDM
 	add_tm THUNDERPUNCH ; e9
 	add_tm DREAM_EATER  ; ea
 	add_tm BRICK_BREAK  ; eb
-	add_tm REST         ; ec
+	add_tm POWER_GEM    ; ec ; was REST
 	add_tm ATTRACT      ; ed
 	add_tm BULK_UP      ; ee
-	add_tm ICICLE_WING  ; ef
+	add_tm FIRE_FLICK   ; ef
 	add_tm FIRE_PUNCH   ; f0
 	add_tm FURY_CUTTER  ; f1
 	add_tm NIGHTMARE    ; f2 TM50
 	add_tm ROCK_TOMB    ; f3
 	add_tm JET_STREAM   ; f4
-	add_tm THUNDERBOLT  ; f5
+	add_tm WILD_STORM   ; f5
 	add_tm PSYWAVE      ; f6
 	add_tm INFERNO      ; f7
 	add_tm AIR_SLASH    ; f8
-	add_tm AQUA_TAIL    ; f9 TM60
+	add_tm HAMMER_ARM   ; fa
+	add_tm MAGICAL_LEAF ; fb
+	add_tm X_SCISSOR    ; fc
+	add_tm HYPER_SONAR  ; fd TM60
 NUM_TMS = const_value - TM01
 
 add_hm: MACRO
@@ -278,13 +281,7 @@ endc
 	enum \1_TMNUM
 ENDM
 
-	add_hm AQUA_TAIL    ; f3
-	add_hm FLY          ; f7
-	add_hm SURF         ; f5
-	add_hm NASTY_PLOT   ; f6
-	add_hm MAGMA_STORM  ; f7
-	add_hm WHIRLPOOL    ; f8
-	; add_hm DARK_PULSE   ; f9
+	add_hm AQUA_TAIL    ; fe
 NUM_HMS = const_value - HM01
 
 add_mt: MACRO
@@ -294,7 +291,12 @@ ENDM
 	add_mt FLAMETHROWER
 	add_mt THUNDERBOLT
 	add_mt ICE_BEAM
+	add_mt FLY
+	add_mt SURF
 	add_mt HARMONY
+	add_mt REST
+	add_mt SNORE
+	add_mt SLEEP_TALK
 NUM_TM_HM_TUTOR = __enum__ + -1
 
 	const ITEM_FA       ; fa

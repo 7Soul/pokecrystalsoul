@@ -105,7 +105,7 @@ if DEF(_DEBUG)
 	giveitem MAX_REPEL, 99
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
-	giveitem HM_FLY
+	; giveitem HM_FLY
 	givepoke CLEFAIRY, 50
 	givepoke NINETALES, 60
 	givepoke PIDGEY, 5
@@ -406,7 +406,7 @@ CheatGiveTMs:
 
 	pop af
 	inc a
-	cp TM_AQUA_TAIL + 1
+	cp TM_HYPER_SONAR + 1
 	jr nz, .loop
 	ret
 endc

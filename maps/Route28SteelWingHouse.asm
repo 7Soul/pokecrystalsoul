@@ -18,7 +18,7 @@ Celebrity:
 	iftrue .AlreadyGotItem
 	writetext CelebrityText1
 	buttonsound
-	verbosegiveitem TM_ICICLE_WING
+	verbosegiveitem TM_FIRE_FLICK
 	iffalse .Done
 	setevent EVENT_GOT_TM47_ICICLE_WING
 .Done:

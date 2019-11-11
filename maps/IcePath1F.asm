@@ -9,7 +9,7 @@ IcePath1F_MapScripts:
 	db 0 ; callbacks
 
 IcePath1FTMIcicleWing:
-	itemball TM_ICICLE_WING
+	; itemball TM_ICICLE_WING
 
 IcePath1FPPUp:
 	itemball PP_UP

@@ -15,7 +15,7 @@ OlivineCafeStrengthSailorScript:
 	iftrue .GotStrength
 	writetext OlivineCafeStrengthSailorText
 	buttonsound
-	verbosegiveitem HM_NASTY_PLOT
+	; verbosegiveitem HM_NASTY_PLOT
 	setevent EVENT_GOT_HM04_NASTY_PLOT
 .GotStrength:
 	writetext OlivineCafeStrengthSailorText_GotStrength
