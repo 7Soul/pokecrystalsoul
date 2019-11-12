@@ -105,7 +105,6 @@ if DEF(_DEBUG)
 	giveitem MAX_REPEL, 99
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
-	; giveitem HM_FLY
 	givepoke CLEFAIRY, 50
 	givepoke NINETALES, 60
 	givepoke PIDGEY, 5
@@ -114,8 +113,8 @@ if DEF(_DEBUG)
 	callasm CheatGiveTMs
 	; callasm CheatGiveBadges
 	callasm CheatSetFlypoints
-	;warp ROUTE_2, $5, $22
-	warp ROUTE_46, $8, $10
+	warp ROUTE_2, $5, $22
+	; warp ROUTE_46, $8, $10
 	;warp ROUTE_37, $e, $a
 	;warp ILEX_FOREST, $0, $21
 	;warp ROUTE_34, $D, $24
