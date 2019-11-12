@@ -632,16 +632,21 @@ _CGB_TrainerCard:
 	ld a, FALKNER ; KRIS
 	call GetTrainerPalettePointer
 	call LoadPalette_White_Col1_Col2_Black
-	ld hl, .trainerCardPalettes
+	ld hl, .TrainerCardPalettes
 	ld bc, 2 palettes
 	ld a, BANK(wOBPals1)
 	call FarCopyWRAM
-	ld a, $4
+	ld a, $0
 	; call GetTrainerPalettePointer
 	; call LoadPalette_White_Col1_Col2_Black
-
 	call GetPredefPal
 	call LoadHLPaletteIntoDE
+
+	ld de, wOBPals1
+	ld hl, .BadgePalettes
+	ld bc, 8 palettes
+	ld a, BANK(wOBPals1)
+	call FarCopyWRAM
 
 	; fill screen with opposite-gender palette for the card border
 	hlcoord 0, 0, wAttrMap
@@ -667,8 +672,8 @@ _CGB_TrainerCard:
 	; top-right corner still uses the border's palette
 	hlcoord 18, 1, wAttrMap
 	ld [hl], $1
-	hlcoord 2, 11, wAttrMap
-	lb bc, 6, 17
+	hlcoord 2, 10, wAttrMap
+	lb bc, 7, 17
 	ld a, $3
 	call FillBoxCGB
 	; hlcoord 2, 11, wAttrMap
@@ -723,8 +728,11 @@ _CGB_TrainerCard:
 	ldh [hCGBPalUpdate], a
 	ret
 
-.trainerCardPalettes:
+.TrainerCardPalettes:
 	INCLUDE "gfx/trainer_card/trainerCardPal.pal"
+
+.BadgePalettes:
+	INCLUDE "gfx/trainer_card/badges.pal"
 	
 _CGB_MoveList:
 	ld de, wBGPals1

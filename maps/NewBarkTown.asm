@@ -111,7 +111,8 @@ if DEF(_DEBUG)
 	givepoke KRABBY, 5
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
-	; callasm CheatGiveBadges
+	callasm CheatGiveBadges
+	; setflag ENGINE_ZEPHYRBADGE
 	callasm CheatSetFlypoints
 	warp ROUTE_2, $5, $22
 	; warp ROUTE_46, $8, $10
@@ -374,7 +375,7 @@ CheatGiveBadges:
 	pop af
 
 	inc a
-	cp ENGINE_EARTHBADGE
+	cp ENGINE_EARTHBADGE + 1
 	jr nz, .loop
 	ret
 
