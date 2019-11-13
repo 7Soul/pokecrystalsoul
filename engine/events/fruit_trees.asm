@@ -44,6 +44,7 @@ FruitTreeScript::
 	end
 	
 SetBattle:
+.reset
 	push hl
 	ld hl, wBadges
 	ld b, 2
@@ -77,7 +78,6 @@ SetBattle:
 	jr z, .next
 	ld hl, BerryMonsNiteK
 	
-	
 .next
 	ld a, 100
 	call RandomRange
@@ -89,16 +89,30 @@ SetBattle:
 	jr .loop
 	
 .ok
+	ld a, [wNumSetBits]
+	ld b, a
+	ld a, [hl] ; get the encounter rate of the selected mon
+	cp 5
+	jr nz, .highBadge ; randomized encounter is not 5 (not the 2 rarest encounters)
+	ld a, b
+	cp 2
+	jr nc, .highBadge ; 2 or higher (2 badges or more)
+	ld a, [hl]
+	ld [$c003], a
+	jp .reset
+
+.highBadge
 	inc hl
 	ld a, [hli]
 	cp -1
 	jr z, NoMon	
 	
 	ld [wTempWildMonSpecies], a	
+	ld a, $4
+	call RandomRange ; 0 to 3
+	ld b, a
 	ld a, [wNumSetBits]
-	ld b, 3 ; b is level
 	call TreeBadgeLevels
-	
 	
 	ld a, [wTempWildMonSpecies]
 	ld b, a
@@ -125,43 +139,43 @@ NoMon:
 	ret
 
 BerryMonsDayJ:
-	db 20, AIPOM
-	db 20, LEDYBA
-	db 20, PINECO
-	db 20, HOPPIP
-	db 10, DELIBIRD
-	db 5, POLITOED
-	db 5, TOGEPI
+	db 11, AIPOM
+	db 11, LEDYBA
+	db 11, PINECO
+	db 11, HOPPIP
+	db 11, DELIBIRD
+	db 6, POLITOED
+	db 6, TOGEPI
 	db -1
 	
 BerryMonsNiteJ:
-	db 20, SMEARGLE
-	db 20, TEDDIURSA
-	db 20, SPINARAK
-	db 20, MURKROW
-	db 10, MISDREAVUS
-	db 5, LARVITAR
-	db 5, CROBAT
+	db 11, SMEARGLE
+	db 11, TEDDIURSA
+	db 11, SPINARAK
+	db 11, MURKROW
+	db 11, MISDREAVUS
+	db 6, LARVITAR
+	db 6, CROBAT
 	db -1
 	
 BerryMonsDayK:
-	db 20, CATERPIE
-	db 20, WEEDLE
-	db 20, MEOWTH
-	db 20, MAGNEMITE
-	db 10, SPEAROW
-	db 5, ABRA
-	db 5, JIGGLYPUFF
+	db 11, CATERPIE
+	db 11, WEEDLE
+	db 11, MEOWTH
+	db 11, MAGNEMITE
+	db 11, IGGLYBUFF
+	db 6, ABRA
+	db 6, DITTO
 	db -1
 	
 BerryMonsNiteK:
-	db 20, PARAS
-	db 20, VENONAT
-	db 20, MANKEY
-	db 20, CLEFAIRY
-	db 10, GASTLY
-	db 5, SLUGMA
-	db 5, KABUTO
+	db 11, PARAS
+	db 11, VENONAT
+	db 11, MANKEY
+	db 11, GASTLY
+	db 11, CLEFFA
+	db 6, SLUGMA
+	db 6, KABUTO
 	db -1
 
 	
@@ -172,19 +186,39 @@ TreeBadgeLevels:
 	add hl, de
 	ld a, [hl]
 	add b
+	cp $1
+	ld b, a
+	jr nz, .not_level_one
+	inc a
+	ld b, a
+.not_level_one
+	cp $7
+	jr nc, .finish
+	ld a, $5 ; add 0 to 4 if badge count is 7 or higher
+	call RandomRange
+	add b
+.finish
 	ld [wCurPartyLevel], a
 	ret
 	
 .levels:
-	db $2  ; 2
-	db $a  ; 10
-	db $f  ; 15
-	db $18 ; 24
-	db $1c ; 28
-	db $1e ; 30
-	db $21 ; 33
-	db $24 ; 36
-	db $28 ; 39
+	db $1  ; 0
+	db $4  ; 4
+	db $9  ; 9
+	db $c  ; 12
+	db $10 ; 16 ; 4 badges
+	db $12 ; 18
+	db $14 ; 20
+	db $17 ; 23
+	db $19 ; 25 ; 8 badges
+	db $1b ; 27
+	db $1d ; 29
+	db $1f ; 31
+	db $21 ; 33 ; 12 badges
+	db $23 ; 35
+	db $25 ; 37
+	db $28 ; 40
+	db $2b ; 43 ; 16 badges
 	
 SetLucky:
 	ld a, 5
@@ -337,7 +371,7 @@ EvolveWildMon2:
 	cp 5
 	jp nc, .diff_greaterthan5
 	call Random 
-	cp 30 percent ; 0 <= diff < 5
+	cp 15 percent ; 0 <= diff < 5
 	jp c, .finish_evolve
 	jp .done
 	
@@ -346,7 +380,7 @@ EvolveWildMon2:
 	cp 10
 	jp nc, .diff_greaterthan10
 	call Random 
-	cp 60 percent ; 5 <= diff < 10
+	cp 25 percent ; 5 <= diff < 10
 	jp c, .finish_evolve
 	jp .done
 	
@@ -355,7 +389,7 @@ EvolveWildMon2:
 	cp 15
 	jp nc, .diff_greaterthan15
 	call Random 
-	cp 80 percent ; 10 <= diff < 15
+	cp 40 percent ; 10 <= diff < 15
 	jp c, .finish_evolve
 	jp .done
 	
@@ -364,7 +398,7 @@ EvolveWildMon2:
 	cp 20
 	jp nc, .diff_greaterthan20
 	call Random 
-	cp 95 percent ; 15 <= diff < 20
+	cp 50 percent ; 15 <= diff < 20
 	jp c, .finish_evolve
 	jp .done
 	
@@ -373,7 +407,7 @@ EvolveWildMon2:
 	cp 25
 	jp nc, .diff_greaterthan25
 	call Random 
-	cp 95 percent ; 20 <= diff < 25
+	cp 60 percent ; 20 <= diff < 25
 	jp c, .finish_evolve
 	jp .done
 	
@@ -382,7 +416,7 @@ EvolveWildMon2:
 	cp 30
 	jp nc, .finish_evolve
 	call Random 
-	cp 98 percent ; 25 <= diff < 35
+	cp 70 percent ; 25 <= diff < 35
 	jp c, .finish_evolve
 	jp .done
 	

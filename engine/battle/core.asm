@@ -6261,6 +6261,8 @@ LoadEnemyMon:
 	call Random
 	cp 10 percent
 	jr c, .UpdateDVs ; 10% artificial reduction to shiny chance
+	ld h, b
+	ld l, c
 	call BattleCheckShininess ; 90% chance to reroll if it's a shiny
 	jr c, .GenerateDVs
 

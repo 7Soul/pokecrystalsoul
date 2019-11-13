@@ -279,10 +279,9 @@ EarlsPokemonAcademySignText:
 VioletCity_MapEvents:
 	db 0, 0 ; filler
 
-	db 9 ; warp events
+	db 10 ; warp events
 	warp_event 23, 17, VIOLET_MART, 2
-	warp_event 15, 16, VIOLET_GYM, 1
-	warp_event 14, 16, VIOLET_GYM, 1
+	warp_event 15, 16, VIOLET_GYM, 1	
 	warp_event 30, 17, EARLS_POKEMON_ACADEMY, 1
 	warp_event 25, 31, VIOLET_NICKNAME_SPEECH_HOUSE, 1
 	warp_event 31, 25, VIOLET_POKECENTER_1F, 1
@@ -290,6 +289,7 @@ VioletCity_MapEvents:
 	warp_event 33,  5, SPROUT_TOWER_1F, 1
 	warp_event 39, 24, ROUTE_31_VIOLET_GATE, 1
 	warp_event 39, 25, ROUTE_31_VIOLET_GATE, 2
+	warp_event 14, 16, VIOLET_GYM, 1
 
 	db 0 ; coord events
 
@@ -300,7 +300,7 @@ VioletCity_MapEvents:
 	bg_event 27, 17, BGEVENT_READ, EarlsPokemonAcademySign
 	bg_event 32, 25, BGEVENT_READ, VioletCityPokecenterSign
 	bg_event 24, 17, BGEVENT_READ, VioletCityMartSign
-	bg_event 36,  2, BGEVENT_ITEM, VioletCityHiddenHyperPotion
+	bg_event 36,  4, BGEVENT_ITEM, VioletCityHiddenHyperPotion
 
 	db 8 ; object events
 	object_event 13, 17, SPRITE_FISHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, VioletCityEarlScript, EVENT_VIOLET_CITY_EARL

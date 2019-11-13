@@ -111,11 +111,13 @@ if DEF(_DEBUG)
 	givepoke KRABBY, 5
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
-	callasm CheatGiveBadges
+	callasm CheatGiveJohtoBadges
+	; callasm CheatGiveKantoBadges
+	; callasm CheatGiveRandomBadges
 	; setflag ENGINE_ZEPHYRBADGE
 	callasm CheatSetFlypoints
-	warp ROUTE_2, $5, $22
-	; warp ROUTE_46, $8, $10
+	; warp ROUTE_2, $5, $22
+	warp ROUTE_46, $8, $10
 	;warp ROUTE_37, $e, $a
 	;warp ILEX_FOREST, $0, $21
 	;warp ROUTE_34, $D, $24
@@ -364,8 +366,23 @@ SetHallOfFameFlag:
 	set STATUSFLAGS_HALL_OF_FAME_F, [hl]
 	ret
 
-CheatGiveBadges:
+CheatGiveJohtoBadges:
 	ld a, ENGINE_ZEPHYRBADGE
+.loop
+	push af
+	ld d, 0
+	ld e, a
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+	pop af
+
+	inc a
+	cp ENGINE_RISINGBADGE + 1
+	jr nz, .loop
+	ret
+
+CheatGiveKantoBadges:
+	ld a, ENGINE_BOULDERBADGE
 .loop
 	push af
 	ld d, 0
@@ -377,6 +394,32 @@ CheatGiveBadges:
 	inc a
 	cp ENGINE_EARTHBADGE + 1
 	jr nz, .loop
+	ret
+
+CheatGiveRandomBadges:
+	ld a, ENGINE_ZEPHYRBADGE
+.loop
+	push af
+	ld d, 0
+	ld e, a
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+	pop af
+
+	cp ENGINE_EARTHBADGE + 1
+	jr z, .end
+	cp ENGINE_EARTHBADGE + 2
+	jr z, .end
+	inc a
+
+	ld b, a
+	call Random
+	cp 33 percent
+	ld a, b
+	jr c, .loop
+	inc a
+	jr .loop
+.end
 	ret
 
 CheatSetFlypoints:
@@ -406,7 +449,7 @@ CheatGiveTMs:
 
 	pop af
 	inc a
-	cp HYPER_SONAR + 1
+	cp TM_HYPER_SONAR + 1
 	jr nz, .loop
 	ret
 endc

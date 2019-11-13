@@ -428,7 +428,7 @@ endr
 
 	xor a
 	ld [wTrainerCardBadgeFrameCounter], a
-	ld hl, TrainerCard_KantoBadgesOAM
+	ld hl, TrainerCard_JohtoBadgesOAM
 	call TrainerCard_Page2_3_OAMUpdate
 	ret
 

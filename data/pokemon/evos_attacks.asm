@@ -253,6 +253,7 @@ PidgeyEvosAttacks:
 	db EVOLVE_LEVEL, 18, PIDGEOTTO
 	db 0 ; no more evolutions
 	db 1, TACKLE
+	db 1, FLY
 	db 3, SAND_ATTACK
 	db 5, GUST
 	db 11, QUICK_ATTACK
