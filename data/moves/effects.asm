@@ -2281,6 +2281,7 @@ FirePlay:
 	applydamage
 	criticaltext
 	supereffectivetext
+	fireplay
 	checkfaint
-	buildopponentrage
-	forceswitch
+	buildopponentrage	
+	endmove

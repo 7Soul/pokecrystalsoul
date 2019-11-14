@@ -66,9 +66,14 @@ PrintMoveType:
 	ld a, [wBattleMonType2]
 	cp WATER
 	jr z, .water_play
+	cp FLYING
+	jr z, .flying_play
 	jr .fire_play
 .water_play
 	ld a, WATER
+	jr .end
+.flying_play
+	ld a, FLYING
 	jr .end
 .fire_play
 	ld a, FIRE

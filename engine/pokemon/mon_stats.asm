@@ -508,6 +508,8 @@ ListMoves:
 	push hl
 	push hl
 	ld [wCurSpecies], a
+	cp FIRE_PLAY ; fire play
+	jp nz, .no_type
 ; move name replacer ; 7soul
 	ld a, [wBattleMonType1]
 	cp WATER
@@ -515,31 +517,28 @@ ListMoves:
 	cp FIRE
 	jp z, .fire
 	ld a, [wBattleMonType2]
+	cp FLYING
+	jp z, .flying
 	cp WATER
 	jp z, .water
 	cp FIRE
 	jp z, .fire
 	jp .no_type
+.flying
+	ld de, .FlyingPlay
+	jr .ok
 .water
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY ; fire play
-	jp z, .replace_name_water
-	jr .no_type
+	ld de, .WaterPlay
+	jr .ok
 .fire
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY ; fire play
-	jp z, .replace_name_fire
+	ld de, .FirePlay
+	jr .ok
 .no_type
 	ld a, MOVE_NAME
 	ld [wNamedObjectTypeBuffer], a
 	call GetName
 	ld de, wStringBuffer1
-	jr .ok
-.replace_name_water
-	ld de, .WaterPlay
-	jr .ok
-.replace_name_fire
-	ld de, .FirePlay
+
 .ok
 	pop hl
 	push bc
@@ -577,9 +576,6 @@ ListMoves:
 
 .done
 	ret
-; name in status screen and battle menu
-.WaterPlay:
-	db "Water Play@"
 
-.FirePlay:
-	db "Fire Play@"
+; name in status screen and battle menu
+INCLUDE "data/moves/fire_play_names.asm"

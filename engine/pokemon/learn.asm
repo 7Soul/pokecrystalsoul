@@ -4,31 +4,37 @@ LearnMove:
 	ld hl, wPartyMonNicknames
 	call GetNick
 	
+	ld a, [wCurSpecies]
+	cp FIRE_PLAY ; fire play
+	jp nz, .no_type
+
 	ld a, [wBaseType1]
 	cp WATER
 	jp z, .water
 	cp FIRE
 	jp z, .fire
 	ld a, [wBaseType2]
+	cp FLYING
+	jp z, .flying
 	cp WATER
 	jp z, .water
 	cp FIRE
 	jp z, .fire
 	jp .no_type
+.flying
+	ld de, .FlyingPlay
+	call CopyName1
+	jr .no_type
 .water
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY ; fire play
-	jp nz, .no_type
 	ld de, .WaterPlay
 	call CopyName1
 	jr .no_type
 .fire
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY ; fire play
-	jp nz, .no_type
 	ld de, .FirePlay
 	call CopyName1
+	jr .no_type
 .no_type
+	ld a, [wCurPartyMon]
 	ld hl, wStringBuffer1
 	ld de, wMonOrItemNameBuffer
 	ld bc, MON_NAME_LENGTH
@@ -143,11 +149,7 @@ LearnMove:
 	ld b, 1
 	ret
 	
-.WaterPlay:
-	db "Water Play@"
-
-.FirePlay:
-	db "Fire Play@"
+INCLUDE "data/moves/fire_play_names.asm"
 
 ForgetMove:
 	push hl

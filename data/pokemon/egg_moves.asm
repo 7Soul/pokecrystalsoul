@@ -60,6 +60,7 @@ PidgeyEggMoves:
 	db FAINT_ATTACK
 	db AIR_SLASH
 	db ICICLE_WING
+	db FIRE_PLAY
 	db -1 ; end
 
 RattataEggMoves:
@@ -78,6 +79,7 @@ SpearowEggMoves:
 	db SCARY_FACE
 	db QUICK_ATTACK
 	db TRI_ATTACK
+	db FIRE_PLAY
 	db -1 ; end
 
 EkansEggMoves:
@@ -555,7 +557,6 @@ EeveeEggMoves:
 	db CHARM
 	db ENDURE
 	db MIMIC
-	db FIRE_PLAY
 	db HYPER_FANG
 	db -1 ; end
 
@@ -576,6 +577,7 @@ OmanyteEggMoves:
 	db SUPERSONIC
 	db HAZE
 	db MEGAHORN
+	db FIRE_PLAY
 	db -1 ; end
 
 KabutoEggMoves:
@@ -663,6 +665,7 @@ LedybaEggMoves:
 	db FEATHERGALE
 	db COUNTER
 	db SCREECH
+	db FIRE_PLAY
 	db -1 ; end
 
 SpinarakEggMoves:
@@ -711,6 +714,7 @@ TogepiEggMoves:
 	db FUTURE_SIGHT
 	db FEATHERGALE
 	db KINESIS
+	db FIRE_PLAY
 	db -1 ; end
 
 NatuEggMoves:
@@ -929,6 +933,7 @@ MantineEggMoves:
 	db HAZE
 	db SLAM
 	db SKY_ATTACK
+	db FIRE_PLAY
 	db -1 ; end
 
 SkarmoryEggMoves:
@@ -996,6 +1001,7 @@ MagbyEggMoves:
 	db SCREECH
 	db CROSS_CHOP
 	db THUNDERPUNCH
+	db FIRE_PLAY
 	db -1 ; end
 
 MiltankEggMoves:

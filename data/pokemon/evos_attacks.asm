@@ -256,6 +256,7 @@ PidgeyEvosAttacks:
 	db 1, FLY
 	db 3, SAND_ATTACK
 	db 5, GUST
+	db 6, FIRE_PLAY
 	db 11, QUICK_ATTACK
 	db 15, WING_ATTACK
 	db 18, WHIRLWIND
@@ -645,7 +646,8 @@ ZubatEvosAttacks:
 	db 1, LEECH_LIFE
 	db 1, SCREECH
 	db 6, SUPERSONIC
-	db 12, BITE
+	db 11, BITE
+	db 15, FIRE_PLAY
 	db 19, CONFUSE_RAY
 	db 23, SWIFT
 	db 27, WING_ATTACK	
@@ -660,9 +662,9 @@ ZubatEvosAttacks:
 GolbatEvosAttacks:
 	db EVOLVE_HAPPINESS, TR_ANYTIME, CROBAT
 	db 0 ; no more evolutions	
-	db 1, LEECH_LIFE
 	db 6, SUPERSONIC
-	db 12, BITE
+	db 11, BITE
+	db 15, FIRE_PLAY
 	db 19, CONFUSE_RAY
 	db 24, SWIFT
 	db 29, WING_ATTACK	
@@ -1282,8 +1284,8 @@ FarfetchDEvosAttacks:
 	db 1, PECK
 	db 1, POISON_STING
 	db 7, SAND_ATTACK
-	db 10, LEER
-	db 12, MAKESHIFT
+	db 9, FIRE_PLAY
+	db 13, MAKESHIFT
 	db 19, FURY_ATTACK
 	db 21, FEATHERGALE
 	db 25, SWORDS_DANCE
@@ -1508,6 +1510,7 @@ KrabbyEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BUBBLE
 	db 5, VICEGRIP
+	db 6, FIRE_PLAY
 	db 8, LEER
 	db 10, HARDEN
 	db 13, BUBBLEBEAM
@@ -1812,6 +1815,7 @@ GoldeenEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, PECK
 	db 1, TAIL_WHIP
+	db 7, FIRE_PLAY
 	db 10, SUPERSONIC
 	db 15, HORN_ATTACK
 	db 24, REVERSAL
@@ -1824,9 +1828,6 @@ GoldeenEvosAttacks:
 
 SeakingEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, PECK
-	db 1, TAIL_WHIP
-	db 1, TAIL_WHIP
 	db 10, SUPERSONIC
 	db 15, HORN_ATTACK
 	db 24, REVERSAL
@@ -2878,13 +2879,13 @@ SudowoodoEvosAttacks:
 PolitoedEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, WATER_GUN
-	db 1, HYPNOSIS
-	db 1, DOUBLESLAP
-	db 1, PERISH_SONG
+	db 5, HYPNOSIS
+	db 10, DOUBLESLAP
+	db 15, PERISH_SONG
+	db 17, FIRE_PLAY
 	db 19, RAIN_DANCE
 	db 29, BODY_SLAM
 	db 35, PERISH_SONG
-	db 40, FIRE_PLAY
 	db 44, HYPER_SONAR
 	db 51, SWAGGER
 	db 55, HYDRO_PUMP
@@ -2995,9 +2996,9 @@ SunfloraEvosAttacks:
 YanmaEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
-	db 7, QUICK_ATTACK
+	db 5, FIRE_PLAY
 	db 9, TWINEEDLE
-	db 13, DOUBLE_TEAM
+	db 14, DOUBLE_TEAM
 	db 19, SONICBOOM
 	db 25, PROTECT
 	db 31, SUPERSONIC
@@ -3373,10 +3374,11 @@ UrsaringEvosAttacks:
 	db 0 ; no more level-up moves
 
 SlugmaEvosAttacks:
-	db EVOLVE_LEVEL, 38, MAGCARGO
+	db EVOLVE_LEVEL, 26, MAGCARGO
 	db 0 ; no more evolutions
-	db 1, SMOG
-	db 8, EMBER
+	db 1, POUND
+	db 5, SMOG
+	db 8, FIRE_PLAY
 	db 10, ROCK_THROW
 	db 13, HARDEN
 	db 22, ANCIENTPOWER
@@ -3390,10 +3392,7 @@ SlugmaEvosAttacks:
 
 MagcargoEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, SMOG
-	db 1, EMBER
-	db 1, ROCK_THROW
-	db 8, EMBER
+	db 8, FIRE_PLAY
 	db 10, ROCK_THROW
 	db 13, HARDEN
 	db 22, ANCIENTPOWER
@@ -3406,12 +3405,14 @@ MagcargoEvosAttacks:
 	db 0 ; no more level-up moves
 
 SwinubEvosAttacks:
-	db EVOLVE_LEVEL, 33, PILOSWINE
+	db EVOLVE_LEVEL, 26, PILOSWINE
 	db 0 ; no more evolutions
 	db 1, TACKLE
-	db 10, POWDER_SNOW
-	db 17, ENDURE
-	db 21, ICY_WIND
+	db 5, POWDER_SNOW
+	db 7, DOUBLE_TEAM
+	db 9, ICY_WIND
+	db 12, SAND_ATTACK
+	db 19, ENDURE	
 	db 24, POWER_GEM
 	db 28, TAKE_DOWN
 	db 35, MIST
@@ -3424,8 +3425,6 @@ SwinubEvosAttacks:
 PiloswineEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, HORN_ATTACK
-	db 1, TACKLE
-	db 1, POWDER_SNOW
 	db 17, ENDURE
 	db 21, ICY_WIND
 	db 24, POWER_GEM
@@ -3491,9 +3490,9 @@ OctilleryEvosAttacks:
 
 DelibirdEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, GUST
+	db 1, FIRE_PLAY
 	db 1, SAND_ATTACK
-	db 1, MIST
+	db 6, MIST	
 	db 10, MIRROR_MOVE
 	db 15, POWDER_SNOW
 	db 19, AMNESIA
@@ -3511,6 +3510,7 @@ MantineEvosAttacks:
 	db 1, TACKLE
 	db 1, BUBBLE
 	db 9, SUPERSONIC
+	db 12, FIRE_PLAY
 	db 14, WING_ATTACK
 	db 16, HEADBUTT
 	db 19, BUBBLEBEAM

@@ -1622,19 +1622,28 @@ CheckTypeMatchup:
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
 	cp FIRE_PLAY
-	jp nz, .not_fire_play
+	jp nz, .skip_fire_play
 	
 	ld a, b
 	cp WATER
 	jr z, .water_play
+	cp FIRE
+	jr z, .skip_fire_play
 	ld a, c
 	cp WATER
-	jr nz, .not_fire_play
+	jr z, .water_play
+	cp FLYING
+	jr nz, .skip_fire_play
+.flying_play
+	ld a, FLYING
+	ld [wCurType], a
+	jr .skip_fire_play
 .water_play
 	ld a, WATER
 	ld [wCurType], a
+	jr .skip_fire_play
 
-.not_fire_play
+.skip_fire_play
 	ld d, a ; move type
 	
 	ld b, [hl] ; mon type 1
@@ -3867,11 +3876,7 @@ UpdateMoveData:
 	ret
 	
 ; name when using move
-.WaterPlay:
-	db "Water Play@"
-
-.FirePlay:
-	db "Fire Play@"
+INCLUDE "data/moves/fire_play_names.asm"
 
 BattleCommand_SleepTarget:
 ; sleeptarget
@@ -5291,6 +5296,8 @@ CalcStats:
 ;INCLUDE "engine/battle/move_effects/bide.asm"
 
 INCLUDE "engine/battle/move_effects/stampede.asm"
+
+INCLUDE "engine/battle/move_effects/fire_play.asm"
 
 BattleCommand_CheckRampage:
 ; checkrampage

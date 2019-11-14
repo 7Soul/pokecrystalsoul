@@ -397,6 +397,7 @@ AI_Smart:
 	dbw EFFECT_LEAF_SHIELD,      AI_Smart_LeafShield
 	dbw EFFECT_FIRE_FLICK,       AI_Smart_FireFlick
 	dbw EFFECT_JET_STREAM,       AI_Smart_JetStream
+	dbw EFFECT_FIRE_PLAY,        AI_Smart_FirePlay
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -2879,6 +2880,40 @@ AI_Smart_JetStream:
 	ret c
 	dec [hl]
 	dec [hl]
+	ret
+	
+AI_Smart_FirePlay:
+; Discourages move if player has raised stats
+	ld bc, wPlayerStatLevels
+	ld d, wPlayerStatLevelsEnd - wPlayerStatLevels
+.loop
+	ld a, [bc]
+	cp BASE_STAT_LEVEL
+	jr nc, .boosted_or_zero ; found something?
+	jr .next ; the stat is lowered
+.boosted_or_zero
+	jr nz, .boosted ; found a boosted stat
+.next ; the stat is lower or normal
+	inc bc 
+	dec d
+	jr nz, .loop
+
+.boosted
+	ld a, [wEnemyMonType2]
+	cp FLYING
+	jr z, .flying
+	inc [hl] ;
+	ret
+.flying
+; if it's a flying type, then encourage first
+	dec [hl]
+	dec [hl]
+	ld a, [wEnemySpdLevel]
+	cp MAX_STAT_LEVEL
+	ret nz
+; if the speed is maxed already, resets
+	inc [hl]
+	inc [hl]
 	ret
 
 AICompareSpeed:

@@ -189,7 +189,7 @@ ENDM
 	command jetstream				; b7
 	command wakeupfoe				; b8
 	command getwildstorm			; b9
-	
+	command fireplay				; ba
 
 	enum_start $fe
 	command endturn                 ; fe

@@ -178,16 +178,7 @@ GetTMHMName::
 	ld a, [wNamedObjectIndexBuffer]
 	push af
 
-; TM/HM prefix
-	cp HM01
-	push af
-	jr c, .TM
-
-	ld hl, .HMText
-	ld bc, .HMTextEnd - .HMText
-	jr .asm_34a1
-
-.TM:
+; TM prefix
 	ld hl, .TMText
 	ld bc, .TMTextEnd - .TMText
 
@@ -246,11 +237,6 @@ GetTMHMName::
 .TMTextEnd:
 	db "@"
 
-.HMText:
-	db "HM"
-.HMTextEnd:
-	db "@"
-
 INCLUDE "home/hm_moves.asm"
 
 GetMoveName::
@@ -264,6 +250,32 @@ GetMoveName::
 
 	call GetName
 	ld de, wStringBuffer1
-
 	pop hl
+
+	ld a, [wCurSpecies]
+	cp FIRE_PLAY ; fire play
+	ret nz
+
+	ld a, [wBattleMonType1]
+	cp WATER
+	jp z, .water
+	ld a, [wBattleMonType2]
+	cp FLYING
+	jp z, .flying
+	cp WATER
+	jp z, .water
 	ret
+.flying
+	ld de, .FlyingPlay
+	; call CopyName1
+	ret
+.water
+	ld de, .WaterPlay
+	; call CopyName1
+	ret
+
+.WaterPlay:
+	db "Tide Clash@"
+
+.FlyingPlay:
+	db "Flutter Clap@"

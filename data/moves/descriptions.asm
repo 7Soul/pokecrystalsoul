@@ -1090,8 +1090,8 @@ SwaggerDescription:
 	next "and raises ATTACK.@"
 
 FirePlayDescription:
-	db   "Forces switching"
-	next "if type matches.@"
+	db   "Recoil if foe has"
+	next "boosted stats.@"
 
 SparkDescription:
 	db   "An attack that may"

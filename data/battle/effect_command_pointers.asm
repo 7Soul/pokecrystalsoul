@@ -188,3 +188,4 @@ BattleCommandPointers:
 	dw BattleCommand_JetStream
 	dw BattleCommand_WakeupFoe
 	dw BattleCommand_GetWildStorm
+	dw BattleCommand_FirePlay

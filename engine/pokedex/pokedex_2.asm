@@ -829,6 +829,11 @@ Pokedex_GetMoves:
 	jr nc, .unknown_move
 
 .levelOneMove
+	call GetBaseData
+	ld a, [wBaseType1]
+	ld [wBattleMonType1], a
+	ld a, [wBaseType2]
+	ld [wBattleMonType2], a
 	call GetMoveName
 .unknown_move
 	call PlaceString

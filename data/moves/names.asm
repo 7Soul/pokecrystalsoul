@@ -206,7 +206,7 @@ MoveNames::
 	db "Rollout@"
 	db "False Swipe@"
 	db "Swagger@"
-	db "Fire Play@"
+	db "Kindle Clash@"
 	db "Spark@"
 	db "Fury Cutter@"
 	db "Icicle Wing@"

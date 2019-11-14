@@ -89,39 +89,85 @@ AreYouABoyOrAreYouAGirl:
 	ret
 	
 RandomizeStarters:	
-	ld de, wRandomStarter1
+	ld de, wRandomStarter6
+	ld b, wRandomStarter6 - wRandomStarter1
 	ld a, 0
-	ld b, a	
+.clear_loop
+	ld [de], a
+	dec de
+	dec b
+	jr nz, .clear_loop
+	ld de, wRandomStarter6
+	ld b, a
+	ld hl, wRandomStarterItem ; for now, this tracks how many mon we already generated
+	ld [hl], a
 .loop
 	ld hl, .pokelist
-	ld a, 87
-	call RandomRange	
+	ld a, 88 ; 0 to 87
+	call RandomRange
 	ld c, a
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	
 	ld [de], a
-	inc de
-	ld a, [wRandomStarter6]
+
+.loopCheckRepeat ; lets check if this mon is a repeat
+	ld h, d
+	ld l, e
+	ld a, [wRandomStarterItem]
+	cp 6
+	jr z, .end
+	cp 0
+	jr z, .end
+
+	inc hl
+.loopGetStarter
+	ld a, [hl]
+	ld b, a ; b has wRandomStarter entry
+	ld a, [de] ; a has last pokemon randomized
+	cp b
+	jr z, .loop ; it's the same mon
+
+	inc hl
+	inc c
+	jr nz, .loopGetStarter
+.end ; no repeats
+	dec de
+	ld hl, wRandomStarterItem
+	inc [hl]
+	ld a, [wRandomStarter1]
 	cp 0
 	jp z, .loop
 	
 	ld hl, .itemlist
-	ld a, 10
+	ld a, 12 ; 0 to 11
 	call RandomRange
 	ld c, a
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
 	ld [wRandomStarterItem], a
+	;
+	; ld a, [wRandomStarter1]
+	; ld [$c006], a
+	; ld a, [wRandomStarter2]
+	; ld [$c007], a
+	; ld a, [wRandomStarter3]
+	; ld [$c008], a
+	; ld a, [wRandomStarter4]
+	; ld [$c009], a
+	; ld a, [wRandomStarter5]
+	; ld [$c00a], a
+	; ld a, [wRandomStarter6]
+	; ld [$c00b], a
+	;
 	ret
 	
 .pokelist: ; random mon list
 	db BULBASAUR, CHARMANDER, SQUIRTLE, SENTRET, CUBONE, VOLTORB, MAGNEMITE, GEODUDE, CATERPIE, WEEDLE, PIDGEY, SPEAROW, RATTATA, PICHU, CLEFFA, IGGLYBUFF, SMOOCHUM, ELEKID, EKANS, SANDSHREW, NIDORAN_F, NIDORAN_M, VULPIX, ZUBAT, PARAS, ODDISH, VENONAT, DIGLETT, MEOWTH, PSYDUCK, MANKEY, POLIWAG, GROWLITHE, ABRA, MACHOP, BELLSPROUT, TENTACOOL, PONYTA, SLOWPOKE, FARFETCH_D, DODUO, SEEL, GRIMER, SHELLDER, GASTLY, DROWZEE, KRABBY, EXEGGCUTE, KOFFING, RHYHORN, HORSEA, STARYU, EEVEE, CHIKORITA, CYNDAQUIL, TOTODILE, HOOTHOOT, LEDYBA, SPINARAK, CHINCHOU, TOGEPI, NATU, MAREEP, MARILL, HOPPIP, SUNKERN, WOOPER, PINECO, SNUBBULL, TEDDIURSA, SLUGMA, SWINUB, REMORAID, HOUNDOUR, PHANPY, LARVITAR, DRATINI, ONIX, LICKITUNG, PORYGON, YANMA, MISDREAVUS, GIRAFARIG, STANTLER, SNEASEL, CORSOLA, TYROGUE
 
 .itemlist: ; random item list
-	db BERRY, PSNCUREBERRY, PRZCUREBERRY, BURNT_BERRY, ICE_BERRY, BITTER_BERRY, MINT_BERRY, MIRACLEBERRY, GOLD_BERRY, MYSTERYBERRY
+	db BERRY, BERRY, PSNCUREBERRY, PRZCUREBERRY, BURNT_BERRY, ICE_BERRY, BITTER_BERRY, MINT_BERRY, MIRACLEBERRY, GOLD_BERRY, MYSTERYBERRY
 	
 ResetWRAM:
 	xor a
