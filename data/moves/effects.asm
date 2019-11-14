@@ -2276,12 +2276,11 @@ FirePlay:
 	stab
 	damagevariation
 	checkhit
-	moveanim
+	fireplay
 	failuretext
 	applydamage
 	criticaltext
-	supereffectivetext
-	fireplay
+	supereffectivetext	
 	checkfaint
 	buildopponentrage	
 	endmove

@@ -5517,7 +5517,7 @@ BattleCommand_ForceSwitch:
 	jr .succeed
 
 .vs_trainer
-	call CheckPlayerHasMonToSwitchTo
+	farcall CheckPlayerHasMonToSwitchTo
 	jr c, .fail
 
 	ld a, [wEnemyGoesFirst]
@@ -5591,35 +5591,7 @@ BattleCommand_ForceSwitch:
 	ld hl, BlownAwayText
 .do_text
 	jp StdBattleTextBox
-
-CheckPlayerHasMonToSwitchTo:
-	ld a, [wPartyCount]
-	ld d, a
-	ld e, 0
-	ld bc, PARTYMON_STRUCT_LENGTH
-.loop
-	ld a, [wCurBattleMon]
-	cp e
-	jr z, .next
-
-	ld a, e
-	ld hl, wPartyMon1HP
-	call AddNTimes
-	ld a, [hli]
-	or [hl]
-	jr nz, .not_fainted
-
-.next
-	inc e
-	dec d
-	jr nz, .loop
-
-	scf
-	ret
-
-.not_fainted
-	and a
-	ret
+	farcall CheckPlayerHasMonToSwitchTo
 
 BattleCommand_EndLoop:
 ; endloop

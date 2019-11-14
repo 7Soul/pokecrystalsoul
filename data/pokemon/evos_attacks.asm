@@ -253,13 +253,11 @@ PidgeyEvosAttacks:
 	db EVOLVE_LEVEL, 18, PIDGEOTTO
 	db 0 ; no more evolutions
 	db 1, TACKLE
-	db 1, FLY
-	db 3, SAND_ATTACK
-	db 5, GUST
-	db 6, FIRE_PLAY
+	db 5, SAND_ATTACK
+	db 9, GUST
 	db 11, QUICK_ATTACK
 	db 15, WING_ATTACK
-	db 18, WHIRLWIND
+	db 19, WHIRLWIND
 	db 23, AGILITY
 	db 26, AIR_SLASH
 	db 33, SWORDS_DANCE
@@ -269,11 +267,11 @@ PidgeyEvosAttacks:
 PidgeottoEvosAttacks:
 	db EVOLVE_LEVEL, 36, PIDGEOT
 	db 0 ; no more evolutions
-	db 1, GUST
+	db 1, TACKLE
 	db 5, SAND_ATTACK
 	db 9, GUST
 	db 15, QUICK_ATTACK
-	db 23, WHIRLWIND
+	db 21, WHIRLWIND
 	db 33, WING_ATTACK
 	db 43, AGILITY
 	db 55, MIRROR_MOVE
@@ -284,7 +282,7 @@ PidgeotEvosAttacks:
 	db 9, GUST
 	db 15, QUICK_ATTACK
 	db 23, WHIRLWIND
-	db 33, WING_ATTACK
+	db 34, WING_ATTACK
 	db 46, AGILITY
 	db 61, MIRROR_MOVE
 	db 0 ; no more level-up moves
@@ -600,7 +598,6 @@ NinetalesEvosAttacks:
 	db 35, FLAMETHROWER
 	db 44, FIRE_BLAST
 	db 53, INFERNO
-	db 60, FIRE_PLAY
 	db 0 ; no more level-up moves
 
 JigglypuffEvosAttacks:
@@ -1510,7 +1507,6 @@ KrabbyEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BUBBLE
 	db 5, VICEGRIP
-	db 6, FIRE_PLAY
 	db 8, LEER
 	db 10, HARDEN
 	db 13, BUBBLEBEAM

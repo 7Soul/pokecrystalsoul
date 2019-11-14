@@ -208,7 +208,7 @@ BattleAnimations::
 	dw BattleAnim_Rollout
 	dw BattleAnim_FalseSwipe
 	dw BattleAnim_Swagger
-	dw BattleAnim_MilkDrink
+	dw BattleAnim_FirePlay
 	dw BattleAnim_Spark
 	dw BattleAnim_FuryCutter
 	dw BattleAnim_IcicleWing
@@ -1173,37 +1173,7 @@ BattleAnim_RazorLeaf:
 	anim_obj ANIM_OBJ_RAZOR_LEAF, 48, 80, $50
 	anim_obj ANIM_OBJ_RAZOR_LEAF, 48, 80, $dc
 	anim_obj ANIM_OBJ_RAZOR_LEAF, 48, 80, $90
-	anim_wait 80
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  3
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  5
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  7
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  9
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  1
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  2
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  4
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  6
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  8
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj 10
-	anim_wait 16
+	anim_call BattleAnim_RazorLeaf_branch
 	anim_ret
 
 BattleAnim_Solarbeam:
@@ -1758,37 +1728,7 @@ BattleAnim_MagicalLeaf:
 	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $50
 	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $dc
 	anim_obj ANIM_OBJ_MAGICAL_LEAF, 48, 80, $90
-	anim_wait 80
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  3
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  5
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  7
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  9
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  1
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  2
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  4
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  6
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj  8
-	anim_wait 2
-	anim_sound 16, 2, SFX_VINE_WHIP
-	anim_incobj 10
-	anim_wait 16
+	anim_call BattleAnim_MagicalLeaf_branch
 	anim_ret
 
 BattleAnim_Wrap:
@@ -3949,19 +3889,42 @@ BattleAnim_Swagger:
 	anim_wait 40
 	anim_ret
 
-BattleAnim_MilkDrink:
-	anim_2gfx ANIM_GFX_MISC, ANIM_GFX_BUBBLE
-	anim_call BattleAnim_FollowEnemyFeet_0
-	anim_obj ANIM_OBJ_MILK_DRINK, 74, 104, $0
-	anim_wait 16
-	anim_bgeffect ANIM_BG_18, $0, $1, $40
-	anim_sound 0, 0, SFX_MILK_DRINK
-.loop
-	anim_obj ANIM_OBJ_RECOVER, 44, 88, $20
+BattleAnim_FirePlay:
+	anim_1gfx ANIM_GFX_SPEED
+	anim_sound 0, 0, SFX_MENU
+	anim_obj ANIM_OBJ_SPEED_LINE, 24, 88, $2
+	anim_obj ANIM_OBJ_SPEED_LINE, 40, 88, $0
+	anim_obj ANIM_OBJ_SPEED_LINE, 48, 88, $80
+	anim_obj ANIM_OBJ_SPEED_LINE, 64, 88, $82
+
 	anim_wait 8
-	anim_loop 8, .loop
-	anim_wait 128
-	anim_incbgeffect ANIM_BG_18
+	anim_call BattleAnim_FollowPlayerHead_0
+	anim_bgeffect ANIM_BG_25, $0, $1, $0
+	anim_wait 4
+	anim_2gfx ANIM_GFX_NOISE, ANIM_GFX_HIT
+	anim_sound 0, 1, SFX_CUT
+	anim_obj ANIM_OBJ_4B, 120, 56, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_00, 142, 40, $0
+	anim_wait 3
+	anim_call BattleAnim_ShowMon_0
+
+	anim_if_param_equal 2, .fly
+	anim_if_param_equal 1, .water
+
+	anim_wait 16
+	anim_1gfx ANIM_GFX_FIRE
+	anim_sound 0, 1, SFX_EMBER
+	anim_obj ANIM_OBJ_FIRE_BLAST, 136, 48, $1
+	anim_obj ANIM_OBJ_FIRE_BLAST, 136, 48, $4
+	anim_obj ANIM_OBJ_FIRE_BLAST, 136, 48, $5
+	anim_sound 0, 1, SFX_EMBER
+	anim_jump .fly
+.water
+	; anim_sound 0, 1, SFX_WATER_GUN
+	; anim_wait 8
+.fly
+	anim_wait 4
 	anim_call BattleAnim_ShowMon_0
 	anim_ret
 
@@ -5081,6 +5044,41 @@ BattleAnim_Synthesis_branch_cbc80:
 	anim_obj ANIM_OBJ_GLIMMER, 40, 84, $0
 	anim_wait 5
 	anim_loop 2, .loop
+	anim_wait 16
+	anim_ret
+
+BattleAnim_RazorLeaf_branch:
+BattleAnim_MagicalLeaf_branch:
+	anim_wait 80
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  3
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  5
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  7
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  9
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  1
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  2
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  4
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  6
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj  8
+	anim_wait 2
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_incobj 10
 	anim_wait 16
 	anim_ret
 	
