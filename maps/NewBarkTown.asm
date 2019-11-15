@@ -105,13 +105,13 @@ if DEF(_DEBUG)
 	giveitem MAX_REPEL, 99
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
-	givepoke CLEFAIRY, 50
-	givepoke NINETALES, 60	
-	givepoke PIDGEY, 5
-	givepoke KRABBY, 5	
+	; givepoke CLEFAIRY, 50
+	; givepoke NINETALES, 60	
+	; givepoke PIDGEY, 5
+	givepoke KRABBY, 5
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
-	callasm CheatGiveJohtoBadges
+	; callasm CheatGiveJohtoBadges
 	; callasm CheatGiveKantoBadges
 	; callasm CheatGiveRandomBadges
 	; setflag ENGINE_ZEPHYRBADGE

@@ -18,17 +18,17 @@ PrintMoveDesc:
 	ld a, [wBattleMonType1]
 	cp WATER
 	jr z, .water_play
+	cp FIRE
+	jr z, .fire_play
 	ld a, [wBattleMonType2]
 	cp WATER
 	jr z, .water_play
-	cp FLYING
-	jr z, .flying_play
-	jr .fire_play
+	cp FIRE
+	jr z, .fire_play
+	ld de, .FlyingPlayDesc
+	jr .end
 .water_play
 	ld de, .WaterPlayDesc
-	jr .end
-.flying_play
-	ld de, .FlyingPlayDesc
 	jr .end
 .fire_play
 	ld de, .FirePlayDesc

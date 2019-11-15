@@ -1401,24 +1401,36 @@ BattleCommand_Stab:
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK
-.has_mod
 	ld [wCurType], a
-	
+	jr .no_mod
+.has_mod
+	ld a, b
+	ld [wCurType], a
+.no_mod
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
 	cp FIRE_PLAY
 	jp nz, .not_fire_play
-	
 	ld a, b
 	cp WATER
 	jr z, .water_play
+	cp FIRE
+	jr z, .fire_play
 	ld a, c
 	cp WATER
-	jr nz, .not_fire_play
+	jr z, .water_play
+	cp FIRE
+	jr z, .fire_play
+	ld a, FLYING
+	ld [wCurType], a
+	jr .not_fire_play
 .water_play
 	ld a, WATER
 	ld [wCurType], a
-
+	jr .not_fire_play
+.fire_play
+	ld a, FIRE
+	ld [wCurType], a
 .not_fire_play
 	push hl
 	push de
@@ -1609,46 +1621,76 @@ CheckTypeMatchup:
 	push hl
 	push de
 	push bc
-	
-	; ld de, wPlayerTypeMod
-	; ld a, [de]	
-	; cp 0
-	; jr nz, .has_mod
-	
-	; ld a, BATTLE_VARS_MOVE_TYPE
-	; call GetBattleVar
-	; and TYPE_MASK
-; .has_mod
+
+	ld de, wBattleMonType1 ; player's turn, get your type for FIRE_PLAY
+	ld a, [de]
+	ld b, a
+	inc de
+	ld a, [de]
+	ld c, a
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .get_mod
+	ld de, wEnemyMonType1 ; enemy's turn, get their type for FIRE_PLAY
+	ld a, [de]
+	ld b, a
+	inc de
+	ld a, [de]
+	ld c, a
+
+.get_mod
+	ld de, wPlayerTypeMod
+	ld a, [de]	
+	cp 0
+	ld d, a ; move type
+	jr nz, .has_mod
+
+.no_mod
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK
+	ld d, a ; move type
+
+.has_mod
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
 	cp FIRE_PLAY
-	jp nz, .skip_fire_play
-	
-	ld a, b
+	jp z, .is_fire_play
+
+	ld b, [hl] ; opp mon type 1
+	inc hl
+	ld c, [hl] ; opp mon type 2
+	dec [hl]
+	jr .not_fire_play_has_opp_type
+
+.is_fire_play ; bc contains own mon types
+	ld a, b ; mon type 1
 	cp WATER
 	jr z, .water_play
 	cp FIRE
-	jr z, .skip_fire_play
-	ld a, c
-	cp WATER
+	jr z, .fire_play
+	ld a, c ; mon type 2
+	cp WATER 
 	jr z, .water_play
-	cp FLYING
-	jr nz, .skip_fire_play
-.flying_play
+	cp FIRE
+	jr z, .fire_play
 	ld a, FLYING
 	ld [wCurType], a
-	jr .skip_fire_play
+	jr .end_fire_play
 .water_play
 	ld a, WATER
 	ld [wCurType], a
-	jr .skip_fire_play
-
-.skip_fire_play
+	jr .end_fire_play
+.fire_play
+	ld a, FIRE
+	ld [wCurType], a
+.end_fire_play
 	ld d, a ; move type
-	
-	ld b, [hl] ; mon type 1
+
+.not_fire_play_has_opp_type
+	ld b, [hl] ; opp mon type 1
 	inc hl
-	ld c, [hl] ; mon type 2
+	ld c, [hl] ; opp mon type 2
 	ld a, 10 ; 1.0
 	ld [wTypeMatchup], a
 	ld hl, TypeMatchups
@@ -3847,29 +3889,27 @@ UpdateMoveData:
 	call GetMoveData
 	call GetMoveName
 	;call CopyName1
+	ld a, [wCurSpecies]
+	cp FIRE_PLAY
+	jr nz, .no_type
 	
 	ld a, [wBattleMonType1]
 	cp WATER
-	jp z, .water
+	jp z, .water_play
 	cp FIRE
-	jp z, .fire
+	jp z, .fire_play
 	ld a, [wBattleMonType2]
 	cp WATER
-	jp z, .water
+	jp z, .water_play
 	cp FIRE
-	jp z, .fire
+	jp z, .fire_play
+
+	ld de, .FlyingPlay
 	jp .no_type
-	
-.water
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY
-	jr nz, .no_type
+.water_play
 	ld de, .WaterPlay
 	jp .no_type
-.fire
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY
-	jr nz, .no_type
+.fire_play
 	ld de, .FirePlay
 .no_type
 	call CopyName1
@@ -4195,108 +4235,15 @@ PoisonOpponent:
 
 BattleCommand_DrainTarget:
 ; draintarget
-	call SapHealth
+	farcall SapHealth
 	ld hl, SuckedHealthText
 	jp StdBattleTextBox
 
 BattleCommand_EatDream:
 ; eatdream
-	call SapHealth
+	farcall SapHealth
 	ld hl, DreamEatenText
 	jp StdBattleTextBox
-
-SapHealth:
-	; Divide damage by 2, store it in hDividend
-	ld hl, wCurDamage
-	ld a, [hli]
-	srl a
-	ldh [hDividend], a
-	ld b, a
-	ld a, [hl]
-	rr a
-	ldh [hDividend + 1], a
-	or b
-	jr nz, .at_least_one
-	ld a, 1
-	ldh [hDividend + 1], a
-.at_least_one
-
-	ld hl, wBattleMonHP
-	ld de, wBattleMonMaxHP
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .battlemonhp
-	ld hl, wEnemyMonHP
-	ld de, wEnemyMonMaxHP
-.battlemonhp
-
-	; Store current HP in little endian wBuffer3/4
-	ld bc, wBuffer4
-	ld a, [hli]
-	ld [bc], a
-	ld a, [hl]
-	dec bc
-	ld [bc], a
-
-	; Store max HP in little endian wBuffer1/2
-	ld a, [de]
-	dec bc
-	ld [bc], a
-	inc de
-	ld a, [de]
-	dec bc
-	ld [bc], a
-
-	; Add hDividend to current HP and copy it to little endian wBuffer5/6
-	ldh a, [hDividend + 1]
-	ld b, [hl]
-	add b
-	ld [hld], a
-	ld [wBuffer5], a
-	ldh a, [hDividend]
-	ld b, [hl]
-	adc b
-	ld [hli], a
-	ld [wBuffer6], a
-	jr c, .max_hp
-
-	; Substract current HP from max HP (to see if we have more than max HP)
-	ld a, [hld]
-	ld b, a
-	ld a, [de]
-	dec de
-	sub b
-	ld a, [hli]
-	ld b, a
-	ld a, [de]
-	inc de
-	sbc b
-	jr nc, .finish
-
-.max_hp
-	; Load max HP into current HP and copy it to little endian wBuffer5/6
-	ld a, [de]
-	ld [hld], a
-	ld [wBuffer5], a
-	dec de
-	ld a, [de]
-	ld [hli], a
-	ld [wBuffer6], a
-	inc de
-
-.finish
-	ldh a, [hBattleTurn]
-	and a
-	hlcoord 10, 9
-	ld a, $1
-	jr z, .hp_bar
-	hlcoord 2, 2
-	xor a
-.hp_bar
-	ld [wWhichHPBar], a
-	predef AnimateHPBar
-	call RefreshBattleHuds
-	jp UpdateBattleMonInParty
 
 BattleCommand_BurnTarget:
 ; burntarget
