@@ -514,8 +514,10 @@ LoadPalette_White_Col1_Col2_Black:
 	jr nz, .loop
 	; add black
 	xor a
+	ld a, LOW(PALRGB_BLACK)
 	ld [de], a
 	inc de
+	ld a, HIGH(PALRGB_BLACK)
 	ld [de], a
 	inc de
 
@@ -767,8 +769,10 @@ endr
 	jr z, .is_shiny2
 	
 	xor a
+	ld a, LOW(PALRGB_BLACK)
 	ld [de], a
 	inc de
+	ld a, HIGH(PALRGB_BLACK)
 	ld [de], a
 	inc de
 	jr .end_black

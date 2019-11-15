@@ -16,9 +16,9 @@ ProtectChance:
 	ld de, wPlayerProtectCount
 	ldh a, [hBattleTurn]
 	and a
-	jr z, .asm_37637
+	jr z, .gotProtectCount
 	ld de, wEnemyProtectCount
-.asm_37637
+.gotProtectCount
 
 	call CheckOpponentWentFirst
 	jr nz, .failed

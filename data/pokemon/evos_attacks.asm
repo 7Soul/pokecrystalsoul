@@ -253,6 +253,7 @@ PidgeyEvosAttacks:
 	db EVOLVE_LEVEL, 18, PIDGEOTTO
 	db 0 ; no more evolutions
 	db 1, TACKLE
+	db 1, FLY
 	db 5, SAND_ATTACK
 	db 9, GUST
 	db 11, QUICK_ATTACK
@@ -1219,33 +1220,34 @@ RapidashEvosAttacks:
 
 SlowpokeEvosAttacks:
 	db EVOLVE_ITEM, WATER_STONE, SLOWKING
-	db EVOLVE_LEVEL, 37, SLOWBRO
+	db EVOLVE_LEVEL, 30, SLOWBRO
 	db 0 ; no more evolutions
 	db 1, CURSE
 	db 1, TACKLE
 	db 6, GROWL
-	db 15, WATER_GUN
-	db 20, CONFUSION
-	db 29, DISABLE
-	db 34, HEADBUTT
-	db 43, AMNESIA
-	db 48, PSYCHIC_M
+	db 9, WATER_GUN
+	db 14, CONFUSION
+	db 19, DISABLE
+	db 23, HEADBUTT
+	db 28, AQUA_TAIL
+	db 32, ZEN_HEADBUTT
+	db 41, AMNESIA
+	db 45, PSYCHIC_M
+	db 49, RAIN_DANCE
+	db 54, PSYCH_UP
 	db 0 ; no more level-up moves
 
 SlowbroEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, CURSE
-	db 1, TACKLE
-	db 1, GROWL
-	db 1, WATER_GUN
-	db 6, GROWL
-	db 15, WATER_GUN
-	db 20, CONFUSION
-	db 29, DISABLE
-	db 34, HEADBUTT
-	db 36, HARDEN
-	db 46, AMNESIA
-	db 54, PSYCHIC_M
+	db 14, CONFUSION
+	db 19, DISABLE
+	db 23, HEADBUTT
+	db 28, AQUA_TAIL
+	db 33, ZEN_HEADBUTT
+	db 44, AMNESIA
+	db 49, PSYCHIC_M
+	db 54, RAIN_DANCE
+	db 59, PSYCH_UP
 	db 0 ; no more level-up moves
 
 MagnemiteEvosAttacks:
@@ -1267,6 +1269,7 @@ MagnemiteEvosAttacks:
 
 MagnetonEvosAttacks:
 	db 0 ; no more evolutions
+	db 16, SONICBOOM
 	db 20, THUNDER_WAVE
 	db 23, CHARGE_BEAM
 	db 27, LOCK_ON
@@ -1297,8 +1300,8 @@ DoduoEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, PECK
 	db 1, GROWL
-	db 5, QUICK_ATTACK
-	db 8, RAGE
+	db 8, QUICK_ATTACK
+	db 10, RAGE
 	db 12, FURY_ATTACK
 	db 15, PURSUIT
 	db 25, AGILITY
@@ -3086,8 +3089,9 @@ SlowkingEvosAttacks:
 	db 6, GROWL
 	db 9, WATER_GUN
 	db 14, CONFUSION
+	db 19, DISABLE
 	db 23, HEADBUTT
-	db 29, DISABLE
+	db 25, HIDDEN_POWER
 	db 32, ZEN_HEADBUTT
 	db 36, NASTY_PLOT
 	db 41, SWAGGER
@@ -3256,18 +3260,18 @@ QwilfishEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SPIKES
 	db 1, POISON_STING
-	db 9, HARDEN
-	db 10, MINIMIZE
-	db 18, WATER_GUN
+	db 7, HARDEN
+	db 9, MINIMIZE
+	db 15, WATER_GUN
 	db 19, ROLLOUT
 	db 25, PIN_MISSILE
 	db 29, REVERSAL
 	db 33, JET_STREAM
 	db 38, TAKE_DOWN
-	db 44, AQUA_TAIL
+	db 44, TOXIC
 	db 49, VENOSHOCK
-	db 54, HYDRO_PUMP
-	db 60, FELL_STINGER
+	db 54, AQUA_TAIL
+	db 59, FELL_STINGER
 	db 0 ; no more level-up moves
 
 ScizorEvosAttacks:

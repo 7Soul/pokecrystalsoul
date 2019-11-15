@@ -43,10 +43,10 @@ HiddenPowerDamage:
 	or b
 
 ; Multiply by 5
-	ld b, a
-	add a
-	add a
-	add b
+	; ld b, a
+	; add a
+	; add a
+	; add b
 
 ; Add Special & 3
 	ld b, a
@@ -54,35 +54,32 @@ HiddenPowerDamage:
 	and %0011
 	add b
 
-; Divide by 2 and add 30 + 1
+; Divide by 2 and add 51
 	srl a
-	add 30
-	inc a
+	add 51
 
-	ld d, a
+	ld d, a ; 51 to 59 damage
 
 ; Type:
 
 	; Def & 3
 	ld a, [hl]
-	and %0011
+	and %1111
 	ld b, a
 
 	; + (Atk & 3) << 2
 	ld a, [hl]
-	and %0011 << 4
 	swap a
-	add a
-	add a
-	or b
+	and %1111
+
+	or b ; add atk and def
+.mod
+	sub 11
+	jr nc, .mod
+	add 11
 
 ; Skip Normal
 	inc a
-
-; Skip Bird
-	; cp BIRD
-	; jr c, .done
-	; inc a
 
 ; Skip unused types
 	cp UNUSED_TYPES

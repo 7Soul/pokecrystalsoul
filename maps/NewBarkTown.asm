@@ -111,7 +111,7 @@ if DEF(_DEBUG)
 	givepoke KRABBY, 5	
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
-	; callasm CheatGiveJohtoBadges
+	callasm CheatGiveJohtoBadges
 	; callasm CheatGiveKantoBadges
 	; callasm CheatGiveRandomBadges
 	; setflag ENGINE_ZEPHYRBADGE
