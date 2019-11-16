@@ -50,7 +50,13 @@ CheckEngineFlag:
 CheckBadge:
 ; Check engine flag a (ENGINE_ZEPHYRBADGE thru ENGINE_EARTHBADGE)
 ; Display "Badge required" text and return carry if the badge is not owned
-	call CheckEngineFlag
+	push bc
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits
+	ld a, [wNumSetBits]	
+	pop bc
+	cp c ; compare with needed badges
 	ret nc
 	ld hl, .BadgeRequiredText
 	call MenuTextBoxBackup ; push text to queue
@@ -352,9 +358,10 @@ SurfFunction:
 	dw .AlreadySurfing
 
 .TrySurf:
-	ld de, ENGINE_FOGBADGE
+	ld a, 4 ;
+	ld c, a
 	call CheckBadge
-	jr c, .asm_c956
+	jr c, .nobadge
 	ld hl, wBikeFlags
 	bit BIKEFLAGS_ALWAYS_ON_BIKE_F, [hl]
 	jr nz, .cannotsurf
@@ -373,7 +380,7 @@ SurfFunction:
 	jr c, .cannotsurf
 	ld a, $1
 	ret
-.asm_c956
+.nobadge
 	ld a, $80
 	ret
 .alreadyfail
@@ -565,9 +572,11 @@ FlyFunction:
 
 .TryFly:
 ; Fly
-	ld de, ENGINE_STORMBADGE
+	ld a, 3 ;
+	ld c, a
 	call CheckBadge
 	jr c, .nostormbadge
+	
 	call GetMapEnvironment
 	call CheckOutdoorMap
 	jr z, .outdoors
@@ -979,7 +988,8 @@ StrengthFunction:
 
 .TryStrength:
 ; Strength
-	ld de, ENGINE_PLAINBADGE
+	ld a, 5 ;
+	ld c, a
 	call CheckBadge
 	jr c, .Failed
 	jr .UseStrength
@@ -1865,9 +1875,10 @@ TryCutOW::
 	jr .cant_cut
 	scf
 	ret
-	;ld de, ENGINE_HIVEBADGE
-	;call CheckEngineFlag
-	;jr c, .cant_cut
+	ld a, 1 ;
+	ld c, a
+	call CheckBadge
+	jr c, .cant_cut
 	
 .do_cut
 	ld a, BANK(AskCutScript)

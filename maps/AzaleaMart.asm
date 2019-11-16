@@ -10,7 +10,7 @@ AzaleaMart_MapScripts:
 
 AzaleaMartClerkScript:
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_AZALEA
+	pokemart MARTTYPE_STANDARD, MART_TOWN
 	closetext
 	end
 

@@ -10,7 +10,7 @@ ViridianMart_MapScripts:
 
 ViridianMartClerkScript:
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_VIRIDIAN
+	pokemart MARTTYPE_STANDARD, MART_CITY
 	closetext
 	end
 

@@ -10,7 +10,7 @@ SaffronMart_MapScripts:
 
 SaffronMartClerkScript:
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_SAFFRON
+	pokemart MARTTYPE_STANDARD, MART_CITY
 	closetext
 	end
 

@@ -7,6 +7,28 @@
 	const MARTTEXT_SOLD_OUT
 
 OpenMartDialog::
+	ld a, e
+	cp MART_DEPARTMENT_B + 1 ; Mart constants MART_DEPARTMENT_B + 1 scale, others are fixed
+	jr c, .scale
+	jr .no_scale
+.scale
+	push bc
+	push de
+; Check badges
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits
+	ld a, [wNumSetBits]	
+; Capped at 9
+	cp 10
+	jr c, .got_badge_count
+	ld a, 9
+.got_badge_count
+	pop de
+	add e
+	ld e, a
+	pop bc
+.no_scale
 	call GetMart
 	ld a, c
 	ld [wEngineBuffer1], a
@@ -97,6 +119,16 @@ INCLUDE "data/items/rooftop_sale.asm"
 LoadMartPointer:
 	ld a, b
 	ld [wMartPointerBank], a
+
+	; badges
+	push de
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits
+	ld a, [wNumSetBits]	
+	pop de
+	; add e
+
 	ld a, e
 	ld [wMartPointer], a
 	ld a, d

@@ -10,7 +10,7 @@ VioletMart_MapScripts:
 
 VioletMartClerkScript:
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_VIOLET
+	pokemart MARTTYPE_STANDARD, MART_TOWN
 	closetext
 	end
 

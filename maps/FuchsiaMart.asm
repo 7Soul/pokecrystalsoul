@@ -10,7 +10,7 @@ FuchsiaMart_MapScripts:
 
 FuchsiaMartClerkScript:
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_FUCHSIA
+	pokemart MARTTYPE_STANDARD, MART_CITY
 	closetext
 	end
 

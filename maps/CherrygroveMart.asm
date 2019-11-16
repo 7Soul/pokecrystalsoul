@@ -12,12 +12,12 @@ CherrygroveMartClerkScript:
 	opentext
 	checkevent EVENT_GAVE_MYSTERY_EGG_TO_ELM
 	iftrue .PokeBallsInStock
-	pokemart MARTTYPE_STANDARD, MART_CHERRYGROVE
+	pokemart MARTTYPE_STANDARD, MART_TOWN
 	closetext
 	end
 
 .PokeBallsInStock:
-	pokemart MARTTYPE_STANDARD, MART_CHERRYGROVE_DEX
+	pokemart MARTTYPE_STANDARD, MART_TOWN
 	closetext
 	end
 

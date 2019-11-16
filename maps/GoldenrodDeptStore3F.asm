@@ -11,7 +11,7 @@ GoldenrodDeptStore3F_MapScripts:
 GoldenrodDeptStore3FClerkScript:
 	faceplayer
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_GOLDENROD_3F
+	pokemart MARTTYPE_STANDARD, MART_DEPARTMENT_XITEMS
 	closetext
 	end
 

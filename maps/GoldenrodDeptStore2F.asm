@@ -13,14 +13,14 @@ GoldenrodDeptStore2F_MapScripts:
 GoldenrodDeptStore2FClerk1Script:
 	faceplayer
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_GOLDENROD_2F_1
+	pokemart MARTTYPE_STANDARD, MART_DEPARTMENT_A
 	closetext
 	end
 
 GoldenrodDeptStore2FClerk2Script:
 	faceplayer
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_GOLDENROD_2F_2
+	pokemart MARTTYPE_STANDARD, MART_DEPARTMENT_B
 	closetext
 	end
 

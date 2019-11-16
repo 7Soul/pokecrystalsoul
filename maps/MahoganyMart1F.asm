@@ -34,7 +34,17 @@ MahogayMart1FPharmacistScript:
 	opentext
 	checkevent EVENT_DECIDED_TO_HELP_LANCE
 	iftrue .LanceEntered
-	pokemart MARTTYPE_STANDARD, MART_MAHOGANY_1
+	checkcode VAR_BADGES
+	ifequal 1, .one
+	ifequal 2, .two
+	pokemart MARTTYPE_STANDARD, MART_MAHOGANY_0_A
+	jump .end
+.one
+	pokemart MARTTYPE_STANDARD, MART_MAHOGANY_1_A
+	jump .end
+.two
+	pokemart MARTTYPE_STANDARD, MART_MAHOGANY_2_A
+.end
 	closetext
 	end
 
@@ -106,7 +116,17 @@ MahoganyMart1FLanceUncoversStaircaseScript:
 MahogayMart1FGrannyScript:
 	faceplayer
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_MAHOGANY_2
+	checkcode VAR_BADGES
+	ifequal 1, .one
+	ifequal 2, .two
+	pokemart MARTTYPE_STANDARD, MART_MAHOGANY_0_B
+	jump .end
+.one
+	pokemart MARTTYPE_STANDARD, MART_MAHOGANY_1_B
+	jump .end
+.two
+	pokemart MARTTYPE_STANDARD, MART_MAHOGANY_2_B
+.end
 	closetext
 	end
 

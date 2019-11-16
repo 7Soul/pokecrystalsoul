@@ -10,7 +10,7 @@ VermilionMart_MapScripts:
 
 VermilionMartClerkScript:
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_VERMILION
+	pokemart MARTTYPE_STANDARD, MART_TOWN
 	closetext
 	end
 

@@ -12,14 +12,14 @@ CeladonDeptStore2F_MapScripts:
 CeladonDeptStore2FClerk1Script:
 	faceplayer
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_CELADON_2F_1
+	pokemart MARTTYPE_STANDARD, MART_DEPARTMENT_A
 	closetext
 	end
 
 CeladonDeptStore2FClerk2Script:
 	faceplayer
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_CELADON_2F_2
+	pokemart MARTTYPE_STANDARD, MART_DEPARTMENT_B
 	closetext
 	end
 

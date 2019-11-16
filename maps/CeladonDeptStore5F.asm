@@ -13,14 +13,14 @@ CeladonDeptStore5F_MapScripts:
 CeladonDeptStore5FClerk1Script:
 	faceplayer
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_CELADON_5F_1
+	pokemart MARTTYPE_STANDARD, MART_DEPARTMENT_VITAMINS
 	closetext
 	end
 
 CeladonDeptStore5FClerk2Script:
 	faceplayer
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_CELADON_5F_2
+	pokemart MARTTYPE_STANDARD, MART_DEPARTMENT_XITEMS
 	closetext
 	end
 

@@ -31,7 +31,7 @@ CianwoodPharmacist:
 	end
 
 .Mart:
-	pokemart MARTTYPE_PHARMACY, MART_CIANWOOD
+	pokemart MARTTYPE_PHARMACY, MART_DEPARTMENT_A
 	closetext
 	end
 

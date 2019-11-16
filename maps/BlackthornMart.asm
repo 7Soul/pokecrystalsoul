@@ -10,7 +10,7 @@ BlackthornMart_MapScripts:
 
 BlackthornMartClerkScript:
 	opentext
-	pokemart MARTTYPE_STANDARD, MART_BLACKTHORN
+	pokemart MARTTYPE_STANDARD, MART_CITY
 	closetext
 	end
 

@@ -252,13 +252,14 @@ BeedrillEvosAttacks:
 PidgeyEvosAttacks:
 	db EVOLVE_LEVEL, 18, PIDGEOTTO
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, FLY
+	db 1, TACKLE	
 	db 5, SAND_ATTACK
 	db 9, GUST
+	db 10, FLY
 	db 11, QUICK_ATTACK
 	db 15, WING_ATTACK
 	db 19, WHIRLWIND
+	db 20, FLY
 	db 23, AGILITY
 	db 26, AIR_SLASH
 	db 33, SWORDS_DANCE
