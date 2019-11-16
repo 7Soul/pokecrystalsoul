@@ -30,7 +30,7 @@ VioletGymFalknerScript:
 	checkcode VAR_BADGES
 	scall VioletGymActivateRockets
 .FightDone:
-	checkevent EVENT_GOT_TM31_MUD_BOMB
+	checkevent EVENT_GOT_TM13_FEATHER_GALE
 	iftrue .SpeechAfterTM
 	setevent EVENT_BEAT_BIRD_KEEPER_ROD
 	setevent EVENT_BEAT_BIRD_KEEPER_ABE
@@ -39,9 +39,9 @@ VioletGymFalknerScript:
 	writetext FalknerZephyrBadgeText
 	buttonsound
 	verbosegiveitem TM_MUD_BOMB
-	iffalse .NoRoomForMudSlap
-	setevent EVENT_GOT_TM31_MUD_BOMB
-	writetext FalknerTMMudSlapText
+	iffalse .NoRoomForFeatherGale
+	setevent EVENT_GOT_TM13_FEATHER_GALE
+	writetext FalknerTMFeatherGaleText
 	waitbutton
 	closetext
 	end
@@ -49,7 +49,7 @@ VioletGymFalknerScript:
 .SpeechAfterTM:
 	writetext FalknerFightDoneText
 	waitbutton
-.NoRoomForMudSlap:
+.NoRoomForFeatherGale:
 	closetext
 	end
 
@@ -166,7 +166,7 @@ FalknerZephyrBadgeText:
 	line "too."
 	done
 
-FalknerTMMudSlapText:
+FalknerTMFeatherGaleText:
 	text "By using a TM, a"
 	line "#MON will"
 
@@ -177,8 +177,8 @@ FalknerTMMudSlapText:
 	line "act--a TM can be"
 	cont "used only once."
 
-	para "TM31 contains"
-	line "MUD-SLAP."
+	para "TM13 contains"
+	line "MUD-BOMB."
 
 	para "It reduces the"
 	line "enemy's accuracy"

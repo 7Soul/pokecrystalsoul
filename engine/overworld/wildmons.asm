@@ -646,16 +646,21 @@ ChooseWildEncounter:
 	ld b, 0
 	ld c, a
 	add hl, bc
+	add hl, bc
 	pop bc
  ; doubles number of badges
 	add a ; add a(badges) to itself (doubles a)
 	add b ; add b(level) and a(badges) ; a holds level
 	ld b, a
  ; add X more levels
+	ld a, [hli]
+	add b
+	ld b, a ; b holds level
+; adds Y to level
 	ld a, [hl]
 	add b
 	ld b, a ; b holds level
- ; adds 0 to X levels
+ ; adds 0 to Y levels
 	ld a, [hl]
 	pop hl
 	call RandomRange
@@ -732,23 +737,40 @@ ChooseWildEncounter:
 	jp .case1 ; over 0
 
 .badgeAddValue
-	db 2 ; 0
-	db 3
-	db 4
-	db 4
-	db 4 ; 4
-	db 4
-	db 5
-	db 5
-	db 5 ; 8
-	db 5
-	db 6
-	db 6
-	db 6 ; 12
-	db 6
-	db 7
-	db 7
-	db 7 ; 16
+	db 0 ; 0 add
+	db 2 ; 0 random
+	db 0 ; 1 add
+	db 3 ; 1 random
+	db 0 ; 2 add
+	db 4 ; 2 random
+	db 0 ; 3 add
+	db 4 ; 3 random
+	db 1 ; 4 add
+	db 4 ; 4 random
+	db 1 ; 5 add
+	db 4 ; 5 random
+	db 2 ; 6 add
+	db 5 ; 6 random
+	db 2 ; 7 add
+	db 5 ; 7 random
+	db 3 ; 8 add
+	db 5 ; 8 random
+	db 4 ; 9 add
+	db 5 ; 9 random
+	db 5 ; 10 add
+	db 6 ; 10 random
+	db 6 ; 11 add
+	db 6 ; 11 random
+	db 7 ; 12 add
+	db 6 ; 12 random
+	db 8 ; 13 add
+	db 6 ; 13 random
+	db 9 ; 14 add
+	db 7 ; 14 random
+	db 9 ; 15 add
+	db 7 ; 15 random
+	db 9 ; 16 add
+	db 7 ; 16 random
 	
 .switch_end
 	ld a, b

@@ -4,6 +4,7 @@
 	const GOLDENRODDEPTSTORE2F_YOUNGSTER
 	const GOLDENRODDEPTSTORE2F_COOLTRAINER_F
 	const GOLDENRODDEPTSTORE2F_GENTLEMAN
+	const GOLDENRODDEPTSTORE2F_OFFICER
 
 GoldenrodDeptStore2F_MapScripts:
 	db 0 ; scene scripts
@@ -32,6 +33,9 @@ GoldenrodDeptStore2FCooltrainerFScript:
 
 GoldenrodDeptStore2FGentlemanScript:
 	jumptextfaceplayer GoldenrodDeptStore2FGentlemanText
+
+GoldenrodDeptStore2FOfficer:
+	jumptextfaceplayer GoldenrodDeptStore2FOfficerText
 
 GoldenrodDeptStore2FDirectory:
 	jumptext GoldenrodDeptStore2FDirectoryText
@@ -90,6 +94,23 @@ GoldenrodDeptStore2FGentlemanText:
 	cont "where else."
 	done
 
+GoldenrodDeptStore2FOfficerText:
+	text "Sorry but our"
+	line "upper floors are"
+
+	para "inaccecible at the"
+	line "moment."
+
+	para "If you are regis-"
+	line "tered with the"
+
+	para "#MON League"
+	cont "you'll receive a"
+
+	para "call when we're"
+	cont "open again."
+	done
+
 GoldenrodDeptStore2FDirectoryText:
 	text "Your Travel"
 	line "Companion"
@@ -112,9 +133,10 @@ GoldenrodDeptStore2F_MapEvents:
 	bg_event 14,  0, BGEVENT_READ, GoldenrodDeptStore2FDirectory
 	bg_event  3,  0, BGEVENT_READ, GoldenrodDeptStore2FElevatorButton
 
-	db 5 ; object events
+	db 6 ; object events
 	object_event 13,  5, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FClerk1Script, -1
 	object_event 13,  6, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FClerk2Script, -1
 	object_event  9,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FYoungsterScript, -1
 	object_event  6,  2, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FCooltrainerFScript, -1
 	object_event  2,  6, SPRITE_GENTLEMAN, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FGentlemanScript, -1
+	object_event 13,  1, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FOfficer, EVENT_HAS_ONE_BADGE

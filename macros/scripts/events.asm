@@ -1059,6 +1059,11 @@ respawn_one_offs: MACRO
 	db respawn_one_offs_command
 ENDM
 
+	enum incbadges_command ; $aa
+incbadges: MACRO
+	db incbadges_command
+ENDM
+
 	; enum randomfromarray_command ; $a9
 ; randomfromarray: MACRO
 	; db randomfromarray_command

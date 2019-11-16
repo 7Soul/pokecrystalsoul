@@ -96,7 +96,7 @@ ReadTrainerPartyPieces:
 	ld a, [hli]
 	cp b
 	jp c, .skip ;
-	jp z, .skip ; skip badge high
+	; jp z, .skip ; skip badge high
 	
 	ld a, [hli]
 	ld d, a ; put level in d
@@ -463,15 +463,23 @@ BadgeLevels:
 	ret
 	
 .levels:
-	db $0  ; 0
-	db $4  ; 4
-	db $a  ; 10
-	db $f  ; 15
-	db $18 ; 24
-	db $1c ; 28
-	db $1e ; 30
-	db $21 ; 33
-	db $24 ; 36
+	db $0  ; 0 -> 0
+	db $4  ; 1 -> 4
+	db $a  ; 2 -> 10
+	db $f  ; 3 -> 15
+	db $18 ; 4 -> 24
+	db $1c ; 5 -> 28
+	db $1e ; 6 -> 30
+	db $21 ; 7 -> 33
+	db $24 ; 8 -> 36
+	db $26 ; 9 -> 38
+	db $28 ; 10 -> 40
+	db $2a ; 11 -> 42
+	db $2c ; 12 -> 44
+	db $2e ; 13 -> 46
+	db $30 ; 14 -> 48
+	db $32 ; 15 -> 50
+	db $34 ; 16 -> 52
 
 .levels_per_partycount:
 	db $0

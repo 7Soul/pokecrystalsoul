@@ -89,6 +89,9 @@ _GetVarAction::
 	ld b, 2
 	call CountSetBits
 	ld a, [wNumSetBits]
+	ld hl, wBadgeCount
+	ld a, [wNumSetBits]
+	ld [hl], a
 	jp .loadstringbuffer2
 
 .PlayerFacing:

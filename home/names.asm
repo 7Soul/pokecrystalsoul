@@ -178,7 +178,13 @@ GetTMHMName::
 	ld a, [wNamedObjectIndexBuffer]
 	push af
 
-; TM prefix
+; TM/HM prefix
+	cp HM01
+	push af
+	jr c, .TM
+	jr .asm_34a1
+
+.TM:
 	ld hl, .TMText
 	ld bc, .TMTextEnd - .TMText
 

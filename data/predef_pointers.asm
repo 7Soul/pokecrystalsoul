@@ -87,3 +87,4 @@ PredefPointers::
 	add_predef AddFoughtPokemon
 	add_predef GetFoughtMonCount
 	add_predef Pokedex_GetMoves
+	add_predef IncreaseBadgeEvent

@@ -114,9 +114,11 @@ if DEF(_DEBUG)
 	; callasm CheatGiveJohtoBadges
 	; callasm CheatGiveKantoBadges
 	; callasm CheatGiveRandomBadges
-	setflag ENGINE_ZEPHYRBADGE
+	; setflag ENGINE_ZEPHYRBADGE
+	verbosegiveitem TM_MUD_BOMB
 	setflag ENGINE_HIVEBADGE
 	setflag ENGINE_PLAINBADGE
+	setflag ENGINE_STORMBADGE
 	callasm CheatSetFlypoints
 	; warp ROUTE_2, $5, $22
 	warp ROUTE_46, $8, $10
@@ -401,6 +403,16 @@ CheatGiveKantoBadges:
 CheatGiveRandomBadges:
 	ld a, ENGINE_ZEPHYRBADGE
 .loop
+	cp ENGINE_EARTHBADGE + 1
+	ret nc
+
+	ld b, a
+	call Random
+	cp 20 percent
+	ld a, b
+	inc a
+	jr nc, .loop
+
 	push af
 	ld d, 0
 	ld e, a
@@ -408,21 +420,7 @@ CheatGiveRandomBadges:
 	farcall EngineFlagAction
 	pop af
 
-	cp ENGINE_EARTHBADGE + 1
-	jr z, .end
-	cp ENGINE_EARTHBADGE + 2
-	jr z, .end
-	inc a
-
-	ld b, a
-	call Random
-	cp 33 percent
-	ld a, b
-	jr c, .loop
-	inc a
 	jr .loop
-.end
-	ret
 
 CheatSetFlypoints:
 	ld a, ENGINE_FLYPOINT_PLAYERS_HOUSE

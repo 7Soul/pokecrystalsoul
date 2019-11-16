@@ -235,7 +235,8 @@ endc
 	dw Script_wait                       ; a7
 	dw Script_checksave                  ; a8
 	dw Script_respawn_one_offs           ; a9
-	;dw Script_randomfromarray           ; aa
+	dw Script_incbadges           		 ; aa
+	;dw Script_randomfromarray           ; 
 
 StartScript:
 	ld hl, wScriptFlags
@@ -2814,6 +2815,12 @@ Script_respawn_one_offs:
 	predef RespawnOneOffs
 	ret
 	
+Script_incbadges:
+	; predef IncreaseBadgeEvent
+	; ld a, [wScriptVar]
+	; ld b, SET_FLAG
+	; call _EngineFlagAction
+	ret
 
 ; Script_randomfromarray:
 ; ; script command 0xaa

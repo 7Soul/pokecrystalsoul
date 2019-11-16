@@ -240,7 +240,7 @@ ENDM
 	add_tm DIG          ; dc
 	add_tm PSYCHIC_M    ; dd
 	add_tm SHADOW_BALL  ; de TM30
-	add_tm MUD_BOMB     ; df ; was MUD_SLAP
+	add_tm MUD_BOMB     ; df
 	add_tm DOUBLE_TEAM  ; e0
 	add_tm ICE_PUNCH    ; e1
 	add_tm SWAGGER      ; e2
@@ -282,8 +282,8 @@ HM01 = const_value
 ; ENDM
 
 ; 	add_hm AQUA_TAIL    ; fd
-; NUM_HMS = const_value - HM01
-NUM_HMS = 0
+NUM_HMS = const_value - HM01
+; NUM_HMS = 0
 
 add_mt: MACRO
 	enum \1_TMNUM
@@ -301,6 +301,8 @@ ENDM
 NUM_TM_HM_TUTOR = __enum__ + -1
 
 	const ITEM_FD       ; fd
+	const ITEM_FE       ; fe
+	const ITEM_FF       ; ff
 
 USE_SCRIPT_VAR EQU $00
 ITEM_FROM_MEM  EQU $ff

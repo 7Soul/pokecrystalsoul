@@ -63,28 +63,28 @@ FarmerMScript_Milking:
 	closetext
 	end
 
-PokefanF_SnoreFarmer:
+PokefanF_MudBombFarmer:
 	faceplayer
 	opentext
-	checkevent EVENT_GOT_TM13_SNORE_FROM_MOOMOO_FARM
-	iftrue FarmerFScript_GotSnore
+	checkevent EVENT_GOT_TM31_MUD_BOMB_FROM_MOOMOO_FARM
+	iftrue FarmerFScript_GotMudBomb
 	checkevent EVENT_HEALED_MOOMOO
-	iftrue FarmerFScript_GiveSnore
+	iftrue FarmerFScript_GiveMudBomb
 	writetext FarmerFText_InTrouble
 	waitbutton
 	closetext
 	end
 
-FarmerFScript_GiveSnore:
+FarmerFScript_GiveMudBomb:
 	writetext FarmerFText_HealedMiltank
 	buttonsound
-	; verbosegiveitem TM_SNORE
-	iffalse FarmerFScript_NoRoomForSnore
-	setevent EVENT_GOT_TM13_SNORE_FROM_MOOMOO_FARM
-FarmerFScript_GotSnore:
-	writetext FarmerFText_SnoreSpeech
+	verbosegiveitem TM_MUD_BOMB
+	iffalse FarmerFScript_NoRoomForMudBomb
+	setevent EVENT_GOT_TM31_MUD_BOMB_FROM_MOOMOO_FARM
+FarmerFScript_GotMudBomb:
+	writetext FarmerFText_MudBombSpeech
 	waitbutton
-FarmerFScript_NoRoomForSnore:
+FarmerFScript_NoRoomForMudBomb:
 	closetext
 	end
 
@@ -170,20 +170,20 @@ FarmerFText_HealedMiltank:
 	line "fer your trouble."
 	done
 
-Text_ReceivedTM13:
+Text_ReceivedTM31:
 	text "<PLAYER> received"
-	line "TM13."
+	line "TM31."
 	done
 
-FarmerFText_SnoreSpeech:
+FarmerFText_MudBombSpeech:
 	text "That there's"
-	line "SNORE."
+	line "Mud-Bomb."
 
 	para "It's a rare move"
-	line "that only works"
+	line "that many diffe-"
 
-	para "while the #MON"
-	line "is asleep."
+	para "rent #MON may"
+	line "learn."
 
 	para "You best think how"
 	line "you ought to use"
@@ -205,4 +205,4 @@ Route39Farmhouse_MapEvents:
 
 	db 2 ; object events
 	object_event  3,  2, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, PokefanM_DairyFarmer, -1
-	object_event  5,  4, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, PokefanF_SnoreFarmer, -1
+	object_event  5,  4, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, PokefanF_MudBombFarmer, -1
