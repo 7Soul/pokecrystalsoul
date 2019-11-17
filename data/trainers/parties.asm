@@ -118,22 +118,30 @@ JasmineGroup:
 
 ChuckGroup:
 	; CHUCK (1)
-	db "Chuck@", TRAINERTYPE_MOVES | TRAINERTYPE_DVS | TRAINERTYPE_ITEM
-	db 0, 17, 10, 0, MANKEY, $77, $77, 7, GOLD_BERRY, $FF, $FF, $FF, $FF
-	db 0, 3, 6, 1, POLIWAG, $D5, $AA, 2, BERRY, $FF, BUBBLE, HYPNOSIS, WAKEUP_SLAP
-	db 0, 17, 8, 0, HITMONLEE, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
-	db 1, 3, 6, 1, PHANPY, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
-	db 3, 7, 10, 1, POLIWAG, $D5, $AA, 2, BERRY, HYPNOSIS, SURF, WAKEUP_SLAP, BODY_SLAM
-	db 3, 17, 8, 0, HITMONCHAN, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
-	db 4, 17, 6, 1, PHANPY, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
-	db 5, 17, 8, 1, TOTODILE, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
-	db 7, 17, 13, 1, POLIWAG, $D5, $AA, 7, MIRACLEBERRY, $FF, $FF, $FF, $FF
+	db "Chuck@", TRAINERTYPE_MOVES
+	db 0, 17, 10, 0, MANKEY, $FF, $FF, $FF, $FF
+	db 0, 3, 6, 1, POLIWAG, $FF, BUBBLE, HYPNOSIS, WAKEUP_SLAP
+	db 0, 17, 8, 0, HITMONLEE, $FF, $FF, $FF, $FF
+	db 1, 3, 6, 1, PHANPY, $FF, $FF, $FF, $FF
+	db 3, 7, 10, 1, POLIWAG, HYPNOSIS, SURF, WAKEUP_SLAP, BODY_SLAM
+	db 3, 17, 8, 0, HITMONCHAN, $FF, $FF, $FF, $FF
+	db 4, 17, 6, 1, PHANPY, $FF, $FF, $FF, $FF
+	db 5, 17, 8, 1, TOTODILE, $FF, $FF, $FF, $FF
+	db 7, 17, 13, 1, POLIWAG, $FF, $FF, $FF, $FF
 	db -1 ; end
 
 ClairGroup:
 	; CLAIR (1)
 	db "Clair@", TRAINERTYPE_NORMAL
-	db 0, 17, 3, 0, BULBASAUR
+	db 0, 4, 3, 1, HORSEA
+	db 4, 6, 3, 1, SEADRA
+	db 6, 17, 3, 1, KINGDRA
+	db 0, 6, 3, 1, DRATINI
+	db 0, 17, 5, 1, MAGIKARP
+	db 6, 17, 4, 1, SLOWKING
+	db 5, 17, 5, 0, AERODACTYL
+	db 7, 17, 4, 1, SUICUNE
+	db 6, 17, 8, 1, DRAGONITE
 	db -1 ; end
 
 Rival1Group:
@@ -276,8 +284,8 @@ ChampionGroup:
 
 BrockGroup:
 	; BROCK (1)
-	db "Brock@", TRAINERTYPE_NORMAL
-	db 0, 17, 3, 0, BULBASAUR
+	db "Brock@", TRAINERTYPE_MOVES
+	db 0, 17, 6, 1, GEODUDE, $FF, $FF, $FF, $FF
 	db -1 ; end
 
 MistyGroup:
@@ -2535,8 +2543,6 @@ CamperGroup:
 	; CAMPER (11)
 	db "Ted@", TRAINERTYPE_NORMAL
 	db 0, 17, 5, 1, MANKEY
-	db 0, 17, 5, 1, MANKEY
-	db 0, 17, 5, 1, MANKEY
 	db 4, 17, 5, 0, TAUROS
 	db -1 ; end
 
@@ -2990,13 +2996,29 @@ VideoGameBoyGroup:
 TrainerDannyGroup:
 	; TRAINERDANNY (1)
 	db "Sexbang@", TRAINERTYPE_NORMAL
-	db 0, 17, 3, 0, STANTLER
+	db 0, 17, 3, 0, GROWLITHE
 	db 0, 17, 3, 0, LAPRAS
+	db 0, 17, 0, 0, PONYTA
+	db 0, 17, 0, 0, LICKITUNG
+	db 0, 17, 0, 0, ENTEI
+	db 0, 17, 3, 0, STANTLER
 	db -1 ; end
 
 MysticalmanGroup:
 	; MYSTICALMAN (1)
 	db "Eusine@", TRAINERTYPE_NORMAL
+	db 0, 17, 3, 0, BULBASAUR
+	db -1 ; end
+
+ProJaredGroup:
+	; PROJARED (1)
+	db "Jared@", TRAINERTYPE_NICKNAME
+	db 0, 4, 5, 1, SQUIRTLE, "Lagiacrus@ "
+	db -1 ; end
+
+BeekeeperBarryGroup:
+	; BEEKEEPERBARRY (1)
+	db "Barry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 

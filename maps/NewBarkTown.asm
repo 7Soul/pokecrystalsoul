@@ -113,12 +113,12 @@ if DEF(_DEBUG)
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
 	; callasm CheatGiveKantoBadges
-	; callasm CheatGiveRandomBadges
+	callasm CheatGiveRandomBadges
 	; setflag ENGINE_ZEPHYRBADGE
-	verbosegiveitem TM_MUD_BOMB
-	setflag ENGINE_HIVEBADGE
-	setflag ENGINE_PLAINBADGE
-	setflag ENGINE_STORMBADGE
+	; verbosegiveitem TM_MUD_BOMB
+	; setflag ENGINE_HIVEBADGE
+	; setflag ENGINE_PLAINBADGE
+	; setflag ENGINE_STORMBADGE
 	callasm CheatSetFlypoints
 	; warp ROUTE_2, $5, $22
 	warp ROUTE_46, $8, $10
@@ -408,7 +408,7 @@ CheatGiveRandomBadges:
 
 	ld b, a
 	call Random
-	cp 20 percent
+	cp 40 percent
 	ld a, b
 	inc a
 	jr nc, .loop
