@@ -82,9 +82,6 @@ BurnedTowerSign:
 EcruteakCityPokecenterSign:
 	jumpstd pokecentersign
 
-EcruteakCityMartSign:
-	jumpstd martsign
-
 EcruteakCityHiddenHyperPotion:
 	hiddenitem HYPER_POTION, EVENT_ECRUTEAK_CITY_HIDDEN_HYPER_POTION
 
@@ -269,9 +266,9 @@ EcruteakCity_MapEvents:
 	warp_event 23, 27, ECRUTEAK_POKECENTER_1F, 1
 	warp_event  5, 17, ECRUTEAK_LUGIA_SPEECH_HOUSE, 1
 	warp_event 23, 21, DANCE_THEATRE, 1
-	warp_event 29, 21, ECRUTEAK_MART, 2
-	warp_event  6, 26, ECRUTEAK_GYM, 1
-	warp_event 13, 27, ECRUTEAK_ITEMFINDER_HOUSE, 1
+	warp_event  7, 24, ECRUTEAK_GYM, 1
+	warp_event  6, 24, ECRUTEAK_GYM, 1
+	warp_event 31, 21, ECRUTEAK_ITEMFINDER_HOUSE, 1
 	warp_event 37,  7, TIN_TOWER_1F, 1
 	warp_event  5,  5, BURNED_TOWER_1F, 1
 	warp_event  0, 18, ROUTE_38_ECRUTEAK_GATE, 3
@@ -279,20 +276,19 @@ EcruteakCity_MapEvents:
 
 	db 0 ; coord events
 
-	db 8 ; bg events
-	bg_event 15, 21, BGEVENT_READ, EcruteakCitySign
+	db 7 ; bg events
+	bg_event 15, 20, BGEVENT_READ, EcruteakCitySign
 	bg_event 33,  9, BGEVENT_READ, TinTowerSign
-	bg_event  8, 27, BGEVENT_READ, EcruteakGymSign
+	bg_event  8, 25, BGEVENT_READ, EcruteakGymSign
 	bg_event 21, 21, BGEVENT_READ, EcruteakDanceTheaterSign
 	bg_event  4,  8, BGEVENT_READ, BurnedTowerSign
 	bg_event 24, 27, BGEVENT_READ, EcruteakCityPokecenterSign
-	bg_event 30, 21, BGEVENT_READ, EcruteakCityMartSign
 	bg_event 26,  8, BGEVENT_ITEM, EcruteakCityHiddenHyperPotion
 
 	db 7 ; object events
 	object_event 27, 23, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps1Script, -1
-	object_event 20, 20, SPRITE_GRAMPS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps2Script, -1
-	object_event 12, 20, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, EcruteakCityLass1Script, -1
+	object_event 12, 23, SPRITE_GRAMPS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps2Script, -1
+	object_event 12, 19, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, EcruteakCityLass1Script, -1
 	object_event  3,  9, SPRITE_LASS, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityLass2Script, -1
 	object_event 20, 28, SPRITE_FISHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakCityFisherScript, -1
 	object_event 11, 12, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EcruteakCityYoungsterScript, -1

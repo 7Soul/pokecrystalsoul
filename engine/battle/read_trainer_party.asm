@@ -1,3 +1,9 @@
+GetNextTrainerDataByte:
+	ld a, [wTrainerGroupBank]
+	call GetFarByte
+	inc hl
+	ret
+
 ReadTrainerParty:
 	ld a, [wInBattleTowerBattle]
 	bit 0, a
@@ -33,6 +39,9 @@ ReadTrainerParty:
 	ld hl, TrainerGroups
 	add hl, bc
 	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld [wTrainerGroupBank], a
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -43,18 +52,18 @@ ReadTrainerParty:
 	dec b
 	jr z, .got_trainer
 .loop
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	cp -1
 	jr nz, .loop
 	jr .skip_trainer
 .got_trainer
 
 .skip_name
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	cp "@"
 	jr nz, .skip_name
 
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	ld [wOtherTrainerType], a
 	ld d, h
 	ld e, l
@@ -87,18 +96,18 @@ ReadTrainerPartyPieces:
 	inc a
 	ld b, a
 	pop hl
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	cp $ff
 	ret z
 	cp b
 	jp nc, .skip_2more ; skip badge low
 	
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	cp b
 	jp c, .skip ;
 	; jp z, .skip ; skip badge high
 	
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	ld d, a ; put level in d
 	; change level
 	ld a, [wNumSetBits] ; a is number of badges
@@ -109,10 +118,10 @@ ReadTrainerPartyPieces:
 	pop de
 	pop hl
 	
-	ld a, [hli] ; get evolve bit
+	call GetNextTrainerDataByte ; get evolve bit
 	ld [wEnemyMonEvolve], a
 	
-	ld a, [hli] ; get speciess
+	call GetNextTrainerDataByte ; get speciess
 	ld b, a
 	call EvolveTrainerMon
 	ld a, b
@@ -137,14 +146,14 @@ ReadTrainerPartyPieces:
 	ld c, 0
 .copy_nickname
 	inc c
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	ld [de], a
 	inc de
 	cp "@"
 	jr nz, .copy_nickname
 .extra_char
 	inc c
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	ld a, c
 	cp $c
 	jr nz, .extra_char
@@ -180,14 +189,14 @@ ReadTrainerPartyPieces:
 	pop hl
 
 ; When reading DVs, treat PERFECT_DV as $ff
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	cp PERFECT_DV
 	jr nz, .atk_def_dv_ok
 	ld a, $ff
 .atk_def_dv_ok
 	ld [de], a
 	inc de
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	cp PERFECT_DV
 	jr nz, .spd_spc_dv_ok
 	ld a, $ff
@@ -200,7 +209,7 @@ ReadTrainerPartyPieces:
 	bit TRAINERTYPE_ITEM_F, a
 	jr z, .no_item
 
-	ld a, [hli] ; a has item badge req
+	call GetNextTrainerDataByte ; a has item badge req
 	ld b, a
 
 	push hl
@@ -224,7 +233,7 @@ ReadTrainerPartyPieces:
 	pop hl
 
 	dec hl
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	ld [de], a
 .no_item
 
@@ -244,11 +253,13 @@ ReadTrainerPartyPieces:
 
 	ld b, NUM_MOVES
 .copy_moves
-	ld a, [hl]
+	call GetNextTrainerDataByte
+	dec hl
 	cp $FF
 	jp z, .new_is_ff
 
-	ld a, [hl]
+	call GetNextTrainerDataByte
+	dec hl
 	ld [de], a
 	inc de
 	jr .skip_no_move2
@@ -283,7 +294,7 @@ ReadTrainerPartyPieces:
 
 	ld b, NUM_MOVES
 .copy_pp
-	ld a, [hli] ; move (after moves were added)
+	call GetNextTrainerDataByte ; move (after moves were added)
 	
 	push hl
 	push bc
@@ -804,6 +815,8 @@ Battle_GetTrainerName::
 	ld a, [wInBattleTowerBattle]
 	bit 0, a
 	ld hl, wOTPlayerName
+	ld a, BANK(Battle_GetTrainerName)
+	ld [wTrainerGroupBank], a
 	jp nz, CopyTrainerName
 
 	ld a, [wOtherTrainerID]
@@ -836,6 +849,9 @@ GetTrainerName::
 	ld hl, TrainerGroups
 	add hl, bc
 	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld [wTrainerGroupBank], a
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -846,7 +862,7 @@ GetTrainerName::
 	jr z, CopyTrainerName
 
 .skip
-	ld a, [hli]
+	call GetNextTrainerDataByte
 	cp $ff
 	jr nz, .skip
 	jr .loop
@@ -855,11 +871,12 @@ CopyTrainerName:
 	ld de, wStringBuffer1
 	push de
 	ld bc, NAME_LENGTH
-	call CopyBytes
+	ld a, [wTrainerGroupBank]
+	call FarCopyBytes
 	pop de
 	ret
 
-INCLUDE "data/trainers/parties.asm"
+INCLUDE "data/trainers/party_pointers.asm"
 
 SetTrainerBattleLevel:
 	ld a, 255

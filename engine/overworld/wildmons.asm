@@ -2119,6 +2119,11 @@ RandomPhoneMon:
 	ld b, 0
 	add hl, bc
 	add hl, bc
+	add hl, bc
+	ld a, BANK(TrainerGroups)
+	call GetFarByte
+	ld [wTrainerGroupBank], a
+	inc hl
 	ld a, BANK(TrainerGroups)
 	call GetFarHalfword
 
@@ -2126,7 +2131,7 @@ RandomPhoneMon:
 	dec e
 	jr z, .skipped
 .skip
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	inc hl
 	cp -1
@@ -2135,13 +2140,13 @@ RandomPhoneMon:
 .skipped
 
 .skip_name
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	inc hl
 	cp "@"
 	jr nz, .skip_name
 
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	inc hl
 ; b = trainer type
@@ -2179,7 +2184,7 @@ RandomPhoneMon:
 .count_mon
 	inc e
 	add hl, bc
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	cp -1
 	jr nz, .count_mon
@@ -2200,7 +2205,7 @@ RandomPhoneMon:
 .got_mon
 
 	inc hl ; species
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	ld [wNamedObjectIndexBuffer], a
 	call GetPokemonName

@@ -1,6 +1,3 @@
-INCLUDE "data/trainers/party_pointers.asm"
-
-Trainers:
 ; Trainer data structure:
 ; - db "NAME@", TRAINERTYPE_* constant
 ; - 1 to 6 Pokémon:
@@ -13,6 +10,8 @@ Trainers:
 ;	0 = never evolve
 ;	1+ = evolve
 ; - db -1 ; end
+
+SECTION "Enemy Trainer Parties 1", ROMX
 
 FalknerGroup:
 	; FALKNER (1)
@@ -299,6 +298,8 @@ LtSurgeGroup:
 	db "Lt.Surge@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
+
+SECTION "Enemy Trainer Parties 2", ROMX
 
 ScientistGroup:
 	; SCIENTIST (1)

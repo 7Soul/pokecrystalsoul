@@ -155,8 +155,8 @@ IncenseBurnerText:
 	done
 
 MerchandiseShelfText:
-	text "Lots of #MON"
-	line "merchandise!"
+	text "#MON magazines"
+	line "and pamphlets!"
 	done
 
 TownMapText:

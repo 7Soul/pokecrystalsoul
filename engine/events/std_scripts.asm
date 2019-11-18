@@ -52,6 +52,7 @@ StdScripts::
 	dba PCScript
 	dba GameCornerCoinVendorScript
 	dba HappinessCheckScript
+	dba PcVendingScript
 
 PokecenterNurseScript:
 ; EVENT_WELCOMED_TO_POKECOM_CENTER is never set
@@ -1889,3 +1890,100 @@ Movement_ContestResults_WalkAfterWarp:
 	step DOWN
 	turn_head UP
 	step_end
+
+PcVendingScript:
+	opentext
+	writetext VendingText
+.Start:
+	special PlaceMoneyTopRight
+	loadmenu .MenuHeader
+	verticalmenu
+	closewindow
+	ifequal 1, .FreshWater
+	ifequal 2, .SodaPop
+	ifequal 3, .Lemonade
+	closetext
+	end
+
+.FreshWater:
+	checkmoney YOUR_MONEY, 200
+	ifequal HAVE_LESS, .NotEnoughMoney
+	giveitem FRESH_WATER
+	iffalse .NotEnoughSpace
+	takemoney YOUR_MONEY, 200
+	itemtotext FRESH_WATER, MEM_BUFFER_0
+	jump .VendItem
+
+.SodaPop:
+	checkmoney YOUR_MONEY, 300
+	ifequal HAVE_LESS, .NotEnoughMoney
+	giveitem SODA_POP
+	iffalse .NotEnoughSpace
+	takemoney YOUR_MONEY, 300
+	itemtotext SODA_POP, MEM_BUFFER_0
+	jump .VendItem
+
+.Lemonade:
+	checkmoney YOUR_MONEY, 350
+	ifequal HAVE_LESS, .NotEnoughMoney
+	giveitem LEMONADE
+	iffalse .NotEnoughSpace
+	takemoney YOUR_MONEY, 350
+	itemtotext LEMONADE, MEM_BUFFER_0
+	jump .VendItem
+
+.VendItem:
+	pause 10
+	playsound SFX_ENTER_DOOR
+	; writetext ClangText
+	; buttonsound
+	itemnotify
+	jump .Start
+
+.NotEnoughMoney:
+	writetext VendingNoMoneyText
+	waitbutton
+	jump .Start
+
+.NotEnoughSpace:
+	writetext VendingNoSpaceText
+	waitbutton
+	jump .Start
+
+.MenuHeader:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 2, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	dw .MenuData
+	db 1 ; default option
+
+.MenuData:
+	db STATICMENU_CURSOR ; flags
+	db 4 ; items
+	db "FRESH WATER  ¥200@"
+	db "SODA POP     ¥300@"
+	db "LEMONADE     ¥350@"
+	db "CANCEL@"
+
+VendingText:
+	text "A vending machine!"
+	line "Here's the menu."
+	done
+
+ClangText:
+	text "Clang!"
+
+	para "@"
+	text_from_ram wStringBuffer3
+	text_start
+	line "popped out."
+	done
+
+VendingNoMoneyText:
+	text "Oops, not enough"
+	line "money…"
+	done
+
+VendingNoSpaceText:
+	text "There's no more"
+	line "room for stuff…"
+	done

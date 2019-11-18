@@ -14,13 +14,13 @@
 	tilecoll WALL, WALL, WALL, WALL ; 0d
 	tilecoll WALL, WALL, WALL, WALL ; 0e
 	tilecoll WALL, WALL, WALL, WALL ; 0f
-	tilecoll 9C, FLOOR, COUNTER, FLOOR ; 10
+	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 10
 	tilecoll WALL, WALL, WALL, WALL ; 11
 	tilecoll WALL, WALL, WALL, WALL ; 12
 	tilecoll WALL, WALL, WALL, WALL ; 13
 	tilecoll WALL, WARP_CARPET_DOWN, WALL, WALL ; 14
 	tilecoll WALL, WALL, WALL, WALL ; 15
-	tilecoll 9C, FLOOR, COUNTER, FLOOR ; 16
+	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 16
 	tilecoll WALL, WALL, WALL, WALL ; 17
 	tilecoll FLOOR, WALL, FLOOR, WALL ; 18
 	tilecoll WALL, WALL, WALL, STAIRCASE ; 19
