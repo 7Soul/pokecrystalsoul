@@ -375,7 +375,7 @@ MahoganyGym_MapEvents:
 
 	db 2 ; warp events
 	warp_event  4, 17, MAHOGANY_TOWN, 3
-	warp_event  5, 17, MAHOGANY_TOWN, 3
+	warp_event  5, 17, MAHOGANY_TOWN, 4
 
 	db 0 ; coord events
 

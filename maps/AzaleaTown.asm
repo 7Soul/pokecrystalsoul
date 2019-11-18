@@ -457,11 +457,11 @@ AzaleaTown_MapEvents:
 	db 0, 0 ; filler
 
 	db 8 ; warp events
+	warp_event 34,  6, AZALEA_GYM, 1
+	warp_event 35,  6, AZALEA_GYM, 2
 	warp_event 15,  9, AZALEA_POKECENTER_1F, 1
 	warp_event 13, 13, CHARCOAL_KILN, 1
-	warp_event 21,  9, AZALEA_MART, 2
 	warp_event  9, 17, KURTS_HOUSE, 1
-	warp_event 35,  6, AZALEA_GYM, 1
 	warp_event  9,  3, SLOWPOKE_WELL_B1F, 1
 	warp_event  2, 14, ILEX_FOREST_AZALEA_GATE, 3
 	warp_event  2, 15, ILEX_FOREST_AZALEA_GATE, 4
@@ -471,14 +471,12 @@ AzaleaTown_MapEvents:
 	coord_event  5, 15, SCENE_AZALEATOWN_RIVAL_BATTLE, AzaleaTownRivalBattleScene2
 	coord_event 14, 18, SCENE_AZALEATOWN_KURT_RETURNS_GS_BALL, AzaleaTownCelebiScene
 
-	db 9 ; bg events
+	db 7 ; bg events
 	bg_event 19, 13, BGEVENT_READ, AzaleaTownSign
 	bg_event 12, 17, BGEVENT_READ, KurtsHouseSign
 	bg_event 36,  7, BGEVENT_READ, AzaleaGymSign
 	bg_event  7,  3, BGEVENT_READ, SlowpokeWellSign
 	bg_event 11, 13, BGEVENT_READ, CharcoalKilnSign
-	bg_event 16,  9, BGEVENT_READ, AzaleaTownPokecenterSign
-	bg_event 22,  9, BGEVENT_READ, AzaleaTownMartSign
 	bg_event  3, 13, BGEVENT_READ, AzaleaTownIlextForestSign
 	bg_event  7,  2, BGEVENT_ITEM, AzaleaTownHiddenFullHeal
 

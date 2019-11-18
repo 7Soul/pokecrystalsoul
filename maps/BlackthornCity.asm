@@ -315,9 +315,9 @@ BlackthornCity_MapEvents:
 
 	db 8 ; warp events
 	warp_event 16,  8, BLACKTHORN_GYM_1F, 1
+	warp_event 17,  8, BLACKTHORN_GYM_1F, 2
 	warp_event 13, 21, BLACKTHORN_DRAGON_SPEECH_HOUSE, 1
 	warp_event 23, 21, BLACKTHORN_EMYS_HOUSE, 1
-	warp_event 15, 29, BLACKTHORN_MART, 2
 	warp_event 21, 29, BLACKTHORN_POKECENTER_1F, 1
 	warp_event  9, 31, MOVE_DELETERS_HOUSE, 1
 	warp_event  4, 13, ICE_PATH_1F, 2
@@ -325,21 +325,19 @@ BlackthornCity_MapEvents:
 
 	db 0 ; coord events
 
-	db 7 ; bg events
+	db 5 ; bg events
 	bg_event 11, 24, BGEVENT_READ, BlackthornCitySign
 	bg_event 18,  9, BGEVENT_READ, BlackthornGymSign
 	bg_event  9, 33, BGEVENT_READ, MoveDeletersHouseSign
 	bg_event 31,  2, BGEVENT_READ, DragonDensSign
 	bg_event 15, 14, BGEVENT_READ, BlackthornCityTrainerTips
-	bg_event 16, 29, BGEVENT_READ, BlackthornCityMartSign
-	bg_event 22, 29, BGEVENT_READ, BlackthornCityPokecenterSign
 
 	db 9 ; object events
 	object_event 15,  9, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BlackthornSuperNerdScript, EVENT_BLACKTHORN_CITY_SUPER_NERD_BLOCKS_GYM
 	object_event 15,  9, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BlackthornSuperNerdScript, EVENT_BLACKTHORN_CITY_SUPER_NERD_DOES_NOT_BLOCK_GYM
 	object_event 30,  2, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BlackthornGramps1Script, EVENT_BLACKTHORN_CITY_GRAMPS_BLOCKS_DRAGONS_DEN
 	object_event 30,  2, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BlackthornGramps2Script, EVENT_BLACKTHORN_CITY_GRAMPS_NOT_BLOCKING_DRAGONS_DEN
-	object_event 19, 31, SPRITE_BLACK_BELT, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, BlackthornBlackBeltScript, -1
+	object_event 15, 30, SPRITE_BLACK_BELT, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, BlackthornBlackBeltScript, -1
 	object_event 16, 23, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BlackthornCooltrainerF1Script, -1
 	object_event 28, 23, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BlackthornYoungsterScript, -1
 	object_event  8, 14, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SantosScript, EVENT_BLACKTHORN_CITY_SANTOS_OF_SATURDAY

@@ -295,7 +295,7 @@ MartDepartment2F5_A:
 
 MartDepartment2F6_A:
 MartDepartment2F7_A:
-	db 8 ; # items
+	db 9 ; # items
 	db POTION
 	db SUPER_POTION
 	db HYPER_POTION
@@ -309,7 +309,7 @@ MartDepartment2F7_A:
 
 MartDepartment2F8_A:
 MartDepartment2F9_A:
-	db 4 ; # items
+	db 6 ; # items
 	db POTION
 	db SUPER_POTION
 	db HYPER_POTION

@@ -200,7 +200,7 @@ OlivineGym_MapEvents:
 
 	db 2 ; warp events
 	warp_event  4, 15, OLIVINE_CITY, 2
-	warp_event  5, 15, OLIVINE_CITY, 2
+	warp_event  5, 15, OLIVINE_CITY, 3
 
 	db 0 ; coord events
 

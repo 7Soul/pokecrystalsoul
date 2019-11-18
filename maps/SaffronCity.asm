@@ -266,10 +266,10 @@ SaffronCityMagnetTrainStationSignText:
 SaffronCity_MapEvents:
 	db 0, 0 ; filler
 
-	db 15 ; warp events
+	db 14 ; warp events
 	warp_event 26,  3, FIGHTING_DOJO, 1
 	warp_event 34,  3, SAFFRON_GYM, 1
-	warp_event 25, 11, SAFFRON_MART, 2
+	; warp_event 25, 11, SAFFRON_MART, 2
 	warp_event  9, 29, SAFFRON_POKECENTER_1F, 1
 	warp_event 27, 29, MR_PSYCHICS_HOUSE, 1
 	warp_event  8,  3, SAFFRON_MAGNET_TRAIN_STATION, 2

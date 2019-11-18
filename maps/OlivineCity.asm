@@ -285,34 +285,31 @@ OlivineCityBattleTowerSignText_NotYetOpen:
 OlivineCity_MapEvents:
 	db 0, 0 ; filler
 
-	db 11 ; warp events
+	db 10 ; warp events
 	warp_event 13, 21, OLIVINE_POKECENTER_1F, 1
 	warp_event 10, 10, OLIVINE_GYM, 1
-	warp_event 25, 11, OLIVINE_TIMS_HOUSE, 1
-	warp_event  0,  0, OLIVINE_HOUSE_BETA, 1 ; inaccessible
-	warp_event 29, 11, OLIVINE_PUNISHMENT_SPEECH_HOUSE, 1
+	warp_event 11, 10, OLIVINE_GYM, 2
+	warp_event 23, 11, OLIVINE_TIMS_HOUSE, 1
+	warp_event 23, 15, OLIVINE_PUNISHMENT_SPEECH_HOUSE, 1
 	warp_event 13, 15, OLIVINE_GOOD_ROD_HOUSE, 1
 	warp_event  7, 21, OLIVINE_CAFE, 1
-	warp_event 19, 17, OLIVINE_MART, 2
-	warp_event 29, 27, OLIVINE_LIGHTHOUSE_1F, 1
+	warp_event 33, 17, OLIVINE_LIGHTHOUSE_1F, 1
 	warp_event 19, 27, OLIVINE_PORT_PASSAGE, 1
 	warp_event 20, 27, OLIVINE_PORT_PASSAGE, 2
 
 	db 2 ; coord events
-	coord_event 13, 12, SCENE_DEFAULT, OlivineCityRivalSceneTop
-	coord_event 13, 13, SCENE_DEFAULT, OlivineCityRivalSceneBottom
+	coord_event  4,  5, SCENE_DEFAULT, OlivineCityRivalSceneTop
+	coord_event  4,  6, SCENE_DEFAULT, OlivineCityRivalSceneBottom
 
-	db 7 ; bg events
+	db 5 ; bg events
 	bg_event 17, 11, BGEVENT_READ, OlivineCitySign
 	bg_event 20, 24, BGEVENT_READ, OlivineCityPortSign
 	bg_event 12, 11, BGEVENT_READ, OlivineGymSign
-	bg_event 30, 28, BGEVENT_READ, OlivineLighthouseSign
+	bg_event 23, 21, BGEVENT_READ, OlivineLighthouseSign
 	bg_event  3, 23, BGEVENT_READ, OlivineCityBattleTowerSign
-	bg_event 14, 21, BGEVENT_READ, OlivineCityPokecenterSign
-	bg_event 20, 17, BGEVENT_READ, OlivineCityMartSign
 
 	db 4 ; object events
-	object_event 26, 27, SPRITE_SAILOR, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor1Script, -1
-	object_event 20, 13, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, OlivineCityStandingYoungsterScript, -1
-	object_event 17, 21, SPRITE_SAILOR, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor2Script, -1
-	object_event 10, 11, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_OLIVINE_CITY
+	object_event 26, 23, SPRITE_SAILOR, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor1Script, -1
+	object_event  8, 16, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, OlivineCityStandingYoungsterScript, -1
+	object_event 20, 18, SPRITE_SAILOR, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor2Script, -1
+	object_event  2,  5, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_OLIVINE_CITY

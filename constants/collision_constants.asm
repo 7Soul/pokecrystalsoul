@@ -57,7 +57,7 @@ COLL_BRAKE_ALT         EQU $54 ; unused
 COLL_BRAKE_55          EQU $55 ; unused
 COLL_BRAKE_56          EQU $56 ; unused
 COLL_BRAKE_57          EQU $57 ; unused
-COLL_5B                EQU $5b ; garbage
+COLL_5B                EQU $5b ; new
 COLL_PIT               EQU $60
 COLL_VIRTUAL_BOY       EQU $61 ; garbage
 COLL_64                EQU $64 ; garbage

@@ -35,7 +35,7 @@ ENDM
 	map_const OLIVINE_PUNISHMENT_SPEECH_HOUSE,              4,  4 ;  5
 	map_const OLIVINE_GOOD_ROD_HOUSE,                       4,  4 ;  6
 	map_const OLIVINE_CAFE,                                 4,  4 ;  7
-	map_const OLIVINE_MART,                                 6,  4 ;  8
+	; map_const OLIVINE_MART,                                 6,  4 ;  8
 	map_const ROUTE_38_ECRUTEAK_GATE,                       5,  4 ;  9
 	map_const ROUTE_39_BARN,                                4,  4 ; 10
 	map_const ROUTE_39_FARMHOUSE,                           4,  4 ; 11
@@ -155,7 +155,7 @@ ENDM
 	map_const ECRUTEAK_POKECENTER_1F,                       7,  4 ;  3
 	map_const ECRUTEAK_LUGIA_SPEECH_HOUSE,                  4,  4 ;  4
 	map_const DANCE_THEATRE,                                6,  7 ;  5
-	map_const ECRUTEAK_MART,                                6,  4 ;  6
+	; map_const ECRUTEAK_MART,                                6,  4 ;  6
 	map_const ECRUTEAK_GYM,                                 5,  9 ;  7
 	map_const ECRUTEAK_ITEMFINDER_HOUSE,                    4,  4 ;  8
 	map_const ECRUTEAK_CITY,                               20, 18 ;  9
@@ -166,7 +166,7 @@ ENDM
 	map_const BLACKTHORN_GYM_2F,                            5,  9 ;  2
 	map_const BLACKTHORN_DRAGON_SPEECH_HOUSE,               4,  4 ;  3
 	map_const BLACKTHORN_EMYS_HOUSE,                        4,  4 ;  4
-	map_const BLACKTHORN_MART,                              6,  4 ;  5
+	; map_const BLACKTHORN_MART,                              6,  4 ;  5
 	map_const BLACKTHORN_POKECENTER_1F,                     7,  4 ;  6
 	map_const MOVE_DELETERS_HOUSE,                          4,  4 ;  7
 	map_const ROUTE_45,                                    10, 45 ;  8
@@ -191,7 +191,7 @@ ENDM
 	map_const CERULEAN_POKECENTER_1F,                       7,  4 ;  4
 	map_const CERULEAN_POKECENTER_2F_BETA,                  8,  4 ;  5
 	map_const CERULEAN_GYM,                                 5,  8 ;  6
-	map_const CERULEAN_MART,                                6,  4 ;  7
+	; map_const CERULEAN_MART,                                6,  4 ;  7
 	map_const ROUTE_10_POKECENTER_1F,                       7,  4 ;  8
 	map_const ROUTE_10_POKECENTER_2F_BETA,                  8,  4 ;  9
 	map_const POWER_PLANT,                                 10,  9 ; 10
@@ -207,7 +207,7 @@ ENDM
 
 	map_const AZALEA_POKECENTER_1F,                         7,  4 ;  1
 	map_const CHARCOAL_KILN,                                4,  4 ;  2
-	map_const AZALEA_MART,                                  6,  4 ;  3
+	; map_const AZALEA_MART,                                  6,  4 ;  3
 	map_const KURTS_HOUSE,                                  8,  4 ;  4
 	map_const AZALEA_GYM,                                   9, 10 ;  5
 	map_const ROUTE_33,                                    14, 15 ;  6
@@ -229,7 +229,7 @@ ENDM
 	map_const ROUTE_36,                                    30,  9 ;  3
 	map_const ROUTE_37,                                    10,  9 ;  4
 	map_const VIOLET_CITY,                                 20, 18 ;  5
-	map_const VIOLET_MART,                                  6,  4 ;  6
+	; map_const VIOLET_MART,                                  6,  4 ;  6
 	map_const VIOLET_GYM,                                   7,  8 ;  7
 	map_const EARLS_POKEMON_ACADEMY,                        4,  8 ;  8
 	map_const VIOLET_NICKNAME_SPEECH_HOUSE,                 4,  4 ;  9
@@ -279,7 +279,7 @@ ENDM
 	map_const VERMILION_POKECENTER_2F_BETA,                 8,  4 ;  6
 	map_const POKEMON_FAN_CLUB,                             5,  4 ;  7
 	map_const VERMILION_MAGNET_TRAIN_SPEECH_HOUSE,          4,  4 ;  8
-	map_const VERMILION_MART,                               6,  4 ;  9
+	; map_const VERMILION_MART,                               6,  4 ;  9
 	map_const VERMILION_DIGLETTS_CAVE_SPEECH_HOUSE,         4,  4 ; 10
 	map_const VERMILION_GYM,                                5,  9 ; 11
 	map_const ROUTE_6_SAFFRON_GATE,                         5,  4 ; 12
@@ -300,7 +300,7 @@ ENDM
 	map_const PEWTER_CITY,                                 20, 18 ;  2
 	map_const PEWTER_NIDORAN_SPEECH_HOUSE,                  4,  4 ;  3
 	map_const PEWTER_GYM,                                   5,  7 ;  4
-	map_const PEWTER_MART,                                  6,  4 ;  5
+	; map_const PEWTER_MART,                                  6,  4 ;  5
 	map_const PEWTER_POKECENTER_1F,                         7,  4 ;  6
 	map_const PEWTER_POKECENTER_2F_BETA,                    8,  4 ;  7
 	map_const PEWTER_SNOOZE_SPEECH_HOUSE,                   4,  4 ;  8
@@ -338,7 +338,7 @@ ENDM
 	map_const ROUTE_15,                                    20,  9 ;  3
 	map_const ROUTE_18,                                    10,  9 ;  4
 	map_const FUCHSIA_CITY,                                20, 18 ;  5
-	map_const FUCHSIA_MART,                                 6,  4 ;  6
+	; map_const FUCHSIA_MART,                                 6,  4 ;  6
 	map_const SAFARI_ZONE_MAIN_OFFICE,                      4,  4 ;  7
 	map_const FUCHSIA_GYM,                                  5,  9 ;  8
 	map_const BILLS_BROTHERS_HOUSE,                         4,  4 ;  9
@@ -358,7 +358,7 @@ ENDM
 	map_const MR_FUJIS_HOUSE,                               5,  4 ;  7
 	map_const LAVENDER_SPEECH_HOUSE,                        4,  4 ;  8
 	map_const LAVENDER_NAME_RATER,                          4,  4 ;  9
-	map_const LAVENDER_MART,                                6,  4 ; 10
+	; map_const LAVENDER_MART,                                6,  4 ; 10
 	map_const SOUL_HOUSE,                                   5,  4 ; 11
 	map_const LAV_RADIO_TOWER_1F,                          10,  4 ; 12
 	map_const ROUTE_8_SAFFRON_GATE,                         5,  4 ; 13
@@ -437,7 +437,7 @@ ENDM
 	map_const VIRIDIAN_NICKNAME_SPEECH_HOUSE,               4,  4 ;  5
 	map_const TRAINER_HOUSE_1F,                             5,  7 ;  6
 	map_const TRAINER_HOUSE_B1F,                            5,  8 ;  7
-	map_const VIRIDIAN_MART,                                6,  4 ;  8
+	; map_const VIRIDIAN_MART,                                6,  4 ;  8
 	map_const VIRIDIAN_POKECENTER_1F,                       7,  4 ;  9
 	map_const VIRIDIAN_POKECENTER_2F_BETA,                  8,  4 ; 10
 	map_const ROUTE_2_NUGGET_HOUSE,                         4,  4 ; 11
@@ -449,7 +449,7 @@ ENDM
 	map_const ROUTE_26,                                    10, 54 ;  1
 	map_const ROUTE_27,                                    40,  9 ;  2
 	map_const ROUTE_29,                                    30,  9 ;  3
-	map_const NEW_BARK_TOWN,                               10,  9 ;  4
+	map_const NEW_BARK_TOWN,                               12, 10 ;  4
 	map_const ELMS_LAB,                                     5,  6 ;  5
 	map_const PLAYERS_HOUSE_1F,                             5,  4 ;  6
 	map_const PLAYERS_HOUSE_2F,                             4,  3 ;  7
@@ -459,6 +459,7 @@ ENDM
 	map_const DAY_OF_WEEK_SIBLINGS_HOUSE,                   4,  4 ; 11
 	map_const ROUTE_27_SANDSTORM_HOUSE,                     4,  4 ; 12
 	map_const ROUTE_29_ROUTE_46_GATE,                       5,  4 ; 13
+	map_const NEW_BARK_POKECENTER_1F,                       7,  4 ; 14
 
 	newgroup                                                      ; 25
 
@@ -466,7 +467,7 @@ ENDM
 	map_const SAFFRON_CITY,                                20, 18 ;  2
 	map_const FIGHTING_DOJO,                                5,  6 ;  3
 	map_const SAFFRON_GYM,                                 10,  9 ;  4
-	map_const SAFFRON_MART,                                 6,  4 ;  5
+	; map_const SAFFRON_MART,                                 6,  4 ;  5
 	map_const SAFFRON_POKECENTER_1F,                        7,  4 ;  6
 	map_const SAFFRON_POKECENTER_2F_BETA,                   8,  4 ;  7
 	map_const MR_PSYCHICS_HOUSE,                            4,  4 ;  8
@@ -483,7 +484,7 @@ ENDM
 	map_const ROUTE_30,                                    10, 27 ;  1
 	map_const ROUTE_31,                                    20,  9 ;  2
 	map_const CHERRYGROVE_CITY,                            20, 10 ;  3
-	map_const CHERRYGROVE_MART,                             6,  4 ;  4
+	; map_const CHERRYGROVE_MART,                             6,  4 ;  4
 	map_const CHERRYGROVE_POKECENTER_1F,                    7,  4 ;  5
 	map_const CHERRYGROVE_GYM_SPEECH_HOUSE,                 4,  4 ;  6
 	map_const GUIDE_GENTS_HOUSE,                            4,  4 ;  7

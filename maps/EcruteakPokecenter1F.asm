@@ -76,20 +76,6 @@ EcruteakMartClerkScript:
 	closetext
 	end
 
-; VendingMachine:
-; ; 	opentext
-; ; 	writetext VendingText
-; ; .Start:
-; ; 	special PlaceMoneyTopRight
-; ; 	loadmenu .MenuHeader
-; ; 	verticalmenu
-; ; 	closewindow
-; ; 	ifequal 1, .FreshWater
-; ; 	ifequal 2, .SodaPop
-; ; 	ifequal 3, .Lemonade
-; ; 	closetext
-; 	end
-
 EcruteakPokecenter1FBillMovement1:
 	step RIGHT
 	step RIGHT
@@ -232,7 +218,6 @@ EcruteakPokecenter1F_MapEvents:
 	warp_event  0,  7, POKECENTER_2F, 1
 
 	db 0 ; coord events
-	; bg_event 13,  1, BGEVENT_UP, VendingMachine
 
 	db 0 ; bg events
 

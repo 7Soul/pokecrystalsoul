@@ -72,14 +72,14 @@ NewBarkTown_TeacherStopsYouScene2:
 NewBarkTownTeacherScript:
 	faceplayer
 	opentext
-	checkevent EVENT_TALKED_TO_MOM_AFTER_MYSTERY_EGG_QUEST
-	iftrue .CallMom
-	checkevent EVENT_GAVE_MYSTERY_EGG_TO_ELM
-	iftrue .TellMomYoureLeaving
-	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
-	iftrue .MonIsAdorable
-	writetext Text_GearIsImpressive
-	waitbutton
+	; checkevent EVENT_TALKED_TO_MOM_AFTER_MYSTERY_EGG_QUEST
+	; iftrue .CallMom
+	; checkevent EVENT_GAVE_MYSTERY_EGG_TO_ELM
+	; iftrue .TellMomYoureLeaving
+	; checkevent EVENT_GOT_A_POKEMON_FROM_ELM
+	; iftrue .MonIsAdorable
+	; writetext Text_GearIsImpressive
+	; waitbutton
 	
 if DEF(_DEBUG)
 	setflag ENGINE_POKEDEX
@@ -105,10 +105,10 @@ if DEF(_DEBUG)
 	giveitem MAX_REPEL, 99
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
-	givepoke CLEFAIRY, 50
-	givepoke NINETALES, 60	
+	; givepoke CLEFAIRY, 50
+	; givepoke NINETALES, 60	
 	givepoke PIDGEY, 20
-	givepoke KRABBY, 10
+	; givepoke KRABBY, 10
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
@@ -328,11 +328,12 @@ NewBarkTownElmsHouseSignText:
 NewBarkTown_MapEvents:
 	db 0, 0 ; filler
 
-	db 4 ; warp events
+	db 5 ; warp events
 	warp_event  6,  3, ELMS_LAB, 1
 	warp_event 13,  5, PLAYERS_HOUSE_1F, 1
 	warp_event  3, 13, PLAYERS_NEIGHBORS_HOUSE, 1
 	warp_event 11, 13, ELMS_HOUSE, 1
+	warp_event 17,  9, NEW_BARK_POKECENTER_1F, 1
 
 	db 2 ; coord events
 	coord_event  1,  8, SCENE_DEFAULT, NewBarkTown_TeacherStopsYouScene1

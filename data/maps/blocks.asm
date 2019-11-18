@@ -316,20 +316,20 @@ Route14_Blocks:
 BetaSproutTower8_Blocks:
 	INCBIN "maps/unused/BetaSproutTower8.blk"
 
-OlivineMart_Blocks:
-EcruteakMart_Blocks:
-BlackthornMart_Blocks:
-CeruleanMart_Blocks:
-AzaleaMart_Blocks:
-VioletMart_Blocks:
-VermilionMart_Blocks:
-PewterMart_Blocks:
-FuchsiaMart_Blocks:
-LavenderMart_Blocks:
-ViridianMart_Blocks:
-SaffronMart_Blocks:
-CherrygroveMart_Blocks:
-	INCBIN "maps/Mart.blk"
+; OlivineMart_Blocks:
+; EcruteakMart_Blocks:
+; BlackthornMart_Blocks:
+; CeruleanMart_Blocks:
+; AzaleaMart_Blocks:
+; VioletMart_Blocks:
+; VermilionMart_Blocks:
+; PewterMart_Blocks:
+; FuchsiaMart_Blocks:
+; LavenderMart_Blocks:
+; ViridianMart_Blocks:
+; SaffronMart_Blocks:
+; CherrygroveMart_Blocks:
+	; INCBIN "maps/Mart.blk"
 
 Route10North_Blocks:
 	INCBIN "maps/Route10North.blk"
@@ -337,6 +337,7 @@ Route10North_Blocks:
 BetaLakeOfRage_Blocks:
 	INCBIN "maps/unused/BetaLakeOfRage.blk"
 
+NewBarkPokecenter1F_Blocks:
 OlivinePokecenter1F_Blocks:
 MahoganyPokecenter1F_Blocks:
 EcruteakPokecenter1F_Blocks:

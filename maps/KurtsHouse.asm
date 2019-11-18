@@ -678,8 +678,8 @@ KurtsHouse_MapEvents:
 	db 0, 0 ; filler
 
 	db 2 ; warp events
-	warp_event  3,  7, AZALEA_TOWN, 4
-	warp_event  4,  7, AZALEA_TOWN, 4
+	warp_event  3,  7, AZALEA_TOWN, 5
+	warp_event  4,  7, AZALEA_TOWN, 5
 
 	db 0 ; coord events
 

@@ -11,4 +11,5 @@ TileCollisionStdScripts:
 	dbw COLL_WINDOW,         window
 	dbw COLL_INCENSE_BURNER, incenseburner
 	dbw COLL_PC_VENDING,     pcvending
+	dbw COLL_5B,    	 pokecentersign
 	db -1 ; end
