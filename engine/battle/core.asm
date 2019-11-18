@@ -6258,8 +6258,10 @@ LoadEnemyMon:
 	ld b, a	
 	call RandomDVs ; 0 to 10
 	ld c, a
+	push bc
 	call Random
 	cp 10 percent
+	pop bc
 	jr c, .UpdateDVs ; 10% artificial reduction to shiny chance
 	ld h, b
 	ld l, c
