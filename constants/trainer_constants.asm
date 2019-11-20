@@ -710,6 +710,12 @@ KRIS EQU __enum__
 	trainerclass TRAINERDANNY ;44
 	const SEXBANG
 
+	trainerclass PRO ; 45
+	const JARED1
+
+	trainerclass BEEKEEPER ; 45
+	const BARRY1
+
 	trainerclass MYSTICALMAN ; 45
 	const EUSINE
 

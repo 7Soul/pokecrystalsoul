@@ -976,8 +976,8 @@ AnthonyPhoneScript2:
 ; 	iftrue .TriesSwarm
 ; 	checkflag ENGINE_ANTHONY_FRIDAY_NIGHT
 ; 	iftrue .TriesSwarm
-; 	farscall PhoneScript_Random2
-; 	ifequal 0, AnthonyWantsBattle
+	farscall PhoneScript_Random2
+	ifequal 0, AnthonyWantsBattle
 
 ; .TriesSwarm:
 ; 	farscall PhoneScript_Random5

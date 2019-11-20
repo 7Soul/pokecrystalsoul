@@ -70,4 +70,6 @@ TrainerGroups:
 	dba GruntFGroup
 	dba VideoGameBoyGroup
 	dba TrainerDannyGroup
+	dba ProJaredGroup
+	dba BeekeeperBarryGroup
 	dba MysticalmanGroup

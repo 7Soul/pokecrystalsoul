@@ -28,6 +28,8 @@ MaleTrainers:
 	db SCIENTIST
 	db VIDEOGAMEBOY
 	db TRAINERDANNY
+	db PRO
+	db BEEKEEPER
 .End
 
 FemaleTrainers:

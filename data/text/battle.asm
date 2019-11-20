@@ -152,7 +152,7 @@ BattleText_MonsReflectFaded:
 BattleText_MonsLeafShieldBroke:
 	text_from_ram wStringBuffer1
 	text " #MON's"
-	line "LEAF SHIELD rotted!"
+	line "LEAF SHIELD broke!"
 	prompt
 
 BattleText_RainContinuesToFall:

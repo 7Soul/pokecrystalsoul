@@ -541,15 +541,23 @@ EvolveTrainerMon:
 	call GetFarByte ; a = evolve level
 	cp d
 	jp nc, .lower
-	
+
 	ld c, a
-	ld a, d ; a = wild level
-	ld d, c ; d = evolve level data
+
+	inc hl
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte ; a = mon constant
+	ld e, a ; puts evolved mon in e
+	
+	
+	; ld a, d ; a = wild level
+	; ld d, c ; d = evolve level data
 	
 .finish_evolve
 	pop bc
 	pop hl
-	inc b
+	ld a, e
+	ld b, a
 	ret
 
 .evolve_eevee
@@ -680,7 +688,7 @@ EvolveTrainerMon:
 	ret
 .evolve_seadra
 	ld a, d ; a = wild level
-	cp 45
+	cp 36
 	jp c, .donezo
 	ld a, KINGDRA
 	ld b, a

@@ -1685,7 +1685,7 @@ HandleScreens:
 	push hl
 	push de
 	ld hl, BattleText_MonsReflectFaded
-	jp StdBattleTextBox
+	call StdBattleTextBox
 	pop de
 	pop hl
 	ret
@@ -1700,6 +1700,7 @@ HandleScreens:
 	res SCREENS_LEAF_SHIELD, [hl]
 	ld hl, BattleText_MonsLeafShieldBroke
 	jp StdBattleTextBox
+	ret
 
 HandleWeather:
 	ld a, [wBattleWeather]

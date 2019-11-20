@@ -15,54 +15,54 @@ SECTION "Enemy Trainer Parties 1", ROMX
 
 FalknerGroup:
 	; FALKNER (1)
-	db "Falkner@", TRAINERTYPE_DVS
-	db 0, 7, 6, 1, MURKROW, $77, $77
-	db 0, 5, 6, 1, HOOTHOOT, $AF, $9F
-	db 0, 2, 9, 1, PIDGEOTTO, $E0, $5A
-	db 0, 6, 6, 1, HOPPIP, $77, $77
-	db 1, 7, 6, 1, TOGEPI, $77, $77
-	db 2, 17, 12, 1, PIDGEOTTO, $E0, $5A
-	db 5, 17, 12, 1, HOOTHOOT, $AF, $9F
-	db 5, 8, 6, 1, ZUBAT, $77, $77
-	db 8, 17, 6, 0, ARTICUNO, $77, $77
-	db 7, 17, 6, 0, AERODACTYL, $77, $77
-	db 6, 17, 8, 0, SKARMORY, $77, $77
-	db 7, 17, 10, 1, TOGEPI, $AA, $EF
+	db "Falkner@", TRAINERTYPE_DVS | TRAINERTYPE_MOVES | TRAINERTYPE_ITEM
+	db 0, 7, 12, 1, MURKROW, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, FEATHERGALE
+	db 0, 5, 11, 1, HOOTHOOT, $5A, $92, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 6, 17, 14, 0, SKARMORY, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, WILD_STORM
+	db 2, 6, 12, 1, HOPPIP, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 4, 7, 12, 1, TOGEPI, $58, $5A, 3, BERRY, $FF, $FF, $FF, $FF
+	db 7, 17, 16, 1, TOGEPI, $58, $5A, 7, MIRACLEBERRY, $FF, $FF, $FF, $FF
+	db 5, 17, 14, 1, HOOTHOOT, $5A, $92, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 7, 17, 12, 1, AERODACTYL, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 8, 17, 12, 0, ARTICUNO, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, FLY
+	db 0, 2, 15, 1, PIDGEOTTO, $A0, $54, 0, NO_ITEM, $FF, $FF, $FF, FEATHERGALE
+	db 2, 5, 15, 1, PIDGEOTTO, $A0, $54, 0, NO_ITEM, $FF, $FF, $FF, FEATHERGALE
+	db 5, 17, 16, 1, PIDGEOTTO, $A3, $54, 0, NO_ITEM, $FF, $FF, $FF, $FF
 	db -1 ; end
 
 
 BugsyGroup:
 	; BUGSY (1)
-	db "Bugsy@", TRAINERTYPE_DVS | TRAINERTYPE_ITEM
-	db 0, 4, 8, 0, PINSIR, $77, $77, 0, NO_ITEM
-	db 0, 2, 6, 0, EEVEE, $77, $77, 0, NO_ITEM
-	db 2, 17, 10, 2, EEVEE, $FA, $FF, 0, NO_ITEM
-	db 4, 1, 6, 0, SHUCKLE, $FA, $FF, 0, NO_ITEM
-	db 2, 17, 6, 1, PINECO, $FA,$FF, 0, NO_ITEM
-	db 1, 4, 8, 0, SCYTHER, $E7, $F2, 0, NO_ITEM
-	db 4, 17, 9, 0, SCIZOR, $77, $77, 0, NO_ITEM
-	db 4, 7, 9, 0, HERACROSS, $77, $77, 0, NO_ITEM
-	db 5, 17, 10, 0, PIKACHU, $77, $77, 0, BATTERY
-	db 7, 8, 10, 1, VENONAT, $77, $77, 0, NO_ITEM
-	db 7, 17, 12, 0, HERACROSS, $DF, $AF, 7, SILVERPOWDER
-	db 8, 17, 9, 0, CELEBI, $77, $77, 7, MIRACLEBERRY
+	db "Bugsy@", TRAINERTYPE_DVS | TRAINERTYPE_ITEM | TRAINERTYPE_MOVES
+	db 0, 4, 12, 0, PINSIR, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 0, 2, 13, 0, EEVEE, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 2, 17, 10, 2, EEVEE, $FA, $FF, 0, NO_ITEM, $FF, $FF, $FF, FELL_STINGER
+	db 3, 7, 12, 0, SHUCKLE, $FA, $FF, 5, SILVERPOWDER, $FF, $FF, $FF, $FF
+	db 4, 7, 15, 0, HERACROSS, $FA, $FF, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 7, 17, 16, 0, HERACROSS, $DF, $AF, 7, SILVERPOWDER, $FF, $FF, $FF, $FF
+	db 14, 17, 15, 0, CELEBI, $77, $77, 7, MIRACLEBERRY, $FF, $FF, $FF, $FF
+	db 8, 14, 16, 1, VENONAT, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 5, 17, 13, 0, PIKACHU, $77, $77, 0, BATTERY, $FF, $FF, $FF, $FF
+	db 7, 9, 12, 1, PINECO, $FA,$FF, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 1, 4, 14, 0, SCYTHER, $E7, $F2, 7, SILVERPOWDER, $FF, $FF, $FF, FURY_CUTTER
+	db 4, 17, 15, 0, SCIZOR, $E7, $F2, 7, SILVERPOWDER, $FF, $FF, $FF, FURY_CUTTER
 	db -1 ; end
 
 WhitneyGroup:
 	; WHITNEY (1)
-	db "Whitney@", TRAINERTYPE_DVS | TRAINERTYPE_ITEM
-	db 0, 3, 6, 0, DITTO, $E7,$F2, 0, NO_ITEM
-	db 0, 1, 6, 0, MAGBY, $77, $77, 0, NO_ITEM
-	db 0, 4, 10, 0, CLEFAIRY, $E7,$F2, 0, NO_ITEM
-	db 4, 17, 6, 1, CLEFAIRY, $DA,$56, 0, NO_ITEM
-	db 4, 17, 9, 1, TEDDIURSA, $FA,$FF, 0, NO_ITEM
-	db 3, 7, 6, 1, SQUIRTLE, $FA,$FF, 0, NO_ITEM
-	db 1, 4, 9, 0, MILTANK, $E7,$F2, 0, NO_ITEM
-	db 6, 17, 6, 1, MEOWTH, $DA,$56, 0, NO_ITEM
-	db 4, 7, 10, 1, MILTANK, $DA,$56, 0, NO_ITEM
-	db 7, 17, 10, 1, SQUIRTLE, $77, $77, 0, NO_ITEM
-	db 7, 17, 14, 0, MILTANK, $DA,$56, 0, NO_ITEM
-	db 7, 17, 6, 1, CHANSEY, $77, $77, 7, MIRACLEBERRY
+	db "Whitney@", TRAINERTYPE_DVS | TRAINERTYPE_ITEM | TRAINERTYPE_MOVES
+	db 0, 3, 6, 0, DITTO, $E7,$F2, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 0, 1, 6, 0, MAGBY, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 0, 4, 10, 0, CLEFAIRY, $A7,$A2, 1, BERRY, $FF, $FF, $FF, $FF
+	db 4, 17, 6, 1, CLEFAIRY, $AA,$56, 1, BERRY, $FF, $FF, $FF, $FF
+	db 3, 17, 5, 1, TEDDIURSA, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 3, 7, 6, 1, SQUIRTLE, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 7, 17, 10, 1, SQUIRTLE, $A7,$A2, 0, NO_ITEM, HYPER_BEAM, SKULL_BASH, SWAGGER, PROTECT
+	db 6, 17, 6, 1, MEOWTH, $77, $77, 0, NO_ITEM, $FF, $FF, $FF, $FF
+	db 8, 17, 6, 1, CHANSEY, $AA,$56, 7, MIRACLEBERRY, $FF, $FF, $FF, ROLLOUT
+	db 1, 4, 9, 0, MILTANK, $A7,$A2, 0, NO_ITEM, $FF, $FF, $FF, ROLLOUT
+	db 4, 7, 10, 1, MILTANK, $AA,$56, 7, MIRACLEBERRY, $FF, $FF, $FF, ROLLOUT
+	db 7, 17, 14, 1, MILTANK, $AA,$56, 7, MIRACLEBERRY, $FF, $FF, $FF, ROLLOUT
 	db -1 ; end
 
 MortyGroup:
@@ -284,11 +284,24 @@ ChampionGroup:
 BrockGroup:
 	; BROCK (1)
 	db "Brock@", TRAINERTYPE_MOVES
-	db 0, 17, 6, 1, GEODUDE, $FF, $FF, $FF, $FF
+	db 0, 17, 12, 1, GEODUDE, $FF, $FF, $FF, $FF
+	db 0, 17, 11, 1, OMANYTE, $FF, $FF, $FF, $FF
+	db 5, 7, 12, 1, RHYHORN, $FF, $FF, $FF, THUNDERBOLT
+	db 7, 17, 14, 1, RHYHORN, $FF, $FF, $FF, THUNDER
+	db 16, 17, 12, 1, SUDOWOODO, $FF, $FF, THUNDERPUNCH, ICE_PUNCH
+	db 7, 16, 15, 0, SUDOWOODO, $FF, $FF, THUNDERPUNCH, ICE_PUNCH
+	db 1, 5, 12, 1, ZUBAT, $FF, $FF, $FF, $FF
+	db 5, 17, 15, 1, ZUBAT, $FF, $FF, $FF, HYPER_SONAR
+	db 0, 2, 17, 1, ONIX, $FF, $FF, $FF, ROCK_TOMB
+	db 2, 7, 19, 0, ONIX, $FF, $FF, $FF, ROCK_TOMB
+	db 7, 16, 21, 0, ONIX, $FF, $FF, $FF, ROCK_TOMB
+	db 16, 17, 28, 0, ONIX, $FF, $FF, $FF, $FF
 	db -1 ; end
 
+SECTION "Enemy Trainer Parties 2", ROMX
+
 MistyGroup:
-	; MISTY (1)
+	; CAL (1)
 	db "Misty@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -298,8 +311,6 @@ LtSurgeGroup:
 	db "Lt.Surge@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
-
-SECTION "Enemy Trainer Parties 2", ROMX
 
 ScientistGroup:
 	; SCIENTIST (1)
@@ -336,10 +347,10 @@ ErikaGroup:
 YoungsterGroup:
 	; YOUNGSTER (1)
 	db "Joey@", TRAINERTYPE_ITEM | TRAINERTYPE_DVS
-	db 0, 4, 4, 0, RATTATA, $FF,$FF, 1, CUTE_RIBBON
-	db 4, 6, 8, 0, RATTATA, $FF,$FF, 1, CUTE_RIBBON
-	db 6, 8, 15, 0, RATTATA, $FF,$FF, 1, CUTE_RIBBON
-	db 8, 17, 26, 0, RATTATA, $FF,$FF, 1, CUTE_RIBBON
+	db 0, 4, 4, 0, RATTATA, $AA,$AA, 1, CUTE_RIBBON
+	db 4, 7, 8, 0, RATTATA, $AA,$AA, 1, CUTE_RIBBON
+	db 7, 10, 15, 0, RATTATA, $AA,$AA, 1, CUTE_RIBBON
+	db 10, 17, 26, 0, RATTATA, $AA,$AA, 1, CUTE_RIBBON
 	db -1 ; end
 
 	; YOUNGSTER (2)
@@ -356,10 +367,11 @@ YoungsterGroup:
 	db -1 ; end
 
 	; YOUNGSTER (4)
-	db "Gordon@", TRAINERTYPE_NORMAL
-	db 0, 6, 6, 0, DODUO
-	db 4, 17, 4, 1, ELEKID
-	db 6, 17, 7, 1, DODUO
+	db "Gordon@", TRAINERTYPE_MOVES
+	db 0, 6, 6, 0, DODUO, $FF, $FF, $FF, $FF
+	db 6, 17, 7, 1, DODUO, $FF, $FF, $FF, $FF
+	db 1, 17, 4, 1, ELEKID, $FF, $FF, $FF, $FF
+	db 7, 17, 8, 1, DODUO, $FF, $FF, $FF, ICE_BEAM
 	db -1 ; end
 
 	; YOUNGSTER (5)
@@ -534,70 +546,70 @@ SchoolboyGroup:
 	db -1 ; end
 
 BirdKeeperGroup:
-	; BIRD_KEEPER (1)
+	; BIRDKEEPER (1)
 	db "Rod@", TRAINERTYPE_ITEM
 	db 0, 17, 9, 1, SPEAROW, 0, PSNCUREBERRY
 	db 0, 17, 9, 1, PIDGEY, 0, PSNCUREBERRY
 	db -1 ; end
 
-	; BIRD_KEEPER (2)
+	; BIRDKEEPER (2)
 	db "Abe@", TRAINERTYPE_ITEM
 	db 0, 17, 9, 0, FARFETCH_D, 0, NO_ITEM
 	db 0, 6, 10, 0, DELIBIRD, 0, BERRY
 	db 6, 17, 12, 0, DELIBIRD, 0, GOLD_BERRY
 	db -1 ; end
 
-	; BIRD_KEEPER (3)
+	; BIRDKEEPER (3)
 	db "Bryan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (4)
+	; BIRDKEEPER (4)
 	db "Theo@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (5)
+	; BIRDKEEPER (5)
 	db "Toby@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (6)
+	; BIRDKEEPER (6)
 	db "Denis@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (7)
+	; BIRDKEEPER (7)
 	db "Vance@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (8)
+	; BIRDKEEPER (8)
 	db "Hank@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (9)
+	; BIRDKEEPER (9)
 	db "Roy@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (10)
+	; BIRDKEEPER (10)
 	db "Boris@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (11)
+	; BIRDKEEPER (11)
 	db "Bob@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (12)
+	; BIRDKEEPER (12)
 	db "Jose@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (13)
+	; BIRDKEEPER (13)
 	db "Peter@", TRAINERTYPE_NORMAL
 	db 0, 6, 5, 1, PIDGEY
 	db 6, 17, 10, 1, PIDGEOTTO
@@ -605,37 +617,37 @@ BirdKeeperGroup:
 	db 1, 17, 8, 1, NATU
 	db -1 ; end
 
-	; BIRD_KEEPER (14)
+	; BIRDKEEPER (14)
 	db "Jose@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (15)
+	; BIRDKEEPER (15)
 	db "Perry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (16)
+	; BIRDKEEPER (16)
 	db "Bret@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (17)
+	; BIRDKEEPER (17)
 	db "Jose@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (18)
+	; BIRDKEEPER (18)
 	db "Vance@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (19)
+	; BIRDKEEPER (19)
 	db "Vance@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BIRD_KEEPER (20)
+	; BIRDKEEPER (20)
 	db "Chester@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -1327,13 +1339,15 @@ TeacherGroup:
 	db -1 ; end
 
 SabrinaGroup:
-	; SABRINA (1)
+	; BIRD_KEEPER (1)
 	db "Sabrina@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
+SECTION "Enemy Trainer Parties 3", ROMX
+
 BugCatcherGroup:
-	; BUG_CATCHER (1)
+	; BUGCATCHER (1)
 	db "Don@", TRAINERTYPE_NORMAL
 	db 0, 17, 4, 1, CATERPIE
 	db 0, 5, 4, 1, METAPOD
@@ -1341,17 +1355,17 @@ BugCatcherGroup:
 	db 5, 17, 12, 0, BUTTERFREE
 	db -1 ; end
 
-	; BUG_CATCHER (2)
+	; BUGCATCHER (2)
 	db "Rob@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (3)
+	; BUGCATCHER (3)
 	db "Ed@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (4)
+	; BUGCATCHER (4)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 4, 4, 1, SPINARAK
 	db 0, 4, 4, 1, SPINARAK
@@ -1359,87 +1373,87 @@ BugCatcherGroup:
 	db 4, 17, 11, 1, SPINARAK
 	db -1 ; end
 
-	; BUG_CATCHER (5)
+	; BUGCATCHER (5)
 	db "Benny@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (6)
+	; BUGCATCHER (6)
 	db "Al@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (7)
+	; BUGCATCHER (7)
 	db "Josh@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (8)
+	; BUGCATCHER (8)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (9)
+	; BUGCATCHER (9)
 	db "Ken@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (10)
+	; BUGCATCHER (10)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (11)
+	; BUGCATCHER (11)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (12)
+	; BUGCATCHER (12)
 	db "Doug@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (13)
+	; BUGCATCHER (13)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (14)
+	; BUGCATCHER (14)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (15)
+	; BUGCATCHER (15)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (16)
+	; BUGCATCHER (16)
 	db "Wade@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (17)
+	; BUGCATCHER (17)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (18)
+	; BUGCATCHER (18)
 	db "Arnie@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (19)
+	; BUGCATCHER (19)
 	db "Wayne@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (20)
+	; BUGCATCHER (20)
 	db "Maimo@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BUG_CATCHER (21)
+	; BUGCATCHER (21)
 	db "Pippa@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -1447,15 +1461,16 @@ BugCatcherGroup:
 FisherGroup:
 	; FISHER (1)
 	db "Justin@", TRAINERTYPE_DVS
-	db 0, 17, 5, 1, GOLDEEN, $77, $77
+	db 0, 17, 5, 1, GOLDEEN, $47,$08
 	db 1, 17, 8, 1, SLOWPOKE, $77, $77
-	db 2, 17, 10, 0, GOLDEEN, $FA,$AA
+	db 2, 17, 8, 0, GOLDEEN, $98,$8A
 	db -1 ; end
 
 	; FISHER (2)
-	db "Ralph@", TRAINERTYPE_NORMAL
-	db 0, 17, 6, 1, MAGIKARP
-	db 1, 17, 10, 0, DITTO
+	db "Ralph@", TRAINERTYPE_DVS | TRAINERTYPE_MOVES
+	db 0, 17, 6, 1, MAGIKARP, $77, $77, $FF, $FF, $FF, $FF
+	db 1, 9, 10, 0, DITTO, $23,$8A, CURSE,HIDDEN_POWER,TRANSFORM,NO_MOVE
+	db 9, 17, 13, 0, DITTO, $23,$8A, CURSE,HIDDEN_POWER,TRANSFORM,NO_MOVE
 	db -1 ; end
 
 	; FISHER (3)
@@ -1470,8 +1485,11 @@ FisherGroup:
 	db -1 ; end
 
 	; FISHER (5)
-	db "Henry@", TRAINERTYPE_NORMAL
-	db 0, 17, 3, 0, BULBASAUR
+	db "Henry@", TRAINERTYPE_MOVES
+	db 0, 4, 5, 1, POLIWAG, $FF, $FF, $FF, $FF
+	db 0, 5, 5, 0, POLIWAG, $FF, $FF, $FF, $FF
+	db 4, 17, 5, 1, POLIWHIRL, $FF, $FF, $FF, $FF
+	db 5, 17, 3, 1, POLIWAG, $FF, $FF, $FF, SURF
 	db -1 ; end
 
 	; FISHER (6)
@@ -1850,72 +1868,72 @@ SailorGroup:
 	db -1 ; end
 
 SuperNerdGroup:
-	; SUPER_NERD (1)
+	; SUPERNERD (1)
 	db "Stan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (2)
+	; SUPERNERD (2)
 	db "Eric@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (3)
+	; SUPERNERD (3)
 	db "Gregg@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (4)
+	; SUPERNERD (4)
 	db "Jay@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (5)
+	; SUPERNERD (5)
 	db "Dave@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (6)
+	; SUPERNERD (6)
 	db "Sam@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (7)
+	; SUPERNERD (7)
 	db "Tom@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (8)
+	; SUPERNERD (8)
 	db "Pat@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (9)
+	; SUPERNERD (9)
 	db "Shawn@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (10)
+	; SUPERNERD (10)
 	db "Teru@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (11)
+	; SUPERNERD (11)
 	db "Russ@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (12)
+	; SUPERNERD (12)
 	db "Norton@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (13)
+	; SUPERNERD (13)
 	db "Hugh@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SUPER_NERD (14)
+	; SUPERNERD (14)
 	db "Markus@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -1952,12 +1970,12 @@ Rival2Group:
 	db -1 ; end
 
 GuitaristGroup:
-	; GUITARIST (1)
+	; BUG_CATCHER (1)
 	db "Clyde@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; GUITARIST (2)
+	; BUG_CATCHER (2)
 	db "Vincent@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -2149,45 +2167,45 @@ BurglarGroup:
 	db -1 ; end
 
 FirebreatherGroup:
-	; FIREBREATHER (1)
+	; SUPER_NERD (1)
 	db "Otis@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; FIREBREATHER (2)
+	; SUPER_NERD (2)
 	db "Dick@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; FIREBREATHER (3)
+	; SUPER_NERD (3)
 	db "Ned@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; FIREBREATHER (4)
+	; SUPER_NERD (4)
 	db "Burt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; FIREBREATHER (5)
+	; SUPER_NERD (5)
 	db "Bill@", TRAINERTYPE_MOVES
 	db 0, 17, 4, 1, KOFFING, $FF, $FF, $FF, WILL_O_WISP
 	db 0, 17, 4, 1, KOFFING, $FF, $FF, $FF, WILL_O_WISP
 	db 5, 17, 0, 1, KOFFING, $FF, $FF, FIRE_FLICK, WILL_O_WISP
 	db -1 ; end
 
-	; FIREBREATHER (6)
+	; SUPER_NERD (6)
 	db "Walt@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; FIREBREATHER (7)
+	; SUPER_NERD (7)
 	db "Ray@", TRAINERTYPE_MOVES
 	db 0, 17, 6, 1, VULPIX, $FF, $FF, ZEN_HEADBUTT, $FF
 	db 3, 17, 10, 1, VULPIX, $FF, $FF, ZEN_HEADBUTT, $FF
 	db -1 ; end
 
-	; FIREBREATHER (8)
+	; SUPER_NERD (8)
 	db "Lyle@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -2224,47 +2242,47 @@ JugglerGroup:
 	db -1 ; end
 
 BlackbeltGroup:
-	; BLACKBELT_T (1)
+	; BLACKBELT (1)
 	db "Kenji@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BLACKBELT_T (2)
+	; BLACKBELT (2)
 	db "Yoshi@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BLACKBELT_T (3)
+	; BLACKBELT (3)
 	db "Kenji@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BLACKBELT_T (4)
+	; BLACKBELT (4)
 	db "Lao@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BLACKBELT_T (5)
+	; BLACKBELT (5)
 	db "Nob@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BLACKBELT_T (6)
+	; BLACKBELT (6)
 	db "Kiyo@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BLACKBELT_T (7)
+	; BLACKBELT (7)
 	db "Lung@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BLACKBELT_T (8)
+	; BLACKBELT (8)
 	db "Kenji@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; BLACKBELT_T (9)
+	; BLACKBELT (9)
 	db "Wai@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -2291,62 +2309,62 @@ ExecutiveMGroup:
 	db -1 ; end
 
 PsychicGroup:
-	; PSYCHIC_T (1)
+	; PSYCHIC (1)
 	db "Nathan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (2)
+	; PSYCHIC (2)
 	db "Franklin@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (3)
+	; PSYCHIC (3)
 	db "Hernan@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (4)
+	; PSYCHIC (4)
 	db "Fidel@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (5)
+	; PSYCHIC (5)
 	db "Greg@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (6)
+	; PSYCHIC (6)
 	db "Norman@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (7)
+	; PSYCHIC (7)
 	db "Mark@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (8)
+	; PSYCHIC (8)
 	db "Phil@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (9)
+	; PSYCHIC (9)
 	db "Richard@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (10)
+	; PSYCHIC (10)
 	db "Gilbert@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (11)
+	; PSYCHIC (11)
 	db "Jared@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; PSYCHIC_T (12)
+	; PSYCHIC (12)
 	db "Rodney@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -2355,8 +2373,8 @@ PicnickerGroup:
 	; PICNICKER (1)
 	db "Liz@", TRAINERTYPE_NORMAL
 	db 0, 2, 7, 0, NIDORAN_F
-	db 2, 4, 3, 1, NIDORAN_F
-	db 1, 17, 9, 1, NIDORINA
+	db 2, 4, 4, 1, NIDORAN_F
+	db 2, 17, 9, 1, NIDORINA
 	db 4, 17, 10, 1, SNEASEL
 	db -1 ; end
 
@@ -2485,14 +2503,16 @@ PicnickerGroup:
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
+SECTION "Enemy Trainer Parties 4", ROMX
+
 CamperGroup:
 	; CAMPER (1)
 	db "Roland@", TRAINERTYPE_ITEM
-	db 0, 2, 0, 0, NIDORAN_M, 0, NO_ITEM
-	db 1, 17, 2, 1, NIDORAN_M, 6, MINT_BERRY
-	db 2, 6, 1, 1, NIDORAN_M, 0, NO_ITEM
-	db 5, 17, 4, 1, PINECO, 0, NO_ITEM
-	db 6, 17, 10, 0, NIDORINO, 0, MINT_BERRY
+	db 0, 5, 5, 1, NIDORAN_M, 0, NO_ITEM
+	db 1, 6, 3, 1, NIDORAN_M, 6, MINT_BERRY
+	db 6, 7, 6, 1, NIDORAN_M, 0, NO_ITEM
+	db 5, 17, 6, 1, PINECO, 0, NO_ITEM
+	db 7, 17, 10, 1, NIDORINO, 0, MINT_BERRY
 	db -1 ; end
 
 	; CAMPER (2)
@@ -2603,18 +2623,18 @@ CamperGroup:
 	db -1 ; end
 
 ExecutiveFGroup:
-	; EXECUTIVEF (1)
+	; BLACKBELT_T (1)
 	db "Executive@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; EXECUTIVEF (2)
+	; BLACKBELT_T (2)
 	db "Executive@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
 SageGroup:
-	; SAGE (1)
+	; PSYCHIC_T (1)
 	db "Chow@", TRAINERTYPE_NORMAL
 	db 0, 4, 3, 1, BELLSPROUT
 	db 0, 4, 4, 1, BELLSPROUT
@@ -2623,7 +2643,7 @@ SageGroup:
 	db 0, 17, 4, 1, HOOTHOOT
 	db -1 ; end
 
-	; SAGE (2)
+	; PSYCHIC_T (2)
 	db "Nico@", TRAINERTYPE_NORMAL
 	db 0, 6, 3, 1, BELLSPROUT
 	db 0, 5, 3, 1, POLIWAG
@@ -2631,7 +2651,7 @@ SageGroup:
 	db 5, 17, 6, 2, POLIWAG
 	db -1 ; end
 
-	; SAGE (3)
+	; PSYCHIC_T (3)
 	db "Jin@", TRAINERTYPE_ITEM
 	db 0, 17, 4, 0, BELLSPROUT, 3, GOLD_BERRY
 	db 0, 17, 4, 0, BELLSPROUT, 4, GOLD_BERRY
@@ -2640,34 +2660,34 @@ SageGroup:
 	db 4, 17, 10, 0, WEEPINBELL, 0, NO_ITEM
 	db -1 ; end
 
-	; SAGE (4)
+	; PSYCHIC_T (4)
 	db "Troy@", TRAINERTYPE_NORMAL
 	db 0, 6, 9, 0, PSYDUCK
 	db 6, 17, 13, 1, PSYDUCK
 	db -1 ; end
 
-	; SAGE (5)
+	; PSYCHIC_T (5)
 	db "Jeffrey@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SAGE (6)
+	; PSYCHIC_T (6)
 	db "Ping@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SAGE (7)
+	; PSYCHIC_T (7)
 	db "Edmond@", TRAINERTYPE_NORMAL
 	db 0, 17, 7, 1, HOOTHOOT
 	db 6, 17, 12, 0, UMBREON
 	db -1 ; end
 
-	; SAGE (8)
+	; PSYCHIC_T (8)
 	db "Neal@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SAGE (9)
+	; PSYCHIC_T (9)
 	db "Li@", TRAINERTYPE_DVS
 	db 0, 4, 7, 1, BELLSPROUT, $77, $77
 	db 4, 17, 8, 1, BELLSPROUT, $77, $77
@@ -2679,17 +2699,17 @@ SageGroup:
 	db 5, 17, 15, 1, VULPIX, $8A,$AA
 	db -1 ; end
 
-	; SAGE (10)
+	; PSYCHIC_T (10)
 	db "Gaku@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SAGE (11)
+	; PSYCHIC_T (11)
 	db "Masa@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; SAGE (12)
+	; PSYCHIC_T (12)
 	db "Koji@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -2818,32 +2838,32 @@ PokefanMGroup:
 	db -1 ; end
 
 KimonoGirlGroup:
-	; KIMONO_GIRL (1)
+	; KIMONOGIRL (1)
 	db "Naoko@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; KIMONO_GIRL (2)
+	; KIMONOGIRL (2)
 	db "Naoko@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; KIMONO_GIRL (3)
+	; KIMONOGIRL (3)
 	db "Sayo@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; KIMONO_GIRL (4)
+	; KIMONOGIRL (4)
 	db "Zuki@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; KIMONO_GIRL (5)
+	; KIMONOGIRL (5)
 	db "Kuni@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
 
-	; KIMONO_GIRL (6)
+	; KIMONOGIRL (6)
 	db "Miki@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -2931,7 +2951,7 @@ PokefanFGroup:
 	db -1 ; end
 
 RedGroup:
-	; RED (1)
+	; KIMONO_GIRL (1)
 	db "Red@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
@@ -3015,6 +3035,17 @@ ProJaredGroup:
 	; PROJARED (1)
 	db "Jared@", TRAINERTYPE_NICKNAME
 	db 0, 4, 5, 1, SQUIRTLE, "Lagiacrus@ "
+	db 0, 4, 5, 1, PIDGEY, "Oh,he@     "
+	db 2, 4, 10, 1, GOLBAT, "Jeflump@   "
+	db 2, 5, 10, 1, CUBONE, "Wepler@    "
+	db 4, 6, 10, 1, SNORLAX, "Burden@    "
+	db 4, 6, 5, 1, RATTATA, "Blamblegam@"
+	db 6, 17, 10, 1, LAPRAS, "Jorm@      "
+	db 6, 17, 0, 0, GROWLITHE, "Idilsor@   "
+	db 6, 17, 5, 1, MAGNETON, "Q@         "
+	db 6, 17, 0, 0, CLOYSTER, "Stellar@   "
+	db 6, 17, 0, 0, TENTACOOL, "Leebin@    "
+	db 1, 17, 10, 1, ODDISH, "Nuptup@    "
 	db -1 ; end
 
 BeekeeperBarryGroup:
@@ -3022,4 +3053,6 @@ BeekeeperBarryGroup:
 	db "Barry@", TRAINERTYPE_NORMAL
 	db 0, 17, 3, 0, BULBASAUR
 	db -1 ; end
+
+SECTION "Enemy Trainer Parties 5", ROMX
 

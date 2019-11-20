@@ -38,7 +38,7 @@ VioletGymFalknerScript:
 	specialphonecall SPECIALCALL_ASSISTANT
 	writetext FalknerZephyrBadgeText
 	buttonsound
-	verbosegiveitem TM_MUD_BOMB
+	verbosegiveitem TM_FEATHERGALE
 	iffalse .NoRoomForFeatherGale
 	setevent EVENT_GOT_TM13_FEATHER_GALE
 	writetext FalknerTMFeatherGaleText
@@ -152,43 +152,20 @@ ReceivedZephyrBadgeText:
 	done
 
 FalknerZephyrBadgeText:
-	text "ZEPHYRBADGE"
-	line "raises the attack"
-	cont "power of #MON."
-
-	para "It also enables"
-	line "#MON to use"
-
-	para "FLASH, if they"
-	line "have it, anytime."
-
-	para "Here--take this"
+	text "Here--take this"
 	line "too."
 	done
 
 FalknerTMFeatherGaleText:
-	text "By using a TM, a"
-	line "#MON will"
+	text "TM13 contains"
+	line "FEATHERGALE."
 
-	para "instantly learn a"
-	line "new move."
+	para "The #MON will"
+	line "attack twice"
 
-	para "Think before you"
-	line "act--a TM can be"
-	cont "used only once."
-
-	para "TM13 contains"
-	line "MUD-BOMB."
-
-	para "It reduces the"
-	line "enemy's accuracy"
-
-	para "while it causes"
-	line "damage."
-
-	para "In other words, it"
-	line "is both defensive"
-	cont "and offensive."
+	para "using feathers."
+	line "It's more powerful"
+	cont "than it looks!"
 	done
 
 FalknerFightDoneText:

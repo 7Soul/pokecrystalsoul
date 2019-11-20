@@ -68,4 +68,6 @@ TrainerClassNames::
 	db "Rocket@"
 	db "VideoGameBoy@"
 	db "Danny@"
+	db "Pro@"
+	db "Beekeeper@"
 	db "Mystical Man@"

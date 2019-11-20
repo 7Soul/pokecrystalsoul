@@ -1,6 +1,6 @@
 	db KOFFING ; 109
 
-	db  40,  65,  95,  35,  60,  45
+	db  50,  65,  94,  35,  74,  45
 	;   hp  atk  def  spd  sat  sdf
 
 	db ROCK, FIRE ; type
