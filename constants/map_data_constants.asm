@@ -92,6 +92,7 @@ const_value = -1
 	const SPAWN_BLACKTHORN		; 1a
 	const SPAWN_MT_SILVER		; 1b
 	const SPAWN_FAST_SHIP		; 1c
+	const SPAWN_ROUTE_32		; 1d
 NUM_SPAWNS EQU const_value
 
 SPRITE_GFX_LIST_CAPACITY EQU $20

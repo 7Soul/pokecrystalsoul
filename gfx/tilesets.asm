@@ -177,14 +177,14 @@ INCLUDE "data/tilesets/unused_dark_cave_collision.asm"
 
 SECTION "Tileset Data 5", ROMX
 
-TilesetPokeComCenterGFX:
-INCBIN "gfx/tilesets/pokecom_center.2bpp.lz"
+; TilesetPokeComCenterGFX:
+; INCBIN "gfx/tilesets/pokecom_center.2bpp.lz"
 
-TilesetPokeComCenterMeta:
-INCBIN "data/tilesets/pokecom_center_metatiles.bin"
+; TilesetPokeComCenterMeta:
+; INCBIN "data/tilesets/pokecom_center_metatiles.bin"
 
-TilesetPokeComCenterColl:
-INCLUDE "data/tilesets/pokecom_center_collision.asm"
+; TilesetPokeComCenterColl:
+; INCLUDE "data/tilesets/pokecom_center_collision.asm"
 
 TilesetBattleTowerGFX:
 INCBIN "gfx/tilesets/battle_tower.2bpp.lz"

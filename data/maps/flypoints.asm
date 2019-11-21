@@ -19,6 +19,7 @@ Flypoints:
 	flypoint LAKE_OF_RAGE, LAKE_OF_RAGE
 	flypoint BLACKTHORN,   BLACKTHORN_CITY
 	flypoint MT_SILVER,    SILVER_CAVE
+	flypoint ROUTE_32,     ROUTE_32
 
 ; Kanto
 KANTO_FLYPOINT EQU const_value

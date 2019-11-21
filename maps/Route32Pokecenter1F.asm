@@ -2,11 +2,16 @@
 	const ROUTE32POKECENTER1F_NURSE
 	const ROUTE32POKECENTER1F_FISHING_GURU
 	const ROUTE32POKECENTER1F_COOLTRAINER_F
+	const ROUTE32POKECENTER1F_CLERK
 
 Route32Pokecenter1F_MapScripts:
 	db 0 ; scene scripts
+	db 1 ; callbacks
+    callback MAPCALLBACK_NEWMAP, .Flypoint
 
-	db 0 ; callbacks
+.Flypoint:
+       setflag ENGINE_FLYPOINT_ROUTE_32
+       return
 
 Route32Pokecenter1FNurseScript:
 	jumpstd pokecenternurse
@@ -42,6 +47,12 @@ Route32Pokecenter1FFishingGuruScript:
 
 Route32Pokecenter1FCooltrainerFScript:
 	jumptextfaceplayer Route32Pokecenter1FCooltrainerFText
+
+Route32MartClerkScript:
+	opentext
+	pokemart MARTTYPE_STANDARD, MART_TOWN
+	closetext
+	end
 
 Route32Pokecenter1FFishingGuruText_Question:
 	text "This is a great"
@@ -96,15 +107,16 @@ Route32Pokecenter1F_MapEvents:
 	db 0, 0 ; filler
 
 	db 3 ; warp events
-	warp_event  3,  7, ROUTE_32, 1
-	warp_event  4,  7, ROUTE_32, 1
+	warp_event  5,  7, ROUTE_32, 1
+	warp_event  6,  7, ROUTE_32, 1
 	warp_event  0,  7, POKECENTER_2F, 1
 
 	db 0 ; coord events
 
 	db 0 ; bg events
 
-	db 3 ; object events
-	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FNurseScript, -1
-	object_event  1,  4, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FFishingGuruScript, -1
-	object_event  6,  2, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FCooltrainerFScript, -1
+	db 4 ; object events
+	object_event  5,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FNurseScript, -1
+	object_event  3,  3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FFishingGuruScript, -1
+	object_event  8,  2, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FCooltrainerFScript, -1
+	object_event 12,  6, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route32MartClerkScript, -1

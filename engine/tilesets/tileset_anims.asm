@@ -258,7 +258,7 @@ TilesetTrainStationAnim:
 TilesetChampionsRoomAnim:
 TilesetLighthouseAnim:
 TilesetPlayersRoomAnim:
-TilesetPokeComCenterAnim:
+; TilesetPokeComCenterAnim:
 TilesetBattleTowerAnim:
 TilesetRuinsOfAlphAnim:
 TilesetRadioTowerAnim:

@@ -1,18 +1,16 @@
 	const_def 2 ; object constants
-	const ROUTE29_COOLTRAINER_M1
 	const ROUTE29_YOUNGSTER
 	const ROUTE29_TEACHER1
 	const ROUTE29_FRUIT_TREE
 	const ROUTE29_FISHER
-	const ROUTE29_COOLTRAINER_M2
+	const ROUTE29_COOLTRAINER_M1
 	const ROUTE29_TUSCANY
 	const ROUTE29_POKE_BALL
 	const ROUTE29_MOVETUTOR
 
 Route29_MapScripts:
-	db 2 ; scene scripts
+	db 1 ; scene scripts
 	scene_script .DummyScene0 ; SCENE_ROUTE29_NOTHING
-	scene_script .DummyScene1 ; SCENE_ROUTE29_CATCH_TUTORIAL
 
 	db 1 ; callbacks
 	callback MAPCALLBACK_OBJECTS, .Tuscany
@@ -20,18 +18,11 @@ Route29_MapScripts:
 .DummyScene0:
 	end
 
-.DummyScene1:
-	end
-
-.Tuscany:
-	checkflag ENGINE_ZEPHYRBADGE
-	iftrue .DoesTuscanyAppear
-
 .TuscanyDisappears:
 	disappear ROUTE29_TUSCANY
 	return
 
-.DoesTuscanyAppear:
+.Tuscany:
 	checkcode VAR_WEEKDAY
 	ifnotequal TUESDAY, .TuscanyDisappears
 	appear ROUTE29_TUSCANY
@@ -103,106 +94,6 @@ MoveTutorScript29:
 
 .NotEnoughMoney:
 	writetext Route29_NotEnoughMoney
-	waitbutton
-	closetext
-	end
-
-Route29Tutorial1:
-	turnobject ROUTE29_COOLTRAINER_M1, UP
-	showemote EMOTE_SHOCK, ROUTE29_COOLTRAINER_M1, 15
-	applymovement ROUTE29_COOLTRAINER_M1, DudeMovementData1a
-	turnobject PLAYER, LEFT
-	setevent EVENT_DUDE_TALKED_TO_YOU
-	opentext
-	writetext CatchingTutorialIntroText
-	yesorno
-	iffalse Script_RefusedTutorial1
-	closetext
-	follow ROUTE29_COOLTRAINER_M1, PLAYER
-	applymovement ROUTE29_COOLTRAINER_M1, DudeMovementData1b
-	stopfollow
-	loadwildmon MEOWTH, 4
-	catchtutorial BATTLETYPE_TUTORIAL
-	turnobject ROUTE29_COOLTRAINER_M1, UP
-	opentext
-	writetext CatchingTutorialDebriefText
-	waitbutton
-	closetext
-	setscene SCENE_ROUTE29_NOTHING
-	setevent EVENT_LEARNED_TO_CATCH_POKEMON
-	end
-
-Route29Tutorial2:
-	turnobject ROUTE29_COOLTRAINER_M1, UP
-	showemote EMOTE_SHOCK, ROUTE29_COOLTRAINER_M1, 15
-	applymovement ROUTE29_COOLTRAINER_M1, DudeMovementData2a
-	turnobject PLAYER, LEFT
-	setevent EVENT_DUDE_TALKED_TO_YOU
-	opentext
-	writetext CatchingTutorialIntroText
-	yesorno
-	iffalse Script_RefusedTutorial2
-	closetext
-	follow ROUTE29_COOLTRAINER_M1, PLAYER
-	applymovement ROUTE29_COOLTRAINER_M1, DudeMovementData2b
-	stopfollow
-	loadwildmon MEOWTH, 4
-	catchtutorial BATTLETYPE_TUTORIAL
-	turnobject ROUTE29_COOLTRAINER_M1, UP
-	opentext
-	writetext CatchingTutorialDebriefText
-	waitbutton
-	closetext
-	setscene SCENE_ROUTE29_NOTHING
-	setevent EVENT_LEARNED_TO_CATCH_POKEMON
-	end
-
-Script_RefusedTutorial1:
-	writetext CatchingTutorialDeclinedText
-	waitbutton
-	closetext
-	applymovement ROUTE29_COOLTRAINER_M1, DudeMovementData1b
-	setscene SCENE_ROUTE29_NOTHING
-	end
-
-Script_RefusedTutorial2:
-	writetext CatchingTutorialDeclinedText
-	waitbutton
-	closetext
-	applymovement ROUTE29_COOLTRAINER_M1, DudeMovementData2b
-	setscene SCENE_ROUTE29_NOTHING
-	end
-
-CatchingTutorialDudeScript:
-	faceplayer
-	opentext
-	checkcode VAR_BOXSPACE
-	ifequal 0, .BoxFull
-	checkevent EVENT_LEARNED_TO_CATCH_POKEMON
-	iftrue .BoxFull
-	checkevent EVENT_GAVE_MYSTERY_EGG_TO_ELM
-	iffalse .BoxFull
-	writetext CatchingTutorialRepeatText
-	yesorno
-	iffalse .Declined
-	closetext
-	loadwildmon RATTATA, 5
-	catchtutorial BATTLETYPE_TUTORIAL
-	opentext
-	writetext CatchingTutorialDebriefText
-	waitbutton
-	closetext
-	setevent EVENT_LEARNED_TO_CATCH_POKEMON
-	end
-
-.BoxFull:
-	writetext CatchingTutorialBoxFullText
-	waitbutton
-	closetext
-	end
-
-.Declined:
-	writetext CatchingTutorialDeclinedText
 	waitbutton
 	closetext
 	end
@@ -316,51 +207,6 @@ DudeMovementData2b:
 	step DOWN
 	step DOWN
 	step_end
-
-CatchingTutorialBoxFullText:
-	text "#MON hide in"
-	line "the grass. Who"
-
-	para "knows when they'll"
-	line "pop out…"
-	done
-
-CatchingTutorialIntroText:
-	text "I've seen you a"
-	line "couple times. How"
-
-	para "many #MON have"
-	line "you caught?"
-
-	para "Would you like me"
-	line "to show you how to"
-	cont "catch #MON?"
-	done
-
-CatchingTutorialDebriefText:
-	text "That's how you do"
-	line "it."
-
-	para "If you weaken them"
-	line "first, #MON are"
-	cont "easier to catch."
-	done
-
-CatchingTutorialDeclinedText:
-	text "Oh. Fine, then."
-
-	para "Anyway, if you"
-	line "want to catch"
-
-	para "#MON, you have"
-	line "to walk a lot."
-	done
-
-CatchingTutorialRepeatText:
-	text "Huh? You want me"
-	line "to show you how to"
-	cont "catch #MON?"
-	done
 
 Route29YoungsterText:
 	text "Yo. How are your"
@@ -556,16 +402,13 @@ Route29_MapEvents:
 	db 1 ; warp events
 	warp_event 27,  1, ROUTE_29_ROUTE_46_GATE, 3
 
-	db 2 ; coord events
-	coord_event 53,  8, SCENE_ROUTE29_CATCH_TUTORIAL, Route29Tutorial1
-	coord_event 53,  9, SCENE_ROUTE29_CATCH_TUTORIAL, Route29Tutorial2
+	db 0 ; coord events
 
 	db 2 ; bg events
 	bg_event 51,  7, BGEVENT_READ, Route29Sign1
 	bg_event  7,  7, BGEVENT_READ, Route29Sign2
 
-	db 9 ; object events
-	object_event 50, 12, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CatchingTutorialDudeScript, -1
+	db 8 ; object events
 	object_event 29, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route29YoungsterScript, -1
 	object_event 34,  8, SPRITE_TEACHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route29TeacherScript, -1
 	object_event 17,  3, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route29FruitTree, -1

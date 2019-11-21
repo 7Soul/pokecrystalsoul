@@ -1592,19 +1592,6 @@ Pokedex_PlaceDefaultStringIfNotSeen:
 .NameNotSeen:
 	db "-----@"
 
-Pokedex_DrawFootprint:
-	hlcoord 18, 1
-	ld a, $62
-	ld [hli], a
-	inc a
-	ld [hl], a
-	hlcoord 18, 2
-	ld a, $64
-	ld [hli], a
-	inc a
-	ld [hl], a
-	ret
-
 Pokedex_GetSelectedMon:
 ; Gets the species of the currently selected Pokémon. This corresponds to the
 ; position of the cursor in the main listing, but this function can be used
@@ -2399,49 +2386,6 @@ Pokedex_LoadSelectedMonTiles:
 	call CloseSRAM
 	ret
 
-Pokedex_LoadCurrentFootprint:
-	call Pokedex_GetSelectedMon
-
-Pokedex_LoadAnyFootprint:
-	ld a, [wTempSpecies]
-	dec a
-	and %11111000
-	srl a
-	srl a
-	srl a
-	ld e, 0
-	ld d, a
-	ld a, [wTempSpecies]
-	dec a
-	and %111
-	swap a ; * $10
-	ld l, a
-	ld h, 0
-	add hl, de
-	ld de, Footprints
-	add hl, de
-
-	push hl
-	ld e, l
-	ld d, h
-	ld hl, vTiles2 tile $62
-	lb bc, BANK(Footprints), 2
-	call Request1bpp
-	pop hl
-
-	; Whoever was editing footprints forgot to fix their
-	; tile editor. Now each bottom half is 8 tiles off.
-	ld de, 8 tiles
-	add hl, de
-
-	ld e, l
-	ld d, h
-	ld hl, vTiles2 tile $64
-	lb bc, BANK(Footprints), 2
-	call Request1bpp
-
-	ret
-
 Pokedex_LoadGFX:
 	call DisableLCD
 	ld hl, vTiles2
@@ -2667,6 +2611,9 @@ AddFoughtPokemon:
 	inc a
 	call RandomRange
 	add d
+rept 16
+	inc a
+endr
 	ld [hl], a
 .maxed
 	ret

@@ -109,7 +109,7 @@ if DEF(_DEBUG)
 	givepoke NINETALES, 60	
 	givepoke PIDGEY, 20
 	; givepoke KRABBY, 10
-	callasm CheatFillPokedex
+	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
 	; callasm CheatGiveKantoBadges

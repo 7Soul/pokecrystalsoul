@@ -1398,6 +1398,8 @@ RareCandyEffect:
 	ld [wForceEvolution], a
 	farcall EvolvePokemon
 
+	predef AddFoughtPokemon
+
 	jp UseDisposableItem
 
 HealPowderEffect:
