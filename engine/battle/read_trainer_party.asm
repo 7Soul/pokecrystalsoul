@@ -99,14 +99,20 @@ ReadTrainerPartyPieces:
 	call GetNextTrainerDataByte
 	cp $ff
 	ret z
+	ld d, a ; save badge byte in d
+
+	swap a
+	and %1111 ; get first digit (badge min)
 	cp b
-	jp nc, .skip_2more ; skip badge low
-	
-	call GetNextTrainerDataByte
+	jp nc, .skip ; skip badge low
+
+	ld a, d
+	and %1111 ; get second digit (badge max)
+	cp $f
+	jr z, .always ; $F max badges will always appear (after the minimum matches)
 	cp b
-	jp c, .skip ;
-	; jp z, .skip ; skip badge high
-	
+	jp c, .skip
+.always
 	call GetNextTrainerDataByte
 	ld d, a ; put level in d
 	; change level
