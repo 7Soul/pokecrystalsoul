@@ -1547,7 +1547,7 @@ CheckTypeMatchup:
 	ld b, [hl] ; opp mon type 1
 	inc hl
 	ld c, [hl] ; opp mon type 2
-	dec [hl]
+	dec hl
 	jr .not_fire_play_has_opp_type
 
 .is_fire_play ; bc contains own mon types

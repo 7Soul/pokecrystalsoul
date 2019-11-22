@@ -255,7 +255,7 @@ ReadTrainerPartyPieces:
 .copy_moves
 	call GetNextTrainerDataByte
 	dec hl
-	cp $FF
+	cp NO_MOVE
 	jp z, .new_is_ff
 
 	call GetNextTrainerDataByte

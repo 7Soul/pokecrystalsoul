@@ -1043,7 +1043,7 @@ MoveScreenLoop:
 	inc a
 	ld [wPartyMenuCursor], a
 	call SetUpMoveScreenBG
-	call Function132d3
+	call PlaceMoveScreenArrows
 	ld de, MoveScreenAttributes
 	call SetMenuAttributes
 .loop
@@ -1443,12 +1443,12 @@ String_MoveAcc:
 String_na:
 	db "---@"
 
-Function132d3:
-	call Function132da
-	call Function132fe
+PlaceMoveScreenArrows:
+	call PlaceMoveScreenLeftArrow
+	call PlaceMoveScreenRightArrow
 	ret
 
-Function132da:
+PlaceMoveScreenLeftArrow:
 	ld a, [wCurPartyMon]
 	and a
 	ret z
@@ -1477,7 +1477,7 @@ Function132da:
 	ld [hl], "◀"
 	ret
 
-Function132fe:
+PlaceMoveScreenRightArrow:
 	ld a, [wCurPartyMon]
 	inc a
 	ld c, a

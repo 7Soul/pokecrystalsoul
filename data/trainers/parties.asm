@@ -368,10 +368,10 @@ YoungsterGroup:
 
 	; YOUNGSTER (4)
 	db "Gordon@", TRAINERTYPE_MOVES
-	db 0, 6, 6, 0, DODUO, $FF, $FF, $FF, $FF
-	db 6, 17, 7, 1, DODUO, $FF, $FF, $FF, $FF
-	db 1, 17, 4, 1, ELEKID, $FF, $FF, $FF, $FF
-	db 7, 17, 8, 1, DODUO, $FF, $FF, $FF, ICE_BEAM
+	db 0, 6, 6, 0, DODUO, NO_MOVE, NO_MOVE, NO_MOVE, ICE_BEAM
+	db 6, 17, 7, 1, DODUO, NO_MOVE, NO_MOVE, NO_MOVE, ICE_BEAM
+	db 1, 17, 4, 1, ELEKID, NO_MOVE, NO_MOVE, NO_MOVE, ICE_BEAM
+	db 7, 17, 8, 1, DODUO, NO_MOVE, NO_MOVE, NO_MOVE, ICE_BEAM
 	db -1 ; end
 
 	; YOUNGSTER (5)
