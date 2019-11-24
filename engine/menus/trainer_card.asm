@@ -46,9 +46,14 @@ TrainerCard:
 
 	farcall GetCardPic
 
-	call TrainerCard_PrintTopHalfOfCard
-
 	call EnableLCD
+	call TrainerCard_PrintTopHalfOfCard
+	ld hl, CardStatusGFX
+	ld de, vTiles2 tile $6f
+	ld bc, 86 tiles
+	ld a, BANK(CardStatusGFX)
+	call FarCopyBytes
+	
 	call WaitBGMap
 	ld b, SCGB_TRAINER_CARD
 	call GetSGBLayout
@@ -94,10 +99,6 @@ TrainerCard_Page1_LoadGFX:
 	lb bc, 8, 18
 	call ClearBox
 	call WaitBGMap
-	ld de, LeaderGFX
-	ld hl, vTiles2 tile $29
-	lb bc, BANK(LeaderGFX), 86
-	call Request2bpp
 	call TrainerCard_Page1_PrintDexCaught_GameTime
 	call TrainerCard_IncrementJumptable
 	ret
@@ -134,11 +135,11 @@ TrainerCard_Page2_LoadGFX:
 	call WaitBGMap
 	ld de, LeaderGFX
 	ld hl, vTiles2 tile $29
-	lb bc, BANK(LeaderGFX), 86
+	lb bc, BANK(LeaderGFX), 70
 	call Request2bpp
 	ld de, BadgeGFX
 	ld hl, vTiles0 tile $00
-	lb bc, BANK(BadgeGFX), 44
+	lb bc, BANK(BadgeGFX), 32
 	call Request2bpp
 	call TrainerCard_Page2_3_InitObjectsAndStrings
 	call TrainerCard_Page2_3_InitBadgeDrawingsJohto
@@ -197,11 +198,11 @@ TrainerCard_Page3_LoadGFX:
 	call WaitBGMap
 	ld de, LeaderGFX2
 	ld hl, vTiles2 tile $29
-	lb bc, BANK(LeaderGFX2), 86
+	lb bc, BANK(LeaderGFX2), 70
 	call Request2bpp
 	ld de, BadgeGFX2
 	ld hl, vTiles0 tile $00
-	lb bc, BANK(BadgeGFX2), 44
+	lb bc, BANK(BadgeGFX2), 32
 	call Request2bpp
 	call TrainerCard_Page2_3_InitObjectsAndStrings
 	call TrainerCard_Page2_3_InitBadgeDrawingsKanto
@@ -836,8 +837,7 @@ TrainerCard_KantoBadgesOAM:
 	db $1c, $20, $24, $20 | (1 << 7)
 	db $1c | (1 << 7), $20, $24, $20 | (1 << 7)
 
-; CardStatusGFX: INCBIN "gfx/trainer_card/card_status.2bpp"
-
+CardStatusGFX: INCBIN "gfx/trainer_card/card_status.2bpp"
 LeaderGFX:  INCBIN "gfx/trainer_card/leaders.2bpp"
 LeaderGFX2: INCBIN "gfx/trainer_card/leaders2.2bpp"
 BadgeGFX:   INCBIN "gfx/trainer_card/badges.2bpp"

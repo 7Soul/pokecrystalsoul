@@ -24,4 +24,11 @@ UsefulMoves:
 	db SILVER_WIND
 	db X_SCISSOR
 	db BUG_BUZZ
+	db AQUA_TAIL
+	db JET_STREAM
+	db POWER_GEM
+	db ROCK_TOMB
+	db ZEN_HEADBUTT
+	db HYPER_SONAR
+	db MAKESHIFT
 	db -1 ; end

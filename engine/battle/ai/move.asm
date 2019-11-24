@@ -120,6 +120,15 @@ AIChooseMove:
 	ld hl, wBuffer1
 	ld de, wEnemyMonMoves
 	ld c, wEnemyMonMovesEnd - wEnemyMonMoves
+	; Preview scores
+	; ld a, [wBuffer1]
+	; ld [$c000], a
+	; ld a, [wBuffer2]
+	; ld [$c001], a
+	; ld a, [wBuffer3]
+	; ld [$c002], a
+	; ld a, [wBuffer4]
+	; ld [$c003], a
 
 .DecrementNextScore:
 	; If the enemy has no moves, this will infinite.

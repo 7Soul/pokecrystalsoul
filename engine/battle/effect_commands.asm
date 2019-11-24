@@ -1498,12 +1498,7 @@ BattleCheckTypeMatchup:
 	and a
 	jr z, .get_type
 	ld hl, wBattleMonType1
-
 .get_type
-	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVar ; preserves hl, de, and bc
-	and TYPE_MASK
-
 CheckTypeMatchup:
 	push hl
 	push de
@@ -1529,16 +1524,17 @@ CheckTypeMatchup:
 	ld de, wPlayerTypeMod
 	ld a, [de]	
 	cp 0
-	ld d, a ; move type
 	jr nz, .has_mod
 
-.no_mod
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK
 	ld d, a ; move type
+	jr .no_mod
 
 .has_mod
+	ld d, a ; move type
+.no_mod
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
 	cp FIRE_PLAY

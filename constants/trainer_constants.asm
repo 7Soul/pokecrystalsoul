@@ -325,6 +325,7 @@ KRIS EQU __enum__
 	const COLETTE
 	const HILLARY
 	const SHIRLEY
+	const EMILY
 
 	trainerclass SABRINA ; 23
 	const SABRINA1
@@ -669,15 +670,21 @@ KRIS EQU __enum__
 
 	trainerclass TWINS ; 3d
 	const AMYANDMAY1
+	const AMYANDMAY2
 	const ANNANDANNE1
 	const ANNANDANNE2
-	const AMYANDMAY2
 	const JOANDZOE1
 	const JOANDZOE2
 	const MEGANDPEG1
 	const MEGANDPEG2
 	const LEAANDPIA1
 	const LEAANDPIA2
+	const CHLOEANDIVY
+	const CHLOEANDIVY2
+	const RUBYANDAMBER
+	const RUBYANDAMBER2
+	const RAINANDKAI
+	const RAINANDKAI2
 
 	trainerclass POKEFANF ; 3e
 	const BEVERLY1

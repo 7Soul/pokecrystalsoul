@@ -393,8 +393,6 @@ IsMonHoldingEverstone:
 	ld a, [hl]
 	cp EVERSTONE
 	jr z, .is_everstone
-	cp CARAPACE
-	jr z, .is_everstone
 	cp TOUGH_HORN
 	jr z, .is_everstone
 	cp STEEL_WING

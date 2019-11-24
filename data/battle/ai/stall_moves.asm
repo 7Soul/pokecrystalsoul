@@ -35,4 +35,6 @@ StallMoves:
 	db NASTY_PLOT
 	db EERIEIMPULSE
 	db BULK_UP
+	db PRISM_LIGHT
+	db HARMONY
 	db -1 ; end

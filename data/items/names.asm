@@ -43,7 +43,7 @@ ItemNames::
 	db "Super Repel@"
 	db "Max Repel@"
 	db "Dire Hit@"
-	db "Carapace@"
+	db "Unused@"
 	db "Fresh Water@"
 	db "Soda Pop@"
 	db "Lemonade@"

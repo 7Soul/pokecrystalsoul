@@ -505,10 +505,11 @@ UnleashedEnergyText:
 	prompt
 
 BattleText_HarmonyStart:
-	text "<USER> began a"
-	line "@"
+	text "<USER>'s"
+	line "in harmony with"
+	cont "@"
 	text_from_ram wStringBuffer1
-	text " harmony!"
+	text "!"
 	prompt
 	
 BattleText_HarmonyOver:

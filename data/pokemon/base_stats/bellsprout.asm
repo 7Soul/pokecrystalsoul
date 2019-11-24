@@ -1,6 +1,6 @@
 	db BELLSPROUT ; 069
 
-	db  50,  75,  35,  40,  70,  30
+	db  55,  80,  35,  40,  65,  30
 	;   hp  atk  def  spd  sat  sdf
 
 	db GRASS, GRASS ; type

@@ -262,7 +262,7 @@ TrainerClassAttributes:
 ; Hiker
 	db NO_ITEM, NO_ITEM ; items
 	db 8 ; base reward
-	dw AI_BASIC | AI_OFFENSIVE | AI_STATUS
+	dw AI_BASIC | AI_SMART
 	dw CONTEXT_USE | SWITCH_SOMETIMES
 
 ; Biker
@@ -364,7 +364,7 @@ TrainerClassAttributes:
 ; Twins
 	db NO_ITEM, NO_ITEM ; items
 	db 5 ; base reward
-	dw NO_AI
+	dw AI_BASIC | AI_CAUTIOUS | AI_TYPES
 	dw CONTEXT_USE | SWITCH_OFTEN
 
 ; Pokefanf

@@ -1,6 +1,6 @@
 	db WEEPINBELL ; 070
 
-	db  65,  90,  50,  55,  85,  45
+	db  65, 100,  50,  55,  80,  45
 	;   hp  atk  def  spd  sat  sdf
 
 	db GRASS, GRASS ; type

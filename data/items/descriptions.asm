@@ -44,7 +44,7 @@ ItemDescriptions:
 	dw SuperRepelDesc
 	dw MaxRepelDesc
 	dw DireHitDesc
-	dw CarapaceDesc
+	dw UnusedDesc
 	dw FreshWaterDesc
 	dw SodaPopDesc
 	dw LemonadeDesc
@@ -431,7 +431,7 @@ DireHitDesc:
 	db   "Ups critical hit"
 	next "ratio. (1 BTL)@"
 
-CarapaceDesc:
+UnusedDesc:
 	db   "Powers unevolved"
 	next "BUG-Types.@"
 

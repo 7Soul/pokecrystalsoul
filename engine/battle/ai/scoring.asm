@@ -184,9 +184,9 @@ AI_Types:
 
 ; effective
 	ld a, [wEnemyMoveStruct + MOVE_POWER]
-	ld b, 1
-	cp b
+	cp 2
 	jr c, .checkmove
+	dec [hl]
 	dec [hl]
 	jr .checkmove
 
@@ -229,6 +229,7 @@ AI_Types:
 	pop hl
 	and a
 	jr z, .checkmove
+	inc [hl]
 	inc [hl]
 	jr .checkmove
 
@@ -398,6 +399,7 @@ AI_Smart:
 	dbw EFFECT_FIRE_FLICK,       AI_Smart_FireFlick
 	dbw EFFECT_JET_STREAM,       AI_Smart_JetStream
 	dbw EFFECT_FIRE_PLAY,        AI_Smart_FirePlay
+	dbw EFFECT_MOD_TYPE,         AI_Smart_Harmony
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -498,7 +500,7 @@ AI_Smart_LockOn:
 	call AIGetEnemyMove
 
 	ld a, [wEnemyMoveStruct + MOVE_ACC]
-	cp 180
+	cp 180 ; 70%
 	jr nc, .asm_3884f
 
 	ld a, $1
@@ -2914,6 +2916,199 @@ AI_Smart_FirePlay:
 ; if the speed is maxed already, resets
 	inc [hl]
 	inc [hl]
+	ret
+
+AI_Smart_Harmony:
+; Encourages if enemy has a damaging move that isn't super effective, but their own primary type is
+; Encourages if player has a damaging move that is super effective
+	ld a, [wPlayerTypeMod]
+	and a
+	jr z, .no_mods
+; heavily discourages Harmony if it's already active
+	call AIDiscourageMove
+.no_mods
+	push hl
+	push bc
+	call CheckMonTypeMatchup
+	ld a, [wTypeMatchup]
+	cp EFFECTIVE
+	pop bc
+	pop hl
+	jp c, .enemy_loses
+; Enemy has an advantagious primary type
+; Now we check if we have a powerful move (80+ power) that is not effective
+	push hl
+	ld hl, wBuffer1 - 1
+	ld de, wEnemyMonMoves
+	ld b, wEnemyMonMovesEnd - wEnemyMonMoves + 1
+.checkmove
+	dec b
+	jp z, .end
+
+	inc hl
+	ld a, [de]
+	and a
+	jp z, .end
+
+	inc de
+	call AIGetEnemyMove
+
+	push hl
+	push bc
+	push de
+	ld a, 1
+	ldh [hBattleTurn], a
+	callfar BattleCheckTypeMatchup
+	pop de
+	pop bc
+	pop hl
+
+	ld a, [wTypeMatchup]
+	cp EFFECTIVE
+	jr z, .notveryeffective
+	jr c, .notveryeffective
+
+; effective
+	ld a, [wEnemyMoveStruct + MOVE_POWER]
+	cp 2
+	jr c, .checkmove
+; if the move is already effective we discourage Harmony
+	ld a, [wEnemyMoveStruct + MOVE_POWER]
+	cp 65
+	jp c, .checkmove
+
+	ld a, [wPlayerTypeMod]
+	and a
+	jr z, .checkmove
+	dec [hl] ; encourage high damage move if there is a mod
+	jp .checkmove
+
+.notveryeffective
+; If the move is not very effective but high power
+	ld a, [wEnemyMoveStruct + MOVE_POWER]
+	cp 65
+	jp c, .checkmove
+; 50% to encourage move if harmony is active
+	ld a, [wPlayerTypeMod]
+	and a
+	jr z, .checkmove
+	call AI_50_50
+	jp c, .checkmove
+	push de 
+	ld d, h ; we temporarily save hl in de
+	ld e, l
+	pop hl
+	dec [hl]
+	dec [hl]
+	ld h, d
+	ld l, e ; restore hl
+	pop de ; 
+	jp .checkmove
+; finished checking moves, now simply check if it's viable to use Harmony based on HP
+.end
+	call AICheckEnemyQuarterHP
+	jr nc, .enemy_low
+; ...but the player is already low...
+	call AICheckPlayerQuarterHP
+	jr nc, .player_low
+; 80% chance to greatly encourage on high hp, meaning the opp will try to get their powerful move to be super effective
+	call AI_80_20 
+	pop hl
+	ret c
+	dec [hl]
+	dec [hl]
+	ret
+; 50% chance to discourage, meaning using harmony when the player is already low is a waste of a turn
+.player_low 
+	call AI_50_50
+	pop hl
+	ret c
+	inc [hl]
+	inc [hl]
+	ret
+; enemy is low so 80% chance to not waste a turn using Harmony
+.enemy_low
+	call AI_80_20
+	pop hl
+	ret c
+	inc [hl]
+	inc [hl]
+	ret
+.enemy_loses
+; The enemy type isn't advantageous
+	inc [hl]
+	inc [hl]
+	ret
+
+CheckMonTypeMatchup:
+	push de
+	push hl
+	push bc	
+	ld a, [wEnemyMonType1]
+	ld d, a
+	ld hl, wBattleMonType1
+	ld b, [hl] ; player mon type 1
+	inc hl
+	ld c, [hl] ; player mon type 2
+	ld a, 10 ; 1.0
+	ld [wTypeMatchup], a
+	ld hl, TypeMatchups
+	
+.TypesLoop:
+	ld a, [hli]
+	
+	cp -2
+	jr nz, .Next
+	ld a, BATTLE_VARS_SUBSTATUS1_OPP
+	call GetBattleVar
+	bit SUBSTATUS_IDENTIFIED, a
+	jr z, .End
+	
+	cp -1
+	jr z, .End
+	
+	jr .TypesLoop
+
+.Next:
+	cp d
+	jr nz, .Nope
+	ld a, [hli]
+	cp b
+	jr z, .Yup
+	cp c
+	jr z, .Yup
+	jr .Nope2
+
+.Nope:
+	inc hl
+.Nope2:
+	inc hl
+	jr .TypesLoop
+
+.Yup:
+	xor a
+	ldh [hDividend + 0], a
+	ldh [hMultiplicand + 0], a
+	ldh [hMultiplicand + 1], a
+	ld a, [hli]
+	ldh [hMultiplicand + 2], a
+	ld a, [wTypeMatchup]
+	ldh [hMultiplier], a
+	call Multiply
+	ld a, 10
+	ldh [hDivisor], a
+	push bc
+	ld b, 4
+	call Divide
+	pop bc
+	ldh a, [hQuotient + 3]
+	ld [wTypeMatchup], a
+	jr .TypesLoop
+
+.End:
+	pop bc
+	pop de
+	pop hl
 	ret
 
 AICompareSpeed:
