@@ -188,7 +188,11 @@ AI_Types:
 	ld a, [wEnemyMoveStruct + MOVE_POWER]
 	cp 2
 	jr c, .checkmove
+
+	call RewardLevel
+	jr c, .low_reward
 	dec [hl]
+.low_reward
 	dec [hl]
 	jr .checkmove
 
@@ -231,7 +235,10 @@ AI_Types:
 	pop hl
 	and a
 	jr z, .checkmove
+	call RewardLevel
+	jr c, .low_reward2
 	inc [hl]
+.low_reward2
 	inc [hl]
 	jr .checkmove
 
@@ -402,6 +409,8 @@ AI_Smart:
 	dbw EFFECT_FIRE_PLAY,        AI_Smart_FirePlay
 	dbw EFFECT_MOD_TYPE,         AI_Smart_Harmony
 	dbw EFFECT_STAMPEDE,         AI_Smart_Stampede
+	dbw EFFECT_POISON,           AI_Smart_Poison
+	dbw EFFECT_POISON_HIT,       AI_Smart_Poison
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -2831,24 +2840,50 @@ AI_Smart_BrickBreak:
 	ret
 	
 AI_Smart_Venoshock:
-; Greatly encourage poisoning moves if the ai has Venoshock.
-; 50% chance to greatly encourage poison inducing moves otherwise.
-
-	ld b, EFFECT_POISON
-	call AIHasMoveEffect
-	jr c, .asm_387f0
-
-	ld b, EFFECT_POISON_HIT
-	call AIHasMoveEffect
-	ret nc
-
-.asm_387f0
+; Greatly encourage Venoshock if the player is poisoned
+	ld a, 0 ; so BATTLE_VARS_STATUS_OPP refers to the player
+	ld [hBattleTurn], a
+	ld a, BATTLE_VARS_STATUS_OPP
+	call GetBattleVar
+	bit PSN, a
+	jr z, .not_poisoned
+; player is poisoned
+	call RewardLevel
+	jr c, .low_reward
+; high reward battles will always use venoshock when effective
+	dec [hl]
+	dec [hl]
+	ret
+; low reward battles only sometimes choose to use venoshock
+.low_reward
 	call AI_50_50
 	ret c
 	dec [hl]
 	dec [hl]
 	ret
-	
+; discourages using venoshock if player isn't poisoned
+.not_poisoned
+	call RewardLevel
+	jr c, .low_reward2
+	inc [hl]
+	ret
+; low reward battles only sometimes discourages venoshock if player isn't poisoned
+.low_reward2
+	call AI_50_50
+	ret c
+	inc [hl]
+	ret
+
+AI_Smart_Poison:
+; Encourages poisoning moves if they also have Venoshock
+	ld b, EFFECT_VENOSHOCK
+	call AIHasMoveEffect
+	jr c, .has_venoshock
+	ret
+.has_venoshock
+	dec [hl]
+	ret
+
 AI_Smart_FireFlick:
 	ld a, [wBattleMonType1]
 	cp FIRE
@@ -3783,4 +3818,16 @@ AI_80_20:
 AI_50_50:
 	call Random
 	cp 50 percent + 1
+	ret
+
+RewardLevel:
+; sets c if the trainer reward is 12 or higher
+	ld a, [wEnemyTrainerBaseReward]
+	cp 12
+	jr c, .no
+
+	scf
+	ret
+.no
+	and a
 	ret

@@ -46,6 +46,8 @@ AI_Redundant:
 	dbw EFFECT_FUTURE_SIGHT, .FutureSight
 	dbw EFFECT_REFLECT,      .Reflect
 	dbw EFFECT_LEAF_SHIELD,  .LeafShield
+	dbw EFFECT_POISON,       .Poison
+	dbw EFFECT_POISON_HIT,   .Poison
 	db -1
 
 .LightScreen:
@@ -193,6 +195,12 @@ AI_Redundant:
 	ld a, [wEnemyScreens]
 	bit 5, a
 	ret
+
+.Poison:
+	ld a, [wBattleMonStatus]
+	and 1 << PSN
+	jr z, .Redundant
+	jr .NotRedundant
 
 .Heal:
 .MorningSun:

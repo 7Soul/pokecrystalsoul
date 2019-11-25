@@ -108,7 +108,7 @@ if DEF(_DEBUG)
 	givepoke CLEFAIRY, 60
 	givepoke NINETALES, 60	
 	givepoke PIDGEY, 20
-	givepoke PONYTA, 38
+	givepoke PONYTA, 39
 	; givepoke KRABBY, 10
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
