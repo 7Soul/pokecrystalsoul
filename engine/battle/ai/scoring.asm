@@ -49,6 +49,8 @@ AI_Basic:
 	pop hl
 	jr nc, .checkmove
 
+		; dismiss status moves if this is the enemy's last mon and the player is low
+
 	ld a, [wBattleMonStatus]
 	and a
 	jr nz, .discourage
@@ -94,7 +96,7 @@ AI_Setup:
 	cp EFFECT_EVASION_UP + 1
 	jr c, .statup
 
-;	cp EFFECT_ATTACK_DOWN - 1
+	cp EFFECT_ATTACK_DOWN - 1
 	jr z, .checkmove
 	cp EFFECT_EVASION_DOWN + 1
 	jr c, .statdown
@@ -104,14 +106,14 @@ AI_Setup:
 	cp EFFECT_EVASION_UP_2 + 1
 	jr c, .statup
 
-;	cp EFFECT_ATTACK_DOWN_2 - 1
+	cp EFFECT_ATTACK_DOWN_2 - 1
 	jr z, .checkmove
 	cp EFFECT_EVASION_DOWN_2 + 1
 	jr c, .statdown
 	jr z, .checkmove
 	
 	cp EFFECT_ATK_DEF_UP
-	jr z, .statdown
+	jr z, .statup
 	
 	jr .checkmove
 
@@ -267,7 +269,6 @@ AI_Offensive:
 
 AI_Smart:
 ; Context-specific scoring.
-
 	ld hl, wBuffer1
 	ld de, wEnemyMonMoves
 	ld b, wEnemyMonMovesEnd - wEnemyMonMoves + 1
@@ -400,6 +401,7 @@ AI_Smart:
 	dbw EFFECT_JET_STREAM,       AI_Smart_JetStream
 	dbw EFFECT_FIRE_PLAY,        AI_Smart_FirePlay
 	dbw EFFECT_MOD_TYPE,         AI_Smart_Harmony
+	dbw EFFECT_STAMPEDE,         AI_Smart_Stampede
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -2126,7 +2128,12 @@ AI_Smart_LeafShield:
 	ld a, [wBattleMonType2]
 	cp WATER
 	jr z, .iswater
-	jr .random_shield
+
+	call Random
+	cp 8 percent ; 92% chance to discourage
+	ret c
+	inc [hl]
+	ret
 
 .iswater
 	call Random
@@ -2134,13 +2141,6 @@ AI_Smart_LeafShield:
 	ret c
 	dec [hl]
 	dec [hl]
-	ret
-	
-.random_shield
-	call Random
-	cp 8 percent ; 92% chance to discourage
-	ret c
-	inc [hl]
 	ret
 
 AI_Smart_PerishSong:
@@ -2929,7 +2929,7 @@ AI_Smart_Harmony:
 .no_mods
 	push hl
 	push bc
-	call CheckMonTypeMatchup
+	call CheckEnemyTypeMatchup
 	ld a, [wTypeMatchup]
 	cp EFFECTIVE
 	pop bc
@@ -3040,16 +3040,40 @@ AI_Smart_Harmony:
 	inc [hl]
 	ret
 
-CheckMonTypeMatchup:
+; Check if the enemy primary type beats the player types
+; Puts the multiplier in wTypeMatchup, usually equals 0, 5, 10, 20
+; If wTypeMatchup is over 10, it means the enemy has an advantageous typing
+CheckEnemyTypeMatchup:
 	push de
 	push hl
 	push bc	
 	ld a, [wEnemyMonType1]
 	ld d, a
 	ld hl, wBattleMonType1
-	ld b, [hl] ; player mon type 1
+	ld a, 0 ; so SUBSTATUS1_OPP refers to the player
+	ld [hBattleTurn], a
+	call CheckMonTypeMatchup
+	ret
+
+; Check if the player primary type beats the enemy types
+; Puts the multiplier in wTypeMatchup, usually equals 0, 5, 10, 20
+; If wTypeMatchup is over 10, it means the player has an advantageous typing
+CheckPlayerTypeMatchup:
+	push de
+	push hl
+	push bc	
+	ld a, [wBattleMonType1]
+	ld d, a
+	ld hl, wEnemyMonType1
+	ld a, 1 ; so SUBSTATUS1_OPP refers to the enemy
+	ld [hBattleTurn], a
+	call CheckMonTypeMatchup
+	ret
+
+CheckMonTypeMatchup:
+	ld b, [hl] ; mon type 1
 	inc hl
-	ld c, [hl] ; player mon type 2
+	ld c, [hl] ; mon type 2
 	ld a, 10 ; 1.0
 	ld [wTypeMatchup], a
 	ld hl, TypeMatchups
@@ -3109,6 +3133,46 @@ CheckMonTypeMatchup:
 	pop bc
 	pop de
 	pop hl
+	ret
+
+AI_Smart_Stampede:
+	ld a, BATTLE_VARS_STATUS_OPP
+	call GetBattleVar
+	bit PAR, a
+	jr nz, .paralyzed ; player is already paralyzed
+
+	; Get the opponent's species
+	push hl
+	ld a, [wBattleMonSpecies]
+; Get the pointer for the enemy's Pokémon's base Attack	
+	ld hl, BaseData + BASE_ATK
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+; Get the Pokémon's base Attack
+	ld a, BANK(BaseData)
+	call GetFarByte
+	ld d, a
+; Get the pointer for the enemy's Pokémon's base Defense
+	ld bc, BASE_DEF - BASE_ATK
+	add hl, bc
+; Get the Pokémon's base Defense
+	ld a, BANK(BaseData)
+	call GetFarByte
+	pop hl
+	
+	cp d
+	ret nc ; check DEF (d) against ATK (a). If DEF is not lower (meaning the player is defensive), stop here
+; 50% chance to greatly encourage to cause stun
+	call AI_50_50
+	ret c
+	dec [hl]
+	dec [hl]
+	ret
+; 50% chance to discourage if already stunned
+.paralyzed
+	call AI_50_50
+	ret c
+	inc [hl]
 	ret
 
 AICompareSpeed:

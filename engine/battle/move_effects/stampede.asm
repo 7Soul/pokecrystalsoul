@@ -21,7 +21,6 @@ BattleCommand_Stampede:
 ; Get the Pokémon's base Defense
 	ld a, BANK(BaseData)
 	call GetFarByte
-	pop hl
 	
 	cp d
 	ret nc ; check DEF (d) against ATK (a). If DEF is not lower (meaning the player is defensive), stop here

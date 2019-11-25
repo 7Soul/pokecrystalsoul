@@ -305,7 +305,7 @@ MistyGroup:
 	db $0F, 3, 0, STARMIE
 	db -1 ; end
 
-SECTION "Enemy Trainer Parties 8", ROMX
+SECTION "Enemy Trainer Parties 2", ROMX
 
 LtSurgeGroup:
 	; LTSURGE (1)
@@ -1635,7 +1635,7 @@ FisherGroup:
 	db $5F, 12, 0, DRAGONAIR
 	db -1 ; end
 
-SECTION "Enemy Trainer Parties 9", ROMX
+SECTION "Enemy Trainer Parties 3", ROMX
 
 SwimmerMGroup:
 	; SWIMMERM (1)
@@ -2077,7 +2077,7 @@ HikerGroup:
 
 	; HIKER (11)
 	db "Bailey@", TRAINERTYPE_MOVES
-	db $0F, 20, 1, SQUIRTLE, STOMP, HARMONY, FIRE_BLAST, TACKLE
+	db $0F, 20, 1, SQUIRTLE, STAMPEDE,TACKLE,DEFENSE_CURL,SAND_ATTACK
 	db -1 ; end
 
 	; HIKER (12)
@@ -2751,7 +2751,7 @@ SageGroup:
 	db $0F, 3, 0, BULBASAUR
 	db -1 ; end
 
-SECTION "Enemy Trainer Parties 10", ROMX
+SECTION "Enemy Trainer Parties 4", ROMX
 
 MediumGroup:
 	; MEDIUM (1)
