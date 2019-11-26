@@ -53,33 +53,37 @@ PrintMoveType:
 	call FarCopyBytes
 	ld a, [wStringBuffer1 + MOVE_TYPE]
 	and TYPE_MASK
+	ld [wCurType], a
 	pop hl
 
+	push hl
+	push bc
+	ld a, [wCurSpecies]
+	ld e, a
+	farcall IsVariableMove	
+	jr nc, .not_variable
+
+	ld a, [wBattleMonType1]
+	ld b, a
+	ld a, [wBattleMonType2]
+	ld c, a
+	ld a, [wCurType]
+	ld d, a
+	farcall GetVariableMoveType
+	pop bc
+	pop hl
+	ld a, [wCurType]
 	ld b, a
 	
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY
-	jr nz, .skip
-	ld a, [wBattleMonType1]
-	cp WATER
-	jr z, .water_play
-	cp FIRE
-	jr z, .fire_play
-	ld a, [wBattleMonType2]
-	cp WATER
-	jr z, .water_play
-	cp FIRE
-	jr z, .fire_play
-	ld a, FLYING
 	jr .end
-.water_play
-	ld a, WATER
-	jr .end
-.fire_play
-	ld a, FIRE
-.end
+
+.not_variable
+	pop bc
+	pop hl
+	ld a, [wCurType]
 	ld b, a
-.skip
+.end
+
 PrintType:
 ; Print type b at hl.
 

@@ -1,20 +1,18 @@
-.WaterPlay:
-	db "Tide Clash@"
+VariableTypes:
+	; pokemon type to check, type to change the move to, etc, etc, -1
+	db FIRE, FIRE, 			WATER, WATER, 			FLYING, FLYING, 	-1				; Kindle Clash -> Tide Clash, Flutter Clap
+	db NORMAL, FIGHTING, 	FIGHTING, FIGHTING, 	ROCK, ROCK, 		DARK, ROCK, -1	; Cross Chop -> Stone Edge
+	db BUG, NORMAL, 		FLYING, FLYING, 		NORMAL, NORMAL, 	-1				; Double Edge -> Brave Bird
+	db -1
 
-.FirePlay:
-	db "Kindle Clash@"
+VariableMoves::
+	db FIRE_PLAY
+	db CROSS_CHOP
+	db DOUBLE_EDGE
+	db -1
 
-.FlyingPlay:
+FirePlayNames:
 	db "Flutter Clap@"
-
-.FirePlayDesc:
-	db   "Recoil if foe has"
-	next "raised stats.@"
-
-.WaterPlayDesc:
-	db   "Recoil if foe has"
-	next "raised stats.@"
-
-.FlyingPlayDesc:
-	db   "Raises SPD if foe"
-	next "has raised stats.@"
+	db "Kindle Clash@"
+	db "Tide Clash@"
+	db "@"

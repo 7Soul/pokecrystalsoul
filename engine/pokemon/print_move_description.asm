@@ -35,4 +35,4 @@ PrintMoveDesc:
 .end
 	jp PlaceString
 
-INCLUDE "data/moves/fire_play_names.asm"
+INCLUDE "data/moves/variable_moves_data.asm"

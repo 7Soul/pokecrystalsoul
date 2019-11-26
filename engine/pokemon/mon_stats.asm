@@ -508,38 +508,68 @@ ListMoves:
 	push hl
 	push hl
 	ld [wCurSpecies], a
-	cp FIRE_PLAY ; fire play
-	jp nz, .no_type
-; move name replacer ; 7soul
+
+	push hl
+	push de
+	push bc
+	push af
+	ld a, [wCurSpecies]
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	pop de
+	pop hl
+
+	push hl
+	push de
+
+	ld a, [wBattleMode] ; overworld or battle check
+	and a
+	jp nz, .battle
+
+	ld a, [wCurPartySpecies]
+	dec a
+	ld hl, BaseData + BASE_TYPES
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+	ld a, [hli]
+	ld b, a
+	ld a, [hl]
+	ld c, a
+	jr .got_types
+.battle
 	ld a, [wBattleMonType1]
-	cp WATER
-	jp z, .water
-	cp FIRE
-	jp z, .fire
+	ld b, a
 	ld a, [wBattleMonType2]
-	cp FLYING
-	jp z, .flying
-	cp WATER
-	jp z, .water
-	cp FIRE
-	jp z, .fire
-	jp .no_type
-.flying
-	ld de, .FlyingPlay
+	ld c, a
+.got_types
+	ld a, [wCurType]
+	ld d, a
+	farcall GetVariableMoveType
+	ld a, [wCurSpecies]
+	ld e, a
+	; ld [$c001], a
+	ld a, [wCurType]
+	; ld [$c002], a
+	farcall GetVariableMoveName
+	pop af
+	ld [wCurSpecies], a
+	pop bc
+	pop de
+	pop hl
 	jr .ok
-.water
-	ld de, .WaterPlay
-	jr .ok
-.fire
-	ld de, .FirePlay
-	jr .ok
-.no_type
+
+.not_variable
+	pop af
+	ld [wCurSpecies], a
+	pop bc
+	pop de
+	pop hl
 	ld a, MOVE_NAME
 	ld [wNamedObjectTypeBuffer], a
 	call GetName
-	ld de, wStringBuffer1
-
 .ok
+	ld de, wStringBuffer1
 	pop hl
 	push bc
 	call PlaceString
@@ -577,5 +607,8 @@ ListMoves:
 .done
 	ret
 
+.temp:
+	db "Temp@"
+
 ; name in status screen and battle menu
-INCLUDE "data/moves/fire_play_names.asm"
+INCLUDE "data/moves/variable_moves_data.asm"

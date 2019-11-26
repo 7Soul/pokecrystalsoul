@@ -259,6 +259,7 @@ PidgeyEvosAttacks:
 	db 8, GUST
 	db 11, QUICK_ATTACK
 	db 15, WING_ATTACK
+	db 15, DOUBLE_EDGE
 	db 19, WHIRLWIND
 	db 19, FLY
 	db 23, AGILITY
@@ -338,7 +339,7 @@ SpearowEvosAttacks:
 	db 8, LEER
 	db 12, FURY_ATTACK
 	db 15, FEATHERGALE
-	db 21, FIRE_PLAY
+	db 21, FIRE_PLAY ; becomes Flutter Clap
 	db 24, MIRROR_MOVE
 	db 33, RECOVER
 	db 37, DRILL_PECK
@@ -351,7 +352,7 @@ FearowEvosAttacks:
 	db 8, LEER
 	db 12, FURY_ATTACK
 	db 19, FEATHERGALE
-	db 23, FIRE_PLAY
+	db 23, FIRE_PLAY ; becomes Flutter Clap
 	db 27, MIRROR_MOVE
 	db 37, RECOVER
 	db 41, DRILL_PECK
@@ -1159,8 +1160,9 @@ GeodudeEvosAttacks:
 	db 26, HARDEN
 	db 29, ROCK_BLAST
 	db 34, EARTHQUAKE
-	db 41, EXPLOSION
+	db 36, EXPLOSION
 	db 40, DOUBLE_EDGE
+	db 42, CROSS_CHOP ; changes to Stone Edge
 	db 0 ; no more level-up moves
 
 GravelerEvosAttacks:
@@ -1173,8 +1175,9 @@ GravelerEvosAttacks:
 	db 27, HARDEN
 	db 31, ROCK_BLAST
 	db 36, EARTHQUAKE
-	db 44, EXPLOSION
+	db 40, EXPLOSION
 	db 45, DOUBLE_EDGE
+	db 49, CROSS_CHOP ; changes to Stone Edge
 	db 0 ; no more level-up moves
 
 GolemEvosAttacks:
@@ -1183,8 +1186,9 @@ GolemEvosAttacks:
 	db 27, HARDEN
 	db 31, ROCK_BLAST
 	db 36, EARTHQUAKE
-	db 46, EXPLOSION
-	db 50, DOUBLE_EDGE
+	db 44, EXPLOSION
+	db 59, DOUBLE_EDGE
+	db 54, CROSS_CHOP ; changes to Stone Edge
 	db 0 ; no more level-up moves
 
 PonytaEvosAttacks:
@@ -1282,7 +1286,7 @@ FarfetchDEvosAttacks:
 	db 1, PECK
 	db 1, POISON_STING
 	db 7, SAND_ATTACK
-	db 9, FIRE_PLAY
+	db 9, FIRE_PLAY ; becomes Flutter Clap
 	db 13, MAKESHIFT
 	db 19, FURY_ATTACK
 	db 21, FEATHERGALE
@@ -1291,6 +1295,7 @@ FarfetchDEvosAttacks:
 	db 37, SLASH
 	db 44, FALSE_SWIPE
 	db 49, AIR_SLASH
+	db 55, DOUBLE_EDGE ; changes to brave bird
 	db 0 ; no more level-up moves
 
 DoduoEvosAttacks:
@@ -1467,6 +1472,7 @@ OnixEvosAttacks:
 	db 33, STAMPEDE
 	db 36, SANDSTORM
 	db 40, SLAM
+	db 46, CROSS_CHOP ; changes to Stone Edge
 	db 52, EARTHQUAKE
 	db 0 ; no more level-up moves
 
@@ -1510,6 +1516,7 @@ KrabbyEvosAttacks:
 	db 5, VICEGRIP
 	db 8, LEER
 	db 10, HARDEN
+	db 10, FIRE_PLAY ; becomes Tide Clash
 	db 13, BUBBLEBEAM
 	db 19, DIG
 	db 22, FROZEN_CLAW
@@ -1708,16 +1715,18 @@ RhyhornEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, HORN_ATTACK
 	db 1, TAIL_WHIP
-	db 12, ROCK_TOMB
-	db 19, FURY_ATTACK
-	db 24, ROCK_BLAST
+	db 8, STOMP
+	db 12, FURY_ATTACK
+	db 18, ROCK_TOMB
+	db 23, ROCK_BLAST
 	db 28, BRICK_BREAK
 	db 31, SCARY_FACE
 	db 34, STAMPEDE
 	db 38, HORN_DRILL
 	db 43, TAKE_DOWN
-	db 45, SANDSTORM
-	db 51, EARTHQUAKE
+	db 52, CROSS_CHOP ; changes to Stone Edge
+	db 56, EARTHQUAKE
+	db 62, MEGAHORN
 	db 0 ; no more level-up moves
 
 RhydonEvosAttacks:
@@ -1727,8 +1736,9 @@ RhydonEvosAttacks:
 	db 34, STAMPEDE
 	db 38, HORN_DRILL
 	db 45, TAKE_DOWN
-	db 49, SANDSTORM
-	db 55, EARTHQUAKE
+	db 54, CROSS_CHOP ; changes to Stone Edge
+	db 59, EARTHQUAKE
+	db 65, MEGAHORN
 	db 0 ; no more level-up moves
 
 ChanseyEvosAttacks:
@@ -1815,7 +1825,7 @@ GoldeenEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, PECK
 	db 1, TAIL_WHIP
-	db 7, FIRE_PLAY
+	db 7, FIRE_PLAY ; becomes Tide Clash
 	db 10, SUPERSONIC
 	db 15, HORN_ATTACK
 	db 24, REVERSAL
@@ -2238,7 +2248,7 @@ ZapdosEvosAttacks:
 	db 5, THUNDERSHOCK
 	db 9, THUNDER_WAVE
 	db 15, PROTECT
-	db 18, FIRE_PLAY
+	db 18, FIRE_PLAY  ; becomes Flutter Clap
 	db 25, ANCIENTPOWER
 	db 31, AGILITY
 	db 36, WILD_STORM
@@ -2251,7 +2261,7 @@ ZapdosEvosAttacks:
 MoltresEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, WING_ATTACK
-	db 5, FIRE_PLAY
+	db 5, FIRE_PLAY  ; becomes Kindle Clash
 	db 8, FIRE_SPIN
 	db 15, AGILITY
 	db 22, ENDURE
@@ -2877,18 +2887,19 @@ AzumarillEvosAttacks:
 
 SudowoodoEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, SLAM
 	db 1, ROCK_THROW
-	db 1, MIMIC
+	db 5, MIMIC
 	db 10, REVERSAL
-	db 19, LOW_KICK
-	db 26, ROCK_TOMB
-	db 29, DEFENSE_CURL
-	db 33, ROCK_SLIDE
+	db 14, LOW_KICK
+	db 17, SLAM
+	db 20, ROCK_TOMB
+	db 26, DEFENSE_CURL
+	db 29, ROCK_SLIDE
+	db 33, COUNTER
 	db 37, FAINT_ATTACK
 	db 43, DOUBLE_EDGE
-	db 46, SLAM
-	db 51, HAMMER_ARM
+	db 47, CROSS_CHOP ; changes to Stone Edge
+	db 52, HAMMER_ARM
 	db 0 ; no more level-up moves
 
 PolitoedEvosAttacks:
@@ -2897,7 +2908,7 @@ PolitoedEvosAttacks:
 	db 5, HYPNOSIS
 	db 10, DOUBLESLAP
 	db 15, PERISH_SONG
-	db 17, FIRE_PLAY
+	db 17, FIRE_PLAY ; becomes Tide Clash
 	db 19, RAIN_DANCE
 	db 29, BODY_SLAM
 	db 35, PERISH_SONG
@@ -3011,7 +3022,7 @@ SunfloraEvosAttacks:
 YanmaEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
-	db 5, FIRE_PLAY
+	db 5, FIRE_PLAY ; becomes Flutter Clap
 	db 9, TWINEEDLE
 	db 14, DOUBLE_TEAM
 	db 19, SONICBOOM
@@ -3238,6 +3249,7 @@ SteelixEvosAttacks:
 	db 41, SANDSTORM
 	db 44, SLAM
 	db 52, CRUNCH
+	db 55, CROSS_CHOP ; changes to Stone Edge
 	db 0 ; no more level-up moves
 
 SnubbullEvosAttacks:
@@ -3391,7 +3403,7 @@ SlugmaEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, POUND
 	db 5, SMOG
-	db 8, FIRE_PLAY
+	db 8, FIRE_PLAY ; becomes Kindle Clash
 	db 10, ROCK_THROW
 	db 13, HARDEN
 	db 22, ANCIENTPOWER
@@ -3405,7 +3417,7 @@ SlugmaEvosAttacks:
 
 MagcargoEvosAttacks:
 	db 0 ; no more evolutions
-	db 8, FIRE_PLAY
+	db 8, FIRE_PLAY ; becomes Kindle Clash
 	db 10, ROCK_THROW
 	db 13, HARDEN
 	db 22, ANCIENTPOWER
@@ -3498,7 +3510,7 @@ OctilleryEvosAttacks:
 
 DelibirdEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, FIRE_PLAY
+	db 1, FIRE_PLAY ; becomes Flutter Clap
 	db 1, SAND_ATTACK
 	db 6, MIST	
 	db 10, MIRROR_MOVE
@@ -3518,7 +3530,7 @@ MantineEvosAttacks:
 	db 1, TACKLE
 	db 1, BUBBLE
 	db 9, SUPERSONIC
-	db 12, FIRE_PLAY
+	db 12, FIRE_PLAY ; becomes Tide Clash
 	db 14, WING_ATTACK
 	db 16, HEADBUTT
 	db 19, BUBBLEBEAM
@@ -3751,7 +3763,7 @@ MagbyEvosAttacks:
 	db 25, SMOKESCREEN
 	db 31, SUNNY_DAY
 	db 37, FLAMETHROWER
-	db 43, FIRE_PLAY
+	db 43, FIRE_PLAY ; becomes Kindle Clash
 	db 45, CONFUSE_RAY
 	db 48, FIRE_BLAST
 	db 0 ; no more level-up moves
@@ -3844,6 +3856,7 @@ LarvitarEvosAttacks:
 	db 23, SCARY_FACE
 	db 29, THRASH
 	db 32, DARK_PULSE
+	db 35, CROSS_CHOP ; changes to Stone Edge
 	db 41, CRUNCH
 	db 46, EARTHQUAKE
 	db 55, HYPER_BEAM
@@ -3854,18 +3867,21 @@ PupitarEvosAttacks:
 	db 0 ; no more evolutions
 	db 29, THRASH
 	db 34, DARK_PULSE
+	db 37, CROSS_CHOP ; changes to Stone Edge
 	db 44, CRUNCH
-	db 50, EARTHQUAKE
-	db 60, HYPER_BEAM
+	db 49, EARTHQUAKE
+	db 59, HYPER_BEAM
 	db 0 ; no more level-up moves
 
 TyranitarEvosAttacks:
 	db 0 ; no more evolutions
 	db 29, THRASH
-	db 34, SCARY_FACE
+	db 34, DARK_PULSE
+	db 37, CROSS_CHOP ; changes to Stone Edge
 	db 44, CRUNCH
-	db 50, EARTHQUAKE
-	db 62, HYPER_BEAM
+	db 49, EARTHQUAKE
+	db 54, SCARY_FACE
+	db 60, HYPER_BEAM
 	db 0 ; no more level-up moves
 
 LugiaEvosAttacks:
@@ -3886,6 +3902,7 @@ HoOhEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SACRED_FIRE
 	db 11, SAFEGUARD
+	db 15, DOUBLE_EDGE ; changes to brave bird
 	db 22, GUST
 	db 29, SUNNY_DAY
 	db 33, RECOVER

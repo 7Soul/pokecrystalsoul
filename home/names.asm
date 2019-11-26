@@ -258,30 +258,36 @@ GetMoveName::
 	ld de, wStringBuffer1
 	pop hl
 
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY ; fire play
-	ret nz
+	; push hl
+	; push de
+	; ld a, [wCurSpecies]
+	; ld e, a; move id
+	; call IsVariableMove
+	; jr nc, .not_variable
 
-	ld a, [wBattleMonType1]
-	cp WATER
-	jp z, .water
-	ld a, [wBattleMonType2]
-	cp FLYING
-	jp z, .flying
-	cp WATER
-	jp z, .water
-	ret
-.flying
-	ld de, .FlyingPlay
-	; call CopyName1
-	ret
-.water
-	ld de, .WaterPlay
-	; call CopyName1
-	ret
+	; ld a, [wBattleMonType1]
+	; ld b, a
+	; ld a, [wBattleMonType2]
+	; ld c, a
+	; call GetVariableMoveType
+	; cp -1
+	; ld de, wStringBuffer1
+	; ret z
 
-.WaterPlay:
-	db "Tide Clash@"
+	; push hl
+	; ld a, [wCurSpecies]
+	; ld e, a; move id
+	; call IsVariableMove
+	; jr nc, .end
 
-.FlyingPlay:
-	db "Flutter Clap@"
+	; ld a, [wCurSpecies]
+	; ld e, a; move id
+	; call GetVariableMoveName
+	; call CopyName2
+	; ld de, wStringBuffer1
+	; ld bc, ITEM_NAME_LENGTH
+	; call CopyBytes
+; .not_variable
+; 	pop de
+; 	pop hl
+	ret

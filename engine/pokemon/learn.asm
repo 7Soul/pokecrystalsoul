@@ -4,37 +4,40 @@ LearnMove:
 	ld hl, wPartyMonNicknames
 	call GetNick
 	
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY ; fire play
-	jp nz, .no_type
 
-	ld a, [wBaseType1]
-	cp WATER
-	jp z, .water
-	cp FIRE
-	jp z, .fire
-	ld a, [wBaseType2]
-	cp FLYING
-	jp z, .flying
-	cp WATER
-	jp z, .water
-	cp FIRE
-	jp z, .fire
-	jp .no_type
-.flying
-	ld de, .FlyingPlay
-	call CopyName1
-	jr .no_type
-.water
-	ld de, .WaterPlay
-	call CopyName1
-	jr .no_type
-.fire
-	ld de, .FirePlay
-	call CopyName1
-	jr .no_type
-.no_type
-	ld a, [wCurPartyMon]
+; 	ld a, [wCurSpecies]
+; 	cp FIRE_PLAY ; fire play
+; 	jp nz, .no_type
+
+; 	ld a, [wBaseType1]
+; 	cp WATER
+; 	jp z, .water
+; 	cp FIRE
+; 	jp z, .fire
+; 	ld a, [wBaseType2]
+; 	cp FLYING
+; 	jp z, .flying
+; 	cp WATER
+; 	jp z, .water
+; 	cp FIRE
+; 	jp z, .fire
+; 	jp .no_type
+; .flying
+; 	ld de, .FlyingPlayName
+; 	call CopyName1
+; 	jr .no_type
+; .water
+; 	ld de, .WaterPlayName
+; 	call CopyName1
+; 	jr .no_type
+; .fire
+; 	ld de, .FirePlayName
+; 	call CopyName1
+; 	jr .no_type
+; .no_type
+; 	ld a, [wCurPartyMon]
+
+
 	ld hl, wStringBuffer1
 	ld de, wMonOrItemNameBuffer
 	ld bc, MON_NAME_LENGTH
@@ -149,7 +152,7 @@ LearnMove:
 	ld b, 1
 	ret
 	
-INCLUDE "data/moves/fire_play_names.asm"
+INCLUDE "data/moves/variable_moves_data.asm"
 
 ForgetMove:
 	push hl

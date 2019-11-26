@@ -230,7 +230,7 @@ BattleAnimations::
 	dw BattleAnim_Encore
 	dw BattleAnim_Pursuit
 	dw BattleAnim_RapidSpin
-	dw BattleAnim_SweetScent
+	dw BattleAnim_FellStinger
 	dw BattleAnim_FrozenTail
 	dw BattleAnim_FrozenClaw
 	dw BattleAnim_VitalThrow
@@ -303,8 +303,8 @@ BattleAnim_SweetScent2:
 BattleAnim_ThrowPokeBall:
 	anim_if_param_equal NO_ITEM, .TheTrainerBlockedTheBall
 	anim_if_param_equal MASTER_BALL, .MasterBall
-	anim_if_param_equal ULTRA_BALL, .UltraBall
-	anim_if_param_equal GREAT_BALL, .GreatBall
+	anim_if_param_equal ULTRA_BALL, .GreatUltraBall
+	anim_if_param_equal GREAT_BALL, .GreatUltraBall
 	; any other ball
 	anim_2gfx ANIM_GFX_POKE_BALL, ANIM_GFX_SMOKE
 	anim_sound 6, 2, SFX_THROW_BALL
@@ -327,20 +327,7 @@ BattleAnim_ThrowPokeBall:
 	anim_wait 32
 	anim_ret
 
-.UltraBall:
-	anim_2gfx ANIM_GFX_POKE_BALL, ANIM_GFX_SMOKE
-	anim_sound 6, 2, SFX_THROW_BALL
-	anim_obj ANIM_OBJ_POKE_BALL, 68, 92, $40
-	anim_wait 36
-	anim_obj ANIM_OBJ_POKE_BALL, 136, 65, $0
-	anim_setobj $2, $7
-	anim_wait 16
-	anim_sound 0, 1, SFX_BALL_POOF
-	anim_obj ANIM_OBJ_BALL_POOF, 136, 64, $10
-	anim_wait 16
-	anim_jump .Shake
-
-.GreatBall:
+.GreatUltraBall:
 	anim_2gfx ANIM_GFX_POKE_BALL, ANIM_GFX_SMOKE
 	anim_sound 6, 2, SFX_THROW_BALL
 	anim_obj ANIM_OBJ_POKE_BALL, 68, 92, $40
@@ -1033,7 +1020,7 @@ BattleAnim_Bubble:
 	anim_sound 32, 2, SFX_WATER_GUN
 	anim_obj ANIM_OBJ_BUBBLE, 64, 92, $d1
 	anim_wait 128
-	anim_wait 32
+	; anim_wait 32
 	anim_ret
 
 BattleAnim_Bubblebeam:
@@ -4317,7 +4304,7 @@ BattleAnim_RapidSpin:
 	anim_wait 1
 	anim_ret
 
-BattleAnim_SweetScent:
+BattleAnim_FellStinger:
 	anim_2gfx ANIM_GFX_FLOWER, ANIM_GFX_MISC
 	anim_sound 0, 0, SFX_SWEET_SCENT
 	anim_obj ANIM_OBJ_FLOWER, 64, 96, $2

@@ -1254,28 +1254,28 @@ BattleCommand_Stab:
 	and TYPE_MASK
 	cp STRUGGLE
 	ret z
-
+; player turn
 	ld hl, wBattleMonType1
 	ld a, [hli]
 	ld b, a
-	ld c, [hl]
+	ld c, [hl] ; bc has player types
 	ld hl, wEnemyMonType1
 	ld a, [hli]
 	ld d, a
-	ld e, [hl]
+	ld e, [hl] ; de has enemy types
 
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .go ; Who Attacks and who Defends
-
+; enemy turn
 	ld hl, wEnemyMonType1
 	ld a, [hli]
 	ld b, a
-	ld c, [hl]
+	ld c, [hl] ; bc has enemy types
 	ld hl, wBattleMonType1
 	ld a, [hli]
 	ld d, a
-	ld e, [hl]
+	ld e, [hl] ; de has player types
 
 .go
 	push hl
@@ -1294,31 +1294,20 @@ BattleCommand_Stab:
 	ld a, b
 	ld [wCurType], a
 .no_mod
+	push hl
+	push de
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	cp FIRE_PLAY
-	jp nz, .not_fire_play
-	ld a, b
-	cp WATER
-	jr z, .water_play
-	cp FIRE
-	jr z, .fire_play
-	ld a, c
-	cp WATER
-	jr z, .water_play
-	cp FIRE
-	jr z, .fire_play
-	ld a, FLYING
-	ld [wCurType], a
-	jr .not_fire_play
-.water_play
-	ld a, WATER
-	ld [wCurType], a
-	jr .not_fire_play
-.fire_play
-	ld a, FIRE
-	ld [wCurType], a
-.not_fire_play
+	ld e, a
+	push hl
+	call IsVariableMove
+	pop hl
+	jr nc, .not_variable
+	call GetVariableMoveType
+.not_variable
+	pop de
+	pop hl
+
 	push hl
 	push de
 	push bc
@@ -1535,40 +1524,21 @@ CheckTypeMatchup:
 .has_mod
 	ld d, a ; move type
 .no_mod
+; bc contains own mon types
+	push hl
+	push de
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	cp FIRE_PLAY
-	jp z, .is_fire_play
-
-	ld b, [hl] ; opp mon type 1
-	inc hl
-	ld c, [hl] ; opp mon type 2
-	dec hl
-	jr .not_fire_play_has_opp_type
-
-.is_fire_play ; bc contains own mon types
-	ld a, b ; mon type 1
-	cp WATER
-	jr z, .water_play
-	cp FIRE
-	jr z, .fire_play
-	ld a, c ; mon type 2
-	cp WATER 
-	jr z, .water_play
-	cp FIRE
-	jr z, .fire_play
-	ld a, FLYING
-	ld [wCurType], a
-	jr .end_fire_play
-.water_play
-	ld a, WATER
-	ld [wCurType], a
-	jr .end_fire_play
-.fire_play
-	ld a, FIRE
-	ld [wCurType], a
-.end_fire_play
-	ld d, a ; move type
+	ld e, a
+	push hl
+	call IsVariableMove
+	pop hl
+	jr nc, .not_variable
+	call GetVariableMoveType
+.not_variable
+	pop de 
+	pop hl
+	ld d, a ; move type	
 
 .not_fire_play_has_opp_type
 	ld b, [hl] ; opp mon type 1
@@ -1634,6 +1604,121 @@ CheckTypeMatchup:
 	pop de
 	pop hl
 	ret
+
+IsVariableMove::
+; sets c if move 'e' is variable
+; saves id into wCurType
+	ld hl, VariableMoves
+	ld d, 0
+.moves_loop
+	ld a, [hli]
+	cp -1
+	ret z
+	cp e
+	jr z, .found_move
+	inc d
+	jr .moves_loop
+.found_move
+	ld a, d
+	ld [wCurType], a
+	scf
+	ret
+
+GetVariableMoveType::
+; takes mon types in 'b' and 'c', and and puts type in wCurType and 'a'
+; takes variable id in 'd' from IsVariableMove
+	ld e, 0
+	ld hl, VariableTypes
+	ld a, d
+	and a
+	jr z, .loop ; if d is 0 start at first entry
+
+.loop_variable_types
+	ld a, [hli]
+	cp -1
+	jr nz, .loop_variable_types
+
+	inc e
+	ld a, e
+	cp d
+	jr z, .loop
+	jr .loop_variable_types
+
+.loop
+	ld a, [hli]
+	cp -1
+	ret z
+
+	cp c
+	jr z, .got_variable
+	cp b
+	jr z, .got_variable
+	inc hl
+	jr .loop
+
+.got_variable
+	ld a, [hl]
+	ld [wCurType], a
+	ret
+
+GetVariableMoveName::
+; takes type in wCurType, move id in 'e' and puts string in wStringBuffer1
+	ld a, [wCurType]
+	ld b, a
+	ld a, e
+	cp FIRE_PLAY
+	jr nz, .not_fire_play 
+	ld a, b
+	cp WATER
+	jp z, .water_play
+	cp FIRE
+	jp z, .fire_play
+	ld de, .FlyingPlayName
+	jp .end
+.water_play
+	ld de, .WaterPlayName
+	jp .end
+.fire_play
+	ld de, .FirePlayName
+	jp .end
+
+.not_fire_play
+	ld a, e
+	cp CROSS_CHOP
+	jr nz, .not_cross_chop
+	ld a, b
+	cp ROCK
+	jp z, .stone_edge
+	ld de, .CrossChop
+	jp .end
+.stone_edge
+	ld de, .StoneEdge
+	jp .end
+
+.not_cross_chop
+	ld a, e
+	cp DOUBLE_EDGE
+	jr nz, .not_double_edge
+	ld a, b
+	cp FLYING
+	jp z, .brave_bird
+	ld de, .DoubleEdge
+	jp .end
+.brave_bird
+	ld de, .BraveBird
+	jp .end
+.not_double_edge
+.end
+	push de
+	ld hl, wStringBuffer1
+	call CopyName2
+	pop de
+	ret
+
+
+INCLUDE "data/moves/variable_moves_data.asm"
+
+INCLUDE "data/moves/fire_play_names.asm"
 
 BattleCommand_ResetTypeMatchup:
 ; Reset the type matchup multiplier to 1.0, if the type matchup is not 0.
@@ -3758,6 +3843,7 @@ DoSubstituteDamage:
 	jp ResetDamage
 
 UpdateMoveData:
+; Gets the name for when the move is used
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVarAddr
 	ld d, h
@@ -3771,35 +3857,42 @@ UpdateMoveData:
 	dec a
 	call GetMoveData
 	call GetMoveName
-	;call CopyName1
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY
-	jr nz, .no_type
-	
-	ld a, [wBattleMonType1]
-	cp WATER
-	jp z, .water_play
-	cp FIRE
-	jp z, .fire_play
-	ld a, [wBattleMonType2]
-	cp WATER
-	jp z, .water_play
-	cp FIRE
-	jp z, .fire_play
 
-	ld de, .FlyingPlay
-	jp .no_type
-.water_play
-	ld de, .WaterPlay
-	jp .no_type
-.fire_play
-	ld de, .FirePlay
-.no_type
-	call CopyName1
+	push hl
+	push de	
+	ld a, [wCurSpecies]
+	ld e, a
+	call IsVariableMove
+	pop de
+	pop hl
+	jr nc, .not_variable
+
+	ld a, [wBattleMonType1]
+	ld b, a
+	ld a, [wBattleMonType2]
+	ld c, a
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .ok
+	ld a, [wEnemyMonType1]
+	ld b, a
+	ld a, [wEnemyMonType2]
+	ld c, a
+.ok
+	ld a, [wCurType]
+	ld d, a
+	call GetVariableMoveType
+	ld a, BATTLE_VARS_MOVE
+	call GetBattleVar
+	ld e, a
+	call GetVariableMoveName
+	ld hl, wStringBuffer2
+	call CopyName2
 	ret
+.not_variable
+	jp CopyName1
+
 	
-; name when using move
-INCLUDE "data/moves/fire_play_names.asm"
 
 BattleCommand_SleepTarget:
 ; sleeptarget
