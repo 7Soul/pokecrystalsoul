@@ -952,14 +952,14 @@ TextCommand_SOUND::
 
 Unreferenced_Function1522::
 ; play_cry
-	push de
-	ld e, [hl]
-	inc hl
-	ld d, [hl]
-	call PlayMonCry
-	pop de
-	pop hl
-	pop bc
+	; push de
+	; ld e, [hl]
+	; inc hl
+	; ld d, [hl]
+	; call PlayMonCry
+	; pop de
+	; pop hl
+	; pop bc
 	ret
 
 TextSFX::

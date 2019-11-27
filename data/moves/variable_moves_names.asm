@@ -19,6 +19,24 @@
 .BraveBird:
 	db "Brave Bird@"
 
+.WoodHammer:
+	db "Wood Hammer@"
+
+.QuickAttack:
+	db "Quick Attack@"
+
+.IceShard:
+	db "Ice Shard@"
+
+.Slash:
+	db "Slash@"
+
+.NightSlash:
+	db "Night Slash@"
+
+.LeafBlade:
+	db "Leaf Blade@"
+
 .FirePlayDesc:
 	db   "Recoil if foe has"
 	next "raised stats.@"

@@ -29,6 +29,7 @@ BulbasaurEvosAttacks:
 	db 27, GROWTH
 	db 32, DOUBLE_EDGE
 	db 39, SYNTHESIS
+	db 43, DRILL_PECK ; becomes Seed Bomb
 	db 46, SOLARBEAM
 	db 50, LEAF_STORM
 	db 0 ; no more level-up moves
@@ -45,6 +46,7 @@ IvysaurEvosAttacks:
 	db 31, GROWTH
 	db 36, DOUBLE_EDGE
 	db 43, SYNTHESIS
+	db 46, DRILL_PECK ; becomes Seed Bomb
 	db 50, SOLARBEAM
 	db 54, LEAF_STORM
 	db 0 ; no more level-up moves
@@ -58,6 +60,7 @@ VenusaurEvosAttacks:
 	db 35, GROWTH
 	db 40, DOUBLE_EDGE
 	db 47, SYNTHESIS
+	db 50, DRILL_PECK ; becomes Seed Bomb
 	db 54, SOLARBEAM
 	db 63, LEAF_STORM
 	db 0 ; no more level-up moves
@@ -1087,7 +1090,7 @@ BellsproutEvosAttacks:
 	db 33, ACID_ARMOR
 	db 35, RAZOR_LEAF
 	db 41, REVERSAL
-	db 46, SLAM
+	db 46, SLASH ; becomes Leaf Blade
 	db 0 ; no more level-up moves
 
 WeepinbellEvosAttacks:
@@ -1101,7 +1104,7 @@ WeepinbellEvosAttacks:
 	db 35, ACID_ARMOR
 	db 38, RAZOR_LEAF
 	db 45, REVERSAL
-	db 50, SLAM
+	db 50, SLASH ; becomes Leaf Blade
 	db 0 ; no more level-up moves
 
 VictreebelEvosAttacks:
@@ -1114,7 +1117,7 @@ VictreebelEvosAttacks:
 	db 36, ACID_ARMOR
 	db 40, RAZOR_LEAF
 	db 47, REVERSAL
-	db 55, SLAM
+	db 55, SLASH ; becomes Leaf Blade
 	db 0 ; no more level-up moves
 
 TentacoolEvosAttacks:
@@ -1292,7 +1295,7 @@ FarfetchDEvosAttacks:
 	db 21, FEATHERGALE
 	db 25, SWORDS_DANCE
 	db 31, AGILITY
-	db 37, SLASH
+	db 37, SLASH ; becomes Night Slash
 	db 44, FALSE_SWIPE
 	db 49, AIR_SLASH
 	db 55, DOUBLE_EDGE ; changes to brave bird
@@ -1334,6 +1337,7 @@ SeelEvosAttacks:
 	db 5, GROWL
 	db 11, ICY_WIND
 	db 13, ENCORE
+	db 15, QUICK_ATTACK ; becomes Ice Shard
 	db 18, AURORA_BEAM
 	db 21, REST
 	db 32, TAKE_DOWN
@@ -1516,7 +1520,6 @@ KrabbyEvosAttacks:
 	db 5, VICEGRIP
 	db 8, LEER
 	db 10, HARDEN
-	db 10, FIRE_PLAY ; becomes Tide Clash
 	db 13, BUBBLEBEAM
 	db 19, DIG
 	db 22, FROZEN_CLAW
@@ -1599,7 +1602,7 @@ ExeggutorEvosAttacks:
 	db 35, EGG_BOMB
 	db 39, STAMPEDE
 	db 44, LEAF_STORM
-	db 46, SOLARBEAM
+	db 46, DOUBLE_EDGE ; becomes Wood Hammer
 	db 52, PSYBEAM
 	db 59, SYNTHESIS
 	db 0 ; no more level-up moves
@@ -2035,6 +2038,7 @@ LaprasEvosAttacks:
 	db 1, GROWL
 	db 1, SING
 	db 8, MIST
+	db 10, QUICK_ATTACK ; becomes Ice Shard
 	db 15, BODY_SLAM
 	db 22, CONFUSE_RAY
 	db 29, PERISH_SONG
@@ -2215,14 +2219,18 @@ AerodactylEvosAttacks:
 SnorlaxEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
+	db 5, DEFENSE_CURL
 	db 8, AMNESIA
-	db 15, DEFENSE_CURL
-	db 22, BELLY_DRUM
-	db 29, HEADBUTT
-	db 36, SNORE
-	db 36, REST
-	db 43, BODY_SLAM
-	db 50, ROLLOUT
+	db 12, LICK
+	db 18, HEADBUTT
+	db 25, BODY_SLAM
+	db 28, SNORE
+	db 28, REST
+	db 33, SLEEP_TALK
+	db 36, ROLLOUT	
+	db 40, DRILL_PECK ; becomes Seed Bomb
+	db 44, BELLY_DRUM
+	db 50, CRUNCH
 	db 57, HYPER_BEAM
 	db 0 ; no more level-up moves
 
@@ -2897,7 +2905,7 @@ SudowoodoEvosAttacks:
 	db 29, ROCK_SLIDE
 	db 33, COUNTER
 	db 37, FAINT_ATTACK
-	db 43, DOUBLE_EDGE
+	db 43, DOUBLE_EDGE ; becomes Wood Hammer
 	db 47, CROSS_CHOP ; changes to Stone Edge
 	db 52, HAMMER_ARM
 	db 0 ; no more level-up moves
@@ -3357,7 +3365,7 @@ SneaselEvosAttacks:
 	db 1, SCRATCH
 	db 1, LEER
 	db 1, LICK
-	db 9, QUICK_ATTACK
+	db 9, QUICK_ATTACK ; becomes Ice Shard
 	db 13, MAKESHIFT
 	db 17, SCREECH
 	db 25, FAINT_ATTACK

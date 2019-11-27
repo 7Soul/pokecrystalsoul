@@ -1,12 +1,12 @@
 ; LCD handling
 
 Unreferenced_Function547::
-	ldh a, [hLCDCPointer]
-	cp LOW(rSCX)
-	ret nz
-	ld c, a
-	ld a, [wLYOverrides]
-	ld [$ff00+c], a
+	; ldh a, [hLCDCPointer]
+	; cp LOW(rSCX)
+	; ret nz
+	; ld c, a
+	; ld a, [wLYOverrides]
+	; ld [$ff00+c], a
 	ret
 
 LCD::

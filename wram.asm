@@ -2224,8 +2224,7 @@ wNumFleeAttempts:: db
 wMonTriedToEvolve:: db
 
 wTimeOfDay:: db ; d269
-
-	ds 1
+wMoveType:: db
 
 
 SECTION "Enemy Party", WRAMX

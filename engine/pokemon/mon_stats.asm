@@ -548,9 +548,7 @@ ListMoves:
 	farcall GetVariableMoveType
 	ld a, [wCurSpecies]
 	ld e, a
-	; ld [$c001], a
 	ld a, [wCurType]
-	; ld [$c002], a
 	farcall GetVariableMoveName
 	pop af
 	ld [wCurSpecies], a
@@ -611,4 +609,4 @@ ListMoves:
 	db "Temp@"
 
 ; name in status screen and battle menu
-INCLUDE "data/moves/variable_moves_data.asm"
+INCLUDE "data/moves/variable_moves_names.asm"

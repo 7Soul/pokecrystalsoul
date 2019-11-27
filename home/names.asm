@@ -258,36 +258,96 @@ GetMoveName::
 	ld de, wStringBuffer1
 	pop hl
 
-	; push hl
-	; push de
-	; ld a, [wCurSpecies]
-	; ld e, a; move id
-	; call IsVariableMove
-	; jr nc, .not_variable
-
-	; ld a, [wBattleMonType1]
-	; ld b, a
-	; ld a, [wBattleMonType2]
-	; ld c, a
-	; call GetVariableMoveType
-	; cp -1
-	; ld de, wStringBuffer1
-	; ret z
-
-	; push hl
-	; ld a, [wCurSpecies]
-	; ld e, a; move id
-	; call IsVariableMove
-	; jr nc, .end
-
-	; ld a, [wCurSpecies]
-	; ld e, a; move id
-	; call GetVariableMoveName
-	; call CopyName2
-	; ld de, wStringBuffer1
-	; ld bc, ITEM_NAME_LENGTH
-	; call CopyBytes
-; .not_variable
-; 	pop de
-; 	pop hl
 	ret
+
+GetVariableMoveName::
+; takes type in wCurType, move id in 'e' and puts string in wStringBuffer1
+	ld a, [wCurType]
+	ld b, a
+	ld a, e
+	cp FIRE_PLAY
+	jr nz, .not_fire_play 
+	ld a, b
+	cp WATER
+	jp z, .water_play
+	cp FIRE
+	jp z, .fire_play
+	ld de, .FlyingPlayName
+	jp .end
+.water_play
+	ld de, .WaterPlayName
+	jp .end
+.fire_play
+	ld de, .FirePlayName
+	jp .end
+
+.not_fire_play
+	ld a, e
+	cp CROSS_CHOP
+	jr nz, .not_cross_chop
+	ld a, b
+	cp ROCK
+	jp z, .stone_edge
+	ld de, .CrossChop
+	jp .end
+.stone_edge
+	ld de, .StoneEdge
+	jp .end
+
+.not_cross_chop
+	ld a, e
+	cp DOUBLE_EDGE
+	jr nz, .not_double_edge
+	ld a, b
+	cp FLYING
+	jp z, .brave_bird
+	cp GRASS
+	jp z, .wood_hammer
+	ld de, .DoubleEdge
+	jp .end
+.brave_bird
+	ld de, .BraveBird
+	jp .end
+.wood_hammer
+	ld de, .WoodHammer
+	jp .end
+
+.not_double_edge
+	ld a, e
+	cp QUICK_ATTACK
+	jr nz, .not_quick_attack
+	ld a, b
+	cp ICE
+	jp z, .ice_shard
+	ld de, .QuickAttack
+	jp .end
+.ice_shard
+	ld de, .IceShard
+	jp .end
+.not_quick_attack
+
+	ld a, e
+	cp SLASH
+	jr nz, .not_slash
+	ld a, b
+	cp DARK
+	jp z, .night_slash
+	cp GRASS
+	jp z, .leaf_blade
+	ld de, .Slash
+	jp .end
+.night_slash
+	ld de, .NightSlash
+	jp .end
+.leaf_blade
+	ld de, .LeafBlade
+	jp .end
+.not_slash
+.end
+	push de
+	ld hl, wStringBuffer1
+	call CopyName2
+	pop de
+	ret
+
+INCLUDE "data/moves/variable_moves_names.asm"

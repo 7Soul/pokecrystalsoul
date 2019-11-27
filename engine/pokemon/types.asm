@@ -58,9 +58,9 @@ PrintMoveType:
 
 	push hl
 	push bc
-	ld a, [wCurSpecies]
+	ld a, [wCurSpecies] ; move id
 	ld e, a
-	farcall IsVariableMove	
+	farcall IsVariableMove
 	jr nc, .not_variable
 
 	ld a, [wBattleMonType1]

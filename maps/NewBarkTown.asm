@@ -105,7 +105,8 @@ if DEF(_DEBUG)
 	giveitem MAX_REPEL, 99
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
-	givepoke KRABBY, 10
+	givepoke SEEL, 15
+	givepoke VICTREEBEL, 55
 	givepoke NIDOKING, 50
 	givepoke LEDYBA, 60	
 	givepoke PIDGEY, 20

@@ -6,42 +6,56 @@ BattleCommand_FirePlay:
 	; enemy turn
 	ld hl, wEnemyMonType1
 	ld bc, wPlayerStatLevels
-	ld d, wPlayerStatLevelsEnd - wPlayerStatLevels
-	jr nz, .loop
+	jr nz, .got_stats
 	; my turn
 	ld hl, wBattleMonType1
 	ld bc, wEnemyStatLevels
-	ld d, wEnemyStatLevelsEnd - wEnemyStatLevels
-
+.got_stats
 	ld a, [wAttackMissed]
 	and a
 	jr nz, .evaded
 
+	push bc
+	push hl
+	ld a, BATTLE_VARS_MOVE
+	call GetBattleVar
+	ld e, a	
+	call IsVariableMove
+	pop hl
+	push hl
+	ld a, [hli]
+	ld b, a
 	ld a, [hl]
-	cp WATER
-	jr z, .anim_water
+	ld c, a
+	call GetVariableMoveType	
+	pop hl
+	
+	ld a, [wCurSpecies]
 	cp FIRE
 	jr z, .anim_fire
-	inc hl
-	ld a, [hl]
 	cp WATER
-	jr z, .anim_water
-	cp FLYING
-	jr z, .anim_flying
-.anim_fire
-	ld a, $0
+	jr z, .anim_water	
+	ld a, $2
 	ld [wKickCounter], a
 	call AnimateCurrentMove
-	jr .loop
+	jr .after_animation
 .anim_water
 	ld a, $1
 	ld [wKickCounter], a
 	call AnimateCurrentMove
-	jr .loop
-.anim_flying
-	ld a, $2
+	jr .after_animation
+.anim_fire
+	ld a, $0
 	ld [wKickCounter], a
 	call AnimateCurrentMove
+.after_animation
+	call BattleCommand_FailureText
+	call BattleCommand_ApplyDamage
+	call BattleCommand_CriticalText
+	call BattleCommand_SuperEffectiveText
+
+	pop bc
+	ld d, NUM_LEVEL_STATS
 .loop
 	ld a, [bc]
 	cp BASE_STAT_LEVEL
@@ -71,4 +85,5 @@ BattleCommand_FirePlay:
 .evaded
 	ld c, 20
 	call DelayFrames
+	call BattleCommand_FailureText
 	ret

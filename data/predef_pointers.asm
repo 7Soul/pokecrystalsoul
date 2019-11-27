@@ -88,3 +88,7 @@ PredefPointers::
 	add_predef GetFoughtMonCount
 	add_predef Pokedex_GetMoves
 	add_predef IncreaseBadgeEvent
+	add_predef IsVariableMove
+	add_predef GetVariableMoveType
+	add_predef GetVariableMoveName
+	add_predef GetVariableMoveName2

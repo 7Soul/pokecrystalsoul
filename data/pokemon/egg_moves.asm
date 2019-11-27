@@ -253,6 +253,7 @@ BellsproutEggMoves:
 	db LEECH_LIFE
 	db GIGA_DRAIN
 	db MAGICAL_LEAF
+	db DRILL_PECK ; becomes Seed Bomb
 	db -1 ; end
 
 TentacoolEggMoves:
@@ -757,6 +758,7 @@ HoppipEggMoves:
 	db DOUBLE_EDGE
 	db REFLECT
 	db AMNESIA
+	db DRILL_PECK ; becomes Seed Bomb
 	db -1 ; end
 
 AipomEggMoves:
@@ -874,6 +876,7 @@ SneaselEggMoves:
 	db REFLECT
 	db BITE
 	db ICE_PUNCH
+	db QUICK_ATTACK ; becomes Ice Shard
 	db -1 ; end
 
 TeddiursaEggMoves:

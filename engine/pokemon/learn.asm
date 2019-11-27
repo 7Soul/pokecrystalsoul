@@ -1,47 +1,32 @@
 LearnMove:
+	ld a, [wPutativeTMHMMove]
+	ld e, a
+	predef IsVariableMove
+	ld a, [wCurType]
+	and a
+	jr z, .not_variable
+
+	ld a, [wBaseType1]
+	ld b, a
+	ld a, [wBaseType2]
+	ld c, a
+	ld a, [wCurType]
+	ld d, a
+	predef GetVariableMoveType
+	ld a, [wPutativeTMHMMove]
+	ld e, a
+	ld a, [wCurType]
+	predef GetVariableMoveName2
+
+.not_variable
 	call LoadTileMapToTempTileMap
-	ld a, [wCurPartyMon]
+	ld a, [wCurPartyMon] ; id in player's pokemon list
 	ld hl, wPartyMonNicknames
-	call GetNick
-	
-
-; 	ld a, [wCurSpecies]
-; 	cp FIRE_PLAY ; fire play
-; 	jp nz, .no_type
-
-; 	ld a, [wBaseType1]
-; 	cp WATER
-; 	jp z, .water
-; 	cp FIRE
-; 	jp z, .fire
-; 	ld a, [wBaseType2]
-; 	cp FLYING
-; 	jp z, .flying
-; 	cp WATER
-; 	jp z, .water
-; 	cp FIRE
-; 	jp z, .fire
-; 	jp .no_type
-; .flying
-; 	ld de, .FlyingPlayName
-; 	call CopyName1
-; 	jr .no_type
-; .water
-; 	ld de, .WaterPlayName
-; 	call CopyName1
-; 	jr .no_type
-; .fire
-; 	ld de, .FirePlayName
-; 	call CopyName1
-; 	jr .no_type
-; .no_type
-; 	ld a, [wCurPartyMon]
-
-
+	call GetNick ; nickname in wStringBuffer1
 	ld hl, wStringBuffer1
 	ld de, wMonOrItemNameBuffer
 	ld bc, MON_NAME_LENGTH
-	call CopyBytes
+	call CopyBytes ; nickname into wMonOrItemNameBuffer
 
 .loop
 	ld hl, wPartyMon1Moves
@@ -152,7 +137,7 @@ LearnMove:
 	ld b, 1
 	ret
 	
-INCLUDE "data/moves/variable_moves_data.asm"
+INCLUDE "data/moves/variable_moves_names.asm"
 
 ForgetMove:
 	push hl

@@ -2277,10 +2277,6 @@ FirePlay:
 	damagevariation
 	checkhit
 	fireplay
-	failuretext
-	applydamage
-	criticaltext
-	supereffectivetext	
 	checkfaint
 	buildopponentrage	
 	endmove
