@@ -300,13 +300,11 @@ GetVariableMoveName::
 	jr .skip
 
 .got_text
+	push hl
 	ld de, wStringBuffer1
 	ld bc, wStringBuffer2 - wStringBuffer1
-	jp CopyBytes
-	push de
-	ld hl, wStringBuffer1
-	call CopyName2
-	pop de
+	call CopyBytes
+	pop hl
 	ret
 
 .end ; restores original name of type didnt change
@@ -315,7 +313,6 @@ GetVariableMoveName::
 	jp GetMoveName
 
 .VariableMovesNames:
-	db FIRE_PLAY,    FIRE
 	db FIRE_PLAY,    WATER
 	db FIRE_PLAY,    FLYING
 	db CROSS_CHOP,   ROCK
@@ -330,7 +327,6 @@ GetVariableMoveName::
 	db -2
 
 .VariableMovesText:
-	db "Kindle Clash@"
 	db "Tide Clash@"
 	db "Flutter Clap@"
 	db "Stone Edge@"

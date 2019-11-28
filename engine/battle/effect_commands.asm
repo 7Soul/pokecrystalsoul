@@ -1620,6 +1620,8 @@ ReplaceVariableType::
 IsVariableMove::
 ; sets c if move 'e' is variable
 ; saves id into wCurType
+	xor a
+	ld [wCurType], a
 	ld hl, VariableMoves
 	ld d, 0
 .moves_loop
@@ -1730,7 +1732,9 @@ INCLUDE "data/moves/variable_moves_table.asm"
 
 GetVariableMoveName2::
 	call GetVariableMoveName
-	call CopyName1
+	ld de, wStringBuffer2
+	ld bc, wStringBuffer3 - wStringBuffer2
+	call CopyBytes
 	ret
 
 BattleCommand_ResetTypeMatchup:

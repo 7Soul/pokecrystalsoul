@@ -1,7 +1,7 @@
 VariableTypes:
 	; pokemon type to check, type to change the move to, etc, etc, -1
 	db NORMAL, NORMAL, -1
-	db FIRE, FIRE, 			WATER, WATER, 			FLYING, FLYING, 	-1 ; Kindle Clash -> Tide Clash, Flutter Clap
+	db WATER, WATER, 		FLYING, FLYING, 	-1 ; Kindle Clash -> Tide Clash, Flutter Clap
 	db NORMAL, FIGHTING, 	FIGHTING, FIGHTING, 	ROCK, ROCK, 		DARK, ROCK,     -1 ; Cross Chop -> Stone Edge
 	db BUG, NORMAL, 		FLYING, FLYING, 		NORMAL, NORMAL, 	GRASS, GRASS,   ROCK, GRASS,      -1 ; Double Edge -> Brave Bird, Wood Hammer
 	db NORMAL, NORMAL, 		ICE, ICE,               -1 ; Quick Attack -> Ice Shard
@@ -12,10 +12,10 @@ VariableTypes:
 	db -1
 
 VariableTypesByName:
-	db SLASH, MEOWTH, DARK ; Meowth - Slash -> Night Slash
-	db SLASH, PERSIAN, DARK ;
-	db SLASH, FARFETCH_D, DARK ;
-	db QUICK_ATTACK, VAPOREON, NORMAL
+	db SLASH, MEOWTH, DARK
+	db SLASH, PERSIAN, DARK
+	db SLASH, FARFETCH_D, DARK
+	db QUICK_ATTACK, VAPOREON, NORMAL 
 	db DRILL_PECK, SNORLAX, GRASS
 	db DOUBLE_EDGE, PIDGEY, FLYING
 	db -2
@@ -31,3 +31,11 @@ VariableMoves::
 	db FAINT_ATTACK
 	db SCREECH
 	db -1
+
+ ; needs animations:
+ ; heal bell -> aromatherapy
+ ; can do it with -> fissure / horn drill / guillotine
+ ; swift -> magical leaf / shock wave
+ ; add lava plume -> scald
+ ; strenght / drill peck / seed bomb / x-scissor
+ 

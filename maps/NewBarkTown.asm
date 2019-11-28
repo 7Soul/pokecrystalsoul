@@ -105,12 +105,12 @@ if DEF(_DEBUG)
 	giveitem MAX_REPEL, 99
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
-	givepoke SLUGMA, 15
-	givepoke MANTINE, 15
-	givepoke NIDOKING, 50
-	givepoke LEDYBA, 60	
+	; givepoke SLUGMA, 7
+	givepoke MANTINE, 11
+	; givepoke NIDOKING, 50
+	; givepoke LEDYBA, 60	
 	givepoke PIDGEY, 20
-	givepoke MEOWTH, 33
+	; givepoke MEOWTH, 33
 	; givepoke KRABBY, 10
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
