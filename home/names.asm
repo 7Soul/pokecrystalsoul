@@ -262,92 +262,83 @@ GetMoveName::
 
 GetVariableMoveName::
 ; takes type in wCurType, move id in 'e' and puts string in wStringBuffer1
-	ld a, [wCurType]
-	ld b, a
-	ld a, e
-	cp FIRE_PLAY
-	jr nz, .not_fire_play 
-	ld a, b
-	cp WATER
-	jp z, .water_play
-	cp FIRE
-	jp z, .fire_play
-	ld de, .FlyingPlayName
-	jp .end
-.water_play
-	ld de, .WaterPlayName
-	jp .end
-.fire_play
-	ld de, .FirePlayName
-	jp .end
+	ld hl, .VariableMovesNames
+	ld c, 0
 
-.not_fire_play
-	ld a, e
-	cp CROSS_CHOP
-	jr nz, .not_cross_chop
-	ld a, b
-	cp ROCK
-	jp z, .stone_edge
-	ld de, .CrossChop
-	jp .end
-.stone_edge
-	ld de, .StoneEdge
-	jp .end
+.move_loop
+	ld a, [hli]
+	cp -2
+	jr z, .end
+	
+	cp e
+	jr z, .found_move
+	inc c ; wrong move
+	inc hl
+	jr .move_loop
 
-.not_cross_chop
-	ld a, e
-	cp DOUBLE_EDGE
-	jr nz, .not_double_edge
-	ld a, b
-	cp FLYING
-	jp z, .brave_bird
-	cp GRASS
-	jp z, .wood_hammer
-	ld de, .DoubleEdge
-	jp .end
-.brave_bird
-	ld de, .BraveBird
-	jp .end
-.wood_hammer
-	ld de, .WoodHammer
-	jp .end
+.found_move
+	ld a, [wCurType] ; type
+ 	ld b, a
+	ld a, [hli]
+	cp b
+	jr z, .got_type
+	inc c ; right move, wrong type
+	jr .move_loop
 
-.not_double_edge
-	ld a, e
-	cp QUICK_ATTACK
-	jr nz, .not_quick_attack
-	ld a, b
-	cp ICE
-	jp z, .ice_shard
-	ld de, .QuickAttack
-	jp .end
-.ice_shard
-	ld de, .IceShard
-	jp .end
-.not_quick_attack
+.got_type
+	ld hl, .VariableMovesText
+	ld a, c
+	cp 0
+	jr z, .got_text
 
-	ld a, e
-	cp SLASH
-	jr nz, .not_slash
-	ld a, b
-	cp DARK
-	jp z, .night_slash
-	cp GRASS
-	jp z, .leaf_blade
-	ld de, .Slash
-	jp .end
-.night_slash
-	ld de, .NightSlash
-	jp .end
-.leaf_blade
-	ld de, .LeafBlade
-	jp .end
-.not_slash
-.end
+.skip
+	ld a, [hli]
+	cp "@"
+	jr nz, .skip
+	dec c
+	jr z, .got_text
+	jr .skip
+
+.got_text
+	ld de, wStringBuffer1
+	ld bc, wStringBuffer2 - wStringBuffer1
+	jp CopyBytes
 	push de
 	ld hl, wStringBuffer1
 	call CopyName2
 	pop de
 	ret
 
-INCLUDE "data/moves/variable_moves_names.asm"
+.end ; restores original name of type didnt change
+	ld a, e
+	ld [wNamedObjectIndexBuffer], a
+	jp GetMoveName
+
+.VariableMovesNames:
+	db FIRE_PLAY,    FIRE
+	db FIRE_PLAY,    WATER
+	db FIRE_PLAY,    FLYING
+	db CROSS_CHOP,   ROCK
+	db DOUBLE_EDGE,  FLYING
+	db DOUBLE_EDGE,  GRASS
+	db QUICK_ATTACK, ICE
+	db SLASH,        DARK
+	db SLASH,        GRASS
+	db SCREECH,      FLYING
+	db DRILL_PECK,   GRASS
+	db FAINT_ATTACK, FLYING
+	db -2
+
+.VariableMovesText:
+	db "Kindle Clash@"
+	db "Tide Clash@"
+	db "Flutter Clap@"
+	db "Stone Edge@"
+	db "Brave Bird@"
+	db "Wood Hammer@"
+	db "Ice Shard@"
+	db "Night Slash@"
+	db "Leaf Blade@"
+	db "FeatherDance@"
+	db "Seed Bomb@"
+	db "Aerial Ace@"

@@ -2881,7 +2881,7 @@ BattleAnim_SeismicToss:
 	anim_bgeffect ANIM_BG_20, $10, $1, $20
 	anim_sound 0, 0, SFX_STRENGTH
 	anim_obj ANIM_OBJ_SEISMIC_TOSS, 64, 104, $1
-	anim_wait 128
+	anim_wait 32
 	anim_incobj  1
 	anim_wait 20
 	anim_sound 0, 1, SFX_MEGA_PUNCH
@@ -3899,13 +3899,7 @@ BattleAnim_FirePlay:
 	anim_if_param_equal 2, .fly
 	anim_if_param_equal 1, .water
 
-	anim_wait 16
-	anim_1gfx ANIM_GFX_FIRE
-	anim_sound 0, 1, SFX_EMBER
-	anim_obj ANIM_OBJ_FIRE_BLAST, 136, 48, $1
-	anim_obj ANIM_OBJ_FIRE_BLAST, 136, 48, $4
-	anim_obj ANIM_OBJ_FIRE_BLAST, 136, 48, $5
-	anim_sound 0, 1, SFX_EMBER
+	anim_call BattleAnim_FirePunch_branch_cbbcc
 	anim_jump .fly
 .water
 	; anim_sound 0, 1, SFX_WATER_GUN

@@ -262,9 +262,8 @@ PidgeyEvosAttacks:
 	db 8, GUST
 	db 11, QUICK_ATTACK
 	db 15, WING_ATTACK
-	db 15, DOUBLE_EDGE
 	db 19, WHIRLWIND
-	db 19, FLY
+	db 19, FLY ;;;
 	db 23, AGILITY
 	db 26, SWIFT
 	db 30, AIR_SLASH
@@ -338,15 +337,15 @@ SpearowEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, PECK
 	db 1, GROWL
-	db 5, PURSUIT
-	db 8, LEER
-	db 12, FURY_ATTACK
+	db 5, LEER
+	db 9, FURY_ATTACK
+	db 12, PURSUIT
 	db 15, FEATHERGALE
-	db 21, FIRE_PLAY ; becomes Flutter Clap
-	db 24, MIRROR_MOVE
+	db 17, FAINT_ATTACK ; becomes Aerial Ace
+	db 21, MIRROR_MOVE
+	db 25, AGILITY
 	db 33, RECOVER
 	db 37, DRILL_PECK
-	db 43, AGILITY
 	db 0 ; no more level-up moves
 
 FearowEvosAttacks:
@@ -354,7 +353,8 @@ FearowEvosAttacks:
 	db 1, GROWL
 	db 8, LEER
 	db 12, FURY_ATTACK
-	db 19, FEATHERGALE
+	db 15, FEATHERGALE
+	db 20, FAINT_ATTACK ; becomes Aerial Ace
 	db 23, FIRE_PLAY ; becomes Flutter Clap
 	db 27, MIRROR_MOVE
 	db 37, RECOVER

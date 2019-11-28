@@ -1,41 +1,54 @@
-.FirePlayName:
-	db "Kindle Clash@"
+; VariableMovesNames:
+; 	db FIRE_PLAY, FIRE, .FirePlayName
+; 	db FIRE_PLAY, WATER, .WaterPlayName
+; 	db FIRE_PLAY, FLYING, .FlyingPlayName
+; 	db FIRE_PLAY, $ff
+; 	db -2
 
-.WaterPlayName:
-	db "Tide Clash@"
+; .FirePlayName:
+; 	db "Kindle Clash@"
 
-.FlyingPlayName:
-	db "Flutter Clap@"
+; .WaterPlayName:
+; 	db "Tide Clash@"
 
-.CrossChop:
-	db "Cross Chop@"
+; .FlyingPlayName:
+; 	db "Flutter Clap@"
 
-.StoneEdge:
-	db "Stone Edge@"
+; .CrossChop:
+; 	db "Cross Chop@"
 
-.DoubleEdge:
-	db "Double Edge@"
+; .StoneEdge:
+; 	db "Stone Edge@"
 
-.BraveBird:
-	db "Brave Bird@"
+; .DoubleEdge:
+; 	db "Double Edge@"
 
-.WoodHammer:
-	db "Wood Hammer@"
+; .BraveBird:
+; 	db "Brave Bird@"
 
-.QuickAttack:
-	db "Quick Attack@"
+; .WoodHammer:
+; 	db "Wood Hammer@"
 
-.IceShard:
-	db "Ice Shard@"
+; .QuickAttack:
+; 	db "Quick Attack@"
 
-.Slash:
-	db "Slash@"
+; .IceShard:
+; 	db "Ice Shard@"
 
-.NightSlash:
-	db "Night Slash@"
+; .Slash:
+; 	db "Slash@"
 
-.LeafBlade:
-	db "Leaf Blade@"
+; .NightSlash:
+; 	db "Night Slash@"
+
+; .LeafBlade:
+; 	db "Leaf Blade@"
+
+; .Screech:
+; 	db "Screech@"
+
+; .FeatherDance:
+; 	db "Feather Dance@"
 
 .FirePlayDesc:
 	db   "Recoil if foe has"

@@ -7,6 +7,8 @@ VariableTypes:
 	db NORMAL, NORMAL, 		ICE, ICE,               -1 ; Quick Attack -> Ice Shard
 	db NORMAL, NORMAL, 		DARK, DARK,             GRASS, GRASS, -1 ; Slash -> Night Slash, Leaf Blade
 	db GRASS, GRASS, 		-1 ; Drill Peck -> Seed Bomb
+	db DARK, DARK,          FLYING, FLYING, 		-1 ; Faint Attack -> Aerial Ace
+	db FLYING, FLYING, 		-1 ; Screech -> Feather Dance
 	db -1
 
 VariableTypesByName:
@@ -15,6 +17,7 @@ VariableTypesByName:
 	db SLASH, FARFETCH_D, DARK ;
 	db QUICK_ATTACK, VAPOREON, NORMAL
 	db DRILL_PECK, SNORLAX, GRASS
+	db DOUBLE_EDGE, PIDGEY, FLYING
 	db -2
 
 VariableMoves::
@@ -25,5 +28,6 @@ VariableMoves::
 	db QUICK_ATTACK
 	db SLASH
 	db DRILL_PECK
+	db FAINT_ATTACK
+	db SCREECH
 	db -1
-

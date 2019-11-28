@@ -3899,8 +3899,10 @@ UpdateMoveData:
 	call GetBattleVar
 	ld e, a
 	call GetVariableMoveName
-	ld hl, wStringBuffer2
-	call CopyName2
+	ld hl, wStringBuffer1
+	ld de, wStringBuffer2
+	ld bc, wStringBuffer2 - wStringBuffer1
+	jp CopyBytes
 	ret
 .not_variable
 	jp CopyName1
