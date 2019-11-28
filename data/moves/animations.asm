@@ -2070,7 +2070,20 @@ BattleAnim_TakeDown:
 BattleAnim_DoubleEdge:
 	anim_1gfx ANIM_GFX_HIT
 	anim_call BattleAnim_FollowEnemyFeet_0
+	anim_if_param_equal FLYING, .brave_bird1
+	anim_if_param_equal GRASS, .wood_hammer
 	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $4, $10
+	anim_jump .double_edge
+.brave_bird1
+	anim_sound 0, 0, SFX_MENU
+	anim_bgeffect ANIM_BG_HIDE_MON, $0, $1, $0
+	anim_wait 16
+	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
+.wood_hammer
+	anim_sound 0, 1, SFX_SUBMISSION
+	anim_wait 6
+.double_edge
+	anim_1gfx ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_TACKLE, $0, $1, $0
 	anim_wait 3
 	anim_sound 0, 1, SFX_TACKLE
@@ -3896,14 +3909,15 @@ BattleAnim_FirePlay:
 	anim_wait 3
 	anim_call BattleAnim_ShowMon_0
 
-	anim_if_param_equal 2, .fly
-	anim_if_param_equal 1, .water
+	anim_if_param_equal $2, .fly
+	anim_if_param_equal $10, .water
 
+	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_FIRE
 	anim_call BattleAnim_FirePunch_branch_cbbcc
 	anim_jump .fly
 .water
-	; anim_sound 0, 1, SFX_WATER_GUN
-	; anim_wait 8
+	anim_sound 0, 1, SFX_WATER_GUN
+	anim_wait 8
 .fly
 	anim_wait 4
 	anim_call BattleAnim_ShowMon_0
@@ -4475,6 +4489,7 @@ BattleAnim_HiddenPower:
 	anim_ret
 
 BattleAnim_CrossChop:
+	anim_if_param_equal $3, .stone_edge
 	anim_1gfx ANIM_GFX_CUT
 	anim_sound 0, 1, SFX_CUT
 	anim_obj ANIM_OBJ_A0, 152, 40, $0
@@ -4483,6 +4498,23 @@ BattleAnim_CrossChop:
 	anim_bgeffect ANIM_BG_1F, $58, $2, $0
 	anim_wait 92
 	anim_sound 0, 1, SFX_VICEGRIP
+	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $8, $10
+	anim_wait 16
+	anim_ret
+.stone_edge
+	anim_2gfx ANIM_GFX_ROCKS, ANIM_GFX_HIT
+.loop1
+	anim_sound 0, 1, SFX_STRENGTH
+	anim_obj ANIM_OBJ_ANCIENTPOWER, 116, 74, $20
+	anim_wait 6
+	anim_sound 0, 1, SFX_STRENGTH
+	anim_obj ANIM_OBJ_ANCIENTPOWER, 128, 82, $20
+	anim_wait 6
+	anim_sound 0, 1, SFX_STRENGTH
+	anim_obj ANIM_OBJ_ANCIENTPOWER, 146, 74, $20
+	anim_wait 6
+	anim_loop 2, .loop1
+	anim_obj ANIM_OBJ_00, 136, 56, $0
 	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $8, $10
 	anim_wait 16
 	anim_ret

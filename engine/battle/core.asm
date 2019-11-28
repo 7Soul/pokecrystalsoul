@@ -5401,6 +5401,9 @@ MoveSelectionScreen:
 	jr nz, .got_start_coord
 	hlcoord 6, 17 - NUM_MOVES - 4
 .got_start_coord
+	ld a, [wBattleMonSpecies]
+	ld [wCurPartySpecies], a
+
 	ld a, SCREEN_WIDTH
 	ld [wBuffer1], a
 	predef ListMoves

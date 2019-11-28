@@ -1293,6 +1293,7 @@ BattleCommand_Stab:
 	call GetBattleVar
 	and TYPE_MASK ; move type in a
 	ld [wCurType], a
+	ld [wMoveType], a
 	call ReplaceVariableType
 	ld a, [wCurType]
 	ld [wMoveType], a
@@ -1480,9 +1481,9 @@ BattleCheckTypeMatchup:
 	ld hl, wEnemyMonType1
 	ldh a, [hBattleTurn]
 	and a
-	jr z, .get_type
+	jr z, CheckTypeMatchup
 	ld hl, wBattleMonType1
-.get_type
+
 CheckTypeMatchup:
 	push hl
 	push de
@@ -1510,6 +1511,7 @@ CheckTypeMatchup:
 	cp 0
 	jr nz, .has_mod
 ; bc contains own mon types
+	push hl
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
 	ld e, a ; move id in e
@@ -1517,11 +1519,11 @@ CheckTypeMatchup:
 	call GetBattleVar
 	and TYPE_MASK ; move type in a
 	ld [wCurType], a
+	ld [wMoveType], a
 	call ReplaceVariableType
 	ld a, [wCurType]
 	ld [wMoveType], a
-	ld d, a
-	jr .no_mod
+	pop hl
 
 .has_mod
 	ld d, a ; move type
@@ -1595,7 +1597,7 @@ ReplaceVariableType::
 ; takes move at e and pokemon types at bc
 ; has original type at wCurType
 	ld a, [wCurType]
-	ld [wBuffer1], a
+	ld [wMoveType], a
 	push af
 	push hl
 	push de
@@ -1611,7 +1613,7 @@ ReplaceVariableType::
 	ret
 .not_variable
 	pop de
-	ld a, [wBuffer1]
+	ld a, [wMoveType]
 	ld [wCurType], a ; restores original type
 	pop af
 	pop hl
@@ -1663,8 +1665,27 @@ GetVariableMoveType::
 	jr .loop_variable_types_by_name
 
 .found_move
+	push bc
+	ld a, [wBattleMode] ; overworld or battle check
+	and a
+	jp nz, .battle
 	ld a, [wCurPartySpecies]
+	ld b, a
+	jr .got_species
+.battle
+	ld a, [wCurPartySpecies]
+	ld b, a
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_species
+	ld a, [wEnemyMonSpecies]
+	ld b, a
+
+.got_species
+	ld a, b
+	pop bc
 	ld e, a
+	
 	ld a, [hli]
 	cp e
 	jr z, .found_mon_name
@@ -1726,6 +1747,8 @@ GetVariableMoveType::
 	and TYPE_MASK
 	ld [wCurType], a
 	pop bc
+	; ld a, [wMoveType]
+	; ld [wCurType], a ; restores original type
 	ret
 
 INCLUDE "data/moves/variable_moves_table.asm"
@@ -2217,9 +2240,21 @@ BattleCommand_MoveAnimNoSub:
 	ldh a, [hBattleTurn]
 	and a
 	ld de, wPlayerRolloutCount
+	push hl
+	ld hl, wBattleMonType1
+	ld b, [hl]
+	inc hl
+	ld c, [hl]
+	pop hl
 	ld a, BATTLEANIM_ENEMY_DAMAGE
 	jr z, .got_rollout_count
 	ld de, wEnemyRolloutCount
+	push hl
+	ld hl, wEnemyMonType1
+	ld b, [hl]
+	inc hl
+	ld c, [hl]
+	pop hl
 	ld a, BATTLEANIM_PLAYER_DAMAGE
 
 .got_rollout_count
@@ -2238,6 +2273,23 @@ BattleCommand_MoveAnimNoSub:
 	jr z, .triplekick
 	xor a
 	ld [wKickCounter], a
+
+	ld a, [wMoveType]
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	ld e, a ; move id in e
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK ; move type in a
+	ld [wCurType], a
+	call ReplaceVariableType
+	ld a, [wMoveType] ; old type
+	ld b, a
+	ld a, [wCurType] ; new type
+	cp b
+	jr z, .triplekick
+	ld [wBattleAnimParam], a
+	ld [$c003], a
 
 .triplekick
 	ld a, BATTLE_VARS_MOVE_ANIM

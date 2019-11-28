@@ -54,6 +54,7 @@ PrintMoveType:
 	ld a, [wStringBuffer1 + MOVE_TYPE]
 	and TYPE_MASK
 	ld [wCurType], a
+	ld b, a
 	pop hl
 
 	push hl
@@ -79,6 +80,8 @@ PrintMoveType:
 
 .not_variable
 	pop bc
+	ld a, b
+	ld [wCurType], a
 	pop hl
 	ld a, [wCurType]
 	ld b, a

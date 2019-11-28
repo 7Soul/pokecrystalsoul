@@ -2276,6 +2276,7 @@ FirePlay:
 	stab
 	damagevariation
 	checkhit
+	moveanim
 	fireplay
 	checkfaint
 	buildopponentrage	

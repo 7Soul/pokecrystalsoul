@@ -15,46 +15,30 @@ BattleCommand_FirePlay:
 	and a
 	jr nz, .evaded
 
-	push bc
-	push hl
-	ld a, BATTLE_VARS_MOVE
-	call GetBattleVar
-	ld e, a	
-	call IsVariableMove
-	pop hl
-	push hl
-	ld a, [hli]
-	ld b, a
-	ld a, [hl]
-	ld c, a
-	call GetVariableMoveType	
-	pop hl
-	
-	ld a, [wCurSpecies]
-	cp FIRE
-	jr z, .anim_fire
-	cp WATER
-	jr z, .anim_water	
-	ld a, $2
-	ld [wKickCounter], a
-	call AnimateCurrentMove
-	jr .after_animation
-.anim_water
-	ld a, $1
-	ld [wKickCounter], a
-	call AnimateCurrentMove
-	jr .after_animation
-.anim_fire
-	ld a, $0
-	ld [wKickCounter], a
-	call AnimateCurrentMove
-.after_animation
+; 	ld a, [wMoveType]
+; 	cp WATER
+; 	jr z, .anim_water
+; 	cp FLYING
+; 	jr z, .anim_flying
+; 	ld a, $0
+; 	ld [wBattleAnimParam], a
+; 	call AnimateCurrentMove
+; 	jr .after_animation
+; .anim_water
+; 	ld a, $1
+; 	ld [wBattleAnimParam], a
+; 	call AnimateCurrentMove
+; 	jr .after_animation
+; .anim_flying
+; 	ld a, $2
+; 	ld [wBattleAnimParam], a
+; 	call AnimateCurrentMove
+; .after_animation
 	call BattleCommand_FailureText
 	call BattleCommand_ApplyDamage
 	call BattleCommand_CriticalText
 	call BattleCommand_SuperEffectiveText
 
-	pop bc
 	ld d, NUM_LEVEL_STATS
 .loop
 	ld a, [bc]
@@ -70,7 +54,7 @@ BattleCommand_FirePlay:
 	ret
 
 .boosted
-	ld a, [hl]
+	ld a, [wMoveType] ; test later
 	cp FLYING
 	jr z, .flying
 

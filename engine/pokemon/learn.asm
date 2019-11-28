@@ -70,6 +70,27 @@ LearnMove:
 	ld [wPlayerDisableCount], a
 .not_disabled
 	call GetMoveName
+
+	ld a, [wCurSpecies]
+	ld e, a
+	predef IsVariableMove
+	ld a, [wCurType]
+	and a
+	jr z, .not_variable2
+
+	ld a, [wBaseType1]
+	ld b, a
+	ld a, [wBaseType2]
+	ld c, a
+	ld a, [wCurType]
+	ld d, a
+	predef GetVariableMoveType
+	ld a, [wCurSpecies]
+	ld e, a
+	ld a, [wMoveType]
+	predef GetVariableMoveName
+.not_variable2
+
 	ld hl, Text_1_2_and_Poof ; 1, 2 and…
 	call PrintText
 	pop de

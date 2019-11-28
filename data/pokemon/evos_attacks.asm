@@ -265,6 +265,7 @@ PidgeyEvosAttacks:
 	db 19, WHIRLWIND
 	db 19, FLY ;;;
 	db 23, AGILITY
+	db 23, DOUBLE_EDGE
 	db 26, SWIFT
 	db 30, AIR_SLASH
 	db 33, SWORDS_DANCE
@@ -1164,7 +1165,7 @@ GeodudeEvosAttacks:
 	db 29, ROCK_BLAST
 	db 34, EARTHQUAKE
 	db 36, EXPLOSION
-	db 40, DOUBLE_EDGE
+	db 40, DOUBLE_EDGE ; changes to wood hammer
 	db 42, CROSS_CHOP ; changes to Stone Edge
 	db 0 ; no more level-up moves
 

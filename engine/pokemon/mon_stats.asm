@@ -523,6 +523,7 @@ ListMoves:
 	push hl
 	push de
 
+
 	ld a, [wBattleMode] ; overworld or battle check
 	and a
 	jp nz, .battle
@@ -538,6 +539,8 @@ ListMoves:
 	ld c, a
 	jr .got_types
 .battle
+	ld a, $0
+	ldh [hBattleTurn], a
 	ld a, [wBattleMonType1]
 	ld b, a
 	ld a, [wBattleMonType2]
@@ -548,10 +551,9 @@ ListMoves:
 	farcall GetVariableMoveType
 	ld a, [wCurSpecies]
 	ld e, a
-	ld a, [wCurType]
 	farcall GetVariableMoveName
 	pop af
-	ld [wCurSpecies], a
+	ld a, [wCurType]
 	pop bc
 	pop de
 	pop hl
@@ -559,7 +561,7 @@ ListMoves:
 
 .not_variable
 	pop af
-	ld [wCurSpecies], a
+	ld [wCurType], a
 	pop bc
 	pop de
 	pop hl

@@ -1317,6 +1317,8 @@ SetUpMoveList:
 	ld [wBattleMonType1], a
 	ld a, [wBaseType2]
 	ld [wBattleMonType2], a
+	ld a, [wTempMonSpecies]
+	ld [wCurPartySpecies], a
 	predef ListMoves
 	hlcoord 14, 3
 	predef ListMovePP
