@@ -2094,16 +2094,20 @@ BattleCommand_MoveAnimNoSub:
 	ld [wNumHits], a
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
-	cp EFFECT_MULTI_HIT
-	jr z, .alternate_anim
+	; cp EFFECT_MULTI_HIT
+	; jr z, .alternate_anim
 	cp EFFECT_CONVERSION
-	jr z, .alternate_anim
-	cp EFFECT_DOUBLE_HIT
-	jr z, .alternate_anim
-	cp EFFECT_POISON_MULTI_HIT
 	jr z, .alternate_anim
 	cp EFFECT_TRIPLE_KICK
 	jr z, .triplekick
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	cp DOUBLESLAP
+	jr z, .alternate_anim
+	cp COMET_PUNCH
+	jr z, .alternate_anim
+	cp DOUBLE_KICK
+	jr z, .alternate_anim
 	xor a
 	ld [wKickCounter], a
 
@@ -2121,7 +2125,7 @@ BattleCommand_MoveAnimNoSub:
 	ld a, [wCurType] ; new type
 	cp b
 	jr z, .triplekick
-	ld [wBattleAnimParam], a
+	ld [wBattleAnimParam], a	
 
 .triplekick
 	ld a, BATTLE_VARS_MOVE_ANIM

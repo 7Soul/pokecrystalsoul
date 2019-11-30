@@ -119,7 +119,7 @@ BattleAnimFrameData:
 	dw .Frameset_74 ; BATTLEANIMFRAMESET_74
 	dw .Frameset_75 ; BATTLEANIMFRAMESET_75
 	dw .Frameset_76 ; BATTLEANIMFRAMESET_76
-	dw .Frameset_77 ; BATTLEANIMFRAMESET_77
+	dw .Frameset_77 ; BATTLEANIMFRAMESET_77 ; feather
 	dw .Frameset_78 ; BATTLEANIMFRAMESET_78
 	dw .Frameset_79 ; BATTLEANIMFRAMESET_79
 	dw .Frameset_7a ; BATTLEANIMFRAMESET_7A
@@ -188,6 +188,7 @@ BattleAnimFrameData:
 	dw .Frameset_b9 ; BATTLEANIMFRAMESET_B9
 	dw .Frameset_ba ; BATTLEANIMFRAMESET_BA
 	dw .Frameset_bb ; BATTLEANIMFRAMESET_BB
+	dw .Frameset_bc ; BATTLEANIMFRAMESET_BC
 
 .Frameset_00:
 	frame BATTLEANIMOAMSET_00,  6
@@ -1309,5 +1310,10 @@ BattleAnimFrameData:
 .Frameset_bb:
 	frame BATTLEANIMOAMSET_B2,  1
 	frame BATTLEANIMOAMSET_B2,  1, OAM_X_FLIP
+	dorestart
+
+.Frameset_bc:
+	frame BATTLEANIMOAMSET_D8,  1
+	frame BATTLEANIMOAMSET_D8,  1, OAM_X_FLIP
 	dorestart
 	

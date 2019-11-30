@@ -46,6 +46,7 @@ SquirtleEggMoves:
 CaterpieEggMoves:
 	db FAINT_ATTACK
 	db GIGA_DRAIN	
+	db SIGNAL_BEAM	
 	db -1 ; end
 
 WeedleEggMoves:
@@ -79,7 +80,8 @@ SpearowEggMoves:
 	db SCARY_FACE
 	db QUICK_ATTACK
 	db TRI_ATTACK
-	db FIRE_PLAY
+	db FIRE_PLAY ; becomes Flutter Clap
+	db SCREECH ; becomes Feather Dance
 	db -1 ; end
 
 EkansEggMoves:
@@ -95,6 +97,7 @@ SandshrewEggMoves:
 	db COUNTER
 	db RAPID_SPIN
 	db FROZEN_CLAW
+	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
 
 NidoranFEggMoves:
@@ -222,6 +225,7 @@ PoliwagEggMoves:
 	db HARMONY
 	db AURORA_BEAM
 	db ENCORE
+	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
 
 AbraEggMoves:
@@ -312,6 +316,7 @@ FarfetchDEggMoves:
 	db ICICLE_WING
 	db MIRROR_MOVE
 	db REVERSAL
+	db SCREECH ; becomes Feather Dance
 	db -1 ; end
 
 DoduoEggMoves:
@@ -354,6 +359,7 @@ ShellderEggMoves:
 	db SCREECH
 	db MUD_BOMB
 	db ROCK_BLAST
+	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
 
 GastlyEggMoves:
@@ -489,6 +495,7 @@ GoldeenEggMoves:
 	db SLEEP_TALK
 	db BODY_SLAM
 	db HYDRO_PUMP
+	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
 
 StaryuEggMoves:
@@ -588,6 +595,7 @@ KabutoEggMoves:
 	db REVERSAL
 	db X_SCISSOR
 	db GIGA_DRAIN
+	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
 
 AerodactylEggMoves:
@@ -658,6 +666,7 @@ HoothootEggMoves:
 	db WING_ATTACK
 	db WHIRLWIND
 	db SKY_ATTACK
+	db SCREECH ; becomes Feather Dance
 	db -1 ; end
 
 LedybaEggMoves:
@@ -720,6 +729,7 @@ TogepiEggMoves:
 
 NatuEggMoves:
 	db HAZE
+	db SCREECH ; becomes Feather Dance
 	db DRILL_PECK
 	db QUICK_ATTACK
 	db FAINT_ATTACK
@@ -798,6 +808,7 @@ MurkrowEggMoves:
 	db DRILL_PECK
 	db WING_ATTACK
 	db SKY_ATTACK
+	db SCREECH ; becomes Feather Dance
 	db -1 ; end
 
 MisdreavusEggMoves:

@@ -818,8 +818,8 @@ PoisonGasDescription:
 	next "poison the foe.@"
 
 RockBlastDescription:
-	db   "Throws rocks to hit"
-	next "2-5 times.@"
+	db   "An attack that"
+	next "hits 2-5 times.@"
 
 LeechLifeDescription:
 	db   "Steals 1/2 of the"
@@ -1042,7 +1042,7 @@ PerishSongDescription:
 	next "faint in 3 turns.@"
 
 IcyWindDescription:
-	db   "An icy attack that"
+	db   "An attack that"
 	next "lowers SPEED.@"
 
 BrickBreakDescription:

@@ -329,6 +329,10 @@ GetVariableMoveName::
 	db HORN_DRILL,   ICE
 	db HARDEN,       WATER
 	db ROCK_BLAST,   GROUND
+	db FEATHERGALE,  GROUND
+	db SHADOW_BALL,  GRASS
+	db REVERSAL,     NORMAL
+	db ICY_WIND,     GROUND
 	db -2
 
 .VariableMovesText:
@@ -348,3 +352,7 @@ GetVariableMoveName::
 	db "Sheer Cold@"
 	db "Withdraw@"
 	db "Bone Rush@"
+	db "Bonemerang@"
+	db "Energy Ball@"
+	db "Flail@"
+	db "Mud Shot@"

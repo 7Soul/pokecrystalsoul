@@ -260,44 +260,42 @@ PidgeyEvosAttacks:
 	db 1, TACKLE
 	db 5, SAND_ATTACK
 	db 8, GUST
-	db 11, QUICK_ATTACK
-	db 15, WING_ATTACK
-	db 19, WHIRLWIND
-	db 19, FLY ;;;
-	db 23, AGILITY
-	db 23, DOUBLE_EDGE
-	db 26, SWIFT
-	db 30, AIR_SLASH
-	db 33, SWORDS_DANCE
+	db 13, QUICK_ATTACK
+	db 21, TWISTER
+	db 23, SCREECH ; becomes Feather Dance
+	db 29, AGILITY
+	db 33, WING_ATTACK
 	db 40, MIRROR_MOVE
 	db 46, SWAGGER
+	db 50, FLY ;;;
+	; might add hurricane and tailwind
 	db 0 ; no more level-up moves
 
 PidgeottoEvosAttacks:
 	db EVOLVE_LEVEL, 36, PIDGEOT
 	db 0 ; no more evolutions
-	db 1, SAND_ATTACK
-	db 1, GUST
-	db 1, QUICK_ATTACK
-	db 1, WING_ATTACK
-	db 20, WHIRLWIND
-	db 25, AGILITY
-	db 28, SWIFT
-	db 33, AIR_SLASH
-	db 36, SWORDS_DANCE
-	db 44, MIRROR_MOVE
-	db 50, SWAGGER
+	db 1, TACKLE
+	db 5, SAND_ATTACK
+	db 8, GUST
+	db 13, QUICK_ATTACK
+	db 21, TWISTER
+	db 24, SCREECH ; becomes Feather Dance
+	db 31, AGILITY
+	db 35, WING_ATTACK
+	db 43, MIRROR_MOVE
+	db 49, SWAGGER
+	db 53, FLY ;;;
 	db 0 ; no more level-up moves
 
 PidgeotEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, WHIRLWIND
-	db 1, AGILITY
-	db 1, SWIFT
-	db 1, AIR_SLASH
-	db 38, SWORDS_DANCE
-	db 47, MIRROR_MOVE
-	db 55, SWAGGER
+	db 21, TWISTER
+	db 24, SCREECH ; becomes Feather Dance
+	db 31, AGILITY
+	db 35, WING_ATTACK
+	db 44, MIRROR_MOVE
+	db 51, SWAGGER
+	db 57, FLY ;;;
 	db 0 ; no more level-up moves
 
 RattataEvosAttacks:
@@ -840,7 +838,7 @@ MeowthEvosAttacks:
 	db 10, BITE
 	db 17, POWER_GEM
 	db 26, FAINT_ATTACK
-	db 33, SLASH
+	db 33, SLASH ; becomes Night Slash
 	db 35, SCREECH
 	db 38, NASTY_PLOT
 	db 41, FURY_ATTACK
@@ -969,8 +967,9 @@ PoliwagEvosAttacks:
 	db 12, WATER_GUN
 	db 15, DOUBLESLAP
 	db 18, RAIN_DANCE
-	db 22, BUBBLEBEAM
-	db 27, BODY_SLAM
+	db 21, BODY_SLAM
+	db 25, BUBBLEBEAM
+	db 28, ICY_WIND ; becomes Mud Shot
 	db 31, BELLY_DRUM
 	db 35, WAKEUP_SLAP
 	db 40, HYDRO_PUMP
@@ -981,11 +980,12 @@ PoliwhirlEvosAttacks:
 	db EVOLVE_ITEM, WATER_STONE, POLIWRATH
 	db EVOLVE_ITEM, SUN_STONE, POLITOED
 	db 0 ; no more evolutions
-	db 1, HYPNOSIS
-	db 1, DOUBLESLAP
-	db 19, RAIN_DANCE
-	db 23, BUBBLEBEAM
-	db 29, BODY_SLAM
+	db 12, WATER_GUN
+	db 15, DOUBLESLAP
+	db 18, RAIN_DANCE
+	db 21, BODY_SLAM
+	db 25, BUBBLEBEAM
+	db 29, ICY_WIND ; becomes Mud Shot
 	db 33, BELLY_DRUM
 	db 38, WAKEUP_SLAP
 	db 44, HYDRO_PUMP
@@ -994,11 +994,12 @@ PoliwhirlEvosAttacks:
 
 PoliwrathEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, HYPNOSIS
-	db 1, DOUBLESLAP
-	db 20, RAIN_DANCE
-	db 24, BUBBLEBEAM
-	db 31, BODY_SLAM
+	db 12, WATER_GUN
+	db 15, DOUBLESLAP
+	db 18, RAIN_DANCE
+	db 21, BODY_SLAM
+	db 25, BUBBLEBEAM
+	db 30, ICY_WIND ; becomes Mud Shot
 	db 35, BELLY_DRUM
 	db 41, WAKEUP_SLAP
 	db 48, HYDRO_PUMP
@@ -1521,14 +1522,14 @@ KrabbyEvosAttacks:
 	db 8, LEER
 	db 10, HARDEN
 	db 13, BUBBLEBEAM
-	db 19, DIG
+	db 19, ICY_WIND ; becomes Mud Shot
 	db 22, FROZEN_CLAW
 	db 26, STOMP
 	db 29, PROTECT
 	db 31, HORN_DRILL ; becomes Guillotine
 	db 35, SLAM
 	db 41, CRABHAMMER
-	db 45, REVERSAL
+	db 45, REVERSAL ; becomes Flail
 	db 50, SHARPEN
 	db 0 ; no more level-up moves
 
@@ -1536,14 +1537,14 @@ KinglerEvosAttacks:
 	db 0 ; no more evolutions
 	db 10, HARDEN
 	db 13, BUBBLEBEAM
-	db 19, DIG
+	db 19, ICY_WIND ; becomes Mud Shot
 	db 21, FROZEN_CLAW
 	db 27, STOMP
 	db 33, PROTECT
 	db 35, HORN_DRILL ; becomes Guillotine
 	db 39, SLAM
 	db 46, CRABHAMMER
-	db 52, REVERSAL
+	db 52, REVERSAL ; becomes Flail
 	db 55, SHARPEN
 	db 0 ; no more level-up moves
 
@@ -1612,28 +1613,27 @@ CuboneEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, GROWL
 	db 1, TACKLE
-	db 7, MAKESHIFT
-	db 11, LEER
-	db 15, HEADBUTT
+	db 5, RAGE
+	db 10, MAKESHIFT
+	db 13, LEER
 	db 18, FOCUS_ENERGY
-	db 22, LEAF_SHIELD
-	db 25, DIG
-	db 29, RAGE
-	db 33, FALSE_SWIPE
+	db 21, FEATHERGALE ; becomes Bonemerang
+	db 24, LEAF_SHIELD	
+	db 27, FALSE_SWIPE
 	db 37, ROCK_BLAST ; becomes Bone Rush
-	db 43, DOUBLE_EDGE
-	db 48, EARTHQUAKE
+	db 42, SKULL_BASH
+	db 45, DOUBLE_EDGE
+	db 50, EARTHQUAKE
 	db 0 ; no more level-up moves
 
 MarowakEvosAttacks:
 	db 0 ; no more evolutions
-	db 11, MAKESHIFT
-	db 17, FOCUS_ENERGY
-	db 22, LEAF_SHIELD
-	db 25, DIG
-	db 32, RAGE
-	db 36, FALSE_SWIPE
-	db 42, ROCK_BLAST ; becomes Bone Rush
+	db 18, FOCUS_ENERGY
+	db 21, FEATHERGALE ; becomes Bonemerang
+	db 24, LEAF_SHIELD	
+	db 27, FALSE_SWIPE
+	db 38, ROCK_BLAST ; becomes Bone Rush
+	db 44, SKULL_BASH
 	db 49, DOUBLE_EDGE
 	db 55, EARTHQUAKE
 	db 0 ; no more level-up moves
@@ -1831,7 +1831,7 @@ GoldeenEvosAttacks:
 	db 7, FIRE_PLAY ; becomes Tide Clash
 	db 10, SUPERSONIC
 	db 15, HORN_ATTACK
-	db 24, REVERSAL
+	db 24, REVERSAL ; becomes Flail
 	db 29, FURY_ATTACK	
 	db 33, AQUA_TAIL
 	db 38, TWISTER
@@ -1843,7 +1843,7 @@ SeakingEvosAttacks:
 	db 0 ; no more evolutions
 	db 10, SUPERSONIC
 	db 15, HORN_ATTACK
-	db 24, REVERSAL
+	db 24, REVERSAL ; becomes Flail
 	db 29, FURY_ATTACK
 	db 33, AQUA_TAIL
 	db 41, TWISTER
@@ -2011,7 +2011,7 @@ MagikarpEvosAttacks:
 	db 21, SWIFT
 	db 26, MIRROR_MOVE
 	db 31, PSYCH_UP
-	db 40, REVERSAL
+	db 40, REVERSAL ; becomes Flail
 	db 46, CLOSE_COMBAT
 	db 51, SKY_ATTACK
 	db 0 ; no more level-up moves
@@ -2148,7 +2148,8 @@ OmanyteEvosAttacks:
 	db 10, WATER_GUN
 	db 15, ROLLOUT
 	db 19, LEER
-	db 25, JET_STREAM
+	db 25, ICY_WIND ; becomes Mud Shot
+	db 28, JET_STREAM
 	db 32, PROTECT
 	db 37, ANCIENTPOWER
 	db 46, ROCK_BLAST
@@ -2157,13 +2158,9 @@ OmanyteEvosAttacks:
 
 OmastarEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, CONSTRICT
-	db 1, HARDEN
-	db 6, BITE
-	db 10, WATER_GUN
-	db 15, ROLLOUT
 	db 19, LEER
-	db 25, JET_STREAM
+	db 25, ICY_WIND ; becomes Mud Shot
+	db 28, JET_STREAM
 	db 32, PROTECT
 	db 38, ANCIENTPOWER
 	db 48, ROCK_BLAST
@@ -2175,30 +2172,27 @@ KabutoEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SCRATCH
 	db 1, HARDEN
-	db 7, ABSORB
-	db 13, LEER
-	db 18, BUBBLEBEAM
-	db 24, SAND_ATTACK
-	db 30, ENDURE
-	db 37, AQUA_TAIL
-	db 40, MEGA_DRAIN
+	db 6, ABSORB
+	db 11, LEER
+	db 16, ICY_WIND ; becomes Mud Shot
+	db 21, SAND_ATTACK
+	db 26, ENDURE
+	db 31, AQUA_TAIL
+	db 36, MEGA_DRAIN
+	; add metal sound
 	db 46, ANCIENTPOWER
 	db 50, ROCK_SLIDE
 	db 0 ; no more level-up moves
 
 KabutopsEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, SCRATCH
-	db 1, HARDEN
-	db 1, ABSORB
-	db 10, ABSORB
-	db 19, LEER
-	db 24, BUBBLEBEAM
-	db 28, SAND_ATTACK	
-	db 37, ENDURE
-	db 39, SLASH
-	db 43, ANCIENTPOWER
-	db 51, MEGA_DRAIN
+	db 16, ICY_WIND ; becomes Mud Shot
+	db 21, SAND_ATTACK
+	db 26, ENDURE
+	db 31, AQUA_TAIL
+	db 38, MEGA_DRAIN
+	; add metal sound
+	db 48, ANCIENTPOWER
 	db 55, ROCK_SLIDE
 	db 0 ; no more level-up moves
 
@@ -2460,7 +2454,7 @@ TotodileEvosAttacks:
 	db 13, BITE
 	db 15, SCARY_FACE
 	db 20, FROZEN_CLAW
-	db 22, REVERSAL
+	db 22, REVERSAL ; becomes Flail
 	db 27, CRUNCH
 	db 34, SLASH
 	db 36, SCREECH
@@ -2480,7 +2474,7 @@ CroconawEvosAttacks:
 	db 13, BITE
 	db 15, SCARY_FACE
 	db 21, FROZEN_CLAW
-	db 24, REVERSAL
+	db 24, REVERSAL ; becomes Flail
 	db 30, CRUNCH
 	db 39, SLASH
 	db 42, SCREECH
@@ -2495,7 +2489,7 @@ FeraligatrEvosAttacks:
 	db 16, BITE
 	db 15, SCARY_FACE
 	db 21, FROZEN_CLAW
-	db 24, REVERSAL
+	db 24, REVERSAL ; becomes Flail
 	db 32, CRUNCH
 	db 45, SLASH
 	db 50, SCREECH
@@ -2665,13 +2659,13 @@ ChinchouEvosAttacks:
 	db 10, EERIEIMPULSE
 	db 12, WATER_GUN
 	db 17, CONFUSE_RAY
-	db 23, SPARK
-	db 31, BUBBLEBEAM
+	db 21, SPARK
+	db 26, BUBBLEBEAM
+	db 31, REVERSAL ; becomes Flail
 	db 34, SIGNAL_BEAM
 	db 39, TAKE_DOWN
-	db 42, AQUA_TAIL
-	db 45, HYDRO_PUMP
-	db 50, THUNDER
+	db 43, AQUA_TAIL
+	db 47, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 LanturnEvosAttacks:
@@ -2679,13 +2673,13 @@ LanturnEvosAttacks:
 	db 10, EERIEIMPULSE
 	db 12, WATER_GUN
 	db 17, CONFUSE_RAY
-	db 23, SPARK
-	db 32, BUBBLEBEAM
-	db 36, SIGNAL_BEAM
-	db 43, TAKE_DOWN
-	db 47, AQUA_TAIL
-	db 52, HYDRO_PUMP
-	db 58, THUNDER
+	db 21, SPARK
+	db 26, BUBBLEBEAM
+	db 33, REVERSAL ; becomes Flail
+	db 37, SIGNAL_BEAM
+	db 44, TAKE_DOWN
+	db 48, AQUA_TAIL
+	db 54, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 PichuEvosAttacks:
@@ -3014,7 +3008,7 @@ SunkernEvosAttacks:
 	db 27, PETAL_DANCE
 	db 33, SOLARBEAM
 	db 39, SUNNY_DAY	
-	db 43, ANCIENTPOWER
+	db 43, SHADOW_BALL ; becomes Energy Ball
 	db 0 ; no more level-up moves
 
 SunfloraEvosAttacks:
@@ -3030,7 +3024,7 @@ SunfloraEvosAttacks:
 	db 31, PETAL_DANCE
 	db 37, SOLARBEAM
 	db 43, SUNNY_DAY	
-	db 50, ANCIENTPOWER
+	db 50, SHADOW_BALL ; becomes Energy Ball
 	db 0 ; no more level-up moves
 
 YanmaEvosAttacks:
@@ -3053,7 +3047,8 @@ WooperEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, WATER_GUN
 	db 1, TAIL_WHIP
-	db 10, SLAM
+	db 9, ICY_WIND ; becomes Mud Shot
+	db 14, SLAM
 	db 19, MUD_BOMB
 	db 21, AMNESIA
 	db 23, JET_STREAM
@@ -3067,7 +3062,8 @@ WooperEvosAttacks:
 QuagsireEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TAIL_WHIP
-	db 10, SLAM
+	db 9, ICY_WIND ; becomes Mud Shot
+	db 14, SLAM
 	db 19, MUD_BOMB
 	db 22, AMNESIA
 	db 25, JET_STREAM
@@ -3228,7 +3224,7 @@ DunsparceEvosAttacks:
 	db 30, SCREECH
 	db 33, DIG
 	db 38, TAKE_DOWN
-	db 46, REVERSAL
+	db 46, REVERSAL ; becomes Flail
 	db 52, ROCK_SLIDE
 	db 0 ; no more level-up moves
 
@@ -3307,7 +3303,7 @@ QwilfishEvosAttacks:
 	db 15, WATER_GUN
 	db 19, ROLLOUT
 	db 25, PIN_MISSILE
-	db 29, REVERSAL
+	db 29, REVERSAL ; becomes Flail
 	db 33, JET_STREAM
 	db 38, TAKE_DOWN
 	db 44, TOXIC
@@ -3456,7 +3452,7 @@ SwinubEvosAttacks:
 	db 28, TAKE_DOWN
 	db 35, MIST
 	db 37, EARTHQUAKE
-	db 40, REVERSAL
+	db 40, REVERSAL ; becomes Flail
 	db 45, BLIZZARD
 	db 49, AMNESIA
 	db 0 ; no more level-up moves
@@ -3470,7 +3466,7 @@ PiloswineEvosAttacks:
 	db 30, TAKE_DOWN
 	db 37, MIST
 	db 41, EARTHQUAKE
-	db 44, REVERSAL
+	db 44, REVERSAL ; becomes Flail
 	db 50, BLIZZARD
 	db 56, AMNESIA
 	db 0 ; no more level-up moves
@@ -3490,7 +3486,7 @@ CorsolaEvosAttacks:
 	db 38, JET_STREAM
 	db 43, POWER_GEM
 	db 45, MIRROR_COAT
-	db 50, REVERSAL
+	db 50, REVERSAL ; becomes Flail
 	db 0 ; no more level-up moves
 
 RemoraidEvosAttacks:
@@ -3627,7 +3623,7 @@ PhanpyEvosAttacks:
 	db 9, DEFENSE_CURL
 	db 10, ROLLOUT
 	db 13, STOMP
-	db 17, REVERSAL
+	db 17, REVERSAL ; becomes Flail
 	db 25, TAKE_DOWN
 	db 30, CHARM
 	db 38, RAPID_SPIN
@@ -3640,7 +3636,7 @@ DonphanEvosAttacks:
 	db 1, HORN_ATTACK
 	db 1, GROWL
 	db 9, DEFENSE_CURL
-	db 17, REVERSAL
+	db 17, REVERSAL ; becomes Flail
 	db 24, STAMPEDE	
 	db 26, FURY_ATTACK
 	db 33, ROLLOUT
@@ -3943,4 +3939,5 @@ CelebiEvosAttacks:
 	db 33, FUTURE_SIGHT
 	db 40, BATON_PASS
 	db 56, LEAF_STORM
+	db 62, SHADOW_BALL ; becomes Energy Ball
 	db 0 ; no more level-up moves

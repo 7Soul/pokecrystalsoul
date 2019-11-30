@@ -599,9 +599,9 @@ BattleAnim_Miss:
 BattleAnim_EnemyDamage:
 .loop
 	anim_bgeffect ANIM_BG_HIDE_MON, $0, $0, $0
-	anim_wait 5
+	anim_wait 4
 	anim_bgeffect ANIM_BG_SHOW_MON, $0, $0, $0
-	anim_wait 5
+	anim_wait 4
 	anim_loop 2, .loop
 	anim_ret
 
@@ -1463,11 +1463,37 @@ BattleAnim_Cut:
 	anim_ret
 
 BattleAnim_Slash:
+	anim_if_param_equal DARK, .night_slash
+	anim_if_param_equal GRASS, .leaf_blade
+.night_slash
+	anim_bgeffect ANIM_BG_BLACK_HUES, $0, $8, $0
+	anim_wait 8
+	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $8, $10
+	anim_wait 24
+	anim_jump .end
+.leaf_blade
+	anim_clearobjs
+	anim_1gfx ANIM_GFX_PLANT
+	anim_sound 0, 0, SFX_VINE_WHIP
+	anim_obj ANIM_OBJ_RAZOR_LEAF, 136, 48, $28
+	anim_incobj  1
+	anim_wait 3
+	anim_obj ANIM_OBJ_RAZOR_LEAF, 136, 48, $10
+	anim_incobj  2
+	anim_wait 3
+	anim_obj ANIM_OBJ_RAZOR_LEAF, 136, 48, $9c
+	anim_incobj  3
+	anim_wait 3
+	anim_loop 2, .leaf_blade
+	anim_wait 16
+	anim_clearobjs
+	anim_jump .end
+.end
 	anim_1gfx ANIM_GFX_CUT
 	anim_sound 0, 1, SFX_CUT
 	anim_obj ANIM_OBJ_3A, 152, 40, $0
 	anim_obj ANIM_OBJ_3A, 148, 36, $0
-	anim_wait 32
+	anim_wait 28
 	anim_ret
 
 BattleAnim_Clamp:
@@ -2344,6 +2370,7 @@ BattleAnim_PetalDance:
 	anim_ret
 
 BattleAnim_RockBlast:
+	anim_if_param_equal GROUND, .bonerush
 	anim_2gfx ANIM_GFX_ROCKS, ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_20, $10, $1, $20
 	anim_sound 0, 0, SFX_STRENGTH
@@ -2353,6 +2380,20 @@ BattleAnim_RockBlast:
 	anim_obj ANIM_OBJ_00, 132, 48, $0
 	anim_wait 4
 	anim_ret
+
+.bonerush
+	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_MISC
+	anim_sound 0, 1, SFX_BONE_CLUB
+	anim_obj ANIM_OBJ_BONE_RUSH, 132, 56, $2
+	anim_wait 12
+	anim_sound 0, 1, SFX_COMET_PUNCH
+	anim_obj ANIM_OBJ_01, 120, 48, $0
+	anim_wait 12
+	anim_sound 0, 1, SFX_COMET_PUNCH
+	anim_obj ANIM_OBJ_01, 144, 64, $0
+	anim_wait 4
+	anim_ret
+	
 
 BattleAnim_HyperSonar:
 	anim_1gfx ANIM_GFX_NOISE
@@ -2430,7 +2471,12 @@ BattleAnim_Stampede:
 BattleAnim_Feathergale:
 	anim_2gfx ANIM_GFX_MISC, ANIM_GFX_HIT
 	anim_sound 6, 2, SFX_HYDRO_PUMP
+	anim_if_param_equal GROUND, .bonemerang
+	anim_obj ANIM_OBJ_FEATHERGALE, 88, 56, $1c
+	anim_jump .end
+.bonemerang	
 	anim_obj ANIM_OBJ_BONEMERANG, 88, 56, $1c
+.end
 	anim_wait 24
 	anim_sound 0, 1, SFX_MOVE_PUZZLE_PIECE
 	anim_obj ANIM_OBJ_01, 136, 56, $0

@@ -131,7 +131,7 @@ BATTLEANIMSTRUCT_LENGTH EQU const_value
 	const ANIM_OBJ_64
 	const ANIM_OBJ_MIMIC
 	const ANIM_OBJ_ATTRACT
-	const ANIM_OBJ_BONEMERANG
+	const ANIM_OBJ_FEATHERGALE
 	const ANIM_OBJ_BONE_CLUB
 	const ANIM_OBJ_BONE_RUSH
 	const ANIM_OBJ_SWIFT
@@ -228,6 +228,7 @@ BATTLEANIMSTRUCT_LENGTH EQU const_value
 	const ANIM_OBJ_LEAF_SHIELD
 	const ANIM_OBJ_ICE_SHARD
 	const ANIM_OBJ_01_BLUE
+	const ANIM_OBJ_BONEMERANG
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def
@@ -502,6 +503,7 @@ BATTLEANIMSTRUCT_LENGTH EQU const_value
 	const BATTLEANIMFRAMESET_B9
 	const BATTLEANIMFRAMESET_BA
 	const BATTLEANIMFRAMESET_BB
+	const BATTLEANIMFRAMESET_BC
 
 ; BattleAnimOAMData indexes (see data/battle_anims/oam.asm)
 	const_def
@@ -721,6 +723,7 @@ BATTLEANIMSTRUCT_LENGTH EQU const_value
 	const BATTLEANIMOAMSET_D5
 	const BATTLEANIMOAMSET_D6
 	const BATTLEANIMOAMSET_D7
+	const BATTLEANIMOAMSET_D8
 
 ; BattleBGEffects indexes (see engine/battle_anims/bg_effects.asm)
 	const_def 1

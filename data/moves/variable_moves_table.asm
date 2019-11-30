@@ -12,6 +12,11 @@ VariableTypes:
 	db GROUND, GROUND,      ROCK, GROUND, 		    ICE, ICE,           DARK, DARK,     WATER, DARK,    BUG, DARK, -1 ; Horn Drill (normal) -> Fissure (ground), Sheer Cold (ice), Guillotine (dark)
 	db WATER, WATER,        ICE, WATER, -1 ; Withdraw (water)
 	db ROCK, ROCK,          WATER, ROCK, -1 ; Iron Defense (rock)
+	db GROUND, GROUND,      -1 ; Bone Rush (ground)
+	db GROUND, GROUND,      -1 ; Bonemerang (ground)
+	db GRASS, GRASS,        -1 ; Energy Ball (grass)
+	db WATER, WATER,        GROUND, WATER,           -1 ; Energy Ball (grass)
+	db WATER, GROUND,       GROUND, GROUND,          -1 ; Mud Shot (ground)
 	db -1
 
 VariableTypesByName:
@@ -26,22 +31,29 @@ VariableTypesByName:
 	db HORN_DRILL, GOLDEEN, NORMAL
 	db HORN_DRILL, SEAKING, NORMAL
 	db HORN_DRILL, SUICUNE, ICE
-	; db ROCK_BLAST, DIGLETT, NORMAL?
+	db ICY_WIND, SEEL, ICE
+	db ICY_WIND, SWINUB, ICE
+	db ICY_WIND, PILOSWINE, ICE
 	db -2
 
 VariableMoves::
 	db NO_MOVE
-	db FIRE_PLAY
-	db CROSS_CHOP
-	db DOUBLE_EDGE
-	db QUICK_ATTACK
-	db SLASH
-	db DRILL_PECK
-	db FAINT_ATTACK
-	db SCREECH ; Feather Dance (flying)
+	db FIRE_PLAY ; Tide Clash (water), Flutter Clap (flying)
+	db CROSS_CHOP ; Stone Edge (rock)
+	db DOUBLE_EDGE ; Brave Bird (flying), Wood Hammer (grass) ; todo anim
+	db QUICK_ATTACK ; Ice Shard (ice)
+	db SLASH ; Night Slash (dark), Leaf Blade (grass)
+	db DRILL_PECK ; Seed Bomb (grass) ; todo anim
+	db FAINT_ATTACK ; Aerial Ace (flying) ; todo anim
+	db SCREECH ; Feather Dance (flying) ; todo anim
 	db HORN_DRILL ; Fissure (ground), Sheer Cold (ice), Guillotine (dark)
-	db HARDEN ; Withdraw (water)
-	db BARRIER ; Iron Defense (rock)
+	db HARDEN ; Withdraw (water) ; todo anim
+	db BARRIER ; Iron Defense (rock) ; todo anim
+	db ROCK_BLAST ; Bone Rush (ground)
+	db FEATHERGALE ; Bonemerang (ground)
+	db SHADOW_BALL ; Energy Ball (grass) ; todo anim
+	db REVERSAL ; Flail (normal) ; todo anim
+	db ICY_WIND ; Mud Shot (ground) ; todo anim
 	db -1
 
  ; needs animations:
