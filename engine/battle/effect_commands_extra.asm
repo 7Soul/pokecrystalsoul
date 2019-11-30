@@ -1,3 +1,170 @@
+ReplaceVariableType::
+; takes move at e and pokemon types at bc
+; has original type at wCurType
+	ld a, [wCurType]
+	ld [wMoveType], a
+	push af
+	push hl
+	push de
+	call IsVariableMove
+	jr nc, .not_variable
+	ld a, [wCurType]
+	ld d, a
+	call GetVariableMoveType
+	ld a, [wCurType]
+	pop af
+	pop de
+	pop hl
+	ret
+.not_variable
+	pop de
+	ld a, [wMoveType]
+	ld [wCurType], a ; restores original type
+	pop af
+	pop hl
+	ret
+
+IsVariableMove::
+; sets c if move 'e' is variable
+; saves id into wCurType
+	xor a
+	ld [wCurType], a
+	ld hl, VariableMoves
+	ld d, 0
+.moves_loop
+	ld a, [hli]
+	cp -1
+	ret z
+	cp e
+	jr z, .found_move
+	inc d
+	jr .moves_loop
+.found_move
+	ld a, d
+	ld [wCurType], a
+	scf
+	ret
+
+GetVariableMoveType::
+; takes mon types in 'b' and 'c', and and puts type in wCurType and 'a'
+; takes variable id in 'd' from IsVariableMove
+	ld hl, VariableTypesByName
+	ld a, [wCurSpecies] ; move id
+	ld e, a
+	ld a, [hli]
+	cp e
+	jr z, .found_move
+	dec hl
+.loop_variable_types_by_name
+	ld a, [hl]
+	cp -2
+	jr z, .check_by_type
+
+	ld a, [wCurSpecies]
+	ld e, a
+	ld a, [hli]
+	cp e
+	jr z, .found_move
+	inc hl
+	inc hl
+	jr .loop_variable_types_by_name
+
+.found_move
+	push bc
+	ld a, [wBattleMode] ; overworld or battle check
+	and a
+	jp nz, .battle
+	ld a, [wCurPartySpecies]
+	ld b, a
+	jr .got_species
+.battle
+	ld a, [wCurPartySpecies]
+	ld b, a
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_species
+	ld a, [wEnemyMonSpecies]
+	ld b, a
+
+.got_species
+	ld a, b
+	pop bc
+	ld e, a
+	
+	ld a, [hli]
+	cp e
+	jr z, .found_mon_name
+	inc hl
+	jr .loop_variable_types_by_name 
+
+.found_mon_name
+	ld a, [hl]
+	ld [wCurType], a
+	ret
+
+.check_by_type
+	ld e, 0
+	ld hl, VariableTypes
+	ld a, d
+	and a
+	jr z, .loop ; if d is 0 start at first entry
+
+.loop_variable_types
+	ld a, [hli]
+	cp -1
+	jr nz, .loop_variable_types
+
+	inc e
+	ld a, e
+	cp d
+	jr z, .loop
+	jr .loop_variable_types
+
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .no_type_match
+
+	cp c
+	jr z, .got_variable
+	cp b
+	jr z, .got_variable
+	inc hl
+	jr .loop
+
+.got_variable
+	ld a, [hl]
+	ld [wCurType], a
+	ret
+
+.no_type_match
+; restores original type into wCurType
+	push bc
+	ld a, [wCurSpecies]
+	dec a
+	ld bc, MOVE_LENGTH
+	ld hl, Moves
+	call AddNTimes
+	ld de, wStringBuffer1
+	ld a, BANK(Moves)
+	call FarCopyBytes
+	ld a, [wStringBuffer1 + MOVE_TYPE]
+	and TYPE_MASK
+	ld [wCurType], a
+	pop bc
+	; ld a, [wMoveType]
+	; ld [wCurType], a ; restores original type
+	ret
+
+GetVariableMoveName2::
+	call GetVariableMoveName
+	ld de, wStringBuffer2
+	ld bc, wStringBuffer3 - wStringBuffer2
+	call CopyBytes
+	ret
+
+INCLUDE "data/moves/variable_moves_table.asm"
+
 CheckIfTargetIsElectricType:
 	ld de, wEnemyMonType1
 	ld a, [hBattleTurn]

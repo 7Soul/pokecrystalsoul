@@ -324,6 +324,9 @@ GetVariableMoveName::
 	db SCREECH,      FLYING
 	db DRILL_PECK,   GRASS
 	db FAINT_ATTACK, FLYING
+	db HORN_DRILL,   ROCK
+	db HORN_DRILL,   DARK
+	db HORN_DRILL,   ICE
 	db -2
 
 .VariableMovesText:
@@ -338,3 +341,6 @@ GetVariableMoveName::
 	db "FeatherDance@"
 	db "Seed Bomb@"
 	db "Aerial Ace@"
+	db "Fissure@"
+	db "Guillotine@"
+	db "Sheer Cold@"

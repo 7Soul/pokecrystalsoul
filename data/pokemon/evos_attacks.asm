@@ -815,7 +815,7 @@ DiglettEvosAttacks:
 	db 35, SLASH
 	db 38, MEAN_LOOK
 	db 41, EARTHQUAKE
-	db 49, FISSURE
+	db 49, HORN_DRILL ; becomes Fissure
 	db 0 ; no more level-up moves
 
 DugtrioEvosAttacks:
@@ -829,7 +829,7 @@ DugtrioEvosAttacks:
 	db 39, SLASH
 	db 44, MEAN_LOOK
 	db 48, EARTHQUAKE
-	db 57, FISSURE
+	db 57, HORN_DRILL ; becomes Fissure
 	db 0 ; no more level-up moves
 
 MeowthEvosAttacks:
@@ -1353,7 +1353,7 @@ DewgongEvosAttacks:
 	db 18, AURORA_BEAM
 	db 21, REST
 	db 32, TAKE_DOWN
-	db 33, FISSURE
+	db 33, HORN_DRILL ; becomes Sheer Cold
 	db 38, ICE_BEAM
 	db 49, AQUA_TAIL
 	db 52, SAFEGUARD
@@ -1526,7 +1526,7 @@ KrabbyEvosAttacks:
 	db 22, FROZEN_CLAW
 	db 26, STOMP
 	db 29, PROTECT
-	db 31, GUILLOTINE
+	db 31, HORN_DRILL ; becomes Guillotine
 	db 35, SLAM
 	db 41, CRABHAMMER
 	db 45, REVERSAL
@@ -1541,7 +1541,7 @@ KinglerEvosAttacks:
 	db 21, FROZEN_CLAW
 	db 27, STOMP
 	db 33, PROTECT
-	db 35, GUILLOTINE
+	db 35, HORN_DRILL ; becomes Guillotine
 	db 39, SLAM
 	db 46, CRABHAMMER
 	db 52, REVERSAL
@@ -1982,7 +1982,7 @@ PinsirEvosAttacks:
 	db 33, SUBMISSION
 	db 40, SWORDS_DANCE
 	db 43, THRASH
-	db 50, GUILLOTINE
+	db 50, HORN_DRILL ; becomes Guillotine
 	db 0 ; no more level-up moves
 
 TaurosEvosAttacks:
@@ -2249,6 +2249,7 @@ ArticunoEvosAttacks:
 	db 45, CONFUSE_RAY
 	db 51, BLIZZARD
 	db 60, SKY_ATTACK
+	db 65, HORN_DRILL ; becomes Sheer Cold
 	db 0 ; no more level-up moves
 
 ZapdosEvosAttacks:
@@ -3240,7 +3241,7 @@ GligarEvosAttacks:
 	db 41, SANDSTORM
 	db 45, SUBMISSION
 	db 50, SWORDS_DANCE
-	db 54, GUILLOTINE
+	db 54, HORN_DRILL ; becomes Guillotine
 	db 0 ; no more level-up moves
 
 SteelixEvosAttacks:
@@ -3851,7 +3852,8 @@ SuicuneEvosAttacks:
 	db 41, AURORA_BEAM
 	db 51, MIST
 	db 61, MIRROR_COAT
-	db 71, HYDRO_PUMP
+	db 70, HYDRO_PUMP
+	db 70, HORN_DRILL ; becomes Sheer Cold
 	db 0 ; no more level-up moves
 
 LarvitarEvosAttacks:

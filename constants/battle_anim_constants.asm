@@ -226,6 +226,8 @@ BATTLEANIMSTRUCT_LENGTH EQU const_value
 	const ANIM_OBJ_POWER_GEM_BEAM_TIP
 	const ANIM_OBJ_MAGICAL_LEAF
 	const ANIM_OBJ_LEAF_SHIELD
+	const ANIM_OBJ_ICE_SHARD
+	const ANIM_OBJ_01_BLUE
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def

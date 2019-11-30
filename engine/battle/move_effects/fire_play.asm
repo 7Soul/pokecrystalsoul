@@ -14,31 +14,12 @@ BattleCommand_FirePlay:
 	ld a, [wAttackMissed]
 	and a
 	jr nz, .evaded
-
-; 	ld a, [wMoveType]
-; 	cp WATER
-; 	jr z, .anim_water
-; 	cp FLYING
-; 	jr z, .anim_flying
-; 	ld a, $0
-; 	ld [wBattleAnimParam], a
-; 	call AnimateCurrentMove
-; 	jr .after_animation
-; .anim_water
-; 	ld a, $1
-; 	ld [wBattleAnimParam], a
-; 	call AnimateCurrentMove
-; 	jr .after_animation
-; .anim_flying
-; 	ld a, $2
-; 	ld [wBattleAnimParam], a
-; 	call AnimateCurrentMove
-; .after_animation
+	push bc
 	call BattleCommand_FailureText
 	call BattleCommand_ApplyDamage
 	call BattleCommand_CriticalText
 	call BattleCommand_SuperEffectiveText
-
+	pop bc
 	ld d, NUM_LEVEL_STATS
 .loop
 	ld a, [bc]

@@ -9,6 +9,7 @@ VariableTypes:
 	db GRASS, GRASS, 		-1 ; Drill Peck -> Seed Bomb
 	db DARK, DARK,          FLYING, FLYING, 		-1 ; Faint Attack -> Aerial Ace
 	db FLYING, FLYING, 		-1 ; Screech -> Feather Dance
+	db ROCK, ROCK, 		    ICE, ICE,               DARK, DARK,         WATER, DARK,    BUG, DARK, -1 ; Horn Drill (normal) -> Fissure (rock), Sheer Cold (ice), Guillotine (dark)
 	db -1
 
 VariableTypesByName:
@@ -18,6 +19,12 @@ VariableTypesByName:
 	db QUICK_ATTACK, VAPOREON, NORMAL 
 	db DRILL_PECK, SNORLAX, GRASS
 	db DOUBLE_EDGE, CUBONE, NORMAL
+	db DOUBLE_EDGE, MAROWAK, NORMAL
+	db HORN_DRILL, GLIGAR, DARK
+	db HORN_DRILL, GOLDEEN, NORMAL
+	db HORN_DRILL, SEAKING, NORMAL
+	db HORN_DRILL, SUICUNE, ICE
+	db HORN_DRILL, DIGLETT, ICE
 	db -2
 
 VariableMoves::
@@ -29,12 +36,11 @@ VariableMoves::
 	db SLASH
 	db DRILL_PECK
 	db FAINT_ATTACK
-	db SCREECH
+	db SCREECH ; Feather Dance (flying)
+	db HORN_DRILL ; Fissure (rock), Sheer Cold (ice), Guillotine (dark)
 	db -1
 
  ; needs animations:
  ; heal bell -> aromatherapy
- ; can do it with -> fissure / horn drill / guillotine
- ; swift -> magical leaf / shock wave
  ; add lava plume -> scald
  ; strenght / drill peck / seed bomb / x-scissor

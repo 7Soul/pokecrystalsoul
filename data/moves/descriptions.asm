@@ -386,8 +386,8 @@ FuryAttackDescription:
 	next "2-5 times.@"
 
 HornDrillDescription:
-	db   "A one-hit KO,"
-	next "drill attack.@"
+	db   "A OHKO with more"
+	next "ACC per level.@"
 
 TackleDescription:
 	db   "A full-body charge"

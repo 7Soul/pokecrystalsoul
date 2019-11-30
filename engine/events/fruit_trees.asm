@@ -98,7 +98,6 @@ SetBattle:
 	cp 2
 	jr nc, .highBadge ; 2 or higher (2 badges or more)
 	ld a, [hl]
-	ld [$c003], a
 	jp .reset
 
 .highBadge
