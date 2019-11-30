@@ -108,7 +108,7 @@ if DEF(_DEBUG)
 	; givepoke SLUGMA, 11
 	; givepoke MANTINE, 11
 	; givepoke NIDOKING, 50
-	givepoke MANTINE, 20
+	givepoke MANTINE, 40
 	givepoke SEEL, 21
 	givepoke DIGLETT, 50
 	givepoke KRABBY, 31

@@ -90,7 +90,7 @@ BattleAnimations::
 	dw BattleAnim_Thunder
 	dw BattleAnim_RockThrow
 	dw BattleAnim_Earthquake
-	dw BattleAnim_Fissure
+	dw BattleAnim_SignalBeam
 	dw BattleAnim_Dig
 	dw BattleAnim_Toxic
 	dw BattleAnim_Confusion
@@ -1765,9 +1765,6 @@ BattleAnim_Earthquake:
 	anim_loop 4, .loop
 	anim_ret
 
-BattleAnim_Fissure:
-	anim_ret
-
 BattleAnim_Growl:
 	anim_1gfx ANIM_GFX_NOISE
 	anim_enemyfeetobj
@@ -1846,6 +1843,7 @@ BattleAnim_ConfuseRay:
 	anim_wait 32
 	anim_ret
 
+BattleAnim_SignalBeam:
 BattleAnim_Leer:
 	anim_1gfx ANIM_GFX_BEAM
 	anim_bgeffect ANIM_BG_06, $0, $2, $0

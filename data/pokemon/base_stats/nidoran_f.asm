@@ -3,7 +3,7 @@
 	db  55,  47,  52,  41,  40,  40
 	;   hp  atk  def  spd  sat  sdf
 
-	db ROCK, NORMAL ; type
+	db GROUND, NORMAL ; type
 	db 235 ; catch rate
 	db 59 ; base exp
 	db NO_ITEM, ACCELEROCK ; items

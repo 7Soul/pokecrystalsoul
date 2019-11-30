@@ -9,7 +9,9 @@ VariableTypes:
 	db GRASS, GRASS, 		-1 ; Drill Peck -> Seed Bomb
 	db DARK, DARK,          FLYING, FLYING, 		-1 ; Faint Attack -> Aerial Ace
 	db FLYING, FLYING, 		-1 ; Screech -> Feather Dance
-	db ROCK, ROCK, 		    ICE, ICE,               DARK, DARK,         WATER, DARK,    BUG, DARK, -1 ; Horn Drill (normal) -> Fissure (rock), Sheer Cold (ice), Guillotine (dark)
+	db GROUND, GROUND,      ROCK, GROUND, 		    ICE, ICE,           DARK, DARK,     WATER, DARK,    BUG, DARK, -1 ; Horn Drill (normal) -> Fissure (ground), Sheer Cold (ice), Guillotine (dark)
+	db WATER, WATER,        ICE, WATER, -1 ; Withdraw (water)
+	db ROCK, ROCK,          WATER, ROCK, -1 ; Iron Defense (rock)
 	db -1
 
 VariableTypesByName:
@@ -24,7 +26,7 @@ VariableTypesByName:
 	db HORN_DRILL, GOLDEEN, NORMAL
 	db HORN_DRILL, SEAKING, NORMAL
 	db HORN_DRILL, SUICUNE, ICE
-	db HORN_DRILL, DIGLETT, ICE
+	; db ROCK_BLAST, DIGLETT, NORMAL?
 	db -2
 
 VariableMoves::
@@ -37,7 +39,9 @@ VariableMoves::
 	db DRILL_PECK
 	db FAINT_ATTACK
 	db SCREECH ; Feather Dance (flying)
-	db HORN_DRILL ; Fissure (rock), Sheer Cold (ice), Guillotine (dark)
+	db HORN_DRILL ; Fissure (ground), Sheer Cold (ice), Guillotine (dark)
+	db HARDEN ; Withdraw (water)
+	db BARRIER ; Iron Defense (rock)
 	db -1
 
  ; needs animations:

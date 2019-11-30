@@ -3,7 +3,7 @@
 	db  60,  85, 110,  45,  50,  90
 	;   hp  atk  def  spd  sat  sdf
 
-	db ROCK, ROCK ; type
+	db GROUND, GROUND ; type
 	db 75 ; catch rate
 	db 124 ; base exp
 	db NO_ITEM, THICK_CLUB ; items

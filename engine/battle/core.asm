@@ -1746,11 +1746,15 @@ HandleWeather:
 	ld hl, wEnemyMonType1
 .ok
 	ld a, [hli]
-	cp ROCK ; 7Soul - also had ground and steel below
+	cp ROCK ; 7Soul - also and steel below
+	ret z ;
+	cp GROUND
 	ret z ;
 
 	ld a, [hl]
 	cp ROCK
+	ret z
+	cp GROUND
 	ret z
 
 	call SwitchTurnCore

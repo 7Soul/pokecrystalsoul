@@ -125,7 +125,7 @@ EvolutionMoves::
 	db NO_MOVE ; Doduo
 	db TRI_ATTACK ; Dodrio
 	db NO_MOVE ; Seel
-	db FISSURE ; Dewgong
+	db HORN_DRILL ; Dewgong
 	db NO_MOVE ; Grimer
 	db NO_MOVE ; Muk
 	db NO_MOVE ; Shellder

@@ -7,6 +7,8 @@ PokedexTypeSearchConversionTable:
 	db ELECTRIC
 	db ICE
 	db FIGHTING
+	db GROUND
+	db FLYING
 	db PSYCHIC
 	db BUG
 	db ROCK

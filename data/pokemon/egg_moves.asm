@@ -369,7 +369,7 @@ OnixEggMoves:
 	db ROCK_SLIDE
 	db REVERSAL
 	db ROLLOUT
-	db FISSURE
+	db HORN_DRILL
 	db SAND_ATTACK
 	db AQUA_TAIL
 	db SKULL_BASH
@@ -547,7 +547,7 @@ MagikarpEggMoves:
 LaprasEggMoves:
 	db AURORA_BEAM
 	db CURSE
-	db FISSURE
+	db HORN_DRILL
 	db HARMONY
 	db HORN_DRILL
 	db WHIRLPOOL
@@ -601,7 +601,7 @@ AerodactylEggMoves:
 SnorlaxEggMoves:
 	db LICK
 	db CHARM
-	db FISSURE
+	db HORN_DRILL
 	db DOUBLE_EDGE
 	db ZEN_HEADBUTT
 	db -1 ; end
@@ -961,7 +961,7 @@ PhanpyEggMoves:
 	db BODY_SLAM
 	db ANCIENTPOWER
 	db WATER_GUN
-	db FISSURE
+	db HORN_DRILL
 	db -1 ; end
 
 StantlerEggMoves:

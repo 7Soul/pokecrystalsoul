@@ -775,31 +775,30 @@ VenonatEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, DISABLE
-	db 9, SUPERSONIC
+	db 7, SUPERSONIC
+	db 11, CONFUSION
 	db 13, POISONPOWDER
-	db 17, NIGHT_SHADE
-	db 22, LEECH_LIFE
-	db 25, STUN_SPORE
-	db 26, SLEEP_POWDER
-	db 31, SHADOW_BALL
+	db 17, LEECH_LIFE
+	db 23, STUN_SPORE
+	db 26, PSYBEAM
+	db 29, SLEEP_POWDER
+	db 35, SIGNAL_BEAM
 	db 37, ZEN_HEADBUTT
 	db 43, PSYCHIC_M
-	db 55, BUG_BUZZ
+	db 49, BUG_BUZZ
 	db 0 ; no more level-up moves
 
 VenomothEvosAttacks:
 	db 0 ; no more evolutions
-	db 9, SUPERSONIC
-	db 13, POISONPOWDER
-	db 17, NIGHT_SHADE
-	db 25, LEECH_LIFE
+	db 17, LEECH_LIFE
+	db 23, STUN_SPORE
+	db 26, PSYBEAM
 	db 26, GUST
-	db 28, STUN_SPORE
-	db 29, SLEEP_POWDER
-	db 36, SHADOW_BALL
-	db 41, ZEN_HEADBUTT
-	db 47, PSYCHIC_M
-	db 59, BUG_BUZZ
+	db 30, SLEEP_POWDER
+	db 37, SIGNAL_BEAM
+	db 40, ZEN_HEADBUTT
+	db 46, PSYCHIC_M
+	db 55, BUG_BUZZ
 	db 0 ; no more level-up moves
 
 DiglettEvosAttacks:
@@ -1621,7 +1620,7 @@ CuboneEvosAttacks:
 	db 25, DIG
 	db 29, RAGE
 	db 33, FALSE_SWIPE
-	db 37, THRASH
+	db 37, ROCK_BLAST ; becomes Bone Rush
 	db 43, DOUBLE_EDGE
 	db 48, EARTHQUAKE
 	db 0 ; no more level-up moves
@@ -1634,7 +1633,7 @@ MarowakEvosAttacks:
 	db 25, DIG
 	db 32, RAGE
 	db 36, FALSE_SWIPE
-	db 42, THRASH
+	db 42, ROCK_BLAST ; becomes Bone Rush
 	db 49, DOUBLE_EDGE
 	db 55, EARTHQUAKE
 	db 0 ; no more level-up moves
@@ -2133,7 +2132,7 @@ PorygonEvosAttacks:
 	db 12, AGILITY
 	db 18, RECOVER
 	db 23, ZOOM_FLIGHT
-	db 29, CHARGE_BEAM
+	db 29, SIGNAL_BEAM
 	db 34, LOCK_ON
 	db 40, TRI_ATTACK
 	db 45, KINESIS
@@ -2667,7 +2666,8 @@ ChinchouEvosAttacks:
 	db 12, WATER_GUN
 	db 17, CONFUSE_RAY
 	db 23, SPARK
-	db 31, REVERSAL
+	db 31, BUBBLEBEAM
+	db 34, SIGNAL_BEAM
 	db 39, TAKE_DOWN
 	db 42, AQUA_TAIL
 	db 45, HYDRO_PUMP
@@ -2680,7 +2680,8 @@ LanturnEvosAttacks:
 	db 12, WATER_GUN
 	db 17, CONFUSE_RAY
 	db 23, SPARK
-	db 33, REVERSAL
+	db 32, BUBBLEBEAM
+	db 36, SIGNAL_BEAM
 	db 43, TAKE_DOWN
 	db 47, AQUA_TAIL
 	db 52, HYDRO_PUMP
@@ -2818,6 +2819,7 @@ MareepEvosAttacks:
 	db 25, CONFUSE_RAY
 	db 29, POWER_GEM
 	db 36, BARRIER
+	db 39, SIGNAL_BEAM
 	db 42, LIGHT_SCREEN
 	db 46, THUNDER
 	db 0 ; no more level-up moves
@@ -2830,8 +2832,9 @@ FlaaffyEvosAttacks:
 	db 25, CONFUSE_RAY
 	db 31, POWER_GEM
 	db 38, BARRIER
-	db 45, LIGHT_SCREEN
-	db 50, THUNDER
+	db 41, SIGNAL_BEAM
+	db 46, LIGHT_SCREEN
+	db 51, THUNDER
 	db 0 ; no more level-up moves
 
 AmpharosEvosAttacks:
@@ -2842,8 +2845,9 @@ AmpharosEvosAttacks:
 	db 29, THUNDERPUNCH
 	db 34, POWER_GEM
 	db 42, BARRIER
-	db 48, LIGHT_SCREEN
-	db 56, THUNDER
+	db 45, SIGNAL_BEAM
+	db 49, LIGHT_SCREEN
+	db 57, THUNDER
 	db 0 ; no more level-up moves
 
 BellossomEvosAttacks:
@@ -3499,6 +3503,7 @@ RemoraidEvosAttacks:
 	db 18, BUBBLEBEAM
 	db 22, FOCUS_ENERGY
 	db 26, JET_STREAM
+	db 30, SIGNAL_BEAM
 	db 34, ICE_BEAM
 	db 39, CHARGE_BEAM
 	db 42, HYDRO_PUMP
@@ -3512,6 +3517,7 @@ OctilleryEvosAttacks:
 	db 18, BUBBLEBEAM
 	db 22, FOCUS_ENERGY
 	db 30, JET_STREAM
+	db 34, SIGNAL_BEAM
 	db 36, ICE_BEAM
 	db 43, CHARGE_BEAM
 	db 47, HYDRO_PUMP
@@ -3539,15 +3545,15 @@ MantineEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, BUBBLE
-	db 9, SUPERSONIC
-	db 12, FIRE_PLAY ; becomes Tide Clash
+	db 8, SUPERSONIC
+	db 11, FIRE_PLAY ; becomes Tide Clash
 	db 14, WING_ATTACK
 	db 16, HEADBUTT
 	db 19, BUBBLEBEAM
 	db 25, TAKE_DOWN
 	db 29, JET_STREAM
 	db 32, AGILITY
-	db 36, SILVER_WIND
+	db 36, SIGNAL_BEAM
 	db 41, AIR_SLASH
 	db 49, HYDRO_PUMP
 	db 0 ; no more level-up moves
