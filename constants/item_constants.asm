@@ -50,7 +50,7 @@
 	const SUPER_REPEL  ; 2a
 	const MAX_REPEL    ; 2b
 	const DIRE_HIT     ; 2c
-	const UNUSED       ; 2d
+	const UNUSED       ; 2d 
 	const FRESH_WATER  ; 2e
 	const SODA_POP     ; 2f
 	const LEMONADE     ; 30
@@ -86,7 +86,7 @@
 	const PRZCUREBERRY ; 4e
 	const BURNT_BERRY  ; 4f
 	const ICE_BERRY    ; 50
-	const POISON_BARB  ; 51
+	const ITEM_51      ; 51 ; unused
 	const KINGS_ROCK   ; 52
 	const BITTER_BERRY ; 53
 	const MINT_BERRY   ; 54
@@ -118,7 +118,7 @@
 	const PEARL        ; 6e
 	const BIG_PEARL    ; 6f
 	const EVERSTONE    ; 70
-	const SPELL_TAG    ; 71
+	const ITEM_71      ; 71 ; unused
 	const RAGECANDYBAR ; 72
 	const GS_BALL      ; 73
 	const BLUE_CARD    ; 74
@@ -148,22 +148,22 @@
 	const SCOPE_LENS   ; 8c
 	const HARDENEDSAND ; 8d ; new
 	const SHINY_CORAL  ; 8e ; new
-	const METAL_COAT   ; 8f
-	const DRAGON_FANG  ; 90
+	const ITEM_8F      ; 8f ; unused
+	const ITEM_90      ; 90 ; unused
 	const CUTE_RIBBON  ; 91 ; new
 	const LEFTOVERS    ; 92
 	const FROZEN_DEW   ; 93 ; new
 	const EYE_GLYPH    ; 94 ; new
 	const STICK        ; 95 ; new
 	const MYSTERYBERRY ; 96
-	const DRAGON_SCALE ; 97
+	const ITEM_97      ; 97 ; unused
 	const BERSERK_GENE ; 98
 	const ITEM_99      ; 99 ; unused
 	const ITEM_9A      ; 9a ; unused
 	const ITEM_9B      ; 9b ; unused
 	const SACRED_ASH   ; 9c
 	const HEAVY_BALL   ; 9d
-	const FLOWER_MAIL  ; 9e
+	const FLOWER_MAIL  ; 9e ; mail
 	const LEVEL_BALL   ; 9f
 	const LURE_BALL    ; a0
 	const FAST_BALL    ; a1
@@ -172,12 +172,12 @@
 	const FRIEND_BALL  ; a4
 	const MOON_BALL    ; a5
 	const LOVE_BALL    ; a6
-	const NORMAL_BOX   ; a7
-	const GORGEOUS_BOX ; a8
+	const NORMAL_BOX   ; a7 ; trophy from pokemon stadium
+	const GORGEOUS_BOX ; a8 ; trophy from pokemon stadium
 	const SUN_STONE    ; a9
 	const POLKADOT_BOW ; aa
 	const ITEM_AB      ; ab ; unused
-	const UP_GRADE     ; ac
+	const UP_GRADE     ; ac ; porygon evolves with thunderstone now
 	const BERRY        ; ad
 	const GOLD_BERRY   ; ae
 	const SQUIRTBOTTLE ; af
@@ -186,18 +186,18 @@
 	const RAINBOW_WING ; b2
 	const ITEM_B3      ; b3 ; unused
 	const BRICK_PIECE  ; b4
-	const SURF_MAIL    ; b5
-	const LITEBLUEMAIL ; b6
-	const PORTRAITMAIL ; b7
-	const LOVELY_MAIL  ; b8
-	const EON_MAIL     ; b9
-	const MORPH_MAIL   ; ba
-	const BLUESKY_MAIL ; bb
-	const MUSIC_MAIL   ; bc
-	const MIRAGE_MAIL  ; bd
+	const SURF_MAIL    ; b5 ; mail
+	const LITEBLUEMAIL ; b6 ; mail
+	const PORTRAITMAIL ; b7 ; mail
+	const LOVELY_MAIL  ; b8 ; mail
+	const EON_MAIL     ; b9 ; mail
+	const MORPH_MAIL   ; ba ; mail
+	const BLUESKY_MAIL ; bb ; mail
+	const MUSIC_MAIL   ; bc ; mail
+	const MIRAGE_MAIL  ; bd ; mail
 	const ITEM_BE      ; be ; unused
-	const ITEM_C3      ; bf
-	const ITEM_DC      ; c0
+	const ITEM_C3      ; bf ; unused
+	const ITEM_DC      ; c0 ; unused
 
 add_tm: MACRO
 if !DEF(TM01)

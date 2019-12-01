@@ -6,7 +6,7 @@
 	db DARK, DARK ; type
 	db 45 ; catch rate
 	db 147 ; base exp
-	db NO_ITEM, SPELL_TAG ; items
+	db NO_ITEM, NO_ITEM ; items
 	db GENDER_F50 ; gender ratio
 	db 25 ; step cycles to hatch
 	INCBIN "gfx/pokemon/misdreavus/front.dimensions"

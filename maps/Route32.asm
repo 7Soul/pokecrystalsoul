@@ -456,7 +456,7 @@ FriedaScript:
 .MetFrieda:
 	writetext FriedaGivesGiftText
 	buttonsound
-	verbosegiveitem POISON_BARB
+	verbosegiveitem POTION ; was poison barb
 	iffalse .Done
 	setevent EVENT_GOT_POISON_BARB_FROM_FRIEDA
 	writetext FriedaGaveGiftText

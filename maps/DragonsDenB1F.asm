@@ -128,11 +128,11 @@ TrainerTwinsLeaandpia2:
 DragonsDenB1FDragonFangScript:
 ; This whole script is written out rather than as an itemball
 ; because it's left over from the GS event.
-	giveitem DRAGON_FANG
+	giveitem POTION ; was dragon fang
 	iffalse .BagFull
 	disappear DRAGONSDENB1F_POKE_BALL1
 	opentext
-	itemtotext DRAGON_FANG, MEM_BUFFER_0
+	itemtotext POTION, MEM_BUFFER_0
 	writetext Text_FoundDragonFang
 	playsound SFX_ITEM
 	waitsfx
@@ -142,7 +142,7 @@ DragonsDenB1FDragonFangScript:
 
 .BagFull:
 	opentext
-	itemtotext DRAGON_FANG, MEM_BUFFER_0
+	itemtotext POTION, MEM_BUFFER_0
 	writetext Text_FoundDragonFang
 	buttonsound
 	writetext Text_NoRoomForDragonFang

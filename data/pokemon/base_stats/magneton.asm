@@ -6,7 +6,7 @@
 	db ELECTRIC, ELECTRIC ; type
 	db 60 ; catch rate
 	db 161 ; base exp
-	db NO_ITEM, METAL_COAT ; items
+	db NO_ITEM, NO_ITEM ; items
 	db GENDER_UNKNOWN ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/magneton/front.dimensions"

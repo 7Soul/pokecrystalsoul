@@ -14,4 +14,4 @@ NPCTrades:
 	npctrade TRADE_DIALOGSET_GIRL,      DRAGONAIR,  DODRIO,     "Doris@@@@@@", $77, $66, SMOKE_BALL,   00283, "Emy@@@@@@@@", TRADE_GENDER_FEMALE
 	npctrade TRADE_DIALOGSET_NEWBIE,    HAUNTER,    XATU,       "Paul@@@@@@@", $96, $86, MYSTERYBERRY, 15616, "Chris@@@@@@", TRADE_GENDER_EITHER
 	npctrade TRADE_DIALOGSET_GIRL,      CHANSEY,    AERODACTYL, "Aeroy@@@@@@", $96, $66, GOLD_BERRY,   26491, "Kim@@@@@@@@", TRADE_GENDER_EITHER
-	npctrade TRADE_DIALOGSET_COLLECTOR, DUGTRIO,    MAGNETON,   "Maggie@@@@@", $96, $66, METAL_COAT,   50082, "Forest@@@@@", TRADE_GENDER_EITHER
+	npctrade TRADE_DIALOGSET_COLLECTOR, DUGTRIO,    MAGNETON,   "Maggie@@@@@", $96, $66, NO_ITEM,      50082, "Forest@@@@@", TRADE_GENDER_EITHER

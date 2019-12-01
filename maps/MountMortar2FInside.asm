@@ -33,7 +33,7 @@ MountMortar2FInsideTMDefenseCurl:
 	itemball TM_DEFENSE_CURL
 
 MountMortar2FInsideDragonScale:
-	itemball DRAGON_SCALE
+	itemball POTION ; was dragon scale
 
 MountMortar2FInsideElixer:
 	itemball ELIXER

@@ -100,7 +100,7 @@ SantosScript:
 .MetSantos:
 	writetext SantosGivesGiftText
 	buttonsound
-	verbosegiveitem SPELL_TAG
+	verbosegiveitem POTION ; was spell tag
 	iffalse .Done
 	setevent EVENT_GOT_SPELL_TAG_FROM_SANTOS
 	writetext SantosGaveGiftText

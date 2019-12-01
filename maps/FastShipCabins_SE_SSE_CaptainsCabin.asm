@@ -98,7 +98,7 @@ SSAquaGrandpa:
 SSAquaMetalCoatAndDocking:
 	writetext SSAquaGrandpaHaveThisText
 	buttonsound
-	verbosegiveitem METAL_COAT
+	verbosegiveitem POTION ; was metal coat
 	iffalse .NoRoom
 	setevent EVENT_GOT_METAL_COAT_FROM_GRANDPA_ON_SS_AQUA
 .NoRoom:
@@ -117,7 +117,7 @@ SSAquaMetalCoatAndDocking:
 SSAquaFoundGranddaughter:
 	writetext SSAquaGrandpaHaveThisText
 	buttonsound
-	verbosegiveitem METAL_COAT
+	verbosegiveitem POTION ; was metal coat
 	iffalse .NoRoom
 	setevent EVENT_GOT_METAL_COAT_FROM_GRANDPA_ON_SS_AQUA
 .NoRoom:
