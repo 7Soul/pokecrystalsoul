@@ -952,6 +952,20 @@ GetEnemyFrontpicPalettePointer:
 	pop de
 	ret
 
+GetExtraEnemyFrontpicPalettePointer:
+	push de
+	farcall GetEnemyMonDVs
+	ld c, l
+	ld b, h
+	ld a, [wTempEnemyMonSpecies]
+	call GetExtraFrontpicPalettePointer
+	jr .end
+.notmon1
+	scf
+.end
+	pop de
+	ret
+
 GetPlayerOrMonPalettePointer:
 	and a
 	jp nz, GetMonNormalOrShinyPalettePointer
@@ -982,54 +996,68 @@ GetTrainerPalettePointer:
 	add hl, bc
 	ret
 
+GetPlayerOrMonExtraPalettePointer:
+	and a
+	jp nz, GetExtraMonNormalOrShinyPalettePointer
+	ret
+
+GetExtraFrontpicPalettePointer:
+	and a
+	jp nz, GetExtraMonNormalOrShinyPalettePointer
+	ret
+
 GetMonPalettePointer:
 	call _GetMonPalettePointer
 	ret
 
-Unreferenced_Function9779:
+GetExtraMonPalettePointer:
+	call _GetExtraMonPalettePointer
 	ret
-	call CheckCGB
-	ret z
-	ld hl, BattleObjectPals
-	ld a, $90
-	ldh [rOBPI], a
-	ld c, 6 palettes
-.loop
-	ld a, [hli]
-	ldh [rOBPD], a
-	dec c
-	jr nz, .loop
-	ld hl, BattleObjectPals
-	ld de, wOBPals1 palette 2
-	ld bc, 2 palettes
-	ld a, BANK(wOBPals1)
-	call FarCopyWRAM
-	ret
+
+; Unreferenced_Function9779:
+; 	ret
+; 	call CheckCGB
+; 	ret z
+; 	ld hl, BattleObjectPals
+; 	ld a, $90
+; 	ldh [rOBPI], a
+; 	ld c, 6 palettes
+; .loop
+; 	ld a, [hli]
+; 	ldh [rOBPD], a
+; 	dec c
+; 	jr nz, .loop
+; 	ld hl, BattleObjectPals
+; 	ld de, wOBPals1 palette 2
+; 	ld bc, 2 palettes
+; 	ld a, BANK(wOBPals1)
+; 	call FarCopyWRAM
+; 	ret
 
 BattleObjectPals:
 INCLUDE "gfx/battle_anims/battle_anims.pal"
 
-Unreferenced_Function97cc:
-	call CheckCGB
-	ret z
-	ld a, $90
-	ldh [rOBPI], a
-	ld a, PREDEFPAL_TRADE_TUBE
-	call GetPredefPal
-	call .PushPalette
-	ld a, PREDEFPAL_RB_GREENMON
-	call GetPredefPal
-	call .PushPalette
-	ret
+; Unreferenced_Function97cc:
+; 	call CheckCGB
+; 	ret z
+; 	ld a, $90
+; 	ldh [rOBPI], a
+; 	ld a, PREDEFPAL_TRADE_TUBE
+; 	call GetPredefPal
+; 	call .PushPalette
+; 	ld a, PREDEFPAL_RB_GREENMON
+; 	call GetPredefPal
+; 	call .PushPalette
+; 	ret
 
-.PushPalette:
-	ld c, 1 palettes
-.loop
-	ld a, [hli]
-	ldh [rOBPD], a
-	dec c
-	jr nz, .loop
-	ret
+; .PushPalette:
+; 	ld c, 1 palettes
+; .loop
+; 	ld a, [hli]
+; 	ldh [rOBPD], a
+; 	dec c
+; 	jr nz, .loop
+; 	ret
 
 _GetMonPalettePointer:
 	ld l, a
@@ -1041,9 +1069,69 @@ _GetMonPalettePointer:
 	add hl, bc
 	ret
 
+_GetExtraMonPalettePointer:
+; for pokedex/stats
+	ld hl, ExtraPalettesIndex
+	ld a, [wCurPartySpecies]
+	ld b, a
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .no_extra
+	cp b
+	jr z, .found
+	jr .loop
+.found
+	ld a, [hl]
+	ld l, a
+	ld h, $0
+	add hl, hl
+	add hl, hl
+	ld bc, ExtraPalletes
+	add hl, bc
+.no_extra
+rept 4
+	inc hl
+endr
+	ret
+
 GetMonNormalOrShinyPalettePointer:
 	push bc
 	call _GetMonPalettePointer
+	pop bc
+	push de
+	push hl
+	call CheckShininess	
+	pop hl
+	pop de
+	ret nc
+rept 4
+	inc hl
+endr
+	ret
+
+GetExtraMonNormalOrShinyPalettePointer:
+	push bc
+	ld hl, ExtraPalettesIndex
+	ld a, [wTempEnemyMonSpecies]
+	ld b, a
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .no_extra
+	cp b
+	jr z, .found
+	jr .loop
+.found
+	ld a, [hl]
+	ld l, a
+	ld h, $0
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	ld bc, ExtraPalletes
+	add hl, bc
+.no_extra
 	pop bc
 	push de
 	push hl

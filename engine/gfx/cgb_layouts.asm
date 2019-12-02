@@ -103,6 +103,12 @@ _CGB_BattleColors:
 	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_PLAYER_HP
 	ld hl, ExpBarPalette
 	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_EXP
+
+	; pop hl
+	call GetExtraEnemyFrontpicPalettePointer
+	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_5
+	; push hl
+
 	ld de, wOBPals1
 	pop hl
 	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_OB_ENEMY
@@ -125,6 +131,74 @@ _CGB_FinishBattleScreenLayout:
 	lb bc, 7, 10
 	ld a, PAL_BATTLE_BG_ENEMY
 	call FillBoxCGB
+
+	ld a, [wTempEnemyMonSpecies]
+	cp BULBASAUR
+	jr z, .bulbasaur
+	cp IVYSAUR
+	jr z, .ivysaur
+	cp VENUSAUR
+	jr z, .venusaur
+	cp TENTACOOL
+	jr z, .tentacool
+	cp TENTACRUEL
+	jr z, .tentacruel
+	cp STARMIE
+	jr z, .starmie
+	cp FARFETCH_D
+	jr z, .farfetch_d
+	jp .skip_extra
+.bulbasaur
+	hlcoord 13, 4, wAttrMap
+	lb bc, 2, 3
+	jp .end_extra
+.ivysaur
+	hlcoord 13, 3, wAttrMap
+	lb bc, 2, 2
+	call FillPalette5
+	hlcoord 17, 3, wAttrMap
+	lb bc, 1, 2
+	jp .end_extra
+.venusaur
+	hlcoord 12, 3, wAttrMap
+	lb bc, 1, 7
+	call FillPalette5
+	hlcoord 13, 4, wAttrMap
+	lb bc, 1, 2
+	call FillPalette5
+	hlcoord 17, 4, wAttrMap
+	lb bc, 1, 2
+	jp .end_extra
+.tentacool
+	hlcoord 13, 5, wAttrMap
+	lb bc, 2, 5
+	jp .end_extra
+.tentacruel
+	hlcoord 13, 4, wAttrMap
+	lb bc, 3, 6
+	jp .end_extra
+.starmie
+	hlcoord 15, 3, wAttrMap
+	lb bc, 2, 2
+	jp .end_extra
+.farfetch_d
+	hlcoord 16, 3, wAttrMap
+	lb bc, 1, 3 ; h, w
+	call FillPalette5
+	hlcoord 17, 4, wAttrMap
+	lb bc, 1, 2 ; h, w
+	call FillPalette5
+	hlcoord 13, 5, wAttrMap
+	lb bc, 2, 2 ; h, w
+	call FillPalette5
+	hlcoord 16, 6, wAttrMap
+	lb bc, 1, 3 ; h, w
+	jp .end_extra
+
+.end_extra
+	ld a, PAL_BATTLE_BG_5
+	call FillBoxCGB
+.skip_extra
 	hlcoord 0, 0, wAttrMap
 	lb bc, 4, 10
 	ld a, PAL_BATTLE_BG_ENEMY_HP
@@ -147,6 +221,11 @@ _CGB_FinishBattleScreenLayout:
 	ld a, BANK(wOBPals1)
 	call FarCopyWRAM
 	call ApplyAttrMap
+	ret
+
+FillPalette5:
+	ld a, PAL_BATTLE_BG_5
+	call FillBoxCGB
 	ret
 
 InitPartyMenuBGPal7:
@@ -214,12 +293,85 @@ _CGB_StatsScreenHPPals:
 	ld bc, 3 palettes ; pink, green, and blue page palettes
 	ld a, BANK(wBGPals1)
 	call FarCopyWRAM
+
+	ld a, [wCurPartySpecies]
+	ld [wTempEnemyMonSpecies], a
+	ld bc, wTempMonDVs
+	call GetExtraFrontpicPalettePointer
+	call LoadPalette_White_Col1_Col2_Black ; mon extra palette
+
 	call WipeAttrMap
 
 	hlcoord 0, 0, wAttrMap
 	lb bc, 7, SCREEN_WIDTH ; where the coloring starts
 	ld a, $1 ; mon palette
 	call FillBoxCGB
+
+	ld a, [wCurPartySpecies]
+	cp BULBASAUR
+	jr z, .bulbasaur
+	cp IVYSAUR
+	jr z, .ivysaur
+	cp VENUSAUR
+	jr z, .venusaur
+	cp TENTACOOL
+	jr z, .tentacool
+	cp TENTACRUEL
+	jr z, .tentacruel
+	cp STARMIE
+	jr z, .starmie
+	cp FARFETCH_D
+	jr z, .farfetch_d
+	jp .skip_extra
+.bulbasaur
+	hlcoord 15, 4, wAttrMap
+	lb bc, 2, 3 ; h , w
+	jp .end_extra
+.ivysaur
+	hlcoord 12, 3, wAttrMap
+	lb bc, 1, 2 ; h , w
+	call FillStatsBoxExtraPalette
+	hlcoord 16, 3, wAttrMap
+	lb bc, 2, 2 ; h , w
+	jp .end_extra
+.venusaur
+	hlcoord 12, 3, wAttrMap
+	lb bc, 1, 7 ; h , w
+	call FillStatsBoxExtraPalette
+	hlcoord 12, 4, wAttrMap
+	lb bc, 1, 2 ; h , w
+	call FillStatsBoxExtraPalette
+	hlcoord 16, 4, wAttrMap
+	lb bc, 1, 2 ; h , w
+	jp .end_extra
+.tentacool
+	hlcoord 13, 5, wAttrMap
+	lb bc, 2, 5 ; h , w
+	jp .end_extra
+.tentacruel
+	hlcoord 12, 4, wAttrMap
+	lb bc, 3, 6 ; h , w
+	jp .end_extra
+.starmie
+	hlcoord 14, 3, wAttrMap
+	lb bc, 2, 2 ; h , w
+	jp .end_extra
+.farfetch_d
+	hlcoord 12, 3, wAttrMap
+	lb bc, 1, 3 ; h , w
+	call FillStatsBoxExtraPalette
+	hlcoord 12, 4, wAttrMap
+	lb bc, 1, 2 ; h , w
+	call FillStatsBoxExtraPalette
+	hlcoord 16, 5, wAttrMap
+	lb bc, 2, 2 ; h , w
+	call FillStatsBoxExtraPalette
+	hlcoord 12, 6, wAttrMap
+	lb bc, 1, 3 ; h , w
+	jp .end_extra
+.end_extra
+	call FillStatsBoxExtraPalette
+.skip_extra
 
 	hlcoord 1, 9, wAttrMap
 	ld bc, 10
@@ -253,6 +405,11 @@ INCLUDE "gfx/stats/pages.pal"
 StatsScreenPals:
 INCLUDE "gfx/stats/stats.pal"
 
+FillStatsBoxExtraPalette:
+	ld a, $6
+	call FillBoxCGB	
+	ret
+
 _CGB_Pokedex:
 	ld de, wBGPals1
 	ld a, PREDEFPAL_POKEDEX
@@ -262,18 +419,89 @@ _CGB_Pokedex:
 	cp $ff
 	jr nz, .is_pokemon
 	ld hl, .PokedexQuestionMarkPalette
+	push hl
 	call LoadHLPaletteIntoDE ; green question mark palette
+	pop hl
+	call LoadHLPaletteIntoDE ; green question mark palette into palette 2
 	jr .got_palette
 
 .is_pokemon
 	call GetMonPalettePointer
 	call LoadPalette_White_Col1_Col2_Black ; mon palette
+	call GetExtraMonPalettePointer
+	call LoadPalette_White_Col1_Col2_Black ; mon extra palette
 .got_palette
 	call WipeAttrMap
 	hlcoord 1, 1, wAttrMap
 	lb bc, 7, 7
 	ld a, $1 ; green question mark palette
 	call FillBoxCGB
+
+	ld a, [wCurPartySpecies]
+	cp BULBASAUR
+	jr z, .bulbasaur
+	cp IVYSAUR
+	jr z, .ivysaur
+	cp VENUSAUR
+	jr z, .venusaur
+	cp TENTACOOL
+	jr z, .tentacool
+	cp TENTACRUEL
+	jr z, .tentacruel
+	cp STARMIE
+	jr z, .starmie
+	cp FARFETCH_D
+	jr z, .farfetch_d
+	jp .skip_extra
+.bulbasaur
+	hlcoord 2, 5, wAttrMap
+	lb bc, 2, 3
+	jp .end_extra
+.ivysaur
+	hlcoord 2, 4, wAttrMap
+	lb bc, 2, 2
+	call FillBoxExtraPalette
+	hlcoord 6, 4, wAttrMap
+	lb bc, 1, 2
+	jp .end_extra
+.venusaur
+	hlcoord 1, 4, wAttrMap
+	lb bc, 1, 7
+	call FillBoxExtraPalette
+	hlcoord 2, 5, wAttrMap
+	lb bc, 1, 2
+	call FillBoxExtraPalette
+	hlcoord 6, 5, wAttrMap
+	lb bc, 1, 2
+	jp .end_extra
+.tentacool
+	hlcoord 2, 6, wAttrMap
+	lb bc, 2, 5
+	jp .end_extra
+.tentacruel
+	hlcoord 2, 5, wAttrMap
+	lb bc, 3, 6 ; h , w
+	jp .end_extra
+.starmie
+	hlcoord 4, 4, wAttrMap
+	lb bc, 2, 2 ; h , w
+	jp .end_extra
+.farfetch_d
+	hlcoord 5, 4, wAttrMap
+	lb bc, 1, 3 ; h , w
+	call FillBoxExtraPalette
+	hlcoord 6, 5, wAttrMap
+	lb bc, 1, 2 ; h , w
+	call FillBoxExtraPalette
+	hlcoord 2, 6, wAttrMap
+	lb bc, 2, 2 ; h , w
+	call FillBoxExtraPalette
+	hlcoord 5, 7, wAttrMap
+	lb bc, 1, 3 ; h , w
+	jp .end_extra
+.end_extra
+	call FillBoxExtraPalette
+.skip_extra
 	call InitPartyMenuOBPals
 	ld hl, .PokedexCursorPalette
 	ld de, wOBPals1 palette 7 ; green cursor palette
@@ -291,6 +519,11 @@ INCLUDE "gfx/pokedex/question_mark.pal"
 
 .PokedexCursorPalette:
 INCLUDE "gfx/pokedex/cursor.pal"
+
+FillBoxExtraPalette:
+	ld a, $2
+	call FillBoxCGB	
+	ret
 
 _CGB_BillsPC:
 	ld de, wBGPals1

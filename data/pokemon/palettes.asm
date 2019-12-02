@@ -8,7 +8,7 @@ PokemonPalettes:
 ; 000
 	RGB 30, 22, 17
 	RGB 16, 14, 19
-; 000 shiny
+; 000 shiny	
 	RGB 30, 22, 17
 	RGB 16, 14, 19
 
@@ -538,3 +538,30 @@ INCLUDE "gfx/pokemon/egg/shiny.pal"
 ; 255 shiny
 	RGB 23, 23, 23
 	RGB 17, 17, 17
+
+ExtraPalettesIndex:
+	db BULBASAUR, 1
+	db IVYSAUR, 2
+	db VENUSAUR, 3
+	db BLASTOISE, 4
+	db TENTACOOL, 5
+	db TENTACRUEL, 6
+	db STARMIE, 7
+	db FARFETCH_D, 8
+	db -1
+
+ExtraPalletes:
+	; 000 normal
+	RGB 00, 00, 00
+	RGB 31, 31, 31
+	; 000 shiny
+	RGB 31, 31, 00
+	RGB 31, 31, 15
+	INCLUDE "gfx/pokemon/bulbasaur/extra.pal"
+	INCLUDE "gfx/pokemon/ivysaur/extra.pal"
+	INCLUDE "gfx/pokemon/venusaur/extra.pal"
+	INCLUDE "gfx/pokemon/blastoise/extra.pal"
+	INCLUDE "gfx/pokemon/tentacool/extra.pal"
+	INCLUDE "gfx/pokemon/tentacruel/extra.pal"
+	INCLUDE "gfx/pokemon/starmie/extra.pal"
+	INCLUDE "gfx/pokemon/farfetch_d/extra.pal"

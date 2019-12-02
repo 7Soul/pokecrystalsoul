@@ -106,10 +106,11 @@ if DEF(_DEBUG)
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
 
-	givepoke GLIGAR, 30
-	givepoke MEOWTH, 33
-	givepoke BELLSPROUT, 50
-	givepoke PIDGEY, 25
+	givepoke FARFETCH_D, 30
+	givepoke STARMIE, 33
+	givepoke VENUSAUR, 50
+	givepoke TENTACOOL, 25
+	givepoke TENTACRUEL, 25
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
