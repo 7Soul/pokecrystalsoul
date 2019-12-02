@@ -106,11 +106,12 @@ if DEF(_DEBUG)
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
 
-	givepoke FARFETCH_D, 30
-	givepoke STARMIE, 33
+	givepoke SLOWKING, 30
+	givepoke BUTTERFREE, 33
 	givepoke VENUSAUR, 50
 	givepoke TENTACOOL, 25
-	givepoke TENTACRUEL, 25
+	givepoke IVYSAUR, 25
+	givepoke BULBASAUR, 25
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges

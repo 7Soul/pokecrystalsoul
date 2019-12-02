@@ -134,19 +134,27 @@ _CGB_FinishBattleScreenLayout:
 
 	ld a, [wTempEnemyMonSpecies]
 	cp BULBASAUR
-	jr z, .bulbasaur
+	jp z, .bulbasaur
 	cp IVYSAUR
-	jr z, .ivysaur
+	jp z, .ivysaur
 	cp VENUSAUR
-	jr z, .venusaur
+	jp z, .venusaur
 	cp TENTACOOL
-	jr z, .tentacool
+	jp z, .tentacool
 	cp TENTACRUEL
-	jr z, .tentacruel
+	jp z, .tentacruel
 	cp STARMIE
-	jr z, .starmie
+	jp z, .starmie
 	cp FARFETCH_D
-	jr z, .farfetch_d
+	jp z, .farfetch_d
+	cp BELLOSSOM
+	jp z, .bellossom
+	cp BUTTERFREE
+	jp z, .butterfree
+	cp GYARADOS
+	jp z, .gyarados
+	cp SLOWKING
+	jp z, .slowking
 	jp .skip_extra
 .bulbasaur
 	hlcoord 13, 4, wAttrMap
@@ -194,7 +202,22 @@ _CGB_FinishBattleScreenLayout:
 	hlcoord 16, 6, wAttrMap
 	lb bc, 1, 3 ; h, w
 	jp .end_extra
-
+.bellossom
+	hlcoord 13, 4, wAttrMap
+	lb bc, 3, 5 ; h, w
+	jp .end_extra
+.butterfree
+	hlcoord 12, 4, wAttrMap
+	lb bc, 2, 4 ; h, w
+	jp .end_extra
+.gyarados
+	hlcoord 14, 4, wAttrMap
+	lb bc, 2, 1 ; h, w
+	jp .end_extra
+.slowking
+	hlcoord 13, 4, wAttrMap
+	lb bc, 1, 6 ; h, w
+	jp .end_extra
 .end_extra
 	ld a, PAL_BATTLE_BG_5
 	call FillBoxCGB
@@ -295,7 +318,7 @@ _CGB_StatsScreenHPPals:
 	call FarCopyWRAM
 
 	ld a, [wCurPartySpecies]
-	ld [wTempEnemyMonSpecies], a
+	; ld [wTempEnemyMonSpecies], a
 	ld bc, wTempMonDVs
 	call GetExtraFrontpicPalettePointer
 	call LoadPalette_White_Col1_Col2_Black ; mon extra palette
@@ -309,19 +332,28 @@ _CGB_StatsScreenHPPals:
 
 	ld a, [wCurPartySpecies]
 	cp BULBASAUR
-	jr z, .bulbasaur
+	jp z, .bulbasaur
 	cp IVYSAUR
-	jr z, .ivysaur
+	jp z, .ivysaur
 	cp VENUSAUR
-	jr z, .venusaur
+	jp z, .venusaur
 	cp TENTACOOL
-	jr z, .tentacool
+	jp z, .tentacool
 	cp TENTACRUEL
-	jr z, .tentacruel
+	jp z, .tentacruel
 	cp STARMIE
-	jr z, .starmie
+	jp z, .starmie
 	cp FARFETCH_D
-	jr z, .farfetch_d
+	jp z, .farfetch_d
+	cp BELLOSSOM
+	jp z, .bellossom
+	cp BUTTERFREE
+	jp z, .butterfree
+	cp GYARADOS
+	jp z, .gyarados
+	cp SLOWKING
+	jp z, .slowking
+	
 	jp .skip_extra
 .bulbasaur
 	hlcoord 15, 4, wAttrMap
@@ -368,6 +400,22 @@ _CGB_StatsScreenHPPals:
 	call FillStatsBoxExtraPalette
 	hlcoord 12, 6, wAttrMap
 	lb bc, 1, 3 ; h , w
+	jp .end_extra
+.bellossom
+	hlcoord 13, 4, wAttrMap
+	lb bc, 3, 5 ; h , w
+	jp .end_extra
+.butterfree
+	hlcoord 15, 4, wAttrMap
+	lb bc, 2, 4 ; h, w
+	jp .end_extra
+.gyarados
+	hlcoord 16, 4, wAttrMap
+	lb bc, 2, 1 ; h, w
+	jp .end_extra
+.slowking
+	hlcoord 12, 4, wAttrMap
+	lb bc, 1, 6 ; h, w
 	jp .end_extra
 .end_extra
 	call FillStatsBoxExtraPalette
@@ -439,19 +487,27 @@ _CGB_Pokedex:
 
 	ld a, [wCurPartySpecies]
 	cp BULBASAUR
-	jr z, .bulbasaur
+	jp z, .bulbasaur
 	cp IVYSAUR
-	jr z, .ivysaur
+	jp z, .ivysaur
 	cp VENUSAUR
-	jr z, .venusaur
+	jp z, .venusaur
 	cp TENTACOOL
-	jr z, .tentacool
+	jp z, .tentacool
 	cp TENTACRUEL
-	jr z, .tentacruel
+	jp z, .tentacruel
 	cp STARMIE
-	jr z, .starmie
+	jp z, .starmie
 	cp FARFETCH_D
-	jr z, .farfetch_d
+	jp z, .farfetch_d
+	cp BELLOSSOM
+	jp z, .bellossom
+	cp BUTTERFREE
+	jp z, .butterfree
+	cp GYARADOS
+	jp z, .gyarados
+	cp SLOWKING
+	jp z, .slowking
 	jp .skip_extra
 .bulbasaur
 	hlcoord 2, 5, wAttrMap
@@ -498,6 +554,22 @@ _CGB_Pokedex:
 	call FillBoxExtraPalette
 	hlcoord 5, 7, wAttrMap
 	lb bc, 1, 3 ; h , w
+	jp .end_extra
+.bellossom
+	hlcoord 2, 5, wAttrMap
+	lb bc, 3, 5 ; h , w
+	jp .end_extra
+.butterfree
+	hlcoord 1, 5, wAttrMap
+	lb bc, 2, 4 ; h, w
+	jp .end_extra
+.gyarados
+	hlcoord 3, 5, wAttrMap
+	lb bc, 2, 1 ; h, w
+	jp .end_extra
+.slowking
+	hlcoord 2, 5, wAttrMap
+	lb bc, 1, 6 ; h, w
 	jp .end_extra
 .end_extra
 	call FillBoxExtraPalette

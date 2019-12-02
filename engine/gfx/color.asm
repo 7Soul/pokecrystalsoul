@@ -1070,7 +1070,7 @@ _GetMonPalettePointer:
 	ret
 
 _GetExtraMonPalettePointer:
-; for pokedex/stats
+; for pokedex (no shiny check)
 	ld hl, ExtraPalettesIndex
 	ld a, [wCurPartySpecies]
 	ld b, a
@@ -1087,24 +1087,22 @@ _GetExtraMonPalettePointer:
 	ld h, $0
 	add hl, hl
 	add hl, hl
+	add hl, hl
 	ld bc, ExtraPalletes
 	add hl, bc
 .no_extra
-rept 4
-	inc hl
-endr
 	ret
 
 GetMonNormalOrShinyPalettePointer:
 	push bc
 	call _GetMonPalettePointer
 	pop bc
-	push de
-	push hl
-	call CheckShininess	
-	pop hl
-	pop de
-	ret nc
+	; push de
+	; push hl
+	; call CheckShininess	
+	; pop hl
+	; pop de
+	; ret nc
 rept 4
 	inc hl
 endr
@@ -1113,7 +1111,6 @@ endr
 GetExtraMonNormalOrShinyPalettePointer:
 	push bc
 	ld hl, ExtraPalettesIndex
-	ld a, [wTempEnemyMonSpecies]
 	ld b, a
 .loop
 	ld a, [hli]
@@ -1133,12 +1130,12 @@ GetExtraMonNormalOrShinyPalettePointer:
 	add hl, bc
 .no_extra
 	pop bc
-	push de
-	push hl
-	call CheckShininess	
-	pop hl
-	pop de
-	ret nc
+	; push de
+	; push hl
+	; call CheckShininess	
+	; pop hl
+	; pop de
+	; ret nc
 rept 4
 	inc hl
 endr

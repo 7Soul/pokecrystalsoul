@@ -548,6 +548,10 @@ ExtraPalettesIndex:
 	db TENTACRUEL, 6
 	db STARMIE, 7
 	db FARFETCH_D, 8
+	db BELLOSSOM, 9
+	db BUTTERFREE, 10
+	db GYARADOS, 11
+	db SLOWKING, 12
 	db -1
 
 ExtraPalletes:
@@ -565,3 +569,7 @@ ExtraPalletes:
 	INCLUDE "gfx/pokemon/tentacruel/extra.pal"
 	INCLUDE "gfx/pokemon/starmie/extra.pal"
 	INCLUDE "gfx/pokemon/farfetch_d/extra.pal"
+	INCLUDE "gfx/pokemon/bellossom/extra.pal"
+	INCLUDE "gfx/pokemon/butterfree/extra.pal"
+	INCLUDE "gfx/pokemon/gyarados/extra.pal"
+	INCLUDE "gfx/pokemon/slowking/extra.pal"
