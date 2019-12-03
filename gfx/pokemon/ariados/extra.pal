@@ -1,0 +1,6 @@
+
+	RGB 29, 11, 14 ; body (new)
+	RGB 18, 08, 26 ; legs (not yellow bits)
+	; shiny
+	RGB 29, 16, 31
+	RGB 04, 13, 31

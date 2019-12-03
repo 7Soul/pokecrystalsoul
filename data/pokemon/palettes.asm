@@ -540,18 +540,27 @@ INCLUDE "gfx/pokemon/egg/shiny.pal"
 	RGB 17, 17, 17
 
 ExtraPalettesIndex:
-	db BULBASAUR, 1
-	db IVYSAUR, 2
-	db VENUSAUR, 3
-	db BLASTOISE, 4
-	db TENTACOOL, 5
-	db TENTACRUEL, 6
-	db STARMIE, 7
-	db FARFETCH_D, 8
-	db BELLOSSOM, 9
-	db BUTTERFREE, 10
-	db GYARADOS, 11
-	db SLOWKING, 12
+	db BULBASAUR
+	db IVYSAUR
+	db VENUSAUR
+	db BLASTOISE
+	db TENTACOOL
+	db TENTACRUEL
+	db STARMIE
+	db FARFETCH_D
+	db BELLOSSOM
+	db BUTTERFREE
+	db GYARADOS
+	db SLOWKING
+	db PRIMEAPE
+	db MACHOP
+	db FLAAFFY
+	db AMPHAROS
+	db BELLSPROUT
+	db NATU
+	db XATU
+	db SPINARAK
+	db ARIADOS
 	db -1
 
 ExtraPalletes:
@@ -573,3 +582,12 @@ ExtraPalletes:
 	INCLUDE "gfx/pokemon/butterfree/extra.pal"
 	INCLUDE "gfx/pokemon/gyarados/extra.pal"
 	INCLUDE "gfx/pokemon/slowking/extra.pal"
+	INCLUDE "gfx/pokemon/primeape/extra.pal"
+	INCLUDE "gfx/pokemon/machop/extra.pal"
+	INCLUDE "gfx/pokemon/flaaffy/extra.pal"
+	INCLUDE "gfx/pokemon/ampharos/extra.pal"
+	INCLUDE "gfx/pokemon/bellsprout/extra.pal"
+	INCLUDE "gfx/pokemon/natu/extra.pal"
+	INCLUDE "gfx/pokemon/xatu/extra.pal"
+	INCLUDE "gfx/pokemon/spinarak/extra.pal"
+	INCLUDE "gfx/pokemon/ariados/extra.pal"

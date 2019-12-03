@@ -1074,15 +1074,17 @@ _GetExtraMonPalettePointer:
 	ld hl, ExtraPalettesIndex
 	ld a, [wCurPartySpecies]
 	ld b, a
+	ld c, 1
 .loop
 	ld a, [hli]
 	cp -1
 	jr z, .no_extra
 	cp b
 	jr z, .found
+	inc c
 	jr .loop
 .found
-	ld a, [hl]
+	ld a, c
 	ld l, a
 	ld h, $0
 	add hl, hl
@@ -1097,12 +1099,12 @@ GetMonNormalOrShinyPalettePointer:
 	push bc
 	call _GetMonPalettePointer
 	pop bc
-	; push de
-	; push hl
-	; call CheckShininess	
-	; pop hl
-	; pop de
-	; ret nc
+	push de
+	push hl
+	call CheckShininess	
+	pop hl
+	pop de
+	ret nc
 rept 4
 	inc hl
 endr
@@ -1112,15 +1114,17 @@ GetExtraMonNormalOrShinyPalettePointer:
 	push bc
 	ld hl, ExtraPalettesIndex
 	ld b, a
+	ld c, 1
 .loop
 	ld a, [hli]
 	cp -1
 	jr z, .no_extra
 	cp b
 	jr z, .found
+	inc c
 	jr .loop
 .found
-	ld a, [hl]
+	ld a, c
 	ld l, a
 	ld h, $0
 	add hl, hl
@@ -1130,12 +1134,12 @@ GetExtraMonNormalOrShinyPalettePointer:
 	add hl, bc
 .no_extra
 	pop bc
-	; push de
-	; push hl
-	; call CheckShininess	
-	; pop hl
-	; pop de
-	; ret nc
+	push de
+	push hl
+	call CheckShininess	
+	pop hl
+	pop de
+	ret nc
 rept 4
 	inc hl
 endr

@@ -48,11 +48,10 @@ TrainerCard:
 
 	call EnableLCD
 	call TrainerCard_PrintTopHalfOfCard
-	ld hl, CardStatusGFX
-	ld de, vTiles2 tile $6f
-	ld bc, 86 tiles
-	ld a, BANK(CardStatusGFX)
-	call FarCopyBytes
+	ld de, CardStatusGFX
+	ld hl, vTiles2 tile $6f
+	lb bc, BANK(CardStatusGFX), 16
+	call Request2bpp
 	
 	call WaitBGMap
 	ld b, SCGB_TRAINER_CARD

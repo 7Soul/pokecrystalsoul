@@ -155,7 +155,26 @@ _CGB_FinishBattleScreenLayout:
 	jp z, .gyarados
 	cp SLOWKING
 	jp z, .slowking
+	cp PRIMEAPE
+	jp z, .primeape
+	cp MACHOP
+	jp z, .machop
+	cp FLAAFFY
+	jp z, .flaaffy
+	cp AMPHAROS
+	jp z, .ampharos
+	cp BELLSPROUT
+	jp z, .bellsprout
+	cp NATU
+	jp z, .natu
+	cp XATU
+	jp z, .xatu
+	cp SPINARAK
+	jp z, .spinarak
+	cp ARIADOS
+	jp z, .ariados
 	jp .skip_extra
+
 .bulbasaur
 	hlcoord 13, 4, wAttrMap
 	lb bc, 2, 3
@@ -218,9 +237,50 @@ _CGB_FinishBattleScreenLayout:
 	hlcoord 13, 4, wAttrMap
 	lb bc, 1, 6 ; h, w
 	jp .end_extra
+.primeape
+	hlcoord 14, 2, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.machop
+	hlcoord 14, 2, wAttrMap
+	lb bc, 1, 3 ; h, w
+	jp .end_extra
+.flaaffy
+	hlcoord 17, 2, wAttrMap
+	lb bc, 4, 2 ; h, w
+	jp .end_extra
+.ampharos
+	hlcoord 16, 0, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillPalette5
+	hlcoord 12, 3, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.bellsprout
+	hlcoord 13, 2, wAttrMap
+	lb bc, 3, 3 ; h, w
+	jp .end_extra
+.natu
+	hlcoord 13, 4, wAttrMap
+	lb bc, 2, 3 ; h, w
+	jp .end_extra
+.xatu
+	hlcoord 14, 1, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.spinarak
+	hlcoord 14, 6, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra
+.ariados
+	hlcoord 14, 3, wAttrMap
+	lb bc, 3, 3 ; h, w
+	call FillPalette5
+	hlcoord 17, 4, wAttrMap
+	lb bc, 1, 1 ; h, w
+	jp .end_extra
 .end_extra
-	ld a, PAL_BATTLE_BG_5
-	call FillBoxCGB
+	call FillPalette5
 .skip_extra
 	hlcoord 0, 0, wAttrMap
 	lb bc, 4, 10
@@ -353,6 +413,24 @@ _CGB_StatsScreenHPPals:
 	jp z, .gyarados
 	cp SLOWKING
 	jp z, .slowking
+	cp PRIMEAPE
+	jp z, .primeape
+	cp MACHOP
+	jp z, .machop
+	cp FLAAFFY
+	jp z, .flaaffy
+	cp AMPHAROS
+	jp z, .ampharos
+	cp BELLSPROUT
+	jp z, .bellsprout
+	cp NATU
+	jp z, .natu
+	cp XATU
+	jp z, .xatu
+	cp SPINARAK
+	jp z, .spinarak
+	cp ARIADOS
+	jp z, .ariados
 	
 	jp .skip_extra
 .bulbasaur
@@ -416,6 +494,48 @@ _CGB_StatsScreenHPPals:
 .slowking
 	hlcoord 12, 4, wAttrMap
 	lb bc, 1, 6 ; h, w
+	jp .end_extra
+.primeape
+	hlcoord 15, 2, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.machop
+	hlcoord 14, 2, wAttrMap
+	lb bc, 1, 3 ; h, w
+	jp .end_extra
+.flaaffy
+	hlcoord 12, 2, wAttrMap
+	lb bc, 4, 2 ; h, w
+	jp .end_extra
+.ampharos
+	hlcoord 14, 0, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 17, 3, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.bellsprout
+	hlcoord 15, 2, wAttrMap
+	lb bc, 3, 3 ; h, w
+	jp .end_extra
+.natu
+	hlcoord 15, 4, wAttrMap
+	lb bc, 2, 3 ; h, w
+	jp .end_extra
+.xatu
+	hlcoord 15, 1, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.spinarak
+	hlcoord 15, 6, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra
+.ariados
+	hlcoord 14, 3, wAttrMap
+	lb bc, 3, 3 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 13, 4, wAttrMap
+	lb bc, 1, 1 ; h, w
 	jp .end_extra
 .end_extra
 	call FillStatsBoxExtraPalette
@@ -508,6 +628,25 @@ _CGB_Pokedex:
 	jp z, .gyarados
 	cp SLOWKING
 	jp z, .slowking
+	cp PRIMEAPE
+	jp z, .primeape
+	cp MACHOP
+	jp z, .machop
+	cp FLAAFFY
+	jp z, .flaaffy
+	cp AMPHAROS
+	jp z, .ampharos
+	cp BELLSPROUT
+	jp z, .bellsprout
+	cp NATU
+	jp z, .natu
+	cp XATU
+	jp z, .xatu
+	cp SPINARAK
+	jp z, .spinarak
+	cp ARIADOS
+	jp z, .ariados
+
 	jp .skip_extra
 .bulbasaur
 	hlcoord 2, 5, wAttrMap
@@ -570,6 +709,48 @@ _CGB_Pokedex:
 .slowking
 	hlcoord 2, 5, wAttrMap
 	lb bc, 1, 6 ; h, w
+	jp .end_extra
+.primeape
+	hlcoord 3, 3, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.machop
+	hlcoord 3, 3, wAttrMap
+	lb bc, 1, 3 ; h, w
+	jp .end_extra
+.flaaffy
+	hlcoord 6, 3, wAttrMap
+	lb bc, 4, 2 ; h, w
+	jp .end_extra
+.ampharos
+	hlcoord 5, 1, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 1, 4, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.bellsprout
+	hlcoord 2, 3, wAttrMap
+	lb bc, 3, 3 ; h, w
+	jp .end_extra
+.natu
+	hlcoord 2, 5, wAttrMap
+	lb bc, 2, 3 ; h, w
+	jp .end_extra
+.xatu
+	hlcoord 3, 2, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.spinarak
+	hlcoord 3, 7, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra
+.ariados
+	hlcoord 3, 4, wAttrMap
+	lb bc, 3, 3 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 6, 5, wAttrMap
+	lb bc, 1, 1 ; h, w
 	jp .end_extra
 .end_extra
 	call FillBoxExtraPalette

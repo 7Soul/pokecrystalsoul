@@ -1126,13 +1126,13 @@ JohtoGrassWildMons:
 	map_id ROUTE_46
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn/day
-	db 1, SLOWKING
-	db 1, SLOWKING
-	db 1, SLOWKING
-	db 1, SLOWKING
-	db 1, SLOWKING
-	db 1, SLOWKING
-	db 1, SLOWKING
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 1, SUNKERN
+	db 1, SUNKERN
+	db 1, SUNKERN
+	db 1, GEODUDE
 	; nite
 	db 1, GEODUDE
 	db 1, GEODUDE

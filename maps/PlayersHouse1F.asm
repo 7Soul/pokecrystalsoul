@@ -46,22 +46,22 @@ MeetMomScript:
 	clearevent EVENT_PLAYERS_HOUSE_MOM_2
 	writetext MomGivesPokegearText
 	buttonsound
-	special SetDayOfWeek
-.SetDayOfWeek:
-	writetext IsItDSTText
-	yesorno
-	iffalse .WrongDay
-	special InitialSetDSTFlag
-	yesorno
-	iffalse .SetDayOfWeek
-	jump .DayOfWeekDone
+; 	special SetDayOfWeek
+; .SetDayOfWeek:
+; 	writetext IsItDSTText
+; 	yesorno
+; 	iffalse .WrongDay
+; 	special InitialSetDSTFlag
+; 	yesorno
+; 	iffalse .SetDayOfWeek
+; 	jump .DayOfWeekDone
 
-.WrongDay:
-	special InitialClearDSTFlag
-	yesorno
-	iffalse .SetDayOfWeek
-.DayOfWeekDone:
-	writetext ComeHomeForDSTText
+; .WrongDay:
+; 	special InitialClearDSTFlag
+; 	yesorno
+; 	iffalse .SetDayOfWeek
+; .DayOfWeekDone:
+; 	writetext ComeHomeForDSTText
 	; yesorno
 	; iffalse .ExplainPhone
 	; jump .KnowPhone
@@ -77,9 +77,9 @@ MeetMomScript:
 	; jump .FinishPhone
 
 ; .FinishPhone:
-	writetext InstructionsNextText
-	waitbutton
-	closetext
+	; writetext InstructionsNextText
+	; waitbutton
+	; closetext
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
 	iftrue .FromRight
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_2
@@ -95,6 +95,59 @@ MeetMomScript:
 	jump .Finish
 
 .Finish:
+
+
+	if DEF(_DEBUG)
+	setflag ENGINE_POKEDEX
+	setflag ENGINE_UNOWN_DEX
+	setflag ENGINE_MAP_CARD	
+	setflag ENGINE_RADIO_CARD
+	callasm SetHallOfFameFlag
+	setevent EVENT_GOT_A_POKEMON_FROM_ELM
+	setevent EVENT_LEARNED_TO_CATCH_POKEMON
+	clearevent EVENT_ROUTE_30_YOUNGSTER_JOEY
+	setevent EVENT_ROUTE_30_BATTLE
+	setevent EVENT_RIVAL_CHERRYGROVE_CITY
+	setmapscene NEW_BARK_TOWN, SCENE_FINISHED
+	addcellnum PHONE_BILL
+	setevent EVENT_RELEASED_THE_BEASTS
+	special InitRoamMons
+	special InitKantoRoamMons
+	givecoins 9999
+	givemoney 0, 100000
+	giveitem MASTER_BALL, 99
+	giveitem POKE_BALL, 99
+	giveitem RARE_CANDY, 99
+	giveitem MAX_REPEL, 99
+	giveitem REVIVE, 99
+	giveitem SHINY_CORAL
+
+	givepoke VENUSAUR, 30
+	givepoke BELLSPROUT, 50
+	givepoke AMPHAROS, 25
+	givepoke FARFETCH_D, 25
+	givepoke MACHOP, 25
+	givepoke STARMIE, 25
+	; callasm CheatFillPokedex
+	callasm CheatGiveTMs
+	; callasm CheatGiveJohtoBadges
+	; callasm CheatGiveKantoBadges
+	callasm CheatGiveRandomBadges
+	; setflag ENGINE_ZEPHYRBADGE
+	; verbosegiveitem TM_MUD_BOMB
+	; setflag ENGINE_HIVEBADGE
+	; setflag ENGINE_PLAINBADGE
+	; setflag ENGINE_STORMBADGE
+	callasm CheatSetFlypoints
+	; warp ROUTE_2, $5, $22
+	warp ROUTE_46, $8, $10
+	;warp ROUTE_37, $e, $a
+	;warp ILEX_FOREST, $0, $21
+	;warp ROUTE_34, $D, $24
+endc
+
+
+	closetext
 	special RestartMapMusic
 	turnobject PLAYERSHOUSE1F_MOM1, LEFT
 	end
@@ -373,3 +426,109 @@ PlayersHouse1F_MapEvents:
 	object_event  7,  4, SPRITE_MOM, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, DAY, 0, OBJECTTYPE_SCRIPT, 0, MomScript, EVENT_PLAYERS_HOUSE_MOM_2
 	object_event  0,  2, SPRITE_MOM, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, NITE, 0, OBJECTTYPE_SCRIPT, 0, MomScript, EVENT_PLAYERS_HOUSE_MOM_2
 	object_event  4,  4, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, NeighborScript, EVENT_PLAYERS_HOUSE_1F_NEIGHBOR
+
+
+if def(_DEBUG)
+CheatFillPokedex:
+	ld a, BULBASAUR
+	dec a
+.loop
+	; cp $c8 ; UNOWN - 1
+	; jr z, .skip
+	push af
+	call SetSeenAndCaughtMon
+	pop af
+.skip
+	inc a
+	cp CELEBI
+	jr nz, .loop
+	ret
+
+SetHallOfFameFlag:
+	ld hl, wStatusFlags
+	set STATUSFLAGS_HALL_OF_FAME_F, [hl]
+	ret
+
+CheatGiveJohtoBadges:
+	ld a, ENGINE_ZEPHYRBADGE
+.loop
+	push af
+	ld d, 0
+	ld e, a
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+	pop af
+
+	inc a
+	cp ENGINE_RISINGBADGE + 1
+	jr nz, .loop
+	ret
+
+CheatGiveKantoBadges:
+	ld a, ENGINE_BOULDERBADGE
+.loop
+	push af
+	ld d, 0
+	ld e, a
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+	pop af
+
+	inc a
+	cp ENGINE_EARTHBADGE + 1
+	jr nz, .loop
+	ret
+
+CheatGiveRandomBadges:
+	ld a, ENGINE_ZEPHYRBADGE
+.loop
+	cp ENGINE_EARTHBADGE + 1
+	ret nc
+
+	ld b, a
+	call Random
+	cp 40 percent
+	ld a, b
+	inc a
+	jr nc, .loop
+
+	push af
+	ld d, 0
+	ld e, a
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+	pop af
+
+	jr .loop
+
+CheatSetFlypoints:
+	ld a, ENGINE_FLYPOINT_PLAYERS_HOUSE
+.loop
+	push af
+	ld d, 0
+	ld e, a
+	ld b, SET_FLAG
+	farcall EngineFlagAction
+	pop af
+
+	inc a
+	cp ENGINE_FLYPOINT_SILVER_CAVE
+	jr nz, .loop
+	ret
+
+CheatGiveTMs:
+	ld a, TM_DYNAMICPUNCH
+.loop
+	push af
+	ld [wCurItem], a	
+	ld a, 1
+	ld [wItemQuantityChangeBuffer], a
+	ld hl, wNumItems
+	call ReceiveItem
+
+	pop af
+	inc a
+	cp TM_HYPER_SONAR + 1
+	jr nz, .loop
+	ret
+endc
