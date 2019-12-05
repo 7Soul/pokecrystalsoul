@@ -2,8 +2,13 @@ SaveMenu:
 	call LoadStandardMenuHeader
 	farcall DisplaySaveInfoOnSave
 	call SpeechTextBox
-	call UpdateSprites
+	call UpdateSprites	
 	farcall SaveMenu_CopyTilemapAtOnce
+	ld a, [wEnvironment]
+	cp CAVE
+	jr z, .cant_save
+	cp DUNGEON
+	jr z, .cant_save
 	ld hl, Text_WouldYouLikeToSaveTheGame
 	call SaveTheGame_yesorno
 	jr nz, .refused
@@ -22,6 +27,13 @@ SaveMenu:
 	farcall SaveMenu_CopyTilemapAtOnce
 	scf
 	ret
+
+.cant_save
+	ld hl, Text_CantSaveHere
+	call PrintText
+	ld c, 60
+	call DelayFrames
+	jr .refused
 
 SaveAfterLinkTrade:
 	call PauseGameLogic
@@ -1094,6 +1106,11 @@ Checksum:
 	or c
 	jr nz, .loop
 	ret
+
+Text_CantSaveHere:
+	; You can't save here.
+	text_jump CantSaveHereText
+	db "@"
 
 Text_WouldYouLikeToSaveTheGame:
 	; Would you like to save the game?

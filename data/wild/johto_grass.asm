@@ -1126,39 +1126,39 @@ JohtoGrassWildMons:
 	map_id ROUTE_46
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn/day
-	db 1, TANGELA
-	db 1, TANGELA
-	db 1, TANGELA
-	db 1, TANGELA
-	db 1, TANGELA
-	db 1, TANGELA
-	db 1, TANGELA
+	db 1, GEODUDE
+	db 1, EKANS
+	db 1, MANKEY
+	db 1, SUNKERN
+	db 1, PIDGEY
+	db 2, SUNKERN
+	db 1, IGGLYBUFF
 	; nite
 	db 1, GEODUDE
-	db 1, GEODUDE
-	db 1, GEODUDE
-	db 1, SUNKERN
-	db 1, SUNKERN
-	db 1, SUNKERN
-	db 1, GEODUDE
+	db 1, EKANS
+	db 1, MANKEY
+	db 1, GRIMER
+	db 1, RATTATA
+	db 2, GRIMER
+	db 1, CLEFFA
 
 	map_id SILVER_CAVE_OUTSIDE
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn/day
-	db 41, TANGELA
-	db 42, PONYTA
-	db 42, ARBOK
-	db 44, RAPIDASH
-	db 41, DODUO
-	db 43, DODRIO
-	db 43, DODRIO
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
 	; nite
-	db 41, TANGELA
-	db 42, POLIWHIRL
-	db 42, GOLBAT
-	db 44, POLIWHIRL
-	db 40, GOLBAT
-	db 44, GOLBAT
-	db 44, GOLBAT
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
+	db 1, TANGELA
 
 	db -1 ; end

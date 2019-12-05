@@ -621,7 +621,7 @@ wLinkBattleRNCount:: ; c6e5
 
 wEnemyItemState:: db ; c6e6
 wPlayerTypeMod:: db ; c6e7 ; custom
-	ds 1
+wPlayerHighesBattleLevel:: db
 wCurEnemyMoveNum:: db ; c6e9
 
 wEnemyHPAtTimeOfPlayerSwitch:: dw ; c6ea

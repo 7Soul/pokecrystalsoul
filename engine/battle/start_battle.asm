@@ -161,6 +161,7 @@ ClearBattleRAM:
 	ld [wEnemyTurnsTaken], a
 	ld [wEvolvableFlags], a
 	ld [wSpecialWildBattle], a
+	ld [wPlayerHighesBattleLevel], a
 
 	ld hl, wPlayerHPPal
 	ld [hli], a

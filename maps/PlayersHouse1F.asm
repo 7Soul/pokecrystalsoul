@@ -122,10 +122,10 @@ MeetMomScript:
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
 
-	givepoke VENUSAUR, 50
-	givepoke BELLSPROUT, 40
-	givepoke JUMPLUFF, 40	
-	givepoke SLOWKING, 50
+	givepoke VENUSAUR, 40
+	givepoke BELLSPROUT, 42
+	givepoke JUMPLUFF, 55
+	givepoke SLOWKING, 35
 	givepoke FLAAFFY, 50
 	givepoke XATU, 50
 	; callasm CheatFillPokedex

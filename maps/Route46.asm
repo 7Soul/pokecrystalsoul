@@ -31,7 +31,7 @@ TryWild:
 	ret
 
 TrainerCamperTed:
-	trainer BUG_CATCHER, WADE1, EVENT_BEAT_CAMPER_TED, CamperTedSeenText, CamperTedBeatenText, 0, .Script
+	trainer CAMPER, TED, EVENT_BEAT_CAMPER_TED, CamperTedSeenText, CamperTedBeatenText, 0, .Script
 
 .Script:
 	endifjustbattled

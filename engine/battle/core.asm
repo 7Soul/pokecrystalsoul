@@ -3942,7 +3942,18 @@ InitBattleMon:
 	ld bc, PARTYMON_STRUCT_LENGTH - MON_ATK
 	call CopyBytes
 	call ApplyStatusEffectOnPlayerStats
-	;call BadgeStatBoosts
+
+	ld a, [wBattleMonLevel]
+	ld b, a
+	ld a, [wPlayerHighesBattleLevel]
+	and a
+	jr z, .set_level
+	cp b
+	ret nc
+	
+.set_level
+	ld a, b
+	ld [wPlayerHighesBattleLevel], a
 	ret
 
 BattleCheckPlayerShininess:
@@ -6940,94 +6951,94 @@ ApplyStatLevelMultiplier:
 
 INCLUDE "data/battle/stat_multipliers_2.asm"
 
-BadgeStatBoosts:
-; Raise the stats of the battle mon in wBattleMon
-; depending on which badges have been obtained.
+; BadgeStatBoosts:
+; ; Raise the stats of the battle mon in wBattleMon
+; ; depending on which badges have been obtained.
 
-; Every other badge boosts a stat, starting from the first.
+; ; Every other badge boosts a stat, starting from the first.
 
-; 	ZephyrBadge:  Attack
-; 	PlainBadge:   Speed
-; 	MineralBadge: Defense
-; 	GlacierBadge: Special Attack
-; 	RisingBadge:  Special Defense
+; ; 	ZephyrBadge:  Attack
+; ; 	PlainBadge:   Speed
+; ; 	MineralBadge: Defense
+; ; 	GlacierBadge: Special Attack
+; ; 	RisingBadge:  Special Defense
 
-; The boosted stats are in order, except PlainBadge and MineralBadge's boosts are swapped.
+; ; The boosted stats are in order, except PlainBadge and MineralBadge's boosts are swapped.
 
-	ld a, [wLinkMode]
-	and a
-	ret nz
+; 	ld a, [wLinkMode]
+; 	and a
+; 	ret nz
 
-	ld a, [wInBattleTowerBattle]
-	and a
-	ret nz
+; 	ld a, [wInBattleTowerBattle]
+; 	and a
+; 	ret nz
 
-	ld a, [wJohtoBadges]
+; 	ld a, [wJohtoBadges]
 
-; Swap badges 3 (PlainBadge) and 5 (MineralBadge).
-	ld d, a
-	and (1 << PLAINBADGE)
-	add a
-	add a
-	ld b, a
-	ld a, d
-	and (1 << MINERALBADGE)
-	rrca
-	rrca
-	ld c, a
-	ld a, d
-	and ((1 << ZEPHYRBADGE) | (1 << HIVEBADGE) | (1 << FOGBADGE) | (1 << STORMBADGE) | (1 << GLACIERBADGE) | (1 << RISINGBADGE))
-	or b
-	or c
-	ld b, a
+; ; Swap badges 3 (PlainBadge) and 5 (MineralBadge).
+; 	ld d, a
+; 	and (1 << PLAINBADGE)
+; 	add a
+; 	add a
+; 	ld b, a
+; 	ld a, d
+; 	and (1 << MINERALBADGE)
+; 	rrca
+; 	rrca
+; 	ld c, a
+; 	ld a, d
+; 	and ((1 << ZEPHYRBADGE) | (1 << HIVEBADGE) | (1 << FOGBADGE) | (1 << STORMBADGE) | (1 << GLACIERBADGE) | (1 << RISINGBADGE))
+; 	or b
+; 	or c
+; 	ld b, a
 
-	ld hl, wBattleMonAttack
-	ld c, 4
-.CheckBadge:
-	ld a, b
-	srl b
-	call c, BoostStat
-	inc hl
-	inc hl
-; Check every other badge.
-	srl b
-	dec c
-	jr nz, .CheckBadge
-; And the last one (RisingBadge) too.
-	srl a
-	call c, BoostStat
-	ret
+; 	ld hl, wBattleMonAttack
+; 	ld c, 4
+; .CheckBadge:
+; 	ld a, b
+; 	srl b
+; 	call c, BoostStat
+; 	inc hl
+; 	inc hl
+; ; Check every other badge.
+; 	srl b
+; 	dec c
+; 	jr nz, .CheckBadge
+; ; And the last one (RisingBadge) too.
+; 	srl a
+; 	call c, BoostStat
+; 	ret
 
-BoostStat:
-; Raise stat at hl by 1/8.
+; BoostStat:
+; ; Raise stat at hl by 1/8.
 
-	ld a, [hli]
-	ld d, a
-	ld e, [hl]
-	srl d
-	rr e
-	srl d
-	rr e
-	srl d
-	rr e
-	ld a, [hl]
-	add e
-	ld [hld], a
-	ld a, [hl]
-	adc d
-	ld [hli], a
+; 	ld a, [hli]
+; 	ld d, a
+; 	ld e, [hl]
+; 	srl d
+; 	rr e
+; 	srl d
+; 	rr e
+; 	srl d
+; 	rr e
+; 	ld a, [hl]
+; 	add e
+; 	ld [hld], a
+; 	ld a, [hl]
+; 	adc d
+; 	ld [hli], a
 
-; Cap at 999.
-	ld a, [hld]
-	sub LOW(MAX_STAT_VALUE)
-	ld a, [hl]
-	sbc HIGH(MAX_STAT_VALUE)
-	ret c
-	ld a, HIGH(MAX_STAT_VALUE)
-	ld [hli], a
-	ld a, LOW(MAX_STAT_VALUE)
-	ld [hld], a
-	ret
+; ; Cap at 999.
+; 	ld a, [hld]
+; 	sub LOW(MAX_STAT_VALUE)
+; 	ld a, [hl]
+; 	sbc HIGH(MAX_STAT_VALUE)
+; 	ret c
+; 	ld a, HIGH(MAX_STAT_VALUE)
+; 	ld [hli], a
+; 	ld a, LOW(MAX_STAT_VALUE)
+; 	ld [hld], a
+; 	ret
 
 _LoadBattleFontsHPBar:
 	callfar LoadBattleFontsHPBar
@@ -7261,43 +7272,43 @@ GiveExperiencePoints:
 	ldh [hMultiplier], a
 	call Multiply
 	; exp scaling when the diff is greater than 5
-	ld a, [wBattleMonLevel]
+	ld a, [wPlayerHighesBattleLevel]
 	ld b, a
 	ld a, [wEnemyMonLevel]
 	add $64
 	sub b
-	;ld [wMonIsShiny], a
 	ld b, a ; 'b' is opp level - party level
 	
 	ld a, b
-	cp $5a ; player is over 10 levels higher
+	cp $5e ; player is 6 or more levels higher
 	ld a, $1c ; 1/4 exp (28)
 	jr c, .cont_calc
 	ld a, b
-	cp $5e ; player is up to 7 to 10 levels higher
+	cp $5f ; player is 4 or 5 levels higher
 	ld a, $15 ; 1/3 exp (21)
 	jr c, .cont_calc
 	ld a, b
-	cp $62 ; player is up to 3 to 6 levels higher
+	cp $61 ; player is 3 levels higher
 	ld a, $e ; half exp (14)
 	jr c, .cont_calc
+	ld a, b
 	ld a, b
 	cp $64 ; player is up to 2 levels higher
 	ld a, 7 ; normal exp
 	jr c, .cont_calc
 	ld a, b
-	cp $68 ; between 0 and 4 - normal exp
+	cp $67 ; between 0 and 3 - normal exp
 	ld a, 7
 	jr c, .cont_calc
 	ld a, b
-	cp $6a ; between 5 and 6
+	cp $6a ; between 4 and 6
 	ld a, 5
 	jr c, .cont_calc
 	ld a, b
 	cp $6c ; between 7 and 9
 	ld a, 4
 	jr c, .cont_calc
-	ld a, 2 ; 10+
+	ld a, 3 ; 10+
 .cont_calc
 	ldh [hDivisor], a
 	ld b, 4

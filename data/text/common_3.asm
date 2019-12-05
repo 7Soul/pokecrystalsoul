@@ -184,6 +184,11 @@ UnknownText_0x1c4525::
 	text " min."
 	done
 
+CantSaveHereText::
+	text "You can't save"
+	line "here."
+	done
+
 UnknownText_0x1c454b::
 	text "Would you like to"
 	line "save the game?"
