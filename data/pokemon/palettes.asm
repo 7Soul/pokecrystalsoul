@@ -561,6 +561,10 @@ ExtraPalettesIndex:
 	db XATU
 	db SPINARAK
 	db ARIADOS
+	db MR__MIME
+	db SUDOWOODO
+	db KANGASKHAN
+	db TANGELA
 	db -1
 
 ExtraPalletes:
@@ -591,3 +595,7 @@ ExtraPalletes:
 	INCLUDE "gfx/pokemon/xatu/extra.pal"
 	INCLUDE "gfx/pokemon/spinarak/extra.pal"
 	INCLUDE "gfx/pokemon/ariados/extra.pal"
+	INCLUDE "gfx/pokemon/mr__mime/extra.pal"
+	INCLUDE "gfx/pokemon/sudowoodo/extra.pal"
+	INCLUDE "gfx/pokemon/kangaskhan/extra.pal"
+	INCLUDE "gfx/pokemon/tangela/extra.pal"

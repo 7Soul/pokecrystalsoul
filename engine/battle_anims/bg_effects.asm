@@ -236,8 +236,8 @@ BattleBGEffect_WhiteHues:
 
 .Pals:
 	dc 3, 2, 1, 0
-	dc 3, 2, 0, 0
 	dc 3, 1, 0, 0
+	dc 3, 0, 0, 0
 	db -1
 
 BattleBGEffect_BlackHues:

@@ -2399,6 +2399,12 @@ WinTrainerBattle:
 	bit 0, a
 	jr nz, .battle_tower
 
+	ld b, SCGB_BATTLE_COLORS
+	call GetSGBLayout
+	call SetPalettes
+	ld a, $1
+	ld [wTempWildMonSpecies], a
+
 	call BattleWinSlideInEnemyTrainerFrontpic
 	ld c, 40
 	call DelayFrames

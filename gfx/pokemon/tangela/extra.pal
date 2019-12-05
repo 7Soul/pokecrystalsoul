@@ -1,0 +1,7 @@
+
+	RGB 28, 07, 11 ; light (shoe)
+	RGB 04, 13, 17 ; dark
+	; shiny
+	RGB 28, 07, 11 ; light (shoe)
+	RGB 08, 18, 05 ; dark
+	

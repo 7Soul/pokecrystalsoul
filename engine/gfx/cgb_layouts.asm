@@ -85,6 +85,15 @@ _CGB_BattleColors:
 	call GetEnemyFrontpicPalettePointer
 	push hl
 	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_ENEMY
+	ld a, [wTempEnemyMonSpecies]
+	and a
+	jp nz, .get_hp_palettes
+	ld a, $1
+	ld [wTypeModifier], a
+	call GetExtraEnemyFrontpicPalettePointer
+	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_ENEMY_HP
+	jr .skip_trainer_hp_palettes
+.get_hp_palettes
 	ld a, [wEnemyHPPal]
 	ld l, a
 	ld h, $0
@@ -93,6 +102,7 @@ _CGB_BattleColors:
 	ld bc, HPBarPals
 	add hl, bc
 	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_ENEMY_HP
+.skip_trainer_hp_palettes
 	ld a, [wPlayerHPPal]
 	ld l, a
 	ld h, $0
@@ -104,10 +114,12 @@ _CGB_BattleColors:
 	ld hl, ExpBarPalette
 	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_EXP
 
-	; pop hl
+	call GetExtraBattlemonBackpicPalettePointer
+	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_PLAYER_EX
+	ld a, $0
+	ld [wTypeModifier], a
 	call GetExtraEnemyFrontpicPalettePointer
-	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_5
-	; push hl
+	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_ENEMY_EX
 
 	ld de, wOBPals1
 	pop hl
@@ -127,12 +139,174 @@ _CGB_FinishBattleScreenLayout:
 	lb bc, 8, 10
 	ld a, PAL_BATTLE_BG_PLAYER
 	call FillBoxCGB
+
+.pokemon_extra
+	ld a, [wTempBattleMonSpecies]
+	cp IVYSAUR
+	jp z, .ivysaur_player
+	cp VENUSAUR
+	jp z, .venusaur_player
+	cp TENTACOOL
+	jp z, .tentacool_player
+	cp TENTACRUEL
+	jp z, .tentacruel_player
+	cp FARFETCH_D
+	jp z, .farfetch_d_player
+	cp BELLOSSOM
+	jp z, .bellossom_player
+	cp BUTTERFREE
+	jp z, .butterfree_player
+	cp SLOWKING
+	jp z, .slowking_player
+	cp FLAAFFY
+	jp z, .flaaffy_player
+	cp AMPHAROS
+	jp z, .ampharos_player
+	cp BELLSPROUT
+	jp z, .bellsprout_player
+	cp NATU
+	jp z, .natu_player
+	cp XATU
+	jp z, .xatu_player
+	cp ARIADOS
+	jp z, .ariados_player
+	cp MR__MIME
+	jp z, .mr__mime_player
+	cp SUDOWOODO
+	jp z, .sudowoodo_player
+	cp KANGASKHAN
+	jp z, .kangaskhan_player
+	jp .skip_extra_player
+
+.ivysaur_player
+	hlcoord 2, 10, wAttrMap
+	lb bc, 2, 6
+	call FillPalette5
+	hlcoord 7, 9, wAttrMap
+	lb bc, 1, 1
+	jp .end_extra_player
+.venusaur_player
+	hlcoord 2, 10, wAttrMap
+	lb bc, 1, 1
+	call FillPalette5
+	hlcoord 7, 10, wAttrMap
+	lb bc, 1, 1
+	call FillPalette5
+	hlcoord 2, 11, wAttrMap
+	lb bc, 1, 6
+	jp .end_extra_player
+.tentacool_player
+	hlcoord 2, 11, wAttrMap
+	lb bc, 1, 6 ; h, w
+	jp .end_extra_player
+.tentacruel_player
+	hlcoord 2, 10, wAttrMap
+	lb bc, 2, 6 ; h, w
+	jp .end_extra_player
+.farfetch_d_player
+	hlcoord 6, 10, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra_player
+.bellossom_player
+	hlcoord 2, 11, wAttrMap
+	lb bc, 1, 6 ; h, w
+	jp .end_extra_player
+.butterfree_player
+	hlcoord 6, 9, wAttrMap
+	lb bc, 3, 2 ; h, w
+	jp .end_extra_player
+.slowking_player
+	hlcoord 2, 11, wAttrMap
+	lb bc, 1, 6 ; h, w
+	jp .end_extra_player
+.flaaffy_player
+	hlcoord 2, 9, wAttrMap
+	lb bc, 3, 2 ; h, w
+	jp .end_extra_player
+.ampharos_player
+	hlcoord 2, 10, wAttrMap
+	lb bc, 2, 2 ; h, w
+	call FillPalette5
+	hlcoord 12, 3, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra_player
+.bellsprout_player
+	hlcoord 3, 6, wAttrMap
+	lb bc, 4, 4 ; h, w
+	jp .end_extra_player
+.natu_player
+	hlcoord 6, 9, wAttrMap
+	lb bc, 2, 1 ; h, w
+	jp .end_extra_player
+.xatu_player
+	hlcoord 6, 7, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra_player
+.ariados_player
+	hlcoord 3, 10, wAttrMap
+	lb bc, 2, 4 ; h, w
+	call FillPalette5
+	hlcoord 17, 4, wAttrMap
+	lb bc, 1, 1 ; h, w
+	jp .end_extra_player
+.mr__mime_player
+	hlcoord 2, 8, wAttrMap
+	lb bc, 2, 6 ; h, w
+	jp .end_extra_player
+.sudowoodo_player
+	hlcoord 4, 10, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra_player
+.kangaskhan_player
+	hlcoord 6, 10, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra_player
+
+.end_extra_player
+	call FillPalette5
+
+.skip_extra_player
 	hlcoord 10, 0, wAttrMap
 	lb bc, 7, 10
 	ld a, PAL_BATTLE_BG_ENEMY
 	call FillBoxCGB
 
 	ld a, [wTempEnemyMonSpecies]
+	and a
+	jp nz, .skip_extra_trainer
+	ld a, [wTrainerClass]
+	cp CAMPER
+	jr z, .camper
+	cp PICNICKER
+	jr z, .picnicker
+	jp .skip_extra_trainer
+.camper
+	hlcoord 13, 3, wAttrMap	
+	call inc_hl_twice
+	lb bc, 1, 1 ; h, w
+	call FillPalette6
+	hlcoord 14, 5, wAttrMap	
+	call inc_hl_twice
+	lb bc, 2, 4 ; h, w
+	call FillPalette2
+	hlcoord 16, 3, wAttrMap	
+	call inc_hl_twice
+	lb bc, 1, 1 ; h, w	
+	jp .end_extra_trainer
+.picnicker
+	hlcoord 15, 3, wAttrMap	
+	call inc_hl_twice
+	lb bc, 1, 2 ; h, w
+	call FillPalette2
+	hlcoord 14, 5, wAttrMap	
+	call inc_hl_twice
+	lb bc, 2, 3 ; h, w	
+	jp .end_extra_trainer
+
+.end_extra_trainer
+	call FillPalette6
+
+.skip_extra_trainer
 	cp BULBASAUR
 	jp z, .bulbasaur
 	cp IVYSAUR
@@ -173,8 +347,16 @@ _CGB_FinishBattleScreenLayout:
 	jp z, .spinarak
 	cp ARIADOS
 	jp z, .ariados
-	jp .skip_extra
+	cp MR__MIME
+	jp z, .mr__mime
+	cp SUDOWOODO
+	jp z, .sudowoodo
+	cp KANGASKHAN
+	jp z, .kangaskhan
+	cp TANGELA
+	jp z, .tangela
 
+	jp .skip_extra
 .bulbasaur
 	hlcoord 13, 4, wAttrMap
 	lb bc, 2, 3
@@ -182,17 +364,17 @@ _CGB_FinishBattleScreenLayout:
 .ivysaur
 	hlcoord 13, 3, wAttrMap
 	lb bc, 2, 2
-	call FillPalette5
+	call FillPalette6
 	hlcoord 17, 3, wAttrMap
 	lb bc, 1, 2
 	jp .end_extra
 .venusaur
 	hlcoord 12, 3, wAttrMap
 	lb bc, 1, 7
-	call FillPalette5
+	call FillPalette6
 	hlcoord 13, 4, wAttrMap
 	lb bc, 1, 2
-	call FillPalette5
+	call FillPalette6
 	hlcoord 17, 4, wAttrMap
 	lb bc, 1, 2
 	jp .end_extra
@@ -211,13 +393,13 @@ _CGB_FinishBattleScreenLayout:
 .farfetch_d
 	hlcoord 16, 3, wAttrMap
 	lb bc, 1, 3 ; h, w
-	call FillPalette5
+	call FillPalette6
 	hlcoord 17, 4, wAttrMap
 	lb bc, 1, 2 ; h, w
-	call FillPalette5
+	call FillPalette6
 	hlcoord 13, 5, wAttrMap
 	lb bc, 2, 2 ; h, w
-	call FillPalette5
+	call FillPalette6
 	hlcoord 16, 6, wAttrMap
 	lb bc, 1, 3 ; h, w
 	jp .end_extra
@@ -252,7 +434,7 @@ _CGB_FinishBattleScreenLayout:
 .ampharos
 	hlcoord 16, 0, wAttrMap
 	lb bc, 1, 1 ; h, w
-	call FillPalette5
+	call FillPalette6
 	hlcoord 12, 3, wAttrMap
 	lb bc, 2, 2 ; h, w
 	jp .end_extra
@@ -275,12 +457,34 @@ _CGB_FinishBattleScreenLayout:
 .ariados
 	hlcoord 14, 3, wAttrMap
 	lb bc, 3, 3 ; h, w
-	call FillPalette5
+	call FillPalette6
 	hlcoord 17, 4, wAttrMap
 	lb bc, 1, 1 ; h, w
 	jp .end_extra
+.mr__mime
+	hlcoord 13, 1, wAttrMap
+	lb bc, 1, 6 ; h, w
+	call FillPalette6
+	hlcoord 13, 6, wAttrMap
+	lb bc, 1, 6 ; h, w
+	jp .end_extra
+.sudowoodo
+	hlcoord 14, 3, wAttrMap
+	lb bc, 3, 3 ; h, w
+	jp .end_extra
+.kangaskhan
+	hlcoord 14, 4, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra
+.tangela
+	hlcoord 16, 3, wAttrMap
+	lb bc, 2, 2 ; h, w
+	call FillPalette6
+	hlcoord 15, 5, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
 .end_extra
-	call FillPalette5
+	call FillPalette6
 .skip_extra
 	hlcoord 0, 0, wAttrMap
 	lb bc, 4, 10
@@ -306,8 +510,27 @@ _CGB_FinishBattleScreenLayout:
 	call ApplyAttrMap
 	ret
 
+inc_hl_twice:
+; moves bg position twice right for when trainer slides from the side
+	ld a, [wTempWildMonSpecies]
+	and a
+	ret z
+	inc hl
+	inc hl
+	ret
+
+FillPalette2:
+	ld a, $2
+	call FillBoxCGB
+	ret
+
 FillPalette5:
-	ld a, PAL_BATTLE_BG_5
+	ld a, $5
+	call FillBoxCGB
+	ret
+
+FillPalette6:
+	ld a, $6
 	call FillBoxCGB
 	ret
 
@@ -431,6 +654,14 @@ _CGB_StatsScreenHPPals:
 	jp z, .spinarak
 	cp ARIADOS
 	jp z, .ariados
+	cp MR__MIME
+	jp z, .mr__mime
+	cp SUDOWOODO
+	jp z, .sudowoodo
+	cp KANGASKHAN
+	jp z, .kangaskhan
+	cp TANGELA
+	jp z, .tangela
 	
 	jp .skip_extra
 .bulbasaur
@@ -536,6 +767,28 @@ _CGB_StatsScreenHPPals:
 	call FillStatsBoxExtraPalette
 	hlcoord 13, 4, wAttrMap
 	lb bc, 1, 1 ; h, w
+	jp .end_extra
+.mr__mime
+	hlcoord 12, 1, wAttrMap
+	lb bc, 1, 6 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 12, 6, wAttrMap
+	lb bc, 1, 6 ; h, w
+	jp .end_extra
+.sudowoodo
+	hlcoord 14, 4, wAttrMap
+	lb bc, 3, 3 ; h, w
+	jp .end_extra
+.kangaskhan
+	hlcoord 15, 4, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra
+.tangela
+	hlcoord 13, 3, wAttrMap
+	lb bc, 2, 2 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 14, 5, wAttrMap
+	lb bc, 2, 2 ; h, w
 	jp .end_extra
 .end_extra
 	call FillStatsBoxExtraPalette
@@ -646,6 +899,14 @@ _CGB_Pokedex:
 	jp z, .spinarak
 	cp ARIADOS
 	jp z, .ariados
+	cp MR__MIME
+	jp z, .mr__mime
+	cp SUDOWOODO
+	jp z, .sudowoodo
+	cp KANGASKHAN
+	jp z, .kangaskhan
+	cp TANGELA
+	jp z, .tangela
 
 	jp .skip_extra
 .bulbasaur
@@ -752,6 +1013,28 @@ _CGB_Pokedex:
 	hlcoord 6, 5, wAttrMap
 	lb bc, 1, 1 ; h, w
 	jp .end_extra
+.mr__mime
+	hlcoord 2, 2, wAttrMap
+	lb bc, 1, 6 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 2, 7, wAttrMap
+	lb bc, 1, 6 ; h, w
+	jp .end_extra
+.sudowoodo
+	hlcoord 3, 4, wAttrMap
+	lb bc, 3, 3 ; h, w
+	jp .end_extra
+.kangaskhan
+	hlcoord 3, 5, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra
+.tangela
+	hlcoord 5, 4, wAttrMap
+	lb bc, 2, 2 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 4, 6, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
 .end_extra
 	call FillBoxExtraPalette
 .skip_extra
@@ -807,27 +1090,27 @@ _CGB_BillsPC:
 	ldh [hCGBPalUpdate], a
 	ret
 
-.Function9009:
-	ld hl, .BillsPCOrangePalette
-	call LoadHLPaletteIntoDE
-	jr .asm_901a
+; .Function9009:
+; 	ld hl, .BillsPCOrangePalette
+; 	call LoadHLPaletteIntoDE
+; 	jr .asm_901a
 
-.unused
-	ld bc, wTempMonDVs
-	call GetPlayerOrMonPalettePointer
-	call LoadPalette_White_Col1_Col2_Black
-.asm_901a
-	call WipeAttrMap
-	hlcoord 1, 1, wAttrMap
-	lb bc, 7, 7
-	ld a, $1
-	call FillBoxCGB
-	call InitPartyMenuOBPals
-	call ApplyAttrMap
-	call ApplyPals
-	ld a, $1
-	ldh [hCGBPalUpdate], a
-	ret
+; .unused
+; 	ld bc, wTempMonDVs
+; 	call GetPlayerOrMonPalettePointer
+; 	call LoadPalette_White_Col1_Col2_Black
+; .asm_901a
+; 	call WipeAttrMap
+; 	hlcoord 1, 1, wAttrMap
+; 	lb bc, 7, 7
+; 	ld a, $1
+; 	call FillBoxCGB
+; 	call InitPartyMenuOBPals
+; 	call ApplyAttrMap
+; 	call ApplyPals
+; 	ld a, $1
+; 	ldh [hCGBPalUpdate], a
+; 	ret
 
 .BillsPCOrangePalette:
 INCLUDE "gfx/pc/orange.pal"
@@ -1064,12 +1347,12 @@ _CGB_Evolution:
 	ret
 
 _CGB_GSTitleScreen:
-	ld hl, UnusedGSTitleBGPals
+	; ld hl, UnusedGSTitleBGPals
 	ld de, wBGPals1
 	ld bc, 5 palettes
 	ld a, BANK(wBGPals1)
 	call FarCopyWRAM
-	ld hl, UnusedGSTitleOBPals
+	; ld hl, UnusedGSTitleOBPals
 	ld de, wOBPals1
 	ld bc, 2 palettes
 	ld a, BANK(wOBPals1)

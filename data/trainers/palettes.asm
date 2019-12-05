@@ -76,3 +76,18 @@ INCBIN "gfx/trainers/grunt_f.gbcpal", middle_colors
 INCBIN "gfx/trainers/arin.gbcpal", middle_colors
 INCBIN "gfx/trainers/danny.gbcpal", middle_colors
 INCBIN "gfx/trainers/mysticalman.gbcpal", middle_colors
+
+ExtraTrainerPalettesIndex:
+	db CAMPER
+	db PICNICKER
+	db -1
+
+ExtraTrainerPalletes:
+	; 000 normal
+	RGB 00, 00, 00
+	RGB 31, 31, 31
+    ; 000 normal 2
+	RGB 00, 00, 00
+	RGB 31, 31, 31
+	INCLUDE "gfx/trainers/camper_extra.pal"
+	INCLUDE "gfx/trainers/picnicker_extra.pal"

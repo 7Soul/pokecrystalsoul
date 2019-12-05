@@ -118,26 +118,26 @@ SGB_ApplyPartyMenuHPPals:
 	ld [hl], e
 	ret
 
-Unreferenced_Function8b07:
-	call CheckCGB
-	ret z
-; CGB only
-	ld hl, .BGPal
-	ld de, wBGPals1
-	ld bc, 1 palettes
-	ld a, BANK(wBGPals1)
-	call FarCopyWRAM
+; Unreferenced_Function8b07:
+; 	call CheckCGB
+; 	ret z
+; ; CGB only
+; 	ld hl, .BGPal
+; 	ld de, wBGPals1
+; 	ld bc, 1 palettes
+; 	ld a, BANK(wBGPals1)
+; 	call FarCopyWRAM
 
-	ld hl, .OBPal
-	ld de, wOBPals1
-	ld bc, 1 palettes
-	ld a, BANK(wOBPals1)
-	call FarCopyWRAM
+; 	ld hl, .OBPal
+; 	ld de, wOBPals1
+; 	ld bc, 1 palettes
+; 	ld a, BANK(wOBPals1)
+; 	call FarCopyWRAM
 
-	call ApplyPals
-	ld a, $1
-	ldh [hCGBPalUpdate], a
-	ret
+; 	call ApplyPals
+; 	ld a, $1
+; 	ldh [hCGBPalUpdate], a
+; 	ret
 
 .BGPal:
 	RGB 31, 31, 31
@@ -151,76 +151,76 @@ Unreferenced_Function8b07:
 	RGB 08, 16, 28
 	RGB 00, 00, 00
 
-Unreferenced_Function8b3f:
-	call CheckCGB
-	ret nz
-	ldh a, [hSGB]
-	and a
-	ret z
-	ld hl, BlkPacket_9a86
-	jp PushSGBPals
+; Unreferenced_Function8b3f:
+; 	call CheckCGB
+; 	ret nz
+; 	ldh a, [hSGB]
+; 	and a
+; 	ret z
+; 	ld hl, BlkPacket_9a86
+; 	jp PushSGBPals
 
-Unreferenced_Function8b4d:
-	call CheckCGB
-	jr nz, .cgb
-	ldh a, [hSGB]
-	and a
-	ret z
-	ld hl, PalPacket_BetaIntroVenusaur
-	jp PushSGBPals
+; Unreferenced_Function8b4d:
+; 	call CheckCGB
+; 	jr nz, .cgb
+; 	ldh a, [hSGB]
+; 	and a
+; 	ret z
+; 	ld hl, PalPacket_BetaIntroVenusaur
+; 	jp PushSGBPals
 
-.cgb
-	ld de, wOBPals1
-	ld a, PREDEFPAL_BETA_INTRO_VENUSAUR
-	call GetPredefPal
-	jp LoadHLPaletteIntoDE
+; .cgb
+; 	ld de, wOBPals1
+; 	ld a, PREDEFPAL_BETA_INTRO_VENUSAUR
+; 	call GetPredefPal
+; 	jp LoadHLPaletteIntoDE
 
-Unreferenced_Function8b67:
-	call CheckCGB
-	jr nz, .cgb
-	ldh a, [hSGB]
-	and a
-	ret z
-	ld hl, PalPacket_Pack
-	jp PushSGBPals
+; Unreferenced_Function8b67:
+; 	call CheckCGB
+; 	jr nz, .cgb
+; 	ldh a, [hSGB]
+; 	and a
+; 	ret z
+; 	ld hl, PalPacket_Pack
+; 	jp PushSGBPals
 
-.cgb
-	ld de, wOBPals1
-	ld a, PREDEFPAL_PACK
-	call GetPredefPal
-	jp LoadHLPaletteIntoDE
+; .cgb
+; 	ld de, wOBPals1
+; 	ld a, PREDEFPAL_PACK
+; 	call GetPredefPal
+; 	jp LoadHLPaletteIntoDE
 
-Unreferenced_Function8b81:
-	call CheckCGB
-	jr nz, .cgb
-	ldh a, [hSGB]
-	and a
-	ret z
-	ld a, c
-	push af
-	ld hl, PalPacket_9ce6
-	ld de, wSGBPals
-	ld bc, PALPACKET_LENGTH
-	call CopyBytes
-	pop af
-	call GetMonPalettePointer
-	ld a, [hli]
-	ld [wSGBPals + 3], a
-	ld a, [hli]
-	ld [wSGBPals + 4], a
-	ld a, [hli]
-	ld [wSGBPals + 5], a
-	ld a, [hl]
-	ld [wSGBPals + 6], a
-	ld hl, wSGBPals
-	jp PushSGBPals
+; Unreferenced_Function8b81:
+; 	call CheckCGB
+; 	jr nz, .cgb
+; 	ldh a, [hSGB]
+; 	and a
+; 	ret z
+; 	ld a, c
+; 	push af
+; 	ld hl, PalPacket_9ce6
+; 	ld de, wSGBPals
+; 	ld bc, PALPACKET_LENGTH
+; 	call CopyBytes
+; 	pop af
+; 	call GetMonPalettePointer
+; 	ld a, [hli]
+; 	ld [wSGBPals + 3], a
+; 	ld a, [hli]
+; 	ld [wSGBPals + 4], a
+; 	ld a, [hli]
+; 	ld [wSGBPals + 5], a
+; 	ld a, [hl]
+; 	ld [wSGBPals + 6], a
+; 	ld hl, wSGBPals
+; 	jp PushSGBPals
 
-.cgb
-	ld de, wOBPals1
-	ld a, c
-	call GetMonPalettePointer
-	call LoadPalette_White_Col1_Col2_Black
-	ret
+; .cgb
+; 	ld de, wOBPals1
+; 	ld a, c
+; 	call GetMonPalettePointer
+; 	call LoadPalette_White_Col1_Col2_Black
+; 	ret
 
 LoadTrainerClassPaletteAsNthBGPal:
 	ld a, [wTrainerClass]
@@ -258,35 +258,35 @@ got_palette_pointer_8bd7
 	call LoadPalette_White_Col1_Col2_Black
 	ret
 
-Unreferenced_Function8bec:
-	ldh a, [hCGB]
-	and a
-	jr nz, .cgb
-	ld hl, wPlayerLightScreenCount
-	jp PushSGBPals
+; Unreferenced_Function8bec:
+; 	ldh a, [hCGB]
+; 	and a
+; 	jr nz, .cgb
+; 	ld hl, wPlayerLightScreenCount
+; 	jp PushSGBPals
 
-.cgb
-	ld a, [wEnemyLightScreenCount] ; col
-	ld c, a
-	ld a, [wEnemyReflectCount] ; row
-	hlcoord 0, 0, wAttrMap
-	ld de, SCREEN_WIDTH
-.loop
-	and a
-	jr z, .done
-	add hl, de
-	dec a
-	jr .loop
+; .cgb
+; 	ld a, [wEnemyLightScreenCount] ; col
+; 	ld c, a
+; 	ld a, [wEnemyReflectCount] ; row
+; 	hlcoord 0, 0, wAttrMap
+; 	ld de, SCREEN_WIDTH
+; .loop
+; 	and a
+; 	jr z, .done
+; 	add hl, de
+; 	dec a
+; 	jr .loop
 
-.done
-	ld b, $0
-	add hl, bc
-	lb bc, 6, 4
-	ld a, [wEnemySafeguardCount] ; value
-	and $3
-	call FillBoxCGB
-	call CopyTilemapAtOnce
-	ret
+; .done
+; 	ld b, $0
+; 	add hl, bc
+; 	lb bc, 6, 4
+; 	ld a, [wEnemySafeguardCount] ; value
+; 	and $3
+; 	call FillBoxCGB
+; 	call CopyTilemapAtOnce
+; 	ret
 
 ApplyMonOrTrainerPals:
 	call CheckCGB
@@ -431,16 +431,16 @@ INCLUDE "gfx/mail/mail.pal"
 
 INCLUDE "engine/gfx/cgb_layouts.asm"
 
-Unreferenced_Function95f0:
-	ld hl, .Palette
-	ld de, wBGPals1
-	ld bc, 1 palettes
-	ld a, BANK(wBGPals1)
-	call FarCopyWRAM
-	call ApplyPals
-	call WipeAttrMap
-	call ApplyAttrMap
-	ret
+; Unreferenced_Function95f0:
+; 	ld hl, .Palette
+; 	ld de, wBGPals1
+; 	ld bc, 1 palettes
+; 	ld a, BANK(wBGPals1)
+; 	call FarCopyWRAM
+; 	call ApplyPals
+; 	call WipeAttrMap
+; 	call ApplyAttrMap
+; 	ret
 
 .Palette:
 	RGB 31, 31, 31
@@ -942,6 +942,16 @@ GetBattlemonBackpicPalettePointer:
 	pop de
 	ret
 
+GetExtraBattlemonBackpicPalettePointer:
+	push de
+	farcall GetPartyMonDVs
+	ld c, l
+	ld b, h
+	ld a, [wTempBattleMonSpecies]
+	call GetExtraPlayerOrMonPalettePointer
+	pop de
+	ret
+
 GetEnemyFrontpicPalettePointer:
 	push de
 	farcall GetEnemyMonDVs
@@ -982,6 +992,22 @@ GetPlayerOrMonPalettePointer:
 	ld hl, PlayerPalette
 	ret
 
+GetExtraPlayerOrMonPalettePointer:
+	and a
+	jp nz, GetExtraMonNormalOrShinyPalettePointer
+	ld a, [wPlayerSpriteSetupFlags]
+	bit PLAYERSPRITESETUP_FEMALE_TO_MALE_F, a
+	jr nz, .male
+	ld a, [wPlayerGender]
+	and a
+	jr z, .male
+	ld hl, KrisPalette
+	ret
+
+.male
+	ld hl, PlayerPalette
+	ret
+
 GetFrontpicPalettePointer:
 	and a
 	jp nz, GetMonNormalOrShinyPalettePointer
@@ -1004,6 +1030,37 @@ GetPlayerOrMonExtraPalettePointer:
 GetExtraFrontpicPalettePointer:
 	and a
 	jp nz, GetExtraMonNormalOrShinyPalettePointer
+	ld a, [wTrainerClass]
+
+	ld hl, ExtraTrainerPalettesIndex
+	ld b, a
+	ld c, 1
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .no_extra
+	cp b
+	jr z, .found
+	inc c
+	jr .loop
+.found
+	ld a, c
+	ld l, a
+	ld h, $0
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	ld bc, ExtraTrainerPalletes
+	add hl, bc
+
+	ld a, [wTypeModifier]
+	and a
+	ret z
+rept 4
+	inc hl
+endr
+
+.no_extra
 	ret
 
 GetMonPalettePointer:
@@ -1060,6 +1117,7 @@ INCLUDE "gfx/battle_anims/battle_anims.pal"
 ; 	ret
 
 _GetMonPalettePointer:
+; for pokedex
 	ld l, a
 	ld h, $0
 	add hl, hl
@@ -1067,6 +1125,9 @@ _GetMonPalettePointer:
 	add hl, hl
 	ld bc, PokemonPalettes
 	add hl, bc
+; rept 4
+; 	inc hl
+; endr
 	ret
 
 _GetExtraMonPalettePointer:
@@ -1092,6 +1153,9 @@ _GetExtraMonPalettePointer:
 	add hl, hl
 	ld bc, ExtraPalletes
 	add hl, bc
+; rept 4
+; 	inc hl
+; endr
 .no_extra
 	ret
 
@@ -1310,19 +1374,19 @@ _InitSGBBorderPals:
 	dw DataSndPacket7
 	dw DataSndPacket8
 
-Unreferenced_Function9911:
-	di
-	xor a
-	ldh [rJOYP], a
-	ld hl, MaskEnFreezePacket
-	call _PushSGBPals
-	call PushSGBBorder
-	call SGBDelayCycles
-	call SGB_ClearVRAM
-	ld hl, MaskEnCancelPacket
-	call _PushSGBPals
-	ei
-	ret
+; Unreferenced_Function9911:
+; 	di
+; 	xor a
+; 	ldh [rJOYP], a
+; 	ld hl, MaskEnFreezePacket
+; 	call _PushSGBPals
+; 	call PushSGBBorder
+; 	call SGBDelayCycles
+; 	call SGB_ClearVRAM
+; 	ld hl, MaskEnCancelPacket
+; 	call _PushSGBPals
+; 	ei
+; 	ret
 
 PushSGBBorder:
 	call .LoadSGBBorderPointers
@@ -1674,11 +1738,11 @@ INCLUDE "gfx/diploma/diploma.pal"
 PartyMenuOBPals:
 INCLUDE "gfx/stats/party_menu_ob.pal"
 
-UnusedGSTitleBGPals:
-INCLUDE "gfx/title/unused_gs_bg.pal"
+; UnusedGSTitleBGPals:
+; INCLUDE "gfx/title/unused_gs_bg.pal"
 
-UnusedGSTitleOBPals:
-INCLUDE "gfx/title/unused_gs_fg.pal"
+; UnusedGSTitleOBPals:
+; INCLUDE "gfx/title/unused_gs_fg.pal"
 
 MalePokegearPals:
 INCLUDE "gfx/pokegear/pokegear.pal"

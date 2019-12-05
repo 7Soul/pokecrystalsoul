@@ -122,12 +122,12 @@ MeetMomScript:
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
 
-	givepoke VENUSAUR, 30
-	givepoke BELLSPROUT, 50
-	givepoke AMPHAROS, 25
-	givepoke FARFETCH_D, 25
-	givepoke MACHOP, 25
-	givepoke STARMIE, 25
+	givepoke TANGELA, 30
+	givepoke JUMPLUFF, 50
+	givepoke VENUSAUR, 25
+	givepoke SLOWKING, 25
+	givepoke FLAAFFY, 25
+	givepoke NATU, 25
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges

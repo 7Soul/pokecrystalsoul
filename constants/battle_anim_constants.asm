@@ -25,6 +25,7 @@
 	const BATTLEANIMSTRUCT_16
 	const BATTLEANIMSTRUCT_17
 BATTLEANIMSTRUCT_LENGTH EQU const_value
+NUM_ANIM_OBJECTS EQU 10
 
 ; BattleAnimObjects indexes (see data/battle_anims/objects.asm)
 	const_def
@@ -837,8 +838,8 @@ BATTLEANIMSTRUCT_LENGTH EQU const_value
 	const PAL_BATTLE_BG_ENEMY_HP  ; 2
 	const PAL_BATTLE_BG_PLAYER_HP ; 3
 	const PAL_BATTLE_BG_EXP       ; 4
-	const PAL_BATTLE_BG_5         ; 5
-	const PAL_BATTLE_BG_6         ; 6
+	const PAL_BATTLE_BG_PLAYER_EX ; 5
+	const PAL_BATTLE_BG_ENEMY_EX  ; 6
 	const PAL_BATTLE_BG_TEXT      ; 7
 
 ; animation object palettes
