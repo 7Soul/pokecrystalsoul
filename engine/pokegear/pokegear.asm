@@ -115,10 +115,6 @@ Pokegear_LoadGFX:
 	ld de, vTiles2
 	ld a, BANK(TownMapGFX)
 	call FarDecompress
-	ld hl, PokegearGFX
-	ld de, vTiles2 tile $30
-	ld a, BANK(PokegearGFX)
-	call FarDecompress
 	ld hl, PokegearSpritesGFX
 	ld de, vTiles0
 	ld a, BANK(PokegearSpritesGFX)
@@ -2783,7 +2779,7 @@ TownMapPals:
 	ld a, [hli]
 	push hl
 ; The palette map covers tiles $00 to $5f; $60 and above use palette 0
-	cp $60
+	cp $7f
 	jr nc, .pal0
 
 ; The palette data is condensed to nybbles, least-significant first.
@@ -2899,7 +2895,7 @@ TownMapPlayerIcon:
 LoadTownMapGFX:
 	ld hl, TownMapGFX
 	ld de, vTiles2
-	lb bc, BANK(TownMapGFX), 48
+	lb bc, BANK(TownMapGFX), 127
 	call DecompressRequest2bpp
 	ret
 
