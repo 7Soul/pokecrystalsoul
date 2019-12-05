@@ -276,9 +276,15 @@ _CGB_FinishBattleScreenLayout:
 	jp nz, .skip_extra_trainer
 	ld a, [wTrainerClass]
 	cp CAMPER
-	jr z, .camper
+	jp z, .camper
 	cp PICNICKER
-	jr z, .picnicker
+	jp z, .picnicker
+	cp HIKER
+	jp z, .hiker
+	cp YOUNGSTER
+	jp z, .youngster
+	cp BUG_CATCHER
+	jp z, .bug_catcher
 	jp .skip_extra_trainer
 .camper
 	hlcoord 13, 3, wAttrMap	
@@ -302,11 +308,55 @@ _CGB_FinishBattleScreenLayout:
 	call inc_hl_twice
 	lb bc, 2, 3 ; h, w	
 	jp .end_extra_trainer
+.hiker
+	hlcoord 13, 5, wAttrMap	
+	call inc_hl_twice
+	lb bc, 2, 5 ; h, w	
+	call FillPalette6
+	hlcoord 12, 2, wAttrMap	
+	call inc_hl_twice
+	lb bc, 1, 2 ; h, w	
+	call FillPalette6
+	hlcoord 16, 2, wAttrMap	
+	call inc_hl_twice
+	lb bc, 1, 2 ; h, w
+	jp .end_extra_trainer
+.youngster
+	hlcoord 15, 3, wAttrMap	
+	call inc_hl_twice
+	lb bc, 2, 3 ; h, w	
+	call FillPalette2
+	hlcoord 15, 6, wAttrMap	; shoes
+	call inc_hl_twice
+	lb bc, 1, 3 ; h, w
+	call FillPalette6
+	hlcoord 13, 2, wAttrMap	; pokeball
+	call inc_hl_twice
+	lb bc, 2, 2 ; h, w	
+	jp .end_extra_trainer
+.bug_catcher
+	hlcoord 12, 1, wAttrMap	
+	call inc_hl_twice
+	lb bc, 2, 7 ; h, w	
+	call FillPalette2
+	hlcoord 17, 3, wAttrMap	
+	call inc_hl_twice
+	lb bc, 2, 2 ; h, w	
+	call FillPalette2
+	hlcoord 16, 5, wAttrMap	
+	call inc_hl_twice
+	lb bc, 2, 2 ; h, w	
+	call FillPalette2
+	hlcoord 13, 5, wAttrMap	; pants
+	call inc_hl_twice
+	lb bc, 1, 2 ; h, w	
+	jp .end_extra_trainer
 
 .end_extra_trainer
 	call FillPalette6
 
 .skip_extra_trainer
+; palette ex for enemy mon in battle
 	cp BULBASAUR
 	jp z, .bulbasaur
 	cp IVYSAUR
@@ -483,8 +533,10 @@ _CGB_FinishBattleScreenLayout:
 	hlcoord 15, 5, wAttrMap
 	lb bc, 2, 2 ; h, w
 	jp .end_extra
+
 .end_extra
 	call FillPalette6
+
 .skip_extra
 	hlcoord 0, 0, wAttrMap
 	lb bc, 4, 10
@@ -520,6 +572,7 @@ inc_hl_twice:
 	ret
 
 FillPalette2:
+; second trainer palette (replaces enemy HP)
 	ld a, $2
 	call FillBoxCGB
 	ret
@@ -601,7 +654,6 @@ _CGB_StatsScreenHPPals:
 	call FarCopyWRAM
 
 	ld a, [wCurPartySpecies]
-	; ld [wTempEnemyMonSpecies], a
 	ld bc, wTempMonDVs
 	call GetExtraFrontpicPalettePointer
 	call LoadPalette_White_Col1_Col2_Black ; mon extra palette

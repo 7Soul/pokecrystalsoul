@@ -2460,6 +2460,8 @@ PicnickerGroup:
 	; PICNICKER (10)
 	db "Erin@", TRAINERTYPE_NORMAL
 	db $0F, 3, 0, BULBASAUR
+	db $0F, 3, 0, BELLSPROUT
+	db $0F, 3, 0, FARFETCH_D
 	db -1 ; end
 
 	; PICNICKER (11)

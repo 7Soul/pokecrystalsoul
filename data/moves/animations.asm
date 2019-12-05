@@ -1605,7 +1605,7 @@ BattleAnim_Absorb:
 BattleAnim_MegaDrain:
 	anim_1gfx ANIM_GFX_CHARGE
 	anim_call BattleAnim_FollowEnemyFeet_0
-	anim_bgeffect ANIM_BG_1C, $0, $0, $10
+	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $8, $20
 	anim_setvar $0
 .loop
 	anim_sound 6, 3, SFX_WATER_GUN
@@ -1628,7 +1628,7 @@ BattleAnim_MegaDrain:
 
 .done
 	anim_wait 32
-	anim_incbgeffect ANIM_BG_1C
+	; anim_incbgeffect ANIM_BG_1C
 	anim_call BattleAnim_ShowMon_0
 	anim_ret
 

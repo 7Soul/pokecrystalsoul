@@ -1,0 +1,6 @@
+	; palette 6
+	RGB 30, 24, 16 ; skin
+	RGB 04, 16, 07 ; shorts
+	; palette 2
+	RGB 27, 24, 17 ; hat1
+	RGB 20, 11, 09 ; hat2

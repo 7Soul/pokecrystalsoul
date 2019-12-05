@@ -1,0 +1,6 @@
+	; palette 6
+	RGB 20, 20, 10 ; skin
+	RGB 13, 08, 23 ; purple
+	; palette 2
+	RGB 23, 15, 09 ; red
+	RGB 13, 08, 23 ; purple

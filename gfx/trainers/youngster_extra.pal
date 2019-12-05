@@ -1,0 +1,6 @@
+	; palette 6
+	RGB 30, 24, 16 ; skin
+	RGB 30, 08, 05 ; red
+	; palette 2
+	RGB 30, 24, 16 ; skin
+	RGB 05, 20, 17 ; green

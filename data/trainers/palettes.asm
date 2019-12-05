@@ -80,6 +80,9 @@ INCBIN "gfx/trainers/mysticalman.gbcpal", middle_colors
 ExtraTrainerPalettesIndex:
 	db CAMPER
 	db PICNICKER
+	db HIKER
+	db YOUNGSTER
+	db BUG_CATCHER
 	db -1
 
 ExtraTrainerPalletes:
@@ -91,3 +94,6 @@ ExtraTrainerPalletes:
 	RGB 31, 31, 31
 	INCLUDE "gfx/trainers/camper_extra.pal"
 	INCLUDE "gfx/trainers/picnicker_extra.pal"
+	INCLUDE "gfx/trainers/hiker_extra.pal"
+	INCLUDE "gfx/trainers/youngster_extra.pal"
+	INCLUDE "gfx/trainers/bug_catcher_extra.pal"
