@@ -1,10 +1,10 @@
 	const_def
-	const PAL_TOWNMAP_BORDER   ; 0
-	const PAL_TOWNMAP_EARTH    ; 1
-	const PAL_TOWNMAP_MOUNTAIN ; 2
-	const PAL_TOWNMAP_CITY     ; 3
-	const PAL_TOWNMAP_POI      ; 4
-	const PAL_TOWNMAP_POI_MTN  ; 5
+	const PAL_TOWNMAP_BORDER      ; 0
+	const PAL_TOWNMAP_GRASS       ; 1
+	const PAL_TOWNMAP_CITY        ; 2
+	const PAL_TOWNMAP_DIRT        ; 3
+	const PAL_TOWNMAP_WATER       ; 4
+	const PAL_TOWNMAP_SHORE       ; 5
 
 townmappals: MACRO
 rept _NARG / 2
@@ -15,19 +15,26 @@ endr
 ENDM
 
 ; gfx/pokegear/town_map.png
-	townmappals EARTH,    EARTH,    EARTH,    MOUNTAIN, MOUNTAIN, MOUNTAIN, BORDER,   BORDER
-	townmappals EARTH,    EARTH,    CITY,     EARTH,    POI,      POI_MTN,  POI,      POI_MTN
-	townmappals EARTH,    EARTH,    EARTH,    MOUNTAIN, MOUNTAIN, MOUNTAIN, BORDER,   BORDER
-	townmappals EARTH,    EARTH,    BORDER,   EARTH,    EARTH,    BORDER,   BORDER,   BORDER
-	townmappals EARTH,    EARTH,    EARTH,    MOUNTAIN, MOUNTAIN, MOUNTAIN, BORDER,   BORDER
+	townmappals SHORE,    SHORE,    SHORE,    DIRT,     DIRT,     DIRT,     DIRT,     DIRT
+	townmappals WATER,    WATER,    GRASS,    CITY,     GRASS,    GRASS,    SHORE,    SHORE
+
+	townmappals SHORE,    SHORE,    SHORE,    GRASS,    GRASS,    DIRT,     DIRT,     DIRT
+	townmappals SHORE,    SHORE,    WATER,    WATER,    WATER,    GRASS,    SHORE,    GRASS
+
+	townmappals SHORE,    SHORE,    SHORE,    DIRT,     DIRT,     DIRT,     DIRT,     DIRT
 	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
-	townmappals BORDER,   BORDER,   BORDER,   BORDER,   POI,      POI,      POI,      BORDER
-	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
-	townmappals CITY,     CITY,     CITY,     CITY,     CITY,     CITY,     CITY,     CITY
-	townmappals CITY,     CITY,     CITY,     CITY,     CITY,     CITY,     CITY,     BORDER
-	townmappals CITY,     CITY,     CITY,     CITY,     CITY,     CITY,     CITY,     CITY
+
 	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
 	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
+
 	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
 	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
+
 	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
+	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
+
+	townmappals GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    CITY
+	townmappals CITY,     WATER,    WATER,    BORDER,   BORDER,   BORDER,   BORDER,   BORDER
+
+	townmappals GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    CITY
+	townmappals CITY,     CITY,     WATER,    BORDER,   BORDER,   BORDER,   BORDER,   BORDER
