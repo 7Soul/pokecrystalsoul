@@ -89,7 +89,7 @@ PokeGear:
 	xor a
 	ld [wJumptableIndex], a ; POKEGEARSTATE_CLOCKINIT
 	ld [wPokegearCard], a ; POKEGEARCARD_CLOCK
-	ld [wPokegearMapRegion], a ; JOHTO_REGION
+	; ld [wPokegearMapRegion], a ; JOHTO_REGION
 	ld [wcf66], a
 	ld [wPokegearPhoneScrollPosition], a
 	ld [wPokegearPhoneCursorPosition], a
@@ -276,10 +276,10 @@ InitPokegearTilemap:
 .finish
 	ldh [hWY], a
 	; swap region maps
-	ld a, [wPokegearMapRegion]
-	maskbits NUM_REGIONS
-	xor 1
-	ld [wPokegearMapRegion], a
+	; ld a, [wPokegearMapRegion]
+	; maskbits NUM_REGIONS
+	; xor 1
+	; ld [wPokegearMapRegion], a
 	ret
 
 .UpdateBGMap:
@@ -317,11 +317,9 @@ InitPokegearTilemap:
 	db " SWITCH▶@"
 
 .Map:
-	ld a, [wPokegearMapPlayerIconLandmark]
-	cp FAST_SHIP
-	jr z, .johto
-	cp KANTO_LANDMARK
-	jr nc, .kanto
+	ld a, [wPokegearMapRegion]
+	and a
+	jr nz, .kanto
 .johto
 	ld e, 0
 	jr .ok
@@ -458,7 +456,7 @@ PokegearClock_Joypad:
 	call .UpdateClock
 	ld hl, hJoyLast
 	ld a, [hl]
-	and A_BUTTON | B_BUTTON | START | SELECT
+	and B_BUTTON | START | SELECT
 	jr nz, .quit
 	ld a, [hl]
 	and D_RIGHT
@@ -524,17 +522,23 @@ Pokegear_UpdateClock:
 	db "@"
 
 PokegearMap_CheckRegion:
-	ld a, [wPokegearMapPlayerIconLandmark]
-	cp FAST_SHIP
-	jr z, .johto
-	cp KANTO_LANDMARK
-	jr nc, .kanto
+	; ld a, [wPokegearMapPlayerIconLandmark]
+	; cp FAST_SHIP
+	; jr z, .johto
+	; cp KANTO_LANDMARK
+	; jr nc, .kanto
+	ld a, [wPokegearMapRegion]
+	and a
+	jr nz, .kanto
 .johto
+	xor a
+	ld [wTownMapCursorLandmark], a
 	ld a, POKEGEARSTATE_JOHTOMAPINIT
 	jr .done
 	ret
-
 .kanto
+	ld a, $1
+	ld [wTownMapCursorLandmark], a
 	ld a, POKEGEARSTATE_KANTOMAPINIT
 .done
 	ld [wJumptableIndex], a
@@ -545,7 +549,8 @@ PokegearMap_Init:
 	call InitPokegearTilemap
 	ld a, [wPokegearMapPlayerIconLandmark]
 	call PokegearMap_InitPlayerIcon
-	ld a, [wPokegearMapCursorLandmark]
+	ld a, [wPokegearMapPlayerIconLandmark]
+	ld [wPokegearMapCursorLandmark], a
 	call PokegearMap_InitCursor
 	ld a, c
 	ld [wPokegearMapCursorObjectPointer], a
@@ -565,6 +570,9 @@ PokegearMap_JohtoMap:
 PokegearMap_ContinueMap:
 	ld hl, hJoyLast
 	ld a, [hl]
+	and A_BUTTON
+	jr nz, .switch_region
+	ld a, [hl]
 	and B_BUTTON
 	jr nz, .cancel
 	ld a, [hl]
@@ -572,7 +580,7 @@ PokegearMap_ContinueMap:
 	jr nz, .right
 	ld a, [hl]
 	and D_LEFT
-	jr nz, .left
+	jr nz, .left	
 	call .DPad
 	ret
 
@@ -602,6 +610,27 @@ PokegearMap_ContinueMap:
 .cancel
 	ld hl, wJumptableIndex
 	set 7, [hl]
+	ret
+
+.switch_region
+	ld a, [wPokegearMapRegion]
+	maskbits NUM_REGIONS
+	xor 1
+	ld [wPokegearMapRegion], a
+
+	ld c, POKEGEARSTATE_MAPCHECKREGION
+	ld b, POKEGEARCARD_MAP
+	call Pokegear_SwitchPage
+; 	jr nz, .kanto2
+; .johto2
+; 	ld a, POKEGEARSTATE_JOHTOMAPINIT
+; 	jr .done2
+; 	ret
+; .kanto2
+; 	ld a, POKEGEARSTATE_KANTOMAPINIT
+; .done2
+; 	ld [wJumptableIndex], a
+; 	call ExitPokegearRadio_HandleMusic
 	ret
 
 .DPad:
@@ -648,7 +677,9 @@ PokegearMap_ContinueMap:
 	ret
 
 PokegearMap_InitPlayerIcon:
-	push af
+	push af	
+	call Pokedex_GetArea.CheckPlayerLocation
+	jr c, .no_player
 	depixel 0, 0
 	ld b, SPRITE_ANIM_INDEX_RED_WALK
 	ld a, [wPlayerGender]
@@ -674,7 +705,28 @@ PokegearMap_InitPlayerIcon:
 	ld [hl], d
 	ret
 
+.no_player
+	pop af
+	ret
+
 PokegearMap_InitCursor:
+	push af
+	call Pokedex_GetArea.CheckPlayerLocation
+	jr nc, .same_map
+	pop af
+	ld a, [wPokegearMapRegion]
+	and a
+	jr nz, .kanto
+	ld a, NEW_BARK_TOWN
+	jr .got_initial_landmark
+.kanto
+	ld a, PALLET_TOWN
+.got_initial_landmark
+	ld [wPokegearMapCursorLandmark], a
+	ld [wTownMapCursorLandmark], a
+	push af
+.same_map
+	pop af
 	push af
 	depixel 0, 0
 	ld a, SPRITE_ANIM_INDEX_POKEGEAR_ARROW
@@ -688,6 +740,10 @@ PokegearMap_InitCursor:
 	pop af
 	push bc
 	call PokegearMap_UpdateCursorPosition
+	pop bc
+	ld a, [wPokegearMapCursorLandmark]
+	push bc
+	call PokegearMap_UpdateLandmarkName
 	pop bc
 	ret
 
@@ -2650,6 +2706,7 @@ Pokedex_GetArea:
 	jr z, .johto
 	cp KANTO_LANDMARK
 	jr c, .johto
+
 .kanto
 	ld a, [wTownMapCursorLandmark]
 	and a

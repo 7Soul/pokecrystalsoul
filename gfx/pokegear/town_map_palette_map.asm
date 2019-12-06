@@ -19,7 +19,7 @@ ENDM
 	townmappals WATER,    WATER,    GRASS,    CITY,     GRASS,    GRASS,    SHORE,    SHORE
 
 	townmappals SHORE,    SHORE,    SHORE,    GRASS,    GRASS,    DIRT,     DIRT,     DIRT
-	townmappals SHORE,    SHORE,    WATER,    WATER,    WATER,    GRASS,    SHORE,    GRASS
+	townmappals SHORE,    SHORE,    WATER,    BORDER,   BORDER,   GRASS,    SHORE,    GRASS
 
 	townmappals SHORE,    SHORE,    SHORE,    DIRT,     DIRT,     DIRT,     DIRT,     DIRT
 	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
@@ -33,8 +33,8 @@ ENDM
 	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
 	townmappals BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER,   BORDER
 
-	townmappals GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    CITY
-	townmappals CITY,     WATER,    WATER,    BORDER,   BORDER,   BORDER,   BORDER,   BORDER
+	townmappals GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    DIRT
+	townmappals DIRT,     WATER,    WATER,    CITY,     CITY,     CITY,     CITY,     CITY
 
-	townmappals GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    CITY
-	townmappals CITY,     CITY,     WATER,    BORDER,   BORDER,   BORDER,   BORDER,   BORDER
+	townmappals GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    GRASS,    DIRT
+	townmappals DIRT,     DIRT,     WATER,    CITY,     CITY,     CITY,     CITY,     BORDER
