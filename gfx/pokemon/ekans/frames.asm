@@ -12,11 +12,11 @@
 	db $2a
 .frame3
 	db $01 ; bitmask
-	db $0f, $21, $22, $23, $0f, $24, $25, $2b, $0f, $27, $28, $29
+	db $0f, $21, $22, $2b, $0f, $24, $25, $2c, $0f, $27, $28, $29
 	db $2a
 .frame4
 	db $02 ; bitmask
-	db $2c, $2d
+	db $2d, $2e
 .frame5
 	db $02 ; bitmask
-	db $2e, $2d
+	db $2f, $2e

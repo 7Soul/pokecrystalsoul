@@ -1,0 +1,6 @@
+
+	RGB 25, 14, 07 ; main (brown)
+	RGB 30, 23, 16 ; highlights
+	; shiny
+	RGB 14, 25, 11 ; main
+	RGB 27, 29, 21 ; highlights

@@ -546,6 +546,7 @@ ExtraPalettesIndex:
 	db BLASTOISE
 	db TENTACOOL
 	db TENTACRUEL
+	db STARYU
 	db STARMIE
 	db FARFETCH_D
 	db BELLOSSOM
@@ -565,6 +566,12 @@ ExtraPalettesIndex:
 	db SUDOWOODO
 	db KANGASKHAN
 	db TANGELA
+	db EKANS
+	db FERALIGATR
+	db DODRIO
+	db FEAROW
+	db MAGNEMITE
+	db MAGNETON
 	db -1
 
 ExtraPalletes:
@@ -580,6 +587,7 @@ ExtraPalletes:
 	INCLUDE "gfx/pokemon/blastoise/extra.pal"
 	INCLUDE "gfx/pokemon/tentacool/extra.pal"
 	INCLUDE "gfx/pokemon/tentacruel/extra.pal"
+	INCLUDE "gfx/pokemon/staryu/extra.pal"
 	INCLUDE "gfx/pokemon/starmie/extra.pal"
 	INCLUDE "gfx/pokemon/farfetch_d/extra.pal"
 	INCLUDE "gfx/pokemon/bellossom/extra.pal"
@@ -599,3 +607,9 @@ ExtraPalletes:
 	INCLUDE "gfx/pokemon/sudowoodo/extra.pal"
 	INCLUDE "gfx/pokemon/kangaskhan/extra.pal"
 	INCLUDE "gfx/pokemon/tangela/extra.pal"
+	INCLUDE "gfx/pokemon/ekans/extra.pal"
+	INCLUDE "gfx/pokemon/feraligatr/extra.pal"
+	INCLUDE "gfx/pokemon/dodrio/extra.pal"
+	INCLUDE "gfx/pokemon/fearow/extra.pal"
+	INCLUDE "gfx/pokemon/magnemite/extra.pal"
+	INCLUDE "gfx/pokemon/magneton/extra.pal"

@@ -1,5 +1,9 @@
-; Replaces the functionality of sgb.asm to work with CGB hardware.
+	const_def
+	const PALETTE_POS_DEX
+	const PALETTE_POS_STATS
+	const PALETTE_POS_BATTLE
 
+; Replaces the functionality of sgb.asm to work with CGB hardware.
 CheckCGB:
 	ldh a, [hCGB]
 	and a
@@ -176,6 +180,16 @@ _CGB_FinishBattleScreenLayout:
 	jp z, .sudowoodo_player
 	cp KANGASKHAN
 	jp z, .kangaskhan_player
+	cp EKANS
+	jp z, .ekans_player
+	cp FERALIGATR
+	jp z, .feraligatr_player
+	cp FEAROW
+	jp z, .fearow_player
+	cp MAGNEMITE
+	jp z, .magnemite_player
+	cp MAGNETON
+	jp z, .magneton_player
 	jp .skip_extra_player
 
 .ivysaur_player
@@ -260,6 +274,43 @@ _CGB_FinishBattleScreenLayout:
 .kangaskhan_player
 	hlcoord 6, 10, wAttrMap
 	lb bc, 1, 2 ; h, w
+	jp .end_extra_player
+.ekans_player
+	hlcoord 2, 9, wAttrMap
+	lb bc, 3, 2 ; h, w
+	call FillPalette5
+	hlcoord 3, 8, wAttrMap
+	lb bc, 1, 3 ; h, w
+	call FillPalette5
+	hlcoord 4, 7, wAttrMap
+	lb bc, 1, 1 ; h, w
+.feraligatr_player
+	hlcoord 5, 9, wAttrMap
+	lb bc, 2, 3 ; h, w
+	jp .end_extra_player
+.fearow_player
+	hlcoord 2, 11, wAttrMap
+	lb bc, 1, 6 ; h, w
+	jp .end_extra_player
+.magnemite_player
+	hlcoord 3, 7, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillPalette5
+	hlcoord 6, 10, wAttrMap
+	lb bc, 1, 1 ; h, w
+	jp .end_extra_player
+.magneton_player
+	hlcoord 6, 6, wAttrMap
+	lb bc, 2, 2 ; h, w
+	call FillPalette5
+	hlcoord 3, 7, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillPalette5
+	hlcoord 7, 10, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillPalette5
+	hlcoord 2, 9, wAttrMap
+	lb bc, 1, 1 ; h, w
 	jp .end_extra_player
 
 .end_extra_player
@@ -357,187 +408,11 @@ _CGB_FinishBattleScreenLayout:
 
 .skip_extra_trainer
 ; palette ex for enemy mon in battle
-	cp BULBASAUR
-	jp z, .bulbasaur
-	cp IVYSAUR
-	jp z, .ivysaur
-	cp VENUSAUR
-	jp z, .venusaur
-	cp TENTACOOL
-	jp z, .tentacool
-	cp TENTACRUEL
-	jp z, .tentacruel
-	cp STARMIE
-	jp z, .starmie
-	cp FARFETCH_D
-	jp z, .farfetch_d
-	cp BELLOSSOM
-	jp z, .bellossom
-	cp BUTTERFREE
-	jp z, .butterfree
-	cp GYARADOS
-	jp z, .gyarados
-	cp SLOWKING
-	jp z, .slowking
-	cp PRIMEAPE
-	jp z, .primeape
-	cp MACHOP
-	jp z, .machop
-	cp FLAAFFY
-	jp z, .flaaffy
-	cp AMPHAROS
-	jp z, .ampharos
-	cp BELLSPROUT
-	jp z, .bellsprout
-	cp NATU
-	jp z, .natu
-	cp XATU
-	jp z, .xatu
-	cp SPINARAK
-	jp z, .spinarak
-	cp ARIADOS
-	jp z, .ariados
-	cp MR__MIME
-	jp z, .mr__mime
-	cp SUDOWOODO
-	jp z, .sudowoodo
-	cp KANGASKHAN
-	jp z, .kangaskhan
-	cp TANGELA
-	jp z, .tangela
+	ld d, PALETTE_POS_BATTLE
+	ld e, $6 ; palette 6
+	ld a, [wTempEnemyMonSpecies]
+	call SetExtraPalette
 
-	jp .skip_extra
-.bulbasaur
-	hlcoord 13, 4, wAttrMap
-	lb bc, 2, 3
-	jp .end_extra
-.ivysaur
-	hlcoord 13, 3, wAttrMap
-	lb bc, 2, 2
-	call FillPalette6
-	hlcoord 17, 3, wAttrMap
-	lb bc, 1, 2
-	jp .end_extra
-.venusaur
-	hlcoord 12, 3, wAttrMap
-	lb bc, 1, 7
-	call FillPalette6
-	hlcoord 13, 4, wAttrMap
-	lb bc, 1, 2
-	call FillPalette6
-	hlcoord 17, 4, wAttrMap
-	lb bc, 1, 2
-	jp .end_extra
-.tentacool
-	hlcoord 13, 5, wAttrMap
-	lb bc, 2, 5
-	jp .end_extra
-.tentacruel
-	hlcoord 13, 4, wAttrMap
-	lb bc, 3, 6
-	jp .end_extra
-.starmie
-	hlcoord 15, 3, wAttrMap
-	lb bc, 2, 2
-	jp .end_extra
-.farfetch_d
-	hlcoord 16, 3, wAttrMap
-	lb bc, 1, 3 ; h, w
-	call FillPalette6
-	hlcoord 17, 4, wAttrMap
-	lb bc, 1, 2 ; h, w
-	call FillPalette6
-	hlcoord 13, 5, wAttrMap
-	lb bc, 2, 2 ; h, w
-	call FillPalette6
-	hlcoord 16, 6, wAttrMap
-	lb bc, 1, 3 ; h, w
-	jp .end_extra
-.bellossom
-	hlcoord 13, 4, wAttrMap
-	lb bc, 3, 5 ; h, w
-	jp .end_extra
-.butterfree
-	hlcoord 12, 4, wAttrMap
-	lb bc, 2, 4 ; h, w
-	jp .end_extra
-.gyarados
-	hlcoord 14, 4, wAttrMap
-	lb bc, 2, 1 ; h, w
-	jp .end_extra
-.slowking
-	hlcoord 13, 4, wAttrMap
-	lb bc, 1, 6 ; h, w
-	jp .end_extra
-.primeape
-	hlcoord 14, 2, wAttrMap
-	lb bc, 2, 2 ; h, w
-	jp .end_extra
-.machop
-	hlcoord 14, 2, wAttrMap
-	lb bc, 1, 3 ; h, w
-	jp .end_extra
-.flaaffy
-	hlcoord 17, 2, wAttrMap
-	lb bc, 4, 2 ; h, w
-	jp .end_extra
-.ampharos
-	hlcoord 16, 0, wAttrMap
-	lb bc, 1, 1 ; h, w
-	call FillPalette6
-	hlcoord 12, 3, wAttrMap
-	lb bc, 2, 2 ; h, w
-	jp .end_extra
-.bellsprout
-	hlcoord 13, 2, wAttrMap
-	lb bc, 3, 3 ; h, w
-	jp .end_extra
-.natu
-	hlcoord 13, 4, wAttrMap
-	lb bc, 2, 3 ; h, w
-	jp .end_extra
-.xatu
-	hlcoord 14, 1, wAttrMap
-	lb bc, 2, 2 ; h, w
-	jp .end_extra
-.spinarak
-	hlcoord 14, 6, wAttrMap
-	lb bc, 1, 2 ; h, w
-	jp .end_extra
-.ariados
-	hlcoord 14, 3, wAttrMap
-	lb bc, 3, 3 ; h, w
-	call FillPalette6
-	hlcoord 17, 4, wAttrMap
-	lb bc, 1, 1 ; h, w
-	jp .end_extra
-.mr__mime
-	hlcoord 13, 1, wAttrMap
-	lb bc, 1, 6 ; h, w
-	call FillPalette6
-	hlcoord 13, 6, wAttrMap
-	lb bc, 1, 6 ; h, w
-	jp .end_extra
-.sudowoodo
-	hlcoord 14, 3, wAttrMap
-	lb bc, 3, 3 ; h, w
-	jp .end_extra
-.kangaskhan
-	hlcoord 14, 4, wAttrMap
-	lb bc, 1, 2 ; h, w
-	jp .end_extra
-.tangela
-	hlcoord 16, 3, wAttrMap
-	lb bc, 2, 2 ; h, w
-	call FillPalette6
-	hlcoord 15, 5, wAttrMap
-	lb bc, 2, 2 ; h, w
-	jp .end_extra
-
-.end_extra
-	call FillPalette6
-
-.skip_extra
 	hlcoord 0, 0, wAttrMap
 	lb bc, 4, 10
 	ld a, PAL_BATTLE_BG_ENEMY_HP
@@ -676,6 +551,8 @@ _CGB_StatsScreenHPPals:
 	jp z, .tentacool
 	cp TENTACRUEL
 	jp z, .tentacruel
+	cp STARYU
+	jp z, .staryu
 	cp STARMIE
 	jp z, .starmie
 	cp FARFETCH_D
@@ -714,6 +591,18 @@ _CGB_StatsScreenHPPals:
 	jp z, .kangaskhan
 	cp TANGELA
 	jp z, .tangela
+	cp EKANS
+	jp z, .ekans
+	cp FERALIGATR
+	jp z, .feraligatr
+	cp DODRIO
+	jp z, .dodrio
+	cp FEAROW
+	jp z, .fearow
+	cp MAGNEMITE
+	jp z, .magnemite
+	cp MAGNETON
+	jp z, .magneton
 	
 	jp .skip_extra
 .bulbasaur
@@ -744,6 +633,10 @@ _CGB_StatsScreenHPPals:
 .tentacruel
 	hlcoord 12, 4, wAttrMap
 	lb bc, 3, 6 ; h , w
+	jp .end_extra
+.staryu
+	hlcoord 15, 3, wAttrMap
+	lb bc, 2, 1 ; h , w
 	jp .end_extra
 .starmie
 	hlcoord 14, 3, wAttrMap
@@ -842,6 +735,64 @@ _CGB_StatsScreenHPPals:
 	hlcoord 14, 5, wAttrMap
 	lb bc, 2, 2 ; h, w
 	jp .end_extra
+.ekans
+	hlcoord 13, 3, wAttrMap
+	lb bc, 2, 3 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 13, 6, wAttrMap
+	lb bc, 1, 5 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 17, 5, wAttrMap
+	lb bc, 1, 1 ; h, w
+	jp .end_extra
+.feraligatr
+	hlcoord 16, 2, wAttrMap
+	lb bc, 3, 3 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 14, 4, wAttrMap
+	lb bc, 2, 3 ; h, w
+	jp .end_extra
+.dodrio
+	hlcoord 12, 2, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.fearow
+	hlcoord 12, 0, wAttrMap
+	lb bc, 1, 6 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 12, 1, wAttrMap
+	lb bc, 2, 5 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 17, 4, wAttrMap
+	lb bc, 2, 1 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 12, 3, wAttrMap
+	lb bc, 4, 2 ; h, w
+	jp .end_extra
+.magnemite
+	hlcoord 13, 3, wAttrMap
+	lb bc, 1, 2 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 16, 5, wAttrMap
+	lb bc, 1, 1 ; h, w
+	jp .end_extra
+.magneton
+	hlcoord 12, 1, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 14, 2, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 17, 1, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 17, 5, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 12, 5, wAttrMap
+	lb bc, 2, 1 ; h, w
+	jp .end_extra
+
 .end_extra
 	call FillStatsBoxExtraPalette
 .skip_extra
@@ -910,7 +861,30 @@ _CGB_Pokedex:
 	ld a, $1 ; green question mark palette
 	call FillBoxCGB
 
+	ld d, PALETTE_POS_DEX
+	ld e, $2 ; palette 2
 	ld a, [wCurPartySpecies]
+	call SetExtraPalette
+
+	call InitPartyMenuOBPals
+	ld hl, .PokedexCursorPalette
+	ld de, wOBPals1 palette 7 ; green cursor palette
+	ld bc, 1 palettes
+	ld a, BANK(wOBPals1)
+	call FarCopyWRAM
+	call ApplyAttrMap
+	call ApplyPals
+	ld a, $1
+	ldh [hCGBPalUpdate], a
+	ret
+
+.PokedexQuestionMarkPalette:
+INCLUDE "gfx/pokedex/question_mark.pal"
+
+.PokedexCursorPalette:
+INCLUDE "gfx/pokedex/cursor.pal"
+
+SetExtraPalette:
 	cp BULBASAUR
 	jp z, .bulbasaur
 	cp IVYSAUR
@@ -921,6 +895,8 @@ _CGB_Pokedex:
 	jp z, .tentacool
 	cp TENTACRUEL
 	jp z, .tentacruel
+	cp STARYU
+	jp z, .staryu
 	cp STARMIE
 	jp z, .starmie
 	cp FARFETCH_D
@@ -959,8 +935,19 @@ _CGB_Pokedex:
 	jp z, .kangaskhan
 	cp TANGELA
 	jp z, .tangela
-
-	jp .skip_extra
+	cp EKANS
+	jp z, .ekans
+	cp FERALIGATR
+	jp z, .feraligatr
+	cp DODRIO
+	jp z, .dodrio
+	cp FEAROW
+	jp z, .fearow
+	cp MAGNEMITE
+	jp z, .magnemite
+	cp MAGNETON
+	jp z, .magneton
+	ret
 .bulbasaur
 	hlcoord 2, 5, wAttrMap
 	lb bc, 2, 3
@@ -989,6 +976,10 @@ _CGB_Pokedex:
 .tentacruel
 	hlcoord 2, 5, wAttrMap
 	lb bc, 3, 6 ; h , w
+	jp .end_extra
+.staryu
+	hlcoord 4, 4, wAttrMap
+	lb bc, 2, 1 ; h , w
 	jp .end_extra
 .starmie
 	hlcoord 4, 4, wAttrMap
@@ -1087,30 +1078,88 @@ _CGB_Pokedex:
 	hlcoord 4, 6, wAttrMap
 	lb bc, 2, 2 ; h, w
 	jp .end_extra
+.ekans
+	hlcoord 4, 4, wAttrMap
+	lb bc, 2, 3 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 2, 6, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 2, 7, wAttrMap
+	lb bc, 1, 5 ; h, w
+	jp .end_extra
+.feraligatr
+	hlcoord 1, 3, wAttrMap
+	lb bc, 3, 3 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 3, 5, wAttrMap
+	lb bc, 2, 3 ; h, w
+	jp .end_extra
+.dodrio
+	hlcoord 6, 3, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra
+.fearow
+	hlcoord 2, 1, wAttrMap
+	lb bc, 1, 6 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 3, 2, wAttrMap
+	lb bc, 2, 5 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 2, 5, wAttrMap
+	lb bc, 2, 1 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 6, 4, wAttrMap
+	lb bc, 4, 2 ; h, w
+	jp .end_extra
+.magnemite
+	hlcoord 3, 6, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 5, 4, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra
+.magneton
+	hlcoord 2, 2, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 7, 2, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 5, 3, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 2, 6, wAttrMap
+	lb bc, 1, 1 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 7, 6, wAttrMap
+	lb bc, 2, 1 ; h, w
+	jp .end_extra
 .end_extra
 	call FillBoxExtraPalette
-.skip_extra
-	call InitPartyMenuOBPals
-	ld hl, .PokedexCursorPalette
-	ld de, wOBPals1 palette 7 ; green cursor palette
-	ld bc, 1 palettes
-	ld a, BANK(wOBPals1)
-	call FarCopyWRAM
-	call ApplyAttrMap
-	call ApplyPals
-	ld a, $1
-	ldh [hCGBPalUpdate], a
 	ret
 
-.PokedexQuestionMarkPalette:
-INCLUDE "gfx/pokedex/question_mark.pal"
-
-.PokedexCursorPalette:
-INCLUDE "gfx/pokedex/cursor.pal"
-
 FillBoxExtraPalette:
-	ld a, $2
+	call IncreasePosition
+	ld a, e
 	call FillBoxCGB	
+	ret
+
+IncreasePosition:
+	ld a, d
+	cp PALETTE_POS_DEX
+	jr z, .end
+	cp PALETTE_POS_BATTLE
+	jr z, .battle
+;stats
+	ret
+.battle
+	push bc
+	ld b, $ff
+	ld c, $f7
+	add hl, bc
+	pop bc
+.end
 	ret
 
 _CGB_BillsPC:

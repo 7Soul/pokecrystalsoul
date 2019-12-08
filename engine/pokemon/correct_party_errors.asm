@@ -90,6 +90,8 @@ Unreferenced_CorrectPartyErrors:
 	ld hl, MON_STAT_EXP - 1
 	add hl, bc
 	ld b, TRUE
+	ld a, 0
+	ld [$8010], a
 	predef CalcMonStats
 	pop hl
 	ld bc, PARTYMON_STRUCT_LENGTH

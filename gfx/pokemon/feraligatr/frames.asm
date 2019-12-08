@@ -16,4 +16,4 @@
 	db $4a, $4b, $4c, $4d
 .frame4
 	db $03 ; bitmask
-	db $57, $58
+	db $57, $58, $59

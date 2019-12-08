@@ -122,12 +122,12 @@ MeetMomScript:
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
 
-	givepoke VENUSAUR, 40
-	givepoke BELLSPROUT, 42
-	givepoke JUMPLUFF, 55
-	givepoke SLOWKING, 35
-	givepoke FLAAFFY, 50
-	givepoke XATU, 50
+	givepoke VAPOREON, 50
+	givepoke MAGNETON, 50
+	givepoke STARMIE, 50
+	givepoke TENTACOOL, 50
+	givepoke VENUSAUR, 50
+	givepoke MR__MIME, 50
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
@@ -141,6 +141,7 @@ MeetMomScript:
 	callasm CheatSetFlypoints
 	; warp ROUTE_2, $5, $22
 	warp ROUTE_46, $8, $10
+	; warp ROUTE_40, $a, $a ; battle tower
 	;warp ROUTE_37, $e, $a
 	;warp ILEX_FOREST, $0, $21
 	;warp ROUTE_34, $D, $24
