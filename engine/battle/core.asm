@@ -265,8 +265,10 @@ HandleBetweenTurnEffects:
 	call CheckFaint_PlayerThenEnemy
 	ret c
 	call HandlePerishSong
+.player_first_loop
 	call CheckFaint_PlayerThenEnemy
 	ret c
+	jr z, .player_first_loop
 	jr .NoMoreFaintingConditions
 
 .CheckEnemyFirst:
@@ -285,8 +287,10 @@ HandleBetweenTurnEffects:
 	call CheckFaint_EnemyThenPlayer
 	ret c
 	call HandlePerishSong
+.enemy_first_loop
 	call CheckFaint_EnemyThenPlayer
 	ret c
+	jr z, .enemy_first_loop
 
 .NoMoreFaintingConditions:
 	call HandleLeftovers
@@ -1774,6 +1778,7 @@ HandleWeather:
 	call .PrintWeatherMessage
 	xor a
 	ld [wBattleWeather], a
+	call CalcPlayerStats
 	ret
 
 .PrintWeatherMessage:
@@ -6160,6 +6165,22 @@ LoadEnemyMon:
 
 .UpdateItem:
 	ld [wEnemyMonItem], a
+
+; Initialize Trait
+	ld hl, wBaseTraits
+	call Random
+	cp 30 percent ; 30%
+	jr c, .got_trait
+	inc hl
+	cp 60 percent ; 30%
+	jr c, .got_trait
+	inc hl
+	cp 85 percent ; 25%
+	jr c, .got_trait
+	inc hl ; 15%
+.got_trait
+	ld a, [hl]
+	ld [wEnemyMonTrait], a
 
 ; Initialize DVs
 

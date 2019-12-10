@@ -104,6 +104,23 @@ GeneratePartyMonStats:
 	ld [de], a
 	inc de
 
+	; Generate a trait
+	ld hl, wBaseTraits
+	call Random
+	cp 30 percent ; 30%
+	jr c, .got_trait
+	inc hl
+	cp 60 percent ; 30%
+	jr c, .got_trait
+	inc hl
+	cp 85 percent ; 25%
+	jr c, .got_trait
+	inc hl ; 15%
+.got_trait
+	ld a, [hl]
+	ld [de], a
+	inc de
+
 	; Copy the moves if it's a wild mon
 	push de
 	ld h, d
@@ -215,6 +232,7 @@ endr
 	; Initialize PP.
 	push hl
 	push de
+	inc hl
 	inc hl
 	inc hl
 	call FillPP

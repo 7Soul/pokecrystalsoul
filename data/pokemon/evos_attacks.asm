@@ -2086,6 +2086,7 @@ VaporeonEvosAttacks:
 	db 30, BITE
 	db 42, HAZE
 	db 47, ACID_ARMOR
+	db 47, RAIN_DANCE
 	db 54, HYDRO_PUMP
 	db 0 ; no more level-up moves
 

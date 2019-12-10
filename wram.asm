@@ -794,6 +794,7 @@ wReel3:: slot_reel wReel3
 wReel1Stopped:: ds 3
 wReel2Stopped:: ds 3
 wReel3Stopped:: ds 3
+wLoad3rdPalette::
 wSlotBias:: db
 wSlotBet:: db
 wFirstTwoReelsMatching:: db
@@ -2181,6 +2182,7 @@ wBaseItem2:: db ; d242
 wBaseGender:: db ; d243
 wBaseEggSteps:: db ; d245
 wBasePicSize:: db ; d247
+wBaseTraits:: ds 4 ; d247
 wBaseGrowthRate:: db ; d24c
 wBaseEggGroups:: db ; d24d
 wBaseTMHM:: flag_array NUM_TM_HM_TUTOR ; d24e
@@ -2199,12 +2201,13 @@ wPutativeTMHMMove:: db
 wInitListType:: db
 wBattleHasJustStarted:: db
 
+wTypeMatchup:: db
+
 ; d265 has many different short-term uses
 wNamedObjectIndexBuffer::
 wDeciramBuffer::
 wTempByteValue::
 wNumSetBits::
-wTypeMatchup::
 wCurType::
 wTempSpecies::
 wTempIconSpecies::
@@ -2834,7 +2837,7 @@ wPartyMonOT:: ds NAME_LENGTH * PARTY_LENGTH ; ddff
 wPartyMonNicknames:: ds MON_NAME_LENGTH * PARTY_LENGTH ; de41
 wPartyMonNicknamesEnd::
 
-	ds 22
+	ds 16
 
 wPokedexCaught:: flag_array NUM_POKEMON ; de99
 wEndPokedexCaught::
@@ -2962,11 +2965,11 @@ wBT_OTTrainer:: battle_tower_struct wBT_OT
 wBT_TrainerTextIndex:: db ; d200
 	ds 1
 w3_d202:: battle_tower_struct w3_d202
-w3_d2e2:: battle_tower_struct w3_d2e2
-w3_d3c2:: battle_tower_struct w3_d3c2
-w3_d4a2:: battle_tower_struct w3_d4a2
-w3_d582:: battle_tower_struct w3_d582
-w3_d662:: battle_tower_struct w3_d662
+; w3_d2e2:: battle_tower_struct w3_d2e2
+; w3_d3c2:: battle_tower_struct w3_d3c2
+; w3_d4a2:: battle_tower_struct w3_d4a2
+; w3_d582:: battle_tower_struct w3_d582
+; w3_d662:: battle_tower_struct w3_d662
 
 UNION ; d742
 w3_d742:: battle_tower_struct w3_d742

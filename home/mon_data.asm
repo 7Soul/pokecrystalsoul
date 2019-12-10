@@ -40,15 +40,15 @@ GetBaseData::
 	ld [hl], b
 
 ; ????
-	; ld hl, wBasePadding
-	; ld [hl], e
-	; inc hl
-	; ld [hl], d
-	; inc hl
-	; ld [hl], e
-	; inc hl
-	; ld [hl], d
-	; jr .end
+	ld hl, wBaseTraits
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	inc hl
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	jr .end
 
 .end
 ; Replace Pokedex # with species

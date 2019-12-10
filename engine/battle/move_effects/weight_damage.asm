@@ -22,8 +22,8 @@ BattleCommand_WeightDamage:
 	inc hl
 	cp "@"
 	jr nz, .skip_name
-	inc hl
-	inc hl
+	inc hl ; skip @
+	inc hl ; skip height
 	ld a, b
 	call GetFarHalfword
 	ld c, l

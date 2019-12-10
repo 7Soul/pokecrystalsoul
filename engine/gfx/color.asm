@@ -1053,7 +1053,7 @@ GetExtraFrontpicPalettePointer:
 	ld bc, ExtraTrainerPalletes
 	add hl, bc
 
-	ld a, [wTypeModifier]
+	ld a, [wLoad3rdPalette]
 	and a
 	ret z
 rept 4

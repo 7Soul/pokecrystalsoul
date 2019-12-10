@@ -532,3 +532,117 @@ SapHealth:
 	predef AnimateHPBar
 	call RefreshBattleHuds
 	jp UpdateBattleMonInParty
+
+CheckTraitCondition:
+	ld a, BATTLE_VARS_TRAIT
+	call GetBattleVar
+	; ld [$c000], a
+	ld de, 1
+	call IsInArray
+	jr nc, .not_met
+
+	ld a, BATTLE_VARS_TRAIT
+	call GetBattleVar
+	; cp TRAIT_CONTACT_BRN
+	; jr c, .end
+	; cp TRAIT_CONTACT_FLINCH + 1
+	; jr c, .check_physical_move
+	cp TRAIT_RAIN_ATTACK
+	jr nc, .check_rain
+	jr .end
+	cp TRAIT_RAIN_SP_DEFENSE + 1
+	jr c, .check_rain
+.end
+	scf
+	ret
+
+.not_met
+	and a
+	ret
+
+.check_rain
+	ld a, [wBattleWeather]
+	cp WEATHER_RAIN
+	jr z, .rain
+	and a
+	ret
+.rain
+	scf
+	ret
+
+.check_physical_move
+	ldh a, [hBattleTurn]
+	and a
+	ld a, [wPlayerMoveStructType]
+	jr z, .got_it
+	ld a, [wEnemyMoveStructType]
+.got_it
+	cp SPECIAL
+	ret
+
+TraitRaiseStat:
+; wBuffer2 contains stat name (backwards id)
+; wBuffer1 contains +stat count
+	ld a, [wBuffer1]
+	cp $5
+	jr z, .atk
+	cp $4
+	jr z, .def
+	cp $3
+	jr z, .spd
+	cp $2
+	jr z, .spatk
+	cp $1
+	jr z, .spdef
+	jr .not_met
+
+.atk
+	ld hl, .TraitsThatRaiseAttack
+	call CheckTraitCondition
+	jr nc, .not_met
+	jr .end
+.def
+	ld hl, .TraitsThatRaiseDefense
+	call CheckTraitCondition
+	jr nc, .not_met
+	jr .end
+.spd
+	ld hl, .TraitsThatRaiseSpeed
+	call CheckTraitCondition
+	jr nc, .not_met
+	jr .end
+.spatk
+	ld hl, .TraitsThatRaiseSpAttack
+	call CheckTraitCondition
+	jr nc, .not_met
+	jr .end
+.spdef
+	ld hl, .TraitsThatRaiseSpDefense
+	call CheckTraitCondition
+	jr nc, .not_met
+.end
+	ld a, [wBuffer2]
+	inc a
+	ld [wBuffer2], a
+.not_met
+	ret
+
+.TraitsThatRaiseAttack:
+	db TRAIT_RAIN_ATTACK
+	db -1
+
+.TraitsThatRaiseDefense:
+	db TRAIT_RAIN_DEFENSE
+	db -1
+
+.TraitsThatRaiseSpeed:
+	db TRAIT_RAIN_SPEED
+	db -1
+
+.TraitsThatRaiseSpAttack:
+	db TRAIT_RAIN_SP_ATTACK
+	db -1
+
+.TraitsThatRaiseSpDefense:
+	db TRAIT_RAIN_SP_DEFENSE
+	db -1

@@ -61,6 +61,7 @@ BattleVarPairs:
 	dw .Substatus5Opp
 	dw .Status
 	dw .StatusOpp
+	dw .Trait
 	dw .MoveAnim
 	dw .MoveEffect
 	dw .MovePower
@@ -84,6 +85,7 @@ BattleVarPairs:
 .Substatus5Opp:  db ENEMY_SUBSTATUS_5,     PLAYER_SUBSTATUS_5
 .Status:         db PLAYER_STATUS,         ENEMY_STATUS
 .StatusOpp:      db ENEMY_STATUS,          PLAYER_STATUS
+.Trait:          db PLAYER_TRAIT,          ENEMY_TRAIT
 .MoveAnim:       db PLAYER_MOVE_ANIMATION, ENEMY_MOVE_ANIMATION
 .MoveEffect:     db PLAYER_MOVE_EFFECT,    ENEMY_MOVE_EFFECT
 .MovePower:      db PLAYER_MOVE_POWER,     ENEMY_MOVE_POWER
@@ -102,6 +104,7 @@ BattleVarLocations:
 	dw wPlayerSubStatus4,          wEnemySubStatus4
 	dw wPlayerSubStatus5,          wEnemySubStatus5
 	dw wBattleMonStatus,           wEnemyMonStatus
+	dw wBattleMonTrait,            wEnemyMonTrait
 	dw wPlayerMoveStructAnimation, wEnemyMoveStructAnimation
 	dw wPlayerMoveStructEffect,    wEnemyMoveStructEffect
 	dw wPlayerMoveStructPower,     wEnemyMoveStructPower

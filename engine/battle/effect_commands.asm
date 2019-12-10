@@ -1516,8 +1516,16 @@ CheckTypeMatchup:
 	call GetBattleVar
 	ld e, a ; move id in e
 	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVar
+	call GetBattleVarAddr
 	and TYPE_MASK ; move type in a
+	ld d, a
+	
+	; ld a, BATTLE_VARS_TRAIT
+	; call GetBattleVar
+	; cp TRAIT_NORMAL_TO_FIRE
+	; ld a, FIRE
+	; ld [hl], a
+
 	ld [wCurType], a
 	ld [wMoveType], a
 	farcall ReplaceVariableType
@@ -2303,6 +2311,27 @@ BattleCommand_ApplyDamage:
 	call DoPlayerDamage
 
 .done_damage
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVarAddr
+	and $ff ^ TYPE_MASK
+	rlc a
+	rlc a
+	dec a
+	jr z, .okk ; 0 = physical
+	jr .end_trait
+.okk
+	ld a, BATTLE_VARS_TRAIT
+	call GetBattleVar
+	cp TRAIT_CONTACT_BRN
+	call BattleRandom
+	cp 30 percent
+	jr nc, .end_trait
+	xor a
+	ld [wAttackMissed], a
+	ld [wEffectFailed], a
+	call BattleCommand_BurnTarget
+	
+.end_trait
 	pop bc
 	ld a, b
 	and a
@@ -2486,7 +2515,6 @@ BattleCommand_SuperEffectiveLoopText:
 
 BattleCommand_SuperEffectiveText:
 ; supereffectivetext
-
 	ld a, [wTypeModifier]
 	and $7f
 	cp 10 ; 1.0
@@ -5060,7 +5088,19 @@ CalcEnemyStats:
 CalcStats:
 .loop
 	push af
+	ld [wBuffer1], a
 	ld a, [hli]
+	ld [wBuffer2], a
+	push hl
+	push bc
+	push de
+	push af
+	predef TraitRaiseStat
+	pop af
+	pop de
+	pop bc
+	pop hl
+	ld a, [wBuffer2]
 	push hl
 	push bc
 
@@ -5123,7 +5163,6 @@ CalcStats:
 	pop af
 	dec a
 	jr nz, .loop
-
 	ret
 
 ;INCLUDE "engine/battle/move_effects/bide.asm"

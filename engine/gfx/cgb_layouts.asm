@@ -93,7 +93,7 @@ _CGB_BattleColors:
 	and a
 	jp nz, .get_hp_palettes
 	ld a, $1
-	ld [wTypeModifier], a
+	ld [wLoad3rdPalette], a
 	call GetExtraEnemyFrontpicPalettePointer
 	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_ENEMY_HP
 	jr .skip_trainer_hp_palettes
@@ -121,7 +121,7 @@ _CGB_BattleColors:
 	call GetExtraBattlemonBackpicPalettePointer
 	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_PLAYER_EX
 	ld a, $0
-	ld [wTypeModifier], a
+	ld [wLoad3rdPalette], a
 	call GetExtraEnemyFrontpicPalettePointer
 	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_ENEMY_EX
 

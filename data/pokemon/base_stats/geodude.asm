@@ -10,6 +10,7 @@
 	db GENDER_F50 ; gender ratio
 	db 15 ; step cycles to hatch
 	INCBIN "gfx/pokemon/geodude/front.dimensions"
+	db TRAIT_RAIN_DEFENSE, TRAIT_RAIN_DEFENSE, TRAIT_RAIN_DEFENSE, TRAIT_RAIN_DEFENSE
 	db GROWTH_MEDIUM_SLOW ; growth rate
 	dn EGG_MINERAL, EGG_MINERAL ; egg groups
 

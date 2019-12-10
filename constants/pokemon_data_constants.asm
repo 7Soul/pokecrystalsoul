@@ -20,7 +20,7 @@ BASE_GENDER      EQUS "(wBaseGender - wCurBaseData)"
 BASE_EGG_STEPS   EQUS "(wBaseEggSteps - wCurBaseData)"
 ; BASE_UNKNOWN_2   EQUS "(wBaseUnknown2 - wCurBaseData)"
 BASE_PIC_SIZE    EQUS "(wBasePicSize - wCurBaseData)"
-; BASE_PADDING     EQUS "(wBasePadding - wCurBaseData)"
+BASE_TRAITS      EQUS "(wBaseTraits - wCurBaseData)"
 BASE_GROWTH_RATE EQUS "(wBaseGrowthRate - wCurBaseData)"
 BASE_EGG_GROUPS  EQUS "(wBaseEggGroups - wCurBaseData)"
 BASE_TMHM        EQUS "(wBaseTMHM - wCurBaseData)"
@@ -44,6 +44,20 @@ GENDER_UNKNOWN EQU -1
 	const GROWTH_MEDIUM_SLOW
 	const GROWTH_FAST
 	const GROWTH_SLOW
+
+; Traits
+	const_def
+	const TRAIT_NONE
+	const TRAIT_CONTACT_BRN
+	const TRAIT_CONTACT_PSN
+	const TRAIT_CONTACT_PAR
+	const TRAIT_CONTACT_FLINCH
+	const TRAIT_RAIN_ATTACK
+	const TRAIT_RAIN_DEFENSE
+	const TRAIT_RAIN_SPEED
+	const TRAIT_RAIN_SP_ATTACK
+	const TRAIT_RAIN_SP_DEFENSE
+	const TRAIT_RAIN_NO_STATUS
 
 ; wBaseEggGroups values
 	const_def 1
@@ -69,6 +83,7 @@ NUM_DEX_ENTRY_BANKS EQU 4
 ; party_struct members (see macros/wram.asm)
 MON_SPECIES            EQUS "(wPartyMon1Species - wPartyMon1)"
 MON_ITEM               EQUS "(wPartyMon1Item - wPartyMon1)"
+MON_TRAIT              EQUS "(wPartyMon1Trait - wPartyMon1)"
 MON_MOVES              EQUS "(wPartyMon1Moves - wPartyMon1)"
 MON_ID                 EQUS "(wPartyMon1ID - wPartyMon1)"
 MON_EXP                EQUS "(wPartyMon1Exp - wPartyMon1)"
@@ -212,3 +227,4 @@ HAPPINESS_THRESHOLD_2 EQU 200
 PP_UP_MASK EQU %11000000
 PP_UP_ONE  EQU %01000000
 PP_MASK    EQU %00111111
+

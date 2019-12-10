@@ -10,6 +10,7 @@
 	db GENDER_F50 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/poliwag/front.dimensions"
+	db 0, 0, 0, 0
 	db GROWTH_MEDIUM_SLOW ; growth rate
 	dn EGG_WATER_1, EGG_WATER_1 ; egg groups
 
