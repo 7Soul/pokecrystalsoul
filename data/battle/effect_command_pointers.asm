@@ -20,6 +20,7 @@ BattleCommandPointers:
 	dw BattleCommand_ApplyDamage
 	dw BattleCommand_CriticalText
 	dw BattleCommand_SuperEffectiveText
+	dw BattleCommand_PostHitEffects
 	dw BattleCommand_CheckFaint
 	dw BattleCommand_BuildOpponentRage
 	dw BattleCommand_PoisonTarget

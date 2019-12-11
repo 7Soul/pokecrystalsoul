@@ -20,6 +20,7 @@ NormalHit:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 DoSleep:
@@ -50,6 +51,7 @@ PoisonHit:
 	checkfaint
 	buildopponentrage
 	poisontarget
+	posthiteffects
 	endmove
 
 LeechHit:
@@ -71,6 +73,7 @@ LeechHit:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 BurnHit:
@@ -92,6 +95,7 @@ BurnHit:
 	checkfaint
 	buildopponentrage
 	burntarget
+	posthiteffects
 	endmove
 
 FreezeHit:
@@ -113,6 +117,7 @@ FreezeHit:
 	checkfaint
 	buildopponentrage
 	freezetarget
+	posthiteffects
 	endmove
 
 ParalyzeHit:
@@ -134,6 +139,7 @@ ParalyzeHit:
 	checkfaint
 	buildopponentrage
 	paralyzetarget
+	posthiteffects
 	endmove
 
 Selfdestruct:
@@ -155,6 +161,7 @@ Selfdestruct:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 DreamEater:
@@ -175,6 +182,7 @@ DreamEater:
 	eatdream
 	checkfaint
 	buildopponentrage
+	posthiteffects
 	endmove
 
 MirrorMove:
@@ -555,6 +563,7 @@ AttackDownHit:
 	buildopponentrage
 	attackdown
 	statdownmessage
+	posthiteffects
 	endmove
 
 DefenseDownHit:
@@ -577,6 +586,7 @@ DefenseDownHit:
 	buildopponentrage
 	defensedown
 	statdownmessage
+	posthiteffects
 	endmove
 
 SpeedDownHit:
@@ -599,6 +609,7 @@ SpeedDownHit:
 	buildopponentrage
 	speeddown
 	statdownmessage
+	posthiteffects
 	endmove
 
 SpecialAttackDownHit:
@@ -621,6 +632,7 @@ SpecialAttackDownHit:
 	buildopponentrage
 	specialattackdown
 	statdownmessage
+	posthiteffects
 	endmove
 
 SpecialDefenseDownHit:
@@ -643,6 +655,7 @@ SpecialDefenseDownHit:
 	buildopponentrage
 	specialdefensedown
 	statdownmessage
+	posthiteffects
 	endmove
 
 AccuracyDownHit:
@@ -665,6 +678,7 @@ AccuracyDownHit:
 	buildopponentrage
 	accuracydown
 	statdownmessage
+	posthiteffects
 	endmove
 
 EvasionDownHit:
@@ -687,6 +701,7 @@ EvasionDownHit:
 	buildopponentrage
 	evasiondown
 	statdownmessage
+	posthiteffects
 	endmove
 
 DefenseUpHit:
@@ -709,6 +724,7 @@ DefenseUpHit:
 	buildopponentrage
 	defenseup
 	statupmessage
+	posthiteffects
 	endmove
 
 AttackUpHit:
@@ -731,6 +747,7 @@ AttackUpHit:
 	buildopponentrage
 	attackup
 	statupmessage
+	posthiteffects
 	endmove
 
 AllUpHit:
@@ -752,6 +769,7 @@ AllUpHit:
 	checkfaint
 	buildopponentrage
 	allstatsup
+	posthiteffects
 	endmove
 
 AccuracyUpHit:
@@ -774,6 +792,7 @@ AccuracyUpHit:
 	buildopponentrage
 	accuracyup
 	statupmessage
+	posthiteffects
 	endmove
 
 Conversion:
@@ -809,6 +828,7 @@ WildStorm:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Rampage:
@@ -832,6 +852,7 @@ Rampage:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 ForceSwitch:
@@ -866,6 +887,7 @@ MultiHit:
 	endloop
 	raisesub
 	kingsrock
+	posthiteffects
 	endmove
 
 PoisonMultiHit:
@@ -894,6 +916,7 @@ PoisonMultiHit:
 	raisesub
 	kingsrock
 	poisontarget
+	posthiteffects
 	endmove
 
 FlinchHit:
@@ -915,6 +938,7 @@ FlinchHit:
 	checkfaint
 	buildopponentrage
 	flinchtarget
+	posthiteffects
 	endmove
 
 OHKOHit:
@@ -951,6 +975,7 @@ RecoilHit:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Mist:
@@ -995,6 +1020,7 @@ ConfuseHit:
 	checkfaint
 	buildopponentrage
 	confusetarget
+	posthiteffects
 	endmove
 
 Heal:
@@ -1038,6 +1064,7 @@ TriAttack:
 	checkfaint
 	buildopponentrage
 	tristatuschance
+	posthiteffects
 	endmove
 
 Toxic:
@@ -1094,6 +1121,7 @@ SkyAttack:
 	buildopponentrage
 	flinchtarget
 	kingsrock
+	posthiteffects
 	endmove
 
 Substitute:
@@ -1121,6 +1149,7 @@ HyperBeam:
 	rechargenextturn
 	checkfaint
 	buildopponentrage
+	posthiteffects
 	endmove
 
 Rage:
@@ -1143,6 +1172,7 @@ Rage:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Mimic:
@@ -1196,6 +1226,7 @@ RazorWind:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Fly:
@@ -1219,6 +1250,7 @@ Fly:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 TrapTarget:
@@ -1257,6 +1289,7 @@ StaticDamage:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Reversal:
@@ -1273,6 +1306,7 @@ Reversal:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Counter:
@@ -1286,6 +1320,7 @@ Counter:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Encore:
@@ -1325,6 +1360,7 @@ Snore:
 	buildopponentrage
 	flinchtarget
 	kingsrock
+	posthiteffects
 	endmove
 
 Conversion2:
@@ -1362,6 +1398,7 @@ SleepTalk:
 	usedmovetext
 	doturn
 	sleeptalk
+	posthiteffects
 	endmove
 
 WakeupSlap:
@@ -1384,6 +1421,7 @@ WakeupSlap:
 	buildopponentrage
 	kingsrock
 	wakeupfoe
+	posthiteffects
 	endmove
 
 Spite:
@@ -1413,6 +1451,7 @@ FalseSwipe:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 HealBell:
@@ -1448,6 +1487,7 @@ TripleKick:
 	endloop
 	raisesub
 	kingsrock
+	posthiteffects
 	endmove
 
 AtkDefUp:
@@ -1470,6 +1510,7 @@ Nightmare:
 	usedmovetext
 	doturn
 	nightmare
+	posthiteffects
 	endmove
 
 FlameWheel:
@@ -1492,6 +1533,7 @@ FlameWheel:
 	checkfaint
 	buildopponentrage
 	burntarget
+	posthiteffects
 	endmove
 
 Curse:
@@ -1564,6 +1606,7 @@ Rollout:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Swagger:
@@ -1603,6 +1646,7 @@ FuryCutter:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Attract:
@@ -1647,6 +1691,7 @@ SacredFire:
 	checkfaint
 	buildopponentrage
 	burntarget
+	posthiteffects
 	endmove
 
 Magnitude:
@@ -1669,6 +1714,7 @@ Magnitude:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 BatonPass:
@@ -1697,6 +1743,7 @@ Pursuit:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 RapidSpin:
@@ -1718,6 +1765,7 @@ RapidSpin:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 MorningSun:
@@ -1759,6 +1807,7 @@ HiddenPower:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 RainDance:
@@ -1783,6 +1832,7 @@ FakeOut:
 	fakeout
 	moveanim
 	failuretext
+	posthiteffects
 	endmove
 
 BellyDrum:
@@ -1835,6 +1885,7 @@ SkullBash:
 	endturn
 	defenseup
 	statupmessage
+	posthiteffects
 	endmove
 
 Twister:
@@ -1857,6 +1908,7 @@ Twister:
 	checkfaint
 	buildopponentrage
 	flinchtarget
+	posthiteffects
 	endmove
 
 Earthquake:
@@ -1878,6 +1930,7 @@ Earthquake:
 	supereffectivetext
 	checkfaint
 	buildopponentrage
+	posthiteffects
 	endmove
 
 FutureSight:
@@ -1895,6 +1948,7 @@ FutureSight:
 	applydamage
 	checkfaint
 	buildopponentrage
+	posthiteffects
 	endmove
 
 Gust:
@@ -1915,6 +1969,7 @@ Gust:
 	supereffectivetext
 	checkfaint
 	buildopponentrage
+	posthiteffects
 	endmove
 
 Stomp:
@@ -1937,6 +1992,7 @@ Stomp:
 	checkfaint
 	buildopponentrage
 	flinchtarget
+	posthiteffects
 	endmove
 
 Solarbeam:
@@ -1960,6 +2016,7 @@ Solarbeam:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 Thunder:
@@ -1982,6 +2039,7 @@ Thunder:
 	checkfaint
 	buildopponentrage
 	paralyzetarget
+	posthiteffects
 	endmove
 
 Teleport:
@@ -2049,6 +2107,7 @@ WeightDamage:
 	checkfaint
 	buildopponentrage
 	kingsrock
+	posthiteffects
 	endmove
 
 SelfSpAtkDownHit:
@@ -2075,6 +2134,7 @@ SelfSpAtkDownHit:
 	switchturn
 	statdownmessage
 	switchturn
+	posthiteffects
 	endmove
 
 SelfSpdDownHit:
@@ -2101,6 +2161,7 @@ SelfSpdDownHit:
 	switchturn
 	statdownmessage
 	switchturn
+	posthiteffects
 	endmove
 
 SpecialAttackUpHit:
@@ -2123,6 +2184,7 @@ SpecialAttackUpHit:
 	buildopponentrage
 	specialattackup
 	statupmessage
+	posthiteffects
 	endmove
 	
 FellStinger:
@@ -2142,6 +2204,7 @@ FellStinger:
 	supereffectivetext
 	checkfaint
 	buildopponentrage
+	posthiteffects
 	endmove
 
 Venoshock:
@@ -2162,6 +2225,7 @@ Venoshock:
 	supereffectivetext
 	checkfaint
 	buildopponentrage
+	posthiteffects
 	endmove
 	
 BrickBreak:
@@ -2182,6 +2246,7 @@ BrickBreak:
 	checkfaint
 	buildopponentrage
 	brickbreak
+	posthiteffects
 	endmove
 	
 SelfDefSpDefDownHit:
@@ -2203,7 +2268,8 @@ SelfDefSpDefDownHit:
 	defspdefdown
 	switchturn
 	checkfaint
-	buildopponentrage	
+	buildopponentrage
+	posthiteffects
 	endmove
 
 FireFlick:
@@ -2224,6 +2290,7 @@ FireFlick:
 	supereffectivetext
 	checkfaint
 	buildopponentrage
+	posthiteffects
 	endmove
 
 Stampede:
@@ -2244,6 +2311,8 @@ Stampede:
 	checkfaint
 	buildopponentrage
 	stampede
+	posthiteffects
+	posthiteffects
 	endmove
 	
 JetStream:
@@ -2264,6 +2333,7 @@ JetStream:
 	supereffectivetext
 	checkfaint
 	buildopponentrage
+	posthiteffects
 	endmove
 	
 FirePlay:
@@ -2279,5 +2349,6 @@ FirePlay:
 	moveanim
 	fireplay
 	checkfaint
-	buildopponentrage	
+	buildopponentrage
+	posthiteffects
 	endmove

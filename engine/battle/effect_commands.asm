@@ -2311,26 +2311,8 @@ BattleCommand_ApplyDamage:
 	call DoPlayerDamage
 
 .done_damage
-	ld a, BATTLE_VARS_MOVE_TYPE
- 	call GetBattleVarAddr
-	and $ff ^ TYPE_MASK
-	rlc a
-	rlc a
-	dec a
-	jr z, .okk ; 0 = physical
-	jr .end_trait
-.okk
-	ld a, BATTLE_VARS_TRAIT
-	call GetBattleVar
-	cp TRAIT_CONTACT_BRN
-	call BattleRandom
-	cp 30 percent
-	jr nc, .end_trait
-	xor a
-	ld [wAttackMissed], a
-	ld [wEffectFailed], a
-	call BattleCommand_BurnTarget
 	
+
 .end_trait
 	pop bc
 	ld a, b
@@ -2685,6 +2667,15 @@ BattleCommand_RageDamage:
 	ret
 
 EndMoveEffect:
+	; ld a, BATTLE_VARS_TRAIT
+	; ld [wBuffer1], a
+	; farcall TraitContact
+	; ld a, $1
+	; ld [$c003], a
+	; ld a, BATTLE_VARS_TRAIT_OPP
+	; ld [wBuffer1], a
+	; farcall TraitContact
+	
 	ld a, [wBattleScriptBufferAddress]
 	ld l, a
 	ld a, [wBattleScriptBufferAddress + 1]
@@ -5653,6 +5644,17 @@ CheckOpponentWentFirst:
 	ldh a, [hBattleTurn] ; 0 if it's the player's turn
 	xor b ; 1 if opponent went first
 	pop bc
+	ret
+
+BattleCommand_PostHitEffects:
+	ld a, $1
+	ld [$c003], a
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitContact
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitContact
 	ret
 
 BattleCommand_HeldFlinch:

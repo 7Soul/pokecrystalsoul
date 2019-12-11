@@ -190,6 +190,8 @@ _CGB_FinishBattleScreenLayout:
 	jp z, .magnemite_player
 	cp MAGNETON
 	jp z, .magneton_player
+	cp VAPOREON
+	jp z, .vaporeon_player
 	jp .skip_extra_player
 
 .ivysaur_player
@@ -311,6 +313,13 @@ _CGB_FinishBattleScreenLayout:
 	call FillPalette5
 	hlcoord 2, 9, wAttrMap
 	lb bc, 1, 1 ; h, w
+	jp .end_extra_player
+.vaporeon_player
+	hlcoord 2, 8, wAttrMap
+	lb bc, 4, 4 ; h, w
+	call FillPalette5
+	hlcoord 6, 9, wAttrMap
+	lb bc, 3, 2 ; h, w
 	jp .end_extra_player
 
 .end_extra_player
@@ -602,7 +611,9 @@ _CGB_StatsScreenHPPals:
 	cp MAGNEMITE
 	jp z, .magnemite
 	cp MAGNETON
-	jp z, .magneton
+	jp z, .magneton	
+	cp VAPOREON
+	jp z, .vaporeon
 	
 	jp .skip_extra
 .bulbasaur
@@ -792,6 +803,16 @@ _CGB_StatsScreenHPPals:
 	hlcoord 12, 5, wAttrMap
 	lb bc, 2, 1 ; h, w
 	jp .end_extra
+.vaporeon
+	hlcoord 12, 1, wAttrMap
+	lb bc, 2, 6 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 14, 5, wAttrMap
+	lb bc, 2, 3 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 12, 6, wAttrMap
+	lb bc, 1, 6 ; h, w
+	jp .end_extra
 
 .end_extra
 	call FillStatsBoxExtraPalette
@@ -947,6 +968,8 @@ SetExtraPalette:
 	jp z, .magnemite
 	cp MAGNETON
 	jp z, .magneton
+	cp VAPOREON
+	jp z, .vaporeon
 	ret
 .bulbasaur
 	hlcoord 2, 5, wAttrMap
@@ -1134,6 +1157,16 @@ SetExtraPalette:
 	call FillBoxExtraPalette
 	hlcoord 7, 6, wAttrMap
 	lb bc, 2, 1 ; h, w
+	jp .end_extra
+.vaporeon
+	hlcoord 2, 2, wAttrMap
+	lb bc, 2, 6 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 2, 6, wAttrMap
+	lb bc, 2, 4 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 2, 7, wAttrMap
+	lb bc, 2, 6 ; h, w
 	jp .end_extra
 .end_extra
 	call FillBoxExtraPalette

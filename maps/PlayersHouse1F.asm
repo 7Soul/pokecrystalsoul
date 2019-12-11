@@ -119,6 +119,7 @@ MeetMomScript:
 	giveitem POKE_BALL, 99
 	giveitem RARE_CANDY, 99
 	giveitem MAX_REPEL, 99
+	giveitem SUPER_POTION, 99
 	giveitem REVIVE, 99
 	giveitem SHINY_CORAL
 

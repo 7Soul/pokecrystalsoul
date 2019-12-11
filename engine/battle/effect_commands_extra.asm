@@ -533,30 +533,39 @@ SapHealth:
 	call RefreshBattleHuds
 	jp UpdateBattleMonInParty
 
-CheckTraitCondition:
-	ld a, BATTLE_VARS_TRAIT
-	call GetBattleVar
-	; ld [$c000], a
-	ld de, 1
-	call IsInArray
-	jr nc, .not_met
-
-	ld a, BATTLE_VARS_TRAIT
-	call GetBattleVar
-	; cp TRAIT_CONTACT_BRN
-	; jr c, .end
-	; cp TRAIT_CONTACT_FLINCH + 1
-	; jr c, .check_physical_move
-	cp TRAIT_RAIN_ATTACK
-	jr nc, .check_rain
-	jr .end
-	cp TRAIT_RAIN_SP_DEFENSE + 1
-	jr c, .check_rain
-.end
-	scf
+CheckTrait:
+	ld a, [wBuffer1]
+	call CheckTraitCondition
 	ret
 
-.not_met
+CheckTraitOpp:
+	ld a, BATTLE_VARS_TRAIT_OPP
+	call CheckTraitCondition
+	ret
+
+CheckTraitCondition:
+	push af
+	call GetBattleVar
+	ld de, 1	
+	call IsInArray
+	jr nc, .not_met1
+	
+	pop af
+	call GetBattleVar
+	cp TRAIT_CONTACT_BRN
+	jr nc, .success
+	cp TRAIT_CONTACT_FLINCH + 1
+	jr c, .success
+	cp TRAIT_RAIN_ATTACK
+	jr nc, .check_rain
+	cp TRAIT_RAIN_SP_DEFENSE + 1
+	jr c, .check_rain
+.success
+	scf
+	ret
+.not_met1
+	pop af
+.not_met	
 	and a
 	ret
 
@@ -570,14 +579,13 @@ CheckTraitCondition:
 	scf
 	ret
 
-.check_physical_move
-	ldh a, [hBattleTurn]
-	and a
-	ld a, [wPlayerMoveStructType]
-	jr z, .got_it
-	ld a, [wEnemyMoveStructType]
-.got_it
-	cp SPECIAL
+.check_move_category ; 0 = physical, 1 = special, 2 = status
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVarAddr
+	and $ff ^ TYPE_MASK
+	rlc a
+	rlc a
+	dec a
 	ret
 
 TraitRaiseStat:
@@ -597,28 +605,28 @@ TraitRaiseStat:
 	jr .not_met
 
 .atk
-	ld hl, .TraitsThatRaiseAttack
-	call CheckTraitCondition
+	ld hl, TraitsThatRaiseAttack
+	call CheckTrait
 	jr nc, .not_met
 	jr .end
 .def
-	ld hl, .TraitsThatRaiseDefense
-	call CheckTraitCondition
+	ld hl, TraitsThatRaiseDefense
+	call CheckTrait
 	jr nc, .not_met
 	jr .end
 .spd
-	ld hl, .TraitsThatRaiseSpeed
-	call CheckTraitCondition
+	ld hl, TraitsThatRaiseSpeed
+	call CheckTrait
 	jr nc, .not_met
 	jr .end
 .spatk
-	ld hl, .TraitsThatRaiseSpAttack
-	call CheckTraitCondition
+	ld hl, TraitsThatRaiseSpAttack
+	call CheckTrait
 	jr nc, .not_met
 	jr .end
 .spdef
-	ld hl, .TraitsThatRaiseSpDefense
-	call CheckTraitCondition
+	ld hl, TraitsThatRaiseSpDefense
+	call CheckTrait
 	jr nc, .not_met
 .end
 	ld a, [wBuffer2]
@@ -627,22 +635,195 @@ TraitRaiseStat:
 .not_met
 	ret
 
-.TraitsThatRaiseAttack:
+TraitContact:
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	ld [$c004], a
+	ld de, 1
+	ld hl, ContactMoves
+	call IsInArray
+	jr nc, .not_met
+
+	ld a, $1
+	ld [$c005], a
+	ld hl, TraitsThatRequireContact
+	call CheckTrait
+	jr nc, .not_met
+	ld a, $2
+	ld [$c005], a
+	ld hl, TraitsThatBurn
+	call CheckTrait
+	jr nc, .not_burn_trait
+	ld a, $5
+	ld [$c005], a
+	; call Chance
+	; jr nc, .not_met
+	xor a;;
+	ld [wAttackMissed], a;;
+	ld [wEffectFailed], a;;
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT_OPP
+	jp nz, .self
+	call Switch_turn
+.self
+	ld hl, BattleCommand_BurnTarget
+	jr .success
+
+.not_burn_trait
+	ld hl, TraitsThatParalyze
+	call CheckTrait
+	jr nc, .not_paralyze_trait
+	call Chance
+	jr nc, .not_met
+	ld hl, BattleCommand_ParalyzeTarget
+	jr .success
+
+.not_paralyze_trait
+.not_met
+	ret
+
+.success
+	ld a, BANK("Effect Commands")
+	rst FarCall
+	ret
+
+Switch_turn:
+	ld hl, BattleCommand_SwitchTurn
+	ld a, BANK("Effect Commands")
+	rst FarCall
+	ret
+
+; .ptrs
+; 	dw BattleCommand_ParalyzeTarget ; paralyze
+; 	dw BattleCommand_FreezeTarget ; freeze
+; 	dw BattleCommand_BurnTarget ; burn
+
+TraitsThatRaiseAttack:
 	db TRAIT_RAIN_ATTACK
 	db -1
 
-.TraitsThatRaiseDefense:
+TraitsThatRaiseDefense:
 	db TRAIT_RAIN_DEFENSE
 	db -1
 
-.TraitsThatRaiseSpeed:
+TraitsThatRaiseSpeed:
 	db TRAIT_RAIN_SPEED
 	db -1
 
-.TraitsThatRaiseSpAttack:
+TraitsThatRaiseSpAttack:
 	db TRAIT_RAIN_SP_ATTACK
 	db -1
 
-.TraitsThatRaiseSpDefense:
+TraitsThatRaiseSpDefense:
 	db TRAIT_RAIN_SP_DEFENSE
 	db -1
+
+TraitsThatRequireContact:
+	db TRAIT_CONTACT_BRN
+	db TRAIT_CONTACT_PAR
+	db TRAIT_CONTACT_PSN
+	db TRAIT_CONTACT_FLINCH
+	db -1
+
+TraitsThatBurn:
+	db TRAIT_CONTACT_BRN
+	db -1
+
+TraitsThatParalyze:
+	db TRAIT_CONTACT_PAR
+	db -1
+	
+TraitsThatPoison:
+	db TRAIT_CONTACT_PSN
+	db -1
+
+TraitsThatFlinch:
+	db TRAIT_CONTACT_FLINCH
+	db -1
+
+ContactMoves:
+	db AQUA_TAIL
+	db BODY_SLAM
+	db BITE
+	db BRICK_BREAK
+	db CLAMP
+	db CLOSE_COMBAT
+	db COMET_PUNCH
+	db CONSTRICT
+	db COUNTER
+	db CRABHAMMER
+	db CROSS_CHOP
+	db CRUNCH
+	db DIG
+	db DIZZY_PUNCH
+	db DOUBLE_KICK
+	db DOUBLE_EDGE
+	db DOUBLESLAP
+	db DRILL_PECK
+	db DYNAMICPUNCH
+	db EXTREMESPEED
+	db FAINT_ATTACK
+	db FIRE_PUNCH
+	db FLAME_WHEEL
+	db FLY
+	db FURY_ATTACK
+	db FURY_CUTTER
+	db HAMMER_ARM
+	db HEADBUTT
+	db HORN_ATTACK
+	db HORN_DRILL
+	db HYPER_FANG
+	db ICE_PUNCH
+	db KARATE_CHOP
+	db LEECH_LIFE
+	db LICK
+	db LOW_KICK
+	db MACH_PUNCH
+	db MEGA_KICK
+	db MEGA_PUNCH
+	db MEGAHORN
+	db PECK
+	db PETAL_DANCE
+	db POUND
+	db PURSUIT
+	db QUICK_ATTACK
+	db RAGE
+	db RAPID_SPIN
+	db REVERSAL
+	db ROCK_SMASH
+	db ROLLOUT
+	db ROLLING_KICK
+	db SCRATCH
+	db SEISMIC_TOSS
+	db SKULL_BASH
+	db SLAM
+	db SLASH
+	db STAMPEDE
+	db STOMP
+	db SUBMISSION
+	db SUPER_FANG	
+	db TACKLE
+	db TAKE_DOWN
+	db THRASH
+	db THUNDERPUNCH
+	db TRIPLE_KICK
+	db VICEGRIP
+	db VITAL_THROW
+	db WAKEUP_SLAP
+	db WRAP
+	db X_SCISSOR
+	db ZEN_HEADBUTT
+	db -1
+	
+Chance:
+	call BattleRandom
+	cp 80 percent
+	jr nc, .success
+	and a
+	ret	
+.success
+	xor a
+	ld [wAttackMissed], a
+	ld [wEffectFailed], a
+	scf
+	ret

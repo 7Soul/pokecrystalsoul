@@ -62,6 +62,7 @@ BattleVarPairs:
 	dw .Status
 	dw .StatusOpp
 	dw .Trait
+	dw .TraitOpp
 	dw .MoveAnim
 	dw .MoveEffect
 	dw .MovePower
@@ -86,6 +87,7 @@ BattleVarPairs:
 .Status:         db PLAYER_STATUS,         ENEMY_STATUS
 .StatusOpp:      db ENEMY_STATUS,          PLAYER_STATUS
 .Trait:          db PLAYER_TRAIT,          ENEMY_TRAIT
+.TraitOpp:       db ENEMY_TRAIT,           PLAYER_TRAIT
 .MoveAnim:       db PLAYER_MOVE_ANIMATION, ENEMY_MOVE_ANIMATION
 .MoveEffect:     db PLAYER_MOVE_EFFECT,    ENEMY_MOVE_EFFECT
 .MovePower:      db PLAYER_MOVE_POWER,     ENEMY_MOVE_POWER
