@@ -1778,7 +1778,8 @@ HandleWeather:
 	call .PrintWeatherMessage
 	xor a
 	ld [wBattleWeather], a
-	call CalcPlayerStats
+	
+	; farcall BattleCommand_RecalcStats
 	ret
 
 .PrintWeatherMessage:
@@ -2453,6 +2454,20 @@ WinTrainerBattle:
 	ret
 
 .GiveMoney:
+	; either you're on a map playing the gym theme or the battle theme is the gym theme, gain no exp
+	ld a, [wMapMusic]
+	cp MUSIC_GYM
+	jr z, .maybe_no_money ; trainers in gyms don't give money
+	jr .normal_money
+.maybe_no_money
+	push hl
+	call IsGymLeader ; gym leaders always give money
+	pop hl
+	jr c, .normal_money
+.no_money
+	ret
+
+.normal_money
 	ld a, [wAmuletCoin]
 	and a
 	call nz, .DoubleReward
@@ -3590,7 +3605,6 @@ Function_SetEnemyMonAndSendOutAnimation:
 	ld [wMonType], a
 	predef CopyMonToTempMon
 	call GetEnemyMonFrontpic
-
 	xor a
 	ld [wNumHits], a
 	ld [wBattleAnimParam], a
@@ -3663,6 +3677,9 @@ endr
 	ld [wEnemyTurnsTaken], a
 	ld hl, wPlayerSubStatus5
 	res SUBSTATUS_CANT_RUN, [hl]
+	ld hl, wTraitActivated
+	res 1, [hl]
+	farcall BattleCommand_RecalcStats
 	ret
 
 ResetEnemyStatLevels:
@@ -3947,7 +3964,7 @@ InitBattleMon:
 	ld bc, PARTYMON_STRUCT_LENGTH - MON_ATK
 	call CopyBytes
 	call ApplyStatusEffectOnPlayerStats
-
+	xor a
 	ld a, [wBattleMonLevel]
 	ld b, a
 	ld a, [wPlayerHighesBattleLevel]
@@ -4158,6 +4175,9 @@ endr
 	ld [wPlayerTurnsTaken], a
 	ld hl, wEnemySubStatus5
 	res SUBSTATUS_CANT_RUN, [hl]
+	ld hl, wTraitActivated
+	res 0, [hl]
+	farcall BattleCommand_RecalcStats
 	ret
 
 BreakAttraction:
@@ -7197,6 +7217,23 @@ GiveExperiencePoints:
 	bit 0, a
 	ret nz
 
+; either you're on a map playing the gym theme or the battle theme is the gym theme, gain no exp
+	ld a, [wMapMusic]
+	cp MUSIC_GYM
+	jr z, .maybe_no_exp
+	jr .normal_exp
+.maybe_no_exp
+	push hl
+	call IsGymLeader
+	pop hl
+	jr nc, .no_exp
+; is gym leader
+	farcall FindAliveEnemyMons
+	jr c, .normal_exp ; only the last mon of a gym leader gives exp
+.no_exp
+	ret
+
+.normal_exp
 	call .EvenlyDivideExpAmongParticipants
 	xor a
 	ld [wCurPartyMon], a
@@ -7282,12 +7319,21 @@ GiveExperiencePoints:
 	cp 128
 	jr nc, .dont_increase
 	add 6
-
 	cp 80
 	jr nc, .dont_increase
 	add 9
 .dont_increase
-
+	call IsGymLeader
+	jr nc, .not_gym_leader
+; boosts base exp by 25% if it's a gym leader
+	ld a, [wEnemyMonBaseExp]
+	ld b, a
+	sla a
+	sla a
+	add b
+	jr nc, .not_gym_leader ; no overflow
+	ld a, $FF
+.not_gym_leader
 	ldh [hMultiplicand + 2], a
 	ld a, [wEnemyMonLevel]
 	ldh [hMultiplier], a
@@ -7619,6 +7665,17 @@ GiveExperiencePoints:
 
 .EvenlyDivideExpAmongParticipants:
 ; count number of battle participants
+	push hl
+; gym leaders' final mon gives shared exp
+	call IsGymLeader
+	jr nc, .not_leader
+
+	ld hl, wBattleParticipantsNotFainted
+	ld a, $3F
+	ld [hl], a
+.not_leader
+	pop hl
+
 	ld a, [wBattleParticipantsNotFainted]
 	ld b, a
 	ld c, PARTY_LENGTH

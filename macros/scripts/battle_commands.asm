@@ -191,6 +191,7 @@ ENDM
 	command wakeupfoe				; b8
 	command getwildstorm			; b9
 	command fireplay				; ba
+	command recalcstats				; bc
 
 	enum_start $fe
 	command endturn                 ; fe

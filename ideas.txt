@@ -30,8 +30,6 @@ Fire Play / Kindle Slam / Clash
 Water Play / Soak Clash / Tide Clash
 Flutter Fly / Flutter Clap
 	50 power, 95 acc, 20 pp, If the opponent has boosted stats, you take recoil damage
-	"Recoil if foe has"
-	"boosted stats."
 	
 Sand Trap
 	Damage, doesn't hit flying

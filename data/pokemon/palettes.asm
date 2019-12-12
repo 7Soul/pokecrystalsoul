@@ -573,6 +573,8 @@ ExtraPalettesIndex:
 	db MAGNEMITE
 	db MAGNETON
 	db VAPOREON
+	db HOOTHOOT
+	db NOCTOWL
 	db -1
 
 ExtraPalletes:
@@ -615,3 +617,5 @@ ExtraPalletes:
 	INCLUDE "gfx/pokemon/magnemite/extra.pal"
 	INCLUDE "gfx/pokemon/magneton/extra.pal"
 	INCLUDE "gfx/pokemon/vaporeon/extra.pal"
+	INCLUDE "gfx/pokemon/hoothoot/extra.pal"
+	INCLUDE "gfx/pokemon/noctowl/extra.pal"

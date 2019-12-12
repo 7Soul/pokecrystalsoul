@@ -534,13 +534,31 @@ SapHealth:
 	jp UpdateBattleMonInParty
 
 CheckTrait:
+	push hl
+	ld hl, wTraitActivated
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .player_turn
+	bit 1, [hl]
+	jr nz, .already_activated
+	jr .check_trait
+.player_turn
+	bit 0, [hl]
+	jr nz, .already_activated
+.check_trait
 	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT
+	jr z, .end
+	cp BATTLE_VARS_TRAIT_OPP
+	jr z, .end
+	ld a, BATTLE_VARS_TRAIT ; load this if wBuffer1 is some other value. May behave wrong if wBuffer1 was 12 or 13 by coincidence
+.end
+	pop hl
 	call CheckTraitCondition
 	ret
-
-CheckTraitOpp:
-	ld a, BATTLE_VARS_TRAIT_OPP
-	call CheckTraitCondition
+.already_activated
+	pop hl
+	and a
 	ret
 
 CheckTraitCondition:
@@ -558,14 +576,14 @@ CheckTraitCondition:
 	jr c, .success
 	cp TRAIT_RAIN_ATTACK
 	jr nc, .check_rain
-	cp TRAIT_RAIN_SP_DEFENSE + 1
+	cp TRAIT_RAIN_EVASION + 1
 	jr c, .check_rain
 .success
 	scf
 	ret
 .not_met1
 	pop af
-.not_met	
+.not_met
 	and a
 	ret
 
@@ -591,73 +609,125 @@ CheckTraitCondition:
 TraitRaiseStat:
 ; wBuffer2 contains stat name (backwards id)
 ; wBuffer1 contains +stat count
-	ld a, [wBuffer1]
-	cp $5
+	xor a
+.loop
+	push af
+	cp ATTACK
 	jr z, .atk
-	cp $4
+	cp DEFENSE
 	jr z, .def
-	cp $3
+	cp SPEED
 	jr z, .spd
-	cp $2
+	cp SP_ATTACK
 	jr z, .spatk
-	cp $1
+	cp SP_DEFENSE
 	jr z, .spdef
-	jr .not_met
-
+	cp ACCURACY
+	jr z, .acc
+	cp EVASION
+	jr z, .eva
+.loop_go
+	pop af
+	inc a
+	cp 7
+	jr nz, .loop
+	jp .not_met
 .atk
 	ld hl, TraitsThatRaiseAttack
-	call CheckTrait
-	jr nc, .not_met
+	call CheckTrait	
+	jr nc, .loop_go
+	ld a, ATTACK
 	jr .end
 .def
 	ld hl, TraitsThatRaiseDefense
 	call CheckTrait
-	jr nc, .not_met
+	jr nc, .loop_go
+	ld a, DEFENSE
 	jr .end
 .spd
 	ld hl, TraitsThatRaiseSpeed
 	call CheckTrait
-	jr nc, .not_met
+	jr nc, .loop_go
+	ld a, SPEED
 	jr .end
 .spatk
 	ld hl, TraitsThatRaiseSpAttack
 	call CheckTrait
-	jr nc, .not_met
+	jr nc, .loop_go
+	ld a, SP_ATTACK
 	jr .end
 .spdef
 	ld hl, TraitsThatRaiseSpDefense
 	call CheckTrait
-	jr nc, .not_met
+	jr nc, .loop_go
+	ld a, SP_DEFENSE
+	jr .end
+.acc
+	ld hl, TraitsThatRaiseAccuracy
+	call CheckTrait
+	jr nc, .loop_go
+	ld a, ACCURACY
+	jr .end
+.eva
+	ld hl, TraitsThatRaiseEvasion
+	call CheckTrait
+	jr nc, .loop_go
+	ld a, EVASION
 .end
-	ld a, [wBuffer2]
-	inc a
-	ld [wBuffer2], a
+	ld [wLoweredStat], a
+	xor a
+	ld [wAttackMissed], a
+
+	ld hl, wPlayerStatLevels
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_stat_levels
+	ld hl, wEnemyStatLevels
+.got_stat_levels
+	pop af
+	ld c, a
+	ld b, 0
+	add hl, bc
+	inc [hl]
+
+	ld hl, wTraitActivated
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .player_turn	
+	set 1, [hl]
+	ret
+.player_turn
+	set 0, [hl]
+	ret
+	; ld a, [wBuffer2]
+	; inc a
+	; ld [wBuffer2], a
+	
+	; ld a, BANK("Effect Commands")
+	; rst FarCall	
+	
+	; ld hl, BattleCommand_StatUpMessage
+	; ld a, BANK("Effect Commands")
+	; rst FarCall
 .not_met
 	ret
 
 TraitContact:
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	ld [$c004], a
 	ld de, 1
 	ld hl, ContactMoves
 	call IsInArray
 	jr nc, .not_met
 
-	ld a, $1
-	ld [$c005], a
 	ld hl, TraitsThatRequireContact
 	call CheckTrait
 	jr nc, .not_met
-	ld a, $2
-	ld [$c005], a
 	ld hl, TraitsThatBurn
 	call CheckTrait
 	jr nc, .not_burn_trait
-	ld a, $5
-	ld [$c005], a
-	; call Chance
-	; jr nc, .not_met
+	call Chance
+	jr nc, .not_met
 	xor a;;
 	ld [wAttackMissed], a;;
 	ld [wEffectFailed], a;;
@@ -716,6 +786,14 @@ TraitsThatRaiseSpAttack:
 
 TraitsThatRaiseSpDefense:
 	db TRAIT_RAIN_SP_DEFENSE
+	db -1
+
+TraitsThatRaiseAccuracy:
+	db TRAIT_RAIN_ACCURACY
+	db -1
+
+TraitsThatRaiseEvasion:
+	db TRAIT_RAIN_EVASION
 	db -1
 
 TraitsThatRequireContact:

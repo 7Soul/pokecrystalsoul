@@ -6,16 +6,4 @@ BattleCommand_StartRain:
 	ld [wWeatherCount], a
 	call AnimateCurrentMove
 	ld hl, DownpourText
-	call StdBattleTextBox
-
-	ldh a, [hBattleTurn]
-	push af
-
-	call SetPlayerTurn
-	call CalcPlayerStats
-	call SetEnemyTurn
-	call CalcEnemyStats
-
-	pop af
-	ldh [hBattleTurn], a
-	ret
+	jp StdBattleTextBox

@@ -190,3 +190,4 @@ BattleCommandPointers:
 	dw BattleCommand_WakeupFoe
 	dw BattleCommand_GetWildStorm
 	dw BattleCommand_FirePlay
+	dw BattleCommand_RecalcStats

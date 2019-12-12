@@ -3778,14 +3778,11 @@ BattleAnim_ZenHeadbutt:
 	anim_obj ANIM_OBJ_44, 44, 60, $0
 	anim_wait 16
 	
-	anim_call BattleAnim_FollowEnemyFeet_0
-	anim_bgeffect ANIM_BG_TACKLE, $0, $1, $0
 	anim_wait 4
 	anim_sound 0, 1, SFX_HEADBUTT
 	anim_obj ANIM_OBJ_01, 136, 56, $0
 	anim_wait 8
-	anim_call BattleAnim_ShowMon_0
-	anim_bgeffect ANIM_BG_ENTER_MON, $0, $1, $0
+	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
 	anim_ret
 
 BattleAnim_LockOn:

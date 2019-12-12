@@ -673,7 +673,7 @@ wEnemySafeguardCount:: db ; c705
 wEnemyLightScreenCount:: db ; c706
 wEnemyReflectCount:: db ; c707
 wEnemyLeafShieldCount:: db ; c708
-	ds 1
+
 
 wBattleWeather:: ; c70a
 ; 00 normal
@@ -709,6 +709,7 @@ wTempLevel:: db ; c719
 wLastPlayerMon:: db ; c71a
 wLastPlayerMove:: db ; c71b
 wLastEnemyMove:: db ; c71c
+wTraitActivated:: db
 
 wPlayerFutureSightCount:: db ; c71d
 wEnemyFutureSightCount:: db ; c71e
@@ -794,7 +795,7 @@ wReel3:: slot_reel wReel3
 wReel1Stopped:: ds 3
 wReel2Stopped:: ds 3
 wReel3Stopped:: ds 3
-wLoad3rdPalette::
+wLoad3rdPalette:: 
 wSlotBias:: db
 wSlotBet:: db
 wFirstTwoReelsMatching:: db

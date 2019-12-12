@@ -125,10 +125,10 @@ MeetMomScript:
 
 	givepoke VAPOREON, 50
 	givepoke MAGNETON, 50
-	; givepoke STARMIE, 50
-	; givepoke TENTACOOL, 50
-	; givepoke VENUSAUR, 50
-	; givepoke MR__MIME, 50
+	givepoke STARMIE, 50
+	givepoke TENTACOOL, 50
+	givepoke VENUSAUR, 50
+	givepoke PIDGEY, 50
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges

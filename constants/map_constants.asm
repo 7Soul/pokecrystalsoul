@@ -230,7 +230,7 @@ ENDM
 	map_const ROUTE_37,                                    10,  9 ;  4
 	map_const VIOLET_CITY,                                 20, 18 ;  5
 	; map_const VIOLET_MART,                                  6,  4 ;  6
-	map_const VIOLET_GYM,                                   7,  8 ;  7
+	map_const VIOLET_GYM,                                  9,  11 ;  7
 	map_const EARLS_POKEMON_ACADEMY,                        4,  8 ;  8
 	map_const VIOLET_NICKNAME_SPEECH_HOUSE,                 4,  4 ;  9
 	map_const VIOLET_POKECENTER_1F,                         7,  4 ; 10

@@ -192,6 +192,8 @@ _CGB_FinishBattleScreenLayout:
 	jp z, .magneton_player
 	cp VAPOREON
 	jp z, .vaporeon_player
+	cp NOCTOWL
+	jp z, .noctowl_player
 	jp .skip_extra_player
 
 .ivysaur_player
@@ -320,6 +322,10 @@ _CGB_FinishBattleScreenLayout:
 	call FillPalette5
 	hlcoord 6, 9, wAttrMap
 	lb bc, 3, 2 ; h, w
+	jp .end_extra_player
+.noctowl_player
+	hlcoord 2, 6, wAttrMap
+	lb bc, 3, 6 ; h, w
 	jp .end_extra_player
 
 .end_extra_player
@@ -614,6 +620,10 @@ _CGB_StatsScreenHPPals:
 	jp z, .magneton	
 	cp VAPOREON
 	jp z, .vaporeon
+	cp HOOTHOOT
+	jp z, .hoothoot
+	cp NOCTOWL
+	jp z, .noctowl
 	
 	jp .skip_extra
 .bulbasaur
@@ -813,6 +823,17 @@ _CGB_StatsScreenHPPals:
 	hlcoord 12, 6, wAttrMap
 	lb bc, 1, 6 ; h, w
 	jp .end_extra
+.hoothoot
+	hlcoord 14, 3, wAttrMap
+	lb bc, 2, 3 ; h, w
+	jp .end_extra
+.noctowl
+	hlcoord 13, 0, wAttrMap
+	lb bc, 3, 5 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 14, 6, wAttrMap
+	lb bc, 1, 3 ; h, w
+	jp .end_extra
 
 .end_extra
 	call FillStatsBoxExtraPalette
@@ -970,6 +991,10 @@ SetExtraPalette:
 	jp z, .magneton
 	cp VAPOREON
 	jp z, .vaporeon
+	cp HOOTHOOT
+	jp z, .hoothoot
+	cp NOCTOWL
+	jp z, .noctowl
 	ret
 .bulbasaur
 	hlcoord 2, 5, wAttrMap
@@ -1167,6 +1192,17 @@ SetExtraPalette:
 	call FillBoxExtraPalette
 	hlcoord 2, 7, wAttrMap
 	lb bc, 2, 6 ; h, w
+	jp .end_extra
+.hoothoot
+	hlcoord 3, 4, wAttrMap
+	lb bc, 2, 3 ; h, w
+	jp .end_extra
+.noctowl
+	hlcoord 2, 1, wAttrMap
+	lb bc, 3, 5 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 3, 7, wAttrMap
+	lb bc, 1, 3 ; h, w
 	jp .end_extra
 .end_extra
 	call FillBoxExtraPalette

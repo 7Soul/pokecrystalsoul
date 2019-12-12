@@ -2311,9 +2311,6 @@ BattleCommand_ApplyDamage:
 	call DoPlayerDamage
 
 .done_damage
-	
-
-.end_trait
 	pop bc
 	ld a, b
 	and a
@@ -5040,6 +5037,25 @@ BattleCommand_LowerSubNoAnim:
 	call CallBattleCore
 	jp WaitBGMap
 
+BattleCommand_RecalcStats:
+; recalcstats
+	ldh a, [hBattleTurn]
+	push af
+
+	call SetPlayerTurn
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	predef TraitRaiseStat
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	call SetEnemyTurn
+	predef TraitRaiseStat
+
+	pop af
+	ldh [hBattleTurn], a
+	
+	ret
+
 CalcPlayerStats:
 	ld hl, wPlayerAtkLevel
 	ld de, wPlayerStats
@@ -5079,19 +5095,19 @@ CalcEnemyStats:
 CalcStats:
 .loop
 	push af
-	ld [wBuffer1], a
+	; ld [wBuffer1], a
 	ld a, [hli]
-	ld [wBuffer2], a
-	push hl
-	push bc
-	push de
-	push af
-	predef TraitRaiseStat
-	pop af
-	pop de
-	pop bc
-	pop hl
-	ld a, [wBuffer2]
+	; ld [wBuffer2], a
+	; push hl
+	; push bc
+	; push de
+	; push af
+	; predef TraitRaiseStat
+	; pop af
+	; pop de
+	; pop bc
+	; pop hl
+	; ld a, [wBuffer2]
 	push hl
 	push bc
 
@@ -5647,8 +5663,6 @@ CheckOpponentWentFirst:
 	ret
 
 BattleCommand_PostHitEffects:
-	ld a, $1
-	ld [$c003], a
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitContact

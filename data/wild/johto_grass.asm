@@ -1126,21 +1126,21 @@ JohtoGrassWildMons:
 	map_id ROUTE_46
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn/day
-	db 1, VAPOREON
-	db 1, VAPOREON
-	db 1, VAPOREON
-	db 1, VAPOREON
-	db 1, PIDGEY
-	db 2, SUNKERN
-	db 1, IGGLYBUFF
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 2, GEODUDE
+	db 1, GEODUDE
 	; nite
-	db 1, VAPOREON
-	db 1, VAPOREON
-	db 1, VAPOREON
-	db 1, VAPOREON
-	db 1, RATTATA
-	db 2, GRIMER
-	db 1, CLEFFA
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 1, GEODUDE
+	db 2, GEODUDE
+	db 1, GEODUDE
 
 	map_id SILVER_CAVE_OUTSIDE
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite

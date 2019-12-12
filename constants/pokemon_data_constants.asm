@@ -45,20 +45,6 @@ GENDER_UNKNOWN EQU -1
 	const GROWTH_FAST
 	const GROWTH_SLOW
 
-; Traits
-	const_def
-	const TRAIT_NONE
-	const TRAIT_CONTACT_BRN
-	const TRAIT_CONTACT_PSN
-	const TRAIT_CONTACT_PAR
-	const TRAIT_CONTACT_FLINCH
-	const TRAIT_RAIN_ATTACK
-	const TRAIT_RAIN_DEFENSE
-	const TRAIT_RAIN_SPEED
-	const TRAIT_RAIN_SP_ATTACK
-	const TRAIT_RAIN_SP_DEFENSE
-	const TRAIT_RAIN_NO_STATUS
-
 ; wBaseEggGroups values
 	const_def 1
 	const EGG_MONSTER       ; 1

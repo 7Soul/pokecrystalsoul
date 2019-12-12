@@ -7,7 +7,17 @@
 VioletGym_MapScripts:
 	db 0 ; scene scripts
 
-	db 0 ; callbacks
+	db 1 ; callbacks
+	callback MAPCALLBACK_OBJECTS, .InitTrainers
+
+.InitTrainers:
+	checkevent EVENT_BEAT_FALKNER
+	iftrue .FightDone
+	clearevent EVENT_BEAT_BIRD_KEEPER_ROD
+	clearevent EVENT_BEAT_BIRD_KEEPER_ABE
+.FightDone
+	return
+	
 
 VioletGymFalknerScript:
 	faceplayer
@@ -65,6 +75,7 @@ VioletGymActivateRockets:
 	jumpstd radiotowerrockets
 
 TrainerBirdKeeperRod:
+	; setevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
 	trainer BIRD_KEEPER, ROD, EVENT_BEAT_BIRD_KEEPER_ROD, BirdKeeperRodSeenText, BirdKeeperRodBeatenText, 0, .Script
 
 .Script:
@@ -260,17 +271,17 @@ VioletGym_MapEvents:
 	db 0, 0 ; filler
 
 	db 2 ; warp events
-	warp_event  6, 15, VIOLET_CITY, 1
-	warp_event  7, 15, VIOLET_CITY, 2
+	warp_event  8, 21, VIOLET_CITY, 1
+	warp_event  9, 21, VIOLET_CITY, 2
 
 	db 0 ; coord events
 
 	db 2 ; bg events
-	bg_event  5, 13, BGEVENT_READ, VioletGymStatue
-	bg_event  8, 13, BGEVENT_READ, VioletGymStatue
+	bg_event  7, 19, BGEVENT_READ, VioletGymStatue
+	bg_event 10, 19, BGEVENT_READ, VioletGymStatue
 
 	db 4 ; object events
-	object_event  7,  2, SPRITE_FALKNER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, VioletGymFalknerScript, -1
-	object_event  8,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperRod, -1
-	object_event  5, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperAbe, -1
-	object_event  9, 13, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, VioletGymGuyScript, -1
+	object_event  9,  3, SPRITE_FALKNER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, VioletGymFalknerScript, -1
+	object_event 11, 12, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperRod, -1
+	object_event 14, 18, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperAbe, -1
+	object_event 11, 20, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, VioletGymGuyScript, -1
