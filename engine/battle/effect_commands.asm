@@ -1384,10 +1384,10 @@ BattleCommand_Stab:
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
 	call GetBattleVar
 	bit SUBSTATUS_IDENTIFIED, a
-	jr z, .end
+	jp z, .end
 
 	cp -1
-	jr z, .end
+	jp z, .end
 
 	jr .TypesLoop
 
@@ -1418,11 +1418,9 @@ BattleCommand_Stab:
 .NotImmune:
 	ldh [hMultiplier], a
 	add b
-	ld [wTypeModifier], a
-
+	ld [wTypeModifier], a	
 	xor a
 	ldh [hMultiplicand + 0], a
-
 	ld hl, wCurDamage
 	ld a, [hli]
 	ldh [hMultiplicand + 1], a
@@ -1430,6 +1428,12 @@ BattleCommand_Stab:
 	ldh [hMultiplicand + 2], a
 
 	call Multiply
+
+	push hl
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitReduceDamage
+	pop hl
 
 	ldh a, [hProduct + 1]
 	ld b, a
@@ -1465,7 +1469,7 @@ BattleCommand_Stab:
 .SkipType:
 	inc hl
 	inc hl
-	jr .TypesLoop
+	jp .TypesLoop
 
 .end
 	call BattleCheckTypeMatchup

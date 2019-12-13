@@ -564,24 +564,89 @@ CheckTrait:
 CheckTraitCondition:
 	ld a, [wBuffer1]
 	call GetBattleVar
-	ld [$c000], a
 	ld de, 1	
 	call IsInArray
-	jr nc, .not_met1
+	jp nc, .not_met1
 	ld a, [wBuffer1]
 	call GetBattleVar
 	; fallthrough
 .CheckSpecificTrait:
 	cp TRAIT_NONE
-	jr z, .not_met1
+	jp z, .not_met1
 	cp TRAIT_SANDSTORM_ON_ENTER + 1 ; traits lower than this have no conditions
-	jr c, .success
+	jp c, .success
 	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
-	jr c, .check_rain
+	jp c, .check_rain
 	cp TRAIT_SUNSHINE_NO_STATUS + 1 ; all sun traits
-	jr c, .check_sun
+	jp c, .check_sun
 	cp TRAIT_SANDSTORM_NO_STATUS + 1 ; all sandstorm traits
-	jr c, .check_sandstorm
+	jp c, .check_sandstorm
+	cp TRAIT_REDUCE_SUPER_EFFECTIVE ; 
+	jp z, .success
+	cp TRAIT_REDUCE_NORMAL ; traits that require move type to be normal
+	ld b, a
+	ld c, NORMAL
+	jp c, .check_move_type
+	cp TRAIT_REDUCE_FIGHTING ; traits that require move type to be water
+	ld b, a
+	ld c, FIGHTING
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_FLYING ; traits that require move type to be water
+	ld b, a
+	ld c, FLYING
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_GROUND ; traits that require move type to be water
+	ld b, a
+	ld c, GROUND
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_ROCK ; traits that require move type to be water
+	ld b, a
+	ld c, ROCK
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_BUG ; traits that require move type to be water
+	ld b, a
+	ld c, BUG
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_FIRE ; traits that require move type to be water
+	ld b, a
+	ld c, FIRE
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_WATER ; traits that require move type to be water
+	ld b, a
+	ld c, WATER
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_GRASS ; traits that require move type to be water
+	ld b, a
+	ld c, GRASS
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_ELECTRIC ; traits that require move type to be water
+	ld b, a
+	ld c, ELECTRIC
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_PSYCHIC ; traits that require move type to be water
+	ld b, a
+	ld c, PSYCHIC
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_ICE ; traits that require move type to be water
+	ld b, a
+	ld c, ICE
+	jp c, .check_move_type
+	jr .not_met1
+	cp TRAIT_REDUCE_DARK ; traits that require move type to be water
+	ld b, a
+	ld c, DARK
+	jp c, .check_move_type
+	jr .not_met1
 .success
 	scf
 	ret
@@ -594,22 +659,33 @@ CheckTraitCondition:
 .check_rain
 	ld a, [wBattleWeather]
 	cp WEATHER_RAIN
-	jr z, .success
+	jp z, .success
 	and a
 	ret
 
 .check_sun
 	ld a, [wBattleWeather]
 	cp WEATHER_SUN
-	jr z, .success
+	jp z, .success
 	and a
 	ret
 
 .check_sandstorm
 	ld a, [wBattleWeather]
 	cp WEATHER_SANDSTORM
-	jr z, .success
+	jp z, .success
 	and a
+	ret
+
+.check_move_type
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVarAddr
+	and TYPE_MASK
+	cp c
+	jp z, .success
+	and a
+	ld a, b ; restore trait into 'a'
+	
 	ret
 
 .check_move_category ; 0 = physical, 1 = special, 2 = status
@@ -838,6 +914,42 @@ TraitsThatBoostWeather:
 	db TRAIT_RAIN_DURATION
 	db TRAIT_SUNSHINE_DURATION
 	db TRAIT_SANDSTORM_DURATION
+	db -1
+
+TraitReduceDamage:
+	ld hl, TraitsThatReduceDamage
+	call CheckTrait
+	jr c, .reduce
+	ld a, [wTypeModifier]
+	cp $11 ; check if its over 10 (normal) or 5 (not effective)
+	ret c
+	ld hl, TraitsThatReduceSuperEffectiveDamage
+	call CheckTrait
+	jr nc, .not_se_reduction
+.reduce
+	ld a, $67 ; ~0.86
+	call ApplyDamageMod
+.not_se_reduction
+	ret
+
+TraitsThatReduceSuperEffectiveDamage:
+	db TRAIT_REDUCE_SUPER_EFFECTIVE
+	db -1
+
+TraitsThatReduceDamage:
+	db TRAIT_REDUCE_NORMAL
+	db TRAIT_REDUCE_FIGHTING
+	db TRAIT_REDUCE_FLYING
+	db TRAIT_REDUCE_GROUND
+	db TRAIT_REDUCE_ROCK
+	db TRAIT_REDUCE_BUG
+	db TRAIT_REDUCE_FIRE
+	db TRAIT_REDUCE_WATER
+	db TRAIT_REDUCE_GRASS
+	db TRAIT_REDUCE_ELECTRIC
+	db TRAIT_REDUCE_PSYCHIC
+	db TRAIT_REDUCE_ICE
+	db TRAIT_REDUCE_DARK
 	db -1
 
 CallFarSpecificTrait:

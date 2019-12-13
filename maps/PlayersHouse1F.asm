@@ -119,11 +119,12 @@ MeetMomScript:
 	giveitem POKE_BALL, 99
 	giveitem RARE_CANDY, 99
 	giveitem MAX_REPEL, 99
-	giveitem SUPER_POTION, 99
-	giveitem REVIVE, 99
+	giveitem MAX_POTION, 99
+	giveitem ETHER, 99
+	giveitem MAX_REVIVE, 99
 	giveitem SHINY_CORAL
 
-	givepoke VAPOREON, 50
+	givepoke VAPOREON, 99
 	givepoke MAGNETON, 50
 	givepoke STARMIE, 50
 	givepoke TANGELA, 50

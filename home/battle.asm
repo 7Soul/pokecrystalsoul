@@ -233,3 +233,25 @@ FloorBC::
 	ret nz
 	inc c
 	ret
+
+ApplyDamageMod::
+; a = $xy: multiply multiplicands by x, then divide by y
+; Used by things other than damage
+	push bc
+	push hl
+	ld b, a
+	swap a
+	and $f
+	ld hl, hMultiplier
+	ld [hl], a
+	push bc
+	call Multiply
+	pop bc
+	ld a, b
+	and $f
+	ld [hl], a
+	ld b, 4
+	call Divide
+	pop hl
+	pop bc
+	ret
