@@ -444,8 +444,8 @@ VioletNicknameSpeechHouse_Blocks:
 VioletKylesHouse_Blocks:
 	INCBIN "maps/House2.blk"
 
-BetaCave_Blocks:
-	INCBIN "maps/unused/BetaCave.blk"
+; BetaCave_Blocks:
+; 	INCBIN "maps/unused/BetaCave.blk"
 
 UnionCaveB1F_Blocks:
 	INCBIN "maps/UnionCaveB1F.blk"
@@ -620,8 +620,8 @@ BurnedTower1F_Blocks:
 BurnedTowerB1F_Blocks:
 	INCBIN "maps/BurnedTowerB1F.blk"
 
-BetaCaveTestMap_Blocks:
-	INCBIN "maps/unused/BetaCaveTestMap.blk"
+; BetaCaveTestMap_Blocks:
+; 	INCBIN "maps/unused/BetaCaveTestMap.blk"
 
 MountMortar1FOutside_Blocks:
 	INCBIN "maps/MountMortar1FOutside.blk"
@@ -777,8 +777,8 @@ OlivineLighthouse6F_Blocks:
 
 SECTION "Map Blocks 3", ROMX
 
-BetaCave2_Blocks:
-	INCBIN "maps/unused/BetaCave2.blk"
+; BetaCave2_Blocks:
+; 	INCBIN "maps/unused/BetaCave2.blk"
 
 SlowpokeWellB1F_Blocks:
 	INCBIN "maps/SlowpokeWellB1F.blk"

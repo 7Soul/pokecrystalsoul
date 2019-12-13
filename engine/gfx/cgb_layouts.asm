@@ -1191,7 +1191,7 @@ SetExtraPalette:
 	lb bc, 2, 4 ; h, w
 	call FillBoxExtraPalette
 	hlcoord 2, 7, wAttrMap
-	lb bc, 2, 6 ; h, w
+	lb bc, 1, 6 ; h, w
 	jp .end_extra
 .hoothoot
 	hlcoord 3, 4, wAttrMap

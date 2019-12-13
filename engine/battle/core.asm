@@ -2848,6 +2848,7 @@ PlayerPartyMonEntrance:
 	call EmptyBattleTextBox
 	call LoadTileMapToTempTileMap
 	call SetPlayerTurn
+	
 	jp SpikesDamage
 
 CheckMobileBattleError:
@@ -4147,6 +4148,36 @@ SendOutPlayerMon:
 	call UpdatePlayerHUD
 	ld a, $1
 	ldh [hBGMapMode], a
+
+; on enter traits
+	ld a, BATTLE_VARS_TRAIT
+	call GetBattleVar
+	cp TRAIT_RAIN_ON_ENTER
+	jr z, .start_rain
+	cp TRAIT_SUNSHINE_ON_ENTER
+	jr z, .start_sun
+	cp TRAIT_SANDSTORM_ON_ENTER
+	jr z, .start_sand
+	jr .dont_start
+.start_rain
+	ld a, RAIN_DANCE
+	jr .finish
+.start_sun
+	ld a, SUNNY_DAY
+	jr .finish
+.start_sand
+	ld a, SANDSTORM
+.finish
+	ld [wCurPlayerMove], a
+	callfar UpdateMoveData
+	xor a
+	ld [wAttackMissed], a
+	ld [wAlreadyDisobeyed], a
+	ld a, EFFECTIVE
+	ld [wTypeModifier], a
+	callfar DoMove
+
+.dont_start
 	ret
 
 NewBattleMonStatus:
@@ -8369,10 +8400,6 @@ StartBattle:
 	ld [wTimeOfDayPal], a
 	scf
 	ret
-
-; Unreferenced_DoBattle:
-; 	call DoBattle
-; 	ret
 
 BattleIntro:
 	farcall StubbedTrainerRankings_Battles ; mobile

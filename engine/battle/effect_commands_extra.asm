@@ -562,22 +562,26 @@ CheckTrait:
 	ret
 
 CheckTraitCondition:
-	push af
+	ld a, [wBuffer1]
 	call GetBattleVar
+	ld [$c000], a
 	ld de, 1	
 	call IsInArray
 	jr nc, .not_met1
-	
-	pop af
+	ld a, [wBuffer1]
 	call GetBattleVar
-	cp TRAIT_CONTACT_BRN
-	jr nc, .success
-	cp TRAIT_CONTACT_FLINCH + 1
+	; fallthrough
+.CheckSpecificTrait:
+	cp TRAIT_NONE
+	jr z, .not_met1
+	cp TRAIT_SANDSTORM_ON_ENTER + 1 ; traits lower than this have no conditions
 	jr c, .success
-	cp TRAIT_RAIN_ATTACK
-	jr nc, .check_rain
-	cp TRAIT_RAIN_EVASION + 1
+	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
 	jr c, .check_rain
+	cp TRAIT_SUNSHINE_NO_STATUS + 1 ; all sun traits
+	jr c, .check_sun
+	cp TRAIT_SANDSTORM_NO_STATUS + 1 ; all sandstorm traits
+	jr c, .check_sandstorm
 .success
 	scf
 	ret
@@ -590,11 +594,22 @@ CheckTraitCondition:
 .check_rain
 	ld a, [wBattleWeather]
 	cp WEATHER_RAIN
-	jr z, .rain
+	jr z, .success
 	and a
 	ret
-.rain
-	scf
+
+.check_sun
+	ld a, [wBattleWeather]
+	cp WEATHER_SUN
+	jr z, .success
+	and a
+	ret
+
+.check_sandstorm
+	ld a, [wBattleWeather]
+	cp WEATHER_SANDSTORM
+	jr z, .success
+	and a
 	ret
 
 .check_move_category ; 0 = physical, 1 = special, 2 = status
@@ -607,72 +622,44 @@ CheckTraitCondition:
 	ret
 
 TraitRaiseStat:
-; wBuffer2 contains stat name (backwards id)
-; wBuffer1 contains +stat count
 	xor a
 .loop
 	push af
-	cp ATTACK
-	jr z, .atk
-	cp DEFENSE
-	jr z, .def
-	cp SPEED
-	jr z, .spd
-	cp SP_ATTACK
-	jr z, .spatk
-	cp SP_DEFENSE
-	jr z, .spdef
-	cp ACCURACY
-	jr z, .acc
-	cp EVASION
-	jr z, .eva
+	cp EVASION + 1
+	jr c, .atk
 .loop_go
 	pop af
 	inc a
-	cp 7
+	cp EVASION + 1
 	jr nz, .loop
 	jp .not_met
+
 .atk
-	ld hl, TraitsThatRaiseAttack
-	call CheckTrait	
-	jr nc, .loop_go
-	ld a, ATTACK
-	jr .end
-.def
-	ld hl, TraitsThatRaiseDefense
+	ld b, a ; stat id
+	ld hl, .JumptableStatTraits
+
+.find_trait_table
+	ld a, [hli]
+	cp -1
+	jr z, .not_met
+	cp b
+	jr z, .found_trait_table
+	inc hl
+	inc hl
+	jr .find_trait_table
+
+.found_trait_table
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+
+	push bc
 	call CheckTrait
-	jr nc, .loop_go
-	ld a, DEFENSE
+	pop bc
+	jr nc, .loop_go	
+	ld a, b ; stat id
 	jr .end
-.spd
-	ld hl, TraitsThatRaiseSpeed
-	call CheckTrait
-	jr nc, .loop_go
-	ld a, SPEED
-	jr .end
-.spatk
-	ld hl, TraitsThatRaiseSpAttack
-	call CheckTrait
-	jr nc, .loop_go
-	ld a, SP_ATTACK
-	jr .end
-.spdef
-	ld hl, TraitsThatRaiseSpDefense
-	call CheckTrait
-	jr nc, .loop_go
-	ld a, SP_DEFENSE
-	jr .end
-.acc
-	ld hl, TraitsThatRaiseAccuracy
-	call CheckTrait
-	jr nc, .loop_go
-	ld a, ACCURACY
-	jr .end
-.eva
-	ld hl, TraitsThatRaiseEvasion
-	call CheckTrait
-	jr nc, .loop_go
-	ld a, EVASION
+
 .end
 	ld [wLoweredStat], a
 	xor a
@@ -699,74 +686,19 @@ TraitRaiseStat:
 .player_turn
 	set 0, [hl]
 	ret
-	; ld a, [wBuffer2]
-	; inc a
-	; ld [wBuffer2], a
-	
-	; ld a, BANK("Effect Commands")
-	; rst FarCall	
-	
-	; ld hl, BattleCommand_StatUpMessage
-	; ld a, BANK("Effect Commands")
-	; rst FarCall
+
 .not_met
 	ret
 
-TraitContact:
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-	ld de, 1
-	ld hl, ContactMoves
-	call IsInArray
-	jr nc, .not_met
-
-	ld hl, TraitsThatRequireContact
-	call CheckTrait
-	jr nc, .not_met
-	ld hl, TraitsThatBurn
-	call CheckTrait
-	jr nc, .not_burn_trait
-	call Chance
-	jr nc, .not_met
-	xor a;;
-	ld [wAttackMissed], a;;
-	ld [wEffectFailed], a;;
-	ld a, [wBuffer1]
-	cp BATTLE_VARS_TRAIT_OPP
-	jp nz, .self
-	call Switch_turn
-.self
-	ld hl, BattleCommand_BurnTarget
-	jr .success
-
-.not_burn_trait
-	ld hl, TraitsThatParalyze
-	call CheckTrait
-	jr nc, .not_paralyze_trait
-	call Chance
-	jr nc, .not_met
-	ld hl, BattleCommand_ParalyzeTarget
-	jr .success
-
-.not_paralyze_trait
-.not_met
-	ret
-
-.success
-	ld a, BANK("Effect Commands")
-	rst FarCall
-	ret
-
-Switch_turn:
-	ld hl, BattleCommand_SwitchTurn
-	ld a, BANK("Effect Commands")
-	rst FarCall
-	ret
-
-; .ptrs
-; 	dw BattleCommand_ParalyzeTarget ; paralyze
-; 	dw BattleCommand_FreezeTarget ; freeze
-; 	dw BattleCommand_BurnTarget ; burn
+.JumptableStatTraits:
+	dbw ATTACK, TraitsThatRaiseAttack
+	dbw DEFENSE, TraitsThatRaiseDefense
+	dbw SPEED, TraitsThatRaiseSpeed
+	dbw SP_ATTACK, TraitsThatRaiseSpAttack
+	dbw SP_DEFENSE, TraitsThatRaiseSpDefense
+	dbw ACCURACY, TraitsThatRaiseAccuracy
+	dbw EVASION, TraitsThatRaiseEvasion
+	dbw -1, -1
 
 TraitsThatRaiseAttack:
 	db TRAIT_RAIN_ATTACK
@@ -796,12 +728,164 @@ TraitsThatRaiseEvasion:
 	db TRAIT_RAIN_EVASION
 	db -1
 
+TraitContact:
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	ld de, 1
+	ld hl, ContactMoves
+	call IsInArray
+	jr nc, .not_met
+
+	ld hl, TraitsThatRequireContact
+	call CheckTrait
+	jr nc, .not_met
+	ld hl, TraitsThatBurn
+	call CheckTrait
+	jr nc, .not_burn_trait
+	ld a, $0 ; BRN
+	ld b, a
+	jr .success
+
+.not_burn_trait
+	ld hl, TraitsThatParalyze
+	call CheckTrait
+	jr nc, .not_paralyze_trait
+	ld a, $1 ; PRZ
+	ld b, a
+	jr .success
+
+.not_paralyze_trait
+	ld hl, TraitsThatPoison
+	call CheckTrait
+	jr nc, .not_poison_trait
+	ld a, $2 ; PSN
+	ld b, a
+	jr .success
+
+.not_poison_trait
+	ld hl, TraitsThatFlinch
+	call CheckTrait
+	jr nc, .not_flinch_trait
+	ld a, $3 ; FLINCH
+	ld b, a
+	jr .success
+
+.not_flinch_trait
+.not_met
+	ret
+
+.success
+	call Chance
+	jr nc, .not_met
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT
+	jr z, .player_turn
+	call Switch_turn ; switch so that it affects the mon opposite to the one that has the trait
+.player_turn
+	ld a, b
+	ld hl, .StatusCommands
+	ld b, 0
+	ld c, a
+	add hl, bc
+	add hl, bc
+
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+
+	ld a, BANK("Effect Commands")
+	rst FarCall
+	ret
+
+.StatusCommands:
+	dw BattleCommand_BurnTarget
+	dw BattleCommand_ParalyzeTarget
+	dw BattleCommand_PoisonTarget
+	dw BattleCommand_FlinchTarget
+
 TraitsThatRequireContact:
 	db TRAIT_CONTACT_BRN
 	db TRAIT_CONTACT_PAR
 	db TRAIT_CONTACT_PSN
 	db TRAIT_CONTACT_FLINCH
 	db -1
+
+TraitStartWeather:
+	ld hl, TraitsThatStartWeather
+	call CheckTrait
+	jr nc, .not_start_weather
+	ld a, 4
+	jr .end
+.not_start_weather
+	ld hl, TraitsThatBoostWeather
+	call CheckTrait
+	jr nc, .not_met
+	ld a, 6
+	jr .end
+.not_met
+	ld a, 5
+.end
+	ld [wWeatherCount], a
+	ret
+
+TraitsThatStartWeather:
+	db TRAIT_RAIN_ON_ENTER
+	db TRAIT_SUNSHINE_ON_ENTER
+	db TRAIT_SANDSTORM_ON_ENTER
+	db -1
+
+TraitsThatBoostWeather:
+	db TRAIT_RAIN_DURATION
+	db TRAIT_SUNSHINE_DURATION
+	db TRAIT_SANDSTORM_DURATION
+	db -1
+
+CallFarSpecificTrait:
+	ld a, [wBuffer1]
+	call CheckTraitCondition.CheckSpecificTrait
+	ret
+
+TraitBoostPower:
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	ld hl, BitingMoves
+	ld de, 1
+	call IsInArray
+	jr c, .biting_move
+
+.biting_move
+	ld hl, TraitsThatBoostBitingMoves
+	call CheckTrait
+	jr nc, .not_met
+	jr .boost
+.cutting_move
+	ld hl, TraitsThatBoostCuttingMoves
+	call CheckTrait
+	jr nc, .not_met
+	jr .boost
+.punching_move
+	ld hl, TraitsThatBoostPunchingMoves
+	call CheckTrait
+	jr nc, .not_met
+.boost
+	ld hl, wPlayerMoveStructPower
+	ld a, [hl]
+	ld b, a
+	srl a
+	srl a
+	srl a
+	add b
+	ld [hl], a
+	ld [wBuffer1], a
+
+.not_met
+	ret
+
+Switch_turn:
+	ld hl, BattleCommand_SwitchTurn
+	ld a, BANK("Effect Commands")
+	rst FarCall
+	ret
 
 TraitsThatBurn:
 	db TRAIT_CONTACT_BRN
@@ -817,6 +901,44 @@ TraitsThatPoison:
 
 TraitsThatFlinch:
 	db TRAIT_CONTACT_FLINCH
+	db -1
+
+TraitsThatBoostBitingMoves:
+	db TRAIT_BOOST_BITING
+	db -1
+
+TraitsThatBoostCuttingMoves:
+	db TRAIT_BOOST_BITING
+	db -1
+
+TraitsThatBoostPunchingMoves:
+	db TRAIT_BOOST_BITING
+	db -1
+
+BitingMoves:
+	db BITE
+	db CRUNCH
+	db SUPER_FANG
+	db HYPER_FANG
+	db -1
+
+CuttingMoves:
+	db SLASH
+	db SCRATCH
+	db FURY_CUTTER
+	db X_SCISSOR
+	db AIR_SLASH
+	db RAZOR_LEAF
+	db -1
+
+PunchingMoves:
+	db MEGA_PUNCH
+	db COMET_PUNCH
+	db DIZZY_PUNCH
+	db FIRE_PUNCH
+	db ICE_PUNCH
+	db THUNDERPUNCH
+	db MACH_PUNCH
 	db -1
 
 ContactMoves:
@@ -905,3 +1027,14 @@ Chance:
 	ld [wEffectFailed], a
 	scf
 	ret
+
+	; ld a, [wBuffer2]
+	; inc a
+	; ld [wBuffer2], a
+	
+	; ld a, BANK("Effect Commands")
+	; rst FarCall	
+	
+	; ld hl, BattleCommand_StatUpMessage
+	; ld a, BANK("Effect Commands")
+	; rst FarCall

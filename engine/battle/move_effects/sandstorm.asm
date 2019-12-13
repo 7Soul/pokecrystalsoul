@@ -7,8 +7,11 @@ BattleCommand_StartSandstorm:
 
 	ld a, WEATHER_SANDSTORM
 	ld [wBattleWeather], a
-	ld a, 5
-	ld [wWeatherCount], a
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitStartWeather ; this defines the number of turns wWeatherCount
+
 	call AnimateCurrentMove
 	ld hl, SandstormBrewedText
 	jp StdBattleTextBox

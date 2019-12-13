@@ -2664,15 +2664,6 @@ BattleCommand_RageDamage:
 	ret
 
 EndMoveEffect:
-	; ld a, BATTLE_VARS_TRAIT
-	; ld [wBuffer1], a
-	; farcall TraitContact
-	; ld a, $1
-	; ld [$c003], a
-	; ld a, BATTLE_VARS_TRAIT_OPP
-	; ld [wBuffer1], a
-	; farcall TraitContact
-	
 	ld a, [wBattleScriptBufferAddress]
 	ld l, a
 	ld a, [wBattleScriptBufferAddress + 1]
@@ -2744,7 +2735,9 @@ PlayerAttackDamage:
 
 	call ResetDamage
 
-	ld hl, wPlayerMoveStructPower
+	farcall TraitBoostPower
+	ld hl, wBuffer1
+	; ld hl, wPlayerMoveStructPower
 	ld a, [hli]
 	and a
 	ld d, a
@@ -5663,6 +5656,15 @@ CheckOpponentWentFirst:
 	ret
 
 BattleCommand_PostHitEffects:
+	call HasEnemyFainted
+	jr z, .skip_sub_check
+	call CheckSubstituteOpp
+	ret nz
+.skip_sub_check
+	ld a, [wAttackMissed]
+	and a
+	ret nz
+
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitContact
