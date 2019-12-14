@@ -457,12 +457,26 @@ StatsScreen_PlaceHorizontalDividerTopBlue:
 	hlcoord 0, 7 
 	ld a, $ba ; top left corner
 	ld [hli], a
-	hlcoord 10, 7
-	ld a, $c1
-	ld [hli], a
 	hlcoord 19, 7
 	ld a, $bc ; top right corner
 	ld [hli], a
+
+	; mid divider :
+	hlcoord 1, 11
+	ld b, SCREEN_WIDTH - 2
+	ld a, $bb ; horizontal divider
+.loop2
+	ld [hli], a
+	dec b
+	jr nz, .loop2
+	
+	hlcoord 0, 11
+	ld a, $c2 ; mid left
+	ld [hli], a
+	hlcoord 19, 11
+	ld a, $c3 ; mid right
+	ld [hli], a
+
 	ret
 	
 StatsScreen_PlaceHorizontalDividerBotBlue:
@@ -476,9 +490,6 @@ StatsScreen_PlaceHorizontalDividerBotBlue:
 	
 	hlcoord 0, 17
 	ld a, $be ; top left corner
-	ld [hli], a
-	hlcoord 10, 17
-	ld a, $c0
 	ld [hli], a
 	hlcoord 19, 17
 	ld a, $bf ; top right corner
@@ -503,10 +514,10 @@ StatsScreen_PlaceHorizontalDividerTopPink:
 	hlcoord 11, 8
 	ld a, $bd
 	ld [hli], a
+	; hlcoord 11, 9
+	; ld a, $bd
+	; ld [hli], a
 	hlcoord 11, 9
-	ld a, $bd
-	ld [hli], a
-	hlcoord 11, 10
 	ld a, $bd
 	ld [hli], a
 	hlcoord 19, 7
@@ -524,29 +535,29 @@ StatsScreen_PlaceHorizontalDividerBotPink: ;and mid
 	jr nz, .loop
 	
 	; mid divider :
-	hlcoord 0, 11
-	ld b, SCREEN_WIDTH
+	hlcoord 1, 10
+	ld b, SCREEN_WIDTH - 2
 	ld a, $bb ; horizontal divider
 .loop2
 	ld [hli], a
 	dec b
 	jr nz, .loop2
 	
-	hlcoord 0, 11
+	hlcoord 0, 10
 	ld a, $c2 ; mid left
 	ld [hli], a
-	hlcoord 11, 11
+	hlcoord 11, 10
 	ld a, $c0 ; mid facing up
 	ld [hli], a
-	hlcoord 19, 11
+	hlcoord 19, 10
 	ld a, $c3 ; mid right
 	ld [hli], a
 	
 	hlcoord 0, 17
-	ld a, $be ; mid left
+	ld a, $be ; bot left
 	ld [hli], a
 	hlcoord 19, 17
-	ld a, $bf ; mid right
+	ld a, $bf ; bot right
 	ld [hli], a
 	ret
 
@@ -691,8 +702,10 @@ StatsScreen_LoadGFX:
 	add hl, de
 	dec b
 	jr nz, .PinkPageVerticalDivider2	
+	
+	call .PlaceOTInfo
 
-	hlcoord 1, 12
+	hlcoord 1, 11
 	ld b, $0
 	predef DrawPlayerHP
 	;hlcoord 10, 12
@@ -700,21 +713,21 @@ StatsScreen_LoadGFX:
 	ld a, [wBaseDexNo]
 	ld [wDeciramBuffer], a
 	ld [wCurSpecies], a
-	hlcoord 14, 12
+	hlcoord 14, 11
 	ld [hl], "№"
 	inc hl
 	ld [hl], "."
 	inc hl
-	hlcoord 16, 12
+	hlcoord 16, 11
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
 	ld de, wDeciramBuffer
 	call PrintNum
 	
 	ld de, .Status_String
-	hlcoord 1, 14
+	hlcoord 1, 13
 	call PlaceString
 	ld de, .Type_String
-	hlcoord 10, 14
+	hlcoord 10, 13
 	call PlaceString
 	ld a, [wTempMonPokerusStatus]
 	ld b, a
@@ -723,13 +736,13 @@ StatsScreen_LoadGFX:
 	ld a, b
 	and $f0
 	jr z, .NotImmuneToPkrs
-	hlcoord 11, 12
+	hlcoord 11, 11
 	ld [hl], "." ; Pokérus immunity dot
 .NotImmuneToPkrs:
 	ld a, [wMonType]
 	cp BOXMON
 	jr z, .StatusOK
-	hlcoord 6, 15
+	hlcoord 6, 14
 	push hl
 	ld de, wTempMonStatus
 	predef PlaceStatusString
@@ -738,24 +751,24 @@ StatsScreen_LoadGFX:
 	jr .StatusOK
 .HasPokerus:
 	ld de, .PkrsStr
-	hlcoord 2, 15
+	hlcoord 2, 14
 	call PlaceString
 	jr .done_status
 .StatusOK:
 	ld de, .OK_str
 	call PlaceString
 .done_status
-	hlcoord 11, 15
+	hlcoord 11, 14
 	predef PrintMonTypes
-	hlcoord 10, 12
+	hlcoord 10, 11
 	ld de, SCREEN_WIDTH
 	ld b, 10
 	ld a, $31 ; vertical divider
 	ld de, .ExpPointStr
 	hlcoord 1, 8
 	call PlaceString
-	hlcoord 16, 10
-	call .PrintNextLevel
+	; hlcoord 16, 10
+	; call .PrintNextLevel
 	hlcoord 4, 8
 	lb bc, 3, 7
 	ld de, wTempMonExp
@@ -768,9 +781,9 @@ StatsScreen_LoadGFX:
 	ld de, .LevelUpStr
 	hlcoord 12, 8
 	call PlaceString
-	ld de, .ToStr
-	hlcoord 13, 10
-	call PlaceString
+	; ld de, .ToStr
+	; hlcoord 13, 10
+	; call PlaceString
 	hlcoord 2, 9
 	ld a, [wTempMonLevel]
 	ld b, a
@@ -781,19 +794,6 @@ StatsScreen_LoadGFX:
 	hlcoord 10, 9
 	ld [hl], $41 ; right exp bar end cap
 	call StatsScreen_PlaceHorizontalDividerBotPink
-	ret
-
-.PrintNextLevel:
-	ld a, [wTempMonLevel]
-	push af
-	cp MAX_LEVEL
-	jr z, .AtMaxLevel
-	inc a
-	ld [wTempMonLevel], a
-.AtMaxLevel:
-	call PrintLevel
-	pop af
-	ld [wTempMonLevel], a
 	ret
 
 .CalcExpToNextLevel:
@@ -826,6 +826,32 @@ StatsScreen_LoadGFX:
 	ld [hl], a
 	ret
 
+.PlaceOTInfo:
+	ld de, IDNoString
+	hlcoord 11, 16
+	call PlaceString
+	ld de, OTString
+	hlcoord 1, 15
+	call PlaceString
+	hlcoord 14, 16
+	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
+	ld de, wTempMonID
+	call PrintNum
+	ld hl, .OTNamePointers
+	call GetNicknamePointer
+	call CopyNickname
+	farcall CorrectNickErrors
+	hlcoord 3, 16
+	call PlaceString
+.done
+	ret
+
+.OTNamePointers:
+	dw wPartyMonOT
+	dw wOTPartyMonOT
+	dw sBoxMonOT
+	dw wBufferMonOT
+
 .Status_String:
 	db "STATUS/@"
 
@@ -840,9 +866,6 @@ StatsScreen_LoadGFX:
 
 .LevelUpStr:
 	db "NEED@"
-
-.ToStr:
-	db "TO@"
 
 .PkrsStr:
 	db "#RUS@"
@@ -873,9 +896,6 @@ StatsScreen_LoadGFX:
 	call .GetItemName
 	hlcoord 7, 8
 	call PlaceString
-	;ld de, .Move
-	;hlcoord 0, 10
-	;call PlaceString
 	ld hl, wTempMonMoves
 	ld de, wListMoves_MoveIndicesBuffer
 	ld bc, NUM_MOVES
@@ -909,32 +929,14 @@ StatsScreen_LoadGFX:
 	ret
 
 .Item:
-	db "ITEM:@"
+	db "Item:@"
 
 .ThreeDashes:
 	db "---@"
 
-.Move:
-	db "MOVE@"
-
 .BluePage:
 	farcall CalcTempmonStats
-	
-	call .PlaceOTInfo	
-	call TN_PrintDVs
-	
-	call StatsScreen_PlaceHorizontalDividerTopBlue	
-	
-	hlcoord 10, 8
-	ld de, SCREEN_WIDTH
-	ld b, 9
-	ld a, $bd ; vertical divider
-.BluePageVerticalDivider1:
-	ld [hl], a
-	add hl, de
-	dec b
-	jr nz, .BluePageVerticalDivider1
-	
+
 	hlcoord 0, 8
 	ld de, SCREEN_WIDTH
 	ld b, 9
@@ -954,51 +956,33 @@ StatsScreen_LoadGFX:
 	add hl, de
 	dec b
 	jr nz, .BluePageVerticalDivider3	
+
+	call StatsScreen_PlaceHorizontalDividerTopBlue
 	
 	call StatsScreen_PlaceHorizontalDividerBotBlue
-	
-	hlcoord 11, 7
-	ld bc, 5
+
 	predef PrintTempMonStatsShort
+
+	ld de, .Trait
+	hlcoord 1, 12
+	call PlaceString
+
+	ld a, [wTempMonTrait]
+	and a
+	ret z
+	ld [wNamedObjectIndexBuffer], a
+	call GetTraitName
+	hlcoord 7, 12
+	call PlaceString
+	
+	ld a, [wTempMonTrait]
+	ld [wCurSpecies], a
+	hlcoord 1, 14
+	predef PrintTraitDesc
 	ret
 
-.PlaceOTInfo:
-	ld de, IDNoString
-	hlcoord 11, 16
-	call PlaceString
-	ld de, OTString
-	hlcoord 11, 14
-	call PlaceString
-	hlcoord 14, 16
-	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
-	ld de, wTempMonID
-	call PrintNum
-	ld hl, .OTNamePointers
-	call GetNicknamePointer
-	call CopyNickname
-	farcall CorrectNickErrors
-	hlcoord 13, 15
-	call PlaceString
-	; ld a, [wTempMonCaughtGender]
-	; and a
-	; jr z, .done
-	; cp $7f
-	; jr z, .done
-	; and $80
-	; ld a, "♂"
-	; jr z, .got_gender
-	; ld a, "♀"
-; .got_gender
-	; hlcoord 9, 9
-	; ld [hl], a
-.done
-	ret
-
-.OTNamePointers:
-	dw wPartyMonOT
-	dw wOTPartyMonOT
-	dw sBoxMonOT
-	dw wBufferMonOT
+.Trait:
+	db "Trait:@"
 
 IDNoString:
 	db "ID.@"

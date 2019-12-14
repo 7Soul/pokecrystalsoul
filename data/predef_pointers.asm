@@ -93,3 +93,4 @@ PredefPointers::
 	add_predef GetVariableMoveName
 	add_predef GetVariableMoveName2
 	add_predef TraitRaiseStat
+	add_predef PrintTraitDesc

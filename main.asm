@@ -146,6 +146,7 @@ INCLUDE "engine/link/mystery_gift_2.asm"
 INCLUDE "engine/items/tmhm.asm"
 INCLUDE "engine/pokemon/print_move_description.asm"
 INCLUDE "data/moves/descriptions.asm"
+INCLUDE "data/traits/descriptions.asm"
 INCLUDE "engine/events/pokerus/pokerus.asm"
 INCLUDE "engine/battle/start_battle.asm"
 INCLUDE "engine/gfx/place_graphic.asm"
@@ -567,6 +568,7 @@ SECTION "Miscellaneous Text", ROMX
 INCLUDE "data/items/names.asm"
 INCLUDE "engine/items/print_item_description.asm"
 INCLUDE "data/moves/names.asm"
+INCLUDE "data/traits/names.asm"
 INCLUDE "engine/overworld/landmarks.asm"
 
 

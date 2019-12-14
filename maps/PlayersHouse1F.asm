@@ -125,10 +125,10 @@ MeetMomScript:
 	giveitem SHINY_CORAL
 
 	givepoke VAPOREON, 50
-	; givepoke VAPOREON, 50
-	; givepoke VAPOREON, 50
-	; givepoke VAPOREON, 50
-	; givepoke VAPOREON, 50
+	givepoke VAPOREON, 50
+	givepoke VAPOREON, 50
+	givepoke VAPOREON, 50
+	givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs

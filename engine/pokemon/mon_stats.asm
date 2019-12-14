@@ -123,59 +123,45 @@ PrintTempMonStats:
 
 PrintTempMonStatsShort:
 ; Print wTempMon's stats at hl, with spacing bc.
-	push bc
-	push hl
-	
-    hlcoord 11, 8
-    ld [wBuffer2], a
+    hlcoord 1, 8
+    ld de, .StatName0 ; HP
+    call PlaceString
+	ld de, wTempMonMaxHP
+	call PrintStat
+
+    hlcoord 1, 9
     ld de, .StatName1 ; ATK
     call PlaceString
+	ld de, wTempMonAttack
+	call PrintStat
 	
-	hlcoord 11, 9
-    ld [wBuffer2], a
+	hlcoord 1, 10
     ld de, .StatName2 ; DEF
     call PlaceString
+	ld de, wTempMonDefense
+    call PrintStat
 	
-	hlcoord 11, 10
-    ld [wBuffer2], a
+	hlcoord 11, 8
     ld de, .StatName3 ; S.ATK
     call PlaceString
+	ld de, wTempMonSpclAtk
+    call PrintStat
 	
-	hlcoord 11, 11
-    ld [wBuffer2], a
+	hlcoord 11, 9
     ld de, .StatName4 ; S.DEF
     call PlaceString
+	ld de, wTempMonSpclDef
+    call PrintStat
 	
-	hlcoord 11, 12
-    ld [wBuffer2], a
+	hlcoord 11, 10
     ld de, .StatName5 ; SPD
     call PlaceString
-	
-	pop hl
-	pop bc
-	add hl, bc
-	ld bc, SCREEN_WIDTH
-	add hl, bc
-	ld de, wTempMonAttack
-	lb bc, 2, 3
-	call .PrintStat
-	ld de, wTempMonDefense
-	call .PrintStat
-	ld de, wTempMonSpclAtk
-	call .PrintStat
-	ld de, wTempMonSpclDef
-	call .PrintStat
 	ld de, wTempMonSpeed
-	jp PrintNum
-
-.PrintStat:
-	push hl
-	call PrintNum
-	pop hl
-	ld de, SCREEN_WIDTH
-	add hl, de
+    call PrintStat
 	ret
 
+.StatName0:
+	db	"HP@"
 .StatName1:
 	db	"ATK@"
 .StatName2:
@@ -186,6 +172,13 @@ PrintTempMonStatsShort:
 	db	"S.DEF@"
 .StatName5:
 	db	"SPD@"
+
+PrintStat:
+	ld bc, 5
+	add hl, bc
+	lb bc, 2, 3
+	call PrintNum
+	ret
 
 GetGender:
 ; Return the gender of a given monster (wCurPartyMon/wCurOTMon/wCurWildMon).
