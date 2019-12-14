@@ -6266,7 +6266,7 @@ LoadEnemyMon:
 	ld b, [hl]
 	inc hl
 	ld c, [hl]
-	jp .UpdateDVs
+	jp .CopyDVs
 
 .WildDVs:
 ; Wild DVs
@@ -6276,103 +6276,105 @@ LoadEnemyMon:
 ; They have their own structs, which are shorter than normal
 	ld a, [wBattleType]
 	cp BATTLETYPE_ROAMING
-	jr nz, .NotRoaming
+	jr nz, .GenerateDVs
 
 ; Grab HP
 	callfar GetRoamMonHP
 	ld a, [hl]
 ; Check if the HP has been initialized
 	and a
-; We'll do something with the result in a minute
-	push af
+; If the RoamMon struct has already been initialized, we're done
+	jr nz, .end_dvs
 
-; Grab DVs
+; If it hasn't, we need to initialize the DVs
+; (HP is initialized at the end of the battle)
+; Copy wRoamMonDVs to wEnemyMonDVs
 	callfar GetRoamMonDVs
 	inc hl
 	ld a, [hld]
 	ld c, a
 	ld b, [hl]
-
-; Get back the result of our check
-	pop af
-; If the RoamMon struct has already been initialized, we're done
-	jr nz, .UpdateDVs
-
-; If it hasn't, we need to initialize the DVs
-; (HP is initialized at the end of the battle)
-	callfar GetRoamMonDVs
-	inc hl
-	call BattleRandom
-	ld [hld], a
-	ld c, a
-	call BattleRandom
-	ld [hl], a
-	ld b, a
-; We're done with DVs
-	jr .UpdateDVs
-
-.NotRoaming:
-; Register a contains wBattleType
-
-; Forced shiny battle type
-; Used by Red Gyarados at Lake of Rage
-	push de
-	cp BATTLETYPE_SHINY
-	jr nz, .check_lucky
-	ld a, $ff ; 100%
-	ld b, a
-	farcall GetAShinyDV1 ; puts result in d
-	ld a, $ff ; 100%
-	ld b, a
-	farcall GetAShinyDV2 ; puts result in e
-	ld a, d
-	ld b, a
-	ld a, e
-	ld c, a
-	jr .UpdateDVs
-
-.check_lucky:
-	ld a, [wLuckyWild]
-	cp 0
-	jr z, .GenerateDVs
-	dec a
-	ld [wLuckyWild], a
-	ld a, 10 ; 10%
-	ld b, a
-	farcall GetAShinyDV1 ; puts result in d
-	ld a, 10 ; 10%
-	ld b, a
-	farcall GetAShinyDV2 ; puts result in e
-	ld a, d
-	ld b, a
-	ld a, e
-	ld c, a
-	jr .UpdateDVs
-	
-.GenerateDVs:
-; Generate new random DVs
-	call RandomDVs ; 0 to 10
-	ld b, a	
-	call RandomDVs ; 0 to 10
-	ld c, a
-	push bc
-	call Random
-	cp 10 percent
-	pop bc
-	jr c, .UpdateDVs ; 10% artificial reduction to shiny chance
-	ld h, b
-	ld l, c
-	call BattleCheckShininess ; 90% chance to reroll if it's a shiny
-	jr c, .GenerateDVs
-
-.UpdateDVs:
-; Input DVs in register bc
+.CopyDVs:
 	ld hl, wEnemyMonDVs
 	ld a, b
 	ld [hli], a
 	ld [hl], c
-	pop de
+	jr .end_dvs
 
+.GenerateDVs:
+; Generate new random DVs
+	ld a, $1A ; 0 to 25
+	call RandomRange
+	inc a
+	ld b, a
+	ld hl, wEnemyMonDVs
+	ld a, b
+	ld [hl], a
+	
+.TryShiny
+	ld a, [wBattleType]
+	cp BATTLETYPE_SHINY
+	jr z, .set_shiny
+
+	call Random
+	cp 5 percent ; 4.7%
+	jr nc, .TryGender
+	call Random
+	cp 5 percent ; 4.7%
+	jr nc, .TryGender
+; 0.22%
+	ld a, [wLuckyWild]
+	and a
+	jr z, .set_shiny
+; 0.11%
+	call Random
+	cp 50 percent
+	jr nc, .TryGender
+
+.set_shiny
+	ld hl, wEnemyMonDVs
+	set 5, [hl] ; set shiny bit
+
+.TryGender
+	call Random
+	ld b, a
+	push bc
+	ld a, [wCurSpecies]
+	dec a
+	ld hl, BaseData + BASE_GENDER
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+	pop bc
+	ld a, BANK(BaseData)
+	call GetFarByte
+
+	ld hl, wEnemyMonDVs
+
+	cp GENDER_UNKNOWN
+	jr z, .Genderless
+
+	and a ; GENDER_F0?
+	jr z, .Male
+
+	cp GENDER_F100
+	jr z, .Female
+
+; Values below the ratio are male, and vice versa.
+	cp b
+	jr c, .Male
+
+.Female
+	set 6, [hl] ; set gender bit
+	jr .end_dvs
+
+.Male
+	res 6, [hl] ; unset gender bit
+	jr .end_dvs
+
+.Genderless
+	set 7, [hl]
+
+.end_dvs
 ; We've still got more to do if we're dealing with a wild monster
 	ld a, [wBattleMode]
 	dec a
@@ -6387,11 +6389,12 @@ LoadEnemyMon:
 
 ; Get letter based on DVs
 	ld hl, wEnemyMonDVs
+	; ld hl, wEnemyMonDVs
 	predef GetUnownLetter
 ; Can't use any letters that haven't been unlocked
 ; If combined with forced shiny battletype, causes an infinite loop
-	call CheckUnownLetter
-	jr c, .GenerateDVs ; try again
+	; call CheckUnownLetter
+	; jr c, .GenerateDVs ; try again
 
 .Magikarp:
 ; These filters are untranslated.
@@ -6423,7 +6426,7 @@ LoadEnemyMon:
 ; Try again if length >= 1616 mm (i.e. if LOW(length) >= 3 inches)
 	ld a, [wMagikarpLength + 1]
 	cp 3
-	jr nc, .GenerateDVs
+	jp nc, .GenerateDVs
 
 ; 20% chance of skipping this check
 	call Random
@@ -6432,7 +6435,7 @@ LoadEnemyMon:
 ; Try again if length >= 1600 mm (i.e. if LOW(length) >= 2 inches)
 	ld a, [wMagikarpLength + 1]
 	cp 2
-	jr nc, .GenerateDVs
+	jp nc, .GenerateDVs
 
 .CheckMagikarpArea:
 ; The "jr z" checks are supposed to be "jr nz".

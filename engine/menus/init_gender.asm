@@ -50,8 +50,8 @@ InitGender:
 .MenuData:
 	db STATICMENU_CURSOR | STATICMENU_WRAP | STATICMENU_DISABLE_B ; flags
 	db 2 ; items
-	db "Dan@"
-	db "Arin@"
+	db "Boy@"
+	db "Girl@"
 
 TextJump_AreYouABoyOrAreYouAGirl:
 	; Are you a Dan? Or are you a Arin?

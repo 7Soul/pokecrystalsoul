@@ -61,9 +61,10 @@ OptionsMenu:
 NewGame:
 	xor a
 	ld [wDebugFlags], a
+	ld [wPlayerGender], a;;;;;
 	call ResetWRAM
 	call NewGame_ClearTileMapEtc
-	call AreYouABoyOrAreYouAGirl
+	; call AreYouABoyOrAreYouAGirl	
 	call OakSpeech
 	call InitializeWorld
 	call RandomizeStarters
@@ -362,6 +363,10 @@ InitializeMagikarpHouse:
 	db "RALPH@"
 
 InitializeNPCNames:
+	ld hl, .PlayerTemp
+	ld de, wPlayerName
+	call .Copy
+
 	ld hl, .Rival
 	ld de, wRivalName
 	call .Copy
@@ -381,6 +386,8 @@ InitializeNPCNames:
 	ld bc, NAME_LENGTH
 	call CopyBytes
 	ret
+
+.PlayerTemp:  db "Chris@"
 
 .Rival:  db "???@"
 .Red:    db "RED@"
@@ -720,7 +727,7 @@ OakSpeech:
 	farcall InitClock
 	call RotateFourPalettesLeft
 	call ClearTileMap
-
+	jp .skip_intro
 	ld de, MUSIC_ROUTE_30
 	call PlayMusic
 
@@ -757,10 +764,10 @@ OakSpeech:
 	call GetSGBLayout
 	call Intro_WipeInFrontpic
 
-	; ld hl, OakText2
-	; call PrintText
-	; ld hl, OakText4
-	; call PrintText
+	ld hl, OakText2
+	call PrintText
+	ld hl, OakText4
+	call PrintText
 	call RotateThreePalettesRight
 	call ClearTileMap
 
@@ -774,8 +781,8 @@ OakSpeech:
 	call GetSGBLayout
 	call Intro_RotatePalettesLeftFrontpic
 
-	; ld hl, OakText5
-	; call PrintText
+	ld hl, OakText5
+	call PrintText
 	call RotateThreePalettesRight
 	call ClearTileMap
 
@@ -790,9 +797,14 @@ OakSpeech:
 	ld hl, OakText6
 	call PrintText
 	call NamePlayer
-	;ld hl, OakText7
-	;call PrintText
+	
+	ld hl, OakText7
+	call PrintText
+.skip_intro
 	ret
+
+.Chris:
+	db "Danny@@@@@@"
 
 OakText1:
 	text_jump _OakText1
@@ -872,14 +884,14 @@ NamePlayer:
 .Kris:
 	db "Arin@@@@@@@"
 
-Unreferenced_Function60e9:
-	call LoadMenuHeader
-	call VerticalMenu
-	ld a, [wMenuCursorY]
-	dec a
-	call CopyNameFromMenu
-	call CloseWindow
-	ret
+; Unreferenced_Function60e9:
+; 	call LoadMenuHeader
+; 	call VerticalMenu
+; 	ld a, [wMenuCursorY]
+; 	dec a
+; 	call CopyNameFromMenu
+; 	call CloseWindow
+; 	ret
 
 StorePlayerName:
 	ld a, "@"

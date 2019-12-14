@@ -11,46 +11,49 @@ GetUnownLetter:
 ; Each 2 bits is the 2 middle bits of the 4 DV bytes
 
 	; atk
-	ld a, [hl]
-	and %01100000
-	sla a
-	ld b, a
-	; def
-	ld a, [hli]
-	and %00000110
-	swap a
-	srl a
-	or b
-	ld b, a
+; 	ld a, [hl]
+; 	and %01100000
+; 	sla a
+; 	ld b, a
+; 	; def
+; 	ld a, [hli]
+; 	and %00000110
+; 	swap a
+; 	srl a
+; 	or b
+; 	ld b, a
 
-	; spd
-	ld a, [hl]
-	and %01100000
-	swap a
-	sla a
-	or b
-	ld b, a
-	; spc
-	ld a, [hl]
-	and %00000110
-	srl a
-	or b
+; 	; spd
+; 	ld a, [hl]
+; 	and %01100000
+; 	swap a
+; 	sla a
+; 	or b
+; 	ld b, a
+; 	; spc
+; 	ld a, [hl]
+; 	and %00000110
+; 	srl a
+; 	or b
 
-; Divide by 10 to get 0-25
-	ldh [hDividend + 3], a
-	xor a
-	ldh [hDividend], a
-	ldh [hDividend + 1], a
-	ldh [hDividend + 2], a
-	ld a, $ff / NUM_UNOWN + 1
-	ldh [hDivisor], a
-	ld b, 4
-	call Divide
+; ; Divide by 10 to get 0-25
+; 	ldh [hDividend + 3], a
+; 	xor a
+; 	ldh [hDividend], a
+; 	ldh [hDividend + 1], a
+; 	ldh [hDividend + 2], a
+; 	ld a, $ff / NUM_UNOWN + 1
+; 	ldh [hDivisor], a
+; 	ld b, 4
+; 	call Divide
 
-; Increment to get 1-26
-	ldh a, [hQuotient + 3]
-	inc a
-	ld [wUnownLetter], a	
+; ; Increment to get 1-26
+; 	ldh a, [hQuotient + 3]
+; 	inc a
+	inc hl
+	ld a, [hl]
+	and %11111
+	ld [wUnownLetter], a
 	ret
 
 GetMonFrontpic:

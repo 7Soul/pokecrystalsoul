@@ -196,9 +196,6 @@ GetGender:
 ; a = 0: f = nc|z;  female
 ;        f = c:  genderless
 
-; This is determined by comparing the Attack and Speed DVs
-; with the species' gender ratio.
-
 ; Figure out what type of monster struct we're looking at.
 
 ; 0: PartyMon
@@ -242,50 +239,19 @@ GetGender:
 	ld a, BANK(sBox)
 	call z, GetSRAMBank
 
-; Attack DV
-	ld a, [hli]
-	and $f0
-	ld b, a
-; Speed DV
-	ld a, [hl]
-	and $f0
-	swap a
-
-; Put our DVs together.
-	or b
-	ld b, a
-
 ; Close SRAM if we were dealing with a sBoxMon.
 	ld a, [wMonType]
 	cp BOXMON
 	call z, CloseSRAM
 
-; We need the gender ratio to do anything with this.
-	push bc
-	ld a, [wCurPartySpecies]
-	dec a
-	ld hl, BaseData + BASE_GENDER
-	ld bc, BASE_DATA_SIZE
-	call AddNTimes
-	pop bc
-
-	ld a, BANK(BaseData)
-	call GetFarByte
-
-; The higher the ratio, the more likely the monster is to be female.
-
-	cp GENDER_UNKNOWN
-	jr z, .Genderless
-
-	and a ; GENDER_F0?
+	ld a, [hl]
+; Bit 7 of DVs sets if it's genderless or not
+	bit 7, a
+	jr nz, .Genderless
+; Bit 6 of DVs sets if it's male (0) or female (1)
+	bit 6, a
+	jr nz, .Female
 	jr z, .Male
-
-	cp GENDER_F100
-	jr z, .Female
-
-; Values below the ratio are male, and vice versa.
-	cp b
-	jr c, .Male
 
 .Female:
 	xor a

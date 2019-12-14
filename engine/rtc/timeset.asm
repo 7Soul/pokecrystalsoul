@@ -41,14 +41,15 @@ InitClock:
 	call .ClearScreen
 	call WaitBGMap
 	call RotateFourPalettesRight
-	ld hl, Text_WokeUpOak
-	call PrintText
+	; ld hl, Text_WokeUpOak
+	; call PrintText
 	ld hl, wTimeSetBuffer
 	ld bc, 50
 	xor a
 	call ByteFill
 	ld a, 10 ; default hour = 10 AM
 	ld [wInitHourBuffer], a
+	jp .MinutesAreSet ; skip
 
 .loop
 	ld hl, Text_WhatTimeIsIt
@@ -113,9 +114,9 @@ InitClock:
 
 .MinutesAreSet:
 	call InitTimeOfDay
-	ld hl, OakText_ResponseToSetTime
-	call PrintText
-	call WaitPressAorB_BlinkCursor
+	; ld hl, OakText_ResponseToSetTime
+	; call PrintText
+	; call WaitPressAorB_BlinkCursor
 	pop af
 	ldh [hInMenu], a
 	ret
@@ -196,31 +197,31 @@ DisplayHourOClock:
 	pop hl
 	ret
 
-UnreferencedFunction907f1:
-	ld h, d
-	ld l, e
-	push hl
-	call DisplayHourOClock
-	pop de
-	inc de
-	inc de
-	ld a, ":"
-	ld [de], a
-	inc de
-	push de
-	ld hl, 3
-	add hl, de
-	ld a, [de]
-	inc de
-	ld [hli], a
-	ld a, [de]
-	ld [hl], a
-	pop hl
-	call DisplayMinutesWithMinString
-	inc hl
-	inc hl
-	inc hl
-	ret
+; UnreferencedFunction907f1:
+; 	ld h, d
+; 	ld l, e
+; 	push hl
+; 	call DisplayHourOClock
+; 	pop de
+; 	inc de
+; 	inc de
+; 	ld a, ":"
+; 	ld [de], a
+; 	inc de
+; 	push de
+; 	ld hl, 3
+; 	add hl, de
+; 	ld a, [de]
+; 	inc de
+; 	ld [hli], a
+; 	ld a, [de]
+; 	ld [hl], a
+; 	pop hl
+; 	call DisplayMinutesWithMinString
+; 	inc hl
+; 	inc hl
+; 	inc hl
+; 	ret
 
 SetMinutes:
 	ldh a, [hJoyPressed]

@@ -215,12 +215,8 @@ endr
 	push hl
 	ld a, [wBattleMode]
 	and a
-	jr nz, .copywildmonDVs
+	jp nz, .copywildmonDVs
 
-	call RandomDVs ; 0 to 10
-	ld b, a
-	call RandomDVs ; 0 to 10
-	ld c, a
 .initializeDVs
 	ld a, b
 	ld [de], a
@@ -228,7 +224,94 @@ endr
 	ld a, c
 	ld [de], a
 	inc de
+	jr .end_dvs
 
+.generateDVs:
+	push hl
+; Generate new random DVs
+	ld a, $1A ; 0 to 25
+	call RandomRange
+	inc a
+	ld b, a
+
+.UpdateDVs:
+	ld h, d
+	ld l, e
+	ld a, b
+	ld [de], a
+	
+.TryShiny
+	ld a, [wBattleType]
+	cp BATTLETYPE_SHINY
+	jr z, .set_shiny
+
+	call Random
+	cp 5 percent ; 4.7%
+	jr nc, .TryGender
+	call Random
+	cp 5 percent ; 4.7%
+	jr nc, .TryGender
+; 0.22%
+	ld a, [wLuckyWild]
+	and a
+	jr z, .set_shiny
+; 0.11%
+	call Random
+	cp 50 percent
+	jr nc, .TryGender
+
+.set_shiny
+	ld h, d
+	ld l, e
+	set 5, [hl] ; set shiny bit
+
+.TryGender
+	call Random
+	ld b, a
+	push bc
+	ld a, [wCurSpecies]
+	dec a
+	ld hl, BaseData + BASE_GENDER
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+	pop bc
+	ld a, BANK(BaseData)
+	call GetFarByte
+
+	ld h, d
+	ld l, e
+
+	cp GENDER_UNKNOWN
+	jr z, .Genderless
+
+	and a ; GENDER_F0?
+	jr z, .Male
+
+	cp GENDER_F100
+	jr z, .Female
+
+; Values below the ratio are male, and vice versa.
+	cp b
+	jr c, .Male
+
+.Female
+	set 6, [hl] ; set gender bit
+	jr .end_gender
+
+.Male
+	res 6, [hl] ; unset gender bit
+	jr .end_gender
+
+.Genderless
+	set 7, [hl]
+	jr .end_gender
+	
+.end_gender
+	ld [de], a
+	inc de
+	inc de
+	pop hl
+.end_dvs
 	; Initialize PP.
 	push hl
 	push de
@@ -1504,63 +1587,64 @@ CalcMonStatC:
 	cp STAT_SDEF
 	jr z, .Special
 ; DV_HP = (DV_ATK & 1) << 3 | (DV_DEF & 1) << 2 | (DV_SPD & 1) << 1 | (DV_SPC & 1)
-	push bc
-	ld a, [hl]
-	swap a
-	and 1
-	add a
-	add a
-	add a
-	ld b, a
-	ld a, [hli]
-	and 1
-	add a
-	add a
-	add b
-	ld b, a
-	ld a, [hl]
-	swap a
-	and 1
-	add a
-	add b
-	ld b, a
-	ld a, [hl]
-	and 1
-	add b
-.mod_hp
-	cp 11
-	jr c, .hpok
-	sub 11
-	jr .mod_hp
-.hpok
-	pop bc
+; 	push bc
+; 	ld a, [hl]
+; 	swap a
+; 	and 1
+; 	add a
+; 	add a
+; 	add a
+; 	ld b, a
+; 	ld a, [hli]
+; 	and 1
+; 	add a
+; 	add a
+; 	add b
+; 	ld b, a
+; 	ld a, [hl]
+; 	swap a
+; 	and 1
+; 	add a
+; 	add b
+; 	ld b, a
+; 	ld a, [hl]
+; 	and 1
+; 	add b
+; .mod_hp
+; 	cp 11
+; 	jr c, .hpok
+; 	sub 11
+; 	jr .mod_hp
+; .hpok
+; 	pop bc
 
-	jr .GotDV
+	; jr .GotDV
 
 .Attack:
-	ld a, [hl]
-	swap a
-	and $f
-	jr .GotDV
+	; ld a, [hl]
+	; swap a
+	; and $f
+	; jr .GotDV
 
 .Defense:
-	ld a, [hl]
-	and $f
-	jr .GotDV
+	; ld a, [hl]
+	; and $f
+	; jr .GotDV
 
 .Speed:
-	inc hl
-	ld a, [hl]
-	swap a
-	and $f
-	jr .GotDV
+	; inc hl
+	; ld a, [hl]
+	; swap a
+	; and $f
+	; jr .GotDV
 
 .Special:
-	inc hl
-	ld a, [hl]
-	and $f
+	; inc hl
+	; ld a, [hl]
+	; and $f
 
 .GotDV:
+	ld a, 0
 	ld d, 0
 	rl a
 	add e
@@ -1604,6 +1688,9 @@ CalcMonStatC:
 	ld a, STAT_MIN_NORMAL
 	jr nz, .not_hp
 	; add level
+	ld a, $34 ; ~0.86
+	call ApplyDamageMod
+	
 	ld a, [wCurPartyLevel]
 	ld b, a
 	ldh a, [hQuotient + 3]
@@ -1614,6 +1701,8 @@ CalcMonStatC:
 	ldh a, [hQuotient + 2]
 	inc a
 	ldh [hMultiplicand + 1], a
+
+	
 
 .no_overflow_3
 	ld a, STAT_MIN_HP

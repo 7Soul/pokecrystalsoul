@@ -3,72 +3,12 @@ INCLUDE "engine/gfx/sgb_layouts.asm"
 CheckShininess:
 ; Check if a mon is shiny by DVs at bc.
 ; Return carry if shiny.
-	ld l, c
-	ld h, b
-
-; Attack (any)
-	ld a, [hl]
-	swap a
-	and $f
-	ld [wBattleDvAtk], a ; save atk
-	ld d, a ; atk (d has total DVs, but not used)
-
-.MaybeShiny0
-; Defense + Atk % 10 must be 0 (0,10,20) (13/100)
-	ld a, [hl]
-	and $f
-	ld [wBattleDvDef], a ; save def
-	add d
-	ld d, a
-	
-	ld a, [wBattleDvAtk]
-	ld b, a
-	ld a, [hli]
-	and $f
-	add b
-.mod_def
-	cp 10
-	jr c, .ok
-	sub 10
-	jr .mod_def
-.ok
-	cp 0
-	jp nz, .NotShiny
-
-; Speed (any)
-.MaybeShiny1
-	ld a, [hl]
-	swap a
-	and $f
-	ld [wBattleDvSpd], a ; save spd
-	add d
-	ld d, a
-
-; Special + Spd % 10 must be 0 (0,10,20)
-.MaybeShiny2
-	ld a, [hl]
-	and $f
-	ld [wBattleDvSpc], a ; save spcl
-	add d
-	ld d, a
-	
-	ld a, [wBattleDvSpd]
-	ld b, a
-	ld a, [hl]
-	and $f
-	add b
-.mod_spcl
-	cp 10
-	jr c, .ok2
-	sub 10
-	jr .mod_spcl
-.ok2
-	cp 0
-	jp nz, .NotShiny
-
-.Shiny:
+	ld hl, wEnemyMonDVs
+	bit 5, [hl]
+	jr nc, .NotShiny
+.shiny
 	ld a, 1
-	ld [wMonIsShiny], a ; save shiny bit at wMonIsShiny
+	ld [wMonIsShiny], a
 	scf
 	ret
 
@@ -81,8 +21,6 @@ CheckShininess:
 	ld [wBattleDvSpc], a
 	and a
 	ret
-
-
 
 InitPartyMenuPalettes:
 	ld hl, PalPacket_PartyMenu + 1

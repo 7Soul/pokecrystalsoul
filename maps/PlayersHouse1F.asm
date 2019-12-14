@@ -124,11 +124,11 @@ MeetMomScript:
 	giveitem MAX_REVIVE, 99
 	giveitem SHINY_CORAL
 
-	givepoke VAPOREON, 99
-	givepoke MAGNETON, 50
-	givepoke STARMIE, 50
-	givepoke TANGELA, 50
-	givepoke VENUSAUR, 50
+	givepoke VAPOREON, 50
+	; givepoke VAPOREON, 50
+	; givepoke VAPOREON, 50
+	; givepoke VAPOREON, 50
+	; givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
