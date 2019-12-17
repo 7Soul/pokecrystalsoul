@@ -1189,3 +1189,17 @@ BattleText_0x8188e:
 	text "There is no time"
 	line "left today!"
 	done
+
+BattleText_Trait::
+	text "<USER>'s trait:"
+	line "@"
+	text_from_ram wStringBuffer1
+	text "."
+	prompt
+
+BattleText_EnemyTrait::
+	text "<TARGET>'s"
+	line "trait: @"
+	text_from_ram wStringBuffer1
+	text "."
+	prompt

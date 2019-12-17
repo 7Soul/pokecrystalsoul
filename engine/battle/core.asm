@@ -4178,7 +4178,17 @@ SendOutPlayerMon:
 	callfar DoMove
 
 .dont_start
+	call BattleMenu_EnemyTrait
 	ret
+
+BattleMenu_EnemyTrait:
+	call SetPlayerTurn
+	ld a, [wEnemyMonTrait]
+	ld [wNamedObjectIndexBuffer], a
+	call GetTraitName
+	ld hl, BattleText_EnemyTrait
+	call StdBattleTextBox
+	jp BattleMenu
 
 NewBattleMonStatus:
 	xor a
@@ -5000,16 +5010,15 @@ BattleMenu:
 	ld a, [wBattleType]
 	cp BATTLETYPE_CONTEST
 	jr nz, .not_contest
-	farcall ContestBattleMenu
+	farcall ContestBattleMenu	
 	jr .next
 .not_contest
-
 	; Auto input: choose "ITEM"
-	ld a, [wInputType]
-	or a
-	jr z, .skip_dude_pack_select
-	farcall _DudeAutoInput_DownA
-.skip_dude_pack_select
+; 	ld a, [wInputType]
+; 	or a
+; 	jr z, .skip_dude_pack_select
+; 	farcall _DudeAutoInput_DownA
+; .skip_dude_pack_select
 	call LoadBattleMenu2
 	ret c
 
@@ -5035,29 +5044,29 @@ BattleMenu_Fight:
 	ret
 
 LoadBattleMenu2:
-	call IsMobileBattle
-	jr z, .mobile
+	; call IsMobileBattle
+	; jr z, .mobile
 
 	farcall LoadBattleMenu
 	and a
 	ret
 
-.mobile
-	farcall Function100b12
-	ld a, [wcd2b]
-	and a
-	ret z
+; .mobile
+; 	farcall Function100b12
+; 	ld a, [wcd2b]
+; 	and a
+; 	ret z
 
-	ld hl, wcd2a
-	bit 4, [hl]
-	jr nz, .error
-	ld hl, BattleText_LinkErrorBattleCanceled
-	call StdBattleTextBox
-	ld c, 60
-	call DelayFrames
-.error
-	scf
-	ret
+; 	ld hl, wcd2a
+; 	bit 4, [hl]
+; 	jr nz, .error
+; 	ld hl, BattleText_LinkErrorBattleCanceled
+; 	call StdBattleTextBox
+; 	ld c, 60
+; 	call DelayFrames
+; .error
+; 	scf
+; 	ret
 
 BattleMenu_Pack:
 	ld a, [wLinkMode]
@@ -6409,62 +6418,62 @@ LoadEnemyMon:
 	cp MAGIKARP
 	jr nz, .Happiness
 
-; Get Magikarp's length
-	ld de, wEnemyMonDVs
-	ld bc, wPlayerID
-	callfar CalcMagikarpLength
+; ; Get Magikarp's length
+; 	ld de, wEnemyMonDVs
+; 	ld bc, wPlayerID
+; 	callfar CalcMagikarpLength
 
-; No reason to keep going if length > 1536 mm (i.e. if HIGH(length) > 6 feet)
-	ld a, [wMagikarpLength]
-	cp 5
-	jr nz, .CheckMagikarpArea
+; ; No reason to keep going if length > 1536 mm (i.e. if HIGH(length) > 6 feet)
+; 	ld a, [wMagikarpLength]
+; 	cp 5
+; 	jr nz, .CheckMagikarpArea
 
-; 5% chance of skipping both size checks
-	call Random
-	cp 5 percent
-	jr c, .CheckMagikarpArea
-; Try again if length >= 1616 mm (i.e. if LOW(length) >= 3 inches)
-	ld a, [wMagikarpLength + 1]
-	cp 3
-	jp nc, .GenerateDVs
+; ; 5% chance of skipping both size checks
+; 	call Random
+; 	cp 5 percent
+; 	jr c, .CheckMagikarpArea
+; ; Try again if length >= 1616 mm (i.e. if LOW(length) >= 3 inches)
+; 	ld a, [wMagikarpLength + 1]
+; 	cp 3
+; 	jp nc, .GenerateDVs
 
-; 20% chance of skipping this check
-	call Random
-	cp 20 percent - 1
-	jr c, .CheckMagikarpArea
-; Try again if length >= 1600 mm (i.e. if LOW(length) >= 2 inches)
-	ld a, [wMagikarpLength + 1]
-	cp 2
-	jp nc, .GenerateDVs
+; ; 20% chance of skipping this check
+; 	call Random
+; 	cp 20 percent - 1
+; 	jr c, .CheckMagikarpArea
+; ; Try again if length >= 1600 mm (i.e. if LOW(length) >= 2 inches)
+; 	ld a, [wMagikarpLength + 1]
+; 	cp 2
+; 	jp nc, .GenerateDVs
 
-.CheckMagikarpArea:
-; The "jr z" checks are supposed to be "jr nz".
+; .CheckMagikarpArea:
+; ; The "jr z" checks are supposed to be "jr nz".
 
-; Instead, all maps in GROUP_LAKE_OF_RAGE (Mahogany area)
-; and Routes 20 and 44 are treated as Lake of Rage.
+; ; Instead, all maps in GROUP_LAKE_OF_RAGE (Mahogany area)
+; ; and Routes 20 and 44 are treated as Lake of Rage.
 
-; This also means Lake of Rage Magikarp can be smaller than ones
-; caught elsewhere rather than the other way around.
+; ; This also means Lake of Rage Magikarp can be smaller than ones
+; ; caught elsewhere rather than the other way around.
 
-; Intended behavior enforces a minimum size at Lake of Rage.
-; The real behavior prevents a minimum size in the Lake of Rage area.
+; ; Intended behavior enforces a minimum size at Lake of Rage.
+; ; The real behavior prevents a minimum size in the Lake of Rage area.
 
-; Moreover, due to the check not being translated to feet+inches, all Magikarp
-; smaller than 4'0" may be caught by the filter, a lot more than intended.
-	ld a, [wMapGroup]
-	cp GROUP_LAKE_OF_RAGE
-	jr nz, .Happiness
-	ld a, [wMapNumber]
-	cp MAP_LAKE_OF_RAGE
-	jr nz, .Happiness
-; 40% chance of not flooring
-	call Random
-	cp 40 percent - 2
-	jr c, .Happiness
-; Try again if length < 1024 mm (i.e. if HIGH(length) < 3 feet)
-	ld a, [wMagikarpLength]
-	cp HIGH(1024) ; should be "cp 3", since 1024 mm = 3'4", but HIGH(1024) = 4
-	jp c, .GenerateDVs ; try again
+; ; Moreover, due to the check not being translated to feet+inches, all Magikarp
+; ; smaller than 4'0" may be caught by the filter, a lot more than intended.
+; 	ld a, [wMapGroup]
+; 	cp GROUP_LAKE_OF_RAGE
+; 	jr nz, .Happiness
+; 	ld a, [wMapNumber]
+; 	cp MAP_LAKE_OF_RAGE
+; 	jr nz, .Happiness
+; ; 40% chance of not flooring
+; 	call Random
+; 	cp 40 percent - 2
+; 	jr c, .Happiness
+; ; Try again if length < 1024 mm (i.e. if HIGH(length) < 3 feet)
+; 	ld a, [wMagikarpLength]
+; 	cp HIGH(1024) ; should be "cp 3", since 1024 mm = 3'4", but HIGH(1024) = 4
+; 	jp c, .GenerateDVs ; try again
 
 ; Finally done with DVs
 
@@ -9392,7 +9401,7 @@ BattleStartMessage:
 	ld de, ANIM_SEND_OUT_MON
 	call Call_PlayBattleAnim
 
-.not_shiny
+.not_shiny	
 	farcall CheckSleepingTreeMon
 	jr c, .skip_cry
 
@@ -9451,16 +9460,13 @@ BattleStartMessage:
 	jr z, .skip_item
 	cp 0
 	jr z, .skip_item
-	ld [wNamedObjectIndexBuffer], a
-	;call GetItemName
+
 	ld hl, WildHoldingText
 	call StdBattleTextBox
 	
 .skip_item
 	call IsMobileBattle2
 	ret nz
-
 	ld c, $2 ; start
 	farcall Mobile_PrintOpponentBattleMessage
-
 	ret

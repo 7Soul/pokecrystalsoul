@@ -3,16 +3,17 @@ INCLUDE "engine/gfx/sgb_layouts.asm"
 CheckShininess:
 ; Check if a mon is shiny by DVs at bc.
 ; Return carry if shiny.
-	ld hl, wEnemyMonDVs
+	ld h, b
+	ld l, c
 	bit 5, [hl]
-	jr nc, .NotShiny
+	jr z, .not_shiny
 .shiny
 	ld a, 1
 	ld [wMonIsShiny], a
 	scf
 	ret
 
-.NotShiny:
+.not_shiny
 	xor a
 	ld [wMonIsShiny], a ; save not shiny bit at wMonIsShiny
 	ld [wBattleDvAtk], a

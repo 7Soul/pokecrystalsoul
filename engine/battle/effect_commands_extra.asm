@@ -881,8 +881,24 @@ TraitContact:
 
 TraitsThatRequireContact:
 	db TRAIT_CONTACT_BRN
-	db TRAIT_CONTACT_PAR
+	db TRAIT_CONTACT_PRZ
 	db TRAIT_CONTACT_PSN
+	db TRAIT_CONTACT_FLINCH
+	db -1
+
+TraitsThatBurn:
+	db TRAIT_CONTACT_BRN
+	db -1
+
+TraitsThatParalyze:
+	db TRAIT_CONTACT_PRZ
+	db -1
+	
+TraitsThatPoison:
+	db TRAIT_CONTACT_PSN
+	db -1
+
+TraitsThatFlinch:
 	db TRAIT_CONTACT_FLINCH
 	db -1
 
@@ -932,6 +948,7 @@ TraitReduceDamage:
 .not_se_reduction
 	ret
 
+
 TraitsThatReduceSuperEffectiveDamage:
 	db TRAIT_REDUCE_SUPER_EFFECTIVE
 	db -1
@@ -952,67 +969,95 @@ TraitsThatReduceDamage:
 	db TRAIT_REDUCE_DARK
 	db -1
 
-CallFarSpecificTrait:
-	ld a, [wBuffer1]
-	call CheckTraitCondition.CheckSpecificTrait
-	ret
-
-TraitBoostPower:
+TraitReducePower:
+	ld c, 7
+.loop
+	ld hl, .JumpTableTraitsReduceMoveClass
+	dec c
+	ld a, c
+	jr z, .not_met
+	push bc
+	call GetToJumptable
+	call CheckTrait
+	pop bc
+	ld a, c
+	jr nc, .loop
+.met
+	ld a, c
+	ld hl, JumptableMoveClass
+	call GetToJumptable
+	ld a, [hl]
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	ld hl, BitingMoves
 	ld de, 1
 	call IsInArray
-	jr c, .biting_move
-
-.biting_move
-	ld hl, TraitsThatBoostBitingMoves
-	call CheckTrait
-	jr nc, .not_met
-	jr .boost
-.cutting_move
-	ld hl, TraitsThatBoostCuttingMoves
-	call CheckTrait
-	jr nc, .not_met
-	jr .boost
-.punching_move
-	ld hl, TraitsThatBoostPunchingMoves
-	call CheckTrait
 	jr nc, .not_met
 .boost
-	ld hl, wPlayerMoveStructPower
-	ld a, [hl]
-	ld b, a
-	srl a
-	srl a
-	srl a
-	add b
-	ld [hl], a
-	ld [wBuffer1], a
-
+	ld a, $67 ; ~0.85
+	call ApplyDamageMod
 .not_met
 	ret
 
-Switch_turn:
-	ld hl, BattleCommand_SwitchTurn
-	ld a, BANK("Effect Commands")
-	rst FarCall
+.JumpTableTraitsReduceMoveClass
+	dw TraitsThatReducePunchingMoves
+	dw TraitsThatReduceSoundMoves
+	dw TraitsThatReduceBitingMoves
+	dw TraitsThatReduceCuttingMoves
+	dw TraitsThatReduceBeamMoves
+	dw TraitsThatReducePerfurateMoves
+
+TraitBoostPower:
+	ld c, 7
+.loop
+	ld hl, .JumpTableTraitsBoostMoveClass
+	dec c
+	ld a, c
+	jr z, .not_met
+	push bc
+	call GetToJumptable
+	call CheckTrait
+	pop bc
+	ld a, c
+	jr nc, .loop
+.met
+	ld a, c
+	ld hl, JumptableMoveClass
+	call GetToJumptable
+	ld a, [hl]
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	ld de, 1
+	call IsInArray
+	jr nc, .not_met
+.boost
+	ld a, $76 ; ~1.16
+	call ApplyDamageMod
+.not_met
 	ret
 
-TraitsThatBurn:
-	db TRAIT_CONTACT_BRN
+
+.JumpTableTraitsBoostMoveClass
+	dw TraitsThatBoostPunchingMoves
+	dw TraitsThatBoostSoundMoves
+	dw TraitsThatBoostBitingMoves
+	dw TraitsThatBoostCuttingMoves
+	dw TraitsThatBoostBeamMoves
+	dw TraitsThatBoostPerfurateMoves
+
+JumptableMoveClass:
+	dw PunchingMoves
+	dw SoundMoves
+	dw BitingMoves
+	dw CuttingMoves
+	dw BeamMoves
+	dw PerfurateMoves
+
+TraitsThatBoostPunchingMoves:
+	db TRAIT_BOOST_PUNCHING
 	db -1
 
-TraitsThatParalyze:
-	db TRAIT_CONTACT_PAR
-	db -1
-	
-TraitsThatPoison:
-	db TRAIT_CONTACT_PSN
-	db -1
-
-TraitsThatFlinch:
-	db TRAIT_CONTACT_FLINCH
+TraitsThatBoostSoundMoves:
+	db TRAIT_BOOST_SOUND
 	db -1
 
 TraitsThatBoostBitingMoves:
@@ -1020,11 +1065,49 @@ TraitsThatBoostBitingMoves:
 	db -1
 
 TraitsThatBoostCuttingMoves:
-	db TRAIT_BOOST_BITING
+	db TRAIT_BOOST_CUTTING
 	db -1
 
-TraitsThatBoostPunchingMoves:
-	db TRAIT_BOOST_BITING
+TraitsThatBoostBeamMoves:
+	db TRAIT_BOOST_BEAM
+	db -1
+
+TraitsThatBoostPerfurateMoves:
+	db TRAIT_BOOST_PERFURATE
+	db -1
+
+TraitsThatReducePunchingMoves:
+	db TRAIT_REDUCE_PUNCHING
+	db -1
+
+TraitsThatReduceSoundMoves:
+	db TRAIT_REDUCE_SOUND
+	db -1
+
+TraitsThatReduceBitingMoves:
+	db TRAIT_REDUCE_BITING
+	db -1
+
+TraitsThatReduceCuttingMoves:
+	db TRAIT_REDUCE_CUTTING
+	db -1
+
+TraitsThatReduceBeamMoves:
+	db TRAIT_REDUCE_BEAM
+	db -1
+
+TraitsThatReducePerfurateMoves:
+	db TRAIT_REDUCE_PERFURATE
+	db -1
+
+PunchingMoves:
+	db MEGA_PUNCH
+	db COMET_PUNCH
+	db DIZZY_PUNCH
+	db FIRE_PUNCH
+	db ICE_PUNCH
+	db THUNDERPUNCH
+	db MACH_PUNCH
 	db -1
 
 BitingMoves:
@@ -1043,14 +1126,29 @@ CuttingMoves:
 	db RAZOR_LEAF
 	db -1
 
-PunchingMoves:
-	db MEGA_PUNCH
-	db COMET_PUNCH
-	db DIZZY_PUNCH
-	db FIRE_PUNCH
-	db ICE_PUNCH
-	db THUNDERPUNCH
-	db MACH_PUNCH
+SoundMoves:
+	db BUG_BUZZ
+	db GROWL
+	db HYPER_SONAR
+	db SCREECH
+	db SING
+	db SNORE
+	db SUPERSONIC
+	db -1
+
+BeamMoves:
+	db AURORA_BEAM
+	db SOLARBEAM
+	db HYPER_BEAM
+	db ICE_BEAM
+	db PSYBEAM
+	db -1
+
+PerfurateMoves:
+	db HORN_DRILL
+	db DRILL_PECK
+	db MEGAHORN
+	db HORN_ATTACK
 	db -1
 
 ContactMoves:
@@ -1150,3 +1248,24 @@ Chance:
 	; ld hl, BattleCommand_StatUpMessage
 	; ld a, BANK("Effect Commands")
 	; rst FarCall
+
+Switch_turn:
+	ld hl, BattleCommand_SwitchTurn
+	ld a, BANK("Effect Commands")
+	rst FarCall
+	ret
+
+GetToJumptable:
+	ld b, 0
+	ld c, a
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	ret
+
+CallFarSpecificTrait:
+	ld a, [wBuffer1]
+	call CheckTraitCondition.CheckSpecificTrait
+	ret

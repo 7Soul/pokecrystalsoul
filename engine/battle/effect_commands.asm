@@ -2739,9 +2739,7 @@ PlayerAttackDamage:
 
 	call ResetDamage
 
-	farcall TraitBoostPower
-	ld hl, wBuffer1
-	; ld hl, wPlayerMoveStructPower
+	ld hl, wPlayerMoveStructPower
 	ld a, [hli]
 	and a
 	ld d, a
@@ -2909,9 +2907,8 @@ CheckDamageStatsCritical:
 EnemyAttackDamage:
 	call ResetDamage
 
-; No damage dealt with 0 power.
 	ld hl, wEnemyMoveStructPower
-	ld a, [hli] ; hl = wEnemyMoveStructType
+	ld a, [hli]
 	ld d, a
 	and a
 	ret z
@@ -3184,6 +3181,24 @@ BattleCommand_DamageCalc:
 	ld [hl], 50
 	ld b, $4
 	call Divide
+
+	; ldh a, [hMultiplicand + 1]
+	; ld [$c000], a
+	; ldh a, [hMultiplicand + 2]
+	; ld [$c001], a
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitBoostPower
+
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitReducePower
+
+	; ldh a, [hMultiplicand + 1]
+	; ld [$c002], a
+	; ldh a, [hMultiplicand + 2]
+	; ld [$c003], a
 	
 ; Item boosts
 	call GetUserItem
@@ -5092,19 +5107,7 @@ CalcEnemyStats:
 CalcStats:
 .loop
 	push af
-	; ld [wBuffer1], a
 	ld a, [hli]
-	; ld [wBuffer2], a
-	; push hl
-	; push bc
-	; push de
-	; push af
-	; predef TraitRaiseStat
-	; pop af
-	; pop de
-	; pop bc
-	; pop hl
-	; ld a, [wBuffer2]
 	push hl
 	push bc
 

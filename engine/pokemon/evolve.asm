@@ -534,10 +534,9 @@ FillEggMove:
 ; higher chance of giving moves from 1st and 2nd slot in the egg moves list
 ; 50% chance of being move 1 or 2
 ; 50% chance of any move (including 1 and 2)
-	ld a, 1
-	call RandomRange
-	cp 0
-	jr z, .high_moves
+	call Random
+	cp $7F
+	jr c, .high_moves
 	
 ; get move 1 or 2
 	ld a, 2
@@ -712,8 +711,7 @@ FillMoves:
 	jr .noEggMove
 .notLucky
 ; 2.7% chance to have egg move in a normal battle
-	ld a, 255
-	call RandomRange
+	call Random
 	cp 7
 	jr nc, .noEggMove
 	call FillEggMove
