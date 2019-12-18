@@ -57,20 +57,27 @@ TraitDescriptions::
 	dw StormBoon5Description
 	dw StormBoon6Description
 	dw SandFilterDescription
-	dw StoneSkinDescription
-	dw HitBreakerDescription
-	dw CarapaceDescription
-	dw ShockAbsorbDescription
-	dw ShapeCastDescription
-	dw FumeCoatDescription
-	dw HeatproofDescription
-	dw WaterproofDescription
-	dw AridTouchDescription
-	dw IonFieldDescription
-	dw ForewarnDescription
-	dw MagmaSkinDescription
-	dw ShadowBeingDescription
-	dw PrismArmorDescription
+	dw StoneSkinDescription   ; TRAIT_REDUCE_NORMAL
+	dw FadeDescription        ; TRAIT_REDUCE_NORMAL_ACC
+	dw HitBreakerDescription  ; TRAIT_REDUCE_FIGHTING
+	dw CarapaceDescription    ; TRAIT_REDUCE_FLYING
+	dw FlightRushDescription  ; TRAIT_REDUCE_BOOST_FLYING_SPEED
+	dw ShockAbsorbDescription ; TRAIT_REDUCE_GROUND
+	dw ShapeCastDescription   ; TRAIT_REDUCE_ROCK
+	dw IronCoatDescription    ; TRAIT_BOOST_ROCK_DEFENSE
+	dw GoldCoatDescription    ; TRAIT_BOOST_ROCK_SP_DEFENSE
+	dw FumeCoatDescription    ; TRAIT_REDUCE_BUG
+	dw HeatproofDescription   ; TRAIT_REDUCE_FIRE
+	dw WaterproofDescription  ; TRAIT_REDUCE_WATER
+	dw HardWaterDescription   ; TRAIT_BOOST_WATER_DEFENSE
+	dw WaterSurgeDescription  ; TRAIT_BOOST_WATER_HP
+	dw AridTouchDescription   ; TRAIT_REDUCE_GRASS
+	dw IonFieldDescription    ; TRAIT_REDUCE_ELECTRIC
+	dw ZapRushDescription     ; TRAIT_BOOST_ELECTRIC_SPEED
+	dw ForewarnDescription    ; TRAIT_REDUCE_PSYCHIC
+	dw MagmaSkinDescription   ; TRAIT_REDUCE_ICE
+	dw ShadowBeingDescription ; TRAIT_REDUCE_DARK
+	dw PrismArmorDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE
     dw TraitFFDescription
 	dw Trait00Description
 
@@ -310,55 +317,83 @@ StoneSkinDescription:
 	db   "Reduces NORMAL"
 	next "damage taken.@"
 
+FadeDescription:
+	db   "Reduces NORMAL"
+	next "damage accuracy.@"
+
 HitBreakerDescription:
 	db   "Reduces FIGHTING"
 	next "damage taken.@"
 
-CarapaceDescription
+CarapaceDescription:
 	db   "Reduces FLYING"
 	next "damage taken.@"
 
-ShockAbsorbDescription
+FlightRushDescription:
+	db   "SPEED disparity"
+	next "boosts FLYING.@"
+
+ShockAbsorbDescription:
 	db   "Reduces GROUND"
 	next "damage taken.@"
 	
-ShapeCastDescription
+ShapeCastDescription:
 	db   "Reduces ROCK dam-"
 	next "age taken.@"
 	
-FumeCoatDescription
+IronCoatDescription:
+	db   "DEFENSE disparity"
+	next "boosts ROCK.@"
+	
+GoldCoatDescription:
+	db   "SP.DEF disparity"
+	next "boosts ROCK.@"
+	
+FumeCoatDescription:
 	db   "Reduces BUG damage"
 	next "taken.@"
 	
-HeatproofDescription
+HeatproofDescription:
 	db   "Reduces FIRE dam-"
 	next "age taken.@"
 	
-WaterproofDescription
+WaterproofDescription:
 	db   "Reduces WATER dam-"
 	next "age taken.@"
 	
-AridTouchDescription
+HardWaterDescription:
+	db   "DEFENSE disparity"
+	next "boosts WATER.@"
+	
+WaterSurgeDescription:
+	db   "Missing HEALTH"
+	next "boosts WATER.@"
+	
+AridTouchDescription:
 	db   "Reduces GRASS dam-"
 	next "age taken.@"
 	
-IonFieldDescription
-	db   "Reduces ELECTRICT"
+IonFieldDescription:
+	db   "Reduces ELECTRIC"
 	next "damage taken.@"
+		
+ZapRushDescription:
+	db   "SPEED disparity"
+	next "boosts ELECTRIC.@"
 	
-ForewarnDescription
+ForewarnDescription:
 	db   "Reduces PSYCHIC"
 	next "damage taken.@"
 	
-MagmaSkinDescription
+MagmaSkinDescription:
 	db   "Reduces ICE damage"
 	next "taken.@"
 	
-ShadowBeingDescription
+ShadowBeingDescription:
 	db   "Reduces DARK dam-"
 	next "age taken.@"
 	
-PrismArmorDescription
+PrismArmorDescription:
 	db   "Take less SUPER-"
 	next "EFFECTIVE damage@"
 	

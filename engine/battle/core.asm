@@ -4187,8 +4187,7 @@ BattleMenu_EnemyTrait:
 	ld [wNamedObjectIndexBuffer], a
 	call GetTraitName
 	ld hl, BattleText_EnemyTrait
-	call StdBattleTextBox
-	jp BattleMenu
+	jp StdBattleTextBox
 
 NewBattleMonStatus:
 	xor a
@@ -9450,6 +9449,8 @@ BattleStartMessage:
 	farcall BattleStart_TrainerHuds
 	pop hl
 	call StdBattleTextBox
+	ld c, 40
+	call DelayFrames
 	
 	ld a, [wBattleMode]
 	dec a

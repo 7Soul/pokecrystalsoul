@@ -534,6 +534,8 @@ SapHealth:
 	jp UpdateBattleMonInParty
 
 CheckTrait:
+	cp -1
+	ret z
 	push hl
 	ld hl, wTraitActivated
 	ldh a, [hBattleTurn]
@@ -581,79 +583,73 @@ CheckTraitCondition:
 	jp c, .check_sun
 	cp TRAIT_SANDSTORM_NO_STATUS + 1 ; all sandstorm traits
 	jp c, .check_sandstorm
-	cp TRAIT_REDUCE_SUPER_EFFECTIVE ; 
-	jp z, .success
-	cp TRAIT_REDUCE_NORMAL ; traits that require move type to be normal
+	push af
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVarAddr
+	and TYPE_MASK
+	ld d, a
+	pop af
+	cp TRAIT_REDUCE_FIGHTING ; traits below this that require move type to be NORMAL
 	ld b, a
 	ld c, NORMAL
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_FIGHTING ; traits that require move type to be water
+	cp TRAIT_REDUCE_FLYING ; traits that require move type to be FIGHTING
 	ld b, a
 	ld c, FIGHTING
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_FLYING ; traits that require move type to be water
+	cp TRAIT_REDUCE_GROUND ; traits that require move type to be FLYING
 	ld b, a
 	ld c, FLYING
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_GROUND ; traits that require move type to be water
+	cp TRAIT_REDUCE_ROCK; traits that require move type to be GROUND
 	ld b, a
 	ld c, GROUND
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_ROCK ; traits that require move type to be water
+	cp TRAIT_REDUCE_BUG ; traits that require move type to be ROCK
 	ld b, a
 	ld c, ROCK
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_BUG ; traits that require move type to be water
+	cp TRAIT_REDUCE_FIRE ; traits that require move type to be BUG
 	ld b, a
 	ld c, BUG
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_FIRE ; traits that require move type to be water
+	cp TRAIT_REDUCE_WATER ; traits that require move type to be FIRE
 	ld b, a
 	ld c, FIRE
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_WATER ; traits that require move type to be water
+	cp TRAIT_REDUCE_GRASS ; traits that require move type to be WATER
 	ld b, a
 	ld c, WATER
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_GRASS ; traits that require move type to be water
+	cp TRAIT_REDUCE_ELECTRIC ; traits that require move type to be GRASS
 	ld b, a
 	ld c, GRASS
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_ELECTRIC ; traits that require move type to be water
+	cp TRAIT_REDUCE_PSYCHIC ; traits that require move type to be ELECTRIC
 	ld b, a
 	ld c, ELECTRIC
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_PSYCHIC ; traits that require move type to be water
+	cp TRAIT_REDUCE_ICE ; traits that require move type to be PSYCHIC
 	ld b, a
 	ld c, PSYCHIC
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_ICE ; traits that require move type to be water
+	cp TRAIT_REDUCE_DARK ; traits that require move type to be ICE
 	ld b, a
 	ld c, ICE
 	jp c, .check_move_type
-	jr .not_met1
-	cp TRAIT_REDUCE_DARK ; traits that require move type to be water
+	cp TRAIT_REDUCE_SUPER_EFFECTIVE ; traits that require move type to be DARK
 	ld b, a
 	ld c, DARK
 	jp c, .check_move_type
-	jr .not_met1
-.success
-	scf
-	ret
+	cp TRAIT_REDUCE_SUPER_EFFECTIVE ; 
+	jp z, .success
 .not_met1
 	pop af
 .not_met
 	and a
+	ret
+.success
+	scf
 	ret
 
 .check_rain
@@ -677,17 +673,6 @@ CheckTraitCondition:
 	and a
 	ret
 
-.check_move_type
-	ld a, BATTLE_VARS_MOVE_TYPE
- 	call GetBattleVarAddr
-	and TYPE_MASK
-	cp c
-	jp z, .success
-	and a
-	ld a, b ; restore trait into 'a'
-	
-	ret
-
 .check_move_category ; 0 = physical, 1 = special, 2 = status
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
@@ -695,6 +680,14 @@ CheckTraitCondition:
 	rlc a
 	rlc a
 	dec a
+	ret
+
+.check_move_type:
+	ld a, d
+	cp c
+	jp z, .success
+	and a
+	ld a, b ; restore trait into 'a'	
 	ret
 
 TraitRaiseStat:
@@ -1149,6 +1142,201 @@ PerfurateMoves:
 	db DRILL_PECK
 	db MEGAHORN
 	db HORN_ATTACK
+	db -1
+
+TraitDamageBasedOnStats:
+	ld c, 6
+.loop
+	ld hl, .JumpTableTraitsBoostMoveByStat
+	dec c
+	ld a, c
+	jr z, .not_met
+	push bc
+	call GetToJumptable
+	call CheckTrait
+	pop bc
+	ld a, c
+	jr nc, .loop
+.met
+	ld hl, wBattleMonStats
+	ld de, wEnemyMonStats
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .got_stats	
+	ld hl, wEnemyMonStats
+	ld de, wBattleMonStats
+.got_stats
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	push hl
+	ld h, d
+	ld l, e
+	add hl, bc
+	add hl, bc
+	ld d, h
+	ld e, l
+	pop hl
+
+	ld a, [de] ; opp stat (high byte)
+	sub [hl] ; sub user stat from opp stat (high byte)
+	jr nc, .no_carry
+	cpl
+	inc a
+.no_carry
+	and a ; check high byte diff is 0
+	jr nz, .max ; if there is a diff, then the total diff is clearly above 255
+; check low bytes
+	inc de
+	inc hl
+	ld a, [de] ; opp stat (high byte)
+	sub [hl] ; sub user stat from opp stat
+	jr nc, .no_carry2
+	cpl
+	inc a
+.no_carry2
+; has difference between low bytes
+	ld b, a ; diff is in b
+	ld hl, .Boosts
+.loop2	
+	ld a, [hl]
+	cp -1
+	jr z, .max
+	cp b
+	jr nc, .got_multi
+	inc hl
+	inc hl
+	jr .loop2
+.got_multi
+	dec hl
+	ld a, [hl]
+.boost
+	call ApplyDamageMod
+.not_met
+	ret
+.max
+	ld a, $A7
+	jr .boost
+
+.Boosts:
+	db $0,  $FF ; 1.00, diff 0
+	db $19, $FE ; 1.07, diff 25
+	db $2D, $A9 ; 1.11, diff 45
+	db $7B, $FD ; 1.15, diff 75
+	db $64, $65 ; 1.20, diff 100
+	db $87, $A8 ; 1.25, diff 135
+	db $AF, $FB ; 1.36, diff 175
+	db $F5, $A7 ; 1.42, diff 250
+	db -1, -1
+
+.JumpTableTraitsBoostMoveByStat
+	dw TraitsThatBoostDamageBasedOnAttack
+	dw TraitsThatBoostDamageBasedOnDefense
+	dw TraitsThatBoostDamageBasedOnSpeed
+	dw TraitsThatBoostDamageBasedOnSpAttack
+	dw TraitsThatBoostDamageBasedOnSpDefense
+
+TraitsThatBoostDamageBasedOnAttack:
+	db -1
+
+TraitsThatBoostDamageBasedOnDefense:
+	db TRAIT_BOOST_ROCK_DEFENSE
+	db TRAIT_BOOST_WATER_DEFENSE
+	db -1
+
+TraitsThatBoostDamageBasedOnSpeed:
+	db TRAIT_BOOST_FLYING_SPEED
+	db TRAIT_BOOST_ELECTRIC_SPEED
+	db -1
+
+TraitsThatBoostDamageBasedOnSpAttack:
+	db 
+	db -1
+
+TraitsThatBoostDamageBasedOnSpDefense:
+	db TRAIT_BOOST_ROCK_SP_DEFENSE
+	db -1
+
+TraitDamageBasedOnHP:
+	ld hl, TraitsThatBoostMoveByHP
+	call CheckTrait
+	jr nc, .not_met
+
+	ld hl, wBattleMonHP
+	ld de, wBattleMonMaxHP
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .got_stats	
+	ld hl, wEnemyMonHP
+	ld de, wEnemyMonMaxHP
+.got_stats
+; save old calculation results
+	ldh a, [hMultiplicand + 1]
+	ld b, a
+	ldh a, [hMultiplicand + 2]
+	ld c, a
+	push bc
+; get hp percentage
+	xor a
+	ldh [hMultiplicand + 0], a
+	ld a, [hli]
+	ldh [hMultiplicand + 1], a
+	ld a, [hl]
+	ldh [hMultiplicand + 2], a
+	ld a, 25
+	ldh [hMultiplier], a
+	call Multiply
+	ld h, d
+	ld l, e
+	ld a, [hli]
+	ld b, [hl]
+	srl a
+	rr b
+	srl a
+	rr b
+	ld a, b
+	ld b, 4
+	ldh [hDivisor], a
+	call Divide
+
+; restores old calculation results
+	ldh a, [hQuotient + 3]
+	ld d, a ; health % is in b
+	pop bc
+	ld a, b
+	ldh [hMultiplicand + 1], a
+	ld a, c 
+	ldh [hMultiplicand + 2], a
+	ld a, d
+	cp $2D
+	jr nc, .not_met ; if hp% is over 45%
+	ld hl, .Boosts
+.loop2
+	ld a, [hl]
+	cp d
+	jr nc, .got_multi
+	inc hl
+	inc hl
+	jr .loop2
+.got_multi
+	dec hl
+	ld a, [hl]
+.boost
+	call ApplyDamageMod
+.not_met
+	ret
+
+.Boosts:
+	db $0,  $A7 ; 1.42, 00~07%
+	db $7,  $C9 ; 1.33, 07~15%
+	db $F,  $64 ; 1.20, 15~22%
+	db $16, $FD ; 1.15, 22~30%
+	db $1E, $A9 ; 1.11, 30~37%
+	db $25, $FE ; 1.07, 37~45%
+	db $2D, $FF ; 1.00, +45%
+
+TraitsThatBoostMoveByHP:
+	db TRAIT_BOOST_WATER_HP
 	db -1
 
 ContactMoves:

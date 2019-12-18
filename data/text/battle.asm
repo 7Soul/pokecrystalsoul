@@ -12,7 +12,7 @@ WildPokemonAppearedText:
 	text_from_ram wEnemyMonNick
 	text_start
 	line "appeared!"
-	prompt
+	done
 	
 WildHoldingText:
 	text "It appears to be"
@@ -1162,17 +1162,6 @@ ForesawAttackText:
 	line "foresaw an attack!"
 	prompt
 
-BeatUpAttackText:
-	text_from_ram wStringBuffer1
-	text "'s"
-	line "attack!"
-	done
-
-RefusedGiftText:
-	text "<TARGET>"
-	line "refused the gift!"
-	prompt
-
 IgnoredOrders2Text:
 	text "<USER>"
 	line "ignored orders!"
@@ -1184,11 +1173,6 @@ BattleText_LinkErrorBattleCanceled:
 	para "The battle has"
 	line "been canceled…"
 	prompt
-
-BattleText_0x8188e:
-	text "There is no time"
-	line "left today!"
-	done
 
 BattleText_Trait::
 	text "<USER>'s trait:"

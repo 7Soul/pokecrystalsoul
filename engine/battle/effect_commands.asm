@@ -3195,6 +3195,14 @@ BattleCommand_DamageCalc:
 	ld [wBuffer1], a
 	farcall TraitReducePower
 
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitDamageBasedOnStats
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitDamageBasedOnHP
+
 	; ldh a, [hMultiplicand + 1]
 	; ld [$c002], a
 	; ldh a, [hMultiplicand + 2]
