@@ -6314,9 +6314,7 @@ LoadEnemyMon:
 	ld a, $1A ; 0 to 25
 	call RandomRange
 	inc a
-	ld b, a
 	ld hl, wEnemyMonDVs
-	ld a, b
 	ld [hl], a
 	
 .TryShiny

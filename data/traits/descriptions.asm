@@ -57,27 +57,32 @@ TraitDescriptions::
 	dw StormBoon5Description
 	dw StormBoon6Description
 	dw SandFilterDescription
-	dw StoneSkinDescription   ; TRAIT_REDUCE_NORMAL
-	dw FadeDescription        ; TRAIT_REDUCE_NORMAL_ACC
-	dw HitBreakerDescription  ; TRAIT_REDUCE_FIGHTING
-	dw CarapaceDescription    ; TRAIT_REDUCE_FLYING
-	dw FlightRushDescription  ; TRAIT_REDUCE_BOOST_FLYING_SPEED
-	dw ShockAbsorbDescription ; TRAIT_REDUCE_GROUND
-	dw ShapeCastDescription   ; TRAIT_REDUCE_ROCK
-	dw IronCoatDescription    ; TRAIT_BOOST_ROCK_DEFENSE
-	dw GoldCoatDescription    ; TRAIT_BOOST_ROCK_SP_DEFENSE
-	dw FumeCoatDescription    ; TRAIT_REDUCE_BUG
-	dw HeatproofDescription   ; TRAIT_REDUCE_FIRE
-	dw WaterproofDescription  ; TRAIT_REDUCE_WATER
-	dw HardWaterDescription   ; TRAIT_BOOST_WATER_DEFENSE
-	dw WaterSurgeDescription  ; TRAIT_BOOST_WATER_HP
-	dw AridTouchDescription   ; TRAIT_REDUCE_GRASS
-	dw IonFieldDescription    ; TRAIT_REDUCE_ELECTRIC
-	dw ZapRushDescription     ; TRAIT_BOOST_ELECTRIC_SPEED
-	dw ForewarnDescription    ; TRAIT_REDUCE_PSYCHIC
-	dw MagmaSkinDescription   ; TRAIT_REDUCE_ICE
-	dw ShadowBeingDescription ; TRAIT_REDUCE_DARK
-	dw PrismArmorDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE
+	dw HeatUpDescription      ; TRAIT_BOOST_EFFECT_BRN
+	dw PureToxinDescription   ; TRAIT_BOOST_EFFECT_PSN
+	dw ConduitDescription     ; TRAIT_BOOST_EFFECT_PRZ
+	dw SereneGraceDescription ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
+	dw StoneSkinDescription   ; REDUCE_NORMAL
+	dw FadeDescription        ; REDUCE_NORMAL_ACC
+	dw HitBreakerDescription  ; REDUCE_FIGHTING
+	dw CarapaceDescription    ; REDUCE_FLYING
+	dw FlightRushDescription  ; REDUCE_BOOST_FLYING_SPEED
+	dw ShockAbsorbDescription ; REDUCE_GROUND
+	dw ShapeCastDescription   ; REDUCE_ROCK
+	dw IronCoatDescription    ; BOOST_ROCK_DEFENSE
+	dw GoldCoatDescription    ; BOOST_ROCK_SP_DEFENSE
+	dw FumeCoatDescription    ; REDUCE_BUG
+	dw HeatproofDescription   ; REDUCE_FIRE
+	dw WaterproofDescription  ; REDUCE_WATER
+	dw HardWaterDescription   ; BOOST_WATER_DEFENSE
+	dw WaterSurgeDescription  ; BOOST_WATER_HP
+	dw AridTouchDescription   ; REDUCE_GRASS
+	dw IonFieldDescription    ; REDUCE_ELECTRIC
+	dw ZapRushDescription     ; BOOST_ELECTRIC_SPEED
+	dw ForewarnDescription    ; REDUCE_PSYCHIC
+	dw ThickCoatDescription   ; REDUCE_ICE
+	dw ShadowBeingDescription ; REDUCE_DARK
+	dw PrismArmorDescription  ; REDUCE_SUPER_EFFECTIVE
     dw TraitFFDescription
 	dw Trait00Description
 
@@ -313,6 +318,26 @@ SandFilterDescription:
 	db   "Heals statuses"
 	next "in a sandstorm.@"
 
+HeatUpDescription:
+	db   "Raises the chance"
+	next "of BURNING.@"
+    
+PureToxinDescription:
+	db   "Raises the chance"
+	next "of POISONING.@"
+
+ConduitDescription:
+	db   "Raises the chance"
+	next "of PARALYZING.@"
+ 
+SereneGraceDescription:
+	db   "Raises the chance"
+	next "of STATUS moves.@"
+
+ViciousFormDescription:
+	db   "Raises the chance"
+	next "of ADDED effects.@"
+
 StoneSkinDescription:
 	db   "Reduces NORMAL"
 	next "damage taken.@"
@@ -385,7 +410,7 @@ ForewarnDescription:
 	db   "Reduces PSYCHIC"
 	next "damage taken.@"
 	
-MagmaSkinDescription:
+ThickCoatDescription:
 	db   "Reduces ICE damage"
 	next "taken.@"
 	

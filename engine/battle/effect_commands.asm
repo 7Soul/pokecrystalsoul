@@ -1432,7 +1432,7 @@ BattleCommand_Stab:
 	push hl
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
-	farcall TraitReduceDamage
+	farcall TraitReduceDamageFromType
 	pop hl
 
 	ldh a, [hProduct + 1]
@@ -1991,6 +1991,15 @@ BattleCommand_EffectChance:
 	jr z, .got_move_chance
 	ld hl, wEnemyMoveStruct + MOVE_CHANCE
 .got_move_chance
+	ld a, [hl]
+	push hl
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitBoostEffectChance
+	pop hl
+	ld a, [wBuffer1]
+	add [hl]
+	ld [hl], a
 
 	call BattleRandom
 	cp [hl]
@@ -3182,10 +3191,10 @@ BattleCommand_DamageCalc:
 	ld b, $4
 	call Divide
 
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c000], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c001], a
+	ldh a, [hMultiplicand + 1]
+	ld [$c000], a
+	ldh a, [hMultiplicand + 2]
+	ld [$c001], a
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
@@ -3203,10 +3212,10 @@ BattleCommand_DamageCalc:
 	ld [wBuffer1], a
 	farcall TraitDamageBasedOnHP
 
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c002], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c003], a
+	ldh a, [hMultiplicand + 1]
+	ld [$c002], a
+	ldh a, [hMultiplicand + 2]
+	ld [$c003], a
 	
 ; Item boosts
 	call GetUserItem

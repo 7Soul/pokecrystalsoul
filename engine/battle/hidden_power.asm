@@ -7,76 +7,30 @@ HiddenPowerDamage:
 	jr z, .got_dvs
 	ld hl, wEnemyMonDVs
 .got_dvs
-
 ; Power:
-
-; Take the top bit from each stat
-
-	; Attack
+; Get first 5 bytes
 	ld a, [hl]
-	swap a
-	and %1000
-
-	; Defense
-	ld b, a
-	ld a, [hli]
-	and %1000
-	srl a
-	or b
-
-	; Speed
-	ld b, a
-	ld a, [hl]
-	swap a
-	and %1000
-	srl a
-	srl a
-	or b
-
-	; Special
-	ld b, a
-	ld a, [hl]
-	and %1000
-	srl a
-	srl a
-	srl a
-	or b
-
-; Multiply by 5
-	; ld b, a
-	; add a
-	; add a
-	; add b
-
-; Add Special & 3
-	ld b, a
-	ld a, [hld]
-	and %0011
-	add b
+	and %11111
 
 ; Divide by 2 and add 51
 	srl a
-	add 51
-
-	ld d, a ; 51 to 59 damage
+	add 45
+	ld d, a ; 45 to 58 damage
 
 ; Type:
-
-	; Def & 3
+; Get first 5 bytes
 	ld a, [hl]
-	and %1111
-	ld b, a
-
-	; + (Atk & 3) << 2
-	ld a, [hl]
-	swap a
-	and %1111
-
-	or b ; add atk and def
+	and %11111
+; Bit shift left
+	rl a
+	bit 6, [hl]
+	jr nz, .mod
+; Add 1 if the 5th bit was 1
+	inc a
 .mod
-	sub 11
+	sub 12
 	jr nc, .mod
-	add 11
+	add 12
 
 ; Skip Normal
 	inc a
@@ -87,7 +41,6 @@ HiddenPowerDamage:
 	add SPECIAL - UNUSED_TYPES
 
 .done
-
 ; Overwrite the current move type.
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
@@ -95,6 +48,7 @@ HiddenPowerDamage:
 	pop af
 	or SPECIAL
 	ld [hl], a
+	
 
 ; Get the rest of the damage formula variables
 ; based on the new type, but keep base power.

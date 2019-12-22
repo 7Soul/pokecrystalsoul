@@ -55,7 +55,12 @@ TraitNames::
 	db "Storm Boon@"
 	db "Storm Boon@"
 	db "Storm Boon@"
-	db "Sand Filter@"
+	db "Sand Filter@" ; TRAIT_SANDSTORM_NO_STATUS
+	db "Heat Up@"     ; TRAIT_BOOST_EFFECT_BRN
+	db "Pure Toxin@"  ; TRAIT_BOOST_EFFECT_PSN
+	db "Conduit@"     ; TRAIT_BOOST_EFFECT_PRZ
+	db "Serene Grace@" ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	db "Vicious Form@" ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	db "Stone Skin@"  ; TRAIT_REDUCE_NORMAL
 	db "Fade@"        ; TRAIT_REDUCE_NORMAL_ACC
 	db "Hit Breaker@" ; TRAIT_REDUCE_FIGHTING
@@ -74,7 +79,7 @@ TraitNames::
 	db "Ion Field@"   ; TRAIT_REDUCE_ELECTRIC
 	db "Zap Rush@"    ; TRAIT_BOOST_ELECTRIC_SPEED
 	db "Forewarn@"    ; TRAIT_REDUCE_PSYCHIC
-	db "Magma Skin@"  ; TRAIT_REDUCE_ICE
+	db "Thick Coat@"  ; TRAIT_REDUCE_ICE
 	db "Shadow Being@"; TRAIT_REDUCE_DARK
 	db "Prism Armor@" ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	

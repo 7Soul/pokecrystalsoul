@@ -217,6 +217,14 @@ endr
 	and a
 	jp nz, .copywildmonDVs
 
+.generateDVs:
+; Generate new random DVs
+	ld a, $1A ; 0 to 25
+	call RandomRange
+	inc a
+	ld c, a
+	ld b, 0
+
 .initializeDVs
 	ld a, b
 	ld [de], a
@@ -226,20 +234,6 @@ endr
 	inc de
 	jr .end_dvs
 
-.generateDVs:
-	push hl
-; Generate new random DVs
-	ld a, $1A ; 0 to 25
-	call RandomRange
-	inc a
-	ld b, a
-
-.UpdateDVs:
-	ld h, d
-	ld l, e
-	ld a, b
-	ld [de], a
-	
 .TryShiny
 	ld a, [wBattleType]
 	cp BATTLETYPE_SHINY

@@ -583,6 +583,16 @@ CheckTraitCondition:
 	jp c, .check_sun
 	cp TRAIT_SANDSTORM_NO_STATUS + 1 ; all sandstorm traits
 	jp c, .check_sandstorm
+	cp TRAIT_BOOST_EFFECT_BRN + 1 ; all burn traits
+	jp c, .check_move_brn
+	cp TRAIT_BOOST_EFFECT_PSN + 1 ; all poison traits
+	jp c, .check_move_psn
+	cp TRAIT_BOOST_EFFECT_PRZ + 1 ; all paralysis traits
+	jp c, .check_move_prz
+	cp TRAIT_BOOST_EFFECT_NO_DAMAGE + 1 ; all traits for status moves 
+	jp c, .check_move_status
+	cp TRAIT_BOOST_EFFECT_WITH_DAMAGE + 1 ; all traits for moves with secondary effects 
+	jp c, .check_move_has_secondary
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
@@ -673,13 +683,46 @@ CheckTraitCondition:
 	and a
 	ret
 
-.check_move_category ; 0 = physical, 1 = special, 2 = status
-	ld a, BATTLE_VARS_MOVE_TYPE
- 	call GetBattleVarAddr
-	and $ff ^ TYPE_MASK
-	rlc a
-	rlc a
-	dec a
+.check_move_brn	
+	call GetMoveStructEffect
+	cp EFFECT_BURN
+	jr z, .success
+	cp EFFECT_BURN_HIT
+	jr z, .success
+	ret
+
+.check_move_prz	
+	call GetMoveStructEffect
+	cp EFFECT_PARALYZE
+	jr z, .success
+	cp EFFECT_PARALYZE_HIT
+	jr z, .success
+	ret
+
+.check_move_psn
+	call GetMoveStructEffect
+	cp EFFECT_POISON
+	jr z, .success
+	cp EFFECT_POISON_HIT
+	jr z, .success
+	cp EFFECT_POISON_MULTI_HIT
+	jr z, .success
+	ret
+
+.check_move_status
+	call Get_move_category
+	cp 2
+	jr z, .success
+	ret
+
+.check_move_has_secondary
+	call GetMoveStructChance
+	and a
+	jr z, .nope
+	call GetMoveStructDamage
+	and a
+	jr nz, .success
+.nope
 	ret
 
 .check_move_type:
@@ -688,6 +731,45 @@ CheckTraitCondition:
 	jp z, .success
 	and a
 	ld a, b ; restore trait into 'a'	
+	ret
+
+Get_move_category: ; 0 = physical, 1 = special, 2 = status
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVarAddr
+	and $ff ^ TYPE_MASK
+	rlc a
+	rlc a
+	dec a
+	ret
+
+GetMoveStructDamage:
+	ld hl, wPlayerMoveStruct + MOVE_POWER
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .got_power
+	ld hl, wEnemyMoveStruct + MOVE_POWER
+.got_power
+	ld a, [hl]
+	ret
+
+GetMoveStructEffect:
+	ld hl, wPlayerMoveStruct + MOVE_EFFECT
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .got_effect
+	ld hl, wEnemyMoveStruct + MOVE_EFFECT
+.got_effect
+	ld a, [hl]
+	ret
+
+GetMoveStructChance:
+	ld hl, wPlayerMoveStruct + MOVE_CHANCE
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .got_chance
+	ld hl, wEnemyMoveStruct + MOVE_CHANCE
+.got_chance
+	ld a, [hl]
 	ret
 
 TraitRaiseStat:
@@ -925,7 +1007,7 @@ TraitsThatBoostWeather:
 	db TRAIT_SANDSTORM_DURATION
 	db -1
 
-TraitReduceDamage:
+TraitReduceDamageFromType:
 	ld hl, TraitsThatReduceDamage
 	call CheckTrait
 	jr c, .reduce
@@ -1000,7 +1082,7 @@ TraitReducePower:
 	dw TraitsThatReducePerfurateMoves
 
 TraitBoostPower:
-	ld c, 7
+	ld c, 8
 .loop
 	ld hl, .JumpTableTraitsBoostMoveClass
 	dec c
@@ -1013,6 +1095,11 @@ TraitBoostPower:
 	ld a, c
 	jr nc, .loop
 .met
+	cp 6
+	jr nz, .no_stab_check
+	call CheckStab
+	jr c, .boost
+.no_stab_check
 	ld a, c
 	ld hl, JumptableMoveClass
 	call GetToJumptable
@@ -1028,7 +1115,6 @@ TraitBoostPower:
 .not_met
 	ret
 
-
 .JumpTableTraitsBoostMoveClass
 	dw TraitsThatBoostPunchingMoves
 	dw TraitsThatBoostSoundMoves
@@ -1036,6 +1122,7 @@ TraitBoostPower:
 	dw TraitsThatBoostCuttingMoves
 	dw TraitsThatBoostBeamMoves
 	dw TraitsThatBoostPerfurateMoves
+	dw TraitsThatBoostNonStabMoves
 
 JumptableMoveClass:
 	dw PunchingMoves
@@ -1067,6 +1154,10 @@ TraitsThatBoostBeamMoves:
 
 TraitsThatBoostPerfurateMoves:
 	db TRAIT_BOOST_PERFURATE
+	db -1
+
+TraitsThatBoostNonStabMoves:
+	db TRAIT_BOOST_NOT_STAB
 	db -1
 
 TraitsThatReducePunchingMoves:
@@ -1339,6 +1430,27 @@ TraitsThatBoostMoveByHP:
 	db TRAIT_BOOST_WATER_HP
 	db -1
 
+TraitBoostEffectChance:
+	ld hl, TraitsThatBoostEffectChance
+	call CheckTrait
+	jr nc, .not_met
+.boost
+	ld a, 5
+	ld [wBuffer1], a
+	ret
+.not_met
+	xor a
+	ld [wBuffer1], a
+	ret
+
+TraitsThatBoostEffectChance:
+	db TRAIT_BOOST_EFFECT_BRN
+	db TRAIT_BOOST_EFFECT_PSN
+	db TRAIT_BOOST_EFFECT_PRZ
+	db TRAIT_BOOST_EFFECT_NO_DAMAGE
+	db TRAIT_BOOST_EFFECT_WITH_DAMAGE
+	db -1
+
 ContactMoves:
 	db AQUA_TAIL
 	db BODY_SLAM
@@ -1415,7 +1527,7 @@ ContactMoves:
 	
 Chance:
 	call BattleRandom
-	cp 80 percent
+	cp 20 percent
 	jr nc, .success
 	and a
 	ret	
@@ -1436,6 +1548,16 @@ Chance:
 	; ld hl, BattleCommand_StatUpMessage
 	; ld a, BANK("Effect Commands")
 	; rst FarCall
+
+CheckStab:
+	ld hl, wTypeModifier
+	bit 7, [hl]
+	jr nz, .yes
+	and a
+	ret
+.yes
+	scf
+	ret
 
 Switch_turn:
 	ld hl, BattleCommand_SwitchTurn
