@@ -593,6 +593,8 @@ CheckTraitCondition:
 	jp c, .check_move_status
 	cp TRAIT_BOOST_EFFECT_WITH_DAMAGE + 1 ; all traits for moves with secondary effects 
 	jp c, .check_move_has_secondary
+	cp TRAIT_REDUCE_NOT_STAB + 1 ; all traits for non-stab hits
+	jp c, .check_not_stab
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
@@ -723,6 +725,16 @@ CheckTraitCondition:
 	and a
 	jr nz, .success
 .nope
+	ret
+
+.check_not_stab ; stab = nc, non-stab = c
+	ld hl, wTypeModifier
+	bit 7, [hl]
+	jr nz, .yes
+	scf
+	ret
+.yes
+	and a
 	ret
 
 .check_move_type:
@@ -1023,7 +1035,6 @@ TraitReduceDamageFromType:
 .not_se_reduction
 	ret
 
-
 TraitsThatReduceSuperEffectiveDamage:
 	db TRAIT_REDUCE_SUPER_EFFECTIVE
 	db -1
@@ -1080,6 +1091,32 @@ TraitReducePower:
 	dw TraitsThatReduceCuttingMoves
 	dw TraitsThatReduceBeamMoves
 	dw TraitsThatReducePerfurateMoves
+
+TraitBoostNonStab:
+	ld hl, TraitsThatBoostNonStabDamage
+	call CheckTrait
+	jr nc, .not_met
+	ld a, $65 ; ~1.2
+	call ApplyDamageMod
+.not_met
+	ret
+
+TraitsThatBoostNonStabDamage:
+	db TRAIT_BOOST_NOT_STAB
+	db -1
+
+TraitReduceNonStab:
+	ld hl, TraitsThatReduceNonStabDamage
+	call CheckTrait
+	jr nc, .not_met
+	ld a, $67 ; ~0.86
+	call ApplyDamageMod
+.not_met
+	ret
+
+TraitsThatReduceNonStabDamage:
+	db TRAIT_REDUCE_NOT_STAB
+	db -1
 
 TraitBoostPower:
 	ld c, 8

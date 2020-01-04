@@ -1472,6 +1472,20 @@ BattleCommand_Stab:
 	jp .TypesLoop
 
 .end
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitBoostNonStab
+
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitReduceNonStab
+
+	ld hl, wCurDamage
+	ldh a, [hMultiplicand + 1] ; damage after stab trait
+	ld [hli], a
+	ldh a, [hMultiplicand + 2] ; damage after stab trait
+	ld [hl], a
+
 	call BattleCheckTypeMatchup
 	ld a, [wTypeMatchup]
 	ld b, a
@@ -3191,10 +3205,10 @@ BattleCommand_DamageCalc:
 	ld b, $4
 	call Divide
 
-	ldh a, [hMultiplicand + 1]
-	ld [$c000], a
-	ldh a, [hMultiplicand + 2]
-	ld [$c001], a
+	; ldh a, [hMultiplicand + 1]
+	; ld [$c000], a
+	; ldh a, [hMultiplicand + 2]
+	; ld [$c001], a
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
@@ -3212,10 +3226,10 @@ BattleCommand_DamageCalc:
 	ld [wBuffer1], a
 	farcall TraitDamageBasedOnHP
 
-	ldh a, [hMultiplicand + 1]
-	ld [$c002], a
-	ldh a, [hMultiplicand + 2]
-	ld [$c003], a
+	; ldh a, [hMultiplicand + 1]
+	; ld [$c002], a
+	; ldh a, [hMultiplicand + 2]
+	; ld [$c003], a
 	
 ; Item boosts
 	call GetUserItem
