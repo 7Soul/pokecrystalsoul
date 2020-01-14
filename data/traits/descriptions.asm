@@ -5,11 +5,6 @@ TraitDescriptions::
 	dw ToxicBodyDescription   ; TRAIT_CONTACT_PRZ
 	dw StunBodyDescription    ; TRAIT_CONTACT_FLINCH
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
-	dw WaterVeilDescription   ; TRAIT_BRN_IMMUNE
-	dw AntivenomDescription   ; TRAIT_PSN_IMMUNE
-	dw TwitchDescription      ; TRAIT_PRZ_IMMUNE
-	dw InnerFocusDescription  ; TRAIT_FLINCH_IMMUNE
-	dw OwnTempoDescription    ; TRAIT_CONFUSED_IMMUNE
 	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
 	dw WeaveDescription       ; TRAIT_REDUCE_PUNCHING
 	dw VocalPowerDescription  ; TRAIT_BOOST_SOUND
@@ -55,34 +50,48 @@ TraitDescriptions::
 	dw StormBoon5Description  ; TRAIT_SANDSTORM_ACCURACY
 	dw StormBoon6Description  ; TRAIT_SANDSTORM_EVASION
 	dw SandFilterDescription  ; TRAIT_SANDSTORM_NO_STATUS
+	dw WaterVeilDescription   ; TRAIT_BRN_IMMUNE
+	dw BurnResistDescription  ; TRAIT_REDUCE_EFFECT_BRN
 	dw HeatUpDescription      ; TRAIT_BOOST_EFFECT_BRN
+	dw AntivenomDescription   ; TRAIT_PSN_IMMUNE
+	dw VenomResistDescription ; TRAIT_REDUCE_EFFECT_PSN
 	dw PureToxinDescription   ; TRAIT_BOOST_EFFECT_PSN
+	dw TwitchDescription      ; TRAIT_PRZ_IMMUNE
+	dw LimberDescription      ; TRAIT_REDUCE_EFFECT_PRZ
 	dw ConduitDescription     ; TRAIT_BOOST_EFFECT_PRZ
+	dw InnerFocusDescription  ; TRAIT_FLINCH_IMMUNE
+	dw AttentionDescription   ; TRAIT_REDUCE_EFFECT_FLINCH
+	dw PresenceDescription    ; TRAIT_BOOST_EFFECT_FLINCH
+	dw OwnTempoDescription    ; TRAIT_CONFUSED_IMMUNE
+	dw OblivionDescription    ; TRAIT_REDUCE_EFFECT_CONFUSED
+	dw MetronomeTDescription  ; TRAIT_BOOST_EFFECT_CONFUSE
+	dw WonderSkinDescription  ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	dw SereneGraceDescription ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	dw ShieldDustDescription  ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
-	dw StoneSkinDescription   ; REDUCE_NORMAL
-	dw FadeDescription        ; REDUCE_NORMAL_ACC
-	dw HitBreakerDescription  ; REDUCE_FIGHTING
-	dw CarapaceDescription    ; REDUCE_FLYING
-	dw FlightRushDescription  ; REDUCE_BOOST_FLYING_SPEED
-	dw ShockAbsorbDescription ; REDUCE_GROUND
-	dw ShapeCastDescription   ; REDUCE_ROCK
-	dw IronCoatDescription    ; BOOST_ROCK_DEFENSE
-	dw GoldCoatDescription    ; BOOST_ROCK_SP_DEFENSE
-	dw FumeCoatDescription    ; REDUCE_BUG
-	dw HeatproofDescription   ; REDUCE_FIRE
-	dw WaterproofDescription  ; REDUCE_WATER
-	dw HardWaterDescription   ; BOOST_WATER_DEFENSE
-	dw WaterSurgeDescription  ; BOOST_WATER_HP
-	dw AridTouchDescription   ; REDUCE_GRASS
-	dw IonFieldDescription    ; REDUCE_ELECTRIC
-	dw ZapRushDescription     ; BOOST_ELECTRIC_SPEED
-	dw ForewarnDescription    ; REDUCE_PSYCHIC
-	dw ThickCoatDescription   ; REDUCE_ICE
-	dw ShadowBeingDescription ; REDUCE_DARK
-	dw PrismArmorDescription  ; REDUCE_SUPER_EFFECTIVE
+	dw StoneSkinDescription   ; TRAIT_REDUCE_NORMAL
+	dw FadeDescription        ; TRAIT_REDUCE_NORMAL_ACC
+	dw HitBreakerDescription  ; TRAIT_REDUCE_FIGHTING
+	dw CarapaceDescription    ; TRAIT_REDUCE_FLYING
+	dw FlightRushDescription  ; TRAIT_BOOST_FLYING_SPEED
+	dw ShockAbsorbDescription ; TRAIT_REDUCE_GROUND
+	dw ShapeCastDescription   ; TRAIT_REDUCE_ROCK
+	dw IronCoatDescription    ; TRAIT_BOOST_ROCK_DEFENSE
+	dw GoldCoatDescription    ; TRAIT_BOOST_ROCK_SP_DEFENSE
+	dw FumeCoatDescription    ; TRAIT_REDUCE_BUG
+	dw HeatproofDescription   ; TRAIT_REDUCE_FIRE
+	dw WaterproofDescription  ; TRAIT_REDUCE_WATER
+	dw HardWaterDescription   ; TRAIT_BOOST_WATER_DEFENSE
+	dw WaterSurgeDescription  ; TRAIT_BOOST_WATER_HP
+	dw AridTouchDescription   ; TRAIT_REDUCE_GRASS
+	dw IonFieldDescription    ; TRAIT_REDUCE_ELECTRIC
+	dw ZapRushDescription     ; TRAIT_BOOST_ELECTRIC_SPEED
+	dw ForewarnDescription    ; TRAIT_REDUCE_PSYCHIC
+	dw ThickCoatDescription   ; TRAIT_REDUCE_ICE
+	dw ShadowBeingDescription ; TRAIT_REDUCE_DARK
+	dw PrismArmorDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE
     dw TraitFFDescription
 	dw Trait00Description
 
@@ -109,26 +118,6 @@ StunBodyDescription:
 HighTempoDescription:
 	db   "May Confuse foe on"
 	next "contact.@"
-
-WaterVeilDescription:
-	db   "Immunity to being"
-	next "burned.@"
-
-AntivenomDescription:
-	db   "Immunity to being"
-	next "poisoned.@"
-
-TwitchDescription:
-	db   "Immunity to being"
-	next "paralyzed.@"
-	
-InnerFocusDescription:
-	db   "Immunity to flin-"
-	next "ching.@"
-	
-OwnTempoDescription:
-	db   "Immunity to get-"
-	next "ting confused.@"
 
 IronFistDescription:
 	db   "Powers Punching"
@@ -310,22 +299,78 @@ SandFilterDescription:
 	db   "Heals statuses"
 	next "in a sandstorm.@"
 
+WaterVeilDescription:
+	db   "Immunity to being"
+	next "BURNED.@"
+
+BurnResistDescription:
+	db   "Reduces chance of"
+	next "being BURNED.@"
+
 HeatUpDescription:
 	db   "Raises the chance"
 	next "of BURNING.@"
-    
+   
+AntivenomDescription:
+	db   "Immunity to being"
+	next "POISONED.@"
+
+VenomResistDescription:
+	db   "Reduces chance of"
+	next "being POISONED.@"
+
 PureToxinDescription:
 	db   "Raises the chance"
 	next "of POISONING.@"
 
+TwitchDescription:
+	db   "Immunity to being"
+	next "PARALYZED.@"
+
+LimberDescription:
+	db   "Reduces chance of"
+	next "being PARALYZED.@"
+
 ConduitDescription:
 	db   "Raises the chance"
 	next "of PARALYZING.@"
- 
+
+InnerFocusDescription:
+	db   "Immunity to FLIN-"
+	next "CHING.@"
+
+AttentionDescription:
+	db   "Reduces chance of"
+	next "getting FLINCHED.@"
+
+PresenceDescription:
+	db   "Raises the chance"
+	next "of FLINCHING.@"
+
+OwnTempoDescription:
+	db   "Immunity to get-"
+	next "ting CONFUSED.@"
+
+OblivionDescription:
+	db   "Reduces chance of"
+	next "being CONFUSED.@"
+
+MetronomeTDescription:
+	db   "Raises the chance"
+	next "of CONFUSING.@"
+
+WonderSkinDescription:
+	db   "Lowers the chance"
+	next "of STATUS moves.@"
+	
 SereneGraceDescription:
 	db   "Raises the chance"
 	next "of STATUS moves.@"
 
+ShieldDustDescription:
+	db   "Lowers the chance"
+	next "of ADDED effects.@"
+	
 ViciousFormDescription:
 	db   "Raises the chance"
 	next "of ADDED effects.@"

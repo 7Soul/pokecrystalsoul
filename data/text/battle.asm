@@ -1182,8 +1182,10 @@ BattleText_Trait::
 	prompt
 
 BattleText_EnemyTrait::
-	text "<TARGET>'s"
-	line "trait: @"
+	text "@"
+	text_from_ram wEnemyMonNick
+	text "'s trait:"
+	line "@"
 	text_from_ram wStringBuffer1
 	text "."
 	prompt

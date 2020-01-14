@@ -442,20 +442,20 @@ CheckPlayerHasMonToSwitchTo:
 	
 SapHealth:
 	; Divide damage by 2, store it in hDividend
-	ld hl, wCurDamage
-	ld a, [hli]
-	srl a
-	ldh [hDividend], a
+	ld hl, wCurDamage + 1
+	ld a, [hld]
 	ld b, a
 	ld a, [hl]
-	rr a
-	ldh [hDividend + 1], a
+	srl a
+	ldh [hDividend], a
+	rr b
 	or b
 	jr nz, .at_least_one
-	ld a, 1
-	ldh [hDividend + 1], a
+	ld b, $1 ; minimum
+	
 .at_least_one
-
+	ld a, b
+	ldh [hDividend + 1], a
 	ld hl, wBattleMonHP
 	ld de, wBattleMonMaxHP
 	ldh a, [hBattleTurn]
@@ -568,6 +568,8 @@ CheckTraitCondition:
 	call GetBattleVar
 	ld de, 1	
 	call IsInArray
+	ld a, b
+	ld [wBuffer3], a
 	jp nc, .not_met1
 	ld a, [wBuffer1]
 	call GetBattleVar
@@ -589,6 +591,10 @@ CheckTraitCondition:
 	jp c, .check_move_psn
 	cp TRAIT_BOOST_EFFECT_PRZ + 1 ; all paralysis traits
 	jp c, .check_move_prz
+	cp TRAIT_BOOST_EFFECT_FLINCH + 1 ; all flinch traits
+	jp c, .check_move_flinch
+	cp TRAIT_BOOST_EFFECT_CONFUSED + 1 ; all confusion traits
+	jp c, .check_move_confused
 	cp TRAIT_BOOST_EFFECT_NO_DAMAGE + 1 ; all traits for status moves 
 	jp c, .check_move_status
 	cp TRAIT_BOOST_EFFECT_WITH_DAMAGE + 1 ; all traits for moves with secondary effects 
@@ -691,6 +697,7 @@ CheckTraitCondition:
 	jr z, .success
 	cp EFFECT_BURN_HIT
 	jr z, .success
+	and a
 	ret
 
 .check_move_prz	
@@ -699,6 +706,7 @@ CheckTraitCondition:
 	jr z, .success
 	cp EFFECT_PARALYZE_HIT
 	jr z, .success
+	and a
 	ret
 
 .check_move_psn
@@ -709,12 +717,30 @@ CheckTraitCondition:
 	jr z, .success
 	cp EFFECT_POISON_MULTI_HIT
 	jr z, .success
+	and a
+	ret
+
+.check_move_flinch
+	call GetMoveStructEffect
+	cp EFFECT_FLINCH_HIT
+	jr z, .success
+	and a
+	ret
+
+.check_move_confused
+	call GetMoveStructEffect
+	cp EFFECT_CONFUSE
+	jr z, .success
+	cp EFFECT_CONFUSE_HIT
+	jr z, .success
+	and a
 	ret
 
 .check_move_status
 	call Get_move_category
 	cp 2
 	jr z, .success
+	and a
 	ret
 
 .check_move_has_secondary
@@ -725,6 +751,7 @@ CheckTraitCondition:
 	and a
 	jr nz, .success
 .nope
+	and a
 	ret
 
 .check_not_stab ; stab = nc, non-stab = c
@@ -865,6 +892,8 @@ TraitRaiseStat:
 
 TraitsThatRaiseAttack:
 	db TRAIT_RAIN_ATTACK
+	db TRAIT_SUNSHINE_ATTACK
+	db TRAIT_SANDSTORM_ATTACK
 	db -1
 
 TraitsThatRaiseDefense:
@@ -873,6 +902,7 @@ TraitsThatRaiseDefense:
 
 TraitsThatRaiseSpeed:
 	db TRAIT_RAIN_SPEED
+	db TRAIT_STATUS_RAISE_SPEED
 	db -1
 
 TraitsThatRaiseSpAttack:
@@ -934,6 +964,14 @@ TraitContact:
 	jr .success
 
 .not_flinch_trait
+	ld hl, TraitsThatConfuse
+	call CheckTrait
+	jr nc, .not_confuse_trait
+	ld a, $4 ; CONFUSE
+	ld b, a
+	jr .success
+
+.not_confuse_trait
 .not_met
 	ret
 
@@ -965,12 +1003,14 @@ TraitContact:
 	dw BattleCommand_ParalyzeTarget
 	dw BattleCommand_PoisonTarget
 	dw BattleCommand_FlinchTarget
+	dw BattleCommand_ConfuseTarget
 
 TraitsThatRequireContact:
 	db TRAIT_CONTACT_BRN
 	db TRAIT_CONTACT_PRZ
 	db TRAIT_CONTACT_PSN
 	db TRAIT_CONTACT_FLINCH
+	db TRAIT_CONTACT_CONFUSED
 	db -1
 
 TraitsThatBurn:
@@ -987,6 +1027,10 @@ TraitsThatPoison:
 
 TraitsThatFlinch:
 	db TRAIT_CONTACT_FLINCH
+	db -1
+
+TraitsThatConfuse:
+	db TRAIT_CONTACT_CONFUSED
 	db -1
 
 TraitStartWeather:
@@ -1017,6 +1061,24 @@ TraitsThatBoostWeather:
 	db TRAIT_RAIN_DURATION
 	db TRAIT_SUNSHINE_DURATION
 	db TRAIT_SANDSTORM_DURATION
+	db -1
+
+TraitWeatherHealsStatus:
+	call ResetActivated
+	ld hl, TraitsThatHealStatus
+	call CheckTrait
+	jr nc, .not_met
+	ld a, BATTLE_VARS_STATUS
+	call GetBattleVarAddr
+	xor a
+	ld [hl], a
+.not_met
+	ret
+
+TraitsThatHealStatus:
+	db TRAIT_RAIN_NO_STATUS
+	db TRAIT_SUNSHINE_NO_STATUS
+	db TRAIT_SANDSTORM_NO_STATUS
 	db -1
 
 TraitReduceDamageFromType:
@@ -1471,22 +1533,93 @@ TraitBoostEffectChance:
 	ld hl, TraitsThatBoostEffectChance
 	call CheckTrait
 	jr nc, .not_met
-.boost
-	ld a, 5
-	ld [wBuffer1], a
-	ret
+	ld a, [wBuffer2]
+	add 12 ; 5%
+	ld b, a
+	jr c, .max ; max value if this would fo over 255
+	ld a, [wBuffer3] ; index from TraitsThatBoostEffectChance
+	cp 5
+	jr c, .end ; indexes 0 to 4
+	ld a, b
+	add 12 ; 5% more
+	ld b, a
+	jr c, .max ; max value if this would fo over 255
+.end
+	ld a, b
+	ld [wBuffer2], a
 .not_met
-	xor a
-	ld [wBuffer1], a
 	ret
+.max
+	ld b, $FF
+	jr .end
 
 TraitsThatBoostEffectChance:
-	db TRAIT_BOOST_EFFECT_BRN
-	db TRAIT_BOOST_EFFECT_PSN
-	db TRAIT_BOOST_EFFECT_PRZ
-	db TRAIT_BOOST_EFFECT_NO_DAMAGE
-	db TRAIT_BOOST_EFFECT_WITH_DAMAGE
+	db TRAIT_BOOST_EFFECT_BRN ; 0
+	db TRAIT_BOOST_EFFECT_PSN ; 1
+	db TRAIT_BOOST_EFFECT_PRZ ; 2
+	db TRAIT_BOOST_EFFECT_FLINCH ; 3
+	db TRAIT_BOOST_EFFECT_CONFUSED ; 4
+	db TRAIT_BOOST_EFFECT_NO_DAMAGE ; 5
+	db TRAIT_BOOST_EFFECT_WITH_DAMAGE ; 6
 	db -1
+
+TraitReduceEffectChance:
+	ld hl, TraitsThatReduceEffectChance
+	call CheckTrait
+	jr nc, .not_met
+	ld a, [wBuffer2]
+	srl a
+	ld b, a
+	jr c, .min ; min value if this would go under 0
+	ld a, [wBuffer3] ; index from TraitsThatBoostEffectChance
+	cp 5
+	jr c, .end ; indexes 0 to 4
+	ld a, b
+	srl a
+	add b
+	ld b, a
+	jr c, .min ; min value if this would go under 0
+.end
+	ld a, b
+	ld [wBuffer2], a
+.not_met
+	ret
+.min
+	ld b, 0
+	jr .end
+
+TraitsThatReduceEffectChance:
+	db TRAIT_REDUCE_EFFECT_BRN ; 0
+	db TRAIT_REDUCE_EFFECT_PSN ; 1
+	db TRAIT_REDUCE_EFFECT_PRZ ; 2
+	db TRAIT_BOOST_EFFECT_FLINCH ; 3
+	db TRAIT_BOOST_EFFECT_CONFUSED ; 4
+	db TRAIT_REDUCE_EFFECT_NO_DAMAGE ; 5
+	db TRAIT_REDUCE_EFFECT_WITH_DAMAGE ; 6
+	db -1
+
+TraitNegateEffectChance:
+	ld hl, TraitsThatNegateEffectChance
+	call CheckTrait
+	jr nc, .not_met
+	ld a, [wBuffer2]
+	ld a, 0
+	ld [wBuffer2], a
+.not_met
+	ret
+
+TraitsThatNegateEffectChance:
+	db TRAIT_BRN_IMMUNE ; 0
+	db TRAIT_PSN_IMMUNE ; 1
+	db TRAIT_PRZ_IMMUNE ; 2
+	db TRAIT_FLINCH_IMMUNE ; 3
+	db TRAIT_CONFUSED_IMMUNE ; 4
+	db TRAIT_RAIN_NO_STATUS ; 5
+	db TRAIT_SUNSHINE_NO_STATUS ; 6
+	db TRAIT_SANDSTORM_NO_STATUS ; 7
+	db -1
+
+; TraitRaiseStatOnTurn
 
 ContactMoves:
 	db AQUA_TAIL
@@ -1615,4 +1748,15 @@ GetToJumptable:
 CallFarSpecificTrait:
 	ld a, [wBuffer1]
 	call CheckTraitCondition.CheckSpecificTrait
+	ret
+
+ResetActivated:
+	ld hl, wTraitActivated
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .player_turn
+	res 1, [hl]
+	ret
+.player_turn
+	res 0, [hl]
 	ret

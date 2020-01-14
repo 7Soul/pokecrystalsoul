@@ -1344,22 +1344,13 @@ BattleCommand_Stab:
 	srl b
 	rr c
 	; 50%
-	srl b ; 
-	rr c ;
+	srl b
+	rr c
 	; 25%
 	srl b
 	rr c
 	; 12.5%
-	ld a, b
-	add a
-	add a
-	ld b, a
-	
-	ld a, c
-	add a
-	add a
-	ld c, a
-	
+
 	add hl, bc
 
 	ld a, h
@@ -2006,13 +1997,32 @@ BattleCommand_EffectChance:
 	ld hl, wEnemyMoveStruct + MOVE_CHANCE
 .got_move_chance
 	ld a, [hl]
+	ld [wBuffer2], a
+
+	push hl
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitNegateEffectChance
+	pop hl
+
+	ld a, [wBuffer2]
+	and a
+	jr z, .negated
+
 	push hl
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitBoostEffectChance
 	pop hl
-	ld a, [wBuffer1]
-	add [hl]
+
+	push hl
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitReduceEffectChance
+	pop hl
+
+.negated
+	ld a, [wBuffer2]
 	ld [hl], a
 
 	call BattleRandom

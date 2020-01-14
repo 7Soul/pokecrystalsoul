@@ -1012,6 +1012,10 @@ ResidualDamage:
 ; or as a result of residual damage.
 ; For Sandstorm damage, see HandleWeather.
 
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitWeatherHealsStatus
+
 	call HasUserFainted
 	ret z
 
@@ -1715,6 +1719,10 @@ HandleWeather:
 	dec [hl]
 	jr z, .ended
 
+	; ld a, BATTLE_VARS_TRAIT
+	; ld [wBuffer1], a
+	; farcall TraitWeatherHealsStatus
+
 	ld hl, .WeatherMessages
 	call .PrintWeatherMessage
 
@@ -1750,7 +1758,7 @@ HandleWeather:
 	ld hl, wEnemyMonType1
 .ok
 	ld a, [hli]
-	cp ROCK ; 7Soul - also and steel below
+	cp ROCK ; 7Soul - also had steel below
 	ret z ;
 	cp GROUND
 	ret z ;
@@ -1778,8 +1786,6 @@ HandleWeather:
 	call .PrintWeatherMessage
 	xor a
 	ld [wBattleWeather], a
-	
-	; farcall BattleCommand_RecalcStats
 	ret
 
 .PrintWeatherMessage:
