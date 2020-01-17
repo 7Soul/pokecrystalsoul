@@ -5,6 +5,7 @@ TraitDescriptions::
 	dw ToxicBodyDescription   ; TRAIT_CONTACT_PRZ
 	dw StunBodyDescription    ; TRAIT_CONTACT_FLINCH
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
+	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
 	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
 	dw WeaveDescription       ; TRAIT_REDUCE_PUNCHING
 	dw VocalPowerDescription  ; TRAIT_BOOST_SOUND
@@ -17,15 +18,17 @@ TraitDescriptions::
 	dw DispersalDescription   ; TRAIT_REDUCE_BEAM
 	dw PowerDrillDescription  ; TRAIT_BOOST_PERFURATE
 	dw SteelCoverDescription  ; TRAIT_REDUCE_PERFURATE
-	dw RecklessDescription    ; TRAIT_BOOST_RECOIL
-	dw DeviantDescription     ; TRAIT_REDUCE_RECOIL
 	dw RockHeadDescription    ; TRAIT_REDUCE_SELF_RECOIL
+	dw BattleArmorDescription ; TRAIT_REDUCE_CRIT_DAMAGE
+	dw DrainSurgeDescription  ; TRAIT_BOOST_DRAIN
 	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
 	dw BlueSkyDescription     ; TRAIT_SUNSHINE_DURATION
 	dw DroughtDescription     ; TRAIT_SUNSHINE_ON_ENTER
 	dw TempestDescription     ; TRAIT_SANDSTORM_DURATION
 	dw DustDevilDescription   ; TRAIT_SANDSTORM_ON_ENTER
+	dw RecklessDescription    ; TRAIT_BOOST_RECOIL
+	dw DeviantDescription     ; TRAIT_REDUCE_RECOIL
 	dw RainyBoon0Description  ; TRAIT_RAIN_ATTACK
 	dw RainyBoon1Description  ; TRAIT_RAIN_DEFENSE
 	dw RainyBoon2Description  ; TRAIT_RAIN_SPEED
@@ -71,27 +74,42 @@ TraitDescriptions::
 	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
+	dw KeenFocusDescription   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	dw StoneSkinDescription   ; TRAIT_REDUCE_NORMAL
+	dw StoneSkin2Description  ; TRAIT_REDUCE_NORMAL_MORE
 	dw FadeDescription        ; TRAIT_REDUCE_NORMAL_ACC
 	dw HitBreakerDescription  ; TRAIT_REDUCE_FIGHTING
+	dw HitBreaker2Description ; TRAIT_REDUCE_FIGHTING_MORE
 	dw CarapaceDescription    ; TRAIT_REDUCE_FLYING
+	dw Carapace2Description   ; TRAIT_REDUCE_FLYING_MORE
 	dw FlightRushDescription  ; TRAIT_BOOST_FLYING_SPEED
 	dw ShockAbsorbDescription ; TRAIT_REDUCE_GROUND
+	dw ShockAbsorb2Description; TRAIT_REDUCE_GROUND_MORE
 	dw ShapeCastDescription   ; TRAIT_REDUCE_ROCK
+	dw ShapeCast2Description  ; TRAIT_REDUCE_ROCK_MORE
 	dw IronCoatDescription    ; TRAIT_BOOST_ROCK_DEFENSE
 	dw GoldCoatDescription    ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	dw FumeCoatDescription    ; TRAIT_REDUCE_BUG
+	dw FumeCoat2Description   ; TRAIT_REDUCE_BUG_MORE
 	dw HeatproofDescription   ; TRAIT_REDUCE_FIRE
+	dw Heatproof2Description  ; TRAIT_REDUCE_FIRE_MORE
 	dw WaterproofDescription  ; TRAIT_REDUCE_WATER
+	dw Waterproof2Description ; TRAIT_REDUCE_WATER_MORE
 	dw HardWaterDescription   ; TRAIT_BOOST_WATER_DEFENSE
 	dw WaterSurgeDescription  ; TRAIT_BOOST_WATER_HP
 	dw AridTouchDescription   ; TRAIT_REDUCE_GRASS
+	dw AridTouch2Description  ; TRAIT_REDUCE_GRASS_MORE
 	dw IonFieldDescription    ; TRAIT_REDUCE_ELECTRIC
+	dw IonField2Description   ; TRAIT_REDUCE_ELECTRIC_MORE
 	dw ZapRushDescription     ; TRAIT_BOOST_ELECTRIC_SPEED
 	dw ForewarnDescription    ; TRAIT_REDUCE_PSYCHIC
+	dw Forewarn2Description   ; TRAIT_REDUCE_PSYCHIC_MORE
 	dw ThickCoatDescription   ; TRAIT_REDUCE_ICE
+	dw ThickCoat2Description  ; TRAIT_REDUCE_ICE_MORE
 	dw ShadowBeingDescription ; TRAIT_REDUCE_DARK
+	dw ShadowBeing2Description; TRAIT_REDUCE_DARK_MORE
 	dw PrismArmorDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE
+	dw PrismPlateDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
     dw TraitFFDescription
 	dw Trait00Description
 
@@ -118,6 +136,10 @@ StunBodyDescription:
 HighTempoDescription:
 	db   "May Confuse foe on"
 	next "contact.@"
+
+CuteCharmDescription:
+	db   "May Infatuate foe"
+	next "on contact.@"
 
 IronFistDescription:
 	db   "Powers Punching"
@@ -167,17 +189,17 @@ SteelCoverDescription:
 	db   "Lowers damage from"
 	next "Puncturing moves.@"
 
-RecklessDescription:
-	db   "Powers moves with"
-	next "recoil.@"
-
-DeviantDescription:
-	db   "Lowers damage from"
-	next "moves with recoil.@"
-
 RockHeadDescription:
+	db   "Halves damage taken"
+	next "from recoil.@"
+
+BattleArmorDescription:
 	db   "Lowers damage from"
-	next "recoil.@"
+	next "critical hits.@"
+
+DrainSurgeDescription:
+	db   "Ups life drain"
+	next "under half health.@"
 
 MonsoonDescription:
 	db   "Rain lasts one"
@@ -203,6 +225,14 @@ DustDevilDescription:
 	db   "Begin a sandstorm"
 	next "(4 turns).@"
 
+RecklessDescription:
+	db   "Powers moves with"
+	next "recoil.@"
+
+DeviantDescription:
+	db   "Lowers damage from"
+	next "moves with recoil.@"
+	
 RainyBoon0Description:
 	db   "Raises ATK during"
 	next "rain.@"
@@ -383,9 +413,17 @@ MasteryDescription:
 	db   "Lowers damage from"
 	next "Non-STAB attacks.@"
 	
+KeenFocusDescription:
+	db   "Boosts move ACC on"
+	next "your first turn.@"
+	
 StoneSkinDescription:
 	db   "Reduces NORMAL"
 	next "damage taken.@"
+	
+StoneSkin2Description:
+	db   "Resists NORMAL"
+	next "under half HP.@"
 
 FadeDescription:
 	db   "Reduces NORMAL"
@@ -395,9 +433,17 @@ HitBreakerDescription:
 	db   "Reduces FIGHTING"
 	next "damage taken.@"
 
+HitBreaker2Description:
+	db   "Resists FIGHTING"
+	next "under half HP.@"
+
 CarapaceDescription:
 	db   "Reduces FLYING"
 	next "damage taken.@"
+
+Carapace2Description:
+	db   "Resists FLYING"
+	next "under half HP.@"
 
 FlightRushDescription:
 	db   "SPEED disparity"
@@ -407,9 +453,17 @@ ShockAbsorbDescription:
 	db   "Reduces GROUND"
 	next "damage taken.@"
 	
+ShockAbsorb2Description:
+	db   "Resists GROUND"
+	next "under half HP.@"
+	
 ShapeCastDescription:
 	db   "Reduces ROCK dam-"
 	next "age taken.@"
+	
+ShapeCast2Description:
+	db   "Resists ROCK under"
+	next "half HP.@"
 	
 IronCoatDescription:
 	db   "DEFENSE disparity"
@@ -423,13 +477,25 @@ FumeCoatDescription:
 	db   "Reduces BUG damage"
 	next "taken.@"
 	
+FumeCoat2Description:
+	db   "Resists BUG under"
+	next "half HP.@"
+	
 HeatproofDescription:
 	db   "Reduces FIRE dam-"
 	next "age taken.@"
 	
+Heatproof2Description:
+	db   "Resists FIRE under"
+	next "half HP.@"
+	
 WaterproofDescription:
 	db   "Reduces WATER dam-"
 	next "age taken.@"
+	
+Waterproof2Description:
+	db   "Resists WATER"
+	next "under half HP.@"
 	
 HardWaterDescription:
 	db   "DEFENSE disparity"
@@ -443,9 +509,17 @@ AridTouchDescription:
 	db   "Reduces GRASS dam-"
 	next "age taken.@"
 	
+AridTouch2Description:
+	db   "Resists GRASS"
+	next "under half HP.@"
+	
 IonFieldDescription:
 	db   "Reduces ELECTRIC"
 	next "damage taken.@"
+		
+IonField2Description:
+	db   "Resists ELECTRIC"
+	next "under half HP.@"
 		
 ZapRushDescription:
 	db   "SPEED disparity"
@@ -455,15 +529,31 @@ ForewarnDescription:
 	db   "Reduces PSYCHIC"
 	next "damage taken.@"
 	
+Forewarn2Description:
+	db   "Resists PSYCHIC"
+	next "under half HP.@"
+	
 ThickCoatDescription:
 	db   "Reduces ICE damage"
 	next "taken.@"
+	
+ThickCoat2Description:
+	db   "Resists ICE under"
+	next "half HP.@"
 	
 ShadowBeingDescription:
 	db   "Reduces DARK dam-"
 	next "age taken.@"
 	
+ShadowBeing2Description:
+	db   "Resists DARK under"
+	next "half HP.@"
+	
 PrismArmorDescription:
 	db   "Take less SUPER-"
 	next "EFFECTIVE damage@"
+	
+PrismPlateDescription:
+	db   "Resist S.EFFECTIVE"
+	next "damage at half HP.@"
 	

@@ -4,6 +4,7 @@ TraitNames::
 	db "Shock Body@"   ; TRAIT_CONTACT_PRZ
 	db "Stun Body@"    ; TRAIT_CONTACT_FLINCH
 	db "High Tempo@"   ; TRAIT_CONTACT_CONFUSED
+	db "Cute Charm@"   ; TRAIT_CONTACT_IN_LOVE
 	db "Iron Fist@"    ; TRAIT_BOOST_PUNCHING
 	db "Weave@"        ; TRAIT_REDUCE_PUNCHING
 	db "Vocal Power@"  ; TRAIT_BOOST_SOUND
@@ -16,15 +17,17 @@ TraitNames::
 	db "Dispersal@"    ; TRAIT_REDUCE_BEAM
 	db "Power Drill@"  ; TRAIT_BOOST_PERFURATE
 	db "Steel Cover@"  ; TRAIT_REDUCE_PERFURATE
-	db "Reckless@"     ; TRAIT_BOOST_RECOIL
-	db "Deviant@"      ; TRAIT_REDUCE_RECOIL
 	db "Rock Head@"    ; TRAIT_REDUCE_SELF_RECOIL
+	db "Battle Armor@" ; TRAIT_REDUCE_CRIT_DAMAGE
+	db "Drain Surge@"  ; TRAIT_BOOST_DRAIN
 	db "Monsoon@"      ; TRAIT_RAIN_DURATION
 	db "Drizzle@"      ; TRAIT_RAIN_ON_ENTER
 	db "Blue Sky@"     ; TRAIT_SUNSHINE_DURATION
 	db "Drought@"      ; TRAIT_SUNSHINE_ON_ENTER
 	db "Tempest@"      ; TRAIT_SANDSTORM_DURATION
 	db "Dust Devil@"   ; TRAIT_SANDSTORM_ON_ENTER
+	db "Reckless@"     ; TRAIT_BOOST_RECOIL
+	db "Deviant@"      ; TRAIT_REDUCE_RECOIL
 	db "Rainy Boon@"   ; TRAIT_RAIN_ATTACK
 	db "Rainy Boon@"   ; TRAIT_RAIN_DEFENSE
 	db "Rainy Boon@"   ; TRAIT_RAIN_SPEED
@@ -70,25 +73,40 @@ TraitNames::
 	db "Vicious Form@" ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	db "Prismality@"   ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"      ; TRAIT_REDUCE_NOT_STAB
+	db "Keen Focus@"   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	db "Stone Skin@"   ; TRAIT_REDUCE_NORMAL
+	db "Steel Skin@"   ; TRAIT_REDUCE_NORMAL_MORE
 	db "Fade@"         ; TRAIT_REDUCE_NORMAL_ACC
 	db "Hit Breaker@"  ; TRAIT_REDUCE_FIGHTING
+	db "Hit Blocker@"  ; TRAIT_REDUCE_FIGHTING_MORE
 	db "Carapace@"     ; TRAIT_REDUCE_FLYING
+	db "Iron Shell@"   ; TRAIT_REDUCE_FLYING_MORE
 	db "Flight Rush@"  ; TRAIT_BOOST_FLYING_SPEED
 	db "Shock Absorb@" ; TRAIT_REDUCE_GROUND
+	db "Dissipate@"    ; TRAIT_REDUCE_GROUND_MORE
 	db "Shape Cast@"   ; TRAIT_REDUCE_ROCK
+	db "Shape Mold@"   ; TRAIT_REDUCE_ROCK_MORE
 	db "Iron Coat@"    ; TRAIT_BOOST_ROCK_DEFENSE
 	db "Golden Coat@"  ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	db "Fume Coat@"    ; TRAIT_REDUCE_BUG
+	db "Ash Coat@"     ; TRAIT_REDUCE_BUG_MORE
 	db "Heatproof@"    ; TRAIT_REDUCE_FIRE
+	db "Fireproof@"    ; TRAIT_REDUCE_FIRE_MORE
 	db "Waterproof@"   ; TRAIT_REDUCE_WATER
+	db "Water Repel@"  ; TRAIT_REDUCE_WATER_MORE
 	db "Hard Water@"   ; TRAIT_BOOST_WATER_DEFENSE
 	db "Water Surge@"  ; TRAIT_BOOST_WATER_HP
 	db "Arid Touch@"   ; TRAIT_REDUCE_GRASS
+	db "Arid Shield@"  ; TRAIT_REDUCE_GRASS_MORE
 	db "Ion Field@"    ; TRAIT_REDUCE_ELECTRIC
+	db "Ionize Air@"   ; TRAIT_REDUCE_ELECTRIC_MORE
 	db "Zap Rush@"     ; TRAIT_BOOST_ELECTRIC_SPEED
 	db "Forewarn@"     ; TRAIT_REDUCE_PSYCHIC
+	db "Prediction@"   ; TRAIT_REDUCE_PSYCHIC_MORE
 	db "Thick Coat@"   ; TRAIT_REDUCE_ICE
+	db "Hibernate@"    ; TRAIT_REDUCE_ICE_MORE
 	db "Shadow Being@" ; TRAIT_REDUCE_DARK
+	db "Brawl@"        ; TRAIT_REDUCE_DARK_MORE
 	db "Prism Armor@"  ; TRAIT_REDUCE_SUPER_EFFECTIVE
+	db "Prism Plate@"  ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
 	

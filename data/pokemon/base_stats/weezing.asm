@@ -3,7 +3,7 @@
 	db  65,  85, 100,  60, 105,  70
 	;   hp  atk  def  spd  sat  sdf
 
-	db ROCK, FIRE ; type
+	db ROCK, ROCK ; type
 	db 60 ; catch rate
 	db 173 ; base exp
 	db NO_ITEM, DARK_MIRROR ; items

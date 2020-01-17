@@ -1160,7 +1160,7 @@ GeodudeEvosAttacks:
 	db 5, ROLLOUT
 	db 11, ROCK_THROW
 	db 16, MAGNITUDE
-	db 24, SELFDESTRUCT
+	; db 24, SELFDESTRUCT
 	db 26, HARDEN
 	db 29, ROCK_BLAST
 	db 34, EARTHQUAKE
@@ -1688,7 +1688,7 @@ KoffingEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, MUD_BOMB
 	db 1, TACKLE
-	db 1, EMBER
+	db 5, EMBER
 	db 9, SMOG
 	db 17, SELFDESTRUCT
 	db 25, SMOKESCREEN

@@ -33,3 +33,6 @@ Flutter Fly / Flutter Clap
 	
 Sand Trap
 	Damage, doesn't hit flying
+	
+Shock Sting
+	Physical Electric damage, learned by Tentacool and Sandshrew, variation of Spark

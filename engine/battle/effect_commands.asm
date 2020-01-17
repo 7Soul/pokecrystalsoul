@@ -1602,6 +1602,13 @@ CheckTypeMatchup:
 	pop bc
 	ldh a, [hQuotient + 3]
 	ld [wTypeMatchup], a
+	cp 40
+	jr nc, .max
+	jr .got_multi
+.max
+	ld a, 30 ; max multiplier is 3x
+	ld [wTypeMatchup], a
+.got_multi
 	jr .TypesLoop
 
 .End:
@@ -1745,6 +1752,17 @@ BattleCommand_CheckHit:
 	ld a, b
 	cp -1
 	jr z, .Hit
+
+	ld a, b
+	ld [wBuffer2], a
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitBoostAccuracyTurnZero
+
+	; ld a, BATTLE_VARS_TRAIT_OPP
+	; ld [wBuffer1], a
+	; farcall TraitReduceAccuracy
+	; ld a, [wBuffer2]
 
 	call BattleRandom
 	cp b
@@ -6052,6 +6070,18 @@ BattleCommand_Recoil:
 	ld b, a
 	ld a, [wCurDamage + 1]
 	ld c, a
+
+	push hl
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitReduceSelfRecoil
+	pop hl
+	
+	ld a, [wBuffer2]
+	ld b, a
+	ld a, [wBuffer3]
+	ld c, a
+
 	srl b
 	rr c
 	srl b
