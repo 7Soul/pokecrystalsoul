@@ -5,6 +5,7 @@ TraitNames::
 	db "Stun Body@"    ; TRAIT_CONTACT_FLINCH
 	db "High Tempo@"   ; TRAIT_CONTACT_CONFUSED
 	db "Cute Charm@"   ; TRAIT_CONTACT_IN_LOVE
+	db "Keep Going@"   ; TRAIT_HEAL_PP_FAINT
 	db "Iron Fist@"    ; TRAIT_BOOST_PUNCHING
 	db "Weave@"        ; TRAIT_REDUCE_PUNCHING
 	db "Vocal Power@"  ; TRAIT_BOOST_SOUND
@@ -20,6 +21,9 @@ TraitNames::
 	db "Rock Head@"    ; TRAIT_REDUCE_SELF_RECOIL
 	db "Battle Armor@" ; TRAIT_REDUCE_CRIT_DAMAGE
 	db "Drain Surge@"  ; TRAIT_BOOST_DRAIN
+	db "Skill Link@"   ; TRAIT_BOOST_MULTI_HIT_COUNT
+	db "Chain Clip@"   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
+	; db "@"   ; TRAIT_BOOST_DAMAGE_PER_TURN
 	db "Monsoon@"      ; TRAIT_RAIN_DURATION
 	db "Drizzle@"      ; TRAIT_RAIN_ON_ENTER
 	db "Blue Sky@"     ; TRAIT_SUNSHINE_DURATION
@@ -65,15 +69,35 @@ TraitNames::
 	db "Attention@"    ; TRAIT_REDUCE_EFFECT_FLINCH
 	db "Presence@"     ; TRAIT_BOOST_EFFECT_FLINCH
 	db "Own Tempo@"    ; TRAIT_CONFUSED_IMMUNE
-	db "Oblivious@"    ; TRAIT_REDUCE_EFFECT_CONFUSED
+	db "Oblivion@"     ; TRAIT_REDUCE_EFFECT_CONFUSED
 	db "Metronome@"    ; TRAIT_BOOST_EFFECT_CONFUSE
+	db "Oblivious@"    ; TRAIT_IN_LOVE_IMMUNE
+	db "Insomnia@"     ; TRAIT_SLEEP_IMMUNE
+	db "Alert@"        ; TRAIT_REDUCE_EFFECT_SLEEP
+	db "Inner Flame@"  ; TRAIT_FRZ_IMMUNE
 	db "Wonder Skin@"  ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	db "Serene Grace@" ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	db "Shield Dust@"  ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	db "Vicious Form@" ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	db "Prismality@"   ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"      ; TRAIT_REDUCE_NOT_STAB
+	db "Free Shot@"    ; TRAIT_GAIN_PP_TURN_ZERO
 	db "Keen Focus@"   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
+	db "Berserk@"      ; TRAIT_ATTACK_BELOW_THIRD
+	db "Solidify@"     ; TRAIT_DEFENSE_BELOW_THIRD
+	db "Scamper@"      ; TRAIT_SPEED_BELOW_THIRD
+	db "Poise@"        ; TRAIT_SP_ATTACK_BELOW_THIRD
+	db "Gold Guard@"   ; TRAIT_SP_DEFENSE_BELOW_THIRD
+	db "Take Aim@"     ; TRAIT_ACCURACY_BELOW_THIRD
+	db "Danger Sense@" ; TRAIT_EVASION_BELOW_THIRD
+	db "All Out@"      ; TRAIT_CRIT_BELOW_THIRD
+	db "Permafrost@"   ; TRAIT_REDUCE_BRN_AND_FIRE
+	db "Ground Wire@"  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
+	db "Steel Wings@"  ; TRAIT_REDUCE_FLINCH_AND_ROCK
+	db "Perseverance@" ; TRAIT_REDUCE_SLP_AND_DARK
+	db "Survival@"     ; TRAIT_REDUCE_PSN_AND_BUG
+	db "Ice Shedding@" ; TRAIT_REDUCE_FRZ_AND_ICE
+	db "Mind Block@"   ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
 	db "Stone Skin@"   ; TRAIT_REDUCE_NORMAL
 	db "Steel Skin@"   ; TRAIT_REDUCE_NORMAL_MORE
 	db "Fade@"         ; TRAIT_REDUCE_NORMAL_ACC

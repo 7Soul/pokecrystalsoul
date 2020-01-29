@@ -1298,6 +1298,9 @@ HandleLeftovers:
 	call .do_it
 	call SetPlayerTurn
 .do_it
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitRegenHP
 
 	callfar GetUserItem
 	ld a, [hl]
@@ -1718,10 +1721,6 @@ HandleWeather:
 	dec [hl]
 	jr z, .ended
 
-	; ld a, BATTLE_VARS_TRAIT
-	; ld [wBuffer1], a
-	; farcall TraitWeatherHealsStatus
-
 	ld hl, .WeatherMessages
 	call .PrintWeatherMessage
 
@@ -2004,6 +2003,11 @@ RestoreHP:
 	jr z, .ok
 	ld hl, wBattleMonMaxHP
 .ok
+	ld a, [wBuffer5]
+	ld b, a
+	ld a, [wBuffer6]
+	ld c, a
+
 	ld a, [hli]
 	ld [wBuffer2], a
 	ld a, [hld]
@@ -2061,6 +2065,10 @@ UpdateHPBar:
 	ret
 
 HandleEnemyMonFaint:
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitFaintMon
+
 	ld a, [wTempEnemyMonSpecies]
 	ld [wCurPartySpecies], a
 	predef AddFoughtPokemon
@@ -2661,6 +2669,10 @@ IsGymLeaderCommon:
 INCLUDE "data/trainers/leaders.asm"
 
 HandlePlayerMonFaint:
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitFaintMon
+
 	call FaintYourPokemon
 	ld hl, wEnemyMonHP
 	ld a, [hli]

@@ -2544,6 +2544,10 @@ RestorePP:
 	cp MYSTERYBERRY
 	jr z, .restore_some
 
+	ld c, 1
+	inc a ; compare to 255
+	jr z, .restore_some
+
 	ld c, 10
 
 .restore_some

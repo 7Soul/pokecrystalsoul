@@ -595,16 +595,19 @@ CheckTraitCondition:
 	jp z, .not_met1
 	cp TRAIT_SANDSTORM_ON_ENTER + 1 ; traits lower than this have no conditions
 	jp c, .success
-	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
-	jp c, .check_rain
 	cp TRAIT_REDUCE_RECOIL + 1 ; all traits that require rain weather
 	jp c, .check_recoil
+	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
+	jp c, .check_rain	
 	cp TRAIT_SUNSHINE_NO_STATUS + 1 ; all sun traits
 	jp c, .check_sun
 	cp TRAIT_SANDSTORM_NO_STATUS + 1 ; all sandstorm traits
 	jp c, .check_sandstorm
 	cp TRAIT_BOOST_EFFECT_BRN + 1 ; all burn traits
 	jp c, .check_move_brn
+	cp TRAIT_REGEN_BRN + 1
+	ld d, BRN
+	jp c, .check_user_status
 	cp TRAIT_BOOST_EFFECT_PSN + 1 ; all poison traits
 	jp c, .check_move_psn
 	cp TRAIT_BOOST_EFFECT_PRZ + 1 ; all paralysis traits
@@ -613,6 +616,10 @@ CheckTraitCondition:
 	jp c, .check_move_flinch
 	cp TRAIT_BOOST_EFFECT_CONFUSED + 1 ; all confusion traits
 	jp c, .check_move_confused
+	cp TRAIT_IN_LOVE_IMMUNE + 1 ; all attract traits
+	jp c, .check_move_attract
+	cp TRAIT_REDUCE_EFFECT_SLEEP + 1 ; all sleep traits
+	jp c, .check_move_sleep
 	cp TRAIT_BOOST_EFFECT_NO_DAMAGE + 1 ; all traits for status moves 
 	jp c, .check_move_status
 	cp TRAIT_BOOST_EFFECT_WITH_DAMAGE + 1 ; all traits for moves with secondary effects 
@@ -622,12 +629,52 @@ CheckTraitCondition:
 	cp TRAIT_BOOST_ACCURACY_TURN_ZERO + 1 ; all traits on turn 0
 	ld d, 0
 	jp c, .check_turns
+	cp TRAIT_CRIT_BELOW_THIRD + 1 ; all traits that require to be below 50% hp
+	ld b, 34
+	jp c, .check_below_threshold
+	; cp TRAIT_BOOST_MULTI_HIT_DAMAGE + 1 
+	; jp c, .check_move_multihit
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
 	and TYPE_MASK
 	ld d, a
 	pop af
+	cp TRAIT_REDUCE_BRN_AND_FIRE
+	ld b, a
+	ld c, FIRE
+	call .check_move_type
+	jp .check_move_brn
+	cp TRAIT_REDUCE_PRZ_AND_ELECTRIC
+	ld b, a
+	ld c, ELECTRIC
+	call .check_move_type
+	jp .check_move_prz
+	cp TRAIT_REDUCE_FLINCH_AND_ROCK
+	ld b, a
+	ld c, ROCK
+	call .check_move_type
+	jp .check_move_flinch
+	cp TRAIT_REDUCE_SLP_AND_DARK
+	ld b, a
+	ld c, DARK
+	call .check_move_type
+	jp .check_move_sleep
+	cp TRAIT_REDUCE_PSN_AND_BUG
+	ld b, a
+	ld c, DARK
+	call .check_move_type
+	jp .check_move_psn
+	cp TRAIT_REDUCE_FRZ_AND_ICE
+	ld b, a
+	ld c, ICE
+	call .check_move_type
+	jp .check_move_frz
+	cp TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	ld b, a
+	ld c, PSYCHIC
+	call .check_move_type
+	jp .check_move_confused
 	cp TRAIT_REDUCE_FIGHTING ; traits below this that require move type to be NORMAL
 	ld b, a
 	ld c, NORMAL
@@ -718,6 +765,8 @@ CheckTraitCondition:
 	jr z, .success
 	cp EFFECT_BURN_HIT
 	jr z, .success
+	cp EFFECT_TRI_ATTACK
+	jr z, .success
 	and a
 	ret
 
@@ -726,6 +775,8 @@ CheckTraitCondition:
 	cp EFFECT_PARALYZE
 	jr z, .success
 	cp EFFECT_PARALYZE_HIT
+	jr z, .success
+	cp EFFECT_TRI_ATTACK
 	jr z, .success
 	and a
 	ret
@@ -737,6 +788,15 @@ CheckTraitCondition:
 	cp EFFECT_POISON_HIT
 	jr z, .success
 	cp EFFECT_POISON_MULTI_HIT
+	jr z, .success
+	and a
+	ret
+
+.check_move_frz
+	call GetMoveStructEffect
+	cp EFFECT_FREEZE_HIT
+	jr z, .success
+	cp EFFECT_TRI_ATTACK
 	jr z, .success
 	and a
 	ret
@@ -757,10 +817,33 @@ CheckTraitCondition:
 	and a
 	ret
 
+.check_move_attract
+	call GetMoveStructEffect
+	cp EFFECT_ATTRACT
+	jp z, .success
+	and a
+	ret
+
+.check_move_sleep
+	call GetMoveStructEffect
+	cp EFFECT_SLEEP
+	jp z, .success
+	and a
+	ret
+
+; .check_move_multihit
+; 	call GetMoveStructEffect
+; 	cp EFFECT_MULTI_HIT
+; 	jr z, .success
+; 	cp EFFECT_POISON_MULTI_HIT
+; 	jr z, .success
+; 	and a
+; 	ret
+
 .check_move_status
 	call Get_move_category
 	cp 2
-	jr z, .success
+	jp z, .success
 	and a
 	ret
 
@@ -770,7 +853,7 @@ CheckTraitCondition:
 	jr z, .nope
 	call GetMoveStructDamage
 	and a
-	jr nz, .success
+	jp nz, .success
 .nope
 	and a
 	ret
@@ -778,7 +861,7 @@ CheckTraitCondition:
 .check_recoil
 	call GetMoveStructEffect
 	cp EFFECT_RECOIL_HIT
-	jr z, .success
+	jp z, .success
 	and a
 	ret
 
@@ -802,12 +885,46 @@ CheckTraitCondition:
 	scf
 	ret
 
+.check_below_threshold
+	call GetHealthPercentage
+	ld a, d
+	cp b
+	jr nc, .no_hp ; greater
+	and a
+	ret
+.no_hp
+	scf
+	ret
+
 .check_move_type:
 	ld a, d
 	cp c
 	jp z, .success
 	and a
 	ld a, b ; restore trait into 'a'	
+	ret
+
+.check_user_status
+	ld a, BATTLE_VARS_STATUS
+	call GetBattleVarAddr
+	ld a, d
+	cp BRN
+	jr z, .isBRN
+	cp PSN
+	jr z, .isPSN
+	jr .not_status
+
+.isBRN
+	ld a, [hl]
+	and 1 << BRN
+	jp nz, .success
+	jr .not_status
+.isPSN
+	ld a, [hl]
+	and 1 << PSN
+	jp nz, .success
+.not_status
+	and a
 	ret
 
 Get_move_category: ; 0 = physical, 1 = special, 2 = status
@@ -932,36 +1049,70 @@ TraitsThatRaiseAttack:
 	db TRAIT_RAIN_ATTACK
 	db TRAIT_SUNSHINE_ATTACK
 	db TRAIT_SANDSTORM_ATTACK
+	db TRAIT_ATTACK_BELOW_THIRD
 	db -1
 
 TraitsThatRaiseDefense:
 	db TRAIT_RAIN_DEFENSE
+	db TRAIT_SUNSHINE_DEFENSE
+	db TRAIT_SANDSTORM_DEFENSE
+	db TRAIT_DEFENSE_BELOW_THIRD
 	db -1
 
 TraitsThatRaiseSpeed:
 	db TRAIT_RAIN_SPEED
+	db TRAIT_SUNSHINE_SPEED
+	db TRAIT_SANDSTORM_SPEED
+	db TRAIT_SPEED_BELOW_THIRD
 	; db TRAIT_STATUS_RAISE_SPEED
 	db -1
 
 TraitsThatRaiseSpAttack:
 	db TRAIT_RAIN_SP_ATTACK
+	db TRAIT_SUNSHINE_SP_ATTACK
+	db TRAIT_SANDSTORM_SP_ATTACK
+	db TRAIT_SP_ATTACK_BELOW_THIRD
 	db -1
 
 TraitsThatRaiseSpDefense:
 	db TRAIT_RAIN_SP_DEFENSE
+	db TRAIT_SUNSHINE_SP_DEFENSE
+	db TRAIT_SANDSTORM_SP_DEFENSE
+	db TRAIT_SP_DEFENSE_BELOW_THIRD
 	db -1
 
 TraitsThatRaiseAccuracy:
 	db TRAIT_RAIN_ACCURACY
+	db TRAIT_SUNSHINE_ACCURACY
+	db TRAIT_SANDSTORM_ACCURACY
+	db TRAIT_ACCURACY_BELOW_THIRD
 	db -1
 
 TraitsThatRaiseEvasion:
 	db TRAIT_RAIN_EVASION
+	db TRAIT_SUNSHINE_EVASION
+	db TRAIT_SANDSTORM_EVASION
+	db TRAIT_EVASION_BELOW_THIRD
 	db -1
 
-TraitBoostAccuracyTurnZero:
-	ld a, TRAIT_BOOST_ACCURACY_TURN_ZERO
-	call CheckSpecificTrait
+TraitBoostCritical:
+	ld hl, TraitsThatBoostCritical
+	call CheckTrait
+	jr nc, .not_met
+	ld a, 1
+	ld [wBuffer2], a
+.not_met
+	xor a
+	ld [wBuffer2], a
+	ret
+
+TraitsThatBoostCritical:
+	db TRAIT_CRIT_BELOW_THIRD
+	db -1
+	
+TraitBoostAccuracy:
+	ld hl, TraitsThatReduceDamage
+	call CheckTrait
 	jr nc, .not_met
 	ld a, [wBuffer2]
 	srl a
@@ -974,6 +1125,38 @@ TraitBoostAccuracyTurnZero:
 	ld [wBuffer2], a
 .not_met
 	ret
+
+TraitsThatBoostAccuracy:
+	db TRAIT_BOOST_ACCURACY_TURN_ZERO
+	db -1
+
+TraitReduceAccuracy:
+	ld hl, TraitsThatReduceDamage
+	call CheckTrait
+	jr nc, .not_met
+	ld a, [wBuffer2]
+	cp 216 + 1 ; 85%
+	jr c, .low_acc
+	sub 12 ; 5%
+	jr nc, .end
+.low_acc
+	cp 191 + 1 ; 75%
+	jr c, .lower_acc
+	sub 18 ; 7%
+	jr nc, .end
+.lower_acc
+	sub 32 ; 12%
+	jr nc, .end
+.min
+	xor a
+.end
+	ld [wBuffer2], a
+.not_met
+	ret
+
+TraitsThatReduceAccuracy:
+	db TRAIT_REDUCE_NORMAL_ACC
+	db -1
 
 TraitReduceSelfRecoil:
 	ld a, TRAIT_REDUCE_SELF_RECOIL
@@ -1174,6 +1357,9 @@ TraitsThatHealStatus:
 	db -1
 
 TraitReduceDamageFromType:
+	ld hl, TraitsThatReduceDamageLess
+	call CheckTrait
+	jr c, .reduce_less
 	ld hl, TraitsThatReduceDamage
 	call CheckTrait
 	jr c, .reduce
@@ -1188,18 +1374,23 @@ TraitReduceDamageFromType:
 	jr c, .reduce_more
 	ld hl, TraitsThatReduceSuperEffectiveDamage
 	call CheckTrait
-	jr nc, .not_se_reduction
+	jr nc, .end
 .reduce
 	ld a, $67 ; ~0.86 ; 14% reduction
 	call ApplyDamageMod
+	jr .end
+.reduce_less
+	ld a, $9A ; =0.9 ; 10% reduction
+	call ApplyDamageMod
+	jr .end
 .reduce_more
 	call GetHealthPercentage
 	ld a, d
 	cp 50
-	jr nc, .not_se_reduction
+	jr nc, .end
 	ld a, $57 ; ~0.71 ; 29% reduction
 	call ApplyDamageMod
-.not_se_reduction
+.end
 	ret
 
 TraitsThatReduceSuperEffectiveDamage:
@@ -1242,6 +1433,16 @@ TraitsThatReduceDamageMore: ; under 50% hp
 	db TRAIT_REDUCE_DARK_MORE
 	db -1
 
+TraitsThatReduceDamageLess: ; 10%
+	db TRAIT_REDUCE_BRN_AND_FIRE
+	db TRAIT_REDUCE_PRZ_AND_ELECTRIC
+	db TRAIT_REDUCE_FLINCH_AND_ROCK
+	db TRAIT_REDUCE_SLP_AND_DARK
+	db TRAIT_REDUCE_PSN_AND_BUG
+	db TRAIT_REDUCE_FRZ_AND_ICE
+	db TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	db -1
+
 TraitReducePower:
 	ld a, [wCriticalHit]
 	cp 1
@@ -1250,15 +1451,18 @@ TraitReducePower:
 	call CheckSpecificTrait
 	jr .boost_more
 .not_crit
-	ld c, 7
+	ld c, 6
 .loop
 	ld hl, .JumpTableTraitsReduceMoveClass
 	dec c
 	ld a, c
-	jr z, .not_met
+	jr z, .not_met1
 	push bc
-	call GetToJumptable
-	call CheckTrait
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld a, [hl]
+	call CheckSpecificTrait
 	pop bc
 	ld a, c
 	jr nc, .loop
@@ -1271,10 +1475,12 @@ TraitReducePower:
 	call GetBattleVar
 	ld de, 1
 	call IsInArray
-	jr nc, .not_met
+	jr nc, .not_met1
 .boost
 	ld a, $67 ; ~0.85
 	call ApplyDamageMod
+.not_met1
+	ret
 .not_met
 	ret
 .boost_more
@@ -1283,59 +1489,30 @@ TraitReducePower:
 	ret
 
 .JumpTableTraitsReduceMoveClass
-	dw TraitsThatReducePunchingMoves
-	dw TraitsThatReduceSoundMoves
-	dw TraitsThatReduceBitingMoves
-	dw TraitsThatReduceCuttingMoves
-	dw TraitsThatReduceBeamMoves
-	dw TraitsThatReducePerfurateMoves
-
-TraitBoostNonStab:
-	ld a, TRAIT_BOOST_NOT_STAB
-	call CheckSpecificTrait
-	jr nc, .not_met
-	ld a, $65 ; ~1.2
-	call ApplyDamageMod
-.not_met
-	ret
-
-TraitReduceNonStab:
-	ld a, TRAIT_REDUCE_NOT_STAB
-	call CheckSpecificTrait
-	jr nc, .not_met
-	ld a, $67 ; ~0.86
-	call ApplyDamageMod
-.not_met
-	ret
-
-TraitReduceRecoilMoves:
-	ld a, TRAIT_REDUCE_RECOIL
-	call CheckSpecificTrait
-	jr nc, .not_met
-	ld a, $67 ; ~0.86
-	call ApplyDamageMod
-.not_met
-	ret
-
-TraitBoostRecoilMoves:
-	ld a, TRAIT_BOOST_RECOIL
-	call CheckSpecificTrait
-	jr nc, .not_met
-	ld a, $76 ; ~1.16
-	call ApplyDamageMod
-.not_met
-	ret
+	db TRAIT_REDUCE_PUNCHING
+	db TRAIT_REDUCE_SOUND
+	db TRAIT_REDUCE_BITING
+	db TRAIT_REDUCE_CUTTING
+	db TRAIT_REDUCE_BEAM
+	db TRAIT_REDUCE_PERFURATE
 
 TraitBoostPower:
-	ld c, 7
+	ld a, TRAIT_BOOST_DAMAGE_PER_TURN
+	call CheckSpecificTrait
+	jr nc, .not_met1
+	
+	ld c, 6
 .loop
 	ld hl, .JumpTableTraitsBoostMoveClass
 	dec c
 	ld a, c
-	jr z, .not_met
+	jr z, .not_met1
 	push bc
-	call GetToJumptable
-	call CheckTrait
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld a, [hl]
+	call CheckSpecificTrait
 	pop bc
 	ld a, c
 	jr nc, .loop
@@ -1348,20 +1525,22 @@ TraitBoostPower:
 	call GetBattleVar
 	ld de, 1
 	call IsInArray
-	jr nc, .not_met
+	jr nc, .not_met1
 .boost
 	ld a, $76 ; ~1.16
 	call ApplyDamageMod
-.not_met
+.not_met1
+	ret
+.not_met2
 	ret
 
 .JumpTableTraitsBoostMoveClass
-	dw TraitsThatBoostPunchingMoves
-	dw TraitsThatBoostSoundMoves
-	dw TraitsThatBoostBitingMoves
-	dw TraitsThatBoostCuttingMoves
-	dw TraitsThatBoostBeamMoves
-	dw TraitsThatBoostPerfurateMoves
+	db TRAIT_BOOST_PUNCHING
+	db TRAIT_BOOST_SOUND
+	db TRAIT_BOOST_BITING
+	db TRAIT_BOOST_CUTTING
+	db TRAIT_BOOST_BEAM
+	db TRAIT_BOOST_PERFURATE
 
 JumptableMoveClass:
 	dw PunchingMoves
@@ -1370,54 +1549,6 @@ JumptableMoveClass:
 	dw CuttingMoves
 	dw BeamMoves
 	dw PerfurateMoves
-
-TraitsThatBoostPunchingMoves:
-	db TRAIT_BOOST_PUNCHING
-	db -1
-
-TraitsThatBoostSoundMoves:
-	db TRAIT_BOOST_SOUND
-	db -1
-
-TraitsThatBoostBitingMoves:
-	db TRAIT_BOOST_BITING
-	db -1
-
-TraitsThatBoostCuttingMoves:
-	db TRAIT_BOOST_CUTTING
-	db -1
-
-TraitsThatBoostBeamMoves:
-	db TRAIT_BOOST_BEAM
-	db -1
-
-TraitsThatBoostPerfurateMoves:
-	db TRAIT_BOOST_PERFURATE
-	db -1
-
-TraitsThatReducePunchingMoves:
-	db TRAIT_REDUCE_PUNCHING
-	db -1
-
-TraitsThatReduceSoundMoves:
-	db TRAIT_REDUCE_SOUND
-	db -1
-
-TraitsThatReduceBitingMoves:
-	db TRAIT_REDUCE_BITING
-	db -1
-
-TraitsThatReduceCuttingMoves:
-	db TRAIT_REDUCE_CUTTING
-	db -1
-
-TraitsThatReduceBeamMoves:
-	db TRAIT_REDUCE_BEAM
-	db -1
-
-TraitsThatReducePerfurateMoves:
-	db TRAIT_REDUCE_PERFURATE
-	db -1
 
 PunchingMoves:
 	db MEGA_PUNCH
@@ -1464,11 +1595,48 @@ BeamMoves:
 	db -1
 
 PerfurateMoves:
+	db PECK
 	db HORN_DRILL
 	db DRILL_PECK
 	db MEGAHORN
 	db HORN_ATTACK
 	db -1
+
+TraitBoostNonStab:
+	ld a, TRAIT_BOOST_NOT_STAB
+	call CheckSpecificTrait
+	jr nc, .not_met
+	ld a, $65 ; ~1.2
+	call ApplyDamageMod
+.not_met
+	ret
+
+TraitReduceNonStab:
+	ld a, TRAIT_REDUCE_NOT_STAB
+	call CheckSpecificTrait
+	jr nc, .not_met
+	ld a, $67 ; ~0.86
+	call ApplyDamageMod
+.not_met
+	ret
+
+TraitReduceRecoilMoves:
+	ld a, TRAIT_REDUCE_RECOIL
+	call CheckSpecificTrait
+	jr nc, .not_met
+	ld a, $67 ; ~0.86
+	call ApplyDamageMod
+.not_met
+	ret
+
+TraitBoostRecoilMoves:
+	ld a, TRAIT_BOOST_RECOIL
+	call CheckSpecificTrait
+	jr nc, .not_met
+	ld a, $76 ; ~1.16
+	call ApplyDamageMod
+.not_met
+	ret
 
 TraitDamageBasedOnStats:
 	ld c, 6
@@ -1697,16 +1865,16 @@ TraitReduceEffectChance:
 	jr nc, .not_met
 	ld a, [wBuffer2]
 	srl a
-	ld b, a
-	jr c, .min ; min value if this would go under 0
+	ld b, a ; 50%
+	; jr c, .min ; min value if this would go under 0
 	ld a, [wBuffer3] ; index from TraitsThatBoostEffectChance
-	cp 5
-	jr c, .end ; indexes 0 to 4
+	cp 6
+	jr c, .end ; indexes 0 to 5
 	ld a, b
 	srl a
 	add b
-	ld b, a
-	jr c, .min ; min value if this would go under 0
+	ld b, a ; 75%
+	; jr c, .min ; min value if this would go under 0
 .end
 	ld a, b
 	ld [wBuffer2], a
@@ -1720,10 +1888,16 @@ TraitsThatReduceEffectChance:
 	db TRAIT_REDUCE_EFFECT_BRN ; 0
 	db TRAIT_REDUCE_EFFECT_PSN ; 1
 	db TRAIT_REDUCE_EFFECT_PRZ ; 2
-	db TRAIT_BOOST_EFFECT_FLINCH ; 3
-	db TRAIT_BOOST_EFFECT_CONFUSED ; 4
-	db TRAIT_REDUCE_EFFECT_NO_DAMAGE ; 5
-	db TRAIT_REDUCE_EFFECT_WITH_DAMAGE ; 6
+	db TRAIT_REDUCE_EFFECT_FLINCH ; 3
+	db TRAIT_REDUCE_EFFECT_CONFUSED ; 4
+	db TRAIT_REDUCE_EFFECT_SLEEP ; 5
+	db TRAIT_REDUCE_EFFECT_NO_DAMAGE ; 6
+	db TRAIT_REDUCE_EFFECT_WITH_DAMAGE ; 7
+	db TRAIT_REDUCE_BRN_AND_FIRE ; 8
+	db TRAIT_REDUCE_PRZ_AND_ELECTRIC ; 9
+	db TRAIT_REDUCE_FLINCH_AND_ROCK ; a
+	db TRAIT_REDUCE_SLP_AND_DARK ; b
+	db TRAIT_REDUCE_PSN_AND_BUG ; c
 	db -1
 
 TraitNegateEffectChance:
@@ -1742,9 +1916,111 @@ TraitsThatNegateEffectChance:
 	db TRAIT_PRZ_IMMUNE ; 2
 	db TRAIT_FLINCH_IMMUNE ; 3
 	db TRAIT_CONFUSED_IMMUNE ; 4
-	db TRAIT_RAIN_NO_STATUS ; 5
-	db TRAIT_SUNSHINE_NO_STATUS ; 6
-	db TRAIT_SANDSTORM_NO_STATUS ; 7
+	db TRAIT_IN_LOVE_IMMUNE ; 5
+	db TRAIT_SLEEP_IMMUNE ; 6
+	db TRAIT_RAIN_NO_STATUS ; 7
+	db TRAIT_SUNSHINE_NO_STATUS ; 8
+	db TRAIT_SANDSTORM_NO_STATUS ; 9
+	db -1
+	
+TraitMultiHit:
+	ld hl, TraitsThatDealWithMultiHit
+	call CheckTrait
+	jr nc, .not_met
+	ld a, [wBuffer3]
+	cp 1
+	jr nz, .count
+
+	ld a, BATTLE_VARS_MOVE_POWER
+	call GetBattleVarAddr
+	ld a, [hl]
+	ld b, a
+	srl a
+	add b
+	ld [hl], a
+	ld a, 1
+	ld [wBuffer2], a
+	ret
+
+.count
+	ld a, [wBuffer2] ; number of hits
+	cp 2
+	jr nc, .not_met
+	inc a
+	ld [wBuffer2], a
+
+.not_met
+	ret
+
+TraitsThatDealWithMultiHit:
+	db TRAIT_BOOST_MULTI_HIT_COUNT ; 0
+	db TRAIT_BOOST_MULTI_HIT_DAMAGE ; 1
+	db -1
+
+TraitPP:
+	ld hl, TraitsThatRecoverPP
+	call CheckTrait
+	jr nc, .not_met
+	call EffectTraitForceRecoverPP
+	; ld a, $FF
+	; ld [wd002], a
+	; ld c, 4
+; .loop
+	; ld a, c
+	; dec a
+	; ld [wMenuCursorY], a
+	; push bc
+	; callfar RestorePP
+	; pop bc
+	; dec c
+	; jr nz, .loop
+.not_met
+	ret
+
+TraitsThatRecoverPP:
+	db TRAIT_GAIN_PP_TURN_ZERO
+	db -1
+
+TraitFaintMon:
+	ld hl, TraitsThatTriggerOnFaintMon
+	call CheckTrait
+	jr nc, .not_met
+	ld a, [wBuffer3]
+	and a
+	jr z, .heal_pp_faint
+.not_met
+	ret
+.heal_pp_faint
+	call EffectTraitForceRecoverPP
+	ret
+
+TraitsThatTriggerOnFaintMon:
+	db TRAIT_HEAL_PP_FAINT
+	db -1
+
+EffectTraitForceRecoverPP:
+	ld a, $FF
+	ld [wd002], a
+	callfar RestorePP
+	ret
+
+TraitRegenHP:	
+	ld hl, TraitsThatRegenerate
+	call CheckTrait
+	jr nc, .not_met
+	xor a
+	ld [wBuffer3], a
+	ld [wBuffer5], a
+	ld a, 2
+	ld [wBuffer6], a
+	ld hl, BattleCommand_Heal
+	ld a, BANK("Effect Commands")
+	rst FarCall
+.not_met
+	ret
+
+TraitsThatRegenerate:
+	db TRAIT_REGEN_BRN
 	db -1
 
 ContactMoves:
@@ -1888,6 +2164,7 @@ ResetActivated:
 	ret
 
 GetHealthPercentage:
+	push bc
 	ld hl, wBattleMonHP
 	ld de, wBattleMonMaxHP
 	ldh a, [hBattleTurn]
@@ -1933,4 +2210,5 @@ GetHealthPercentage:
 	ldh [hMultiplicand + 1], a
 	ld a, c 
 	ldh [hMultiplicand + 2], a
+	pop bc
 	ret

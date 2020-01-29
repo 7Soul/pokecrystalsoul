@@ -1117,7 +1117,7 @@ BattleCommand_Critical:
 
 ; +2 critical level
 	ld c, 2
-	jp .Tally
+	jp .Traits
 
 .Farfetchd:
 	cp FARFETCH_D
@@ -1128,7 +1128,7 @@ BattleCommand_Critical:
 
 ; +2 critical level
 	ld c, 2
-	jp .Tally
+	jp .Traits
 
 .Steel_Wing_Check:
 	; push hl
@@ -1195,7 +1195,7 @@ BattleCommand_Critical:
 
 ; +2 critical level
 	ld c, 2
-	jp .Tally
+	jp .Traits
 
 .FocusEnergy:
 	ld a, BATTLE_VARS_SUBSTATUS4
@@ -1226,9 +1226,20 @@ BattleCommand_Critical:
 	ld a, b
 	cp HELD_CRITICAL_UP ; Increased critical chance. Only Scope Lens has this.
 	pop bc
-	jr nz, .Tally
+	jr nz, .Traits
 
 ; +1 critical level
+	inc c
+
+.Traits:
+	push bc
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitBoostCritical
+	pop bc
+	ld a, [wBuffer2]
+	and a
+	jr z, .Tally
 	inc c
 
 .Tally:
@@ -1420,11 +1431,21 @@ BattleCommand_Stab:
 
 	call Multiply
 
+	; ldh a, [hMultiplicand + 1]
+	; ld [$c000], a
+	; ldh a, [hMultiplicand + 2]
+	; ld [$c001], a
+
 	push hl
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitReduceDamageFromType
 	pop hl
+
+	; ldh a, [hMultiplicand + 1]
+	; ld [$c002], a
+	; ldh a, [hMultiplicand + 2]
+	; ld [$c003], a
 
 	ldh a, [hProduct + 1]
 	ld b, a
@@ -1757,12 +1778,13 @@ BattleCommand_CheckHit:
 	ld [wBuffer2], a
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	farcall TraitBoostAccuracyTurnZero
+	farcall TraitBoostAccuracy
 
-	; ld a, BATTLE_VARS_TRAIT_OPP
-	; ld [wBuffer1], a
-	; farcall TraitReduceAccuracy
-	; ld a, [wBuffer2]
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitReduceAccuracy
+	ld a, [wBuffer2]
+	ld b, a
 
 	call BattleRandom
 	cp b
@@ -2018,7 +2040,7 @@ BattleCommand_EffectChance:
 	ld [wBuffer2], a
 
 	push hl
-	ld a, BATTLE_VARS_TRAIT
+	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitNegateEffectChance
 	pop hl
@@ -4033,9 +4055,6 @@ BattleCommand_Poison:
 	and $7f
 	jp z, .failed
 
-	;farcall CheckIfTargetIsPoisonType
-	;jp z, .failed
-
 	ld a, BATTLE_VARS_STATUS_OPP
 	call GetBattleVar
 	ld b, a
@@ -5559,8 +5578,8 @@ BattleCommand_EndLoop:
 	ld a, 1
 	jr z, .double_hit
 	ld a, [hl]
-	cp EFFECT_BEAT_UP
-	jr z, .beat_up
+	; cp EFFECT_BEAT_UP
+	; jr z, .beat_up
 	cp EFFECT_TRIPLE_KICK
 	jr nz, .not_triple_kick
 .reject_triple_kick_sample
@@ -5573,32 +5592,32 @@ BattleCommand_EndLoop:
 	ld [bc], a
 	jr .done_loop
 
-.beat_up
-	ldh a, [hBattleTurn]
-	and a
-	jr nz, .check_ot_beat_up
-	ld a, [wPartyCount]
-	cp 1
-	jp z, .only_one_beatup
-	dec a
-	jr .double_hit
+; .beat_up
+; 	ldh a, [hBattleTurn]
+; 	and a
+; 	jr nz, .check_ot_beat_up
+; 	ld a, [wPartyCount]
+; 	cp 1
+; 	jp z, .only_one_beatup
+; 	dec a
+; 	jr .double_hit
 
-.check_ot_beat_up
-	ld a, [wBattleMode]
-	cp WILD_BATTLE
-	jp z, .only_one_beatup
-	ld a, [wOTPartyCount]
-	cp 1
-	jp z, .only_one_beatup
-	dec a
-	jr .double_hit
+; .check_ot_beat_up
+; 	ld a, [wBattleMode]
+; 	cp WILD_BATTLE
+; 	jp z, .only_one_beatup
+; 	ld a, [wOTPartyCount]
+; 	cp 1
+; 	jp z, .only_one_beatup
+; 	dec a
+; 	jr .double_hit
 
-.only_one_beatup
-	ld a, BATTLE_VARS_SUBSTATUS3
-	call GetBattleVarAddr
-	res SUBSTATUS_IN_LOOP, [hl]
-	call BattleCommand_BeatUpFailText
-	jp EndMoveEffect
+; .only_one_beatup
+; 	ld a, BATTLE_VARS_SUBSTATUS3
+; 	call GetBattleVarAddr
+; 	res SUBSTATUS_IN_LOOP, [hl]
+; 	call BattleCommand_BeatUpFailText
+; 	jp EndMoveEffect
 
 .not_triple_kick
 	call BattleRandom
@@ -5608,6 +5627,15 @@ BattleCommand_EndLoop:
 	call BattleRandom
 	and $3
 .got_number_hits
+	push de
+	push bc
+	ld [wBuffer2], a
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitMultiHit
+	ld a, [wBuffer2]
+	pop bc
+	pop de
 	inc a
 .double_hit
 	ld [de], a
@@ -5737,6 +5765,9 @@ BattleCommand_PostHitEffects:
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitContact
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitPP
 	ret
 
 BattleCommand_HeldFlinch:
@@ -6465,6 +6496,9 @@ BattleCommand_Heal:
 
 .not_rest
 	jr z, .restore_full_hp
+	ld a, [wBuffer3]
+	and a
+	jr z, .finish2
 	ld hl, GetHalfMaxHP
 	call CallBattleCore
 	jr .finish
@@ -6474,6 +6508,7 @@ BattleCommand_Heal:
 	call CallBattleCore
 .finish
 	call AnimateCurrentMove
+.finish2
 	call BattleCommand_SwitchTurn
 	ld hl, RestoreHP
 	call CallBattleCore

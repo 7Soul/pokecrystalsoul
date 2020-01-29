@@ -6,6 +6,7 @@ TraitDescriptions::
 	dw StunBodyDescription    ; TRAIT_CONTACT_FLINCH
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
 	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
+	dw KeepGoingDescription   ; TRAIT_HEAL_PP_FAINT
 	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
 	dw WeaveDescription       ; TRAIT_REDUCE_PUNCHING
 	dw VocalPowerDescription  ; TRAIT_BOOST_SOUND
@@ -21,6 +22,8 @@ TraitDescriptions::
 	dw RockHeadDescription    ; TRAIT_REDUCE_SELF_RECOIL
 	dw BattleArmorDescription ; TRAIT_REDUCE_CRIT_DAMAGE
 	dw DrainSurgeDescription  ; TRAIT_BOOST_DRAIN
+	dw SkillLinkDescription   ; TRAIT_BOOST_MULTI_HIT_COUNT
+	dw ChainClipDescription   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
 	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
 	dw BlueSkyDescription     ; TRAIT_SUNSHINE_DURATION
@@ -68,13 +71,33 @@ TraitDescriptions::
 	dw OwnTempoDescription    ; TRAIT_CONFUSED_IMMUNE
 	dw OblivionDescription    ; TRAIT_REDUCE_EFFECT_CONFUSED
 	dw MetronomeTDescription  ; TRAIT_BOOST_EFFECT_CONFUSE
+	dw ObliviousDescription   ; TRAIT_IN_LOVE_IMMUNE
+	dw InsomniaDescription    ; TRAIT_SLEEP_IMMUNE
+	dw AlertDescription       ; TRAIT_REDUCE_EFFECT_SLEEP
+	dw InnerFlameDescription  ; TRAIT_FRZ_IMMUNE
 	dw WonderSkinDescription  ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	dw SereneGraceDescription ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	dw ShieldDustDescription  ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
+	dw FreeShotDescription    ; TRAIT_GAIN_PP_TURN_ZERO
 	dw KeenFocusDescription   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
+	dw BerserkDescription     ; TRAIT_ATTACK_BELOW_THIRD
+	dw SolidifyDescription    ; TRAIT_DEFENSE_BELOW_THIRD
+	dw ScamperDescription     ; TRAIT_SPEED_BELOW_THIRD
+	dw PoiseDescription       ; TRAIT_SP_ATTACK_BELOW_THIRD
+	dw GoldGuardDescription   ; TRAIT_SP_DEFENSE_BELOW_THIRD
+	dw TakeAimDescription     ; TRAIT_ACCURACY_BELOW_THIRD
+	dw DangerSenseDescription ; TRAIT_EVASION_BELOW_THIRD
+	dw AllOutDescription      ; TRAIT_CRIT_BELOW_THIRD
+	dw PermafrostDescription  ; TRAIT_REDUCE_BRN_AND_FIRE
+	dw GroundWireDescription  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
+	dw SteelWingsDescription  ; TRAIT_REDUCE_FLINCH_AND_ROCK
+	dw PerseveranceDescription; TRAIT_REDUCE_SLP_AND_PSYCHIC
+	dw SurvivalDescription    ; TRAIT_REDUCE_PSN_AND_BUG
+	dw IceSheddingDescription ; TRAIT_REDUCE_FRZ_AND_ICE
+	dw MindBlockDescription   ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
 	dw StoneSkinDescription   ; TRAIT_REDUCE_NORMAL
 	dw StoneSkin2Description  ; TRAIT_REDUCE_NORMAL_MORE
 	dw FadeDescription        ; TRAIT_REDUCE_NORMAL_ACC
@@ -141,6 +164,10 @@ CuteCharmDescription:
 	db   "May Infatuate foe"
 	next "on contact.@"
 
+KeepGoingDescription:
+	db   "Regain PP when a"
+	next "foe faints.@"
+
 IronFistDescription:
 	db   "Powers Punching"
 	next "moves.@"
@@ -200,6 +227,14 @@ BattleArmorDescription:
 DrainSurgeDescription:
 	db   "Ups life drain"
 	next "under half health.@"
+	
+SkillLinkDescription:
+	db   "Ups frequency of"
+	next "multi-hit moves.@"
+
+ChainClipDescription:
+	db   "Multi-hit strikes"
+	next "twice, but harder.@"
 
 MonsoonDescription:
 	db   "Rain lasts one"
@@ -389,6 +424,22 @@ MetronomeTDescription:
 	db   "Raises the chance"
 	next "of CONFUSING.@"
 
+ObliviousDescription:
+	db   "Immunity to get-"
+	next "ting INFATUATED.@"
+
+InsomniaDescription:
+	db   "Immunity to fal-"
+	next "ling ASLEEP.@"
+
+AlertDescription:
+	db   "Reduces chance of"
+	next "falling ASLEEP.@"
+
+InnerFlameDescription:
+	db   "Immunity to be-"
+	next "ing FROZEN.@"
+
 WonderSkinDescription:
 	db   "Lowers the chance"
 	next "of STATUS moves.@"
@@ -413,10 +464,74 @@ MasteryDescription:
 	db   "Lowers damage from"
 	next "Non-STAB attacks.@"
 	
+FreeShotDescription:
+	db   "Don't use PP on"
+	next "your first turn.@"
+	
 KeenFocusDescription:
 	db   "Boosts move ACC on"
 	next "your first turn.@"
 	
+BerserkDescription:
+	db   "Raises ATK under"
+	next "one third health.@"
+
+SolidifyDescription:
+	db   "Raises DEF under"
+	next "one third health.@"
+	
+ScamperDescription:
+	db   "Raises SPD under"
+	next "one third health.@"
+	
+PoiseDescription:
+	db   "Raises SP.ATK under"
+	next "one third health.@"
+	
+GoldGuardDescription:
+	db   "Raises SP.DEF under"
+	next "one third health.@"
+	
+TakeAimDescription:
+	db   "Raises ACC under"
+	next "one third health.@"
+	
+DangerSenseDescription:
+	db   "Raises EVASION un-"
+	next "der one third hp.@"
+	
+AllOutDescription:
+	db   "Raises CRITICAL"
+	next "under 1/3 hp.@"
+
+PermafrostDescription:
+	db   "BRN and FIRE are"
+	next "weakened.@"
+	
+GroundWireDescription:
+	db   "PRZ and ELECTRIC"
+	next "are weakened.@"
+	
+SteelWingsDescription:
+	db   "FLINCH and ROCK"
+	next "are weakened.@"
+
+PerseveranceDescription:
+	db   "SLP and DARK are"
+	next "weakened.@"
+
+SurvivalDescription:
+	db   "PSN and BUG are"
+	next "weakened.@"
+	
+IceSheddingDescription:
+	db   "FRZ and ICE are"
+	next "weakened.@"
+
+MindBlockDescription:
+	db   "CONFUSION and PSY-"
+	next "CHIC are weakened.@"
+
 StoneSkinDescription:
 	db   "Reduces NORMAL"
 	next "damage taken.@"

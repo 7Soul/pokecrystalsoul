@@ -5,10 +5,8 @@ IncreaseBadgeEvent:
 	ld a, [wNumSetBits]	
 	; ld hl, EVENT_HAS_ONE_BADGE
 	; ld a, [hl]
-	; ld [$c000], a
 	; inc hl
 	; ld a, [hl]
-	; ld [$c001], a
 	; ld b, a
 	; ld c, 0
 	; add hl, bc
@@ -28,18 +26,15 @@ IncreaseBadgeEvent:
 ; 	jr z, .result2
 
 ; 	ld a, 1
-; 	ld [$c000], a
 ; 	jr .end
 ; .result2
 ; 	ld a, 2
-; 	ld [$c000], a
 ; 	jr .end
 	
 	; ld e, [hl]
 	; inc hl
 	; ld d, [hl]
 	; call GetScriptByte
-	; ld [$c000], a
 	; ld b, a
 	; ld a, [wNumSetBits]
 	; add b

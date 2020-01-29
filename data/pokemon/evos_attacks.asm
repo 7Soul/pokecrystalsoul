@@ -1155,18 +1155,19 @@ TentacruelEvosAttacks:
 GeodudeEvosAttacks:
 	db EVOLVE_LEVEL, 25, GRAVELER
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, DEFENSE_CURL
-	db 5, ROLLOUT
-	db 11, ROCK_THROW
-	db 16, MAGNITUDE
+	; db 1, TACKLE
+	; db 1, DEFENSE_CURL
+	; db 5, ROLLOUT
+	; db 11, ROCK_THROW
+	; db 16, MAGNITUDE
+	db 16, EMBER
 	; db 24, SELFDESTRUCT
-	db 26, HARDEN
-	db 29, ROCK_BLAST
-	db 34, EARTHQUAKE
-	db 36, EXPLOSION
-	db 40, DOUBLE_EDGE ; changes to wood hammer
-	db 42, CROSS_CHOP ; changes to Stone Edge
+	; db 26, HARDEN
+	; db 29, ROCK_BLAST
+	; db 34, EARTHQUAKE
+	; db 36, EXPLOSION
+	; db 40, DOUBLE_EDGE ; changes to wood hammer
+	; db 42, CROSS_CHOP ; changes to Stone Edge
 	db 0 ; no more level-up moves
 
 GravelerEvosAttacks:

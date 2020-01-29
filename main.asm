@@ -143,13 +143,17 @@ INCLUDE "data/trainers/class_names.asm"
 INCLUDE "engine/battle/ai/redundant.asm"
 INCLUDE "engine/events/move_deleter.asm"
 INCLUDE "engine/link/mystery_gift_2.asm"
+INCLUDE "engine/events/pokerus/pokerus.asm"
+INCLUDE "engine/battle/start_battle.asm"
+INCLUDE "engine/gfx/place_graphic.asm"
+
+
+SECTION "traits", ROMX
+
 INCLUDE "engine/items/tmhm.asm"
 INCLUDE "engine/pokemon/print_move_description.asm"
 INCLUDE "data/moves/descriptions.asm"
 INCLUDE "data/traits/descriptions.asm"
-INCLUDE "engine/events/pokerus/pokerus.asm"
-INCLUDE "engine/battle/start_battle.asm"
-INCLUDE "engine/gfx/place_graphic.asm"
 
 
 SECTION "Effect Commands", ROMX
