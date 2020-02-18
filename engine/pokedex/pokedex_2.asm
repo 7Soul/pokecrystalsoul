@@ -206,33 +206,41 @@ DisplayDexEntry:
 
 	call DrawBaseStatsNames
 
-; egg group text
+; traits text
 	hlcoord 2, 10
-	ld de, .egg_text
+	ld de, .trait_text
 	call PlaceString
-; vertical line after egg group text
-	hlcoord 7, 10
-	ld a, $5a
+; vertical line after traits text
+	hlcoord 2, 11
+	ld a, $5f
 	ld [hl], a
-	hlcoord 7, 11
-	ld a, $5a
+	hlcoord 2, 12
+	ld a, $5f
+	ld [hl], a
+	hlcoord 2, 13
+	ld a, $5f
+	ld [hl], a
+	hlcoord 2, 14
+	ld a, $5f
 	ld [hl], a
 
 	ld a, [wPokedexInfoSeenCheck]
 	and a
-	jr nz, .skip_egg_groups ; skip not caught
-	hlcoord 8, 10
+	jr nz, .skip_traits ; skip not caught
+	hlcoord 3, 11
+	ld de, ThreeDashes
+	call PlaceString
+	hlcoord 3, 12
+	ld de, ThreeDashes
+	call PlaceString
+	hlcoord 3, 13
+	ld de, ThreeDashes
+	call PlaceString
+	hlcoord 3, 14
 	ld de, ThreeDashes
 	call PlaceString
 
-.skip_egg_groups
-; horizontal divider before text
-	hlcoord 1, 12
-	ld bc, SCREEN_WIDTH - 1
-	ld a, $6e 
-	call ByteFill
-	hlcoord 1, 12
-	ld [hl], $5f ; pencil icon
+.skip_traits
 ; page number
 	hlcoord 9, 3
 	ld [hl], $56 ; P.
@@ -245,14 +253,14 @@ DisplayDexEntry:
 	jr z, .skip_page1_info
 
 	call DrawBaseStats
-	call DrawEggGroups
+	call DrawTraits
 
 	pop de
 	inc de
 	pop af
-	hlcoord 2, 13
+	; hlcoord 2, 13
 	push af
-	call FarString ; pokedex text part 1
+	; call FarString ; pokedex text part 1
 	pop bc
 	jr .check_page2
 
@@ -275,12 +283,12 @@ DisplayDexEntry:
 	lb bc, 6, 11
 	hlcoord 9, 4
 	call ClearBox ; clear top-right area
-	lb bc, 3, SCREEN_WIDTH - 2
+	lb bc, 7, SCREEN_WIDTH - 2
 	hlcoord 2, 9
 	call ClearBox ; clear middle area
-	lb bc, 3, SCREEN_WIDTH - 2
-	hlcoord 2, 13
-	call ClearBox ; clear text area
+	; lb bc, 3, SCREEN_WIDTH - 2
+	; hlcoord 2, 13
+	; call ClearBox ; clear text area
 
 ; draw types
 	hlcoord 9, 4
@@ -307,7 +315,7 @@ DisplayDexEntry:
 	call PlaceString
 ; vertical line after catch text
 	hlcoord 14, 7
-	ld a, $5a
+	ld a, $5f
 	ld [hl], a
 
 	ld a, [wPokedexInfoSeenCheck]
@@ -337,7 +345,7 @@ DisplayDexEntry:
 	call PlaceString
 ; vertical line after exp text
 	hlcoord 14, 8
-	ld a, $5a
+	ld a, $5f
 	ld [hl], a
 
 	ld a, [wPokedexInfoSeenCheck]
@@ -365,74 +373,97 @@ DisplayDexEntry:
 	call PrintNum
 
 .skip_exp_notCaught
+; egg text
+	hlcoord 2, 10
+	ld de, .egg_text
+	call PlaceString
+; vertical line after egg group text
+	hlcoord 7, 10
+	ld a, $5f
+	ld [hl], a
+	hlcoord 7, 11
+	ld a, $5f
+	ld [hl], a
+
+	ld a, [wPokedexInfoSeenCheck]
+	and a
+	jr nz, .skip_egg_groups ; skip not caught
+	hlcoord 8, 10
+	ld de, ThreeDashes
+	call PlaceString
+
+.skip_egg_groups	
 ; items text
-	hlcoord 2, 9
+	hlcoord 2, 13
 	ld de, .items_text
 	call PlaceString
 ; vertical line after items text
-	hlcoord 2, 10
-	ld a, $5a
+	hlcoord 2, 14
+	ld a, $5f
 	ld [hl], a
-	hlcoord 2, 11
-	ld a, $5a
+	hlcoord 2, 15
+	ld a, $5f
 	ld [hl], a
 	
 	ld a, [wPokedexInfoSeenCheck]
 	and a
 	jr nz, .print_items_caught ; skip not caught
-	hlcoord 4, 10
+	hlcoord 4, 14
 	ld de, ThreeDashes
 	call PlaceString
 	jr .skip_items_notCaught
 
+
 .print_items_caught
 ; item percentages text
-	hlcoord 3, 10
+	hlcoord 3, 14
 	ld de, .item1_percent
 	call PlaceString
-	hlcoord 5, 10
+	hlcoord 5, 14
 	ld a, $60
 	ld [hl], a
-	hlcoord 4, 11
+	hlcoord 4, 15
 	ld de, .item2_percent
 	call PlaceString
-	hlcoord 5, 11
+	hlcoord 5, 15
 	ld a, $60
 	ld [hl], a
 
 ; item names
 	call .GetItem1Name	
-	hlcoord 7, 10
+	hlcoord 7, 14
 	call PlaceString
 
 	call .GetItem2Name	
-	hlcoord 7, 11
+	hlcoord 7, 15
 	call PlaceString
+
+	call DrawEggGroups
 
 .skip_items_notCaught
 ; horizontal divider
-	hlcoord 1, 12
-	ld bc, SCREEN_WIDTH - 1
-	ld a, $6e 
-	call ByteFill
-	hlcoord 2, 12
-	ld [hl], $5f ; pencil icon
+	; hlcoord 1, 12
+	; ld bc, SCREEN_WIDTH - 1
+	; ld a, $6e 
+	; call ByteFill
+	; hlcoord 2, 12
+	; ld [hl], $5f ; pencil icon
 ; page number
 	hlcoord 9, 3
 	ld [hl], $56 ; P.
 	inc hl
 	ld [hl], $58 ; 2
 ; Check to see if we caught it.  Get out of here if we haven't.
-	ld a, [wPokedexInfoSeenCheck]
-	and a
-	jr z, .skip_page2_info
+	; ld a, [wPokedexInfoSeenCheck]
+	; and a
+	; jr z, .skip_page2_info
 
-	pop de
-	inc de
-	pop af
-	hlcoord 2, 13
-	call FarString ; pokedex text part 2
-	jr .check_page3
+	; pop de
+	; inc de
+	; pop af
+	; hlcoord 2, 13
+	; call FarString ; pokedex text part 2
+	; jr .check_page3
 
 .skip_page2_info
 	pop de
@@ -535,6 +566,9 @@ DisplayDexEntry:
 .egg_text:
 	db "  Egg"
 	line2 "Group@"
+
+.trait_text:
+	db "Traits@"
 
 .catch_text:
 	db "Catch@"
@@ -1010,6 +1044,35 @@ DrawBaseStats:
 	hlcoord 17, 9
 	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
 	call PrintNum
+	ret
+
+DrawTraits:
+; trait 1
+	ld hl, wBaseTraits
+	call .get_trait_name
+	hlcoord 3, 11
+	call PlaceString
+; atk
+	ld hl, wBaseTraits + 1
+	call .get_trait_name
+	hlcoord 3, 12
+	call PlaceString
+; def
+	ld hl, wBaseTraits + 2
+	call .get_trait_name
+	hlcoord 3, 13
+	call PlaceString
+; speed
+	ld hl, wBaseTraits + 3
+	call .get_trait_name
+	hlcoord 3, 14
+	call PlaceString
+	ret
+
+.get_trait_name:
+	ld a, [hl]
+	ld [wNamedObjectIndexBuffer], a
+	call GetTraitName
 	ret
 
 GetDexEntryPointer:

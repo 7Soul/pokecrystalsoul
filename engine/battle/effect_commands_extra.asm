@@ -605,9 +605,9 @@ CheckTraitCondition:
 	jp c, .check_sandstorm
 	cp TRAIT_BOOST_EFFECT_BRN + 1 ; all burn traits
 	jp c, .check_move_brn
-	cp TRAIT_REGEN_BRN + 1
-	ld d, BRN
-	jp c, .check_user_status
+	; cp TRAIT_REGEN_BRN + 1
+	; ld d, BRN
+	; jp c, .check_user_status
 	cp TRAIT_BOOST_EFFECT_PSN + 1 ; all poison traits
 	jp c, .check_move_psn
 	cp TRAIT_BOOST_EFFECT_PRZ + 1 ; all paralysis traits
@@ -2020,7 +2020,7 @@ TraitRegenHP:
 	ret
 
 TraitsThatRegenerate:
-	db TRAIT_REGEN_BRN
+	; db TRAIT_REGEN_BRN
 	db -1
 
 ContactMoves:

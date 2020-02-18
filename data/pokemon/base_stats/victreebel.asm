@@ -1,6 +1,6 @@
 	db VICTREEBEL ; 071
 
-	db  80, 120,  65,  60, 95,  60
+	db  80, 120,  65,  70, 95,  60
 	;   hp  atk  def  spd  sat  sdf
 
 	db GRASS, FIGHTING ; type

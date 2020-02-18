@@ -1,4 +1,6 @@
 TraitNames::
+	; const_def
+	; const TRAIT_NONE
 	db "Flame Body@"   ; TRAIT_CONTACT_BRN
 	db "Toxic Body@"   ; TRAIT_CONTACT_PSN
 	db "Shock Body@"   ; TRAIT_CONTACT_PRZ
@@ -23,7 +25,7 @@ TraitNames::
 	db "Drain Surge@"  ; TRAIT_BOOST_DRAIN
 	db "Skill Link@"   ; TRAIT_BOOST_MULTI_HIT_COUNT
 	db "Chain Clip@"   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
-	; db "@"   ; TRAIT_BOOST_DAMAGE_PER_TURN
+	db "@"   ; TRAIT_BOOST_DAMAGE_PER_TURN
 	db "Monsoon@"      ; TRAIT_RAIN_DURATION
 	db "Drizzle@"      ; TRAIT_RAIN_ON_ENTER
 	db "Blue Sky@"     ; TRAIT_SUNSHINE_DURATION

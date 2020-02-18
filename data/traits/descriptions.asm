@@ -24,6 +24,7 @@ TraitDescriptions::
 	dw DrainSurgeDescription  ; TRAIT_BOOST_DRAIN
 	dw SkillLinkDescription   ; TRAIT_BOOST_MULTI_HIT_COUNT
 	dw ChainClipDescription   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
+	dw DamagePerTurnDescription   ; TRAIT_BOOST_DAMAGE_PER_TURN
 	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
 	dw BlueSkyDescription     ; TRAIT_SUNSHINE_DURATION
@@ -233,6 +234,10 @@ SkillLinkDescription:
 	next "multi-hit moves.@"
 
 ChainClipDescription:
+	db   "Multi-hit strikes"
+	next "twice, but harder.@"
+
+DamagePerTurnDescription:
 	db   "Multi-hit strikes"
 	next "twice, but harder.@"
 
