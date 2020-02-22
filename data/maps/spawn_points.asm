@@ -7,7 +7,8 @@ ENDM
 SpawnPoints:
 ; entries correspond to SPAWN_* constants
 
-	spawn PLAYERS_HOUSE_1F,            7,  5 ; debug - was 2F 3, 3
+	spawn PLAYERS_HOUSE_2F,            3,  3
+	; spawn PLAYERS_HOUSE_1F,            7,  5 ; debug
 	spawn VIRIDIAN_POKECENTER_1F,      5,  3
 
 	spawn PALLET_TOWN,                 5,  6

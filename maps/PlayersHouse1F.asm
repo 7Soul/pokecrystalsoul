@@ -95,8 +95,6 @@ MeetMomScript:
 	jump .Finish
 
 .Finish:
-
-
 	if DEF(_DEBUG)
 	setflag ENGINE_POKEDEX
 	setflag ENGINE_UNOWN_DEX
@@ -122,10 +120,16 @@ MeetMomScript:
 	giveitem MAX_POTION, 99
 	giveitem ETHER, 99
 	giveitem MAX_REVIVE, 99
-	giveitem SHINY_CORAL
+	giveitem TOUGH_HORN
+	giveitem STEEL_WING
 
-	givepoke VAPOREON, 50
-	givepoke PIDGEY, 50
+	; givepoke VAPOREON, 50
+	givepoke PIDGEY, 36
+	givepoke PIDGEOTTO, 36
+	givepoke PIDGEOT, 36
+	givepoke PIDGEY, 100
+	givepoke PIDGEOTTO, 100
+	givepoke PIDGEOT, 100
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
@@ -144,7 +148,6 @@ MeetMomScript:
 	;warp ILEX_FOREST, $0, $21
 	;warp ROUTE_34, $D, $24
 endc
-
 
 	closetext
 	special RestartMapMusic

@@ -265,6 +265,7 @@ PidgeyEvosAttacks:
 	db 23, SCREECH ; becomes Feather Dance
 	db 29, AGILITY
 	db 33, WING_ATTACK
+	db 36, DOUBLE_TEAM ; unevolved move
 	db 40, MIRROR_MOVE
 	db 46, SWAGGER
 	db 50, FLY ;;;
@@ -1155,19 +1156,18 @@ TentacruelEvosAttacks:
 GeodudeEvosAttacks:
 	db EVOLVE_LEVEL, 25, GRAVELER
 	db 0 ; no more evolutions
-	; db 1, TACKLE
-	; db 1, DEFENSE_CURL
-	; db 5, ROLLOUT
-	; db 11, ROCK_THROW
-	; db 16, MAGNITUDE
-	db 16, EMBER
-	; db 24, SELFDESTRUCT
-	; db 26, HARDEN
-	; db 29, ROCK_BLAST
-	; db 34, EARTHQUAKE
-	; db 36, EXPLOSION
-	; db 40, DOUBLE_EDGE ; changes to wood hammer
-	; db 42, CROSS_CHOP ; changes to Stone Edge
+	db 1, TACKLE
+	db 1, DEFENSE_CURL
+	db 5, ROLLOUT
+	db 11, ROCK_THROW
+	db 16, MAGNITUDE
+	db 24, SELFDESTRUCT
+	db 26, HARDEN
+	db 29, ROCK_BLAST
+	db 34, EARTHQUAKE
+	db 36, EXPLOSION
+	db 40, DOUBLE_EDGE ; changes to wood hammer
+	db 42, CROSS_CHOP ; changes to Stone Edge
 	db 0 ; no more level-up moves
 
 GravelerEvosAttacks:
@@ -1715,34 +1715,34 @@ WeezingEvosAttacks:
 	db 0 ; no more level-up moves
 
 RhyhornEvosAttacks:
-	db EVOLVE_LEVEL, 42, RHYDON
+	db EVOLVE_LEVEL, 40, RHYDON
 	db 0 ; no more evolutions
 	db 1, HORN_ATTACK
 	db 1, TAIL_WHIP
 	db 8, STOMP
 	db 12, FURY_ATTACK
-	db 18, ROCK_TOMB
-	db 23, ROCK_BLAST
-	db 28, BRICK_BREAK
-	db 31, SCARY_FACE
-	db 34, STAMPEDE
-	db 38, HORN_DRILL
-	db 43, TAKE_DOWN
-	db 52, CROSS_CHOP ; changes to Stone Edge
-	db 56, EARTHQUAKE
-	db 62, MEGAHORN
+	db 18, ROCK_BLAST
+	db 22, SCARY_FACE
+	db 26, ROCK_TOMB
+	db 30, STAMPEDE
+	db 37, HORN_DRILL
+	db 41, TAKE_DOWN
+	db 44, CROSS_CHOP ; changes to Stone Edge
+	db 46, EARTHQUAKE
+	db 51, MEGAHORN
+	db 54, ENDURE ; evolution move
 	db 0 ; no more level-up moves
 
 RhydonEvosAttacks:
 	db 0 ; no more evolutions
-	db 28, BRICK_BREAK
-	db 31, SCARY_FACE
-	db 34, STAMPEDE
-	db 38, HORN_DRILL
-	db 45, TAKE_DOWN
-	db 54, CROSS_CHOP ; changes to Stone Edge
-	db 59, EARTHQUAKE
-	db 65, MEGAHORN
+	db 22, SCARY_FACE
+	db 26, ROCK_TOMB
+	db 30, STAMPEDE
+	db 37, HORN_DRILL
+	db 44, TAKE_DOWN
+	db 48, CROSS_CHOP ; changes to Stone Edge
+	db 52, EARTHQUAKE
+	db 59, MEGAHORN
 	db 0 ; no more level-up moves
 
 ChanseyEvosAttacks:
@@ -1906,7 +1906,7 @@ MrMimeEvosAttacks:
 	db 0 ; no more level-up moves
 
 ScytherEvosAttacks:
-	db EVOLVE_LEVEL, 26, SCIZOR
+	db EVOLVE_LEVEL, 36, SCIZOR
 	db 0 ; no more evolutions
 	db 1, QUICK_ATTACK
 	db 1, LEER
@@ -1939,8 +1939,8 @@ JynxEvosAttacks:
 
 ElectabuzzEvosAttacks:
 	db 0 ; no more evolutions
-	db 4, THUNDERSHOCK
 	db 1, LEER
+	db 5, THUNDERSHOCK
 	db 8, QUICK_ATTACK
 	db 13, LOW_KICK
 	db 15, THUNDER_WAVE
@@ -1955,16 +1955,17 @@ ElectabuzzEvosAttacks:
 
 MagmarEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, EMBER
 	db 1, LEER
-	db 1, SMOG
-	db 7, LEER
-	db 13, SMOG
+	db 5, EMBER
+	db 7, SMOG
+	db 11, DOUBLESLAP
 	db 15, FIRE_SPIN
 	db 19, FIRE_PUNCH
 	db 25, SMOKESCREEN
-	db 46, MAGMA_STORM
-	db 42, SUNNY_DAY
+	db 29, MAGMA_STORM
+	db 34, SUNNY_DAY
+	db 39, DIZZY_PUNCH	
+	db 45, CONFUSE_RAY
 	db 49, FLAMETHROWER
 	db 55, FIRE_BLAST
 	db 0 ; no more level-up moves
@@ -2373,7 +2374,7 @@ ChikoritaEvosAttacks:
 	db 0 ; no more level-up moves
 
 BayleefEvosAttacks:
-	db EVOLVE_LEVEL, 32, MEGANIUM
+	db EVOLVE_LEVEL, 34, MEGANIUM
 	db 0 ; no more evolutions
 	db 9, POISONPOWDER
 	db 12, SYNTHESIS
@@ -2401,7 +2402,7 @@ MeganiumEvosAttacks:
 	db 0 ; no more level-up moves
 
 CyndaquilEvosAttacks:
-	db EVOLVE_LEVEL, 16, QUILAVA
+	db EVOLVE_LEVEL, 15, QUILAVA
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, LEER
@@ -2447,7 +2448,7 @@ TyphlosionEvosAttacks:
 	db 0 ; no more level-up moves
 
 TotodileEvosAttacks:
-	db EVOLVE_LEVEL, 16, CROCONAW
+	db EVOLVE_LEVEL, 17, CROCONAW
 	db 0 ; no more evolutions
 	db 1, SCRATCH
 	db 1, LEER
@@ -2467,7 +2468,7 @@ TotodileEvosAttacks:
 	db 0 ; no more level-up moves
 
 CroconawEvosAttacks:
-	db EVOLVE_LEVEL, 30, FERALIGATR
+	db EVOLVE_LEVEL, 32, FERALIGATR
 	db 0 ; no more evolutions
 	db 1, SCRATCH
 	db 1, LEER
@@ -3699,9 +3700,9 @@ SmeargleEvosAttacks:
 	db 0 ; no more level-up moves
 
 TyrogueEvosAttacks:
-	db EVOLVE_STAT, 15, ATK_LT_DEF, HITMONCHAN
-	db EVOLVE_STAT, 15, ATK_GT_DEF, HITMONLEE
-	db EVOLVE_STAT, 15, ATK_EQ_DEF, HITMONTOP
+	db EVOLVE_STAT, 16, ATK_LT_DEF, HITMONCHAN
+	db EVOLVE_STAT, 16, ATK_GT_DEF, HITMONLEE
+	db EVOLVE_STAT, 16, ATK_EQ_DEF, HITMONTOP
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, LEER
@@ -3734,7 +3735,7 @@ HitmontopEvosAttacks:
 	db 0 ; no more level-up moves
 
 SmoochumEvosAttacks:
-	db EVOLVE_LEVEL, 25, JYNX
+	db EVOLVE_LEVEL, 22, JYNX
 	db 0 ; no more evolutions
 	db 1, POUND
 	db 5, LICK
@@ -3751,34 +3752,38 @@ SmoochumEvosAttacks:
 	db 0 ; no more level-up moves
 
 ElekidEvosAttacks:
-	db EVOLVE_LEVEL, 25, ELECTABUZZ
+	db EVOLVE_LEVEL, 22, ELECTABUZZ
 	db 0 ; no more evolutions
 	db 1, LEER
 	db 5, THUNDERSHOCK	
 	db 8, QUICK_ATTACK
 	db 13, LOW_KICK
+	db 15, THUNDER_WAVE
 	db 17, LIGHT_SCREEN
 	db 21, WILD_STORM
 	db 25, SWIFT
 	db 29, THUNDERPUNCH
-	db 34, SCREECH
+	db 33, SCREECH
+	db 36, BRICK_BREAK ; unevolved move
 	db 41, THUNDERBOLT
 	db 47, THUNDER
 	db 0 ; no more level-up moves
 
 MagbyEvosAttacks:
-	db EVOLVE_LEVEL, 25, MAGMAR
+	db EVOLVE_LEVEL, 22, MAGMAR
 	db 0 ; no more evolutions
 	db 1, LEER
 	db 5, EMBER
 	db 7, SMOG
 	db 11, DOUBLESLAP
+	db 15, FIRE_SPIN
 	db 19, FIRE_PUNCH
-	db 25, SMOKESCREEN
-	db 31, SUNNY_DAY
-	db 37, FLAMETHROWER
-	db 43, FIRE_PLAY ; becomes Kindle Clash
-	db 45, CONFUSE_RAY
+	db 25, SMOKESCREEN	
+	db 30, SUNNY_DAY
+	db 33, FAINT_ATTACK ; unevolved move
+	db 37, DIZZY_PUNCH
+	db 41, CONFUSE_RAY 
+	db 45, FLAMETHROWER	
 	db 48, FIRE_BLAST
 	db 0 ; no more level-up moves
 

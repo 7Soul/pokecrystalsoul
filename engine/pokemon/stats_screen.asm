@@ -935,8 +935,6 @@ StatsScreen_LoadGFX:
 	db "---@"
 
 .BluePage:
-	farcall CalcTempmonStats
-
 	hlcoord 0, 8
 	ld de, SCREEN_WIDTH
 	ld b, 9

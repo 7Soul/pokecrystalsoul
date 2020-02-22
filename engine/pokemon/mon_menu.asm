@@ -363,6 +363,7 @@ GivePartyItem:
 	ld a, [wCurItem]
 	ld [hl], a
 	ld d, a
+	call RecalcStats ; might break after this
 	farcall ItemIsMail
 	jr nc, .done
 	call ComposeMailMessage
@@ -378,20 +379,19 @@ TakePartyItem:
 	jr z, .asm_12c8c
 
 	ld [wCurItem], a
-	;ld [wBuffer2], a
+	ld [wBuffer2], a
 	call ReceiveItemFromPokemon
 	jr nc, .asm_12c94
 
 	farcall ItemIsMail
 	
-	;call RecalcStats
-	;ld a, [wBuffer2]
-	;ld [wCurItem], a
+	ld a, [wBuffer2]
+	ld [wCurItem], a
 	call GetPartyItemLocation
 	ld a, [hl]
 	;ld a, [wBuffer2]
 	ld [wNamedObjectIndexBuffer], a
-	ld [hl], NO_ITEM
+	ld [hl], NO_ITEM ; sets item to no item
 	call GetItemName
 	ld hl, TookFromText
 	call MenuTextBoxBackup
@@ -407,6 +407,7 @@ TakePartyItem:
 	call MenuTextBoxBackup
 
 .asm_12c9a
+	call RecalcStats
 	ret
 
 GiveTakeItemMenuData:
@@ -481,63 +482,62 @@ ReceiveItemFromPokemon:
 	jp ReceiveItem
 
 RecalcStats:
-	ld a, 1
-	ld [wBuffer3], a
-	predef CopyMonToTempMon
-	call GetBaseData
-	
-	ld a, NO_ITEM
-	ld [wTempMonItem], a
-	
-	ld a, [wTempMonSpecies]
-	ld [wCurSpecies], a
-	ld bc, wTempMon
-	ld hl, MON_LEVEL
-	add hl, bc
+	call GetPartyItemLocation
 	ld a, [hl]
-	ld [wCurPartyLevel], a
+	ld [wTempMonItem], a
+
+	ld a, [wCurPartySpecies]
+	ld [wCurSpecies], a
+
+	ld hl, wPartyMon1Species
+	ld a, [wCurPartyMon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld b, h
+	ld c, l	
+	push bc
+	
+	call GetBaseData
+	ld a, MON_LEVEL
+	call GetPartyParamLocation
+	ld a, [hl]
+	ld [wCurPartyLevel], a	
 	ld hl, MON_MAXHP
 	add hl, bc
 	ld d, h
 	ld e, l
 	ld hl, MON_STAT_EXP - 1
 	add hl, bc
+
 	ld b, TRUE
 	predef CalcMonStats
-	
-	ld a, [wTempMonSpecies]
-	ld [wCurSpecies], a
-	ld a, [wCurPartyMon]
-	ld hl, wPartyMons
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld e, l
-	ld d, h
-	ld bc, MON_MAXHP
+; clamp max hp
+	pop bc
+	ld hl, MON_MAXHP
 	add hl, bc
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	ld hl, wTempMonMaxHP + 1
-	ld a, [hld]
-	sub c
-	ld c, a
 	ld a, [hl]
-	sbc b
-	ld b, a
-	ld hl, wTempMonHP + 1
+	ld d, a
+	ld hl, MON_HP
+	add hl, bc
 	ld a, [hl]
-	add c
-	ld [hld], a
+	cp d
+	jr z, .check_lower_byte
+	jr nc, .higher
+	ret
+.check_lower_byte
+	ld hl, MON_MAXHP + 1
+	add hl, bc
 	ld a, [hl]
-	adc b
+	ld d, a
+	ld hl, MON_HP + 1
+	add hl, bc
+	ld a, [hl]
+	cp d
+	jr nc, .higher
+	ret
+.higher
+	ld a, d
 	ld [hl], a
-
-	ld hl, wTempMonSpecies
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call CopyBytes
-	ld a, 0
-	ld [wBuffer3], a
 	ret
 
 GiveItemToPokemon:

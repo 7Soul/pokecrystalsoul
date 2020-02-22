@@ -51,8 +51,6 @@ _TempMonStatsCalculation:
 	add hl, bc
 	push bc
 	ld b, TRUE
-	ld a, 0
-	ld [$8010], a
 	predef CalcMonStats
 	pop bc
 	ld hl, MON_HP

@@ -1515,7 +1515,7 @@ CalcMonStats:
 	inc de
 	ldh a, [hMultiplicand + 2]
 	ld [de], a
-	inc de
+	inc de	
 	ld a, c
 	cp STAT_SDEF ; last stat
 	jr nz, .loop
@@ -1532,6 +1532,8 @@ CalcMonStatC:
 	push hl
 	push de
 	push bc
+	ld a, c
+	ld [wBuffer1], a
 	ld a, b
 	ld d, a
 	push hl
@@ -1540,10 +1542,106 @@ CalcMonStatC:
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	ld e, a
-	pop hl
+	ld e, a ; base stat
 	push hl
-	ld a, c
+
+; Start unevolved bonus
+	ld hl, .UnevolvedBonus
+.load_species
+	ld a, [wCurSpecies]
+	ld c, a
+	
+.find_mon
+	ld a, [hli]
+	cp c
+	jr z, .found_mon
+	cp -1
+	jp z, .get_normal_stats
+	inc hl
+	inc hl
+	jr .find_mon
+
+.found_mon
+	ld a, [hli] ; get level from table
+	ld c, a
+	ld a, [wCurPartyLevel]
+	cp c
+	jp c, .get_normal_stats
+	sub c
+	ld b, a ; b has level difference
+
+; get first or second form
+	ld a, [hl]
+	and a
+	ld a, 20
+	jr z, .got_form
+	ld a, [hl]
+	cp $fd
+	jr z, .baby_form
+	ld a, 30
+	jr .got_form
+.baby_form
+	ld a, 16
+.got_form
+	push de
+	ld d, a
+	ld a, e
+	ldh [hMultiplicand + 2], a ; for multiplication later
+
+; Get mon level difference / 5
+	ld a, b
+	cp 50
+	jr c, .under50
+	ld a, 50
+.under50
+	ld c, 5
+	call SimpleDivide
+	inc b
+
+	ld a, [wBuffer1]
+	cp STAT_HP
+	jr z, .bonus_hp
+
+; Multiply base stat by difference tiers
+	xor a
+	ldh [hMultiplicand + 1], a
+	ldh [hMultiplicand + 0], a
+	ld a, b
+	ldh [hMultiplier], a
+	call Multiply
+; Divide by 20 or 30 (to get to 0.05 per 5 levels or 0.033 for second forms)
+	ld a, d
+	pop de
+	ldh [hDivisor], a
+	ld b, 4
+	call Divide
+; Add base stat and stat bonus
+	ldh a, [hQuotient + 3]
+	add e
+.end_bonus
+	ld e, a
+	
+	pop hl
+	jr .try_stat_exp
+
+.bonus_hp
+	pop de
+	ld a, b
+	ld c, a
+	ld a, 2
+	call SimpleMultiply
+	add e
+	jr .end_bonus
+
+.get_normal_stats
+	pop hl
+	ld a, [hl]
+	ld e, a
+	
+.try_stat_exp
+	pop hl ; STAT_EXP
+	push hl
+	ld a, [wBuffer1]
 	cp STAT_SDEF ; last stat
 	jr nz, .not_spdef
 	dec hl
@@ -1565,79 +1663,7 @@ CalcMonStatC:
 .no_stat_exp
 	srl c
 	pop hl
-	push bc
-	ld bc, MON_DVS - MON_HP_EXP + 1
-	add hl, bc
-	pop bc
-	ld a, c
-	cp STAT_ATK
-	jr z, .Attack
-	cp STAT_DEF
-	jr z, .Defense
-	cp STAT_SPD
-	jr z, .Speed
-	cp STAT_SATK
-	jr z, .Special
-	cp STAT_SDEF
-	jr z, .Special
-; DV_HP = (DV_ATK & 1) << 3 | (DV_DEF & 1) << 2 | (DV_SPD & 1) << 1 | (DV_SPC & 1)
-; 	push bc
-; 	ld a, [hl]
-; 	swap a
-; 	and 1
-; 	add a
-; 	add a
-; 	add a
-; 	ld b, a
-; 	ld a, [hli]
-; 	and 1
-; 	add a
-; 	add a
-; 	add b
-; 	ld b, a
-; 	ld a, [hl]
-; 	swap a
-; 	and 1
-; 	add a
-; 	add b
-; 	ld b, a
-; 	ld a, [hl]
-; 	and 1
-; 	add b
-; .mod_hp
-; 	cp 11
-; 	jr c, .hpok
-; 	sub 11
-; 	jr .mod_hp
-; .hpok
-; 	pop bc
 
-	; jr .GotDV
-
-.Attack:
-	; ld a, [hl]
-	; swap a
-	; and $f
-	; jr .GotDV
-
-.Defense:
-	; ld a, [hl]
-	; and $f
-	; jr .GotDV
-
-.Speed:
-	; inc hl
-	; ld a, [hl]
-	; swap a
-	; and $f
-	; jr .GotDV
-
-.Special:
-	; inc hl
-	; ld a, [hl]
-	; and $f
-
-.GotDV:
 	ld a, 0
 	ld d, 0
 	rl a
@@ -1677,13 +1703,12 @@ CalcMonStatC:
 	ld b, a
 	call Divide
 
-	ld a, c	
+	ld a, [wBuffer1]
 	cp STAT_HP
 	ld a, STAT_MIN_NORMAL
 	jr nz, .not_hp
-	; add level
-	ld a, $34 ; ~0.86
-	call ApplyDamageMod
+	; ld a, $78 ; ~0.86
+	; call ApplyDamageMod
 	
 	ld a, [wCurPartyLevel]
 	ld b, a
@@ -1695,8 +1720,6 @@ CalcMonStatC:
 	ldh a, [hQuotient + 2]
 	inc a
 	ldh [hMultiplicand + 1], a
-
-	
 
 .no_overflow_3
 	ld a, STAT_MIN_HP
@@ -1711,129 +1734,9 @@ CalcMonStatC:
 	inc a
 	ldh [hMultiplicand + 1], a
 .no_overflow_4
+	; ld a, c	
+	; ld [wBattleMonStat], a ; save current stat for later
 
- ; double stats if using held item
-	ld a, c	
-	ld [wBattleMonStat], a
-	ld hl, SimpleList3
-	
-.load_species
-	ld a, [wCurSpecies]
-	ld d, a
-	
-.find_mon
-	ld a, [hli]
-	cp d
-	jr z, .found_mon
-	cp -1
-	jp z, .return_to_calc
-	inc hl
-	jr .find_mon
-
-.found_mon
-	ld a, [hli]
-	ld d, a
-	ld a, [wTempMonItem]
-	ld e, a ; held item
-	ld a, d ; item from table
-	cp e
-	jp z, .found_item
-	jp .load_species
-
-.found_item
-	ld a, [wBattleMonStat]
-	cp STAT_ATK
-	jr z, .loadAtkItems
-	cp STAT_DEF
-	jr z, .loadDefItems
-	cp STAT_SPD
-	jr z, .loadSpdItems
-	cp STAT_SATK
-	jr z, .loadSpAtkItems
-	cp STAT_SDEF
-	jr z, .loadSpDefItems
-	cp STAT_HP
-	jr z, .return_to_calc
-	jp .return_to_calc
-	
-.loadAtkItems
-	ld a, [hl]
-	ld e, a
-	jr .addStat
-.loadSpAtkItems	
-	inc hl
-	ld a, [hl]
-	ld e, a
-	jr .addStat
-.loadSpdItems
-	inc hl
-	inc hl
-	ld a, [hl]
-	ld e, a
-	jr .addStat
-.loadDefItems
-	inc hl
-	inc hl
-	inc hl
-	ld a, [hl]
-	ld e, a
-	jr .addStat
-.loadSpDefItems	
-	inc hl
-	inc hl
-	inc hl
-	inc hl
-	ld a, [hl]
-	ld e, a
-.addStat
-	ld a, e
-	cp 0 ; if 'e' is 0, double stat
-	jp z, .double
-	cp 1 ; if 'e' is 1, increase by 75%
-	jp z, .inc_75p
-	cp 2 ; if 'e' is 2, increase by 50%
-	jp z, .inc_50p
-	cp 5
-	jp nc, .inc_50p
-	jp .return_to_calc
-	
-.double
-	ldh a, [hQuotient + 3]
-	ld b, a
-	add b ; add value back to itself (aka, double it)
-	ldh [hMultiplicand + 2], a
-	jp .return_to_calc
-	
-.inc_75p
-	ldh a, [hQuotient + 3]
-	srl a
-	ld b, a
-	ldh a, [hQuotient + 3]
-	add b
-	ld e, a
-	ldh a, [hQuotient + 3]
-	srl a
-	srl a
-	ld b, a
-	ld a, e
-	add b
-	ldh [hMultiplicand + 2], a
-	jp .return_to_calc
-	
-.inc_50p
-	ldh a, [hQuotient + 3]
-	srl a
-	ld b, a
-	ldh a, [hQuotient + 3]
-	add b
-	ldh [hMultiplicand + 2], a
-	jp .return_to_calc
-	
-.inc_static; Increase stat by fixed number in 'e'
-	ldh a, [hQuotient + 3]
-	add e
-	ldh [hMultiplicand + 2], a
-	
 .return_to_calc	
 	ldh a, [hQuotient + 2]
 	cp HIGH(MAX_STAT_VALUE + 1) + 1
@@ -1855,109 +1758,121 @@ CalcMonStatC:
 	pop de
 	pop hl
 	ret
-	
-SimpleList3:
-	db CATERPIE,	TOUGH_HORN
-	db WEEDLE,		TOUGH_HORN
-	db SPINARAK,	TOUGH_HORN
-	db LEDYBA,		TOUGH_HORN
-	db PARAS,		TOUGH_HORN
-	db VENONAT,		TOUGH_HORN
-	db PINECO,		TOUGH_HORN
-	db PIDGEY,		STEEL_WING
-	db SPEAROW,		STEEL_WING
-	db ZUBAT,		STEEL_WING
-	db DODUO,		STEEL_WING
-	db HOOTHOOT,	STEEL_WING
-	db LEDYBA,		STEEL_WING
-	db NATU,		STEEL_WING
-	db HOPPIP,		STEEL_WING
-	db PIKACHU,		BATTERY
-	db VOLTORB,		BATTERY
-	db PICHU,		BATTERY
-	db MAREEP,		BATTERY
-	db ELEKID,		BATTERY
-	db MAGNEMITE,	BATTERY
-	db CHINCHOU,	BATTERY
-	db CHARMANDER,	CINDERS
-	db VULPIX,		CINDERS
-	db GROWLITHE,	CINDERS
-	db PONYTA,		CINDERS
-	db CYNDAQUIL,	CINDERS
-	db SLUGMA,		CINDERS
-	db MAGBY,		CINDERS
-	db HOUNDOUR,	CINDERS
-	db HOUNDOUR,	DARK_MIRROR
-	db EKANS,		DARK_MIRROR
-	db GRIMER,		DARK_MIRROR
-	db KOFFING,		DARK_MIRROR
-	db ZUBAT,		DARK_MIRROR
-	db GASTLY,		DARK_MIRROR
-	db MANKEY,		DUMBELL
-	db MACHOP,		DUMBELL
-	db TYROGUE,		DUMBELL
-	db BULBASAUR,	GRASSWHISTLE
-	db CHIKORITA,	GRASSWHISTLE
-	db SUNKERN,		GRASSWHISTLE
-	db ODDISH,		GRASSWHISTLE
-	db BELLSPROUT,	GRASSWHISTLE
-	db EXEGGCUTE,	GRASSWHISTLE
-	db HOPPIP,		GRASSWHISTLE
-	db PARAS,		GRASSWHISTLE
-	db GEODUDE,		ACCELEROCK
-	db ONIX,		ACCELEROCK
-	db OMANYTE,		ACCELEROCK
-	db KABUTO,		ACCELEROCK
-	db RHYHORN,		ACCELEROCK
-	db SANDSHREW,	HARDENEDSAND
-	db DIGLETT,		HARDENEDSAND
-	db CUBONE,		HARDENEDSAND
-	db PHANPY,		HARDENEDSAND
-	db RHYHORN,		HARDENEDSAND
-	db NIDORAN_F,	HARDENEDSAND
-	db NIDORAN_M,	HARDENEDSAND
-	db SQUIRTLE,	SHINY_CORAL
-	db PSYDUCK,		SHINY_CORAL
-	db POLIWAG,		SHINY_CORAL
-	db SEEL,		SHINY_CORAL
-	db SHELLDER,	SHINY_CORAL
-	db KRABBY,		SHINY_CORAL
-	db HORSEA,		SHINY_CORAL
-	db GOLDEEN,		SHINY_CORAL
-	db STARYU,		SHINY_CORAL
-	db MAGIKARP,	SHINY_CORAL
-	db TOTODILE,	SHINY_CORAL
-	db REMORAID,	SHINY_CORAL
-	db TENTACOOL,	SHINY_CORAL
-	db SLOWPOKE,	SHINY_CORAL
-	db CHINCHOU,	SHINY_CORAL
-	db MARILL,		SHINY_CORAL
-	db WOOPER,		SHINY_CORAL
-	db OMANYTE,		SHINY_CORAL
-	db KABUTO,		SHINY_CORAL
-	db RATTATA,		CUTE_RIBBON
-	db MEOWTH,		CUTE_RIBBON
-	db EEVEE,		CUTE_RIBBON
-	db PORYGON,		CUTE_RIBBON
-	db SENTRET,		CUTE_RIBBON
-	db TEDDIURSA,	CUTE_RIBBON
-	db JIGGLYPUFF,	CUTE_RIBBON
-	db IGGLYBUFF,	CUTE_RIBBON
-	db CLEFAIRY,	CUTE_RIBBON
-	db CLEFFA,		CUTE_RIBBON
-	db PIDGEY,		CUTE_RIBBON
-	db SPEAROW,		CUTE_RIBBON
-	db DODUO,		CUTE_RIBBON
-	db SWINUB,		FROZEN_DEW
-	db SEEL,		FROZEN_DEW
-	db SHELLDER,	FROZEN_DEW
-	db SMOOCHUM,	FROZEN_DEW
-	db ABRA,		EYE_GLYPH
-	db DROWZEE,		EYE_GLYPH
-	db NATU,		EYE_GLYPH
-	db SLOWPOKE,	EYE_GLYPH
-	db EXEGGCUTE,	EYE_GLYPH
-	db SMOOCHUM,	EYE_GLYPH
+
+.UnevolvedBonus:
+	; species, level it evolves at, number to define bonus amount
+	db BULBASAUR, 16, $fd
+	db IVYSAUR, 32, $fe
+	db CHARMANDER, 16, $fd
+	db CHARMELEON, 36, $fe
+	db SQUIRTLE, 16, $fd
+	db WARTORTLE, 36, $fe
+	db CATERPIE, 7, $fd
+	db METAPOD, 10, $fe
+	db WEEDLE, 7, $fd
+	db KAKUNA, 10, $fe
+	db PIDGEY, 18, $fd
+	db PIDGEOTTO, 36, $fe
+	db RATTATA, 20, 0
+	db SPEAROW, 20, 0
+	db EKANS, 22, 0
+	db PIKACHU, 20, $fe
+	db SANDSHREW, 22, 0
+	db NIDORAN_F, 16, $fd
+	db NIDORINA, 32, $fe
+	db NIDORAN_M, 16, $fd
+	db NIDORINO, 32, $fe
+	db CLEFAIRY, 20, $fe
+	db VULPIX, 20, 0
+	db JIGGLYPUFF, 20, $fe
+	db ZUBAT, 22, $fd
+	db GOLBAT, 42, $fe
+	db ODDISH, 21, 0
+	db GLOOM, 41, $fe
+	db PARAS, 24, 0
+	db VENONAT, 27, 0
+	db DIGLETT, 26, 0
+	db MEOWTH, 28, 0
+	db PSYDUCK, 33, 0
+	db MANKEY, 28, 0
+	db GROWLITHE, 20, 0
+	db POLIWAG, 25, $fd
+	db POLIWHIRL, 45, $fe
+	db ABRA, 16, $fd
+	db KADABRA, 32, $fe
+	db MACHOP, 28, $fd
+	db MACHOKE, 42, $fe
+	db BELLSPROUT, 21, $fd
+	db WEEPINBELL, 41, $fe
+	db TENTACOOL, 30, 0
+	db GEODUDE, 25, $fd
+	db GRAVELER, 37, $fe
+	db PONYTA, 40, 0
+	db SLOWPOKE, 30, 0
+	db MAGNEMITE, 30, 0
+	db DODUO, 31, 0
+	db SEEL, 34, 0
+	db GRIMER, 38, 0
+	db SHELLDER, 20, 0
+	db GASTLY, 25, $fd
+	db HAUNTER, 37, $fe
+	db ONIX, 26, 0
+	db DROWZEE, 26, 0
+	db KRABBY, 22, 0
+	db VOLTORB, 30, 0
+	db EXEGGCUTE, 20, 0
+	db CUBONE, 28, 0
+	db KOFFING, 35, 0
+	db RHYHORN, 42, 0
+	db CHANSEY, 40, 0
+	db HORSEA, 20, $fd
+	db SEADRA, 40, $fe
+	db GOLDEEN, 33, 0
+	db STARYU, 20, 0
+	db SCYTHER, 36, 0
+	db MAGIKARP, 20, 0
+	db EEVEE, 20, 0
+	db PORYGON, 20, 0
+	db OMANYTE, 35, 0
+	db KABUTO, 35, 0
+	db DRATINI, 25, $fd
+	db CHIKORITA, 16, $fd
+	db BAYLEEF, 34, $fe
+	db CYNDAQUIL, 15, $fd
+	db QUILAVA, 36, $fe
+	db TOTODILE, 17, $fd
+	db CROCONAW, 32, $fe
+	db SENTRET, 15, 0
+	db HOOTHOOT, 20, 0
+	db LEDYBA, 20, 0
+	db SPINARAK, 22, 0
+	db CHINCHOU, 27, 0
+	db PICHU, 15, $fd
+	db CLEFFA, 15, $fd
+	db IGGLYBUFF, 15, $fd
+	db TOGEPI, 15, $fd
+	db NATU, 25, 0
+	db MAREEP, 15, $fd
+	db FLAAFFY, 30, $fe
+	db MARILL, 18, 0
+	db HOPPIP, 18, $fd
+	db SKIPLOOM, 27, $fe
+	db SUNKERN, 20, 0
+	db WOOPER, 20, 0
+	db PINECO, 31, 0
+	db SNUBBULL, 23, 0
+	db TEDDIURSA, 30, 0
+	db SLUGMA, 26, 0
+	db SWINUB, 26, 0
+	db REMORAID, 25, 0
+	db HOUNDOUR, 24, 0
+	db PHANPY, 25, 0
+	db TYROGUE, 16, $fd
+	db SMOOCHUM, 22, $fd
+	db ELEKID, 22, $fd
+	db MAGBY, 22, $fd
+	db LARVITAR, 30, $fd
+	db PUPITAR, 50, $fe
 	db -1
 
 GivePoke::
