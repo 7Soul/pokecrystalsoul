@@ -198,6 +198,7 @@ endr
 	push hl
 	farcall GetTrainerDVs
 	pop hl
+	ld a, b
 	jr .initializeDVs
 
 .registerpokedex
@@ -217,38 +218,20 @@ endr
 	and a
 	jp nz, .copywildmonDVs
 
-.generateDVs:
-; Generate new random DVs
+.generateDVs: ; for given pokémon
+; Generate Unown letter
 	ld a, $1A ; 0 to 25
 	call RandomRange
 	inc a
-	ld c, a
-	ld b, 0
-
-.initializeDVs
-	ld a, b
-	ld [de], a
-	inc de
-	ld a, c
-	ld [de], a
-	inc de
-	jr .end_dvs
-
+	push hl
+	
 .TryShiny
-	ld a, [wBattleType]
-	cp BATTLETYPE_SHINY
-	jr z, .set_shiny
-
 	call Random
 	cp 5 percent ; 4.7%
 	jr nc, .TryGender
 	call Random
 	cp 5 percent ; 4.7%
 	jr nc, .TryGender
-; 0.22%
-	ld a, [wLuckyWild]
-	and a
-	jr z, .set_shiny
 ; 0.11%
 	call Random
 	cp 50 percent
@@ -301,11 +284,16 @@ endr
 	jr .end_gender
 	
 .end_gender
+	ld a, [hl]
+	pop hl
+
+.initializeDVs
+	ld [$c002], a
 	ld [de], a
 	inc de
-	inc de
-	pop hl
+	inc de ; skip second DV byte
 .end_dvs
+	; pop hl
 	; Initialize PP.
 	push hl
 	push de

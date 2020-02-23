@@ -267,6 +267,10 @@ GetTraitName::
 	ld [wNamedObjectTypeBuffer], a
 
 	ld a, [wNamedObjectIndexBuffer] ; trait id
+	and a
+	jr nz, .min
+	inc a
+.min
 	ld [wCurSpecies], a
 
 	call GetName

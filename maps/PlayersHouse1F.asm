@@ -121,16 +121,10 @@ MeetMomScript:
 	giveitem ETHER, 99
 	giveitem MAX_REVIVE, 99
 	giveitem TOUGH_HORN
-	giveitem STEEL_WING
 
-	; givepoke VAPOREON, 50
-	givepoke PIDGEY, 36
-	givepoke PIDGEOTTO, 36
-	givepoke PIDGEOT, 36
-	givepoke PIDGEY, 100
-	givepoke PIDGEOTTO, 100
-	givepoke PIDGEOT, 100
-	; callasm CheatFillPokedex
+	givepoke VAPOREON, 50
+	givepoke PIDGEY, 50
+	callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
 	; callasm CheatGiveKantoBadges

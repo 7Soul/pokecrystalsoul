@@ -194,20 +194,11 @@ ReadTrainerPartyPieces:
 	ld e, l
 	pop hl
 
-; When reading DVs, treat PERFECT_DV as $ff
 	call GetNextTrainerDataByte
-	cp PERFECT_DV
-	jr nz, .atk_def_dv_ok
-	ld a, $ff
-.atk_def_dv_ok
-	ld [de], a
+	ld [de], a ; DV byte
 	inc de
-	call GetNextTrainerDataByte
-	cp PERFECT_DV
-	jr nz, .spd_spc_dv_ok
-	ld a, $ff
-.spd_spc_dv_ok
-	ld [de], a
+	xor a
+	ld [de], a ; unused DV byte
 .no_dvs
 
 ; item?
@@ -397,20 +388,19 @@ rept 11
 endr
 	jp .skip_after_check1
 	
-.extra_skip2 ; skips 2 bits for item info
+.extra_skip2 ; skips 2 bytes for item info
 	inc hl
 	inc hl
 	jp .skip_after_check2
 	
-.extra_skip3 ; skips 4 bits for moves info
+.extra_skip3 ; skips 4 bytes for moves info
 	inc hl
 	inc hl
 	inc hl
 	inc hl
 	jp .skip_after_check3
 	
-.extra_skip4 ; skips 2 bits for dvs info
-	inc hl
+.extra_skip4 ; skips 1 byte for dvs info
 	inc hl
 	jp .skip_after_check4
 	

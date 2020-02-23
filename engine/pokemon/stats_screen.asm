@@ -966,8 +966,6 @@ StatsScreen_LoadGFX:
 	call PlaceString
 
 	ld a, [wTempMonTrait]
-	and a
-	ret z
 	ld [wNamedObjectIndexBuffer], a
 	call GetTraitName
 	hlcoord 7, 12

@@ -148,8 +148,16 @@ DayCareStep::
 	ld a, [wBreedMon1Level] ; level
 	cp MAX_LEVEL
 	jr nc, .day_care_lady
+; gain exp based on half the number of badges
+	push hl
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits
+	ld a, [wNumSetBits]
+	srl a
+	ld b, a
+	pop hl
 	ld c, 0
-
 .add_second_exp_point_man
 	ld hl, wBreedMon1Exp + 2 ; exp
 	inc [hl]
@@ -165,7 +173,7 @@ DayCareStep::
 	ld a, HIGH(MAX_DAY_CARE_EXP >> 8)
 	ld [hl], a
 	inc c
-	cp $1
+	cp b
 	jr nz, .add_second_exp_point_man
 
 .day_care_lady
@@ -176,8 +184,16 @@ DayCareStep::
 	ld a, [wBreedMon2Level] ; level
 	cp MAX_LEVEL
 	jr nc, .check_egg
+; gain exp based on half the number of badges
+	push hl	
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits
+	ld a, [wNumSetBits]
+	srl a
+	ld b, a
+	pop hl
 	ld c, 0
-
 .add_second_exp_point_lady
 	ld hl, wBreedMon2Exp + 2 ; exp
 	inc [hl]
@@ -193,7 +209,7 @@ DayCareStep::
 	ld a, HIGH(MAX_DAY_CARE_EXP >> 8)
 	ld [hl], a
 	inc c
-	cp $1
+	cp b
 	jr nz, .add_second_exp_point_man
 
 .check_egg

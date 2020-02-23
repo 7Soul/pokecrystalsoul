@@ -589,7 +589,7 @@ DayCare_InitBreeding:
 	ld [wTempMonDVs + 1], a
 	ld a, [wBreedMon1Species]
 	ld [wCurPartySpecies], a
-	ld a, $3
+	ld a, TEMPMON
 	ld [wMonType], a
 	ld a, [wBreedMon1Species]
 	cp DITTO
@@ -670,59 +670,70 @@ DayCare_InitBreeding:
 	dec b
 	jr nz, .loop2
 	ld hl, wEggMonDVs
-	call Random
-	ld [hli], a
-	ld [wTempMonDVs], a
-	call Random
-	ld [hld], a
-	ld [wTempMonDVs + 1], a
-	ld de, wBreedMon1DVs
-	ld a, [wBreedMon1Species]
-	cp DITTO
-	jr z, .GotDVs
-	ld de, wBreedMon2DVs
-	ld a, [wBreedMon2Species]
-	cp DITTO
-	jr z, .GotDVs
-	ld a, TEMPMON
-	ld [wMonType], a
-	push hl
-	farcall GetGender
-	pop hl
-	ld de, wBreedMon1DVs
-	ld bc, wBreedMon2DVs
-	jr c, .SkipDVs
-	jr z, .ParentCheck2
-	ld a, [wBreedMotherOrNonDitto]
-	and a
-	jr z, .GotDVs
-	ld d, b
-	ld e, c
-	jr .GotDVs
-
-.ParentCheck2:
-	ld a, [wBreedMotherOrNonDitto]
-	and a
-	jr nz, .GotDVs
-	ld d, b
-	ld e, c
-
-.GotDVs:
-	ld a, [de]
-	inc de
-	and $f
-	ld b, a
-	ld a, [hl]
-	and $f0
-	add b
-	ld [hli], a
-	ld a, [de]
-	and $7
-	ld b, a
-	ld a, [hl]
-	and $f8
-	add b
+	ld a, $1A ; 0 to 25
+	call RandomRange
+	inc a
 	ld [hl], a
+.TryShiny
+	call Random
+	cp 5 percent ; 4.7%
+	jr nc, .dvs_set
+	call Random
+	cp 5 percent ; 4.7%
+	jr nc, .dvs_set
+.set_shiny ; 0.16%
+	set 5, [hl] ; set shiny bit
+	ld a, [hl]
+	ld [wTempMonDVs], a
+.dvs_set
+; pass parent dvs to egg (we don't do that)
+; 	ld de, wBreedMon1DVs
+; 	ld a, [wBreedMon1Species]
+; 	cp DITTO
+; 	jr z, .GotDVs
+; 	ld de, wBreedMon2DVs
+; 	ld a, [wBreedMon2Species]
+; 	cp DITTO
+; 	jr z, .GotDVs
+; 	ld a, TEMPMON
+; 	ld [wMonType], a
+; 	push hl
+; 	farcall GetGender
+; 	pop hl
+; 	ld de, wBreedMon1DVs
+; 	ld bc, wBreedMon2DVs
+; 	jr c, .SkipDVs ; genderless parent skip
+; 	jr z, .ParentCheck2
+; 	ld a, [wBreedMotherOrNonDitto]
+; 	and a
+; 	jr z, .GotDVs
+; 	ld d, b
+; 	ld e, c
+; 	jr .GotDVs
+
+; .ParentCheck2:
+; 	ld a, [wBreedMotherOrNonDitto]
+; 	and a
+; 	jr nz, .GotDVs
+	; ld d, b
+	; ld e, c
+
+; .GotDVs:
+	; ld a, [de]
+	; inc de
+	; and $f
+	; ld b, a
+	; ld a, [hl]
+	; and $f0
+	; add b
+	; ld [hli], a
+	; ld a, [de]
+	; and $7
+	; ld b, a
+	; ld a, [hl]
+	; and $f8
+	; add b
+	; ld [hl], a
 
 .SkipDVs:
 	ld hl, wStringBuffer1
