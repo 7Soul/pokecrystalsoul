@@ -1,5 +1,5 @@
 GetTrainerDVs:
-; Return the DVs of wOtherTrainerClass in bc
+; Creates DVs for trainers that don't have custom ones
 
 ; add up trainer Class, ID and MonSpecies to get a DV from 0 to 25
 	ld a, [wOtherTrainerClass]
