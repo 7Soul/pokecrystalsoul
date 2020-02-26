@@ -120,11 +120,12 @@ MeetMomScript:
 	giveitem MAX_POTION, 99
 	giveitem ETHER, 99
 	giveitem MAX_REVIVE, 99
-	giveitem HEAVY_BALL, 99
 	giveitem TOUGH_HORN
 
-	givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
+	givepoke HITMONLEE, 50
+	givepoke HITMONCHAN, 50
+	givepoke HITMONTOP, 50
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges

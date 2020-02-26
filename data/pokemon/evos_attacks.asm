@@ -3710,13 +3710,13 @@ TyrogueEvosAttacks:
 	db 9, FOCUS_ENERGY	
 	db 14, BRICK_BREAK
 	db 19, LOCK_ON
-	db 25, VITAL_THROW
+	db 24, VITAL_THROW
+	db 28, BULK_UP
 	db 34, SUBMISSION
-	db 38, BULK_UP
 	db 39, CROSS_CHOP
-	db 42, MIMIC	
-	db 45, DYNAMICPUNCH
-	db 52, CLOSE_COMBAT
+	db 42, MIMIC
+	db 44, DYNAMICPUNCH
+	db 48, CLOSE_COMBAT
 	db 0 ; no more level-up moves
 
 HitmontopEvosAttacks:

@@ -1,6 +1,5 @@
 ; Traits
 	const_def
-	const TRAIT_NONE
 	const TRAIT_CONTACT_BRN
 	const TRAIT_CONTACT_PSN
 	const TRAIT_CONTACT_PRZ

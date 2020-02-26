@@ -1,6 +1,5 @@
 TraitNames::
 	; const_def
-	db "No Trait@"     ; TRAIT_NONE
 	db "Flame Body@"   ; TRAIT_CONTACT_BRN
 	db "Toxic Body@"   ; TRAIT_CONTACT_PSN
 	db "Shock Body@"   ; TRAIT_CONTACT_PRZ

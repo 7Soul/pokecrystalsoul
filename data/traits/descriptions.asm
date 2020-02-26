@@ -1,8 +1,8 @@
 TraitDescriptions::
 ; entries correspond to move ids (see constants/move_constants.asm)
 	dw FlameBodyDescription   ; TRAIT_CONTACT_BRN
-	dw ShockBodyDescription   ; TRAIT_CONTACT_PSN
-	dw ToxicBodyDescription   ; TRAIT_CONTACT_PRZ
+	dw ToxicBodyDescription   ; TRAIT_CONTACT_PSN
+	dw ShockBodyDescription   ; TRAIT_CONTACT_PRZ
 	dw StunBodyDescription    ; TRAIT_CONTACT_FLINCH
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
 	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
@@ -135,22 +135,17 @@ TraitDescriptions::
 	dw PrismArmorDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	dw PrismPlateDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
     dw TraitFFDescription
-	dw Trait00Description
-
-TraitFFDescription:
-Trait00Description:
-	db "?@"
 
 FlameBodyDescription:
 	db   "May cause BRN on"
 	next "contact.@"
 
-ShockBodyDescription:
-	db   "May cause PRZ on"
-	next "contact.@"
-
 ToxicBodyDescription:
 	db   "May cause PSN on"
+	next "contact.@"
+
+ShockBodyDescription:
+	db   "May cause PRZ on"
 	next "contact.@"
 
 StunBodyDescription:
@@ -677,3 +672,5 @@ PrismPlateDescription:
 	db   "Resist S.EFFECTIVE"
 	next "damage at half HP.@"
 	
+TraitFFDescription:
+	db "?@"

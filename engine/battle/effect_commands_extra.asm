@@ -591,8 +591,6 @@ CheckTraitCondition:
 	call GetBattleVar
 	; fallthrough
 .GotTrait:
-	cp TRAIT_NONE
-	jp z, .not_met1
 	cp TRAIT_SANDSTORM_ON_ENTER + 1 ; traits lower than this have no conditions
 	jp c, .success
 	cp TRAIT_REDUCE_RECOIL + 1 ; all traits that require rain weather

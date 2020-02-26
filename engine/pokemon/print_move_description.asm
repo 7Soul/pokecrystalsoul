@@ -41,7 +41,6 @@ PrintTraitDesc:
 	push hl
 	ld hl, TraitDescriptions
 	ld a, [wCurSpecies]
-	dec a
 	ld c, a
 	ld b, 0
 	add hl, bc

@@ -223,6 +223,9 @@ endr
 	ld a, $1A ; 0 to 25
 	call RandomRange
 	inc a
+	ld h, d
+	ld l, e
+	ld [hl], a
 	push hl
 	
 .TryShiny
@@ -288,7 +291,7 @@ endr
 	pop hl
 
 .initializeDVs
-	ld [$c002], a
+	; ld [$c002], a
 	ld [de], a
 	inc de
 	inc de ; skip second DV byte
@@ -1531,7 +1534,33 @@ CalcMonStatC:
 	add hl, bc
 	ld a, [hl]
 	ld e, a ; base stat
+
 	push hl
+	ld a, [wCurSpecies]
+	cp TYROGUE
+	jr nz, .not_tyrogue
+	ld a, MON_DVS
+	call GetPartyParamLocation
+	ld a, c
+	cp STAT_ATK
+	jr z, .tyr_atk
+	cp STAT_DEF
+	jr z, .tyr_def
+	jr .not_tyrogue
+.tyr_atk
+	ld a, [hl]
+	and %11111
+	cp 8
+	jr nc, .not_tyrogue
+	inc e ; raise ATK by 1
+	jr .not_tyrogue
+.tyr_def
+	ld a, [hl]
+	and %11111
+	cp 16
+	jr c, .not_tyrogue
+	inc e ; raise DEF by 1
+.not_tyrogue
 
 ; Start unevolved bonus
 	ld hl, .UnevolvedBonus
@@ -1608,7 +1637,6 @@ CalcMonStatC:
 	add e
 .end_bonus
 	ld e, a
-	
 	pop hl
 	jr .try_stat_exp
 
