@@ -20,6 +20,7 @@ data/text/common.o \
 data/maps/map_data.o \
 data/pokemon/dex_entries.o \
 data/pokemon/egg_moves.o \
+data/pokemon/egg_traits.o \
 data/pokemon/evos_attacks.o \
 engine/movie/credits.o \
 engine/overworld/events.o \

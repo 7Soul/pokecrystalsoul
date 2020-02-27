@@ -123,9 +123,6 @@ MeetMomScript:
 	giveitem TOUGH_HORN
 
 	givepoke PIDGEY, 50
-	givepoke HITMONLEE, 50
-	givepoke HITMONCHAN, 50
-	givepoke HITMONTOP, 50
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
@@ -138,11 +135,11 @@ MeetMomScript:
 	; setflag ENGINE_STORMBADGE
 	callasm CheatSetFlypoints
 	; warp ROUTE_2, $5, $22
-	warp ROUTE_46, $8, $10
+	; warp ROUTE_46, $8, $10
 	; warp ROUTE_40, $a, $a ; battle tower
 	;warp ROUTE_37, $e, $a
 	;warp ILEX_FOREST, $0, $21
-	;warp ROUTE_34, $D, $24
+	warp ROUTE_34, $A, $E ; breeding
 endc
 
 	closetext

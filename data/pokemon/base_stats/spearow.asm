@@ -10,7 +10,7 @@
 	db GENDER_F50 ; gender ratio
 	db 15 ; step cycles to hatch
 	INCBIN "gfx/pokemon/spearow/front.dimensions"
-	db 0, 0, 0, 0
+	db TRAIT_BOOST_DRAIN, TRAIT_BOOST_DRAIN, TRAIT_BOOST_DRAIN, TRAIT_BOOST_DRAIN
 	db GROWTH_MEDIUM_FAST ; growth rate
 	dn EGG_FLYING, EGG_FLYING ; egg groups
 

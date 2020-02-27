@@ -1160,19 +1160,19 @@ EggStatsScreen:
 	call GetSGBLayout
 	;call StatsScreen_PlaceHorizontalDivider
 	ld de, EggString
-	hlcoord 8, 1
+	hlcoord 2, 2
 	call PlaceString
 	ld de, IDNoString
-	hlcoord 8, 3
+	hlcoord 2, 4
 	call PlaceString
 	ld de, OTString
-	hlcoord 8, 5
+	hlcoord 2, 6
 	call PlaceString
 	ld de, FiveQMarkString
-	hlcoord 11, 3
+	hlcoord 5, 4
 	call PlaceString
 	ld de, FiveQMarkString
-	hlcoord 11, 5
+	hlcoord 5, 6
 	call PlaceString
 	ld a, [wTempMonHappiness] ; egg status
 	ld de, EggSoonString
@@ -1192,7 +1192,7 @@ EggStatsScreen:
 	set 5, [hl]
 	call SetPalettes ; pals
 	call DelayFrame
-	hlcoord 0, 0
+	hlcoord 12, 0
 	call PrepMonFrontpic
 	farcall HDMATransferTileMapToWRAMBank3
 	call StatsScreen_AnimateEgg

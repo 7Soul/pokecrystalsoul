@@ -212,15 +212,17 @@ DayCareStep::
 	cp b
 	jr nz, .add_second_exp_point_man
 
-.check_egg
+.check_egg ; checks if an egg was produced every wStepsToEgg steps
 	ld hl, wDayCareMan
 	bit DAYCAREMAN_MONS_COMPATIBLE_F, [hl]
 	ret z
 	ld hl, wStepsToEgg
 	dec [hl]
 	ret nz
-
+.min_steps
 	call Random
+	cp 128 ; limits steps to 128
+	jr nc, .min_steps
 	ld [hl], a
 	callfar CheckBreedmonCompatibility
 	ld a, [wBreedingCompatibility]
@@ -229,11 +231,11 @@ DayCareStep::
 	jr nc, .okay
 	ld a, [wBreedingCompatibility]
 	cp 170
-	ld b, 16 percent
+	ld b, 24 percent
 	jr nc, .okay
 	ld a, [wBreedingCompatibility]
 	cp 110
-	ld b, 12 percent
+	ld b, 16 percent
 	jr nc, .okay
 	ld b, 4 percent
 

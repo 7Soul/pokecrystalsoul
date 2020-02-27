@@ -1057,6 +1057,16 @@ INCLUDE "gfx/battle_anims/battle_anims.pal"
 
 _GetMonPalettePointer:
 ; for pokedex
+	cp EGG
+	jr nz, .no_egg
+	ld h, b
+	ld l, c
+	ld a, [hl]
+	swap a
+	call IsAPokemon
+	jr nc, .no_egg ; invalid color
+	ld a, EGG
+.no_egg
 	ld l, a
 	ld h, $0
 	add hl, hl

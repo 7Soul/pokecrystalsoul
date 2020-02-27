@@ -698,6 +698,7 @@ ChinchouEggMoves:
 	db -1 ; end
 
 PichuEggMoves:
+	db DIZZY_PUNCH
 	db REVERSAL
 	db ENCORE
 	db DOUBLESLAP
@@ -705,6 +706,7 @@ PichuEggMoves:
 	db -1 ; end
 
 CleffaEggMoves:
+	db DIZZY_PUNCH
 	db AMNESIA
 	db BELLY_DRUM
 	db MIMIC
@@ -712,6 +714,7 @@ CleffaEggMoves:
 	db -1 ; end
 
 IgglybuffEggMoves:
+	db DIZZY_PUNCH
 	db PERISH_SONG
 	db FAINT_ATTACK
 	db SLEEP_TALK
@@ -985,6 +988,7 @@ StantlerEggMoves:
 	db -1 ; end
 
 TyrogueEggMoves:
+	db DIZZY_PUNCH
 	db RAPID_SPIN
 	db JUMP_KICK
 	db MACH_PUNCH
@@ -994,12 +998,15 @@ TyrogueEggMoves:
 	db -1 ; end
 
 SmoochumEggMoves:
+	db DIZZY_PUNCH
 	db MEDITATE
 	db ICE_PUNCH
 	db NASTY_PLOT
+	db BARRIER
 	db -1 ; end
 
 ElekidEggMoves:
+	db DIZZY_PUNCH
 	db KARATE_CHOP
 	db BARRIER
 	db ROLLING_KICK
@@ -1009,6 +1016,7 @@ ElekidEggMoves:
 	db -1 ; end
 
 MagbyEggMoves:
+	db DIZZY_PUNCH
 	db KARATE_CHOP
 	db MEGA_PUNCH
 	db BARRIER

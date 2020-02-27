@@ -104,6 +104,7 @@ GeneratePartyMonStats:
 	ld [de], a
 	inc de
 
+	push hl
 	; Generate a trait
 	ld hl, wBaseTraits
 	call Random
@@ -120,6 +121,7 @@ GeneratePartyMonStats:
 	ld a, [hl]
 	ld [de], a
 	inc de
+	pop hl
 
 	; Copy the moves if it's a wild mon
 	push de
@@ -288,7 +290,6 @@ endr
 	
 .end_gender
 	ld a, [hl]
-	pop hl
 
 .initializeDVs
 	; ld [$c002], a
@@ -296,13 +297,12 @@ endr
 	inc de
 	inc de ; skip second DV byte
 .end_dvs
-	; pop hl
 	; Initialize PP.
+	pop hl
+	ld a, MON_MOVES
+	call GetPartyParamLocation
 	push hl
 	push de
-	inc hl
-	inc hl
-	inc hl
 	call FillPP
 	pop de
 	pop hl

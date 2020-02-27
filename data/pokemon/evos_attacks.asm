@@ -3738,7 +3738,7 @@ SmoochumEvosAttacks:
 	db EVOLVE_LEVEL, 22, JYNX
 	db 0 ; no more evolutions
 	db 1, POUND
-	db 5, LICK
+	db 1, LICK
 	db 9, SING
 	db 10, POWDER_SNOW
 	db 19, DOUBLESLAP
@@ -3755,7 +3755,7 @@ ElekidEvosAttacks:
 	db EVOLVE_LEVEL, 22, ELECTABUZZ
 	db 0 ; no more evolutions
 	db 1, LEER
-	db 5, THUNDERSHOCK	
+	db 1, THUNDERSHOCK	
 	db 8, QUICK_ATTACK
 	db 13, LOW_KICK
 	db 15, THUNDER_WAVE
@@ -3773,7 +3773,7 @@ MagbyEvosAttacks:
 	db EVOLVE_LEVEL, 22, MAGMAR
 	db 0 ; no more evolutions
 	db 1, LEER
-	db 5, EMBER
+	db 1, EMBER
 	db 7, SMOG
 	db 11, DOUBLESLAP
 	db 15, FIRE_SPIN

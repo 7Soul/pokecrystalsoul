@@ -567,12 +567,9 @@ DayCare_InitBreeding:
 	set DAYCAREMAN_MONS_COMPATIBLE_F, [hl]
 .loop
 	call Random
-	cp 150
+	cp 150 ; generates a number over 150
 	jr c, .loop
 	ld [wStepsToEgg], a
-	jp .UselessJump
-
-.UselessJump:
 	xor a
 	ld hl, wEggMon
 	ld bc, wEggMonEnd - wEggMon
@@ -677,65 +674,117 @@ DayCare_InitBreeding:
 .TryShiny
 	call Random
 	cp 5 percent ; 4.7%
-	jr nc, .dvs_set
+	jr nc, .TryGender
 	call Random
 	cp 5 percent ; 4.7%
-	jr nc, .dvs_set
+	jr nc, .TryGender
 .set_shiny ; 0.16%
 	set 5, [hl] ; set shiny bit
+.TryGender
+	call Random
+	ld b, a
+	push bc
+	ld a, [wEggMonSpecies]
+	dec a
+	ld hl, BaseData + BASE_GENDER
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+	pop bc
+	ld a, BANK(BaseData)
+	call GetFarByte
+
+	ld hl, wEggMonDVs
+
+	cp GENDER_UNKNOWN
+	jr z, .Genderless
+
+	and a ; GENDER_F0?
+	jr z, .Male
+
+	cp GENDER_F100
+	jr z, .Female
+
+; Values below the ratio are male, and vice versa.
+	cp b
+	jr c, .Male
+
+.Female
+	set 6, [hl] ; set gender bit
+	jr .end_gender
+
+.Male
+	res 6, [hl] ; unset gender bit
+	jr .end_gender
+
+.Genderless
+	set 7, [hl]
+	
+.end_gender
 	ld a, [hl]
-	ld [wTempMonDVs], a
+	ld [wEggMonDVs], a
 .dvs_set
-; pass parent dvs to egg (we don't do that)
-; 	ld de, wBreedMon1DVs
-; 	ld a, [wBreedMon1Species]
-; 	cp DITTO
-; 	jr z, .GotDVs
-; 	ld de, wBreedMon2DVs
-; 	ld a, [wBreedMon2Species]
-; 	cp DITTO
-; 	jr z, .GotDVs
-; 	ld a, TEMPMON
-; 	ld [wMonType], a
-; 	push hl
-; 	farcall GetGender
-; 	pop hl
-; 	ld de, wBreedMon1DVs
-; 	ld bc, wBreedMon2DVs
-; 	jr c, .SkipDVs ; genderless parent skip
-; 	jr z, .ParentCheck2
-; 	ld a, [wBreedMotherOrNonDitto]
-; 	and a
-; 	jr z, .GotDVs
-; 	ld d, b
-; 	ld e, c
-; 	jr .GotDVs
+; Chance to not inherit a trait
+	call Random
+	cp 25 percent
+	jr nc, .get_random_trait
+; pass parent trait to egg
+; if the one parent is ditto, check trait from other parent
+	ld de, wBreedMon2Trait
+	ld a, [wBreedMon1Species]
+	cp DITTO
+	jr z, .GotParentTrait
+	ld de, wBreedMon1Trait
+	ld a, [wBreedMon2Species]
+	cp DITTO
+	jr z, .GotParentTrait
 
-; .ParentCheck2:
-; 	ld a, [wBreedMotherOrNonDitto]
-; 	and a
-; 	jr nz, .GotDVs
-	; ld d, b
-	; ld e, c
+	ld de, wBreedMon1Trait
+	ld bc, wBreedMon2Trait
+	call Random
+	cp 50 percent
+	jr nc, .GotParentTrait
+	ld d, b
+	ld e, c
 
-; .GotDVs:
-	; ld a, [de]
-	; inc de
-	; and $f
-	; ld b, a
-	; ld a, [hl]
-	; and $f0
-	; add b
-	; ld [hli], a
-	; ld a, [de]
-	; and $7
-	; ld b, a
-	; ld a, [hl]
-	; and $f8
-	; add b
-	; ld [hl], a
+.GotParentTrait: ; parent's trait
+	call GetEggTraits
+	jr c, .got_trait
+	ld a, [de]
+	ld b, a
+	ld a, [wEggMonSpecies]
+	ld [wCurSpecies], a
+	call GetBaseData
+	ld hl, wBaseTraits ; eggmon's traits list
+	ld c, 4
+.traits_loop
+	ld a, [hl]
+	cp b ; compare with parent's trait
+	jr z, .got_trait
+	dec c
+	jr z, .get_random_trait
+	inc hl
+	jr .traits_loop
 
-.SkipDVs:
+.get_random_trait
+	ld hl, wBaseTraits
+	call Random
+	cp 30 percent ; 30%
+	jr c, .got_random_trait
+	inc hl
+	cp 60 percent ; 30%
+	jr c, .got_random_trait
+	inc hl
+	cp 85 percent ; 25%
+	jr c, .got_random_trait
+	inc hl ; 15%
+.got_random_trait
+	ld a, [hl]
+.got_trait
+	ld a, b
+	ld hl, wEggMonTrait
+	ld [hl], a	
+
+.SkipTrait:
 	ld hl, wStringBuffer1
 	ld de, wMonOrItemNameBuffer
 	ld bc, NAME_LENGTH
@@ -760,3 +809,62 @@ DayCare_InitBreeding:
 
 .String_EGG:
 	db "EGG@"
+
+GetEggTraits:
+	push hl
+	push de
+	push bc
+	ld hl, EggTraitPointers
+	ld a, [wEggMonSpecies]
+	dec a
+	ld c, a
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	ld a, BANK(EggTraitPointers)
+	call GetFarHalfword
+	push hl
+	ld c, 0
+	dec hl
+.count_traits_loop
+	inc c
+	inc hl
+	ld a, BANK("Egg Traits")
+	call GetFarByte
+	cp -1	
+	jr nz, .count_traits_loop
+	
+.reached_end
+	pop hl
+	ld a, c
+	call RandomRange
+
+; go to hl according to move number
+.get_position
+	ld c, a
+	ld b, 0
+	add hl, bc
+
+; get trait from hl
+	pop bc
+	pop de
+	ld a, [de]
+	ld b, a ; parent's trait
+	ld a, BANK("Egg Traits")
+	ld c, 4
+.traits_loop
+	call GetFarByte
+	cp b ; compare with parent's trait
+	jr z, .got_trait
+	dec c
+	jr z, .no_egg_traits
+	inc hl
+	jr .traits_loop
+.no_egg_traits
+	pop hl
+	and a
+	ret
+.got_trait
+	pop hl
+	scf
+	ret
