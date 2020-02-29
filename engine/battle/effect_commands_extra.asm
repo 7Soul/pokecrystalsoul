@@ -542,16 +542,8 @@ CheckTrait:
 	cp -1
 	ret z
 	push hl
-	ld hl, wTraitActivated
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .player_turn
-	bit 1, [hl]
-	jr nz, .already_activated
-	jr .check_trait
-.player_turn
-	bit 0, [hl]
-	jr nz, .already_activated
+	call CheckTraitActivated ; check if trait only activates once
+	jr c, .already_activated
 .check_trait
 	ld a, [wBuffer1]
 	cp BATTLE_VARS_TRAIT
@@ -603,9 +595,9 @@ CheckTraitCondition:
 	jp c, .check_sandstorm
 	cp TRAIT_BOOST_EFFECT_BRN + 1 ; all burn traits
 	jp c, .check_move_brn
-	; cp TRAIT_REGEN_BRN + 1
-	; ld d, BRN
-	; jp c, .check_user_status
+	cp TRAIT_REGEN_STATUSED + 1
+	ld d, $A
+	jp c, .check_user_status
 	cp TRAIT_BOOST_EFFECT_PSN + 1 ; all poison traits
 	jp c, .check_move_psn
 	cp TRAIT_BOOST_EFFECT_PRZ + 1 ; all paralysis traits
@@ -626,8 +618,14 @@ CheckTraitCondition:
 	jp c, .check_not_stab
 	cp TRAIT_BOOST_ACCURACY_TURN_ZERO + 1 ; all traits on turn 0
 	ld d, 0
-	jp c, .check_turns
-	cp TRAIT_CRIT_BELOW_THIRD + 1 ; all traits that require to be below 50% hp
+	jp c, .check_turns_equal
+	cp TRAIT_REGEN_FIRST_TURNS + 1 ; all traits on turn 0
+	ld d, 2
+	jp c, .check_turns_lower
+	cp TRAIT_REGEN_LOW_HP + 1 ; all traits that require to be below 50% hp
+	ld b, 50
+	jp c, .check_below_threshold
+	cp TRAIT_CRIT_BELOW_THIRD + 1 ; all traits that require to be below 33% hp
 	ld b, 34
 	jp c, .check_below_threshold
 	; cp TRAIT_BOOST_MULTI_HIT_DAMAGE + 1 
@@ -733,6 +731,16 @@ CheckTraitCondition:
 	and a
 	ret
 .success
+	push hl
+	ld hl, OneShotTraits
+	ld a, [wBuffer1]
+	call GetBattleVar
+	ld de, 1	
+	call IsInArray
+	pop hl
+	jr nc, .not_one_shot
+	call ActivateTrait
+.not_one_shot
 	scf
 	ret
 
@@ -802,16 +810,16 @@ CheckTraitCondition:
 .check_move_flinch
 	call GetMoveStructEffect
 	cp EFFECT_FLINCH_HIT
-	jr z, .success
+	jp z, .success
 	and a
 	ret
 
 .check_move_confused
 	call GetMoveStructEffect
 	cp EFFECT_CONFUSE
-	jr z, .success
+	jp z, .success
 	cp EFFECT_CONFUSE_HIT
-	jr z, .success
+	jp z, .success
 	and a
 	ret
 
@@ -873,13 +881,25 @@ CheckTraitCondition:
 	and a
 	ret
 
-.check_turns
-	ld hl, wPlayerTurnsTaken
+.check_turns_equal
+	ld a, BATTLE_VARS_TURNS_TAKEN
+ 	call GetBattleVar
 	cp d
-	jr nc, .no ; greater
+	jr nz, .no_turns_equal ; greater
 	and a
 	ret
-.no
+.no_turns_equal
+	scf
+	ret
+
+.check_turns_lower
+	ld a, BATTLE_VARS_TURNS_TAKEN
+ 	call GetBattleVar
+	cp d
+	jr nc, .no_turns_lower ; greater
+	and a
+	ret
+.no_turns_lower
 	scf
 	ret
 
@@ -887,11 +907,9 @@ CheckTraitCondition:
 	call GetHealthPercentage
 	ld a, d
 	cp b
-	jr nc, .no_hp ; greater
+	jp c, .success ; greater
+
 	and a
-	ret
-.no_hp
-	scf
 	ret
 
 .check_move_type:
@@ -910,6 +928,8 @@ CheckTraitCondition:
 	jr z, .isBRN
 	cp PSN
 	jr z, .isPSN
+	cp $A
+	jr z, .isANY
 	jr .not_status
 
 .isBRN
@@ -920,6 +940,11 @@ CheckTraitCondition:
 .isPSN
 	ld a, [hl]
 	and 1 << PSN
+	jp nz, .success
+	jr .not_status
+.isANY
+	ld a, [hl]
+	cp 0
 	jp nz, .success
 .not_status
 	and a
@@ -1019,17 +1044,6 @@ TraitRaiseStat:
 	ld b, 0
 	add hl, bc
 	inc [hl]
-
-	ld hl, wTraitActivated
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .player_turn	
-	set 1, [hl]
-	ret
-.player_turn
-	set 0, [hl]
-	ret
-
 .not_met
 	ret
 
@@ -1236,6 +1250,7 @@ TraitContact:
 ; 	ld b, a
 ; 	jr .success
 	ld a, [wBuffer3]
+	ld b, a
 	jr .success
 
 .not_attract_trait
@@ -1307,38 +1322,87 @@ TraitsThatAttract:
 	db -1
 
 TraitStartWeather:
-	ld hl, TraitsThatStartWeather
+	ld hl, .TraitsThatStartWeather
 	call CheckTrait
 	jr nc, .not_start_weather
 	ld a, 4
 	jr .end
 .not_start_weather
-	ld hl, TraitsThatBoostWeather
+	ld hl, .TraitsThatBoostWeather
 	call CheckTrait
-	jr nc, .not_met
+	jr nc, .no_boost
 	ld a, 6
 	jr .end
-.not_met
+.no_boost
 	ld a, 5
 .end
 	ld [wWeatherCount], a
 	ret
 
-TraitsThatStartWeather:
+.TraitsThatStartWeather:
 	db TRAIT_RAIN_ON_ENTER
 	db TRAIT_SUNSHINE_ON_ENTER
 	db TRAIT_SANDSTORM_ON_ENTER
 	db -1
 
-TraitsThatBoostWeather:
+.TraitsThatBoostWeather:
 	db TRAIT_RAIN_DURATION
 	db TRAIT_SUNSHINE_DURATION
 	db TRAIT_SANDSTORM_DURATION
 	db -1
 
+TraitRainStarts:
+	ld hl, .TraitsThatTriggerOnRainStart
+	call CheckTrait
+	jr nc, .not_met
+	call TraitHealEighth
+.not_met
+	ret
+
+.TraitsThatTriggerOnRainStart:
+	db TRAIT_REGEN_ON_RAIN
+	db -1
+
+TraitSunshineStarts:
+	ld hl, .TraitsThatTriggerOnSunshineStart
+	call CheckTrait
+	jr nc, .not_met
+	call TraitHealEighth
+.not_met
+	ret
+
+.TraitsThatTriggerOnSunshineStart:
+	db TRAIT_REGEN_ON_SUNSHINE
+	db -1
+
+TraitSandstormStarts:
+	ld hl, .TraitsThatTriggerOnSandstormStart
+	call CheckTrait
+	jr nc, .not_met
+	call TraitHealEighth
+.not_met
+	ret
+
+.TraitsThatTriggerOnSandstormStart:
+	db TRAIT_REGEN_ON_SANDSTORM
+	db -1
+
+TraitHealEighth:
+	xor a
+	ld [wBuffer3], a
+	ld [wBuffer5], a
+	ld hl, GetEighthMaxHP
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ld a, c
+	ld [wBuffer6], a
+	call EffectTraitForceRecoverHP
+	ret
+
+
 TraitWeatherHealsStatus:
-	call ResetActivated
-	ld hl, TraitsThatHealStatus
+	; call ResetActivated
+	ld hl, .TraitsThatHealStatus
 	call CheckTrait
 	jr nc, .not_met
 	ld a, BATTLE_VARS_STATUS
@@ -1348,7 +1412,7 @@ TraitWeatherHealsStatus:
 .not_met
 	ret
 
-TraitsThatHealStatus:
+.TraitsThatHealStatus:
 	db TRAIT_RAIN_NO_STATUS
 	db TRAIT_SUNSHINE_NO_STATUS
 	db TRAIT_SANDSTORM_NO_STATUS
@@ -1984,16 +2048,26 @@ TraitFaintMon:
 	call CheckTrait
 	jr nc, .not_met
 	ld a, [wBuffer3]
-	and a
-	jr z, .heal_pp_faint
-.not_met
-	ret
+	cp 0
+	jr z, .heal_hp_faint
+	cp 1
+	jr nz, .not_met
 .heal_pp_faint
 	call EffectTraitForceRecoverPP
 	ret
+.heal_hp_faint
+	ld hl, GetEighthMaxHP
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ld a, c
+	ld [wBuffer6], a
+	call EffectTraitForceRecoverHP
+.not_met
+	ret
 
 TraitsThatTriggerOnFaintMon:
-	db TRAIT_HEAL_PP_FAINT
+	db TRAIT_HEAL_HP_FAINT ; 0
+	db TRAIT_HEAL_PP_FAINT ; 1
 	db -1
 
 EffectTraitForceRecoverPP:
@@ -2002,23 +2076,40 @@ EffectTraitForceRecoverPP:
 	callfar RestorePP
 	ret
 
-TraitRegenHP:	
+EffectTraitForceRecoverHP:
+	ld hl, BattleCommand_Heal
+	ld a, BANK("Effect Commands")
+	rst FarCall
+	ret
+
+TraitRegenHP:
 	ld hl, TraitsThatRegenerate
 	call CheckTrait
 	jr nc, .not_met
 	xor a
 	ld [wBuffer3], a
 	ld [wBuffer5], a
-	ld a, 2
-	ld [wBuffer6], a
-	ld hl, BattleCommand_Heal
-	ld a, BANK("Effect Commands")
+
+	ld a, [wBuffer3]
+	cp 2
+	jr z, .heal_hp_sixteenth
+	ld hl, GetEighthMaxHP
+	jr .complete_heal
+.heal_hp_sixteenth
+	ld hl, GetSixteenthMaxHP
+.complete_heal
+	ld a, BANK(GetMaxHP)
 	rst FarCall
+	ld a, c
+	ld [wBuffer6], a
+	call EffectTraitForceRecoverHP
 .not_met
 	ret
 
 TraitsThatRegenerate:
-	; db TRAIT_REGEN_BRN
+	db TRAIT_REGEN_LOW_HP ; 0
+	db TRAIT_REGEN_STATUSED ; 1
+	db TRAIT_REGEN_FIRST_TURNS ; 2
 	db -1
 
 ContactMoves:
@@ -2150,24 +2241,13 @@ CallFarSpecificTrait:
 	call CheckSpecificTrait
 	ret
 
-ResetActivated:
-	ld hl, wTraitActivated
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .player_turn
-	res 1, [hl]
-	ret
-.player_turn
-	res 0, [hl]
-	ret
-
 GetHealthPercentage:
 	push bc
 	ld hl, wBattleMonHP
 	ld de, wBattleMonMaxHP
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .got_stats	
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT
+	jr z, .got_stats
 	ld hl, wEnemyMonHP
 	ld de, wEnemyMonMaxHP
 .got_stats
@@ -2210,3 +2290,119 @@ GetHealthPercentage:
 	ldh [hMultiplicand + 2], a
 	pop bc
 	ret
+
+CheckTraitActivated:
+	ld hl, OneShotTraits
+	ld a, [wBuffer1]
+	call GetBattleVar
+	ld de, 1	
+	call IsInArray
+	jr nc, .end
+
+	ld hl, wTraitActivated
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .player_turn
+; enemy's turn
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
+	jr z, .activate_enemy_trait
+	bit 0, [hl] ; player trait
+	jr nz, .already_activated
+	jr .end
+.activate_enemy_trait
+	bit 1, [hl] ; enemy trait
+	jr nz, .already_activated
+	jr .end
+
+.player_turn
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
+	jr z, .activate_player_trait
+	bit 1, [hl] ; enemy trait
+	jr nz, .already_activated
+	jr .end
+.activate_player_trait
+	bit 0, [hl] ; player trait
+	jr nz, .already_activated
+.end
+	and a
+	ret
+.already_activated
+	scf
+	ret
+
+ActivateTrait:
+	ld hl, wTraitActivated
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .player_turn
+; enemy's turn
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
+	jr z, .activate_enemy_trait
+	set 0, [hl] ; player trait
+	ret
+.activate_enemy_trait
+	set 1, [hl] ; enemy trait
+	ret
+
+.player_turn
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
+	jr z, .activate_player_trait
+	set 1, [hl] ; enemy trait
+	ret
+.activate_player_trait
+	set 0, [hl] ; player trait
+	ret
+
+ResetActivated:
+	ld hl, wTraitActivated
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .player_turn
+	res 1, [hl]
+	ret
+.player_turn
+	res 0, [hl]
+	ret
+
+OneShotTraits:
+	db TRAIT_RAIN_ATTACK
+	db TRAIT_RAIN_DEFENSE
+	db TRAIT_RAIN_SPEED
+	db TRAIT_RAIN_SP_ATTACK
+	db TRAIT_RAIN_SP_DEFENSE
+	db TRAIT_RAIN_ACCURACY
+	db TRAIT_RAIN_EVASION
+	db TRAIT_RAIN_NO_STATUS
+	db TRAIT_SUNSHINE_ATTACK
+	db TRAIT_SUNSHINE_DEFENSE 
+	db TRAIT_SUNSHINE_SPEED
+	db TRAIT_SUNSHINE_SP_ATTACK
+	db TRAIT_SUNSHINE_SP_DEFENSE
+	db TRAIT_SUNSHINE_ACCURACY
+	db TRAIT_SUNSHINE_EVASION
+	db TRAIT_SUNSHINE_NO_STATUS	
+	db TRAIT_SANDSTORM_ATTACK
+	db TRAIT_SANDSTORM_DEFENSE
+	db TRAIT_SANDSTORM_SPEED
+	db TRAIT_SANDSTORM_SP_ATTACK
+	db TRAIT_SANDSTORM_SP_DEFENSE
+	db TRAIT_SANDSTORM_ACCURACY
+	db TRAIT_SANDSTORM_EVASION
+	db TRAIT_SANDSTORM_NO_STATUS
+	db TRAIT_REGEN_ON_RAIN
+	db TRAIT_REGEN_ON_SUNSHINE
+	db TRAIT_REGEN_ON_SANDSTORM
+	db TRAIT_REGEN_LOW_HP
+	db TRAIT_ATTACK_BELOW_THIRD
+	db TRAIT_DEFENSE_BELOW_THIRD
+	db TRAIT_SPEED_BELOW_THIRD
+	db TRAIT_SP_ATTACK_BELOW_THIRD
+	db TRAIT_SP_DEFENSE_BELOW_THIRD
+	db TRAIT_ACCURACY_BELOW_THIRD
+	db TRAIT_EVASION_BELOW_THIRD 
+	db TRAIT_CRIT_BELOW_THIRD
+	db -1

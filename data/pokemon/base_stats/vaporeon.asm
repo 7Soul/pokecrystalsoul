@@ -10,7 +10,7 @@
 	db GENDER_F12_5 ; gender ratio
 	db 35 ; step cycles to hatch
 	INCBIN "gfx/pokemon/vaporeon/front.dimensions"
-	db TRAIT_RAIN_SPEED, TRAIT_PSN_IMMUNE, TRAIT_RAIN_DURATION, TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	db TRAIT_REGEN_ON_RAIN, TRAIT_REGEN_ON_RAIN, TRAIT_REGEN_ON_RAIN, TRAIT_REGEN_ON_RAIN
 	db GROWTH_MEDIUM_FAST ; growth rate
 	dn EGG_GROUND, EGG_GROUND ; egg groups
 

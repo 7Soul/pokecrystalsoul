@@ -6,6 +6,7 @@ TraitNames::
 	db "Stun Body@"    ; TRAIT_CONTACT_FLINCH
 	db "High Tempo@"   ; TRAIT_CONTACT_CONFUSED
 	db "Cute Charm@"   ; TRAIT_CONTACT_IN_LOVE
+	db "Life Drain@"   ; TRAIT_HEAL_HP_FAINT
 	db "Keep Going@"   ; TRAIT_HEAL_PP_FAINT
 	db "Iron Fist@"    ; TRAIT_BOOST_PUNCHING
 	db "Weave@"        ; TRAIT_REDUCE_PUNCHING
@@ -25,10 +26,13 @@ TraitNames::
 	db "Skill Link@"   ; TRAIT_BOOST_MULTI_HIT_COUNT
 	db "Chain Clip@"   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
 	db "@"   ; TRAIT_BOOST_DAMAGE_PER_TURN
+	db "Rain Dish@"    ; TRAIT_REGEN_ON_RAIN
 	db "Monsoon@"      ; TRAIT_RAIN_DURATION
 	db "Drizzle@"      ; TRAIT_RAIN_ON_ENTER
+	db "Verdant Body@" ; TRAIT_REGEN_ON_SUNSHINE
 	db "Blue Sky@"     ; TRAIT_SUNSHINE_DURATION
 	db "Drought@"      ; TRAIT_SUNSHINE_ON_ENTER
+	db "Rebuild@"      ; TRAIT_REGEN_ON_SANDSTORM
 	db "Tempest@"      ; TRAIT_SANDSTORM_DURATION
 	db "Dust Devil@"   ; TRAIT_SANDSTORM_ON_ENTER
 	db "Reckless@"     ; TRAIT_BOOST_RECOIL
@@ -84,6 +88,8 @@ TraitNames::
 	db "Mastery@"      ; TRAIT_REDUCE_NOT_STAB
 	db "Free Shot@"    ; TRAIT_GAIN_PP_TURN_ZERO
 	db "Keen Focus@"   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
+	db "Healty Spirit@"; TRAIT_REGEN_FIRST_TURNS
+	db "Bounce Back@"  ; TRAIT_REGEN_LOW_HP
 	db "Berserk@"      ; TRAIT_ATTACK_BELOW_THIRD
 	db "Solidify@"     ; TRAIT_DEFENSE_BELOW_THIRD
 	db "Scamper@"      ; TRAIT_SPEED_BELOW_THIRD
@@ -92,6 +98,7 @@ TraitNames::
 	db "Take Aim@"     ; TRAIT_ACCURACY_BELOW_THIRD
 	db "Danger Sense@" ; TRAIT_EVASION_BELOW_THIRD
 	db "All Out@"      ; TRAIT_CRIT_BELOW_THIRD
+	db "Defrag@"       ; TRAIT_REGEN_STATUSED
 	db "Permafrost@"   ; TRAIT_REDUCE_BRN_AND_FIRE
 	db "Ground Wire@"  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	db "Steel Wings@"  ; TRAIT_REDUCE_FLINCH_AND_ROCK

@@ -122,6 +122,8 @@ MeetMomScript:
 	giveitem MAX_REVIVE, 99
 	giveitem TOUGH_HORN
 
+	givepoke VAPOREON, 50
+	givepoke PORYGON, 50
 	givepoke PIDGEY, 50
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
@@ -137,9 +139,9 @@ MeetMomScript:
 	; warp ROUTE_2, $5, $22
 	; warp ROUTE_46, $8, $10
 	; warp ROUTE_40, $a, $a ; battle tower
-	;warp ROUTE_37, $e, $a
-	;warp ILEX_FOREST, $0, $21
-	warp ROUTE_34, $A, $E ; breeding
+	; warp ROUTE_37, $e, $a
+	warp ILEX_FOREST, $0, $21
+	; warp ROUTE_34, $A, $E ; breeding
 endc
 
 	closetext
@@ -482,7 +484,7 @@ CheatGiveRandomBadges:
 
 	ld b, a
 	call Random
-	cp 40 percent
+	cp 75 percent
 	ld a, b
 	inc a
 	jr nc, .loop

@@ -6,6 +6,7 @@ TraitDescriptions::
 	dw StunBodyDescription    ; TRAIT_CONTACT_FLINCH
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
 	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
+	dw LifeDrainDescription   ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription   ; TRAIT_HEAL_PP_FAINT
 	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
 	dw WeaveDescription       ; TRAIT_REDUCE_PUNCHING
@@ -25,10 +26,13 @@ TraitDescriptions::
 	dw SkillLinkDescription   ; TRAIT_BOOST_MULTI_HIT_COUNT
 	dw ChainClipDescription   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
 	dw DamagePerTurnDescription   ; TRAIT_BOOST_DAMAGE_PER_TURN
+	dw RainDishDescription    ; TRAIT_REGEN_ON_RAIN
 	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
+	dw VerdantBodyDescription ; TRAIT_REGEN_ON_SUNSHINE
 	dw BlueSkyDescription     ; TRAIT_SUNSHINE_DURATION
 	dw DroughtDescription     ; TRAIT_SUNSHINE_ON_ENTER
+	dw RebuildDescription     ; TRAIT_REGEN_ON_SANDSTORM
 	dw TempestDescription     ; TRAIT_SANDSTORM_DURATION
 	dw DustDevilDescription   ; TRAIT_SANDSTORM_ON_ENTER
 	dw RecklessDescription    ; TRAIT_BOOST_RECOIL
@@ -84,6 +88,8 @@ TraitDescriptions::
 	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
 	dw FreeShotDescription    ; TRAIT_GAIN_PP_TURN_ZERO
 	dw KeenFocusDescription   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
+	dw HealtySpiritDescription; TRAIT_REGEN_FIRST_TURNS
+	dw BounceBackDescription  ; TRAIT_REGEN_LOW_HP
 	dw BerserkDescription     ; TRAIT_ATTACK_BELOW_THIRD
 	dw SolidifyDescription    ; TRAIT_DEFENSE_BELOW_THIRD
 	dw ScamperDescription     ; TRAIT_SPEED_BELOW_THIRD
@@ -92,6 +98,7 @@ TraitDescriptions::
 	dw TakeAimDescription     ; TRAIT_ACCURACY_BELOW_THIRD
 	dw DangerSenseDescription ; TRAIT_EVASION_BELOW_THIRD
 	dw AllOutDescription      ; TRAIT_CRIT_BELOW_THIRD
+	dw DefragDescription      ; TRAIT_REGEN_STATUSED
 	dw PermafrostDescription  ; TRAIT_REDUCE_BRN_AND_FIRE
 	dw GroundWireDescription  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	dw SteelWingsDescription  ; TRAIT_REDUCE_FLINCH_AND_ROCK
@@ -159,6 +166,10 @@ HighTempoDescription:
 CuteCharmDescription:
 	db   "May Infatuate foe"
 	next "on contact.@"
+
+LifeDrainDescription:
+	db   "Regain HP when a"
+	next "foe faints.@"
 
 KeepGoingDescription:
 	db   "Regain PP when a"
@@ -236,6 +247,10 @@ DamagePerTurnDescription:
 	db   "Multi-hit strikes"
 	next "twice, but harder.@"
 
+RainDishDescription:
+	db   "Heal HP when rain"
+	next "starts.@"
+
 MonsoonDescription:
 	db   "Rain lasts one"
 	next "extra turn.@"
@@ -244,6 +259,10 @@ DrizzleDescription:
 	db   "Changes weather to"
 	next "rainy (4 turns).@"
 
+VerdantBodyDescription:
+	db   "Heal HP when sun-"
+	next "shine starts.@"
+
 BlueSkyDescription:
 	db   "Sunshine lasts one"
 	next "extra turn.@"
@@ -251,6 +270,10 @@ BlueSkyDescription:
 DroughtDescription:
 	db   "Changes weather to"
 	next "sunny (4 turns).@"
+
+RebuildDescription:
+	db   "Heal HP when sand-"
+	next "storm starts.@"
 
 TempestDescription:
 	db   "Sandstorm lasts"
@@ -472,6 +495,14 @@ KeenFocusDescription:
 	db   "Boosts move ACC on"
 	next "your first turn.@"
 	
+HealtySpiritDescription:
+	db   "Regain HP on your"
+	next "first few turns.@"
+	
+BounceBackDescription:
+	db   "Regain HP under"
+	next "half health once.@"
+	
 BerserkDescription:
 	db   "Raises ATK under"
 	next "one third health.@"
@@ -503,6 +534,10 @@ DangerSenseDescription:
 AllOutDescription:
 	db   "Raises CRITICAL"
 	next "under 1/3 hp.@"
+
+DefragDescription:
+	db   "Regain HP under"
+	next "any status.@"
 
 PermafrostDescription:
 	db   "BRN and FIRE are"

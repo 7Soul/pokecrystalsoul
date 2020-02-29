@@ -11,6 +11,13 @@ BattleCommand_StartSandstorm:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitStartWeather ; this defines the number of turns wWeatherCount
+	
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitSandstormStarts
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitSandstormStarts
 
 	call AnimateCurrentMove
 	ld hl, SandstormBrewedText
