@@ -1,6 +1,5 @@
 GetTrainerDVs:
 ; Creates DVs for trainers that don't have custom ones
-
 ; add up trainer Class, ID and MonSpecies to get a DV from 0 to 25
 	ld a, [wOtherTrainerClass]
 	ld b, a
@@ -8,7 +7,7 @@ GetTrainerDVs:
 	add b
 	ld b, a
 	ld a, [wCurPartySpecies]
-	ld [wTempEnemyMonSpecies], a
+	ld c, a
 	callfar GetPreEvolution
 	callfar GetPreEvolution
 	ld a, [wCurPartySpecies]
@@ -66,12 +65,10 @@ GetTrainerDVs:
 .Genderless
 	pop bc
 	ld a, b
-	set 7, a
-	jr .end_gender
 	
 .end_gender
 	ld b, a
-	ld a, [wTempEnemyMonSpecies]
+	ld a, c
 	ld [wCurPartySpecies], a
 	ret
 

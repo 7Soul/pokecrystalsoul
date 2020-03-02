@@ -315,7 +315,7 @@ MistyGroup:
 	db $01, 17, 0, STARYU, $80, 0, NO_ITEM, NO_MOVE, NO_MOVE, NO_MOVE, JET_STREAM
 	db -1 ; end
 
-SECTION "Enemy Trainer Parties 5", ROMX
+SECTION "Enemy Trainer Parties 2", ROMX
 
 LtSurgeGroup:
 	; LTSURGE (1)
@@ -1651,7 +1651,7 @@ FisherGroup:
 	db $5F, 12, 0, DRAGONAIR
 	db -1 ; end
 
-SECTION "Enemy Trainer Parties 6", ROMX
+SECTION "Enemy Trainer Parties 3", ROMX
 
 SwimmerMGroup:
 	; SWIMMERM (1)
@@ -2477,6 +2477,7 @@ PicnickerGroup:
 	; PICNICKER (10)
 	db "Erin@", TRAINERTYPE_NORMAL
 	db $0F, 3, 0, BULBASAUR
+	db $0F, 3, 0, BULBASAUR
 	db -1 ; end
 
 	; PICNICKER (11)
@@ -2606,8 +2607,7 @@ CamperGroup:
 
 	; CAMPER (9)
 	db "Harvey@", TRAINERTYPE_NORMAL
-	db $0F, 5, 0, MANKEY
-	db $4F, 5, 0, TAUROS
+	db $0F, 5, 0, BULBASAUR
 	db -1 ; end
 
 	; CAMPER (10)
@@ -2617,8 +2617,9 @@ CamperGroup:
 
 	; CAMPER (11)
 	db "Ted@", TRAINERTYPE_NORMAL
-	db $0F, 5, 1, MANKEY
-	db $4F, 5, 0, TAUROS
+	db $0F, 5, 0, MEWTWO
+	db $08, 5, 0, TAUROS
+	db $08, 5, 1, MANKEY
 	db -1 ; end
 
 	; CAMPER (12)
@@ -2768,7 +2769,7 @@ SageGroup:
 	db $0F, 3, 0, BULBASAUR
 	db -1 ; end
 
-SECTION "Enemy Trainer Parties 7", ROMX
+SECTION "Enemy Trainer Parties 4", ROMX
 
 MediumGroup:
 	; MEDIUM (1)

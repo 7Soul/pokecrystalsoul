@@ -696,7 +696,7 @@ DayCare_InitBreeding:
 	ld hl, wEggMonDVs
 
 	cp GENDER_UNKNOWN
-	jr z, .Genderless
+	jr z, .end_gender
 
 	and a ; GENDER_F0?
 	jr z, .Male
@@ -716,9 +716,6 @@ DayCare_InitBreeding:
 	res 6, [hl] ; unset gender bit
 	jr .end_gender
 
-.Genderless
-	set 7, [hl]
-	
 .end_gender
 	ld a, [hl]
 	ld [wEggMonDVs], a

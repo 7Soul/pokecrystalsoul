@@ -137,10 +137,10 @@ MeetMomScript:
 	; setflag ENGINE_STORMBADGE
 	callasm CheatSetFlypoints
 	; warp ROUTE_2, $5, $22
-	; warp ROUTE_46, $8, $10
+	warp ROUTE_46, $8, $10
 	; warp ROUTE_40, $a, $a ; battle tower
 	; warp ROUTE_37, $e, $a
-	warp ILEX_FOREST, $0, $21
+	; warp ILEX_FOREST, $0, $21
 	; warp ROUTE_34, $A, $E ; breeding
 endc
 
@@ -484,7 +484,7 @@ CheatGiveRandomBadges:
 
 	ld b, a
 	call Random
-	cp 75 percent
+	cp 40 percent
 	ld a, b
 	inc a
 	jr nc, .loop

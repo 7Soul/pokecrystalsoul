@@ -6374,7 +6374,7 @@ LoadEnemyMon:
 	ld hl, wEnemyMonDVs
 
 	cp GENDER_UNKNOWN
-	jr z, .Genderless
+	jr z, .end_dvs
 
 	and a ; GENDER_F0?
 	jr z, .Male
@@ -6393,9 +6393,6 @@ LoadEnemyMon:
 .Male
 	res 6, [hl] ; unset gender bit
 	jr .end_dvs
-
-.Genderless
-	set 7, [hl]
 
 .end_dvs
 ; We've still got more to do if we're dealing with a wild monster

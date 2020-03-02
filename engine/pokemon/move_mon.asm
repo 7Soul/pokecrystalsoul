@@ -104,6 +104,28 @@ GeneratePartyMonStats:
 	ld [de], a
 	inc de
 
+	ld a, [wMonType]
+	and $f
+	jr z, .generate_trait
+
+	push hl
+	farcall GetTrainerDVs
+	pop hl
+	ld a, b
+	push hl
+.mod_3
+	cp 3
+	jr c, .ok_mod
+	sub 3
+	jr .mod_3
+.ok_mod
+	ld hl, wBaseTraits
+	ld b, 0
+	ld c, a
+	add hl, bc
+	jr .got_trait
+
+.generate_trait
 	push hl
 	; Generate a trait
 	ld hl, wBaseTraits
@@ -119,10 +141,12 @@ GeneratePartyMonStats:
 	inc hl ; 15%
 .got_trait
 	ld a, [hl]
+.set_trait
 	ld [de], a
+	; ld [$c001], a
 	inc de
 	pop hl
-
+.copy_moves
 	; Copy the moves if it's a wild mon
 	push de
 	ld h, d
@@ -201,6 +225,7 @@ endr
 	farcall GetTrainerDVs
 	pop hl
 	ld a, b
+	push hl
 	jr .initializeDVs
 
 .registerpokedex
@@ -222,13 +247,14 @@ endr
 
 .generateDVs: ; for given pokémon
 ; Generate Unown letter
+	push hl
 	ld a, $1A ; 0 to 25
 	call RandomRange
 	inc a
 	ld h, d
 	ld l, e
 	ld [hl], a
-	push hl
+	
 	
 .TryShiny
 	call Random
@@ -264,7 +290,7 @@ endr
 	ld l, e
 
 	cp GENDER_UNKNOWN
-	jr z, .Genderless
+	jr z, .end_gender
 
 	and a ; GENDER_F0?
 	jr z, .Male
@@ -284,25 +310,21 @@ endr
 	res 6, [hl] ; unset gender bit
 	jr .end_gender
 
-.Genderless
-	set 7, [hl]
-	jr .end_gender
-	
 .end_gender
 	ld a, [hl]
 
 .initializeDVs
-	; ld [$c002], a
 	ld [de], a
 	inc de
 	inc de ; skip second DV byte
 .end_dvs
 	; Initialize PP.
 	pop hl
-	ld a, MON_MOVES
-	call GetPartyParamLocation
 	push hl
 	push de
+	inc hl
+	inc hl
+	inc hl
 	call FillPP
 	pop de
 	pop hl

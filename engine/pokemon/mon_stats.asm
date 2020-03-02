@@ -237,10 +237,19 @@ GetGender:
 	cp BOXMON
 	call z, CloseSRAM
 
+	push hl
+	ld a, [wCurSpecies]
+	dec a
+	ld hl, BaseData + BASE_GENDER
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+	ld a, BANK(BaseData)
+	call GetFarByte
+	pop hl
+	cp GENDER_UNKNOWN
+	jr z, .Genderless
+
 	ld a, [hl]
-; Bit 7 of DVs sets if it's genderless or not
-	bit 7, a
-	jr nz, .Genderless
 ; Bit 6 of DVs sets if it's male (0) or female (1)
 	bit 6, a
 	jr nz, .Female
