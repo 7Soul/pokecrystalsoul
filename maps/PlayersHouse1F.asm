@@ -120,6 +120,7 @@ MeetMomScript:
 	giveitem MAX_POTION, 99
 	giveitem ETHER, 99
 	giveitem MAX_REVIVE, 99
+	giveitem BERRY, 99
 	giveitem TOUGH_HORN
 
 	givepoke VAPOREON, 50

@@ -7,7 +7,7 @@ GetTrainerDVs:
 	add b
 	ld b, a
 	ld a, [wCurPartySpecies]
-	ld c, a
+	ld [wBuffer1], a
 	callfar GetPreEvolution
 	callfar GetPreEvolution
 	ld a, [wCurPartySpecies]
@@ -68,7 +68,7 @@ GetTrainerDVs:
 	
 .end_gender
 	ld b, a
-	ld a, c
+	ld a, [wBuffer1]
 	ld [wCurPartySpecies], a
 	ret
 

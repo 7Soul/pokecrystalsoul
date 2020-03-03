@@ -98,6 +98,13 @@ TraitDescriptions::
 	dw TakeAimDescription     ; TRAIT_ACCURACY_BELOW_THIRD
 	dw DangerSenseDescription ; TRAIT_EVASION_BELOW_THIRD
 	dw AllOutDescription      ; TRAIT_CRIT_BELOW_THIRD
+	dw GutsDescription        ; TRAIT_ATTACK_STATUSED
+	dw MarvelScaleDescription ; TRAIT_DEFENSE_STATUSED
+	dw QuickFeetDescription   ; TRAIT_SPEED_STATUSED
+	dw DiamondLightDescription; TRAIT_SP_ATTACK_STATUSED
+	dw WaterShellDescription  ; TRAIT_SP_DEFENSE_STATUSED
+	dw RefineDescription      ; TRAIT_ACCURACY_STATUSED
+	dw SmokeVeilDescription   ; TRAIT_EVASION_STATUSED
 	dw DefragDescription      ; TRAIT_REGEN_STATUSED
 	dw PermafrostDescription  ; TRAIT_REDUCE_BRN_AND_FIRE
 	dw GroundWireDescription  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
@@ -534,6 +541,34 @@ DangerSenseDescription:
 AllOutDescription:
 	db   "Raises CRITICAL"
 	next "under 1/3 hp.@"
+
+GutsDescription:
+	db   "Volatile status"
+	next "raises ATTACK.@"
+
+MarvelScaleDescription:
+	db   "Volatile status"
+	next "raises DEFENSE.@"
+
+QuickFeetDescription:
+	db   "Volatile status"
+	next "raises SPEED.@"
+
+DiamondLightDescription:
+	db   "Volatile status"
+	next "raises SP.ATK.@"
+
+WaterShellDescription:
+	db   "Volatile status"
+	next "raises SP.DEF.@"
+
+RefineDescription:
+	db   "Volatile status"
+	next "raises ACCURACY.@"
+
+SmokeVeilDescription:
+	db   "Volatile status"
+	next "raises EVASION.@"
 
 DefragDescription:
 	db   "Regain HP under"

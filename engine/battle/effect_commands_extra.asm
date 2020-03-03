@@ -595,9 +595,6 @@ CheckTraitCondition:
 	jp c, .check_sandstorm
 	cp TRAIT_BOOST_EFFECT_BRN + 1 ; all burn traits
 	jp c, .check_move_brn
-	cp TRAIT_REGEN_STATUSED + 1
-	ld d, $A
-	jp c, .check_user_status
 	cp TRAIT_BOOST_EFFECT_PSN + 1 ; all poison traits
 	jp c, .check_move_psn
 	cp TRAIT_BOOST_EFFECT_PRZ + 1 ; all paralysis traits
@@ -628,6 +625,9 @@ CheckTraitCondition:
 	cp TRAIT_CRIT_BELOW_THIRD + 1 ; all traits that require to be below 33% hp
 	ld b, 34
 	jp c, .check_below_threshold
+	cp TRAIT_REGEN_STATUSED + 1
+	ld d, $A
+	jp c, .check_user_status
 	; cp TRAIT_BOOST_MULTI_HIT_DAMAGE + 1 
 	; jp c, .check_move_multihit
 	push af
@@ -908,7 +908,6 @@ CheckTraitCondition:
 	ld a, d
 	cp b
 	jp c, .success ; greater
-
 	and a
 	ret
 
@@ -961,9 +960,8 @@ Get_move_category: ; 0 = physical, 1 = special, 2 = status
 
 GetMoveStructDamage:
 	ld hl, wPlayerMoveStruct + MOVE_POWER
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .got_power
+	call GetTraitUser
+	jr c, .got_power
 	ld hl, wEnemyMoveStruct + MOVE_POWER
 .got_power
 	ld a, [hl]
@@ -971,9 +969,8 @@ GetMoveStructDamage:
 
 GetMoveStructEffect:
 	ld hl, wPlayerMoveStruct + MOVE_EFFECT
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .got_effect
+	call GetTraitUser
+	jr c, .got_power
 	ld hl, wEnemyMoveStruct + MOVE_EFFECT
 .got_effect
 	ld a, [hl]
@@ -981,9 +978,8 @@ GetMoveStructEffect:
 
 GetMoveStructChance:
 	ld hl, wPlayerMoveStruct + MOVE_CHANCE
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .got_chance
+	call GetTraitUser
+	jr c, .got_power
 	ld hl, wEnemyMoveStruct + MOVE_CHANCE
 .got_chance
 	ld a, [hl]
@@ -994,7 +990,7 @@ TraitRaiseStat:
 .loop
 	push af
 	cp EVASION + 1
-	jr c, .atk
+	jr c, .got_stat
 .loop_go
 	pop af
 	inc a
@@ -1002,7 +998,7 @@ TraitRaiseStat:
 	jr nz, .loop
 	jp .not_met
 
-.atk
+.got_stat
 	ld b, a ; stat id
 	ld hl, .JumptableStatTraits
 
@@ -1026,7 +1022,6 @@ TraitRaiseStat:
 	pop bc
 	jr nc, .loop_go	
 	ld a, b ; stat id
-	jr .end
 
 .end
 	ld [wLoweredStat], a
@@ -1034,11 +1029,8 @@ TraitRaiseStat:
 	ld [wAttackMissed], a
 
 	ld hl, wPlayerStatLevels
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .got_stat_levels
-	ld hl, wEnemyStatLevels
-.got_stat_levels
+	ld de, wEnemyStatLevels
+	call GetTraitUserAddr
 	pop af
 	ld c, a
 	ld b, 0
@@ -1062,6 +1054,7 @@ TraitsThatRaiseAttack:
 	db TRAIT_SUNSHINE_ATTACK
 	db TRAIT_SANDSTORM_ATTACK
 	db TRAIT_ATTACK_BELOW_THIRD
+	db TRAIT_ATTACK_STATUSED
 	db -1
 
 TraitsThatRaiseDefense:
@@ -1069,6 +1062,7 @@ TraitsThatRaiseDefense:
 	db TRAIT_SUNSHINE_DEFENSE
 	db TRAIT_SANDSTORM_DEFENSE
 	db TRAIT_DEFENSE_BELOW_THIRD
+	db TRAIT_DEFENSE_STATUSED
 	db -1
 
 TraitsThatRaiseSpeed:
@@ -1076,7 +1070,7 @@ TraitsThatRaiseSpeed:
 	db TRAIT_SUNSHINE_SPEED
 	db TRAIT_SANDSTORM_SPEED
 	db TRAIT_SPEED_BELOW_THIRD
-	; db TRAIT_STATUS_RAISE_SPEED
+	db TRAIT_SPEED_STATUSED
 	db -1
 
 TraitsThatRaiseSpAttack:
@@ -1084,6 +1078,7 @@ TraitsThatRaiseSpAttack:
 	db TRAIT_SUNSHINE_SP_ATTACK
 	db TRAIT_SANDSTORM_SP_ATTACK
 	db TRAIT_SP_ATTACK_BELOW_THIRD
+	db TRAIT_SP_ATTACK_STATUSED
 	db -1
 
 TraitsThatRaiseSpDefense:
@@ -1091,6 +1086,7 @@ TraitsThatRaiseSpDefense:
 	db TRAIT_SUNSHINE_SP_DEFENSE
 	db TRAIT_SANDSTORM_SP_DEFENSE
 	db TRAIT_SP_DEFENSE_BELOW_THIRD
+	db TRAIT_SP_DEFENSE_STATUSED
 	db -1
 
 TraitsThatRaiseAccuracy:
@@ -1098,6 +1094,7 @@ TraitsThatRaiseAccuracy:
 	db TRAIT_SUNSHINE_ACCURACY
 	db TRAIT_SANDSTORM_ACCURACY
 	db TRAIT_ACCURACY_BELOW_THIRD
+	db TRAIT_ACCURACY_STATUSED
 	db -1
 
 TraitsThatRaiseEvasion:
@@ -1105,6 +1102,7 @@ TraitsThatRaiseEvasion:
 	db TRAIT_SUNSHINE_EVASION
 	db TRAIT_SANDSTORM_EVASION
 	db TRAIT_EVASION_BELOW_THIRD
+	db TRAIT_EVASION_STATUSED
 	db -1
 
 TraitBoostCritical:
@@ -1123,7 +1121,7 @@ TraitsThatBoostCritical:
 	db -1
 	
 TraitBoostAccuracy:
-	ld hl, TraitsThatReduceDamage
+	ld hl, TraitsThatBoostAccuracy
 	call CheckTrait
 	jr nc, .not_met
 	ld a, [wBuffer2]
@@ -1143,7 +1141,7 @@ TraitsThatBoostAccuracy:
 	db -1
 
 TraitReduceAccuracy:
-	ld hl, TraitsThatReduceDamage
+	ld hl, TraitsThatReduceAccuracy
 	call CheckTrait
 	jr nc, .not_met
 	ld a, [wBuffer2]
@@ -1203,52 +1201,6 @@ TraitContact:
 	ld hl, TraitsThatRequireContact
 	call CheckTrait
 	jr nc, .not_met
-; 	ld hl, TraitsThatBurn
-; 	call CheckTrait
-; 	jr nc, .not_burn_trait
-; 	ld a, $0 ; BRN
-; 	ld b, a
-; 	jr .success
-
-; .not_burn_trait
-; 	ld hl, TraitsThatParalyze
-; 	call CheckTrait
-; 	jr nc, .not_paralyze_trait
-; 	ld a, $1 ; PRZ
-; 	ld b, a
-; 	jr .success
-
-; .not_paralyze_trait
-; 	ld hl, TraitsThatPoison
-; 	call CheckTrait
-; 	jr nc, .not_poison_trait
-; 	ld a, $2 ; PSN
-; 	ld b, a
-; 	jr .success
-
-; .not_poison_trait
-; 	ld hl, TraitsThatFlinch
-; 	call CheckTrait
-; 	jr nc, .not_flinch_trait
-; 	ld a, $3 ; FLINCH
-; 	ld b, a
-; 	jr .success
-
-; .not_flinch_trait
-; 	ld hl, TraitsThatConfuse
-; 	call CheckTrait
-; 	jr nc, .not_confuse_trait
-; 	ld a, $4 ; CONFUSE
-; 	ld b, a
-; 	jr .success
-
-; .not_confuse_trait
-; 	ld hl, TraitsThatAttract
-; 	call CheckTrait
-; 	jr nc, .not_attract_trait
-; 	ld a, $5 ; ATTRACT
-; 	ld b, a
-; 	jr .success
 	ld a, [wBuffer3]
 	ld b, a
 	jr .success
@@ -1260,11 +1212,7 @@ TraitContact:
 .success
 	call Chance
 	jr nc, .not_met
-	ld a, [wBuffer1]
-	cp BATTLE_VARS_TRAIT
-	jr z, .player_turn
-	call Switch_turn ; switch so that it affects the mon opposite to the one that has the trait
-.player_turn
+	call SetUserTurn
 	ld a, b
 	ld hl, .StatusCommands
 	ld b, 0
@@ -1278,7 +1226,7 @@ TraitContact:
 
 	ld a, BANK("Effect Commands")
 	rst FarCall
-	ret
+	jp Switch_turn
 
 .StatusCommands:
 	dw BattleCommand_BurnTarget
@@ -1355,7 +1303,9 @@ TraitRainStarts:
 	ld hl, .TraitsThatTriggerOnRainStart
 	call CheckTrait
 	jr nc, .not_met
-	call TraitHealEighth
+	call IncreaseTraitCount
+	call SetUserTurn
+	jp TraitHealEighth
 .not_met
 	ret
 
@@ -1367,7 +1317,9 @@ TraitSunshineStarts:
 	ld hl, .TraitsThatTriggerOnSunshineStart
 	call CheckTrait
 	jr nc, .not_met
-	call TraitHealEighth
+	call IncreaseTraitCount
+	call SetUserTurn
+	jp TraitHealEighth
 .not_met
 	ret
 
@@ -1379,7 +1331,9 @@ TraitSandstormStarts:
 	ld hl, .TraitsThatTriggerOnSandstormStart
 	call CheckTrait
 	jr nc, .not_met
-	call TraitHealEighth
+	call IncreaseTraitCount
+	call SetUserTurn
+	jp TraitHealEighth
 .not_met
 	ret
 
@@ -1398,7 +1352,6 @@ TraitHealEighth:
 	ld [wBuffer6], a
 	call EffectTraitForceRecoverHP
 	ret
-
 
 TraitWeatherHealsStatus:
 	; call ResetActivated
@@ -2024,18 +1977,6 @@ TraitPP:
 	call CheckTrait
 	jr nc, .not_met
 	call EffectTraitForceRecoverPP
-	; ld a, $FF
-	; ld [wd002], a
-	; ld c, 4
-; .loop
-	; ld a, c
-	; dec a
-	; ld [wMenuCursorY], a
-	; push bc
-	; callfar RestorePP
-	; pop bc
-	; dec c
-	; jr nz, .loop
 .not_met
 	ret
 
@@ -2245,9 +2186,8 @@ GetHealthPercentage:
 	push bc
 	ld hl, wBattleMonHP
 	ld de, wBattleMonMaxHP
-	ld a, [wBuffer1]
-	cp BATTLE_VARS_TRAIT
-	jr z, .got_stats
+	call GetTraitUser
+	jr c, .got_stats
 	ld hl, wEnemyMonHP
 	ld de, wEnemyMonMaxHP
 .got_stats
@@ -2291,6 +2231,98 @@ GetHealthPercentage:
 	pop bc
 	ret
 
+; takes player addr in hl, enemy addr in de, returns user addr in hl
+GetTraitUserAddr:
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .player_turn
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT
+	jr z, .end_de
+	ret ; player's turn & checking player's trait
+.player_turn
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT
+	ret z ; player's turn & checking player's trait
+.end_de
+	ld h, d
+	ld l, e
+	ret
+
+; sets carry flag if the player is the user
+GetTraitUser:
+	ldh a, [hBattleTurn]
+	and a	
+	jr z, .player_turn
+; enemy turn
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT
+	jr z, .end
+	scf
+	ret ; enemy's turn player's trait
+.player_turn
+	ld a, [wBuffer1]
+	cp BATTLE_VARS_TRAIT
+	jr nz, .end
+	scf
+	ret ; player's turn player's trait
+.end
+	and a
+	ret
+
+; sets current turn to the user's turn, so the trait affects themselves
+SetUserTurn:
+	call GetTraitUser
+	jr c, .player_user
+	ldh a, [hBattleTurn]
+	and a
+	ret nz
+	scf
+	jp Switch_turn
+.player_user
+	ldh a, [hBattleTurn]
+	and a	
+	ret z
+	scf
+	jp Switch_turn
+
+IncreaseTraitCount:
+	call GetTraitUser
+	ld hl, wTraitActivated
+	jr c, .player_user
+	ld a, [hl]
+	and %00011111
+	ld b, a
+	ld a, [hl]
+	and %11100000
+	rrca
+	swap a
+	cp 7
+	jr z, .max1
+	inc a
+.max1
+	rlca
+	swap a
+	add b 
+	jr .end
+
+.player_user
+	ld a, [hl]
+	and %11110001
+	ld b, a
+	ld a, [hl]
+	and %1110
+	rrca
+	cp 7
+	jr z, .max2
+	inc a
+.max2
+	rlca
+	add b
+.end
+	ld [hl], a
+	ret
+
 CheckTraitActivated:
 	ld hl, OneShotTraits
 	ld a, [wBuffer1]
@@ -2311,7 +2343,7 @@ CheckTraitActivated:
 	jr nz, .already_activated
 	jr .end
 .activate_enemy_trait
-	bit 1, [hl] ; enemy trait
+	bit 4, [hl] ; enemy trait
 	jr nz, .already_activated
 	jr .end
 
@@ -2319,7 +2351,7 @@ CheckTraitActivated:
 	ld a, [wBuffer1]
 	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
 	jr z, .activate_player_trait
-	bit 1, [hl] ; enemy trait
+	bit 4, [hl] ; enemy trait
 	jr nz, .already_activated
 	jr .end
 .activate_player_trait
@@ -2335,7 +2367,7 @@ CheckTraitActivated:
 ActivateTrait:
 	ld hl, wTraitActivated
 	ldh a, [hBattleTurn]
-	and a	
+	and a
 	jr z, .player_turn
 ; enemy's turn
 	ld a, [wBuffer1]
@@ -2344,14 +2376,14 @@ ActivateTrait:
 	set 0, [hl] ; player trait
 	ret
 .activate_enemy_trait
-	set 1, [hl] ; enemy trait
+	set 4, [hl] ; enemy trait
 	ret
 
 .player_turn
 	ld a, [wBuffer1]
 	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
 	jr z, .activate_player_trait
-	set 1, [hl] ; enemy trait
+	set 4, [hl] ; enemy trait
 	ret
 .activate_player_trait
 	set 0, [hl] ; player trait
@@ -2362,7 +2394,7 @@ ResetActivated:
 	ldh a, [hBattleTurn]
 	and a	
 	jr z, .player_turn
-	res 1, [hl]
+	res 4, [hl]
 	ret
 .player_turn
 	res 0, [hl]

@@ -98,6 +98,13 @@ TraitNames::
 	db "Take Aim@"     ; TRAIT_ACCURACY_BELOW_THIRD
 	db "Danger Sense@" ; TRAIT_EVASION_BELOW_THIRD
 	db "All Out@"      ; TRAIT_CRIT_BELOW_THIRD
+	db "Guts@"         ; TRAIT_ATTACK_STATUSED
+	db "Marvel Scale@" ; TRAIT_DEFENSE_STATUSED
+	db "Quick Feet@"   ; TRAIT_SPEED_STATUSED
+	db "Diamond Light@"; TRAIT_SP_ATTACK_STATUSED
+	db "Water Shell@"  ; TRAIT_SP_DEFENSE_STATUSED
+	db "Refine@"       ; TRAIT_ACCURACY_STATUSED
+	db "Smoke Veil@"   ; TRAIT_EVASION_STATUSED
 	db "Defrag@"       ; TRAIT_REGEN_STATUSED
 	db "Permafrost@"   ; TRAIT_REDUCE_BRN_AND_FIRE
 	db "Ground Wire@"  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
