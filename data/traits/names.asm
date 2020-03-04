@@ -25,7 +25,7 @@ TraitNames::
 	db "Drain Surge@"  ; TRAIT_BOOST_DRAIN
 	db "Skill Link@"   ; TRAIT_BOOST_MULTI_HIT_COUNT
 	db "Chain Clip@"   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
-	db "@"   ; TRAIT_BOOST_DAMAGE_PER_TURN
+	db "Limit Breaker@"; TRAIT_BOOST_DAMAGE_PER_TURN
 	db "Rain Dish@"    ; TRAIT_REGEN_ON_RAIN
 	db "Monsoon@"      ; TRAIT_RAIN_DURATION
 	db "Drizzle@"      ; TRAIT_RAIN_ON_ENTER

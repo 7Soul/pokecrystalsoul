@@ -3264,6 +3264,10 @@ BattleCommand_DamageCalc:
 	ld [wBuffer1], a
 	farcall TraitBoostPower
 
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitBoostDamagePerTurn
+
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitReducePower

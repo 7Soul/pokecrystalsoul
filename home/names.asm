@@ -50,8 +50,13 @@ GetName::
 	dec a
 	call GetNthString
 
-	ld de, wStringBuffer1
+	ld a, [wNamedObjectTypeBuffer]
+	cp TRAIT_NAME
 	ld bc, ITEM_NAME_LENGTH
+	jr nz, .not_trait
+	ld bc, TRAIT_NAME_LENGTH
+.not_trait
+	ld de, wStringBuffer1
 	call CopyBytes
 
 .done

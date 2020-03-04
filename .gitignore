@@ -1,3 +1,6 @@
+*.pyxel
+publish/**
+
 # generated
 *.tx
 *.o

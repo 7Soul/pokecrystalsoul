@@ -961,14 +961,14 @@ StatsScreen_LoadGFX:
 
 	predef PrintTempMonStatsShort
 
-	ld de, .Trait
-	hlcoord 1, 12
-	call PlaceString
+	; ld de, .Trait
+	; hlcoord 1, 12
+	; call PlaceString
 
 	ld a, [wTempMonTrait]
 	ld [wNamedObjectIndexBuffer], a
 	call GetTraitName
-	hlcoord 7, 12
+	hlcoord 1, 12
 	call PlaceString
 	
 	ld a, [wTempMonTrait]

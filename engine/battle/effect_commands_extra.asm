@@ -541,7 +541,6 @@ SapHealth:
 CheckTrait:
 	cp -1
 	ret z
-	push hl
 	call CheckTraitActivated ; check if trait only activates once
 	jr c, .already_activated
 .check_trait
@@ -552,16 +551,16 @@ CheckTrait:
 	jr z, .end
 	ld a, BATTLE_VARS_TRAIT ; load this if wBuffer1 is some other value. May behave wrong if wBuffer1 was 12 or 13 by coincidence
 .end
-	pop hl
 	call CheckTraitCondition
 	ret
 .already_activated
-	pop hl
 	and a
 	ret
 
 CheckSpecificTrait:
 	ld b, a
+	call CheckTraitActivated ; check if trait only activates once
+	jr c, .no_trait	
 	ld a, [wBuffer1]
 	call GetBattleVar
 	cp b
@@ -626,10 +625,11 @@ CheckTraitCondition:
 	ld b, 34
 	jp c, .check_below_threshold
 	cp TRAIT_REGEN_STATUSED + 1
-	ld d, $A
+	ld d, $FF
 	jp c, .check_user_status
-	; cp TRAIT_BOOST_MULTI_HIT_DAMAGE + 1 
-	; jp c, .check_move_multihit
+	cp TRAIT_BOOST_DARK_STATUSED + 1
+	ld d, $FE
+	jp c, .check_user_status
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
@@ -927,8 +927,10 @@ CheckTraitCondition:
 	jr z, .isBRN
 	cp PSN
 	jr z, .isPSN
-	cp $A
+	cp $FF
 	jr z, .isANY
+	cp $FE
+	jr z, .isANYANY
 	jr .not_status
 
 .isBRN
@@ -941,10 +943,22 @@ CheckTraitCondition:
 	and 1 << PSN
 	jp nz, .success
 	jr .not_status
-.isANY
+.isANY ; non-volatile
 	ld a, [hl]
 	cp 0
 	jp nz, .success
+.isANYANY
+	ld a, [hl]
+	cp 0
+	jp nz, .success
+	ld a, BATTLE_VARS_SUBSTATUS1
+	call GetBattleVarAddr
+	bit SUBSTATUS_IN_LOVE, [hl]
+	jr nz, .success
+	ld a, BATTLE_VARS_SUBSTATUS3
+	call GetBattleVarAddr
+	bit SUBSTATUS_CONFUSED, [hl]
+	jr nz, .success
 .not_status
 	and a
 	ret
@@ -970,7 +984,7 @@ GetMoveStructDamage:
 GetMoveStructEffect:
 	ld hl, wPlayerMoveStruct + MOVE_EFFECT
 	call GetTraitUser
-	jr c, .got_power
+	jr c, .got_effect
 	ld hl, wEnemyMoveStruct + MOVE_EFFECT
 .got_effect
 	ld a, [hl]
@@ -979,7 +993,7 @@ GetMoveStructEffect:
 GetMoveStructChance:
 	ld hl, wPlayerMoveStruct + MOVE_CHANCE
 	call GetTraitUser
-	jr c, .got_power
+	jr c, .got_chance
 	ld hl, wEnemyMoveStruct + MOVE_CHANCE
 .got_chance
 	ld a, [hl]
@@ -1514,8 +1528,10 @@ TraitReducePower:
 TraitBoostPower:
 	ld a, TRAIT_BOOST_DAMAGE_PER_TURN
 	call CheckSpecificTrait
-	jr nc, .not_met1
-	
+	jr c, .boost
+	ld hl, TraitsThatBoostTypeStatused
+	call CheckTrait
+	jr c, .boost2
 	ld c, 6
 .loop
 	ld hl, .JumpTableTraitsBoostMoveClass
@@ -1543,7 +1559,10 @@ TraitBoostPower:
 	jr nc, .not_met1
 .boost
 	ld a, $76 ; ~1.16
-	call ApplyDamageMod
+	jp ApplyDamageMod
+.boost2
+	ld a, $65 ; ~1.20
+	jp ApplyDamageMod
 .not_met1
 	ret
 .not_met2
@@ -1556,6 +1575,13 @@ TraitBoostPower:
 	db TRAIT_BOOST_CUTTING
 	db TRAIT_BOOST_BEAM
 	db TRAIT_BOOST_PERFURATE
+
+TraitsThatBoostTypeStatused:
+	db TRAIT_BOOST_ICE_STATUSED
+	db TRAIT_BOOST_ELECTRIC_STATUSED
+	db TRAIT_BOOST_FIRE_STATUSED
+	db TRAIT_BOOST_DARK_STATUSED
+	db -1
 
 JumptableMoveClass:
 	dw PunchingMoves
@@ -1652,6 +1678,39 @@ TraitBoostRecoilMoves:
 	call ApplyDamageMod
 .not_met
 	ret
+
+TraitBoostDamagePerTurn:
+	ld a, TRAIT_BOOST_DAMAGE_PER_TURN
+	call CheckSpecificTrait
+	ret nc
+	ld hl, wPlayerTurnsTaken
+	ld de, wEnemyTurnsTaken
+	call GetTraitUserAddr
+	ld a, [hl]
+	cp 7
+	jr c, .max
+	ld a, 7
+.max
+	ld b, a
+	ld a, 19
+	add b
+.boost
+	ld [hMultiplier], a
+	call Multiply
+	ld b, 4
+	ld a, 20
+	ldh [hDivisor], a
+	jp Divide
+
+; .Boosts:
+; 	db 30 ; 1.00, turn 0
+; 	db 31 ; 1.07, turn 1
+; 	db 32 ; 1.11, turn 2
+; 	db 33 ; 1.15, turn 3
+; 	db 34 ; 1.20, turn 4
+; 	db 35 ; 1.25, turn 5
+; 	db 36 ; 1.36, turn 6
+; 	db 37 ; 1.42, turn 7
 
 TraitDamageBasedOnStats:
 	ld c, 6
@@ -2324,6 +2383,8 @@ IncreaseTraitCount:
 	ret
 
 CheckTraitActivated:
+	push hl
+	push bc
 	ld hl, OneShotTraits
 	ld a, [wBuffer1]
 	call GetBattleVar
@@ -2358,9 +2419,13 @@ CheckTraitActivated:
 	bit 0, [hl] ; player trait
 	jr nz, .already_activated
 .end
+	pop bc
+	pop hl
 	and a
 	ret
 .already_activated
+	pop bc
+	pop hl
 	scf
 	ret
 
