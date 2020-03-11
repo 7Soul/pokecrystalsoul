@@ -1,5 +1,10 @@
 LoadBattleMenu:
 	ld hl, BattleMenuHeader
+	ld a, [wBattleMode]
+	cp 2
+	jr nz, .wild_battle
+	ld hl, BattleMenuHeader2
+.wild_battle
 	call LoadMenuHeader
 	ld a, [wBattleMenuCursorBuffer]
 	ld [wMenuCursorBuffer], a
@@ -31,21 +36,41 @@ Function24f19:
 BattleMenuHeader:
 	db MENU_BACKUP_TILES ; flags
 	menu_coords 4, 12, 15, SCREEN_HEIGHT - 1
-	dw MenuData_0x24f34
+	dw BattleMenuData
 	db 1 ; default option
 
-MenuData_0x24f34:
+BattleMenuData:
 	db STATICMENU_CURSOR | STATICMENU_DISABLE_B ; flags
 	dn 2, 2 ; rows, columns
 	db 6 ; spacing
-	dba Strings24f3d
-	dbw BANK(MenuData_0x24f34), 0
+	dba BattleMenuStrings
+	dbw BANK(BattleMenuData), 0
 
-Strings24f3d:
+BattleMenuStrings:
 	db "Fight@"
 	db "<PKMN>@"
 	db "Bag@"
 	db "Run@"
+
+
+BattleMenuHeader2:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 4, 12, 15, SCREEN_HEIGHT - 1
+	dw BattleMenuData2
+	db 1 ; default option
+
+BattleMenuData2:
+	db STATICMENU_CURSOR | STATICMENU_DISABLE_B ; flags
+	dn 2, 2 ; rows, columns
+	db 6 ; spacing
+	dba BattleMenuStrings2
+	dbw BANK(BattleMenuData2), 0
+
+BattleMenuStrings2:
+	db "Fight@"
+	db "<PKMN>@"
+	db "Bag@"
+	db "Foe@"
 
 MenuHeader_0x24f4e:
 	db MENU_BACKUP_TILES ; flags

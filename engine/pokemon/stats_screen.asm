@@ -294,6 +294,9 @@ StatsScreen_JoypadAction:
 	jr .done
 
 .d_down
+	ld a, [wBuffer6]
+	cp $AA
+	ret z
 	ld a, [wMonType]
 	cp BOXMON
 	jr nc, .done
@@ -318,6 +321,9 @@ StatsScreen_JoypadAction:
 	jr .load_mon
 
 .d_up
+	ld a, [wBuffer6]
+	cp $AA
+	ret z
 	ld a, [wCurPartyMon]
 	and a
 	jr z, .done
@@ -379,9 +385,18 @@ StatsScreen_InitUpperHalf:
 	
 	hlcoord 2, 3
 	call PrintLevel
+	ld a, [wBuffer6]
+	cp $AA
+	jr nz, .copy_partymon_nickname
+	ld a, [wEnemyMonSpecies]
+	ld [wNamedObjectIndexBuffer], a
+	call GetPokemonName
+	jr .place_name
+.copy_partymon_nickname
 	ld hl, .NicknamePointers
 	call GetNicknamePointer
 	call CopyNickname
+.place_name
 	hlcoord 1, 2
 	call PlaceString
 	hlcoord 6, 3
@@ -827,22 +842,33 @@ StatsScreen_LoadGFX:
 	ret
 
 .PlaceOTInfo:
-	ld de, IDNoString
-	hlcoord 11, 16
-	call PlaceString
 	ld de, OTString
 	hlcoord 1, 15
+	call PlaceString
+	
+	ld a, [wBuffer6]
+	cp $AA
+	jr nz, .copy_partymon_nickname
+	callfar Battle_GetTrainerName
+	jr .place_ot_name
+.copy_partymon_nickname
+	ld hl, .OTNamePointers
+	call GetNicknamePointer
+	call CopyNickname
+.place_ot_name
+	hlcoord 3, 16
+	call PlaceString
+
+	ld a, [wBuffer6]
+	cp $AA
+	jr z, .done
+	ld de, IDNoString
+	hlcoord 11, 16
 	call PlaceString
 	hlcoord 14, 16
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
 	ld de, wTempMonID
 	call PrintNum
-	ld hl, .OTNamePointers
-	call GetNicknamePointer
-	call CopyNickname
-	farcall CorrectNickErrors
-	hlcoord 3, 16
-	call PlaceString
 .done
 	ret
 

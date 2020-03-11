@@ -10,12 +10,12 @@ UsedMoveText:
 	start_asm
 	ldh a, [hBattleTurn]
 	and a
-	jr nz, .start
-
 	ld a, [wPlayerMoveStruct + MOVE_ANIM]
-	call UpdateUsedMoves
+	jr z, .start
+	ld a, [wEnemyMoveStruct + MOVE_ANIM]
 
 .start
+	call UpdateUsedMoves
 	ld a, BATTLE_VARS_LAST_MOVE
 	call GetBattleVarAddr
 	ld d, h
@@ -68,13 +68,16 @@ UpdateUsedMoves:
 ; append move a to wPlayerUsedMoves unless it has already been used
 
 	push bc
-; start of list
-	ld hl, wPlayerUsedMoves
 ; get move id
 	ld b, a
 ; next count
 	ld c, NUM_MOVES
-
+; start of list
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wPlayerUsedMoves
+	jr z, .loop
+	ld hl, wEnemyUsedMoves
 .loop
 ; get move from the list
 	ld a, [hli]
@@ -91,7 +94,12 @@ UpdateUsedMoves:
 ; if the list is full and the move hasn't already been used
 ; shift the list back one byte, deleting the first move used
 ; this can occur with struggle or a new learned move
+	ldh a, [hBattleTurn]
+	and a
 	ld hl, wPlayerUsedMoves + 1
+	jr z, .got_addr1
+	ld hl, wEnemyUsedMoves + 1
+.got_addr1
 ; 1 = 2
 	ld a, [hld]
 	ld [hli], a
@@ -104,6 +112,13 @@ UpdateUsedMoves:
 	ld a, [hld]
 	ld [hl], a
 ; 4 = new move
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player
+	ld a, b
+	ld [wEnemyUsedMoves + 3], a
+	jr .quit
+.player
 	ld a, b
 	ld [wPlayerUsedMoves + 3], a
 	jr .quit

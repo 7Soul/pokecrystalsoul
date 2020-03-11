@@ -3494,6 +3494,7 @@ LoadEnemyMonToSwitchTo:
 	; 'b' contains the PartyNr of the mon the AI will switch to
 	ld a, b
 	ld [wCurPartyMon], a
+	ld [wEnemyCurPartyMon], a
 	ld hl, wOTPartyMon1Level
 	call GetPartyLocation
 	ld a, [hl]
@@ -3682,6 +3683,11 @@ NewEnemyMonStatus:
 rept 4
 	ld [hli], a
 endr
+	ld [hl], a
+	ld hl, wEnemyUsedMoves
+	ld [hli], a
+	ld [hli], a
+	ld [hli], a
 	ld [hl], a
 	ld [wEnemyDisableCount], a
 	ld [wEnemyFuryCutterCount], a
@@ -5029,12 +5035,6 @@ BattleMenu:
 	farcall ContestBattleMenu	
 	jr .next
 .not_contest
-	; Auto input: choose "ITEM"
-; 	ld a, [wInputType]
-; 	or a
-; 	jr z, .skip_dude_pack_select
-; 	farcall _DudeAutoInput_DownA
-; .skip_dude_pack_select
 	call LoadBattleMenu2
 	ret c
 
@@ -5217,6 +5217,10 @@ BattleMenuPKMN_Loop:
 	jr BattleMenuPKMN_Loop
 
 .Stats:
+	xor a
+	ld [wBuffer6], a
+	ld a, PARTYMON
+	ld [wMonType], a
 	call Battle_StatsScreen
 	call CheckMobileBattleError
 	jr c, .Cancel
@@ -5260,8 +5264,8 @@ Battle_StatsScreen:
 
 	call ClearSprites
 	call LowVolume
-	xor a ; PARTYMON
-	ld [wMonType], a
+	; xor a ; PARTYMON
+	; ld [wMonType], a
 	farcall BattleStatsScreenInit
 	call MaxVolume
 
@@ -5431,6 +5435,39 @@ PassedBattleMonEntrance:
 	jp SpikesDamage
 
 BattleMenu_Run:
+	ld a, [wBattleMode]
+	cp 2
+	jr nz, .run
+	ld a, $AA
+	ld [wBuffer6], a
+	ld a, OTPARTYMON
+	ld [wMonType], a
+	ld a, [wEnemyMonSpecies]
+	ld [wCurSpecies], a
+	ld a, [wEnemyCurPartyMon]
+	ld [wCurPartyMon], a
+	call LoadStandardMenuHeader
+	call ClearBGPalettes
+	call Battle_StatsScreen
+	call CheckMobileBattleError
+	jr c, .Cancel
+	call ExitMenu
+	call LoadStandardMenuHeader
+	call ClearBGPalettes
+
+.Cancel:
+	xor a
+	ld [wBuffer6], a
+	call ClearSprites
+	call ClearPalettes
+	call DelayFrame
+	call _LoadHPBar
+	call CloseWindow
+	call LoadTempTileMapToTileMap
+	call GetMemSGBLayout
+	call SetPalettes
+	jp BattleMenu
+.run
 	call Call_LoadTempTileMapToTileMap
 	ld a, $3
 	ld [wMenuCursorY], a

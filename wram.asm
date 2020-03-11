@@ -702,9 +702,12 @@ wPlayerUsedMoves:: ; c712
 ; added in order of use
 	ds NUM_MOVES
 
+wEnemyUsedMoves:: ds NUM_MOVES
+
 wEnemyAISwitchScore:: db ; c716
 wEnemySwitchMonParam:: db ; c717
 wEnemySwitchMonIndex:: db ; c718
+wEnemyCurPartyMon:: db ; c718
 wTempLevel:: db ; c719
 wLastPlayerMon:: db ; c71a
 wLastPlayerMove:: db ; c71b

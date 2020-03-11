@@ -281,12 +281,12 @@ ListMovePP:
 	ld d, $0
 	;ld a, $3e ; P
 	;call .load_loop
-	;ld a, b
-	;and a
-	;jr z, .skip
-	;ld c, a
-	;ld a, "-"
-	;call .load_loop
+	; ld a, b
+	; and a
+	; jr z, .skip
+	; ld c, a
+	; ld a, "-"
+	; call .load_loop
 
 .skip
 	pop hl
@@ -471,7 +471,181 @@ ListMoves:
 	ld a, [de]
 	inc de
 	and a
+	jr z, .no_more_moves
+
+	push hl
+	push bc
+	ld b, a
+	ld a, [wBuffer6]
+	cp $AA
+	jr nz, .not_enemy_mon
+	call ListHasKnownMove
+	jr c, .known_list_has_move
+
+	pop bc
+	pop hl
+	
+	push de	
+	push hl
+	push bc
+	ld de, .UnknownMove
+	call PlaceString
+	pop bc
+	ld a, b
+	ld [wNumMoves], a
+	inc b
+	pop hl
+	push bc
+	ld a, [wBuffer1]
+	ld c, a
+	ld b, 0
+	add hl, bc
+	pop bc
+	pop de
+	ld a, b
+	cp NUM_MOVES
+	jp z, .done
+	jp .moves_loop
+
+.not_enemy_mon
+	ld a, b
+.known_list_has_move
+	ld a, b
+	pop bc
+	pop hl
+	
+	push de
+	push hl
+	push hl
+	ld [wCurSpecies], a
+	ld a, MOVE_NAME
+	ld [wNamedObjectTypeBuffer], a
+	call GetName
+	ld de, wStringBuffer1
+.write_name
+	pop hl
+	push bc
+	call PlaceString
+	pop bc
+	ld a, b
+	ld [wNumMoves], a
+	inc b
+	pop hl
+	push bc
+	ld a, [wBuffer1]
+	ld c, a
+	ld b, 0
+	add hl, bc
+	pop bc
+	pop de
+	ld a, b
+	cp NUM_MOVES
+	jr z, .done
+	jr .moves_loop
+
+.no_more_moves
+	ld a, b
+.nonmove_loop
+	push af
+	ld [hl], "-"
+	ld a, [wBuffer1]
+	ld c, a
+	ld b, 0
+	add hl, bc
+	pop af
+	inc a
+	cp NUM_MOVES
+	jr nz, .nonmove_loop
+
+.done
+	ret
+
+.UnknownMove:
+	db "???@"
+
+ListHasKnownMove:
+	push bc
+	push de
+	push hl
+	ld hl, wEnemyUsedMoves
+	ld c, 3
+.loop_used
+	ld a, [hli]
+	cp b
+	jr z, .known_list_has_move
+	dec c
+	jr nz, .loop_used
+	pop hl
+	pop de
+	pop bc
+	and a
+	ret
+
+.known_list_has_move
+	pop hl
+	pop de
+	pop bc
+	scf
+	ret
+
+ListMovesAsdf:
+; List moves at hl, spaced every [wBuffer1] tiles.
+	ld de, wListMoves_MoveIndicesBuffer
+	ld b, $0
+.moves_loop
+	ld a, [de]
+	inc de
+	and a
 	jp z, .no_more_moves
+	push hl
+	push hl
+	push bc
+	push af
+	ld a, [wBuffer6]
+	cp $AA
+	jr nz, .not_enemy_mon
+	
+	pop af
+	ld b, a ; has move id
+	ld hl, wEnemyUsedMoves
+	ld c, 3
+
+.loop_used
+	ld a, [hli]
+	cp b
+	jr z, .known_list_has_move
+	dec c
+	jr nz, .loop_used
+
+	pop hl
+	push de
+	ld de, .UnknownMove
+	call PlaceString
+	pop de
+	pop bc
+	ld a, b
+	ld [wNumMoves], a
+	inc b
+	push bc
+	pop hl
+	ld a, [wBuffer1]
+	ld c, a
+	ld b, 0
+	add hl, bc
+	pop bc
+	
+	ld a, b
+	cp NUM_MOVES
+	jp z, .done
+	jp .moves_loop
+
+.not_enemy_mon
+	pop af
+.known_list_has_move
+	pop bc
+	pop hl
+	pop hl
+
 	push de
 	push hl
 	push hl
@@ -575,8 +749,8 @@ ListMoves:
 .done
 	ret
 
-.temp:
-	db "Temp@"
+.UnknownMove:
+	db "???@"
 
 ; name in status screen and battle menu
 INCLUDE "data/moves/variable_moves_names.asm"

@@ -954,11 +954,11 @@ CheckTraitCondition:
 	ld a, BATTLE_VARS_SUBSTATUS1
 	call GetBattleVarAddr
 	bit SUBSTATUS_IN_LOVE, [hl]
-	jr nz, .success
+	jp nz, .success
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
 	bit SUBSTATUS_CONFUSED, [hl]
-	jr nz, .success
+	jp nz, .success
 .not_status
 	and a
 	ret
