@@ -10,7 +10,7 @@
 	db GENDER_F0 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/tauros/front.dimensions"
-	db TRAIT_REGEN_ON_RAIN, TRAIT_REGEN_ON_RAIN, TRAIT_REGEN_ON_RAIN, TRAIT_REGEN_ON_RAIN
+	db TRAIT_ATTACK_BELOW_THIRD, TRAIT_ATTACK_BELOW_THIRD, TRAIT_ATTACK_BELOW_THIRD, TRAIT_ATTACK_BELOW_THIRD
 	db GROWTH_SLOW ; growth rate
 	dn EGG_GROUND, EGG_GROUND ; egg groups
 

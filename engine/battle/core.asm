@@ -1947,6 +1947,8 @@ GetHalfMaxHP:
 
 GetMaxHP:
 ; output: bc, wBuffer1-2
+	ld a, 1
+	ld [wBuffer3], a
 
 	ld hl, wBattleMonMaxHP
 	ldh a, [hBattleTurn]

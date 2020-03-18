@@ -2086,10 +2086,7 @@ TraitRegenHP:
 	ld hl, TraitsThatRegenerate
 	call CheckTrait
 	jr nc, .not_met
-	xor a
-	ld [wBuffer3], a
-	ld [wBuffer5], a
-
+	
 	ld a, [wBuffer3]
 	cp 2
 	jr z, .heal_hp_sixteenth
@@ -2098,6 +2095,9 @@ TraitRegenHP:
 .heal_hp_sixteenth
 	ld hl, GetSixteenthMaxHP
 .complete_heal
+	xor a
+	ld [wBuffer3], a
+	ld [wBuffer5], a
 	ld a, BANK(GetMaxHP)
 	rst FarCall
 	ld a, c

@@ -176,7 +176,7 @@ _InitTime::
 	jr nc, .okay_hrs
 	add 24
 .okay_hrs
-	add 12;;;;;
+	add 12;;;;;	
 	ld [de], a
 	dec de
 
