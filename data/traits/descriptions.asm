@@ -26,6 +26,8 @@ TraitDescriptions::
 	dw SkillLinkDescription   ; TRAIT_BOOST_MULTI_HIT_COUNT
 	dw ChainClipDescription   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
 	dw LimitBreakerDescription; TRAIT_BOOST_DAMAGE_PER_TURN
+	dw GigaImpactDescription  ; TRAIT_REDUCE_DAMAGE_PER_TURN
+	dw SlowStartDescription   ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
 	dw RainDishDescription    ; TRAIT_REGEN_ON_RAIN
 	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
@@ -90,10 +92,10 @@ TraitDescriptions::
 	dw KeenFocusDescription   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	dw HealtySpiritDescription; TRAIT_REGEN_FIRST_TURNS
 	dw BounceBackDescription  ; TRAIT_REGEN_LOW_HP
-	dw BerserkDescription     ; TRAIT_ATTACK_BELOW_THIRD
+	dw PoiseDescription     ; TRAIT_ATTACK_BELOW_THIRD
 	dw SolidifyDescription    ; TRAIT_DEFENSE_BELOW_THIRD
 	dw ScamperDescription     ; TRAIT_SPEED_BELOW_THIRD
-	dw PoiseDescription       ; TRAIT_SP_ATTACK_BELOW_THIRD
+	dw BerserkDescription       ; TRAIT_SP_ATTACK_BELOW_THIRD
 	dw GoldGuardDescription   ; TRAIT_SP_DEFENSE_BELOW_THIRD
 	dw TakeAimDescription     ; TRAIT_ACCURACY_BELOW_THIRD
 	dw DangerSenseDescription ; TRAIT_EVASION_BELOW_THIRD
@@ -253,6 +255,14 @@ ChainClipDescription:
 LimitBreakerDescription:
 	db   "Raises damage a"
 	next "little every turn.@"
+
+GigaImpactDescription:
+	db   "Damage boost that"
+	next "lowers over time.@"
+
+SlowStartDescription:
+	db   "Start weaker, but"
+	next "gain damage later.@"
 
 RainDishDescription:
 	db   "Heal HP when rain"
@@ -510,7 +520,7 @@ BounceBackDescription:
 	db   "Regain HP under"
 	next "half health once.@"
 	
-BerserkDescription:
+PoiseDescription:
 	db   "Raises ATK under"
 	next "one third health.@"
 
@@ -522,7 +532,7 @@ ScamperDescription:
 	db   "Raises SPD under"
 	next "one third health.@"
 	
-PoiseDescription:
+BerserkDescription:
 	db   "Raises SP.ATK under"
 	next "one third health.@"
 	

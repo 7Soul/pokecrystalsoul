@@ -3255,10 +3255,10 @@ BattleCommand_DamageCalc:
 	ld b, $4
 	call Divide
 
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c000], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c001], a
+	ldh a, [hMultiplicand + 1]
+	ld [$c000], a
+	ldh a, [hMultiplicand + 2]
+	ld [$c001], a
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
@@ -3267,6 +3267,14 @@ BattleCommand_DamageCalc:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitBoostDamagePerTurn
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitBoostDamagePerTurnSlow
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitReduceDamagePerTurn
 
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
@@ -3280,10 +3288,10 @@ BattleCommand_DamageCalc:
 	ld [wBuffer1], a
 	farcall TraitDamageBasedOnHP
 
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c002], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c003], a
+	ldh a, [hMultiplicand + 1]
+	ld [$c002], a
+	ldh a, [hMultiplicand + 2]
+	ld [$c003], a
 	
 ; Item boosts
 	call GetUserItem

@@ -26,6 +26,8 @@ TraitNames::
 	db "Skill Link@"   ; TRAIT_BOOST_MULTI_HIT_COUNT
 	db "Chain Clip@"   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
 	db "Limit Breaker@"; TRAIT_BOOST_DAMAGE_PER_TURN
+	db "Giga Impact@"  ; TRAIT_REDUCE_DAMAGE_PER_TURN
+	db "Slow Start@"   ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
 	db "Rain Dish@"    ; TRAIT_REGEN_ON_RAIN
 	db "Monsoon@"      ; TRAIT_RAIN_DURATION
 	db "Drizzle@"      ; TRAIT_RAIN_ON_ENTER
@@ -90,10 +92,10 @@ TraitNames::
 	db "Keen Focus@"   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	db "Healty Spirit@"; TRAIT_REGEN_FIRST_TURNS
 	db "Bounce Back@"  ; TRAIT_REGEN_LOW_HP
-	db "Berserk@"      ; TRAIT_ATTACK_BELOW_THIRD
+	db "Poise@"        ; TRAIT_ATTACK_BELOW_THIRD
 	db "Solidify@"     ; TRAIT_DEFENSE_BELOW_THIRD
 	db "Scamper@"      ; TRAIT_SPEED_BELOW_THIRD
-	db "Poise@"        ; TRAIT_SP_ATTACK_BELOW_THIRD
+	db "Berserk@"      ; TRAIT_SP_ATTACK_BELOW_THIRD
 	db "Gold Guard@"   ; TRAIT_SP_DEFENSE_BELOW_THIRD
 	db "Take Aim@"     ; TRAIT_ACCURACY_BELOW_THIRD
 	db "Danger Sense@" ; TRAIT_EVASION_BELOW_THIRD

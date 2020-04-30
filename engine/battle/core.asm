@@ -9336,11 +9336,11 @@ GetTrainerBackpic:
 ; Load the player character's backpic (6x6) into VRAM starting from vTiles2 tile $31.
 
 ; Special exception for Dude.
-	ld b, BANK(DudeBackpic)
-	ld hl, DudeBackpic
-	ld a, [wBattleType]
-	cp BATTLETYPE_TUTORIAL
-	jr z, .Decompress
+	; ld b, BANK(DudeBackpic)
+	; ld hl, DudeBackpic
+	; ld a, [wBattleType]
+	; cp BATTLETYPE_TUTORIAL
+	; jr z, .Decompress
 
 ; What gender are we?
 	ld a, [wPlayerSpriteSetupFlags]

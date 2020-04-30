@@ -183,6 +183,10 @@ INCLUDE "data/moves/moves.asm"
 INCLUDE "engine/pokemon/evolve.asm"
 
 
+SECTION "Traits", ROMX
+INCLUDE "engine/battle/traits.asm"
+
+
 SECTION "bank11", ROMX
 
 INCLUDE "engine/events/fruit_trees.asm"
