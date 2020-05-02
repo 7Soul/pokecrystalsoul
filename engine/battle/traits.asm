@@ -68,6 +68,10 @@ CheckTraitCondition:
 	jp c, .check_move_sleep
 	cp TRAIT_BOOST_EFFECT_NO_DAMAGE + 1 ; all traits for status moves 
 	jp c, .check_move_status
+	cp TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS + 1 ; all traits for physical moves 
+	jp c, .check_move_physical
+	cp TRAIT_REDUCE_SPECIAL_TAKEN_TURNS + 1 ; all traits for special moves 
+	jp c, .check_move_special
 	cp TRAIT_BOOST_EFFECT_WITH_DAMAGE + 1 ; all traits for moves with secondary effects 
 	jp c, .check_move_has_secondary
 	cp TRAIT_REDUCE_NOT_STAB + 1 ; all traits for non-stab hits
@@ -75,7 +79,10 @@ CheckTraitCondition:
 	cp TRAIT_BOOST_ACCURACY_TURN_ZERO + 1 ; all traits on turn 0
 	ld d, 0
 	jp c, .check_turns_equal
-	cp TRAIT_REGEN_FIRST_TURNS + 1 ; all traits on turn 0
+	cp TRAIT_BOOST_ATK_ACC_NOT_ATTACKING + 1 ; 
+	ld d, 3
+	jp c, .check_trait_activation_equal
+	cp TRAIT_REGEN_FIRST_TURNS + 1 ; all traits on turn 3 and lower
 	ld d, 2
 	jp c, .check_turns_lower
 	cp TRAIT_REGEN_LOW_HP + 1 ; all traits that require to be below 50% hp
@@ -306,6 +313,20 @@ CheckTraitCondition:
 ; 	and a
 ; 	ret
 
+.check_move_physical
+	call Get_move_category
+	cp 0
+	jp z, .success
+	and a
+	ret
+	
+.check_move_special
+	call Get_move_category
+	cp 1
+	jp z, .success
+	and a
+	ret
+
 .check_move_status
 	call Get_move_category
 	cp 2
@@ -361,6 +382,17 @@ CheckTraitCondition:
 	ret
 .no_turns_lower
 	scf
+	ret
+
+; Checks if a trait has been activated enough times
+.check_trait_activation_equal
+	push de
+	call CheckTraitCount
+	pop de
+	inc a ; 1-based index
+	cp d
+	jp nc, .success
+	and a
 	ret
 
 .check_below_threshold
@@ -423,6 +455,19 @@ CheckTraitCondition:
 	and a
 	ret
 
+.check_did_no_dmg_for_three_turns:
+	call Get_move_category
+	cp 2
+	jr nc, .dmg_status ; if the attack not a status, did damage
+	ld a, [wAttackMissed]
+	jr z, .did_dmg ; if the attack didn't miss, did damage
+.dmg_status
+	call IncreaseTraitCount
+	ret
+.did_dmg
+	and a
+	ret
+
 Get_move_category: ; 0 = physical, 1 = special, 2 = status
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
@@ -459,6 +504,16 @@ GetMoveStructChance:
 	ld a, [hl]
 	ret
 
+TraitTurnTriggers:
+	ld a, [wBuffer1]
+	call GetBattleVar
+	cp TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
+	jr c, .no_trigger
+	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1
+	jp c, CheckTraitCondition.check_did_no_dmg_for_three_turns
+.no_trigger
+	ret
+
 TraitRaiseStat:
 	xor a
 .loop
@@ -470,7 +525,7 @@ TraitRaiseStat:
 	inc a
 	cp EVASION + 1
 	jr nz, .loop
-	jp .not_met
+	ret
 
 .got_stat
 	ld b, a ; stat id
@@ -479,7 +534,7 @@ TraitRaiseStat:
 .find_trait_table
 	ld a, [hli]
 	cp -1
-	jr z, .not_met
+	ret z
 	cp b
 	jr z, .found_trait_table
 	inc hl
@@ -489,14 +544,15 @@ TraitRaiseStat:
 .found_trait_table
 	ld a, [hli]
 	ld h, [hl]
-	ld l, a
+	ld l, a ; hl has the trait table
 
 	push bc
 	call CheckTrait
 	pop bc
-	jr nc, .loop_go	
+	jr nc, .loop_go
 	ld a, b ; stat id
 
+.TraitRaiseSpecificStat:
 .end
 	ld [wLoweredStat], a
 	xor a
@@ -510,8 +566,17 @@ TraitRaiseStat:
 	ld b, 0
 	add hl, bc
 	inc [hl]
-.not_met
+
+	ld a, [wBuffer3]
+	cp 5 ; after index 5 also raises acc
+	jr nc, .also_raise_acc
 	ret
+.also_raise_acc
+	ld a, $FF
+	ld [wBuffer3], a
+	ld a, ACCURACY
+	push af
+	jr .end
 
 .JumptableStatTraits:
 	dbw ATTACK, TraitsThatRaiseAttack
@@ -529,6 +594,7 @@ TraitsThatRaiseAttack:
 	db TRAIT_SANDSTORM_ATTACK
 	db TRAIT_ATTACK_BELOW_THIRD
 	db TRAIT_ATTACK_STATUSED
+	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING 
 	db -1
 
 TraitsThatRaiseDefense:
@@ -537,6 +603,7 @@ TraitsThatRaiseDefense:
 	db TRAIT_SANDSTORM_DEFENSE
 	db TRAIT_DEFENSE_BELOW_THIRD
 	db TRAIT_DEFENSE_STATUSED
+	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
 	db -1
 
 TraitsThatRaiseSpeed:
@@ -545,6 +612,7 @@ TraitsThatRaiseSpeed:
 	db TRAIT_SANDSTORM_SPEED
 	db TRAIT_SPEED_BELOW_THIRD
 	db TRAIT_SPEED_STATUSED
+	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	db -1
 
 TraitsThatRaiseSpAttack:
@@ -553,6 +621,7 @@ TraitsThatRaiseSpAttack:
 	db TRAIT_SANDSTORM_SP_ATTACK
 	db TRAIT_SP_ATTACK_BELOW_THIRD
 	db TRAIT_SP_ATTACK_STATUSED
+	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	db -1
 
 TraitsThatRaiseSpDefense:
@@ -1205,6 +1274,34 @@ TraitReduceDamagePerTurn:
 	ldh [hDivisor], a
 	jp Divide ; divide damage value that is stored
 
+TraitResistDamagePerTurn:
+	ld hl, TraitsThatResistDamagePerTurn
+	call CheckTrait
+	ret nc
+	ld hl, wPlayerTurnsTaken
+	ld de, wEnemyTurnsTaken
+	call GetTraitUserAddr
+	ld a, [hl]
+	cp 7
+	jr c, .max
+	ld a, 7 ; the max is 7
+.max
+	ld b, a
+	ld a, 24
+	sub b
+.boost
+	ld [hMultiplier], a
+	call Multiply ; multiply damage value that is stored
+	ld b, 4
+	ld a, 25
+	ldh [hDivisor], a
+	jp Divide ; divide damage value that is stored
+
+TraitsThatResistDamagePerTurn:
+	db TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
+	db TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
+	db -1
+
 TraitDamageBasedOnStats:
 	ld c, 6
 .loop
@@ -1843,7 +1940,7 @@ IncreaseTraitCount:
 	ld hl, wTraitActivated
 	jr c, .player_user
 	ld a, [hl]
-	and %00011111
+	and %00011111 ; grab the enemy bit (0001) and the player data (1111) to preserve it in b
 	ld b, a
 	ld a, [hl]
 	and %11100000
@@ -1860,10 +1957,10 @@ IncreaseTraitCount:
 
 .player_user
 	ld a, [hl]
-	and %11110001
+	and %11110001 ; grab the player bit (0001) and the enemy data (1111) to preserve it in b
 	ld b, a
 	ld a, [hl]
-	and %1110
+	and %1110 ; grab the 3 bits after the player bit
 	rrca
 	cp 7
 	jr z, .max2
@@ -1873,6 +1970,22 @@ IncreaseTraitCount:
 	add b
 .end
 	ld [hl], a
+	ret
+
+CheckTraitCount: ; returns trait activation count in a
+	call GetTraitUser
+	ld hl, wTraitActivated
+	jr c, .player_user
+	ld a, [hl]
+	and %11100000
+	rrca
+	swap a
+	ret
+
+.player_user
+	ld a, [hl]
+	and %1110
+	rrca	
 	ret
 
 CheckTraitActivated:
@@ -1885,30 +1998,15 @@ CheckTraitActivated:
 	call IsInArray
 	jr nc, .end
 
+	call GetTraitUser
 	ld hl, wTraitActivated
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .player_turn
-; enemy's turn
-	ld a, [wBuffer1]
-	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
-	jr z, .activate_enemy_trait
-	bit 0, [hl] ; player trait
-	jr nz, .already_activated
-	jr .end
-.activate_enemy_trait
+	jr c, .player_user
+
 	bit 4, [hl] ; enemy trait
 	jr nz, .already_activated
 	jr .end
 
-.player_turn
-	ld a, [wBuffer1]
-	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
-	jr z, .activate_player_trait
-	bit 4, [hl] ; enemy trait
-	jr nz, .already_activated
-	jr .end
-.activate_player_trait
+.player_user
 	bit 0, [hl] ; player trait
 	jr nz, .already_activated
 .end
@@ -1923,28 +2021,16 @@ CheckTraitActivated:
 	ret
 
 ActivateTrait:
+	call GetTraitUser
 	ld hl, wTraitActivated
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .player_turn
-; enemy's turn
-	ld a, [wBuffer1]
-	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
-	jr z, .activate_enemy_trait
-	set 0, [hl] ; player trait
-	ret
-.activate_enemy_trait
+	jr c, .player_user
+	
 	set 4, [hl] ; enemy trait
-	ret
+	ld a, [hl]
 
-.player_turn
-	ld a, [wBuffer1]
-	cp BATTLE_VARS_TRAIT ; is it checking its own trait?
-	jr z, .activate_player_trait
-	set 4, [hl] ; enemy trait
-	ret
-.activate_player_trait
+.player_user
 	set 0, [hl] ; player trait
+	ld a, [hl]
 	ret
 
 ResetActivated:
@@ -1995,4 +2081,8 @@ OneShotTraits:
 	db TRAIT_ACCURACY_BELOW_THIRD
 	db TRAIT_EVASION_BELOW_THIRD 
 	db TRAIT_CRIT_BELOW_THIRD
+	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
+	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
+	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
+	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	db -1

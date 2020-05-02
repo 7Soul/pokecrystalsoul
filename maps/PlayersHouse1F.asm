@@ -123,14 +123,14 @@ MeetMomScript:
 	giveitem BERRY, 99
 	giveitem TOUGH_HORN
 
-	givepoke VAPOREON, 80
+	givepoke VAPOREON, 50
 	; givepoke PORYGON, 50
 	givepoke PIDGEY, 50
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
-	callasm CheatGiveJohtoBadges
-	callasm CheatGiveKantoBadges
-	; callasm CheatGiveRandomBadges
+	; callasm CheatGiveJohtoBadges
+	; callasm CheatGiveKantoBadges
+	callasm CheatGiveRandomBadges
 	; setflag ENGINE_ZEPHYRBADGE
 	; verbosegiveitem TM_MUD_BOMB
 	; setflag ENGINE_HIVEBADGE

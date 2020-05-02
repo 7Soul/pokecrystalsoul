@@ -1013,6 +1013,10 @@ ResidualDamage:
 ; For Sandstorm damage, see HandleWeather.
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
+	farcall TraitTurnTriggers
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
 	farcall TraitWeatherHealsStatus
 
 	call HasUserFainted
@@ -6464,9 +6468,9 @@ LoadEnemyMon:
 ; by targeting those 1600 mm (= 5'3") or larger.
 ; After the conversion to feet, it is unable to target any,
 ; since the largest possible Magikarp is 5'3", and $0503 = 1283 mm.
-	ld a, [wTempEnemyMonSpecies]
-	cp MAGIKARP
-	jr nz, .Happiness
+	; ld a, [wTempEnemyMonSpecies]
+	; cp MAGIKARP
+	; jr nz, .Happiness
 
 ; ; Get Magikarp's length
 ; 	ld de, wEnemyMonDVs
@@ -8743,40 +8747,40 @@ CleanUpBattleRAM:
 	call WaitSFX
 	ret
 
-CheckPayDay:
-	ld hl, wPayDayMoney
-	ld a, [hli]
-	or [hl]
-	inc hl
-	or [hl]
-	ret z
-	ld a, [wAmuletCoin]
-	and a
-	jr z, .okay
-	ld hl, wPayDayMoney + 2
-	sla [hl]
-	dec hl
-	rl [hl]
-	dec hl
-	rl [hl]
-	jr nc, .okay
-	ld a, $ff
-	ld [hli], a
-	ld [hli], a
-	ld [hl], a
+; CheckPayDay:
+; 	ld hl, wPayDayMoney
+; 	ld a, [hli]
+; 	or [hl]
+; 	inc hl
+; 	or [hl]
+; 	ret z
+; 	ld a, [wAmuletCoin]
+; 	and a
+; 	jr z, .okay
+; 	ld hl, wPayDayMoney + 2
+; 	sla [hl]
+; 	dec hl
+; 	rl [hl]
+; 	dec hl
+; 	rl [hl]
+; 	jr nc, .okay
+; 	ld a, $ff
+; 	ld [hli], a
+; 	ld [hli], a
+; 	ld [hl], a
 
-.okay
-	ld hl, wPayDayMoney + 2
-	ld de, wMoney + 2
-	call AddBattleMoneyToAccount
-	ld hl, BattleText_PlayerPickedUpPayDayMoney
-	call StdBattleTextBox
-	ld a, [wInBattleTowerBattle]
-	bit 0, a
-	ret z
-	call ClearTileMap
-	call ClearBGPalettes
-	ret
+; .okay
+; 	ld hl, wPayDayMoney + 2
+; 	ld de, wMoney + 2
+; 	call AddBattleMoneyToAccount
+; 	ld hl, BattleText_PlayerPickedUpPayDayMoney
+; 	call StdBattleTextBox
+; 	ld a, [wInBattleTowerBattle]
+; 	bit 0, a
+; 	ret z
+; 	call ClearTileMap
+; 	call ClearBGPalettes
+; 	ret
 
 ShowLinkBattleParticipantsAfterEnd:
 	farcall StubbedTrainerRankings_LinkBattles

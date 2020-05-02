@@ -299,6 +299,7 @@ DefenseUp2:
 	raisesub
 	statupmessage
 	statupfailtext
+	recalcstats
 	endmove
 
 SpeedUp2:

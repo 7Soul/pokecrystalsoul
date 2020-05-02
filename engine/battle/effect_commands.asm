@@ -3255,10 +3255,10 @@ BattleCommand_DamageCalc:
 	ld b, $4
 	call Divide
 
-	ldh a, [hMultiplicand + 1]
-	ld [$c000], a
-	ldh a, [hMultiplicand + 2]
-	ld [$c001], a
+	; ldh a, [hMultiplicand + 1]
+	; ld [$c000], a
+	; ldh a, [hMultiplicand + 2]
+	; ld [$c001], a
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
@@ -3274,7 +3274,11 @@ BattleCommand_DamageCalc:
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	farcall TraitReduceDamagePerTurn
+	farcall TraitReduceDamagePerTurn ; damage dealt
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitResistDamagePerTurn ; damage taken
 
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
@@ -3288,10 +3292,10 @@ BattleCommand_DamageCalc:
 	ld [wBuffer1], a
 	farcall TraitDamageBasedOnHP
 
-	ldh a, [hMultiplicand + 1]
-	ld [$c002], a
-	ldh a, [hMultiplicand + 2]
-	ld [$c003], a
+	; ldh a, [hMultiplicand + 1]
+	; ld [$c002], a
+	; ldh a, [hMultiplicand + 2]
+	; ld [$c003], a
 	
 ; Item boosts
 	call GetUserItem
@@ -5143,14 +5147,15 @@ BattleCommand_RecalcStats:
 ; recalcstats
 	ldh a, [hBattleTurn]
 	push af
-
+	
 	call SetPlayerTurn
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	predef TraitRaiseStat
+	
+	call SetEnemyTurn
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	call SetEnemyTurn
 	predef TraitRaiseStat
 
 	pop af

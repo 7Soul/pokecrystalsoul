@@ -82,14 +82,20 @@ TraitDescriptions::
 	dw InsomniaDescription    ; TRAIT_SLEEP_IMMUNE
 	dw AlertDescription       ; TRAIT_REDUCE_EFFECT_SLEEP
 	dw InnerFlameDescription  ; TRAIT_FRZ_IMMUNE
-	dw WonderSkinDescription  ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	dw WonderSkinDescription  ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	dw SereneGraceDescription ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	dw SilverAuraDescription  ; TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
+	dw GoldAuraDescription    ; TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
 	dw ShieldDustDescription  ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
 	dw FreeShotDescription    ; TRAIT_GAIN_PP_TURN_ZERO
 	dw KeenFocusDescription   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
+	dw PreparationDescription ; TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
+	dw WallDescription        ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
+	dw StretchingDescription  ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
+	dw SetupDescription       ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	dw HealtySpiritDescription; TRAIT_REGEN_FIRST_TURNS
 	dw BounceBackDescription  ; TRAIT_REGEN_LOW_HP
 	dw PoiseDescription     ; TRAIT_ATTACK_BELOW_THIRD
@@ -487,6 +493,14 @@ WonderSkinDescription:
 SereneGraceDescription:
 	db   "Raises the chance"
 	next "of STATUS moves.@"
+	
+SilverAuraDescription:
+	db   "Ups resist to PHY-"
+	next "SICAL over time.@"
+	
+GoldAuraDescription:
+	db   "Ups resist to SPE-"
+	next "CIAL over time.@"
 
 ShieldDustDescription:
 	db   "Lowers the chance"
@@ -511,6 +525,22 @@ FreeShotDescription:
 KeenFocusDescription:
 	db   "Boosts move ACC on"
 	next "your first turn.@"
+	
+PreparationDescription:
+	db   "Ups ATK and ACC by"
+	next "not doing damage.@"
+	
+WallDescription:
+	db   "Ups DEF and ACC by"
+	next "not doing damage.@"
+	
+StretchingDescription:
+	db   "Ups SPD and ACC by"
+	next "not doing damage.@"
+	
+SetupDescription:
+	db   "Ups SP.ATK/ACC by"
+	next "not doing damage.@"
 	
 HealtySpiritDescription:
 	db   "Regain HP on your"

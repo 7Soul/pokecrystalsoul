@@ -84,12 +84,18 @@ TraitNames::
 	db "Inner Flame@"  ; TRAIT_FRZ_IMMUNE
 	db "Wonder Skin@"  ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	db "Serene Grace@" ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	db "Silver Aura@"  ; TRAIT_REDUCE_PHYSICAL_TAKEN
+	db "Gold Aura@"    ; TRAIT_REDUCE_SPECIAL_TAKEN
 	db "Shield Dust@"  ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	db "Vicious Form@" ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	db "Prismality@"   ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"      ; TRAIT_REDUCE_NOT_STAB
 	db "Free Shot@"    ; TRAIT_GAIN_PP_TURN_ZERO
 	db "Keen Focus@"   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
+	db "Preparation@"  ; TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
+	db "Wall Off@"     ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
+	db "Stretching@"   ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
+	db "Setup@"        ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	db "Healty Spirit@"; TRAIT_REGEN_FIRST_TURNS
 	db "Bounce Back@"  ; TRAIT_REGEN_LOW_HP
 	db "Poise@"        ; TRAIT_ATTACK_BELOW_THIRD
