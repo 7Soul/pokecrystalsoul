@@ -98,14 +98,18 @@ TraitDescriptions::
 	dw SetupDescription       ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	dw HealtySpiritDescription; TRAIT_REGEN_FIRST_TURNS
 	dw BounceBackDescription  ; TRAIT_REGEN_LOW_HP
-	dw PoiseDescription     ; TRAIT_ATTACK_BELOW_THIRD
+	dw PoiseDescription       ; TRAIT_ATTACK_BELOW_THIRD
 	dw SolidifyDescription    ; TRAIT_DEFENSE_BELOW_THIRD
 	dw ScamperDescription     ; TRAIT_SPEED_BELOW_THIRD
-	dw BerserkDescription       ; TRAIT_SP_ATTACK_BELOW_THIRD
+	dw BerserkDescription     ; TRAIT_SP_ATTACK_BELOW_THIRD
 	dw GoldGuardDescription   ; TRAIT_SP_DEFENSE_BELOW_THIRD
 	dw TakeAimDescription     ; TRAIT_ACCURACY_BELOW_THIRD
 	dw DangerSenseDescription ; TRAIT_EVASION_BELOW_THIRD
 	dw AllOutDescription      ; TRAIT_CRIT_BELOW_THIRD
+	dw AngerDescription       ; TRAIT_ATTACK_AFTER_CRIT
+	dw CurlDescription        ; TRAIT_DEFENSE_AFTER_CRIT
+	dw ScatterDescription     ; TRAIT_SPEED_AFTER_CRIT
+	dw SuperLuckDescription   ; TRAIT_CRITICAL_AFTER_CRIT
 	dw GutsDescription        ; TRAIT_ATTACK_STATUSED
 	dw MarvelScaleDescription ; TRAIT_DEFENSE_STATUSED
 	dw QuickFeetDescription   ; TRAIT_SPEED_STATUSED
@@ -113,6 +117,7 @@ TraitDescriptions::
 	dw WaterShellDescription  ; TRAIT_SP_DEFENSE_STATUSED
 	dw RefineDescription      ; TRAIT_ACCURACY_STATUSED
 	dw SmokeVeilDescription   ; TRAIT_EVASION_STATUSED
+	dw PointPanicDescription      ; TRAIT_HEAL_PP_STATUSED
 	dw DefragDescription      ; TRAIT_REGEN_STATUSED
 	dw PermafrostDescription  ; TRAIT_REDUCE_BRN_AND_FIRE
 	dw GroundWireDescription  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
@@ -581,6 +586,22 @@ DangerSenseDescription:
 AllOutDescription:
 	db   "Raises CRITICAL"
 	next "under 1/3 hp.@"
+	
+AngerDescription:
+	db   "Resist CRITICAL"
+	next "hits and ups ATK.@"
+	
+CurlDescription:
+	db   "Resist CRITICAL"
+	next "hits and ups DEF.@"
+	
+ScatterDescription:
+	db   "Resist CRITICAL"
+	next "hits and ups SPD.@"
+	
+SuperLuckDescription:
+	db   "Ups CRIT when hit"
+	next "by a CRIT attack.@"
 
 GutsDescription:
 	db   "Volatile status"
@@ -609,6 +630,10 @@ RefineDescription:
 SmokeVeilDescription:
 	db   "Volatile status"
 	next "raises EVASION.@"
+
+PointPanicDescription:
+	db   "May recover PP un-"
+	next "der any status.@"
 
 DefragDescription:
 	db   "Regain HP under"

@@ -106,6 +106,10 @@ TraitNames::
 	db "Take Aim@"     ; TRAIT_ACCURACY_BELOW_THIRD
 	db "Danger Sense@" ; TRAIT_EVASION_BELOW_THIRD
 	db "All Out@"      ; TRAIT_CRIT_BELOW_THIRD
+	db "Anger@"        ; TRAIT_ATTACK_AFTER_CRIT
+	db "Curl@"         ; TRAIT_DEFENSE_AFTER_CRIT
+	db "Scatter@"      ; TRAIT_SPEED_AFTER_CRIT
+	db "Super Luck@"   ; TRAIT_CRITICAL_AFTER_CRIT
 	db "Guts@"         ; TRAIT_ATTACK_STATUSED
 	db "Marvel Scale@" ; TRAIT_DEFENSE_STATUSED
 	db "Quick Feet@"   ; TRAIT_SPEED_STATUSED
@@ -113,6 +117,7 @@ TraitNames::
 	db "Water Shell@"  ; TRAIT_SP_DEFENSE_STATUSED
 	db "Refine@"       ; TRAIT_ACCURACY_STATUSED
 	db "Smoke Veil@"   ; TRAIT_EVASION_STATUSED
+	db "Point Panic@"  ; TRAIT_HEAL_PP_STATUSED
 	db "Defrag@"       ; TRAIT_REGEN_STATUSED
 	db "Permafrost@"   ; TRAIT_REDUCE_BRN_AND_FIRE
 	db "Ground Wire@"  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC

@@ -1019,6 +1019,10 @@ ResidualDamage:
 	ld [wBuffer1], a
 	farcall TraitWeatherHealsStatus
 
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	predef TraitRaiseStat ; might want to remove this call from other places
+
 	call HasUserFainted
 	ret z
 

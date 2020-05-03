@@ -47,11 +47,14 @@ CheckTraitCondition:
 	cp TRAIT_REDUCE_RECOIL + 1 ; all traits that require rain weather
 	jp c, .check_recoil
 	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
-	jp c, .check_rain	
+	ld d, WEATHER_RAIN
+	jp c, .check_weather	
 	cp TRAIT_SUNSHINE_NO_STATUS + 1 ; all sun traits
-	jp c, .check_sun
+	ld d, WEATHER_SUN
+	jp c, .check_weather
 	cp TRAIT_SANDSTORM_NO_STATUS + 1 ; all sandstorm traits
-	jp c, .check_sandstorm
+	ld d, WEATHER_SANDSTORM
+	jp c, .check_weather
 	cp TRAIT_BOOST_EFFECT_BRN + 1 ; all burn traits
 	jp c, .check_move_brn
 	cp TRAIT_BOOST_EFFECT_PSN + 1 ; all poison traits
@@ -91,8 +94,13 @@ CheckTraitCondition:
 	cp TRAIT_CRIT_BELOW_THIRD + 1 ; all traits that require to be below 33% hp
 	ld b, 34
 	jp c, .check_below_threshold
+	cp TRAIT_SPEED_AFTER_CRIT + 1
+	jp c, .check_crit
+	cp TRAIT_CRITICAL_AFTER_CRIT + 1
+	ld d, 1
+	jp c, .check_trait_activation_equal
 	cp TRAIT_REGEN_STATUSED + 1
-	ld d, $FF
+	ld d, $FE
 	jp c, .check_user_status
 	cp TRAIT_BOOST_DARK_STATUSED + 1
 	ld d, $FE
@@ -211,23 +219,9 @@ CheckTraitCondition:
 	scf
 	ret
 
-.check_rain
+.check_weather
 	ld a, [wBattleWeather]
-	cp WEATHER_RAIN
-	jp z, .success
-	and a
-	ret
-
-.check_sun
-	ld a, [wBattleWeather]
-	cp WEATHER_SUN
-	jp z, .success
-	and a
-	ret
-
-.check_sandstorm
-	ld a, [wBattleWeather]
-	cp WEATHER_SANDSTORM
+	cp d
 	jp z, .success
 	and a
 	ret
@@ -359,6 +353,22 @@ CheckTraitCondition:
 	scf
 	ret
 .yes
+	and a
+	ret
+
+.check_crit:
+	ld a, [wCriticalHit]
+	cp 1
+	jp z, .success
+	and a
+	ret
+
+.check_crit_trigger:
+	ld a, [wCriticalHit]
+	cp 1
+	jr nz, .not_crit_trigger
+	call IncreaseTraitCount
+.not_crit_trigger
 	and a
 	ret
 
@@ -511,8 +521,27 @@ TraitTurnTriggers:
 	jr c, .no_trigger
 	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1
 	jp c, CheckTraitCondition.check_did_no_dmg_for_three_turns
+	cp TRAIT_SPEED_AFTER_CRIT + 1
+	jp c, .no_trigger
+	cp TRAIT_CRITICAL_AFTER_CRIT + 1
+	jp c, CheckTraitCondition.check_crit_trigger
 .no_trigger
 	ret
+
+TraitRaiseStatAfterDamage:
+	ld a, [wBuffer1]
+	call GetBattleVar
+	ld de, 1
+	ld hl, TraitsThatRaiseStatAfterDamage
+	call IsInArray
+	ret nc
+	jp TraitRaiseStat
+
+TraitsThatRaiseStatAfterDamage:
+	db TRAIT_ATTACK_AFTER_CRIT
+	db TRAIT_DEFENSE_AFTER_CRIT
+	db TRAIT_SPEED_AFTER_CRIT
+	db -1
 
 TraitRaiseStat:
 	xor a
@@ -568,8 +597,8 @@ TraitRaiseStat:
 	inc [hl]
 
 	ld a, [wBuffer3]
-	cp 5 ; after index 5 also raises acc
-	jr nc, .also_raise_acc
+	cp 0 ; index 0 also raises acc
+	jr z, .also_raise_acc
 	ret
 .also_raise_acc
 	ld a, $FF
@@ -589,39 +618,42 @@ TraitRaiseStat:
 	dbw -1, -1
 
 TraitsThatRaiseAttack:
+	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
 	db TRAIT_RAIN_ATTACK
 	db TRAIT_SUNSHINE_ATTACK
 	db TRAIT_SANDSTORM_ATTACK
 	db TRAIT_ATTACK_BELOW_THIRD
 	db TRAIT_ATTACK_STATUSED
-	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING 
+	db TRAIT_ATTACK_AFTER_CRIT	
 	db -1
 
 TraitsThatRaiseDefense:
+	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING ; 6
 	db TRAIT_RAIN_DEFENSE
 	db TRAIT_SUNSHINE_DEFENSE
 	db TRAIT_SANDSTORM_DEFENSE
 	db TRAIT_DEFENSE_BELOW_THIRD
 	db TRAIT_DEFENSE_STATUSED
-	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
+	db TRAIT_DEFENSE_AFTER_CRIT
 	db -1
 
 TraitsThatRaiseSpeed:
+	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	db TRAIT_RAIN_SPEED
 	db TRAIT_SUNSHINE_SPEED
 	db TRAIT_SANDSTORM_SPEED
 	db TRAIT_SPEED_BELOW_THIRD
 	db TRAIT_SPEED_STATUSED
-	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
+	db TRAIT_SPEED_AFTER_CRIT
 	db -1
 
 TraitsThatRaiseSpAttack:
+	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	db TRAIT_RAIN_SP_ATTACK
 	db TRAIT_SUNSHINE_SP_ATTACK
 	db TRAIT_SANDSTORM_SP_ATTACK
 	db TRAIT_SP_ATTACK_BELOW_THIRD
 	db TRAIT_SP_ATTACK_STATUSED
-	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	db -1
 
 TraitsThatRaiseSpDefense:
@@ -661,6 +693,7 @@ TraitBoostCritical:
 
 TraitsThatBoostCritical:
 	db TRAIT_CRIT_BELOW_THIRD
+	db TRAIT_CRITICAL_AFTER_CRIT
 	db -1
 	
 TraitBoostAccuracy:
@@ -973,6 +1006,9 @@ TraitsThatReduceDamage:
 	db TRAIT_REDUCE_PSYCHIC
 	db TRAIT_REDUCE_ICE
 	db TRAIT_REDUCE_DARK
+	db TRAIT_ATTACK_AFTER_CRIT
+	db TRAIT_DEFENSE_AFTER_CRIT
+	db TRAIT_SPEED_AFTER_CRIT
 	db -1
 
 TraitsThatReduceDamageMore: ; under 50% hp
@@ -1625,11 +1661,19 @@ TraitPP:
 	ld hl, TraitsThatRecoverPP
 	call CheckTrait
 	jr nc, .not_met
+	ld a, [wBuffer2]
+	cp 0
+	jr nz, .without_chance
+	call BattleRandom
+	cp 10 percent
+	jr nc, .not_met
+.without_chance
 	call EffectTraitForceRecoverPP
 .not_met
 	ret
 
 TraitsThatRecoverPP:
+	db TRAIT_HEAL_PP_STATUSED
 	db TRAIT_GAIN_PP_TURN_ZERO
 	db -1
 
@@ -1779,7 +1823,7 @@ ContactMoves:
 Chance:
 	call BattleRandom
 	cp 20 percent
-	jr nc, .success
+	jr c, .success
 	and a
 	ret	
 .success
@@ -2024,27 +2068,25 @@ ActivateTrait:
 	call GetTraitUser
 	ld hl, wTraitActivated
 	jr c, .player_user
-	
 	set 4, [hl] ; enemy trait
 	ld a, [hl]
-
 .player_user
 	set 0, [hl] ; player trait
 	ld a, [hl]
 	ret
 
 ResetActivated:
+	call GetTraitUser
 	ld hl, wTraitActivated
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .player_turn
-	res 4, [hl]
+	jr c, .player_user
+	res 4, [hl] ; enemy trait
 	ret
-.player_turn
-	res 0, [hl]
+.player_user
+	res 0, [hl] ; player trait
 	ret
 
 OneShotTraits:
+; List of traits that can only go off once while the pokemon is out
 	db TRAIT_RAIN_ATTACK
 	db TRAIT_RAIN_DEFENSE
 	db TRAIT_RAIN_SPEED
@@ -2072,6 +2114,10 @@ OneShotTraits:
 	db TRAIT_REGEN_ON_RAIN
 	db TRAIT_REGEN_ON_SUNSHINE
 	db TRAIT_REGEN_ON_SANDSTORM
+	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
+	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
+	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
+	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	db TRAIT_REGEN_LOW_HP
 	db TRAIT_ATTACK_BELOW_THIRD
 	db TRAIT_DEFENSE_BELOW_THIRD
@@ -2081,8 +2127,14 @@ OneShotTraits:
 	db TRAIT_ACCURACY_BELOW_THIRD
 	db TRAIT_EVASION_BELOW_THIRD 
 	db TRAIT_CRIT_BELOW_THIRD
-	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
-	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
-	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
-	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	db TRAIT_ATTACK_AFTER_CRIT
+	db TRAIT_DEFENSE_AFTER_CRIT
+	db TRAIT_SPEED_AFTER_CRIT
+	db TRAIT_ATTACK_STATUSED
+	db TRAIT_DEFENSE_STATUSED
+	db TRAIT_SPEED_STATUSED
+	db TRAIT_SP_ATTACK_STATUSED
+	db TRAIT_SP_DEFENSE_STATUSED
+	db TRAIT_ACCURACY_STATUSED
+	db TRAIT_EVASION_STATUSED
 	db -1

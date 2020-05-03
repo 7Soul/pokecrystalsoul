@@ -1243,6 +1243,8 @@ BattleCommand_Critical:
 	inc c
 
 .Tally:
+	inc c
+	inc c
 	ld hl, CriticalHitChances
 	ld b, 0
 	add hl, bc
@@ -1487,6 +1489,10 @@ BattleCommand_Stab:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitBoostNonStab
+
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitRaiseStatAfterDamage
 
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
