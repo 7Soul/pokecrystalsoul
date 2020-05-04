@@ -2075,15 +2075,11 @@ UpdateHPBar:
 	ret
 
 HandleEnemyMonFaint:
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitFaintMon
-
 	ld a, [wTempEnemyMonSpecies]
 	ld [wCurPartySpecies], a
 	predef AddFoughtPokemon
 
-	call FaintEnemyPokemon
+	call FaintEnemyPokemon	
 	ld hl, wBattleMonHP
 	ld a, [hli]
 	or [hl]
@@ -2308,6 +2304,7 @@ StopDangerSound:
 	ret
 
 FaintYourPokemon:
+	farcall TraitFaintPlayerMon
 	call StopDangerSound
 	call WaitSFX
 	ld a, $f0
@@ -2322,6 +2319,7 @@ FaintYourPokemon:
 	jp StdBattleTextBox
 
 FaintEnemyPokemon:
+	farcall TraitFaintEnemyMon
 	call WaitSFX
 	ld de, SFX_KINESIS
 	call PlaySFX
@@ -2679,10 +2677,6 @@ IsGymLeaderCommon:
 INCLUDE "data/trainers/leaders.asm"
 
 HandlePlayerMonFaint:
-	ld a, BATTLE_VARS_TRAIT_OPP
-	ld [wBuffer1], a
-	farcall TraitFaintMon
-
 	call FaintYourPokemon
 	ld hl, wEnemyMonHP
 	ld a, [hli]

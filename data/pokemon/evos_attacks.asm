@@ -2627,12 +2627,12 @@ AriadosEvosAttacks:
 	db 0 ; no more evolutions
 	db 6, SCARY_FACE
 	db 9, LEECH_LIFE
-	db 11, CONSTRICT
-	db 17, NIGHT_SHADE
-	db 25, TWINEEDLE
-	db 32, FURY_ATTACK
-	db 38, FELL_STINGER
-	db 40, MEAN_LOOK
+	db 11, LEECH_LIFE
+	db 17, LEECH_LIFE
+	db 25, LEECH_LIFE
+	db 32, LEECH_LIFE
+	db 38, LEECH_LIFE
+	db 40, LEECH_LIFE
 	db 48, AGILITY
 	db 56, PSYCHIC_M
 	db 0 ; no more level-up moves

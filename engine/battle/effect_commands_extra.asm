@@ -459,7 +459,7 @@ SapHealth:
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	call TraitBoostDrain
+	farcall TraitBoostDrain
 
 	ld hl, wBattleMonHP
 	ld de, wBattleMonMaxHP

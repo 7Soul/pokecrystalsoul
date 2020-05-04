@@ -2499,10 +2499,28 @@ PPRestoreItem_Cancel:
 	ret
 
 RestorePP:
+; checks if we're in-battle for the PP traits
+	ld hl, wPartyMon1PP
+	ld a, [wBattleMode]
+	and a
+	jr z, .player_turn
+; checks if it's the player or enemy for the in-battle trait
+	ld hl, wPartyMon1PP
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player_turn
+
+	ld hl, wEnemyMonPP
+	ld a, OTPARTYMON
+	ld [wMonType], a
+	jr .get_max_pp
+.player_turn
 	xor a ; PARTYMON
 	ld [wMonType], a
+.get_max_pp
+	push hl
 	call GetMaxPPOfMove
-	ld hl, wPartyMon1PP
+	pop hl
 	ld bc, PARTYMON_STRUCT_LENGTH
 	call GetMthMoveOfNthPartymon
 	ld a, [wTempPP]
@@ -2522,7 +2540,7 @@ RestorePP:
 	cp MYSTERYBERRY
 	jr z, .restore_some
 
-	ld c, 1
+	ld c, 1	
 	inc a ; compare to 255
 	jr z, .restore_some
 
@@ -2530,6 +2548,7 @@ RestorePP:
 
 .restore_some
 	ld a, [hl]
+	
 	and PP_MASK
 	add c
 	cp b

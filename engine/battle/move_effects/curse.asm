@@ -1,12 +1,12 @@
 BattleCommand_Curse:
 ; curse
 
-	ld de, wBattleMonType1
+	ld de, wBattleMon
 	ld bc, wPlayerStatLevels
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .go
-	ld de, wEnemyMonType1
+	ld de, wEnemyMon
 	ld bc, wEnemyStatLevels
 
 .go
@@ -14,11 +14,15 @@ BattleCommand_Curse:
 ; Curse is different for Ghost-types.
 
 	ld a, [de]
-	cp CURSE_T
+	cp GASTLY
 	jr z, .ghost
-	inc de
-	ld a, [de]
-	cp CURSE_T
+	cp GENGAR
+	jr c, .ghost
+	cp MISDREAVUS
+	jr z, .ghost
+	cp VAPOREON
+	jr z, .ghost
+	cp ARIADOS
 	jr z, .ghost
 
 ; If no stats can be increased, don't.
@@ -69,6 +73,11 @@ BattleCommand_Curse:
 	jr nz, .failed
 
 	set SUBSTATUS_CURSE, [hl]
+
+	ld a, [wBuffer3]
+	cp 3
+	jr z, .trait
+
 	call AnimateCurrentMove
 	ld hl, GetHalfMaxHP
 	call CallBattleCore
@@ -76,6 +85,10 @@ BattleCommand_Curse:
 	call CallBattleCore
 	call UpdateUserInParty
 	ld hl, PutACurseText
+	jp StdBattleTextBox
+
+.trait
+	ld hl, PutACurseTraitText
 	jp StdBattleTextBox
 
 .failed

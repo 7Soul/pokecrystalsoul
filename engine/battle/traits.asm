@@ -102,9 +102,6 @@ CheckTraitCondition:
 	cp TRAIT_REGEN_STATUSED + 1
 	ld d, $FE
 	jp c, .check_user_status
-	cp TRAIT_BOOST_DARK_STATUSED + 1
-	ld d, $FE
-	jp c, .check_user_status
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
@@ -421,7 +418,7 @@ CheckTraitCondition:
 	ld a, b ; restore trait into 'a'	
 	ret
 
-.check_user_status
+.check_user_status:
 	ld a, BATTLE_VARS_STATUS
 	call GetBattleVarAddr
 	ld a, d
@@ -821,29 +818,29 @@ TraitsThatRequireContact:
 	db TRAIT_CONTACT_IN_LOVE
 	db -1
 
-TraitsThatBurn:
-	db TRAIT_CONTACT_BRN
-	db -1
+; TraitsThatBurn:
+; 	db TRAIT_CONTACT_BRN
+; 	db -1
 
-TraitsThatParalyze:
-	db TRAIT_CONTACT_PRZ
-	db -1
+; TraitsThatParalyze:
+; 	db TRAIT_CONTACT_PRZ
+; 	db -1
 	
-TraitsThatPoison:
-	db TRAIT_CONTACT_PSN
-	db -1
+; TraitsThatPoison:
+; 	db TRAIT_CONTACT_PSN
+; 	db -1
 
-TraitsThatFlinch:
-	db TRAIT_CONTACT_FLINCH
-	db -1
+; TraitsThatFlinch:
+; 	db TRAIT_CONTACT_FLINCH
+; 	db -1
 
-TraitsThatConfuse:
-	db TRAIT_CONTACT_CONFUSED
-	db -1
+; TraitsThatConfuse:
+; 	db TRAIT_CONTACT_CONFUSED
+; 	db -1
 
-TraitsThatAttract:
-	db TRAIT_CONTACT_IN_LOVE
-	db -1
+; TraitsThatAttract:
+; 	db TRAIT_CONTACT_IN_LOVE
+; 	db -1
 
 TraitStartWeather:
 	ld hl, .TraitsThatStartWeather
@@ -1123,6 +1120,8 @@ TraitBoostPower:
 	ld a, $76 ; ~1.16
 	jp ApplyDamageMod
 .boost2
+	call CheckTraitCondition.check_user_status
+	ret nc
 	ld a, $65 ; ~1.20
 	jp ApplyDamageMod
 .not_met1
@@ -1139,9 +1138,18 @@ TraitBoostPower:
 	db TRAIT_BOOST_PERFURATE
 
 TraitsThatBoostTypeStatused:
-	db TRAIT_BOOST_ICE_STATUSED
-	db TRAIT_BOOST_ELECTRIC_STATUSED
+	db TRAIT_BOOST_NORMAL_STATUSED
+	db TRAIT_BOOST_FIGHTING_STATUSED
+	db TRAIT_BOOST_FLYING_STATUSED
+	db TRAIT_BOOST_GROUND_STATUSED
+	db TRAIT_BOOST_ROCK_STATUSED
+	db TRAIT_BOOST_BUG_STATUSED
 	db TRAIT_BOOST_FIRE_STATUSED
+	db TRAIT_BOOST_WATER_STATUSED
+	db TRAIT_BOOST_GRASS_STATUSED
+	db TRAIT_BOOST_ELECTRIC_STATUSED
+	db TRAIT_BOOST_PSYCHIC_STATUSED
+	db TRAIT_BOOST_ICE_STATUSED
 	db TRAIT_BOOST_DARK_STATUSED
 	db -1
 
@@ -1493,7 +1501,7 @@ TraitsThatBoostMoveByHP:
 TraitBoostDrain:
 	ld a, TRAIT_BOOST_DRAIN
 	call CheckSpecificTrait
-	jr nc, .not_met
+	ret nc
 
 	ldh a, [hDividend]
 	ld h, a
@@ -1504,7 +1512,7 @@ TraitBoostDrain:
 	pop hl	
 	ld a, d
 	cp 50
-	jr nc, .not_met
+	ret nc
 	
 	ld b, h
 	ld c, l
@@ -1522,7 +1530,6 @@ TraitBoostDrain:
 	ldh [hDividend], a
 	ld a, l
 	ldh [hDividend + 1], a
-.not_met
 	ret
 
 TraitBoostEffectChance:
@@ -1677,29 +1684,92 @@ TraitsThatRecoverPP:
 	db TRAIT_GAIN_PP_TURN_ZERO
 	db -1
 
+TraitFaintEnemyMon: ; enemy mon faints
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player_turn
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	jp TraitFaintMon
+
+.player_turn
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	jp TraitFaintMon
+
+TraitFaintPlayerMon: ; user mon faints
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player_turn
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+
+.player_turn
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
 TraitFaintMon:
 	ld hl, TraitsThatTriggerOnFaintMon
 	call CheckTrait
-	jr nc, .not_met
+	jr nc, .not_1
+
+	call Switch_turn
+	ld a, [wBuffer3]
+	ld hl, .StatusCommands
+	ld b, 0
+	ld c, a
+	add hl, bc
+	add hl, bc
+
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+
+	xor a
+	ld [wAttackMissed], a
+	ld [wEffectFailed], a
+
+	ld a, BANK("Effect Commands")
+	rst FarCall
+	
+	call Switch_turn
+.not_1
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	ld hl, TraitsThatTriggerOnFaintOppMon
+	call CheckTrait
+	ret nc
+
 	ld a, [wBuffer3]
 	cp 0
 	jr z, .heal_hp_faint
-	cp 1
-	jr nz, .not_met
-.heal_pp_faint
-	call EffectTraitForceRecoverPP
-	ret
+
+	call SetUserTurn
+	jp EffectTraitForceRecoverPP
+	
 .heal_hp_faint
+	call SetUserTurn
+	call Switch_turn
 	ld hl, GetEighthMaxHP
 	ld a, BANK(GetMaxHP)
 	rst FarCall
 	ld a, c
 	ld [wBuffer6], a
-	call EffectTraitForceRecoverHP
-.not_met
-	ret
+	jp EffectTraitForceRecoverHP
+
+.StatusCommands:
+	dw BattleCommand_BurnTarget
+	dw BattleCommand_PoisonTarget
+	dw BattleCommand_FreezeTarget
+	dw BattleCommand_Curse
 
 TraitsThatTriggerOnFaintMon:
+	db TRAIT_BURN_FAINT
+	db TRAIT_POISON_FAINT
+	db TRAIT_FREEZE_FAINT
+	db TRAIT_CURSE_FAINT
+	db -1
+
+TraitsThatTriggerOnFaintOppMon:
 	db TRAIT_HEAL_HP_FAINT ; 0
 	db TRAIT_HEAL_PP_FAINT ; 1
 	db -1
@@ -1708,11 +1778,45 @@ EffectTraitForceRecoverPP:
 	ld a, $FF
 	ld [wd002], a
 	callfar RestorePP
+
+	ld a, [wCurPartyMon]
+	ld hl, wPartyMon1Moves
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld de, wBattleMonMoves
+	ld b, NUM_MOVES
+.loop
+	ld a, [de]
+	and a
+	jr z, .done
+	cp [hl]
+	jr nz, .next
+	push hl
+	push de
+	push bc
+rept NUM_MOVES + 2 ; wBattleMonPP - wBattleMonMoves
+	inc de
+endr
+	ld bc, MON_PP - MON_MOVES
+	add hl, bc
+	ld a, [hl]
+	ld [de], a
+	pop bc
+	pop de
+	pop hl
+
+.next
+	inc hl
+	inc de
+	dec b
+	jr nz, .loop
+
+.done
 	ret
 
-EffectTraitForceRecoverHP:
-	ld hl, BattleCommand_Heal
-	ld a, BANK("Effect Commands")
+EffectTraitForceRecoverHP:	
+	ld hl, RestoreHP
+	ld a, BANK("Battle Core")
 	rst FarCall
 	ret
 
@@ -1832,17 +1936,6 @@ Chance:
 	ld [wEffectFailed], a
 	scf
 	ret
-
-	; ld a, [wBuffer2]
-	; inc a
-	; ld [wBuffer2], a
-	
-	; ld a, BANK("Effect Commands")
-	; rst FarCall	
-	
-	; ld hl, BattleCommand_StatUpMessage
-	; ld a, BANK("Effect Commands")
-	; rst FarCall
 
 CheckStab:
 	ld hl, wTypeModifier

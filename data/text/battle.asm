@@ -1019,6 +1019,12 @@ PutACurseText:
 	line "<TARGET>!"
 	prompt
 
+PutACurseTraitText:
+	text "<USER>"
+	line "put a CURSE on"
+	cont "<TARGET>!"
+	prompt
+
 ProtectedItselfText:
 	text "<USER>"
 	line "PROTECTED itself!"
