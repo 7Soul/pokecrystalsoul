@@ -143,6 +143,16 @@ CheckTraitCondition:
 	ld c, PSYCHIC
 	call .check_move_type
 	jp .check_move_confused
+	cp TRAIT_DEFENSE_ICE_FIRE_HIT ; 
+	ld b, a
+	ld c, FIRE
+	ld e, ICE
+	jp c, .check_move_type
+	cp TRAIT_SPEED_BUG_DARK_HIT ; 
+	ld b, a
+	ld c, BUG
+	ld e, DARK
+	jp c, .check_move_type
 	cp TRAIT_REDUCE_FIGHTING ; traits below this that require move type to be NORMAL
 	ld b, a
 	ld c, NORMAL
@@ -414,6 +424,8 @@ CheckTraitCondition:
 	ld a, d
 	cp c
 	jp z, .success
+	cp e
+	jp z, .success
 	and a
 	ld a, b ; restore trait into 'a'	
 	ret
@@ -538,6 +550,8 @@ TraitsThatRaiseStatAfterDamage:
 	db TRAIT_ATTACK_AFTER_CRIT
 	db TRAIT_DEFENSE_AFTER_CRIT
 	db TRAIT_SPEED_AFTER_CRIT
+	db TRAIT_DEFENSE_ICE_FIRE_HIT
+	db TRAIT_SPEED_BUG_DARK_HIT
 	db -1
 
 TraitRaiseStat:
@@ -576,32 +590,25 @@ TraitRaiseStat:
 	call CheckTrait
 	pop bc
 	jr nc, .loop_go
-	ld a, b ; stat id
 
-.TraitRaiseSpecificStat:
 .end
-	ld [wLoweredStat], a
-	xor a
-	ld [wAttackMissed], a
-
-	ld hl, wPlayerStatLevels
-	ld de, wEnemyStatLevels
-	call GetTraitUserAddr
 	pop af
-	ld c, a
-	ld b, 0
-	add hl, bc
-	inc [hl]
+	ld a, b
+	ld hl, .JumptableBattleCommands
+	call TraitUseBattleCommand
+
+	ld hl, BattleCommand_StatUpMessage
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatUpFailText
+	call TraitUseBattleCommandSimple
 
 	ld a, [wBuffer3]
 	cp 0 ; index 0 also raises acc
 	jr z, .also_raise_acc
 	ret
 .also_raise_acc
-	ld a, $FF
-	ld [wBuffer3], a
-	ld a, ACCURACY
-	push af
+	ld b, 5
 	jr .end
 
 .JumptableStatTraits:
@@ -613,6 +620,15 @@ TraitRaiseStat:
 	dbw ACCURACY, TraitsThatRaiseAccuracy
 	dbw EVASION, TraitsThatRaiseEvasion
 	dbw -1, -1
+
+.JumptableBattleCommands:
+	dw BattleCommand_AttackUp
+	dw BattleCommand_DefenseUp
+	dw BattleCommand_SpeedUp
+	dw BattleCommand_SpecialAttackUp
+	dw BattleCommand_SpecialDefenseUp
+	dw BattleCommand_AccuracyUp
+	dw BattleCommand_EvasionUp
 
 TraitsThatRaiseAttack:
 	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
@@ -632,6 +648,8 @@ TraitsThatRaiseDefense:
 	db TRAIT_DEFENSE_BELOW_THIRD
 	db TRAIT_DEFENSE_STATUSED
 	db TRAIT_DEFENSE_AFTER_CRIT
+	db TRAIT_DEFENSE_ICE_FIRE_HIT
+	db TRAIT_REDUCE_WATER_UP_DEFENSE
 	db -1
 
 TraitsThatRaiseSpeed:
@@ -642,6 +660,7 @@ TraitsThatRaiseSpeed:
 	db TRAIT_SPEED_BELOW_THIRD
 	db TRAIT_SPEED_STATUSED
 	db TRAIT_SPEED_AFTER_CRIT
+	db TRAIT_SPEED_BUG_DARK_HIT
 	db -1
 
 TraitsThatRaiseSpAttack:
@@ -788,17 +807,7 @@ TraitContact:
 	call SetUserTurn
 	ld a, b
 	ld hl, .StatusCommands
-	ld b, 0
-	ld c, a
-	add hl, bc
-	add hl, bc
-
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-
-	ld a, BANK("Effect Commands")
-	rst FarCall
+	call TraitUseBattleCommand
 	jp Switch_turn
 
 .StatusCommands:
@@ -1032,6 +1041,7 @@ TraitsThatReduceDamageLess: ; 10%
 	db TRAIT_REDUCE_PSN_AND_BUG
 	db TRAIT_REDUCE_FRZ_AND_ICE
 	db TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	db TRAIT_REDUCE_WATER_UP_DEFENSE
 	db -1
 
 TraitReducePower:
@@ -1715,21 +1725,7 @@ TraitFaintMon:
 	call Switch_turn
 	ld a, [wBuffer3]
 	ld hl, .StatusCommands
-	ld b, 0
-	ld c, a
-	add hl, bc
-	add hl, bc
-
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-
-	xor a
-	ld [wAttackMissed], a
-	ld [wEffectFailed], a
-
-	ld a, BANK("Effect Commands")
-	rst FarCall
+	call TraitUseBattleCommand
 	
 	call Switch_turn
 .not_1
@@ -1945,6 +1941,29 @@ CheckStab:
 	ret
 .yes
 	scf
+	ret
+
+TraitUseBattleCommand: ; takes index in a and commands list in hl
+	ld b, 0
+	ld c, a
+	add hl, bc
+	add hl, bc
+
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+
+	xor a
+	ld [wAttackMissed], a
+	ld [wEffectFailed], a
+
+	ld a, BANK("Effect Commands")
+	rst FarCall
+	ret
+
+TraitUseBattleCommandSimple:
+	ld a, BANK("Effect Commands")
+	rst FarCall
 	ret
 
 Switch_turn:
@@ -2230,4 +2249,7 @@ OneShotTraits:
 	db TRAIT_SP_DEFENSE_STATUSED
 	db TRAIT_ACCURACY_STATUSED
 	db TRAIT_EVASION_STATUSED
+	db TRAIT_DEFENSE_ICE_FIRE_HIT
+	db TRAIT_SPEED_BUG_DARK_HIT
+	db TRAIT_REDUCE_WATER_UP_DEFENSE
 	db -1

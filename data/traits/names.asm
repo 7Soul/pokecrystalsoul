@@ -130,6 +130,8 @@ TraitNames::
 	db "Survival@"         ; TRAIT_REDUCE_PSN_AND_BUG
 	db "Ice Shedding@"     ; TRAIT_REDUCE_FRZ_AND_ICE
 	db "Mind Block@"       ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	db "Thick Fat@"        ; TRAIT_DEFENSE_ICE_FIRE_HIT
+	db "Rattled@"          ; TRAIT_SPEED_BUG_DARK_HIT
 	db "Stone Skin@"       ; TRAIT_REDUCE_NORMAL
 	db "Steel Skin@"       ; TRAIT_REDUCE_NORMAL_MORE
 	db "Fade@"             ; TRAIT_REDUCE_NORMAL_ACC
@@ -161,6 +163,7 @@ TraitNames::
 	db "Hard Water@"       ; TRAIT_BOOST_WATER_DEFENSE
 	db "Water Surge@"      ; TRAIT_BOOST_WATER_HP
 	db "Deep Sea Rage@"    ; TRAIT_BOOST_WATER_STATUSED
+	db "Hardening Sand@"   ; TRAIT_REDUCE_WATER_UP_DEFENSE
 	db "Arid Touch@"       ; TRAIT_REDUCE_GRASS
 	db "Arid Shield@"      ; TRAIT_REDUCE_GRASS_MORE
 	db "Forest Rage@"      ; TRAIT_BOOST_GRASS_STATUSED
@@ -180,3 +183,4 @@ TraitNames::
 	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
 	db "Prism Armor@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db "Prism Plate@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
+	

@@ -5151,21 +5151,21 @@ BattleCommand_LowerSubNoAnim:
 
 BattleCommand_RecalcStats:
 ; recalcstats
-	ldh a, [hBattleTurn]
-	push af
+	; ldh a, [hBattleTurn]
+	; push af
 	
-	call SetPlayerTurn
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	predef TraitRaiseStat
+	; call SetPlayerTurn
+	; ld a, BATTLE_VARS_TRAIT
+	; ld [wBuffer1], a
+	; predef TraitRaiseStat
 	
-	call SetEnemyTurn
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	predef TraitRaiseStat
+	; call SetEnemyTurn
+	; ld a, BATTLE_VARS_TRAIT
+	; ld [wBuffer1], a
+	; predef TraitRaiseStat
 
-	pop af
-	ldh [hBattleTurn], a
+	; pop af
+	; ldh [hBattleTurn], a
 	
 	ret
 

@@ -130,6 +130,8 @@ TraitDescriptions::
 	dw SurvivalDescription    ; TRAIT_REDUCE_PSN_AND_BUG
 	dw IceSheddingDescription ; TRAIT_REDUCE_FRZ_AND_ICE
 	dw MindBlockDescription   ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	dw ThickFatDescription    ; TRAIT_DEFENSE_ICE_FIRE_HIT
+	dw RattledDescription     ; TRAIT_SPEED_BUG_DARK_HIT
 	dw StoneSkinDescription   ; TRAIT_REDUCE_NORMAL
 	dw StoneSkin2Description  ; TRAIT_REDUCE_NORMAL_MORE
 	dw FadeDescription        ; TRAIT_REDUCE_NORMAL_ACC
@@ -161,6 +163,7 @@ TraitDescriptions::
 	dw HardWaterDescription   ; TRAIT_BOOST_WATER_DEFENSE
 	dw WaterSurgeDescription  ; TRAIT_BOOST_WATER_HP
 	dw DeepSeaRageDescription ; TRAIT_BOOST_WATER_STATUSED
+	dw HardeningSandDescription ; TRAIT_REDUCE_WATER_UP_DEFENSE
 	dw AridTouchDescription   ; TRAIT_REDUCE_GRASS
 	dw AridTouch2Description  ; TRAIT_REDUCE_GRASS_MORE
 	dw ForestRageDescription  ; TRAIT_BOOST_GRASS_STATUSED
@@ -703,6 +706,14 @@ MindBlockDescription:
 	db   "CONFUSION and PSY-"
 	next "CHIC are weakened.@"
 
+ThickFatDescription:
+	db   "Ups DEF when hit"
+	next "by ICE or FIRE.@"
+
+RattledDescription:
+	db   "Ups DEF when hit"
+	next "by BUG or DARK.@"
+
 StoneSkinDescription:
 	db   "Reduces NORMAL"
 	next "damage taken.@"
@@ -826,6 +837,10 @@ WaterSurgeDescription:
 DeepSeaRageDescription:
 	db   "Boosts WATER un-"
 	next "der any status.@"
+
+HardeningSandDescription:
+	db   "Resists WATER and"
+	next "ups DEF when hit.@"
 
 AridTouchDescription:
 	db   "Reduces GRASS dam-"
