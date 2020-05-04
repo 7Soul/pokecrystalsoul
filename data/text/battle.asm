@@ -1195,3 +1195,20 @@ BattleText_EnemyTrait::
 	text_from_ram wStringBuffer1
 	text "."
 	prompt
+
+BattleText_TraitActivatedPlayer::
+	text "<USER>'s"
+	line "@"
+	text_from_ram wStringBuffer1
+	text_start
+	cont "activated!"
+	prompt
+
+BattleText_TraitActivatedEnemy::
+	text "@"
+	text_from_ram wEnemyMonNick
+	line "@"
+	text_from_ram wStringBuffer1
+	text_start
+	cont "activated!"
+	prompt

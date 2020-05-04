@@ -594,6 +594,7 @@ TraitRaiseStat:
 .end
 	pop af
 	ld a, b
+	
 	ld hl, .JumptableBattleCommands
 	call TraitUseBattleCommand
 
@@ -2177,12 +2178,21 @@ CheckTraitActivated:
 	ret
 
 ActivateTrait:
-	call GetTraitUser
-	ld hl, wTraitActivated
+	ld a, [wBuffer1]
+	call GetBattleVar
+	ld [wNamedObjectIndexBuffer], a
+	call GetTraitName
+	call GetTraitUser	
 	jr c, .player_user
+	ld hl, BattleText_TraitActivatedEnemy
+	call StdBattleTextBox
+	ld hl, wTraitActivated
 	set 4, [hl] ; enemy trait
 	ld a, [hl]
 .player_user
+	ld hl, BattleText_TraitActivatedPlayer
+	call StdBattleTextBox
+	ld hl, wTraitActivated
 	set 0, [hl] ; player trait
 	ld a, [hl]
 	ret

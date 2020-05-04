@@ -1021,7 +1021,13 @@ ResidualDamage:
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	farcall TraitRaiseStat ; might want to remove this call from other places
+	farcall TraitRaiseStat
+
+	call SwitchTurnCore
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitRaiseStat
+	call SwitchTurnCore
 
 	call HasUserFainted
 	ret z
