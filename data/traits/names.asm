@@ -123,6 +123,8 @@ TraitNames::
 	db "Smoke Veil@"       ; TRAIT_EVASION_STATUSED
 	db "Point Panic@"      ; TRAIT_HEAL_PP_STATUSED
 	db "Defrag@"           ; TRAIT_REGEN_STATUSED
+	db "Nemesis@"          ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
+	db "Punch-Out@"        ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
 	db "Permafrost@"       ; TRAIT_REDUCE_BRN_AND_FIRE
 	db "Ground Wire@"      ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	db "Steel Wings@"      ; TRAIT_REDUCE_FLINCH_AND_ROCK
@@ -183,4 +185,3 @@ TraitNames::
 	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
 	db "Prism Armor@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db "Prism Plate@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
-	

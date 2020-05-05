@@ -74,6 +74,10 @@ BattleVarPairs:
 	dw .LastMoveOpp
 	dw .TurnsTaken
 	dw .TurnsTakenOpp
+	dw .Type1
+	dw .Type1Opp
+	dw .Type2
+	dw .Type2Opp
 
 ;                   player                 enemy
 .Substatus1:     db PLAYER_SUBSTATUS_1,    ENEMY_SUBSTATUS_1
@@ -101,6 +105,10 @@ BattleVarPairs:
 .LastMoveOpp:    db ENEMY_LAST_MOVE,       PLAYER_LAST_MOVE
 .TurnsTaken:     db PLAYER_TURNS_TAKEN,    ENEMY_TURNS_TAKEN
 .TurnsTakenOpp:  db ENEMY_TURNS_TAKEN,     PLAYER_TURNS_TAKEN
+.Type1:          db PLAYER_TYPE1,          ENEMY_TYPE1
+.Type1Opp:       db ENEMY_TYPE1,           PLAYER_TYPE1
+.Type2:          db PLAYER_TYPE2,          ENEMY_TYPE2
+.Type2Opp:       db ENEMY_TYPE2,           PLAYER_TYPE2
 
 BattleVarLocations:
 ; entries correspond to PLAYER_* and ENEMY_* constants
@@ -119,3 +127,5 @@ BattleVarLocations:
 	dw wLastPlayerCounterMove,     wLastEnemyCounterMove
 	dw wLastPlayerMove,            wLastEnemyMove
 	dw wPlayerTurnsTaken,          wEnemyTurnsTaken
+	dw wBattleMonType1,            wEnemyMonType1
+	dw wBattleMonType2,            wEnemyMonType2

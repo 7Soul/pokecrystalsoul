@@ -123,6 +123,8 @@ TraitDescriptions::
 	dw SmokeVeilDescription   ; TRAIT_EVASION_STATUSED
 	dw PointPanicDescription  ; TRAIT_HEAL_PP_STATUSED
 	dw DefragDescription      ; TRAIT_REGEN_STATUSED
+	dw NemesisDescription     ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
+	dw PunchOutDescription    ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
 	dw PermafrostDescription  ; TRAIT_REDUCE_BRN_AND_FIRE
 	dw GroundWireDescription  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	dw SteelWingsDescription  ; TRAIT_REDUCE_FLINCH_AND_ROCK
@@ -677,6 +679,14 @@ PointPanicDescription:
 DefragDescription:
 	db   "Regain HP under"
 	next "any status.@"
+
+NemesisDescription:
+	db   "Ups damage if your"
+	next "type matches opp.@"
+
+PunchOutDescription:
+	db   "Ups CRIT if your"
+	next "type matches opp.@"
 
 PermafrostDescription:
 	db   "BRN and FIRE are"

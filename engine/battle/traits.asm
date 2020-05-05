@@ -102,6 +102,8 @@ CheckTraitCondition:
 	cp TRAIT_REGEN_STATUSED + 1
 	ld d, $FE
 	jp c, .check_user_status
+	cp TRAIT_OPP_SAME_TYPE_CRIT_BOOST + 1
+	jp c, .check_opp_same_type
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
@@ -474,6 +476,34 @@ CheckTraitCondition:
 	and a
 	ret
 
+.check_opp_same_type:
+	ld a, BATTLE_VARS_TYPE1
+ 	call GetBattleVar
+	ld b, a
+	ld a, BATTLE_VARS_TYPE1_OPP
+ 	call GetBattleVar
+	cp b
+	jp z, .success
+	ld a, BATTLE_VARS_TYPE2_OPP
+ 	call GetBattleVar
+	cp b
+	jp z, .success
+
+	ld a, BATTLE_VARS_TYPE2
+ 	call GetBattleVar
+	ld b, a
+	ld a, BATTLE_VARS_TYPE1_OPP
+ 	call GetBattleVar
+	cp b
+	jp z, .success
+	ld a, BATTLE_VARS_TYPE2_OPP
+ 	call GetBattleVar
+	cp b
+	jp z, .success
+
+	and a
+	ret
+
 .check_did_no_dmg_for_three_turns:
 	call Get_move_category
 	cp 2
@@ -534,6 +564,8 @@ TraitTurnTriggers:
 	jp c, .no_trigger
 	cp TRAIT_CRITICAL_AFTER_CRIT + 1
 	jp c, CheckTraitCondition.check_crit_trigger
+	cp TRAIT_OPP_SAME_TYPE_DMG_BOOST + 1
+	jp c, .no_trigger
 .no_trigger
 	ret
 
@@ -703,6 +735,7 @@ TraitBoostCritical:
 	jr nc, .not_met
 	ld a, 1
 	ld [wBuffer2], a
+	ret
 .not_met
 	xor a
 	ld [wBuffer2], a
@@ -711,6 +744,7 @@ TraitBoostCritical:
 TraitsThatBoostCritical:
 	db TRAIT_CRIT_BELOW_THIRD
 	db TRAIT_CRITICAL_AFTER_CRIT
+	db TRAIT_OPP_SAME_TYPE_CRIT_BOOST
 	db -1
 	
 TraitBoostAccuracy:
@@ -1099,9 +1133,12 @@ TraitReducePower:
 	db TRAIT_REDUCE_PERFURATE
 
 TraitBoostPower:
-	ld hl, TraitsThatBoostTypeStatused
+	ld hl, .TraitsThatBoostTypeStatused
 	call CheckTrait
 	jr c, .boost2
+	ld hl, .TraitsThatBoostDamage
+	call CheckTrait
+	jr c, .boost3
 	ld c, 6
 .loop
 	ld hl, .JumpTableTraitsBoostMoveClass
@@ -1133,6 +1170,7 @@ TraitBoostPower:
 .boost2
 	call CheckTraitCondition.check_user_status
 	ret nc
+.boost3
 	ld a, $65 ; ~1.20
 	jp ApplyDamageMod
 .not_met1
@@ -1148,7 +1186,7 @@ TraitBoostPower:
 	db TRAIT_BOOST_BEAM
 	db TRAIT_BOOST_PERFURATE
 
-TraitsThatBoostTypeStatused:
+.TraitsThatBoostTypeStatused:
 	db TRAIT_BOOST_NORMAL_STATUSED
 	db TRAIT_BOOST_FIGHTING_STATUSED
 	db TRAIT_BOOST_FLYING_STATUSED
@@ -1162,6 +1200,10 @@ TraitsThatBoostTypeStatused:
 	db TRAIT_BOOST_PSYCHIC_STATUSED
 	db TRAIT_BOOST_ICE_STATUSED
 	db TRAIT_BOOST_DARK_STATUSED
+	db -1
+
+.TraitsThatBoostDamage:
+	db TRAIT_OPP_SAME_TYPE_DMG_BOOST
 	db -1
 
 JumptableMoveClass:
@@ -2259,6 +2301,7 @@ OneShotTraits:
 	db TRAIT_SP_DEFENSE_STATUSED
 	db TRAIT_ACCURACY_STATUSED
 	db TRAIT_EVASION_STATUSED
+	db TRAIT_OPP_SAME_TYPE_CRIT_BOOST
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
