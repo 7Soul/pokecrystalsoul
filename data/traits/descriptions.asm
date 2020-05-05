@@ -32,6 +32,7 @@ TraitDescriptions::
 	dw LimitBreakerDescription; TRAIT_BOOST_DAMAGE_PER_TURN
 	dw GigaImpactDescription  ; TRAIT_REDUCE_DAMAGE_PER_TURN
 	dw SlowStartDescription   ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
+	dw PendulumDescription    ; TRAIT_ATTACK_SPECIAL_ODD_EVEN
 	dw RainDishDescription    ; TRAIT_REGEN_ON_RAIN
 	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
@@ -169,6 +170,7 @@ TraitDescriptions::
 	dw AridTouchDescription   ; TRAIT_REDUCE_GRASS
 	dw AridTouch2Description  ; TRAIT_REDUCE_GRASS_MORE
 	dw ForestRageDescription  ; TRAIT_BOOST_GRASS_STATUSED
+	dw SapSipperDescription   ; TRAIT_REDUCE_GRASS_UP_ATTACK
 	dw IonFieldDescription    ; TRAIT_REDUCE_ELECTRIC
 	dw IonField2Description   ; TRAIT_REDUCE_ELECTRIC_MORE
 	dw ZapRushDescription     ; TRAIT_BOOST_ELECTRIC_SPEED
@@ -315,6 +317,10 @@ GigaImpactDescription:
 SlowStartDescription:
 	db   "Start weaker, but"
 	next "gain damage later.@"
+
+PendulumDescription:
+	db   "Every other turn"
+	next "ups SP.ATK or ATK.@"
 
 RainDishDescription:
 	db   "Heal HP when rain"
@@ -863,6 +869,10 @@ AridTouch2Description:
 ForestRageDescription:
 	db   "Boosts GRASS un-"
 	next "der any status.@"
+
+SapSipperDescription:
+	db   "Resists GRASS and"
+	next "ups ATK when hit.@"
 
 IonFieldDescription:
 	db   "Reduces ELECTRIC"

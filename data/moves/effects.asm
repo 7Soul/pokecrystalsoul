@@ -1577,7 +1577,7 @@ Sandstorm:
 	usedmovetext
 	doturn
 	startsandstorm
-	recalcstats
+	; recalcstats
 	endmove
 
 Endure:
@@ -1816,7 +1816,7 @@ RainDance:
 	usedmovetext
 	doturn
 	startrain
-	recalcstats
+	; recalcstats
 	endmove
 
 SunnyDay:
@@ -1824,7 +1824,7 @@ SunnyDay:
 	usedmovetext
 	doturn
 	startsun
-	recalcstats
+	; recalcstats
 	endmove
 
 FakeOut:

@@ -33,7 +33,7 @@ CheckSpecificTrait:
 CheckTraitCondition:
 	ld a, [wBuffer1]
 	call GetBattleVar
-	ld de, 1	
+	ld de, 1
 	call IsInArray
 	ld a, b
 	ld [wBuffer3], a ; store array index
@@ -110,6 +110,7 @@ CheckTraitCondition:
 	and TYPE_MASK
 	ld d, a
 	pop af
+	ld e, $FF ; reset e so no type equals it
 	cp TRAIT_REDUCE_BRN_AND_FIRE
 	ld b, a
 	ld c, FIRE
@@ -729,6 +730,46 @@ TraitsThatRaiseEvasion:
 	db TRAIT_EVASION_STATUSED
 	db -1
 
+TraitRaiseLowerOddEven:
+	ld a, TRAIT_ATTACK_SPECIAL_ODD_EVEN
+	ld b, a
+	ld a, [wBuffer1]
+	call GetBattleVar
+	cp b
+	ret nz
+
+	ld a, BATTLE_VARS_TURNS_TAKEN
+ 	call GetBattleVar
+	and 1
+	jr z, .odd
+
+	ld hl, BattleCommand_AttackUp
+	call TraitUseBattleCommandSimple
+	ld hl, BattleCommand_StatUpMessage
+	call TraitUseBattleCommandSimple
+
+	call CheckTraitActivatedSimple
+	jr nc, .already_activated
+	call Switch_turn
+	ld hl, BattleCommand_SpecialAttackDown
+	call TraitUseBattleCommandSimple
+	jp Switch_turn
+
+.odd
+	ld hl, BattleCommand_SpecialAttackUp
+	call TraitUseBattleCommandSimple
+	ld hl, BattleCommand_StatUpMessage
+	call TraitUseBattleCommandSimple
+
+	call CheckTraitActivatedSimple
+	jr nc, .already_activated
+	call Switch_turn
+	ld hl, BattleCommand_AttackDown
+	call TraitUseBattleCommandSimple
+	jp Switch_turn
+.already_activated
+	jp ActivateTrait
+
 TraitBoostCritical:
 	ld hl, TraitsThatBoostCritical
 	call CheckTrait
@@ -989,6 +1030,19 @@ TraitWeatherHealsStatus:
 	db -1
 
 TraitReduceDamageFromType:
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVarAddr
+	and TYPE_MASK
+	ld d, a
+	ld e, $FF ; reset e so no type equals it
+
+	ld a, [wBuffer1]
+	call GetBattleVar
+	cp TRAIT_REDUCE_WATER_UP_DEFENSE
+	jr z, .skip_trigger1
+	cp TRAIT_REDUCE_GRASS_UP_ATTACK
+	jr z, .skip_trigger2
+
 	ld hl, TraitsThatReduceDamageLess
 	call CheckTrait
 	jr c, .reduce_less
@@ -1006,23 +1060,30 @@ TraitReduceDamageFromType:
 	jr c, .reduce_more
 	ld hl, TraitsThatReduceSuperEffectiveDamage
 	call CheckTrait
-	jr nc, .end
+	ret nc
 .reduce
 	ld a, $67 ; ~0.86 ; 14% reduction
-	call ApplyDamageMod
-	jr .end
+	jp ApplyDamageMod
 .reduce_less
 	ld a, $9A ; =0.9 ; 10% reduction
-	call ApplyDamageMod
-	jr .end
+	jp ApplyDamageMod
 .reduce_more
 	call GetHealthPercentage
 	ld a, d
 	cp 50
-	jr nc, .end
+	ret nc
 	ld a, $57 ; ~0.71 ; 29% reduction
-	call ApplyDamageMod
-.end
+	jp ApplyDamageMod
+
+.skip_trigger1
+	ld c, WATER
+	call CheckTraitCondition.check_move_type
+	jr c, .reduce_less
+	ret
+.skip_trigger2
+	ld c, GRASS
+	call CheckTraitCondition.check_move_type
+	jr c, .reduce_less
 	ret
 
 TraitsThatReduceSuperEffectiveDamage:
@@ -1077,6 +1138,7 @@ TraitsThatReduceDamageLess: ; 10%
 	db TRAIT_REDUCE_FRZ_AND_ICE
 	db TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
+	db TRAIT_REDUCE_GRASS_UP_ATTACK
 	db -1
 
 TraitReducePower:
@@ -2196,7 +2258,7 @@ CheckTraitActivated:
 	ld de, 1	
 	call IsInArray
 	jr nc, .end
-
+.not_one_shot
 	call GetTraitUser
 	ld hl, wTraitActivated
 	jr c, .player_user
@@ -2216,6 +2278,25 @@ CheckTraitActivated:
 .already_activated
 	pop bc
 	pop hl
+	scf
+	ret
+
+CheckTraitActivatedSimple:
+	call GetTraitUser
+	ld hl, wTraitActivated
+	jr c, .player_user
+
+	bit 4, [hl] ; enemy trait
+	jr nz, .already_activated
+	jr .end
+
+.player_user
+	bit 0, [hl] ; player trait
+	jr nz, .already_activated
+.end
+	and a
+	ret
+.already_activated
 	scf
 	ret
 
@@ -2305,4 +2386,5 @@ OneShotTraits:
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
+	db TRAIT_REDUCE_GRASS_UP_ATTACK
 	db -1

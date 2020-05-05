@@ -32,6 +32,7 @@ TraitNames::
 	db "Limit Breaker@"    ; TRAIT_BOOST_DAMAGE_PER_TURN
 	db "Giga Impact@"      ; TRAIT_REDUCE_DAMAGE_PER_TURN
 	db "Slow Start@"       ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
+	db "Pendulum@"         ; TRAIT_ATTACK_SPECIAL_ODD_EVEN
 	db "Rain Dish@"        ; TRAIT_REGEN_ON_RAIN
 	db "Monsoon@"          ; TRAIT_RAIN_DURATION
 	db "Drizzle@"          ; TRAIT_RAIN_ON_ENTER
@@ -169,6 +170,7 @@ TraitNames::
 	db "Arid Touch@"       ; TRAIT_REDUCE_GRASS
 	db "Arid Shield@"      ; TRAIT_REDUCE_GRASS_MORE
 	db "Forest Rage@"      ; TRAIT_BOOST_GRASS_STATUSED
+	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_ATTACK
 	db "Ion Field@"        ; TRAIT_REDUCE_ELECTRIC
 	db "Ionize Air@"       ; TRAIT_REDUCE_ELECTRIC_MORE
 	db "Zap Rush@"         ; TRAIT_BOOST_ELECTRIC_SPEED

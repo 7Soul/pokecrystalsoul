@@ -1023,6 +1023,10 @@ ResidualDamage:
 	ld [wBuffer1], a
 	farcall TraitRaiseStat
 
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitRaiseLowerOddEven
+
 	call SwitchTurnCore
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
@@ -3670,6 +3674,9 @@ Function_SetEnemyMonAndSendOutAnimation:
 	call UpdateEnemyHUD
 	ld a, $1
 	ldh [hBGMapMode], a
+
+	call OnEnterTraits	
+	farcall BattleCommand_RecalcStats
 	
 	ld hl, wEnemyMonItem
 	ld a, [hl]
@@ -3682,6 +3689,7 @@ Function_SetEnemyMonAndSendOutAnimation:
 	ld hl, TrainerHoldingText
 	call StdBattleTextBox
 .skip_item
+	call BattleMenu_EnemyTrait
 	ret
 
 NewEnemyMonStatus:
@@ -3713,7 +3721,6 @@ endr
 	res SUBSTATUS_CANT_RUN, [hl]
 	ld hl, wTraitActivated
 	res 1, [hl]
-	farcall BattleCommand_RecalcStats
 	ret
 
 ResetEnemyStatLevels:
@@ -4181,8 +4188,12 @@ SendOutPlayerMon:
 	call UpdatePlayerHUD
 	ld a, $1
 	ldh [hBGMapMode], a
+	call OnEnterTraits
+	farcall BattleCommand_RecalcStats
+	ret
 
-; on enter traits
+OnEnterTraits:
+	; on enter traits
 	ld a, BATTLE_VARS_TRAIT
 	call GetBattleVar
 	cp TRAIT_RAIN_ON_ENTER
@@ -4191,7 +4202,7 @@ SendOutPlayerMon:
 	jr z, .start_sun
 	cp TRAIT_SANDSTORM_ON_ENTER
 	jr z, .start_sand
-	jr .dont_start
+	ret
 .start_rain
 	ld a, RAIN_DANCE
 	jr .finish
@@ -4201,6 +4212,7 @@ SendOutPlayerMon:
 .start_sand
 	ld a, SANDSTORM
 .finish
+	ld [wCurEnemyMove], a
 	ld [wCurPlayerMove], a
 	callfar UpdateMoveData
 	xor a
@@ -4209,9 +4221,6 @@ SendOutPlayerMon:
 	ld a, EFFECTIVE
 	ld [wTypeModifier], a
 	callfar DoMove
-
-.dont_start
-	call BattleMenu_EnemyTrait
 	ret
 
 BattleMenu_EnemyTrait:
@@ -4250,7 +4259,6 @@ endr
 	res SUBSTATUS_CANT_RUN, [hl]
 	ld hl, wTraitActivated
 	res 0, [hl]
-	farcall BattleCommand_RecalcStats
 	ret
 
 BreakAttraction:
