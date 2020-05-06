@@ -1868,9 +1868,17 @@ TraitFaintMon:
 	ret nc
 
 	ld a, [wBuffer3]
-	cp 0
+	and a
 	jr z, .heal_hp_faint
+	dec a
+	jr z, .heal_pp_faint
+	dec a
+	ld hl, .StatusCommands2
+	call TraitUseBattleCommand
+	ld hl, BattleCommand_StatUpMessage
+	jp TraitUseBattleCommandSimple
 
+.heal_pp_faint
 	call SetUserTurn
 	jp EffectTraitForceRecoverPP
 	
@@ -1890,6 +1898,11 @@ TraitFaintMon:
 	dw BattleCommand_FreezeTarget
 	dw BattleCommand_Curse
 
+.StatusCommands2:
+	dw BattleCommand_AttackUp
+	dw BattleCommand_SpecialAttackUp
+	dw BattleCommand_RandomStatUp
+
 TraitsThatTriggerOnFaintMon:
 	db TRAIT_BURN_FAINT
 	db TRAIT_POISON_FAINT
@@ -1900,6 +1913,9 @@ TraitsThatTriggerOnFaintMon:
 TraitsThatTriggerOnFaintOppMon:
 	db TRAIT_HEAL_HP_FAINT ; 0
 	db TRAIT_HEAL_PP_FAINT ; 1
+	db TRAIT_ATTACK_OPP_FAINT ; 2
+	db TRAIT_SP_ATTACK_OPP_FAINT ; 3
+	db TRAIT_RANDOM_STAT_OPP_FAINT ; 4
 	db -1
 
 EffectTraitForceRecoverPP:
@@ -2359,6 +2375,8 @@ ResetActivated:
 
 OneShotTraits:
 ; List of traits that can only go off once while the pokemon is out
+	db TRAIT_ATTACK_OPP_FAINT
+	db TRAIT_SP_ATTACK_OPP_FAINT
 	db TRAIT_RAIN_ATTACK
 	db TRAIT_RAIN_DEFENSE
 	db TRAIT_RAIN_SPEED

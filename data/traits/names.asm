@@ -12,6 +12,9 @@ TraitNames::
 	db "Gas Explosion@"    ; TRAIT_POISON_FAINT
 	db "North Star@"       ; TRAIT_FREEZE_FAINT
 	db "Deathly Hex@"      ; TRAIT_CURSE_FAINT
+	db "Ice Pick@"         ; TRAIT_ATTACK_OPP_FAINT
+	db "Gelid Embrace@"    ; TRAIT_SP_ATTACK_OPP_FAINT
+	db "Unknown Energy@"   ; TRAIT_RANDOM_STAT_OPP_FAINT
 	db "Iron Fist@"        ; TRAIT_BOOST_PUNCHING
 	db "Weave@"            ; TRAIT_REDUCE_PUNCHING
 	db "Vocal Power@"      ; TRAIT_BOOST_SOUND

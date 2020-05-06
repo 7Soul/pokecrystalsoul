@@ -4420,6 +4420,13 @@ BattleCommand_ParalyzeTarget:
 	ld hl, UseHeldStatusHealingItem
 	jp CallBattleCore
 
+BattleCommand_RandomStatUp:
+; 
+	ld a, 5
+	call RandomRange
+	ld b, a
+	jr BattleCommand_StatUp
+
 BattleCommand_AttackUp:
 ; attackup
 	ld b, ATTACK

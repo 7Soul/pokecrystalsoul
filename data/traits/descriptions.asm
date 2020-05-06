@@ -12,6 +12,9 @@ TraitDescriptions::
 	dw GasExplosionDescription; TRAIT_POISON_FAINT
 	dw NorthStarDescription   ; TRAIT_FREEZE_FAINT
 	dw DeathlyHexDescription  ; TRAIT_CURSE_FAINT
+	dw IcePickDescription     ; TRAIT_ATTACK_OPP_FAINT
+	dw GelidEmbraceDescription ; TRAIT_SP_ATTACK_OPP_FAINT
+	dw UnknownEnergyDescription ; TRAIT_RANDOM_STAT_OPP_FAINT
 	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
 	dw WeaveDescription       ; TRAIT_REDUCE_PUNCHING
 	dw VocalPowerDescription  ; TRAIT_BOOST_SOUND
@@ -244,6 +247,18 @@ NorthStarDescription:
 DeathlyHexDescription:
 	db   "CURSES the foe"
 	next "when you faint.@"
+
+IcePickDescription:
+	db   "Raises ATK when"
+	next "the foe faints.@"
+
+GelidEmbraceDescription:
+	db   "Raises SP.ATK when"
+	next "the foe faints.@"
+
+UnknownEnergyDescription:
+	db   "Ups a ramdom stat"
+	next "when a foe faints.@"
 
 IronFistDescription:
 	db   "Powers Punching"

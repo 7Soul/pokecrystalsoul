@@ -20,10 +20,6 @@ BattleCommand_Curse:
 	jr c, .ghost
 	cp MISDREAVUS
 	jr z, .ghost
-	cp VAPOREON
-	jr z, .ghost
-	cp ARIADOS
-	jr z, .ghost
 
 ; If no stats can be increased, don't.
 
