@@ -82,9 +82,11 @@ CheckTraitCondition:
 	cp TRAIT_BOOST_ACCURACY_TURN_ZERO + 1 ; all traits on turn 0
 	ld d, 0
 	jp c, .check_turns_equal
-	cp TRAIT_BOOST_ATK_ACC_NOT_ATTACKING + 1 ; 
+	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1 ; 
 	ld d, 3
 	jp c, .check_trait_activation_equal
+	cp TRAIT_RANDOM_STAT_AFTER_5_TURNS + 1 ; 
+	jp c, .check_trait_activated
 	cp TRAIT_REGEN_FIRST_TURNS + 1 ; all traits on turn 3 and lower
 	ld d, 2
 	jp c, .check_turns_lower
@@ -415,6 +417,14 @@ CheckTraitCondition:
 	and a
 	ret
 
+.check_trait_activated
+	push de
+	call CheckTraitActivatedSimple
+	pop de
+	jp c, .success
+	and a
+	ret
+
 .check_below_threshold
 	call GetHealthPercentage
 	ld a, d
@@ -505,16 +515,25 @@ CheckTraitCondition:
 	and a
 	ret
 
+; triggers
 .check_did_no_dmg_for_three_turns:
 	call Get_move_category
 	cp 2
-	jr nc, .dmg_status ; if the attack not a status, did damage
+	jp nc, IncreaseTraitCount ; if the attack not a status, did damage
 	ld a, [wAttackMissed]
-	jr z, .did_dmg ; if the attack didn't miss, did damage
-.dmg_status
-	call IncreaseTraitCount
+	jp nz, IncreaseTraitCount ; if the attack didn't miss, did damage
+	and a
 	ret
-.did_dmg
+
+.check_every_x_turns:
+	ld a, BATTLE_VARS_TURNS_TAKEN
+ 	call GetBattleVar
+.mod1
+	sub d
+	jr nc, .mod1
+	add d
+	cp 0
+	jp z, ActivateTrait
 	and a
 	ret
 
@@ -561,6 +580,9 @@ TraitTurnTriggers:
 	jr c, .no_trigger
 	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1
 	jp c, CheckTraitCondition.check_did_no_dmg_for_three_turns
+	cp TRAIT_RANDOM_STAT_AFTER_5_TURNS + 1
+	ld d, 5
+	jp c, CheckTraitCondition.check_every_x_turns
 	cp TRAIT_SPEED_AFTER_CRIT + 1
 	jp c, .no_trigger
 	cp TRAIT_CRITICAL_AFTER_CRIT + 1
@@ -588,6 +610,11 @@ TraitsThatRaiseStatAfterDamage:
 	db -1
 
 TraitRaiseStat:
+	ld a, $FF
+	ld [wBuffer3], a
+	ld a, TRAIT_RANDOM_STAT_AFTER_5_TURNS
+	call CheckSpecificTrait
+	jr c, .random_stat
 	xor a
 .loop
 	push af
@@ -642,7 +669,12 @@ TraitRaiseStat:
 	jr z, .also_raise_acc
 	ret
 .also_raise_acc
-	ld b, 5
+	ld b, 6
+	jr .end
+.random_stat
+	push af
+	call ResetActivated
+	ld b, 7
 	jr .end
 
 .JumptableStatTraits:
@@ -663,6 +695,7 @@ TraitRaiseStat:
 	dw BattleCommand_SpecialDefenseUp
 	dw BattleCommand_AccuracyUp
 	dw BattleCommand_EvasionUp
+	dw BattleCommand_RandomStatUp
 
 TraitsThatRaiseAttack:
 	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING

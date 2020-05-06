@@ -111,6 +111,7 @@ TraitDescriptions::
 	dw WallDescription        ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
 	dw StretchingDescription  ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	dw SetupDescription       ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	dw HeadacheDescription    ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	dw HealtySpiritDescription; TRAIT_REGEN_FIRST_TURNS
 	dw BounceBackDescription  ; TRAIT_REGEN_LOW_HP
 	dw PoiseDescription       ; TRAIT_ATTACK_BELOW_THIRD
@@ -643,6 +644,10 @@ StretchingDescription:
 SetupDescription:
 	db   "Ups SP.ATK/ACC by"
 	next "not doing damage.@"
+	
+HeadacheDescription:
+	db   "Ups a random stat"
+	next "every 5 turns.@"
 	
 HealtySpiritDescription:
 	db   "Regain HP on your"

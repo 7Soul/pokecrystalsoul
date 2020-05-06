@@ -111,6 +111,7 @@ TraitNames::
 	db "Wall Off@"         ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
 	db "Stretching@"       ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	db "Setup@"            ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	db "Headache@"         ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	db "Healty Spirit@"    ; TRAIT_REGEN_FIRST_TURNS
 	db "Bounce Back@"      ; TRAIT_REGEN_LOW_HP
 	db "Poise@"            ; TRAIT_ATTACK_BELOW_THIRD
