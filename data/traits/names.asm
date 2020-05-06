@@ -25,6 +25,7 @@ TraitNames::
 	db "Power Drill@"      ; TRAIT_BOOST_PERFURATE
 	db "Steel Cover@"      ; TRAIT_REDUCE_PERFURATE
 	db "Rock Head@"        ; TRAIT_REDUCE_SELF_RECOIL
+	db "Sniper@"           ; TRAIT_BOOST_CRIT_DAMAGE
 	db "Battle Armor@"     ; TRAIT_REDUCE_CRIT_DAMAGE
 	db "Drain Surge@"      ; TRAIT_BOOST_DRAIN
 	db "Skill Link@"       ; TRAIT_BOOST_MULTI_HIT_COUNT
@@ -87,6 +88,12 @@ TraitNames::
 	db "Insomnia@"         ; TRAIT_SLEEP_IMMUNE
 	db "Alert@"            ; TRAIT_REDUCE_EFFECT_SLEEP
 	db "Inner Flame@"      ; TRAIT_FRZ_IMMUNE
+	db "Hyper Cutter@"     ; TRAIT_PREVENT_ATTACK_DOWN
+	db "Big Pecks@"        ; TRAIT_PREVENT_DEFENSE_DOWN
+	db "?@"                ; TRAIT_PREVENT_SPEED_DOWN
+	db "Absolute Focus@"   ; TRAIT_PREVENT_SP_ATTACK_DOWN
+	db "Lingering Memory@" ; TRAIT_PREVENT_SP_DEFENSE_DOWN
+	db "Keen Eye@"         ; TRAIT_PREVENT_ACCURACY_DOWN
 	db "Wonder Skin@"      ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	db "Serene Grace@"     ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	db "Silver Aura@"      ; TRAIT_REDUCE_PHYSICAL_TAKEN

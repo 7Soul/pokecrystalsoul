@@ -153,6 +153,11 @@ SECTION "traits", ROMX
 INCLUDE "engine/items/tmhm.asm"
 INCLUDE "engine/pokemon/print_move_description.asm"
 INCLUDE "data/moves/descriptions.asm"
+
+
+SECTION "traits2", ROMX
+
+INCLUDE "engine/pokemon/print_trait_description.asm"
 INCLUDE "data/traits/descriptions.asm"
 
 
@@ -183,7 +188,7 @@ INCLUDE "data/moves/moves.asm"
 INCLUDE "engine/pokemon/evolve.asm"
 
 
-SECTION "Traits", ROMX
+SECTION "Traits Core", ROMX
 INCLUDE "engine/battle/traits.asm"
 
 

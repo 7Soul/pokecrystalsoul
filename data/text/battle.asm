@@ -814,6 +814,11 @@ ProtectedByMistText:
 	line "protected by MIST."
 	prompt
 
+StatLoweringPreventedByTraitText:
+	text "Stat lowering pre-"
+	line "vented by trait."
+	prompt
+
 GettingPumpedText:
 	interpret_data
 	text "<USER>'s"

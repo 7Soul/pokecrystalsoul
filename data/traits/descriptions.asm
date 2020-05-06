@@ -25,6 +25,7 @@ TraitDescriptions::
 	dw PowerDrillDescription  ; TRAIT_BOOST_PERFURATE
 	dw SteelCoverDescription  ; TRAIT_REDUCE_PERFURATE
 	dw RockHeadDescription    ; TRAIT_REDUCE_SELF_RECOIL
+	dw SniperDescription      ; TRAIT_BOOST_CRIT_DAMAGE
 	dw BattleArmorDescription ; TRAIT_REDUCE_CRIT_DAMAGE
 	dw DrainSurgeDescription  ; TRAIT_BOOST_DRAIN
 	dw SkillLinkDescription   ; TRAIT_BOOST_MULTI_HIT_COUNT
@@ -87,6 +88,12 @@ TraitDescriptions::
 	dw InsomniaDescription    ; TRAIT_SLEEP_IMMUNE
 	dw AlertDescription       ; TRAIT_REDUCE_EFFECT_SLEEP
 	dw InnerFlameDescription  ; TRAIT_FRZ_IMMUNE
+	dw HyperCutterDescription ; TRAIT_PREVENT_ATTACK_DOWN
+	dw BigPecksDescription    ; TRAIT_PREVENT_DEFENSE_DOWN
+	dw HyperCutter3Description ; TRAIT_PREVENT_SPEED_DOWN
+	dw HyperCutter4Description ; TRAIT_PREVENT_SP_ATTACK_DOWN
+	dw HyperCutter5Description ; TRAIT_PREVENT_SP_DEFENSE_DOWN
+	dw KeenEyeDescription     ; TRAIT_PREVENT_ACCURACY_DOWN
 	dw WonderSkinDescription  ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	dw SereneGraceDescription ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	dw SilverAuraDescription  ; TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
@@ -263,12 +270,12 @@ BonePlateDescription:
 	next "Biting moves.@"
 
 IronClawsDescription:
-	db   "Powers Cutting"
+	db   "Powers Slashing"
 	next "moves.@"
 
 ShellPolishDescription:
 	db   "Lowers damage from"
-	next "Cutting moves.@"
+	next "Slashing moves.@"
 
 FocusBeamDescription:
 	db   "Powers Beam"
@@ -289,6 +296,10 @@ SteelCoverDescription:
 RockHeadDescription:
 	db   "Halves damage taken"
 	next "from recoil.@"
+
+SniperDescription:
+	db   "Raises the damage"
+	next "of critical hits.@"
 
 BattleArmorDescription:
 	db   "Lowers damage from"
@@ -537,6 +548,30 @@ AlertDescription:
 InnerFlameDescription:
 	db   "Immunity to be-"
 	next "ing FROZEN.@"
+
+HyperCutterDescription:
+	db   "Prevents ATK from"
+	next "being lowered.@"
+
+BigPecksDescription:
+	db   "Prevents DEF from"
+	next "being lowered.@"
+
+HyperCutter3Description:
+	db   "Prevents SPD from"
+	next "being lowered.@"
+
+HyperCutter4Description:
+	db   "Prevents SP.ATK"
+	next "being lowered.@"
+
+HyperCutter5Description:
+	db   "Prevents SP.DEF"
+	next "being lowered.@"
+
+KeenEyeDescription:
+	db   "Prevents ACC from"
+	next "being lowered.@"
 
 WonderSkinDescription:
 	db   "Lowers the chance"

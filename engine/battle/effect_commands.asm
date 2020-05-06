@@ -4698,6 +4698,13 @@ BattleCommand_StatDown:
 	call CheckMist
 	jp nz, .Mist
 
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitPreventStatDown
+	ld a, [wBuffer2]
+	and a
+	jr nz, .Trait
+
 	ld hl, wEnemyStatLevels
 	ldh a, [hBattleTurn]
 	and a
@@ -4781,6 +4788,12 @@ BattleCommand_StatDown:
 	ld a, 2
 	ld [wFailedMessage], a
 	ld a, 1
+	ld [wAttackMissed], a
+	ret
+
+.Trait:
+	ld a, 4
+	ld [wFailedMessage], a
 	ld [wAttackMissed], a
 	ret
 
@@ -4932,6 +4945,8 @@ BattleCommand_StatUpFailText:
 BattleCommand_StatDownFailText:
 ; statdownfailtext
 	ld a, [wFailedMessage]
+	cp 4
+	jp z, .trait
 	and a
 	ret z
 	push af
@@ -4948,7 +4963,11 @@ BattleCommand_StatDownFailText:
 	inc b
 	call GetStatName
 	ld hl, WontDropAnymoreText
-	jp StdBattleTextBox
+	jp z, StdBattleTextBox
+.trait
+	call BattleCommand_MoveDelay
+	ld hl, StatLoweringPreventedByTraitText
+	jp z, StdBattleTextBox
 
 GetStatName:
 	ld hl, StatNames

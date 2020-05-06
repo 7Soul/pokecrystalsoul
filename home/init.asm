@@ -198,7 +198,6 @@ ClearWRAM::
 	pop af
 	inc a
 	cp 8
-	;jr nc, .bank_loop ; Should be jr c ; did below
 	jr c, .bank_loop
 	ret
 

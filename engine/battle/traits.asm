@@ -730,6 +730,31 @@ TraitsThatRaiseEvasion:
 	db TRAIT_EVASION_STATUSED
 	db -1
 
+TraitPreventStatDown:
+	ld hl, .TraitsThatPreventStatDown
+	call CheckTrait
+	ret nc
+	xor a
+	ld [wBuffer2], a
+	ld a, [wLoweredStat]
+	ld b, a
+	ld a, [wBuffer3]
+	cp b
+	ret nz
+
+	ld a, 1
+	ld [wBuffer2], a
+	ret
+
+.TraitsThatPreventStatDown:
+	db TRAIT_PREVENT_ATTACK_DOWN
+	db TRAIT_PREVENT_DEFENSE_DOWN
+	db TRAIT_PREVENT_SPEED_DOWN
+	db TRAIT_PREVENT_SP_ATTACK_DOWN
+	db TRAIT_PREVENT_SP_DEFENSE_DOWN
+	db TRAIT_PREVENT_ACCURACY_DOWN
+	db -1
+
 TraitRaiseLowerOddEven:
 	ld a, TRAIT_ATTACK_SPECIAL_ODD_EVEN
 	ld b, a
@@ -1147,14 +1172,14 @@ TraitReducePower:
 	jr nz, .not_crit
 	ld a, TRAIT_REDUCE_CRIT_DAMAGE
 	call CheckSpecificTrait
-	jr .boost_more
+	jr c, .boost_more
 .not_crit
 	ld c, 6
 .loop
 	ld hl, .JumpTableTraitsReduceMoveClass
 	dec c
 	ld a, c
-	jr z, .not_met1
+	ret z
 	push bc
 	ld b, 0
 	ld c, a
@@ -1173,18 +1198,13 @@ TraitReducePower:
 	call GetBattleVar
 	ld de, 1
 	call IsInArray
-	jr nc, .not_met1
+	ret nc
 .boost
 	ld a, $67 ; ~0.85
-	call ApplyDamageMod
-.not_met1
-	ret
-.not_met
-	ret
+	jp ApplyDamageMod
 .boost_more
 	ld a, $68 ; 0.75
-	call ApplyDamageMod
-	ret
+	jp ApplyDamageMod
 
 .JumpTableTraitsReduceMoveClass
 	db TRAIT_REDUCE_PUNCHING
@@ -1195,6 +1215,13 @@ TraitReducePower:
 	db TRAIT_REDUCE_PERFURATE
 
 TraitBoostPower:
+	ld a, [wCriticalHit]
+	cp 1
+	jr nz, .not_crit
+	ld a, TRAIT_BOOST_CRIT_DAMAGE
+	call CheckSpecificTrait
+	jr c, .boost_more
+.not_crit
 	ld hl, .TraitsThatBoostTypeStatused
 	call CheckTrait
 	jr c, .boost2
@@ -1206,7 +1233,7 @@ TraitBoostPower:
 	ld hl, .JumpTableTraitsBoostMoveClass
 	dec c
 	ld a, c
-	jr z, .not_met1
+	ret z
 	push bc
 	ld b, 0
 	ld c, a
@@ -1225,20 +1252,20 @@ TraitBoostPower:
 	call GetBattleVar
 	ld de, 1
 	call IsInArray
-	jr nc, .not_met1
+	ret nc
 .boost
 	ld a, $76 ; ~1.16
 	jp ApplyDamageMod
 .boost2
 	call CheckTraitCondition.check_user_status
 	ret nc
+	; fallthrough
 .boost3
 	ld a, $65 ; ~1.20
 	jp ApplyDamageMod
-.not_met1
-	ret
-.not_met2
-	ret
+.boost_more
+	ld a, $54 ; ~1.25
+	jp ApplyDamageMod
 
 .JumpTableTraitsBoostMoveClass
 	db TRAIT_BOOST_PUNCHING
