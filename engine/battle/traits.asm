@@ -104,6 +104,9 @@ CheckTraitCondition:
 	cp TRAIT_REGEN_STATUSED + 1
 	ld d, $FE
 	jp c, .check_user_status
+	cp TRAIT_RANDOM_STAT_WHEN_FLINCHED + 1
+	ld d, SUBSTATUS_FLINCHED
+	jp c, .check_user_substatus3
 	cp TRAIT_OPP_SAME_TYPE_CRIT_BOOST + 1
 	jp c, .check_opp_same_type
 	push af
@@ -487,6 +490,25 @@ CheckTraitCondition:
 	and a
 	ret
 
+.check_user_substatus3:
+	ld b, d
+	ld a, %1
+.loop_ss3
+	rlca
+	dec b
+	jr z, .check_substatus3
+	jr .loop_ss3
+	
+.check_substatus3
+	ld b, a
+	ld a, BATTLE_VARS_SUBSTATUS3
+	call GetBattleVarAddr
+	ld a, [hl]
+	cp b
+	jp z, .success
+	and a
+	ret
+
 .check_opp_same_type:
 	ld a, BATTLE_VARS_TYPE1
  	call GetBattleVar
@@ -615,6 +637,9 @@ TraitRaiseStat:
 	ld a, TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	call CheckSpecificTrait
 	jr c, .random_stat
+	ld a, TRAIT_RANDOM_STAT_WHEN_FLINCHED
+	call CheckSpecificTrait
+	jr c, .random_stat
 	xor a
 .loop
 	push af
@@ -676,6 +701,11 @@ TraitRaiseStat:
 	call ResetActivated
 	ld b, 7
 	jr .end
+.flinch_stat
+	push af
+	call ResetActivated
+	ld b, 7
+	jr .end
 
 .JumptableStatTraits:
 	dbw ATTACK, TraitsThatRaiseAttack
@@ -704,7 +734,7 @@ TraitsThatRaiseAttack:
 	db TRAIT_SANDSTORM_ATTACK
 	db TRAIT_ATTACK_BELOW_THIRD
 	db TRAIT_ATTACK_STATUSED
-	db TRAIT_ATTACK_AFTER_CRIT	
+	db TRAIT_ATTACK_AFTER_CRIT
 	db -1
 
 TraitsThatRaiseDefense:
@@ -922,24 +952,17 @@ TraitContact:
 	ld de, 1
 	ld hl, ContactMoves
 	call IsInArray
-	jr nc, .not_met
+	ret nc
+
+	call Chance
+	ret nc
 
 	ld hl, TraitsThatRequireContact
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
+	
+	call Switch_turn ; use effect as if it was the opponent using it, because we can't self-burn, etc
 	ld a, [wBuffer3]
-	ld b, a
-	jr .success
-
-.not_attract_trait
-.not_met
-	ret
-
-.success
-	call Chance
-	jr nc, .not_met
-	call SetUserTurn
-	ld a, b
 	ld hl, .StatusCommands
 	call TraitUseBattleCommand
 	jp Switch_turn
@@ -960,30 +983,6 @@ TraitsThatRequireContact:
 	db TRAIT_CONTACT_CONFUSED
 	db TRAIT_CONTACT_IN_LOVE
 	db -1
-
-; TraitsThatBurn:
-; 	db TRAIT_CONTACT_BRN
-; 	db -1
-
-; TraitsThatParalyze:
-; 	db TRAIT_CONTACT_PRZ
-; 	db -1
-	
-; TraitsThatPoison:
-; 	db TRAIT_CONTACT_PSN
-; 	db -1
-
-; TraitsThatFlinch:
-; 	db TRAIT_CONTACT_FLINCH
-; 	db -1
-
-; TraitsThatConfuse:
-; 	db TRAIT_CONTACT_CONFUSED
-; 	db -1
-
-; TraitsThatAttract:
-; 	db TRAIT_CONTACT_IN_LOVE
-; 	db -1
 
 TraitStartWeather:
 	ld hl, .TraitsThatStartWeather
@@ -1290,6 +1289,7 @@ TraitBoostPower:
 	ld a, $76 ; ~1.16
 	jp ApplyDamageMod
 .boost2
+	ld d, $FE
 	call CheckTraitCondition.check_user_status
 	ret nc
 	; fallthrough
@@ -1669,7 +1669,9 @@ TraitDamageBasedOnHP:
 
 TraitsThatBoostMoveByHP:
 	db TRAIT_BOOST_BUG_HP
+	db TRAIT_BOOST_FIRE_HP
 	db TRAIT_BOOST_WATER_HP
+	db TRAIT_BOOST_GRASS_HP
 	db TRAIT_BOOST_ICE_HP
 	db -1
 
@@ -2103,7 +2105,7 @@ ContactMoves:
 	
 Chance:
 	call BattleRandom
-	cp 20 percent
+	cp 12 percent
 	jr c, .success
 	and a
 	ret	
@@ -2465,4 +2467,5 @@ OneShotTraits:
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
 	db TRAIT_REDUCE_GRASS_UP_ATTACK
+	db TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	db -1

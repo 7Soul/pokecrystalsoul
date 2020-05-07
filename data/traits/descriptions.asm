@@ -1,8 +1,8 @@
 TraitDescriptions::
 ; entries correspond to move ids (see constants/move_constants.asm)
 	dw FlameBodyDescription   ; TRAIT_CONTACT_BRN
-	dw ToxicBodyDescription   ; TRAIT_CONTACT_PSN
-	dw ShockBodyDescription   ; TRAIT_CONTACT_PRZ
+	dw PoisonPointDescription ; TRAIT_CONTACT_PSN
+	dw StaticDescription   ; TRAIT_CONTACT_PRZ
 	dw StunBodyDescription    ; TRAIT_CONTACT_FLINCH
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
 	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
@@ -135,6 +135,7 @@ TraitDescriptions::
 	dw SmokeVeilDescription   ; TRAIT_EVASION_STATUSED
 	dw PointPanicDescription  ; TRAIT_HEAL_PP_STATUSED
 	dw DefragDescription      ; TRAIT_REGEN_STATUSED
+	dw SteadfastDescription   ; TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	dw NemesisDescription     ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
 	dw PunchOutDescription    ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
 	dw PermafrostDescription  ; TRAIT_REDUCE_BRN_AND_FIRE
@@ -170,7 +171,8 @@ TraitDescriptions::
 	dw SwarmDescription       ; TRAIT_BOOST_BUG_HP
 	dw BuzzingRageDescription ; TRAIT_BOOST_BUG_STATUSED
 	dw HeatproofDescription   ; TRAIT_REDUCE_FIRE
-	dw Heatproof2Description  ; TRAIT_REDUCE_FIRE_MORE
+	dw FireproofDescription   ; TRAIT_REDUCE_FIRE_MORE
+	dw BlazeDescription       ; TRAIT_BOOST_FIRE_HP
 	dw MoltenRageDescription  ; TRAIT_BOOST_FIRE_STATUSED
 	dw WaterproofDescription  ; TRAIT_REDUCE_WATER
 	dw Waterproof2Description ; TRAIT_REDUCE_WATER_MORE
@@ -179,7 +181,8 @@ TraitDescriptions::
 	dw DeepSeaRageDescription ; TRAIT_BOOST_WATER_STATUSED
 	dw HardeningSandDescription ; TRAIT_REDUCE_WATER_UP_DEFENSE
 	dw AridTouchDescription   ; TRAIT_REDUCE_GRASS
-	dw AridTouch2Description  ; TRAIT_REDUCE_GRASS_MORE
+	dw AridShieldDescription  ; TRAIT_REDUCE_GRASS_MORE
+	dw OvergrowDescription    ; TRAIT_BOOST_GRASS_HP
 	dw ForestRageDescription  ; TRAIT_BOOST_GRASS_STATUSED
 	dw SapSipperDescription   ; TRAIT_REDUCE_GRASS_UP_ATTACK
 	dw IonFieldDescription    ; TRAIT_REDUCE_ELECTRIC
@@ -202,28 +205,28 @@ TraitDescriptions::
 
 
 FlameBodyDescription:
-	db   "May cause BRN on"
-	next "contact.@"
+	db   "Contact may BURN"
+	next "the attacker.@"
 
-ToxicBodyDescription:
-	db   "May cause PSN on"
-	next "contact.@"
+PoisonPointDescription:
+	db   "Contact may POISON"
+	next "the attacker.@"
 
-ShockBodyDescription:
-	db   "May cause PRZ on"
-	next "contact.@"
+StaticDescription:
+	db   "Contact may PARA-"
+	next "LIZE the attacker.@"
 
 StunBodyDescription:
-	db   "May Flinch foe on"
-	next "contact.@"
+	db   "Contact may FLINCH"
+	next "the attacker.@"
 
 HighTempoDescription:
-	db   "May Confuse foe on"
-	next "contact.@"
+	db   "Contact may CONFU-"
+	next "SE the attacker.@"
 
 CuteCharmDescription:
-	db   "May Infatuate foe"
-	next "on contact.@"
+	db   "Contact may INFATU"
+	next "ATE the attacker.@"
 
 LifeDrainDescription:
 	db   "Regain HP when a"
@@ -741,6 +744,10 @@ DefragDescription:
 	db   "Regain HP under"
 	next "any status.@"
 
+SteadfastDescription:
+	db   "Ups a random stat"
+	next "when you flinch.@"
+
 NemesisDescription:
 	db   "Ups damage if your"
 	next "type matches opp.@"
@@ -881,9 +888,13 @@ HeatproofDescription:
 	db   "Reduces FIRE dam-"
 	next "age taken.@"
 	
-Heatproof2Description:
+FireproofDescription:
 	db   "Resists FIRE under"
 	next "half HP.@"
+	
+BlazeDescription:
+	db   "Missing HEALTH"
+	next "boosts FIRE.@"
 	
 MoltenRageDescription:
 	db   "Boosts FIRE under"
@@ -917,9 +928,13 @@ AridTouchDescription:
 	db   "Reduces GRASS dam-"
 	next "age taken.@"
 	
-AridTouch2Description:
+AridShieldDescription:
 	db   "Resists GRASS"
 	next "under half HP.@"
+	
+OvergrowDescription:
+	db   "Missing HEALTH"
+	next "boosts GRASS.@"
 	
 ForestRageDescription:
 	db   "Boosts GRASS un-"

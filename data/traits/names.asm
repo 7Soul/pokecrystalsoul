@@ -1,8 +1,8 @@
 TraitNames::
 	; const_def
 	db "Flame Body@"       ; TRAIT_CONTACT_BRN
-	db "Toxic Body@"       ; TRAIT_CONTACT_PSN
-	db "Shock Body@"       ; TRAIT_CONTACT_PRZ
+	db "Poison Point@"     ; TRAIT_CONTACT_PSN
+	db "Static@"           ; TRAIT_CONTACT_PRZ
 	db "Stun Body@"        ; TRAIT_CONTACT_FLINCH
 	db "High Tempo@"       ; TRAIT_CONTACT_CONFUSED
 	db "Cute Charm@"       ; TRAIT_CONTACT_IN_LOVE
@@ -135,6 +135,7 @@ TraitNames::
 	db "Smoke Veil@"       ; TRAIT_EVASION_STATUSED
 	db "Point Panic@"      ; TRAIT_HEAL_PP_STATUSED
 	db "Defrag@"           ; TRAIT_REGEN_STATUSED
+	db "Steadfast@"        ; TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	db "Nemesis@"          ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
 	db "Punch-Out@"        ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
 	db "Permafrost@"       ; TRAIT_REDUCE_BRN_AND_FIRE
@@ -171,6 +172,7 @@ TraitNames::
 	db "Buzzing Rage@"     ; TRAIT_BOOST_BUG_STATUSED
 	db "Heatproof@"        ; TRAIT_REDUCE_FIRE
 	db "Fireproof@"        ; TRAIT_REDUCE_FIRE_MORE
+	db "Blaze@"            ; TRAIT_BOOST_FIRE_HP
 	db "Molten Rage@"      ; TRAIT_BOOST_FIRE_STATUSED
 	db "Waterproof@"       ; TRAIT_REDUCE_WATER
 	db "Water Repel@"      ; TRAIT_REDUCE_WATER_MORE
@@ -180,6 +182,7 @@ TraitNames::
 	db "Hardening Sand@"   ; TRAIT_REDUCE_WATER_UP_DEFENSE
 	db "Arid Touch@"       ; TRAIT_REDUCE_GRASS
 	db "Arid Shield@"      ; TRAIT_REDUCE_GRASS_MORE
+	db "Overgrow@"         ; TRAIT_BOOST_GRASS_HP
 	db "Forest Rage@"      ; TRAIT_BOOST_GRASS_STATUSED
 	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_ATTACK
 	db "Ion Field@"        ; TRAIT_REDUCE_ELECTRIC

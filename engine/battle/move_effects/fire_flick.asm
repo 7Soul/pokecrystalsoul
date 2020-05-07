@@ -10,7 +10,8 @@ BattleCommand_FireFlick:
 	call StdBattleTextBox
 	jp DoubleDamage
 .noburn
-	farcall CheckIfTargetIsFireType
+	ld b, FIRE
+	farcall CheckIfTargetIsNthType
 	ret nz
 	ld hl, FireFlickText2
 	call StdBattleTextBox

@@ -241,8 +241,12 @@ CheckPlayerTurn:
 	res SUBSTATUS_FLINCHED, [hl]
 	ld hl, FlinchedText
 	call StdBattleTextBox
-
 	call CantMove
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitRaiseStat
+	
 	jp EndTurn
 
 .not_flinched
@@ -464,11 +468,16 @@ CheckEnemyTurn:
 	bit SUBSTATUS_FLINCHED, [hl]
 	jr z, .not_flinched
 
-	res SUBSTATUS_FLINCHED, [hl]
 	ld hl, FlinchedText
 	call StdBattleTextBox
-
 	call CantMove
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitRaiseStat
+
+	res SUBSTATUS_FLINCHED, [hl]
+
 	jp EndTurn
 
 .not_flinched
@@ -4189,7 +4198,8 @@ INCLUDE "engine/battle/move_effects/fire_flick.asm"
 
 BattleCommand_JetStream:
 ; jetstream
-	farcall CheckIfTargetIsWaterType
+	ld b, WATER
+	farcall CheckIfTargetIsNthType
 	ret nz
 	jp DoubleDamage
 	ret
@@ -4277,7 +4287,8 @@ BattleCommand_BurnTarget:
 	ld a, [wTypeModifier]
 	and $7f
 	ret z
-	farcall CheckMoveTypeMatchesTarget ; Don't burn a Fire-type
+	ld b, FIRE
+	farcall CheckIfTargetIsNthType ; Don't burn a Fire-type
 	ret z
 	call GetOpponentItem
 	ld a, b
@@ -4346,7 +4357,8 @@ BattleCommand_FreezeTarget:
 	ld a, [wBattleWeather]
 	cp WEATHER_SUN
 	ret z
-	farcall CheckMoveTypeMatchesTarget ; Don't freeze an Ice-type
+	ld b, ICE
+	farcall CheckIfTargetIsNthType ; Don't freeze an Ice-type
 	ret z
 	call GetOpponentItem
 	ld a, b
@@ -4396,7 +4408,8 @@ BattleCommand_ParalyzeTarget:
 	ld a, [wTypeModifier]
 	and $7f
 	ret z
-	farcall CheckIfTargetIsElectricType
+	ld b, ELECTRIC
+	farcall CheckIfTargetIsNthType
 	ret z
 	call GetOpponentItem
 	ld a, b
@@ -5807,21 +5820,27 @@ CheckOpponentWentFirst:
 	ret
 
 BattleCommand_PostHitEffects:
-	call HasEnemyFainted
-	jr z, .skip_sub_check
-	call CheckSubstituteOpp
-	ret nz
-.skip_sub_check
-	ld a, [wAttackMissed]
-	and a
-	ret nz
+; 	call HasEnemyFainted
+; 	jr z, .skip_sub_check
+; 	call CheckSubstituteOpp
+; 	ret nz
+; .skip_sub_check
+; 	ld a, [wAttackMissed]
+; 	and a
+; 	ret nz
 
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitContact
+	; ld a, BATTLE_VARS_MOVE_ANIM
+	; call GetBattleVar
+	; ld [wBuffer2], a
+
+	; ld a, BATTLE_VARS_TRAIT
+	; ld [wBuffer1], a
+	; farcall TraitContact
+	
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitContact
+
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitPP
