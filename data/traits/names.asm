@@ -138,6 +138,7 @@ TraitNames::
 	db "Steadfast@"        ; TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	db "Nemesis@"          ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
 	db "Punch-Out@"        ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
+	db "Technician@"       ; TRAIT_BOOST_WEAK_MOVES
 	db "Permafrost@"       ; TRAIT_REDUCE_BRN_AND_FIRE
 	db "Ground Wire@"      ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	db "Steel Wings@"      ; TRAIT_REDUCE_FLINCH_AND_ROCK
@@ -161,6 +162,7 @@ TraitNames::
 	db "Ice Legend@"       ; TRAIT_FLYING_FRZ
 	db "Thunder Legend@"   ; TRAIT_FLYING_PRZ
 	db "Fire Legend@"      ; TRAIT_FLYING_BRN
+	db "Flying Legend@"    ; TRAIT_BOOST_FLYING_DURING_WEATHER
 	db "Shock Absorb@"     ; TRAIT_REDUCE_GROUND
 	db "Dissipate@"        ; TRAIT_REDUCE_GROUND_MORE
 	db "Tremor Rate@"      ; TRAIT_BOOST_GROUND_STATUSED

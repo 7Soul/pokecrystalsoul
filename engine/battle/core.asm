@@ -2474,12 +2474,12 @@ WinTrainerBattle:
 	ld c, BATTLETOWERTEXT_LOSS_TEXT
 	farcall BattleTowerText
 	call WaitPressAorB_BlinkCursor
-	ld hl, wPayDayMoney
-	ld a, [hli]
-	or [hl]
-	inc hl
-	or [hl]
-	ret nz
+	; ld hl, wPayDayMoney
+	; ld a, [hli]
+	; or [hl]
+	; inc hl
+	; or [hl]
+	; ret nz
 	call ClearTileMap
 	call ClearBGPalettes
 	ret
@@ -2648,10 +2648,10 @@ PlayVictoryMusic:
 	call IsAnyMonHoldingExpShare
 	pop de
 	jr nz, .play_music
-	ld hl, wPayDayMoney
-	ld a, [hli]
-	or [hl]
-	jr nz, .play_music
+	; ld hl, wPayDayMoney
+	; ld a, [hli]
+	; or [hl]
+	; jr nz, .play_music
 	ld a, [wBattleParticipantsNotFainted]
 	and a
 	jr z, .lost

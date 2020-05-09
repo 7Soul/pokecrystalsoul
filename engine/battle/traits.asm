@@ -109,6 +109,9 @@ CheckTraitCondition:
 	jp c, .check_user_substatus3
 	cp TRAIT_OPP_SAME_TYPE_CRIT_BOOST + 1
 	jp c, .check_opp_same_type
+	cp TRAIT_BOOST_WEAK_MOVES + 1
+	ld d, 60
+	jp c, .check_move_power
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVar
@@ -445,6 +448,13 @@ CheckTraitCondition:
 	and a
 	ld a, b ; restore trait into 'a'	
 	ret
+
+.check_move_power: ; checks if power >= d
+	ld a, BATTLE_VARS_MOVE_POWER
+	call GetBattleVar
+	cp d
+	jp c, .not_met
+	jp .success
 
 .check_user_status:
 	ld a, BATTLE_VARS_STATUS
@@ -1285,14 +1295,31 @@ TraitBoostPower:
 	jr nz, .not_crit
 	ld a, TRAIT_BOOST_CRIT_DAMAGE
 	call CheckSpecificTrait
-	jr c, .boost_more
+	jr c, .boost_25
 .not_crit
+	ld a, TRAIT_BOOST_WEAK_MOVES
+	call CheckSpecificTrait
+	jr c, .boost_50
+
+	ld a, [wBattleWeather]
+	and a
+	jp z, .no_weather
+	ld a, TRAIT_BOOST_FLYING_DURING_WEATHER
+	call CheckSpecificTrait
+	jr nc, .no_weather
+	ld a, BATTLE_VARS_MOVE_POWER
+	call GetBattleVar
+	cp 60
+	jr nc, .boost_20
+	jr .boost_50
+
+.no_weather
 	ld hl, .TraitsThatBoostTypeStatused
 	call CheckTrait
 	jr c, .boost2
 	ld hl, .TraitsThatBoostDamage
 	call CheckTrait
-	jr c, .boost3
+	jr c, .boost_20
 	ld c, 6
 .loop
 	ld hl, .JumpTableTraitsBoostMoveClass
@@ -1318,7 +1345,7 @@ TraitBoostPower:
 	ld de, 1
 	call IsInArray
 	ret nc
-.boost
+.boost_15
 	ld a, $76 ; ~1.16
 	jp ApplyDamageMod
 .boost2
@@ -1326,11 +1353,14 @@ TraitBoostPower:
 	call CheckTraitCondition.check_user_status
 	ret nc
 	; fallthrough
-.boost3
+.boost_20
 	ld a, $65 ; ~1.20
 	jp ApplyDamageMod
-.boost_more
+.boost_25
 	ld a, $54 ; ~1.25
+	jp ApplyDamageMod
+.boost_50
+	ld a, $32 ; ~1.5
 	jp ApplyDamageMod
 
 .JumpTableTraitsBoostMoveClass

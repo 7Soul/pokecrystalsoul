@@ -1252,8 +1252,6 @@ BattleCommand_Critical:
 	inc c
 
 .Tally:
-	inc c
-	inc c
 	ld hl, CriticalHitChances
 	ld b, 0
 	add hl, bc
@@ -3274,10 +3272,10 @@ BattleCommand_DamageCalc:
 	ld b, $4
 	call Divide
 
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c000], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c001], a
+	ldh a, [hMultiplicand + 1]
+	ld [$c000], a
+	ldh a, [hMultiplicand + 2]
+	ld [$c001], a
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
@@ -3311,10 +3309,10 @@ BattleCommand_DamageCalc:
 	ld [wBuffer1], a
 	farcall TraitDamageBasedOnHP
 
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c002], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c003], a
+	ldh a, [hMultiplicand + 1]
+	ld [$c002], a
+	ldh a, [hMultiplicand + 2]
+	ld [$c003], a
 	
 ; Item boosts
 	call GetUserItem
@@ -5827,10 +5825,6 @@ BattleCommand_PostHitEffects:
 	ld a, [wAttackMissed]
 	and a
 	ret nz
-
-	; ld a, BATTLE_VARS_MOVE_ANIM
-	; call GetBattleVar
-	; ld [wBuffer2], a
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a

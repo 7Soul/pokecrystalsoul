@@ -138,6 +138,7 @@ TraitDescriptions::
 	dw SteadfastDescription   ; TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	dw NemesisDescription     ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
 	dw PunchOutDescription    ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
+	dw TechnicianDescription  ; TRAIT_BOOST_WEAK_MOVES
 	dw PermafrostDescription  ; TRAIT_REDUCE_BRN_AND_FIRE
 	dw GroundWireDescription  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	dw SteelWingsDescription  ; TRAIT_REDUCE_FLINCH_AND_ROCK
@@ -161,6 +162,7 @@ TraitDescriptions::
 	dw IceLegendeDescription  ; TRAIT_FLYING_FRZ
 	dw ThunderLegendDescription ; TRAIT_FLYING_PRZ
 	dw FireLegendDescription  ; TRAIT_FLYING_BRN
+	dw FlyingLegendDescription ; TRAIT_BOOST_FLYING_DURING_WEATHER
 	dw ShockAbsorbDescription ; TRAIT_REDUCE_GROUND
 	dw ShockAbsorb2Description; TRAIT_REDUCE_GROUND_MORE
 	dw TremorRageDescription  ; TRAIT_BOOST_GROUND_STATUSED
@@ -759,6 +761,10 @@ PunchOutDescription:
 	db   "Ups CRIT if your"
 	next "type matches opp.@"
 
+TechnicianDescription:
+	db   "Raises damage of"
+	next "weaker moves.@"
+
 PermafrostDescription:
 	db   "BRN and FIRE are"
 	next "weakened.@"
@@ -850,6 +856,10 @@ ThunderLegendDescription:
 FireLegendDescription:
 	db   "FLYING moves may"
 	next "cause BRN.@"
+
+FlyingLegendDescription:
+	db   "Boosts FLYING du-"
+	next "ring any weather.@"
 
 ShockAbsorbDescription:
 	db   "Reduces GROUND"

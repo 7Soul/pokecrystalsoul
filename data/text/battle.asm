@@ -3,7 +3,7 @@ BattleText:: ; used only for BANK(BattleText)
 BattleText_PlayerPickedUpPayDayMoney:
 	text "<PLAYER> picked up"
 	line "¥@"
-	deciram wPayDayMoney, 3, 6
+	; deciram wPayDayMoney, 3, 6
 	text "!"
 	prompt
 

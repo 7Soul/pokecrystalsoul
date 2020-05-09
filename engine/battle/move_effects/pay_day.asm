@@ -13,7 +13,7 @@ BattleCommand_PayDay:
 .ok
 
 	add a
-	ld hl, wPayDayMoney + 2
+	; ld hl, wPayDayMoney + 2
 	add [hl]
 	ld [hld], a
 	jr nc, .done

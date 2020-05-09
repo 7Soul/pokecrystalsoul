@@ -625,7 +625,8 @@ wPlayerHighesBattleLevel:: db
 wCurEnemyMoveNum:: db ; c6e9
 
 wEnemyHPAtTimeOfPlayerSwitch:: dw ; c6ea
-wPayDayMoney:: ds 3 ; c6ec
+wLoad3rdPalette:: db
+	ds 2 ; c6ec
 
 wSafariMonAngerCount:: db
 wSafariMonEating:: db
@@ -667,12 +668,12 @@ wEnemyScreens:: ; c700
 wPlayerSafeguardCount:: db ; c701
 wPlayerLightScreenCount:: db ; c702
 wPlayerReflectCount:: db ; c703
-wPlayerLeafShieldCount:: db ; c704
+	ds 1
 
 wEnemySafeguardCount:: db ; c705
 wEnemyLightScreenCount:: db ; c706
 wEnemyReflectCount:: db ; c707
-wEnemyLeafShieldCount:: db ; c708
+	ds 1
 
 
 wBattleWeather:: ; c70a
@@ -702,7 +703,8 @@ wPlayerUsedMoves:: ; c712
 ; added in order of use
 	ds NUM_MOVES
 
-wEnemyUsedMoves:: ds NUM_MOVES
+wEnemyUsedMoves:: 
+	ds NUM_MOVES
 
 wEnemyAISwitchScore:: db ; c716
 wEnemySwitchMonParam:: db ; c717
@@ -798,7 +800,6 @@ wReel3:: slot_reel wReel3
 wReel1Stopped:: ds 3
 wReel2Stopped:: ds 3
 wReel3Stopped:: ds 3
-wLoad3rdPalette:: 
 wSlotBias:: db
 wSlotBet:: db
 wFirstTwoReelsMatching:: db
