@@ -4275,7 +4275,6 @@ BattleCommand_EatDream:
 
 BattleCommand_BurnTarget:
 ; burntarget
-
 	xor a
 	ld [wNumHits], a
 	call CheckSubstituteOpp
@@ -5820,27 +5819,27 @@ CheckOpponentWentFirst:
 	ret
 
 BattleCommand_PostHitEffects:
-; 	call HasEnemyFainted
-; 	jr z, .skip_sub_check
-; 	call CheckSubstituteOpp
-; 	ret nz
-; .skip_sub_check
-; 	ld a, [wAttackMissed]
-; 	and a
-; 	ret nz
+	call HasEnemyFainted
+	jr z, .skip_sub_check
+	call CheckSubstituteOpp
+	ret nz
+.skip_sub_check
+	ld a, [wAttackMissed]
+	and a
+	ret nz
 
 	; ld a, BATTLE_VARS_MOVE_ANIM
 	; call GetBattleVar
 	; ld [wBuffer2], a
 
-	; ld a, BATTLE_VARS_TRAIT
-	; ld [wBuffer1], a
-	; farcall TraitContact
-	
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitPostHitBattleCommand
+
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitContact
-
+	
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitPP

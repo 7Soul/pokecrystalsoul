@@ -9,7 +9,7 @@ CheckTrait:
 	jr z, .end
 	cp BATTLE_VARS_TRAIT_OPP
 	jr z, .end
-	ld a, BATTLE_VARS_TRAIT ; load this if wBuffer1 is some other value. May behave wrong if wBuffer1 was 12 or 13 by coincidence
+	ld a, BATTLE_VARS_TRAIT ; load this if wBuffer1 is some other value just in case
 .end
 	call CheckTraitCondition
 	ret
@@ -111,7 +111,7 @@ CheckTraitCondition:
 	jp c, .check_opp_same_type
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
- 	call GetBattleVarAddr
+ 	call GetBattleVar
 	and TYPE_MASK
 	ld d, a
 	pop af
@@ -119,38 +119,38 @@ CheckTraitCondition:
 	cp TRAIT_REDUCE_BRN_AND_FIRE
 	ld b, a
 	ld c, FIRE
-	call .check_move_type
-	jp .check_move_brn
+	call c, .check_move_type
+	call c, .check_move_brn
 	cp TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	ld b, a
 	ld c, ELECTRIC
-	call .check_move_type
-	jp .check_move_prz
+	call c, .check_move_type
+	call c, .check_move_prz
 	cp TRAIT_REDUCE_FLINCH_AND_ROCK
 	ld b, a
 	ld c, ROCK
-	call .check_move_type
-	jp .check_move_flinch
+	call c, .check_move_type
+	call c, .check_move_flinch
 	cp TRAIT_REDUCE_SLP_AND_DARK
 	ld b, a
 	ld c, DARK
-	call .check_move_type
-	jp .check_move_sleep
+	call c, .check_move_type
+	call c, .check_move_sleep
 	cp TRAIT_REDUCE_PSN_AND_BUG
 	ld b, a
 	ld c, DARK
-	call .check_move_type
-	jp .check_move_psn
+	call c, .check_move_type
+	call c, .check_move_psn
 	cp TRAIT_REDUCE_FRZ_AND_ICE
 	ld b, a
 	ld c, ICE
-	call .check_move_type
-	jp .check_move_frz
+	call c, .check_move_type
+	call c, .check_move_frz
 	cp TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
 	ld b, a
 	ld c, PSYCHIC
-	call .check_move_type
-	jp .check_move_confused
+	call c, .check_move_type
+	call c, .check_move_confused
 	cp TRAIT_DEFENSE_ICE_FIRE_HIT ; 
 	ld b, a
 	ld c, FIRE
@@ -701,11 +701,6 @@ TraitRaiseStat:
 	call ResetActivated
 	ld b, 7
 	jr .end
-.flinch_stat
-	push af
-	call ResetActivated
-	ld b, 7
-	jr .end
 
 .JumptableStatTraits:
 	dbw ATTACK, TraitsThatRaiseAttack
@@ -954,14 +949,15 @@ TraitContact:
 	call IsInArray
 	ret nc
 
+	ld b, 12 percent
 	call Chance
 	ret nc
 
-	ld hl, TraitsThatRequireContact
+	ld hl, .TraitsThatRequireContact
 	call CheckTrait
 	ret nc
-	
-	call Switch_turn ; use effect as if it was the opponent using it, because we can't self-burn, etc
+
+	call Switch_turn
 	ld a, [wBuffer3]
 	ld hl, .StatusCommands
 	call TraitUseBattleCommand
@@ -975,13 +971,50 @@ TraitContact:
 	dw BattleCommand_ConfuseTarget
 	dw BattleCommand_Attract
 
-TraitsThatRequireContact:
+.TraitsThatRequireContact:
 	db TRAIT_CONTACT_BRN
 	db TRAIT_CONTACT_PRZ
 	db TRAIT_CONTACT_PSN
 	db TRAIT_CONTACT_FLINCH
 	db TRAIT_CONTACT_CONFUSED
 	db TRAIT_CONTACT_IN_LOVE
+	db -1
+
+TraitPostHitBattleCommand:
+	ld hl, .TraitsThatTriggerBattleEffects
+	call CheckTrait
+	ret nc
+	
+	ld b, 8 percent
+	ld a, [wBuffer3]
+	cp 0
+	jr z, .chance ; freeze trait is 8%
+	ld b, 16 percent ; other traits are 16%
+.chance	
+; double chance for moves under 60 power
+	ld a, BATTLE_VARS_MOVE_POWER
+ 	call GetBattleVar
+	cp 60
+	jr nc, .got_power
+	rlc b
+
+.got_power
+	call Chance
+	ret nc
+
+	ld hl, .StatusCommands
+	ld a, [wBuffer3]
+	jp TraitUseBattleCommand
+
+.StatusCommands:
+	dw BattleCommand_FreezeTarget
+	dw BattleCommand_ParalyzeTarget
+	dw BattleCommand_BurnTarget
+
+.TraitsThatTriggerBattleEffects:
+	db TRAIT_FLYING_FRZ
+	db TRAIT_FLYING_PRZ
+	db TRAIT_FLYING_BRN
 	db -1
 
 TraitStartWeather:
@@ -2103,9 +2136,9 @@ ContactMoves:
 	db ZEN_HEADBUTT
 	db -1
 	
-Chance:
+Chance: ; takes `percent` in `b` and sets carry flag
 	call BattleRandom
-	cp 12 percent
+	cp b
 	jr c, .success
 	and a
 	ret	
@@ -2327,6 +2360,9 @@ CheckTraitCount: ; returns trait activation count in a
 	rrca	
 	ret
 
+; Checks if the user's trait is already activated	
+; - Preserves `hl` and `bc`	
+; - Sets `c` if true
 CheckTraitActivated:
 	push hl
 	push bc
@@ -2378,6 +2414,7 @@ CheckTraitActivatedSimple:
 	scf
 	ret
 
+; Activates the wTraitActivated bit for the current user and displays activation text box
 ActivateTrait:
 	ld a, [wBuffer1]
 	call GetBattleVar
@@ -2398,6 +2435,7 @@ ActivateTrait:
 	ld a, [hl]
 	ret
 
+; Resets the wTraitActivated bit for the current trait user	
 ResetActivated:
 	call GetTraitUser
 	ld hl, wTraitActivated

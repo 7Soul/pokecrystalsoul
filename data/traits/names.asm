@@ -158,6 +158,9 @@ TraitNames::
 	db "Iron Shell@"       ; TRAIT_REDUCE_FLYING_MORE
 	db "Flight Rush@"      ; TRAIT_BOOST_FLYING_SPEED
 	db "Air Rage@"         ; TRAIT_BOOST_FLYING_STATUSED
+	db "Ice Legend@"       ; TRAIT_FLYING_FRZ
+	db "Thunder Legend@"   ; TRAIT_FLYING_PRZ
+	db "Fire Legend@"      ; TRAIT_FLYING_BRN
 	db "Shock Absorb@"     ; TRAIT_REDUCE_GROUND
 	db "Dissipate@"        ; TRAIT_REDUCE_GROUND_MORE
 	db "Tremor Rate@"      ; TRAIT_BOOST_GROUND_STATUSED

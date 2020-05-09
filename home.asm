@@ -77,10 +77,9 @@ INCLUDE "home/copy2.asm"
 INCLUDE "home/copy_tilemap.asm"
 INCLUDE "home/copy_name.asm"
 
+; Find value `a` for every `de` bytes in array `hl`	
+; Return index in `b` and carry if found	
 IsInArray::
-; Find value a for every de bytes in array hl.
-; Return index in b and carry if found.
-
 	ld b, 0
 	ld c, a
 .loop

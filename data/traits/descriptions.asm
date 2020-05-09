@@ -158,6 +158,9 @@ TraitDescriptions::
 	dw Carapace2Description   ; TRAIT_REDUCE_FLYING_MORE
 	dw FlightRushDescription  ; TRAIT_BOOST_FLYING_SPEED
 	dw AirRageDescription     ; TRAIT_BOOST_FLYING_STATUSED
+	dw IceLegendeDescription  ; TRAIT_FLYING_FRZ
+	dw ThunderLegendDescription ; TRAIT_FLYING_PRZ
+	dw FireLegendDescription  ; TRAIT_FLYING_BRN
 	dw ShockAbsorbDescription ; TRAIT_REDUCE_GROUND
 	dw ShockAbsorb2Description; TRAIT_REDUCE_GROUND_MORE
 	dw TremorRageDescription  ; TRAIT_BOOST_GROUND_STATUSED
@@ -835,6 +838,18 @@ FlightRushDescription:
 AirRageDescription:
 	db   "Boosts FLYING un-"
 	next "der any status.@"
+
+IceLegendeDescription:
+	db   "FLYING moves may"
+	next "cause FRZ.@"
+
+ThunderLegendDescription:
+	db   "FLYING moves may"
+	next "cause PRZ.@"
+
+FireLegendDescription:
+	db   "FLYING moves may"
+	next "cause BRN.@"
 
 ShockAbsorbDescription:
 	db   "Reduces GROUND"
