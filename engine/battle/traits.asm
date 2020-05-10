@@ -2115,6 +2115,79 @@ TraitsThatRegenerate:
 	db TRAIT_REGEN_FIRST_TURNS ; 2
 	db -1
 
+TraitChangeItem:
+	ld hl, wPartyMon1Item
+	ld de, wOTPartyMon1Item
+	call GetTraitUserAddr
+	push hl
+
+	ld b, 5 percent ; lower than 5% per turn
+	call Chance
+	jr c, .end
+
+	ld a, TRAIT_UPGRADE_BERRY
+	call CheckSpecificTrait
+	jr c, .upgrade_berry
+
+	ld a, TRAIT_FIND_BERRY
+	call CheckSpecificTrait
+	jr nc, .end
+
+	ld hl, .BerryList
+	call Random
+.loopberry
+	sub [hl]
+	jr c, .okberry
+	inc hl
+	inc hl
+	jr .loopberry
+.okberry
+	inc hl
+	ld a, [hl]
+	ld b, a
+	pop hl
+	ld a, [hl]
+	cp NO_ITEM
+	jr z, .replace_item
+	ret
+.upgrade_berry
+	ld b, 50 percent ; cuts previous chance in half
+	call Chance
+	jr nc, .end
+	pop hl
+	ld b, GOLD_BERRY
+	ld a, [hl]
+	cp BERRY
+	ret nz
+.replace_item
+	ld a, b
+	ld [hl], a
+	ret
+.end
+	pop hl
+	ret
+
+.BerryList:
+	db 128, BERRY
+	db 16, PSNCUREBERRY
+	db 16, PRZCUREBERRY
+	db 16, BURNT_BERRY
+	db 16, ICE_BERRY
+	db 16, BITTER_BERRY
+	db 16, MINT_BERRY
+	db 16, MIRACLEBERRY
+	db 16, GOLD_BERRY
+
+TraitBoostBerryHeal:
+	ld a, TRAIT_BOOST_BERRY
+	call CheckSpecificTrait
+	ret nc
+
+	ld a, [wBuffer2]
+	add a
+	ld [wBuffer2], a
+	ret
+
 ContactMoves:
 	db AQUA_TAIL
 	db BODY_SLAM
@@ -2527,6 +2600,8 @@ OneShotTraits:
 	db TRAIT_SANDSTORM_ACCURACY
 	db TRAIT_SANDSTORM_EVASION
 	db TRAIT_SANDSTORM_NO_STATUS
+	db TRAIT_FIND_BERRY
+	db TRAIT_UPGRADE_BERRY
 	db TRAIT_REGEN_ON_RAIN
 	db TRAIT_REGEN_ON_SUNSHINE
 	db TRAIT_REGEN_ON_SANDSTORM

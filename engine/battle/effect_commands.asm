@@ -7104,6 +7104,14 @@ GetItemHeldEffect:
 	call GetFarHalfword
 	ld b, l
 	ld c, h
+	
+	ld a, c	
+	ld [wBuffer2], a
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitBoostBerryHeal
+	ld a, [wBuffer2]
+	ld c, a
 	pop hl
 	ret
 

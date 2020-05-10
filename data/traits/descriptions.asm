@@ -37,6 +37,9 @@ TraitDescriptions::
 	dw GigaImpactDescription  ; TRAIT_REDUCE_DAMAGE_PER_TURN
 	dw SlowStartDescription   ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
 	dw PendulumDescription    ; TRAIT_ATTACK_SPECIAL_ODD_EVEN
+	dw PickupDescription      ; TRAIT_FIND_BERRY
+	dw MagicTrickDescription  ; TRAIT_UPGRADE_BERRY
+	dw NutritionDescription   ; TRAIT_BOOST_BERRY
 	dw RainDishDescription    ; TRAIT_REGEN_ON_RAIN
 	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
@@ -358,6 +361,18 @@ SlowStartDescription:
 PendulumDescription:
 	db   "Every other turn"
 	next "ups SP.ATK or ATK.@"
+
+PickupDescription:
+	db   "May find a berry"
+	next "during a fight.@"
+
+MagicTrickDescription:
+	db   "May change BERRY"
+	next "into GOLD BERRY.@"
+
+NutritionDescription:
+	db   "Berries heal more"
+	next "in battle.@"
 
 RainDishDescription:
 	db   "Heal HP when rain"

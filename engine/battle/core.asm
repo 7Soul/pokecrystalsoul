@@ -1027,6 +1027,10 @@ ResidualDamage:
 	ld [wBuffer1], a
 	farcall TraitRaiseLowerOddEven
 
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitChangeItem
+
 	call SwitchTurnCore
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a

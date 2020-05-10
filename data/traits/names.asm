@@ -37,6 +37,9 @@ TraitNames::
 	db "Giga Impact@"      ; TRAIT_REDUCE_DAMAGE_PER_TURN
 	db "Slow Start@"       ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
 	db "Pendulum@"         ; TRAIT_ATTACK_SPECIAL_ODD_EVEN
+	db "Pickup@"           ; TRAIT_FIND_BERRY
+	db "Magic Trick@"      ; TRAIT_UPGRADE_BERRY
+	db "Nutrition@"        ; TRAIT_BOOST_BERRY
 	db "Rain Dish@"        ; TRAIT_REGEN_ON_RAIN
 	db "Monsoon@"          ; TRAIT_RAIN_DURATION
 	db "Drizzle@"          ; TRAIT_RAIN_ON_ENTER
