@@ -106,6 +106,8 @@ TraitDescriptions::
 	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
 	dw FreeShotDescription    ; TRAIT_GAIN_PP_TURN_ZERO
+	dw IntimidateDescription  ; TRAIT_LOWER_ATTACK_TURN_ZERO
+	dw StrangeSignalDescription ; TRAIT_LOWER_RANDOM_TURN_ZERO
 	dw KeenFocusDescription   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	dw PreparationDescription ; TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
 	dw WallDescription        ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
@@ -632,6 +634,14 @@ MasteryDescription:
 FreeShotDescription:
 	db   "Don't use PP on"
 	next "your first turn.@"
+	
+IntimidateDescription:
+	db   "Lowers the foe's"
+	next "ATTACK.@"
+	
+StrangeSignalDescription:
+	db   "Lowers a foe's"
+	next "random stat.@"
 	
 KeenFocusDescription:
 	db   "Boosts move ACC on"

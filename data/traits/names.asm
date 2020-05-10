@@ -106,6 +106,8 @@ TraitNames::
 	db "Prismality@"       ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"          ; TRAIT_REDUCE_NOT_STAB
 	db "Free Shot@"        ; TRAIT_GAIN_PP_TURN_ZERO
+	db "Intimidate@"       ; TRAIT_LOWER_ATTACK_TURN_ZERO
+	db "Strange Signal@"   ; TRAIT_LOWER_RANDOM_TURN_ZERO
 	db "Keen Focus@"       ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	db "Preparation@"      ; TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
 	db "Wall Off@"         ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING

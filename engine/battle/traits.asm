@@ -394,22 +394,18 @@ CheckTraitCondition:
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
 	cp d
-	jr nz, .no_turns_equal ; greater
+	jp z, .success ; 
 	and a
-	ret
-.no_turns_equal
-	scf
 	ret
 
 .check_turns_lower
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
 	cp d
-	jr nc, .no_turns_lower ; greater
-	and a
-	ret
+	jr nc, .no_turns_lower ; greater or equal
+	jp .success
 .no_turns_lower
-	scf
+	and a
 	ret
 
 ; Checks if a trait has been activated enough times
@@ -798,12 +794,37 @@ TraitsThatRaiseEvasion:
 	db TRAIT_EVASION_STATUSED
 	db -1
 
+TraitLowerStat:	
+	ld hl, .TraitsThatLowerStats
+	call CheckTrait
+	ret nc
+
+	ld a, [wBuffer3]
+	ld hl, .StatusCommands
+	call TraitUseBattleCommand
+	
+	ld hl, BattleCommand_StatDownMessage
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatDownFailText
+	jp TraitUseBattleCommandSimple
+
+.StatusCommands:
+	dw BattleCommand_AttackDown
+	dw BattleCommand_RandomStatDown
+
+.TraitsThatLowerStats:
+	db TRAIT_LOWER_ATTACK_TURN_ZERO
+	db TRAIT_LOWER_RANDOM_TURN_ZERO
+	db -1
+
 TraitPreventStatDown:
+	xor a
+	ld [wBuffer2], a
 	ld hl, .TraitsThatPreventStatDown
 	call CheckTrait
 	ret nc
-	xor a
-	ld [wBuffer2], a
+	
 	ld a, [wLoweredStat]
 	ld b, a
 	ld a, [wBuffer3]
@@ -1974,6 +1995,8 @@ TraitFaintMon:
 	ld hl, .StatusCommands2
 	call TraitUseBattleCommand
 	ld hl, BattleCommand_StatUpMessage
+	call TraitUseBattleCommandSimple
+	ld hl, BattleCommand_StatUpFailText
 	jp TraitUseBattleCommandSimple
 
 .heal_pp_faint
@@ -2511,6 +2534,8 @@ OneShotTraits:
 	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
 	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	db TRAIT_LOWER_ATTACK_TURN_ZERO
+	db TRAIT_LOWER_RANDOM_TURN_ZERO
 	db TRAIT_REGEN_LOW_HP
 	db TRAIT_ATTACK_BELOW_THIRD
 	db TRAIT_DEFENSE_BELOW_THIRD

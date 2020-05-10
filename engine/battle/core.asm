@@ -4269,6 +4269,10 @@ BreakAttraction:
 	ret
 
 SpikesDamage:
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitLowerStat
+
 	ld hl, wPlayerScreens
 	ld de, wBattleMonType
 	ld bc, UpdatePlayerHUD
