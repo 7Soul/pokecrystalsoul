@@ -104,6 +104,9 @@ CheckTraitCondition:
 	cp TRAIT_REGEN_STATUSED + 1
 	ld d, $FE
 	jp c, .check_user_status
+	cp TRAIT_EVASION_WHEN_CONFUSED + 1
+	ld d, SUBSTATUS_CONFUSED
+	jp c, .check_user_substatus3
 	cp TRAIT_RANDOM_STAT_WHEN_FLINCHED + 1
 	ld d, SUBSTATUS_FLINCHED
 	jp c, .check_user_substatus3
@@ -643,6 +646,9 @@ TraitRaiseStat:
 	ld a, TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	call CheckSpecificTrait
 	jr c, .random_stat
+	ld a, TRAIT_EVASION_WHEN_CONFUSED
+	call CheckSpecificTrait
+	jr c, .evasion
 	ld a, TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	call CheckSpecificTrait
 	jr c, .random_stat
@@ -700,7 +706,11 @@ TraitRaiseStat:
 	jr z, .also_raise_acc
 	ret
 .also_raise_acc
-	ld b, 6
+	ld b, ACCURACY
+	jr .end
+.evasion
+	push af
+	ld b, EVASION
 	jr .end
 .random_stat
 	push af
@@ -1164,31 +1174,37 @@ TraitReduceDamageFromType:
 	cp TRAIT_REDUCE_GRASS_UP_ATTACK
 	jr z, .skip_trigger2
 
-	ld hl, TraitsThatReduceDamageLess
+	ld a, TRAIT_REDUCE_DAMAGE_TURN_ZERO
+	call CheckSpecificTrait
+	jr c, .reduce_50
+	ld hl, .TraitsThatReduceDamageLess
 	call CheckTrait
-	jr c, .reduce_less
-	ld hl, TraitsThatReduceDamage
+	jr c, .reduce_10
+	ld hl, .TraitsThatReduceDamage
 	call CheckTrait
-	jr c, .reduce
-	ld hl, TraitsThatReduceDamageMore
+	jr c, .reduce_14
+	ld hl, .TraitsThatReduceDamageMore
 	call CheckTrait
-	jr c, .reduce_more
+	jr c, .reduce_low_hp
 	ld a, [wTypeModifier]
 	cp $11 ; check if its over 10 (normal) or 5 (not effective)
 	ret c
-	ld hl, TraitsThatReduceSuperEffectiveDamageMore
+	ld hl, .TraitsThatReduceSuperEffectiveDamageMore
 	call CheckTrait
-	jr c, .reduce_more
-	ld hl, TraitsThatReduceSuperEffectiveDamage
+	jr c, .reduce_low_hp
+	ld hl, .TraitsThatReduceSuperEffectiveDamage
 	call CheckTrait
 	ret nc
-.reduce
+.reduce_14
 	ld a, $67 ; ~0.86 ; 14% reduction
 	jp ApplyDamageMod
-.reduce_less
+.reduce_50
+	ld a, $12 ; ~0.5 ; 50% reduction
+	jp ApplyDamageMod
+.reduce_10
 	ld a, $9A ; =0.9 ; 10% reduction
 	jp ApplyDamageMod
-.reduce_more
+.reduce_low_hp
 	call GetHealthPercentage
 	ld a, d
 	cp 50
@@ -1199,23 +1215,23 @@ TraitReduceDamageFromType:
 .skip_trigger1
 	ld c, WATER
 	call CheckTraitCondition.check_move_type
-	jr c, .reduce_less
+	jr c, .reduce_10
 	ret
 .skip_trigger2
 	ld c, GRASS
 	call CheckTraitCondition.check_move_type
-	jr c, .reduce_less
+	jr c, .reduce_10
 	ret
 
-TraitsThatReduceSuperEffectiveDamage:
+.TraitsThatReduceSuperEffectiveDamage:
 	db TRAIT_REDUCE_SUPER_EFFECTIVE
 	db -1
 
-TraitsThatReduceSuperEffectiveDamageMore:
+.TraitsThatReduceSuperEffectiveDamageMore:
 	db TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
 	db -1
 
-TraitsThatReduceDamage:
+.TraitsThatReduceDamage:
 	db TRAIT_REDUCE_NORMAL
 	db TRAIT_REDUCE_FIGHTING
 	db TRAIT_REDUCE_FLYING
@@ -1234,7 +1250,7 @@ TraitsThatReduceDamage:
 	db TRAIT_SPEED_AFTER_CRIT
 	db -1
 
-TraitsThatReduceDamageMore: ; under 50% hp
+.TraitsThatReduceDamageMore: ; under 50% hp
 	db TRAIT_REDUCE_NORMAL_MORE
 	db TRAIT_REDUCE_FIGHTING_MORE
 	db TRAIT_REDUCE_FLYING_MORE
@@ -1250,7 +1266,7 @@ TraitsThatReduceDamageMore: ; under 50% hp
 	db TRAIT_REDUCE_DARK_MORE
 	db -1
 
-TraitsThatReduceDamageLess: ; 10%
+.TraitsThatReduceDamageLess: ; 10%
 	db TRAIT_REDUCE_BRN_AND_FIRE
 	db TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	db TRAIT_REDUCE_FLINCH_AND_ROCK
@@ -2609,6 +2625,7 @@ OneShotTraits:
 	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
 	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	db TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	db TRAIT_LOWER_ATTACK_TURN_ZERO
 	db TRAIT_LOWER_RANDOM_TURN_ZERO
 	db TRAIT_REGEN_LOW_HP
@@ -2635,5 +2652,6 @@ OneShotTraits:
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
 	db TRAIT_REDUCE_GRASS_UP_ATTACK
+	db TRAIT_EVASION_WHEN_CONFUSED
 	db TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	db -1

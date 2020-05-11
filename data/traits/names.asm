@@ -108,6 +108,7 @@ TraitNames::
 	db "Vicious Form@"     ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	db "Prismality@"       ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"          ; TRAIT_REDUCE_NOT_STAB
+	db "Grand Entrance@"   ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	db "Free Shot@"        ; TRAIT_GAIN_PP_TURN_ZERO
 	db "Intimidate@"       ; TRAIT_LOWER_ATTACK_TURN_ZERO
 	db "Strange Signal@"   ; TRAIT_LOWER_RANDOM_TURN_ZERO
@@ -140,6 +141,7 @@ TraitNames::
 	db "Smoke Veil@"       ; TRAIT_EVASION_STATUSED
 	db "Point Panic@"      ; TRAIT_HEAL_PP_STATUSED
 	db "Defrag@"           ; TRAIT_REGEN_STATUSED
+	db "Tangled Feet@"     ; TRAIT_EVASION_WHEN_CONFUSED
 	db "Steadfast@"        ; TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	db "Nemesis@"          ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
 	db "Punch-Out@"        ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST

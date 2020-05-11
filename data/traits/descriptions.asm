@@ -108,6 +108,7 @@ TraitDescriptions::
 	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
+	dw GrandEntranceDescription ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	dw FreeShotDescription    ; TRAIT_GAIN_PP_TURN_ZERO
 	dw IntimidateDescription  ; TRAIT_LOWER_ATTACK_TURN_ZERO
 	dw StrangeSignalDescription ; TRAIT_LOWER_RANDOM_TURN_ZERO
@@ -140,6 +141,7 @@ TraitDescriptions::
 	dw SmokeVeilDescription   ; TRAIT_EVASION_STATUSED
 	dw PointPanicDescription  ; TRAIT_HEAL_PP_STATUSED
 	dw DefragDescription      ; TRAIT_REGEN_STATUSED
+	dw TagledFeetDescription  ; TRAIT_EVASION_WHEN_CONFUSED
 	dw SteadfastDescription   ; TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	dw NemesisDescription     ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
 	dw PunchOutDescription    ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
@@ -646,6 +648,10 @@ MasteryDescription:
 	db   "Lowers damage from"
 	next "Non-STAB attacks.@"
 	
+GrandEntranceDescription:
+	db   "First damage taken"
+	next "is halved.@"
+	
 FreeShotDescription:
 	db   "Don't use PP on"
 	next "your first turn.@"
@@ -773,6 +779,10 @@ PointPanicDescription:
 DefragDescription:
 	db   "Regain HP under"
 	next "any status.@"
+
+TagledFeetDescription:
+	db   "Raises EVASION if"
+	next "you get CONFUSED.@"
 
 SteadfastDescription:
 	db   "Ups a random stat"
