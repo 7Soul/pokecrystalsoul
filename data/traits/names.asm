@@ -79,23 +79,17 @@ TraitNames::
 	db "Storm Boon@"       ; TRAIT_SANDSTORM_EVASION
 	db "Sand Filter@"      ; TRAIT_SANDSTORM_NO_STATUS
 	db "Water Veil@"       ; TRAIT_BRN_IMMUNE
-	db "Burn Resist@"      ; TRAIT_REDUCE_EFFECT_BRN
 	db "Heat Up@"          ; TRAIT_BOOST_EFFECT_BRN
 	db "Antivenom@"        ; TRAIT_PSN_IMMUNE
-	db "Venom Resist@"     ; TRAIT_REDUCE_EFFECT_PSN
 	db "Pure Toxin@"       ; TRAIT_BOOST_EFFECT_PSN
-	db "Twitch@"           ; TRAIT_PRZ_IMMUNE
-	db "Limber@"           ; TRAIT_REDUCE_EFFECT_PRZ
+	db "Limber@"           ; TRAIT_PRZ_IMMUNE
 	db "Conduit@"          ; TRAIT_BOOST_EFFECT_PRZ
 	db "Inner Focus@"      ; TRAIT_FLINCH_IMMUNE
-	db "Attention@"        ; TRAIT_REDUCE_EFFECT_FLINCH
 	db "Presence@"         ; TRAIT_BOOST_EFFECT_FLINCH
 	db "Own Tempo@"        ; TRAIT_CONFUSED_IMMUNE
-	db "Oblivion@"         ; TRAIT_REDUCE_EFFECT_CONFUSED
 	db "Metronome@"        ; TRAIT_BOOST_EFFECT_CONFUSE
 	db "Oblivious@"        ; TRAIT_IN_LOVE_IMMUNE
 	db "Insomnia@"         ; TRAIT_SLEEP_IMMUNE
-	db "Alert@"            ; TRAIT_REDUCE_EFFECT_SLEEP
 	db "Inner Flame@"      ; TRAIT_FRZ_IMMUNE
 	db "Hyper Cutter@"     ; TRAIT_PREVENT_ATTACK_DOWN
 	db "Big Pecks@"        ; TRAIT_PREVENT_DEFENSE_DOWN

@@ -1712,7 +1712,7 @@ TraitDamageBasedOnStats:
 	ld hl, .JumpTableTraitsBoostMoveByStat
 	dec c
 	ld a, c
-	jr z, .not_met
+	ret z
 	push bc
 	call GetToJumptable
 	call CheckTrait
@@ -1722,9 +1722,8 @@ TraitDamageBasedOnStats:
 .met
 	ld hl, wBattleMonStats
 	ld de, wEnemyMonStats
-	ldh a, [hBattleTurn]
-	and a	
-	jr z, .got_stats	
+	call GetTraitUser
+	jr c, .got_stats
 	ld hl, wEnemyMonStats
 	ld de, wBattleMonStats
 .got_stats
@@ -1773,9 +1772,7 @@ TraitDamageBasedOnStats:
 	dec hl
 	ld a, [hl]
 .boost
-	call ApplyDamageMod
-.not_met
-	ret
+	jp ApplyDamageMod
 .max
 	ld a, $A7
 	jr .boost
@@ -1812,7 +1809,6 @@ TraitsThatBoostDamageBasedOnSpeed:
 	db -1
 
 TraitsThatBoostDamageBasedOnSpAttack:
-	db 
 	db -1
 
 TraitsThatBoostDamageBasedOnSpDefense:
@@ -1822,11 +1818,11 @@ TraitsThatBoostDamageBasedOnSpDefense:
 TraitDamageBasedOnHP:
 	ld hl, TraitsThatBoostMoveByHP
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	call GetHealthPercentage
 	ld a, d
 	cp 45
-	jr nc, .not_met ; if hp% is over 45%
+	ret nc ; if hp% is over 45%
 	ld hl, .Boosts
 .loop2
 	ld a, [hl]
@@ -1839,9 +1835,7 @@ TraitDamageBasedOnHP:
 	dec hl
 	ld a, [hl]
 .boost
-	call ApplyDamageMod
-.not_met
-	ret
+	jp ApplyDamageMod
 
 .Boosts:
 	db 0,  $A7 ; 1.42, 00~07%
@@ -1895,30 +1889,28 @@ TraitBoostDrain:
 	ret
 
 TraitBoostEffectChance:
-	ld hl, TraitsThatBoostEffectChance
+	ld hl, .TraitsThatBoostEffectChance
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	ld a, [wBuffer2]
 	add 12 ; 5%
 	ld b, a
-	jr c, .max ; max value if this would fo over 255
-	ld a, [wBuffer3] ; index from TraitsThatBoostEffectChance
+	jr c, .max ; max value if this would go over 255
+	ld a, [wBuffer3]
 	cp 5
 	jr c, .end ; indexes 0 to 4
 	ld a, b
 	add 12 ; 5% more
 	ld b, a
-	jr c, .max ; max value if this would fo over 255
+	jr c, .max ; max value if this would go over 255
 .end
 	ld a, b
 	ld [wBuffer2], a
-.not_met
-	ret
 .max
 	ld b, $FF
 	jr .end
 
-TraitsThatBoostEffectChance:
+.TraitsThatBoostEffectChance:
 	db TRAIT_BOOST_EFFECT_BRN ; 0
 	db TRAIT_BOOST_EFFECT_PSN ; 1
 	db TRAIT_BOOST_EFFECT_PRZ ; 2
@@ -1929,57 +1921,42 @@ TraitsThatBoostEffectChance:
 	db -1
 
 TraitReduceEffectChance:
-	ld hl, TraitsThatReduceEffectChance
+	ld hl, .TraitsThatReduceEffectChance
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	ld a, [wBuffer2]
-	srl a
-	ld b, a ; 50%
-	; jr c, .min ; min value if this would go under 0
-	ld a, [wBuffer3] ; index from TraitsThatBoostEffectChance
-	cp 6
-	jr c, .end ; indexes 0 to 5
-	ld a, b
-	srl a
-	add b
+	rrca
+	ld b, a ; save 1/2
+	rrca
+	add b ; add 1/2 and 1/4
 	ld b, a ; 75%
-	; jr c, .min ; min value if this would go under 0
 .end
 	ld a, b
 	ld [wBuffer2], a
-.not_met
 	ret
 .min
 	ld b, 0
 	jr .end
 
-TraitsThatReduceEffectChance:
-	db TRAIT_REDUCE_EFFECT_BRN ; 0
-	db TRAIT_REDUCE_EFFECT_PSN ; 1
-	db TRAIT_REDUCE_EFFECT_PRZ ; 2
-	db TRAIT_REDUCE_EFFECT_FLINCH ; 3
-	db TRAIT_REDUCE_EFFECT_CONFUSED ; 4
-	db TRAIT_REDUCE_EFFECT_SLEEP ; 5
-	db TRAIT_REDUCE_EFFECT_NO_DAMAGE ; 6
-	db TRAIT_REDUCE_EFFECT_WITH_DAMAGE ; 7
-	db TRAIT_REDUCE_BRN_AND_FIRE ; 8
-	db TRAIT_REDUCE_PRZ_AND_ELECTRIC ; 9
-	db TRAIT_REDUCE_FLINCH_AND_ROCK ; a
-	db TRAIT_REDUCE_SLP_AND_DARK ; b
-	db TRAIT_REDUCE_PSN_AND_BUG ; c
+.TraitsThatReduceEffectChance:
+	db TRAIT_REDUCE_EFFECT_NO_DAMAGE ; 0
+	db TRAIT_REDUCE_EFFECT_WITH_DAMAGE ; 1
+	db TRAIT_REDUCE_BRN_AND_FIRE ; 2
+	db TRAIT_REDUCE_PRZ_AND_ELECTRIC ; 3
+	db TRAIT_REDUCE_FLINCH_AND_ROCK ; 4
+	db TRAIT_REDUCE_SLP_AND_DARK ; 5
+	db TRAIT_REDUCE_PSN_AND_BUG ; 6
 	db -1
 
 TraitNegateEffectChance:
-	ld hl, TraitsThatNegateEffectChance
+	ld hl, .TraitsThatNegateEffectChance
 	call CheckTrait
-	jr nc, .not_met
-	ld a, [wBuffer2]
-	ld a, 0
+	ret nc
+	xor a
 	ld [wBuffer2], a
-.not_met
 	ret
 
-TraitsThatNegateEffectChance:
+.TraitsThatNegateEffectChance:
 	db TRAIT_BRN_IMMUNE ; 0
 	db TRAIT_PSN_IMMUNE ; 1
 	db TRAIT_PRZ_IMMUNE ; 2
@@ -2014,11 +1991,9 @@ TraitMultiHit:
 .count
 	ld a, [wBuffer2] ; number of hits
 	cp 2
-	jr nc, .not_met
+	ret nc
 	inc a
 	ld [wBuffer2], a
-
-.not_met
 	ret
 
 TraitsThatDealWithMultiHit:
@@ -2029,17 +2004,15 @@ TraitsThatDealWithMultiHit:
 TraitPP:
 	ld hl, TraitsThatRecoverPP
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	ld a, [wBuffer2]
 	cp 0
 	jr nz, .without_chance
 	call BattleRandom
 	cp 10 percent
-	jr nc, .not_met
+	ret nc
 .without_chance
-	call EffectTraitForceRecoverPP
-.not_met
-	ret
+	jp EffectTraitForceRecoverPP
 
 TraitsThatRecoverPP:
 	db TRAIT_HEAL_PP_STATUSED
@@ -2154,7 +2127,7 @@ EffectTraitForceRecoverPP:
 .loop
 	ld a, [de]
 	and a
-	jr z, .done
+	ret z
 	cp [hl]
 	jr nz, .next
 	push hl
@@ -2176,8 +2149,6 @@ endr
 	inc de
 	dec b
 	jr nz, .loop
-
-.done
 	ret
 
 TraitRegenHP:
@@ -2215,7 +2186,7 @@ TraitBoostBurnPoisonDamage: ; modifies `bc`
 	ld a, [hl]
 	cp NO_ITEM
 	ret z
-
+; increase bc by 50%
 	ld l, b
 	ld h, c
 	call HalveBC

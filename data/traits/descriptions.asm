@@ -79,23 +79,17 @@ TraitDescriptions::
 	dw StormBoon6Description  ; TRAIT_SANDSTORM_EVASION
 	dw SandFilterDescription  ; TRAIT_SANDSTORM_NO_STATUS
 	dw WaterVeilDescription   ; TRAIT_BRN_IMMUNE
-	dw BurnResistDescription  ; TRAIT_REDUCE_EFFECT_BRN
 	dw HeatUpDescription      ; TRAIT_BOOST_EFFECT_BRN
 	dw AntivenomDescription   ; TRAIT_PSN_IMMUNE
-	dw VenomResistDescription ; TRAIT_REDUCE_EFFECT_PSN
 	dw PureToxinDescription   ; TRAIT_BOOST_EFFECT_PSN
-	dw TwitchDescription      ; TRAIT_PRZ_IMMUNE
-	dw LimberDescription      ; TRAIT_REDUCE_EFFECT_PRZ
+	dw LimberDescription      ; TRAIT_PRZ_IMMUNE
 	dw ConduitDescription     ; TRAIT_BOOST_EFFECT_PRZ
 	dw InnerFocusDescription  ; TRAIT_FLINCH_IMMUNE
-	dw AttentionDescription   ; TRAIT_REDUCE_EFFECT_FLINCH
 	dw PresenceDescription    ; TRAIT_BOOST_EFFECT_FLINCH
 	dw OwnTempoDescription    ; TRAIT_CONFUSED_IMMUNE
-	dw OblivionDescription    ; TRAIT_REDUCE_EFFECT_CONFUSED
 	dw MetronomeTDescription  ; TRAIT_BOOST_EFFECT_CONFUSE
 	dw ObliviousDescription   ; TRAIT_IN_LOVE_IMMUNE
 	dw InsomniaDescription    ; TRAIT_SLEEP_IMMUNE
-	dw AlertDescription       ; TRAIT_REDUCE_EFFECT_SLEEP
 	dw InnerFlameDescription  ; TRAIT_FRZ_IMMUNE
 	dw HyperCutterDescription ; TRAIT_PREVENT_ATTACK_DOWN
 	dw BigPecksDescription    ; TRAIT_PREVENT_DEFENSE_DOWN
@@ -537,10 +531,6 @@ WaterVeilDescription:
 	db   "Immunity to being"
 	next "BURNED.@"
 
-BurnResistDescription:
-	db   "Reduces chance of"
-	next "being BURNED.@"
-
 HeatUpDescription:
 	db   "Raises the chance"
 	next "of BURNING.@"
@@ -549,21 +539,13 @@ AntivenomDescription:
 	db   "Immunity to being"
 	next "POISONED.@"
 
-VenomResistDescription:
-	db   "Reduces chance of"
-	next "being POISONED.@"
-
 PureToxinDescription:
 	db   "Raises the chance"
 	next "of POISONING.@"
 
-TwitchDescription:
+Limberescription:
 	db   "Immunity to being"
 	next "PARALYZED.@"
-
-LimberDescription:
-	db   "Reduces chance of"
-	next "being PARALYZED.@"
 
 ConduitDescription:
 	db   "Raises the chance"
@@ -573,10 +555,6 @@ InnerFocusDescription:
 	db   "Immunity to FLIN-"
 	next "CHING.@"
 
-AttentionDescription:
-	db   "Reduces chance of"
-	next "getting FLINCHED.@"
-
 PresenceDescription:
 	db   "Raises the chance"
 	next "of FLINCHING.@"
@@ -585,10 +563,6 @@ OwnTempoDescription:
 	db   "Immunity to get-"
 	next "ting CONFUSED.@"
 
-OblivionDescription:
-	db   "Reduces chance of"
-	next "being CONFUSED.@"
-
 MetronomeTDescription:
 	db   "Raises the chance"
 	next "of CONFUSING.@"
@@ -596,10 +570,6 @@ MetronomeTDescription:
 ObliviousDescription:
 	db   "Immunity to get-"
 	next "ting INFATUATED.@"
-
-InsomniaDescription:
-	db   "Immunity to fal-"
-	next "ling ASLEEP.@"
 
 AlertDescription:
 	db   "Reduces chance of"
