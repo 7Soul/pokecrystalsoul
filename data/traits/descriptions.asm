@@ -37,6 +37,8 @@ TraitDescriptions::
 	dw GigaImpactDescription  ; TRAIT_REDUCE_DAMAGE_PER_TURN
 	dw SlowStartDescription   ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
 	dw PendulumDescription    ; TRAIT_ATTACK_SPECIAL_ODD_EVEN
+	dw HotPotatoDescription   ; TRAIT_BOOST_BRN_OPP_ITEM
+	dw FireworksDescription   ; TRAIT_RANDOM_STAT_BRN
 	dw PickupDescription      ; TRAIT_FIND_BERRY
 	dw MagicTrickDescription  ; TRAIT_UPGRADE_BERRY
 	dw NutritionDescription   ; TRAIT_BOOST_BERRY
@@ -49,6 +51,7 @@ TraitDescriptions::
 	dw RebuildDescription     ; TRAIT_REGEN_ON_SANDSTORM
 	dw TempestDescription     ; TRAIT_SANDSTORM_DURATION
 	dw DustDevilDescription   ; TRAIT_SANDSTORM_ON_ENTER
+	dw HealingAromaDescription; TRAIT_HEAL_HP_AND_STATUS
 	dw RecklessDescription    ; TRAIT_BOOST_RECOIL
 	dw DeviantDescription     ; TRAIT_REDUCE_RECOIL
 	dw RainyBoon0Description  ; TRAIT_RAIN_ATTACK
@@ -106,6 +109,7 @@ TraitDescriptions::
 	dw GoldAuraDescription    ; TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
 	dw ShieldDustDescription  ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
+	dw RiptideDescription     ; TRAIT_BOOST_NOT_STAB_WATER_ICE
 	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
 	dw GrandEntranceDescription ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
@@ -197,6 +201,7 @@ TraitDescriptions::
 	dw OvergrowDescription    ; TRAIT_BOOST_GRASS_HP
 	dw ForestRageDescription  ; TRAIT_BOOST_GRASS_STATUSED
 	dw SapSipperDescription   ; TRAIT_REDUCE_GRASS_UP_ATTACK
+	dw PolenHazardDescription ; TRAIT_PRZ_PSN_WITH_GRASS
 	dw IonFieldDescription    ; TRAIT_REDUCE_ELECTRIC
 	dw IonField2Description   ; TRAIT_REDUCE_ELECTRIC_MORE
 	dw ZapRushDescription     ; TRAIT_BOOST_ELECTRIC_SPEED
@@ -364,6 +369,14 @@ PendulumDescription:
 	db   "Every other turn"
 	next "ups SP.ATK or ATK.@"
 
+HotPotatoDescription:
+	db   "Ups BRN damage if"
+	next "foe has an item.@"
+
+FireworksDescription:
+	db   "Ups a random stat"
+	next "when causing BRN.@"
+
 PickupDescription:
 	db   "May find a berry"
 	next "during a fight.@"
@@ -411,6 +424,10 @@ TempestDescription:
 DustDevilDescription:
 	db   "Begin a sandstorm"
 	next "(4 turns).@"
+
+HealingAromaDescription:
+	db   "May heal HP and"
+	next "status each turn.@"
 
 RecklessDescription:
 	db   "Powers moves with"
@@ -640,6 +657,10 @@ ViciousFormDescription:
 	db   "Raises the chance"
 	next "of ADDED effects.@"
 
+RiptideDescription:
+	db   "Powers Non-STAB vs"
+	next "WATER and ICE.@"
+
 PismalityDescription:
 	db   "Powers Non-STAB"
 	next "moves.@"
@@ -790,11 +811,11 @@ SteadfastDescription:
 
 NemesisDescription:
 	db   "Ups damage if your"
-	next "type matches opp.@"
+	next "type equals foe's.@"
 
 PunchOutDescription:
 	db   "Ups CRIT if your"
-	next "type matches opp.@"
+	next "type equals foe's.@"
 
 TechnicianDescription:
 	db   "Raises damage of"
@@ -1003,6 +1024,10 @@ ForestRageDescription:
 SapSipperDescription:
 	db   "Resists GRASS and"
 	next "ups ATK when hit.@"
+
+PolenHazardDescription:
+	db   "May PSN or PRZ"
+	next "with GRASS moves.@"
 
 IonFieldDescription:
 	db   "Reduces ELECTRIC"

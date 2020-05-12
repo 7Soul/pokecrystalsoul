@@ -1017,7 +1017,7 @@ ResidualDamage:
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	farcall TraitWeatherHealsStatus
+	farcall TraitHealStatus
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
@@ -1061,6 +1061,8 @@ ResidualDamage:
 	ld [wNumHits], a
 	call Call_PlayBattleAnim_OnlyIfVisible
 	call GetEighthMaxHP
+	farcall TraitBoostBurnPoisonDamage
+	
 	ld de, wPlayerToxicCount
 	ldh a, [hBattleTurn]
 	and a

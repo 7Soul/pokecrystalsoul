@@ -4271,6 +4271,14 @@ BattleCommand_EatDream:
 	ld hl, DreamEatenText
 	jp StdBattleTextBox
 
+BattleCommand_ParalyzeOrPoisonTarget:
+	call BattleRandom
+	and 1
+	jr z, .poison
+	jp BattleCommand_ParalyzeTarget
+.poison
+	jp BattleCommand_PoisonTarget
+
 BattleCommand_BurnTarget:
 ; burntarget
 	xor a
@@ -4308,6 +4316,10 @@ BattleCommand_BurnTarget:
 
 	ld hl, WasBurnedText
 	call StdBattleTextBox
+	
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitCausedBurn
 
 	farcall UseHeldStatusHealingItem
 	ret

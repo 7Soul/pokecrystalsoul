@@ -44,6 +44,9 @@ CheckTraitCondition:
 .GotTrait:
 	cp TRAIT_SANDSTORM_ON_ENTER + 1 ; traits lower than this have no conditions
 	jp c, .success
+	cp TRAIT_HEAL_HP_AND_STATUS + 1 ; traits lower than this have no conditions
+	ld d, 10 percent
+	jp c, .check_chance
 	cp TRAIT_REDUCE_RECOIL + 1 ; all traits that require rain weather
 	jp c, .check_recoil
 	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
@@ -238,6 +241,13 @@ CheckTraitCondition:
 	call ActivateTrait
 .not_one_shot
 	scf
+	ret
+
+.check_chance
+	call BattleRandom
+	cp d
+	jr c, .success
+	and a
 	ret
 
 .check_weather
@@ -491,9 +501,17 @@ CheckTraitCondition:
 	call GetBattleVarAddr
 	bit SUBSTATUS_IN_LOVE, [hl]
 	jp nz, .success
+	ld a, BATTLE_VARS_SUBSTATUS1
+	call GetBattleVarAddr
+	bit SUBSTATUS_NIGHTMARE, [hl]
+	jp nz, .success
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
 	bit SUBSTATUS_CONFUSED, [hl]
+	jp nz, .success
+	ld a, BATTLE_VARS_SUBSTATUS5
+	call GetBattleVarAddr
+	bit SUBSTATUS_TOXIC, [hl]
 	jp nz, .success
 .not_status
 	and a
@@ -1025,19 +1043,23 @@ TraitPostHitBattleCommand:
 	ld hl, .TraitsThatTriggerBattleEffects
 	call CheckTrait
 	ret nc
-	
-	ld b, 8 percent
+
+	ld hl, .StatusChances
+	ld b, 0
 	ld a, [wBuffer3]
-	cp 0
-	jr z, .chance ; freeze trait is 8%
-	ld b, 16 percent ; other traits are 16%
+	ld c, a
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld b, a
 .chance	
 ; double chance for moves under 60 power
 	ld a, BATTLE_VARS_MOVE_POWER
  	call GetBattleVar
 	cp 60
 	jr nc, .got_power
-	rlc b
+	ld a, [hl]
+	ld b, a
 
 .got_power
 	call Chance
@@ -1051,11 +1073,19 @@ TraitPostHitBattleCommand:
 	dw BattleCommand_FreezeTarget
 	dw BattleCommand_ParalyzeTarget
 	dw BattleCommand_BurnTarget
+	dw BattleCommand_ParalyzeOrPoisonTarget
+
+.StatusChances:
+	db 8 percent, 12 percent
+	db 16 percent, 25 percent
+	db 16 percent, 25 percent
+	db 10 percent, 10 percent
 
 .TraitsThatTriggerBattleEffects:
 	db TRAIT_FLYING_FRZ
 	db TRAIT_FLYING_PRZ
 	db TRAIT_FLYING_BRN
+	db TRAIT_PRZ_PSN_WITH_GRASS
 	db -1
 
 TraitStartWeather:
@@ -1091,12 +1121,11 @@ TraitStartWeather:
 TraitRainStarts:
 	ld hl, .TraitsThatTriggerOnRainStart
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	call IncreaseTraitCount
 	call SetUserTurn
-	jp TraitHealEighth
-.not_met
-	ret
+	ld hl, GetEighthMaxHP
+	jp CallHealAmount
 
 .TraitsThatTriggerOnRainStart:
 	db TRAIT_REGEN_ON_RAIN
@@ -1105,12 +1134,11 @@ TraitRainStarts:
 TraitSunshineStarts:
 	ld hl, .TraitsThatTriggerOnSunshineStart
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	call IncreaseTraitCount
 	call SetUserTurn
-	jp TraitHealEighth
-.not_met
-	ret
+	ld hl, GetEighthMaxHP
+	jp CallHealAmount
 
 .TraitsThatTriggerOnSunshineStart:
 	db TRAIT_REGEN_ON_SUNSHINE
@@ -1119,46 +1147,72 @@ TraitSunshineStarts:
 TraitSandstormStarts:
 	ld hl, .TraitsThatTriggerOnSandstormStart
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	call IncreaseTraitCount
 	call SetUserTurn
-	jp TraitHealEighth
-.not_met
-	ret
+	ld hl, GetEighthMaxHP
+	jp CallHealAmount
 
 .TraitsThatTriggerOnSandstormStart:
 	db TRAIT_REGEN_ON_SANDSTORM
 	db -1
 
-TraitHealEighth:
-	xor a
-	ld [wBuffer3], a
-	ld [wBuffer5], a
-	ld hl, GetEighthMaxHP
-	ld a, BANK(GetMaxHP)
-	rst FarCall
-	ld a, c
-	ld [wBuffer6], a
-	call EffectTraitForceRecoverHP
-	ret
-
-TraitWeatherHealsStatus:
-	; call ResetActivated
+TraitHealStatus:
 	ld hl, .TraitsThatHealStatus
 	call CheckTrait
-	jr nc, .not_met
-	ld a, BATTLE_VARS_STATUS
-	call GetBattleVarAddr
-	xor a
-	ld [hl], a
-.not_met
-	ret
+	ret nc
+
+	ld a, [wBuffer3]
+	and a
+	jr nz, .only_status ; traits 1 and up only heal status
+
+	call ResetActivated
+	call BattleRandom
+	and 1
+	jr z, .heal_hp
+.only_status
+	ld d, $FE
+	call CheckTraitCondition.check_user_status
+	ret nc
+	jp HealAllStatuses
+.heal_hp
+	call Switch_turn
+	ld hl, GetEighthMaxHP
+	jp CallHealAmount
 
 .TraitsThatHealStatus:
+	db TRAIT_HEAL_HP_AND_STATUS ; 0
 	db TRAIT_RAIN_NO_STATUS
 	db TRAIT_SUNSHINE_NO_STATUS
 	db TRAIT_SANDSTORM_NO_STATUS
 	db -1
+
+HealAllStatuses:
+	ld a, BATTLE_VARS_STATUS
+	call GetBattleVarAddr
+	xor a
+	ld [hl], a
+
+	ld a, BATTLE_VARS_SUBSTATUS5
+	call GetBattleVarAddr
+	and [hl]
+	res SUBSTATUS_TOXIC, [hl]
+	ld a, BATTLE_VARS_SUBSTATUS1
+	call GetBattleVarAddr
+	and [hl]
+	res SUBSTATUS_NIGHTMARE, [hl]
+	ld a, BATTLE_VARS_SUBSTATUS3
+	call GetBattleVarAddr
+	res SUBSTATUS_CONFUSED, [hl]
+
+	ld hl, CalcEnemyStats
+	ld de, CalcPlayerStats
+	call GetTraitUserAddr
+
+.got_pointer
+	ld a, BANK(CalcPlayerStats)
+	rst FarCall
+	ret
 
 TraitReduceDamageFromType:
 	ld a, BATTLE_VARS_MOVE_TYPE
@@ -1491,20 +1545,51 @@ PerfurateMoves:
 TraitBoostNonStab:
 	ld a, TRAIT_BOOST_NOT_STAB
 	call CheckSpecificTrait
-	jr nc, .not_met
+	ret nc
+
+	ld a, [wBuffer3]
+	and a
+	ret nz
+
+	ld a, BATTLE_VARS_TYPE1_OPP
+	call GetBattleVar
+	cp WATER
+	jr z, .boost_25
+	cp ICE
+	jr z, .boost_25
+	ld a, BATTLE_VARS_TYPE2_OPP
+	call GetBattleVar
+	cp WATER
+	jr z, .boost_25
+	cp ICE
+	ret nz
+
+.boost_25
+	ld a, BATTLE_VARS_MOVE_POWER
+	call GetBattleVar
+	cp 61
+	jr c, .boost_50
+	ld a, $54 ; ~1.25
+	jp ApplyDamageMod
+.boost_50
+	ld a, $32 ; ~1.5
+	jp ApplyDamageMod
+.boost_20
 	ld a, $65 ; ~1.2
-	call ApplyDamageMod
-.not_met
-	ret
+	jp ApplyDamageMod
+
+
+TraitsThatBoostNonStab:
+	db TRAIT_BOOST_NOT_STAB_WATER_ICE
+	db TRAIT_BOOST_NOT_STAB
+	db -1
 
 TraitReduceNonStab:
 	ld a, TRAIT_REDUCE_NOT_STAB
 	call CheckSpecificTrait
-	jr nc, .not_met
+	ret nc
 	ld a, $67 ; ~0.86
-	call ApplyDamageMod
-.not_met
-	ret
+	jp ApplyDamageMod
 
 TraitReduceRecoilMoves:
 	ld a, TRAIT_REDUCE_RECOIL
@@ -2095,16 +2180,10 @@ endr
 .done
 	ret
 
-EffectTraitForceRecoverHP:	
-	ld hl, RestoreHP
-	ld a, BANK("Battle Core")
-	rst FarCall
-	ret
-
 TraitRegenHP:
 	ld hl, TraitsThatRegenerate
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	
 	ld a, [wBuffer3]
 	cp 2
@@ -2114,22 +2193,48 @@ TraitRegenHP:
 .heal_hp_sixteenth
 	ld hl, GetSixteenthMaxHP
 .complete_heal
-	xor a
-	ld [wBuffer3], a
-	ld [wBuffer5], a
-	ld a, BANK(GetMaxHP)
-	rst FarCall
-	ld a, c
-	ld [wBuffer6], a
-	call EffectTraitForceRecoverHP
-.not_met
-	ret
+	jp CallHealAmount
 
 TraitsThatRegenerate:
 	db TRAIT_REGEN_LOW_HP ; 0
 	db TRAIT_REGEN_STATUSED ; 1
 	db TRAIT_REGEN_FIRST_TURNS ; 2
 	db -1
+
+TraitBoostBurnPoisonDamage: ; modifies `bc`
+	push bc
+	ld a, BATTLE_VARS_TRAIT_OPP
+	call GetBattleVar
+	cp TRAIT_BOOST_BRN_OPP_ITEM
+	pop bc
+	ret nz
+
+	ld hl, wPartyMon1Item
+	ld de, wOTPartyMon1Item
+	call GetTraitUserAddr
+	ld a, [hl]
+	cp NO_ITEM
+	ret z
+
+	ld l, b
+	ld h, c
+	call HalveBC
+	add hl, bc
+	ld b, h
+	ld c, l
+	ret
+
+TraitCausedBurn:
+	ld a, TRAIT_RANDOM_STAT_BRN
+	call CheckSpecificTrait
+	ret nc
+
+	ld hl, BattleCommand_RandomStatUp
+	call TraitUseBattleCommandSimple
+	ld hl, BattleCommand_StatUpMessage
+	call TraitUseBattleCommandSimple
+	ld hl, BattleCommand_StatUpFailText
+	jp TraitUseBattleCommandSimple
 
 TraitChangeItem:
 	ld hl, wPartyMon1Item
@@ -2289,6 +2394,22 @@ Chance: ; takes `percent` in `b` and sets carry flag
 	ld [wAttackMissed], a
 	ld [wEffectFailed], a
 	scf
+	ret
+
+CallHealAmount: ; takes `GetEighthMaxHP` or others in `hl`
+	xor a
+	ld [wBuffer3], a
+	ld [wBuffer5], a
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ld a, c
+	ld [wBuffer6], a
+	jp EffectTraitForceRecoverHP
+	
+EffectTraitForceRecoverHP:	
+	ld hl, RestoreHP
+	ld a, BANK("Battle Core")
+	rst FarCall
 	ret
 
 CheckStab:
@@ -2618,6 +2739,7 @@ OneShotTraits:
 	db TRAIT_SANDSTORM_NO_STATUS
 	db TRAIT_FIND_BERRY
 	db TRAIT_UPGRADE_BERRY
+	db TRAIT_HEAL_HP_AND_STATUS
 	db TRAIT_REGEN_ON_RAIN
 	db TRAIT_REGEN_ON_SUNSHINE
 	db TRAIT_REGEN_ON_SANDSTORM

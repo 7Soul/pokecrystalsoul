@@ -37,6 +37,8 @@ TraitNames::
 	db "Giga Impact@"      ; TRAIT_REDUCE_DAMAGE_PER_TURN
 	db "Slow Start@"       ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
 	db "Pendulum@"         ; TRAIT_ATTACK_SPECIAL_ODD_EVEN
+	db "Hot Potato@"       ; TRAIT_BOOST_BRN_OPP_ITEM
+	db "Fireworks@"        ; TRAIT_RANDOM_STAT_BRN
 	db "Pickup@"           ; TRAIT_FIND_BERRY
 	db "Magic Trick@"      ; TRAIT_UPGRADE_BERRY
 	db "Nutrition@"        ; TRAIT_BOOST_BERRY
@@ -49,6 +51,7 @@ TraitNames::
 	db "Rebuild@"          ; TRAIT_REGEN_ON_SANDSTORM
 	db "Tempest@"          ; TRAIT_SANDSTORM_DURATION
 	db "Dust Devil@"       ; TRAIT_SANDSTORM_ON_ENTER
+	db "Healing Aroma@"    ; TRAIT_HEAL_HP_AND_STATUS
 	db "Reckless@"         ; TRAIT_BOOST_RECOIL
 	db "Deviant@"          ; TRAIT_REDUCE_RECOIL
 	db "Rainy Boon@"       ; TRAIT_RAIN_ATTACK
@@ -106,6 +109,7 @@ TraitNames::
 	db "Gold Aura@"        ; TRAIT_REDUCE_SPECIAL_TAKEN
 	db "Shield Dust@"      ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	db "Vicious Form@"     ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
+	db "Riptide@"          ; TRAIT_BOOST_NOT_STAB_WATER_ICE
 	db "Prismality@"       ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"          ; TRAIT_REDUCE_NOT_STAB
 	db "Grand Entrance@"   ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
@@ -197,6 +201,7 @@ TraitNames::
 	db "Overgrow@"         ; TRAIT_BOOST_GRASS_HP
 	db "Forest Rage@"      ; TRAIT_BOOST_GRASS_STATUSED
 	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_ATTACK
+	db "Polen Hazard@"     ; TRAIT_PRZ_PSN_WITH_GRASS
 	db "Ion Field@"        ; TRAIT_REDUCE_ELECTRIC
 	db "Ionize Air@"       ; TRAIT_REDUCE_ELECTRIC_MORE
 	db "Zap Rush@"         ; TRAIT_BOOST_ELECTRIC_SPEED
