@@ -70,8 +70,10 @@ CheckTraitCondition:
 	jp c, .check_move_confused
 	cp TRAIT_IN_LOVE_IMMUNE + 1 ; all attract traits
 	jp c, .check_move_attract
-	cp TRAIT_REDUCE_EFFECT_SLEEP + 1 ; all sleep traits
+	cp TRAIT_SLEEP_IMMUNE + 1 ; all sleep traits
 	jp c, .check_move_sleep
+	cp TRAIT_FRZ_IMMUNE + 1 ; all freeze traits
+	jp c, .check_move_frz
 	cp TRAIT_BOOST_EFFECT_NO_DAMAGE + 1 ; all traits for status moves 
 	jp c, .check_move_status
 	cp TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS + 1 ; all traits for physical moves 
@@ -118,13 +120,13 @@ CheckTraitCondition:
 	cp TRAIT_BOOST_WEAK_MOVES + 1
 	ld d, 60
 	jp c, .check_move_power
+	ld e, $FF ; reset e so no type equals it
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVar
 	and TYPE_MASK
 	ld d, a
 	pop af
-	ld e, $FF ; reset e so no type equals it
 	cp TRAIT_REDUCE_BRN_AND_FIRE
 	ld b, a
 	ld c, FIRE
@@ -536,6 +538,53 @@ CheckTraitCondition:
 	and a
 	ret
 
+.check_opp_party_for_type:
+	push de
+	ld hl, wOTPartySpecies
+	ld de, wPartySpecies
+	jr .got_party
+.check_party_for_type:
+	push de
+	ld hl, wPartySpecies
+	ld de, wOTPartySpecies
+.got_party
+	call GetTraitUserAddr
+	pop de
+	ld b, 1 << (PARTY_LENGTH - 1)
+	ld c, 0
+
+.loop
+	ld a, [hli]
+	cp $ff
+	ret z
+	cp $0
+	ret z
+
+	push hl
+	ld [wCurSpecies], a
+	call GetBaseData
+	ld hl, wBaseType1
+	ld a, [hl]
+	cp d
+	jr z, .found_type
+	ld a, [wCurSpecies]
+	ld hl, wBaseType2
+	ld a, [hl]
+	cp d
+	jr nz, .dont_choose_mon
+	ld a, b
+	or c
+	ld c, a
+
+.found_type
+	call IncreaseTraitCount
+
+.dont_choose_mon
+	srl b
+	pop hl
+	jr .loop
+	ret
+
 .check_opp_same_type:
 	ld a, BATTLE_VARS_TYPE1
  	call GetBattleVar
@@ -560,7 +609,7 @@ CheckTraitCondition:
  	call GetBattleVar
 	cp b
 	jp z, .success
-
+.end
 	and a
 	ret
 
@@ -658,6 +707,47 @@ TraitsThatRaiseStatAfterDamage:
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db -1
 
+TraitOnEnter:
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	ld a, TRAIT_PARTY_WATER_BOOST_DEFENSE
+	call CheckSpecificTrait
+	ld d, WATER
+	jr c, .defense_times
+	ld a, TRAIT_PARTY_GRASS_BOOST_DEFENSE
+	call CheckSpecificTrait
+	ld d, GRASS
+	jr c, .defense_times
+	ld a, TRAIT_BATTLE_ELECTRIC_BOOST
+	call CheckSpecificTrait
+	ld d, ELECTRIC
+	ret nc
+.electric_boost
+	push de
+	call CheckTraitCondition.check_party_for_type
+	pop de
+	jp CheckTraitCondition.check_opp_party_for_type
+
+.defense_times
+	call CheckTraitCondition.check_party_for_type
+	call CheckTraitCount
+	inc a
+	ld c, a
+.loop
+	dec c
+	ret z
+	push bc
+	ld hl, BattleCommand_DefenseUp
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatUpMessage
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatUpFailText
+	call TraitUseBattleCommandSimple
+	pop bc
+	jr .loop
+
 TraitRaiseStat:
 	ld a, $FF
 	ld [wBuffer3], a
@@ -708,8 +798,7 @@ TraitRaiseStat:
 
 .end
 	pop af
-	ld a, b
-	
+	ld a, b	
 	ld hl, .JumptableBattleCommands
 	call TraitUseBattleCommand
 
@@ -1391,6 +1480,9 @@ TraitBoostPower:
 	ld a, TRAIT_BOOST_WEAK_MOVES
 	call CheckSpecificTrait
 	jr c, .boost_50
+	ld a, TRAIT_BATTLE_ELECTRIC_BOOST
+	call CheckSpecificTrait
+	jr c, .boost_activated_count
 
 	ld a, [wBattleWeather]
 	and a
@@ -1453,6 +1545,22 @@ TraitBoostPower:
 .boost_50
 	ld a, $32 ; ~1.5
 	jp ApplyDamageMod
+.boost_activated_count
+	call CheckTraitCount
+	cp 6
+	jr c, .max
+	ld a, 6 ; the max is 6
+.max
+	ld b, a
+	ld a, 10
+	add b
+.boost
+	ld [hMultiplier], a
+	call Multiply ; multiply damage value that is stored
+	ld b, 4
+	ld a, 10
+	ldh [hDivisor], a
+	jp Divide ; divide damage value that is stored
 
 .JumpTableTraitsBoostMoveClass
 	db TRAIT_BOOST_PUNCHING
@@ -1549,19 +1657,27 @@ TraitBoostNonStab:
 
 	ld a, [wBuffer3]
 	and a
+	jr z, .boost_20
+	dec a
+	ld b, WATER
+	ld c, ICE
+	jr z, .types
+	dec a
+	ld b, GRASS
+	ld c, BUG
 	ret nz
-
+.types
 	ld a, BATTLE_VARS_TYPE1_OPP
 	call GetBattleVar
-	cp WATER
+	cp b
 	jr z, .boost_25
-	cp ICE
+	cp c
 	jr z, .boost_25
 	ld a, BATTLE_VARS_TYPE2_OPP
 	call GetBattleVar
-	cp WATER
+	cp b
 	jr z, .boost_25
-	cp ICE
+	cp c
 	ret nz
 
 .boost_25
@@ -1580,8 +1696,9 @@ TraitBoostNonStab:
 
 
 TraitsThatBoostNonStab:
-	db TRAIT_BOOST_NOT_STAB_WATER_ICE
 	db TRAIT_BOOST_NOT_STAB
+	db TRAIT_BOOST_NOT_STAB_WATER_ICE
+	db TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	db -1
 
 TraitReduceNonStab:
@@ -1972,7 +2089,7 @@ TraitNegateEffectChance:
 TraitMultiHit:
 	ld hl, TraitsThatDealWithMultiHit
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	ld a, [wBuffer3]
 	cp 1
 	jr nz, .count
@@ -2674,10 +2791,16 @@ ResetActivated:
 	call GetTraitUser
 	ld hl, wTraitActivated
 	jr c, .player_user
-	res 4, [hl] ; enemy trait
+	ld a, [hl]
+	and %00001111
+	ld [hl], a
+	; res 4, [hl] ; enemy trait
 	ret
 .player_user
-	res 0, [hl] ; player trait
+	ld a, [hl]
+	and %11110000
+	ld [hl], a
+	; res 0, [hl] ; player trait
 	ret
 
 OneShotTraits:
@@ -2741,6 +2864,8 @@ OneShotTraits:
 	db TRAIT_ACCURACY_STATUSED
 	db TRAIT_EVASION_STATUSED
 	db TRAIT_OPP_SAME_TYPE_CRIT_BOOST
+	db TRAIT_PARTY_WATER_BOOST_DEFENSE
+	db TRAIT_PARTY_GRASS_BOOST_DEFENSE
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE

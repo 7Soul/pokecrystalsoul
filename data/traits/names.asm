@@ -42,6 +42,9 @@ TraitNames::
 	db "Pickup@"           ; TRAIT_FIND_BERRY
 	db "Magic Trick@"      ; TRAIT_UPGRADE_BERRY
 	db "Nutrition@"        ; TRAIT_BOOST_BERRY
+	db "Tag Splash@"       ; TRAIT_PARTY_WATER_BOOST_DEFENSE
+	db "Cotton Guard@"     ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
+	db "Up Voltage@"       ; TRAIT_BATTLE_ELECTRIC_BOOST
 	db "Rain Dish@"        ; TRAIT_REGEN_ON_RAIN
 	db "Monsoon@"          ; TRAIT_RAIN_DURATION
 	db "Drizzle@"          ; TRAIT_RAIN_ON_ENTER
@@ -104,6 +107,7 @@ TraitNames::
 	db "Shield Dust@"      ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	db "Vicious Form@"     ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	db "Riptide@"          ; TRAIT_BOOST_NOT_STAB_WATER_ICE
+	db "Bladed Wings@"     ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	db "Prismality@"       ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"          ; TRAIT_REDUCE_NOT_STAB
 	db "Grand Entrance@"   ; TRAIT_REDUCE_DAMAGE_TURN_ZERO

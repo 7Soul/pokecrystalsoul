@@ -4208,6 +4208,7 @@ OnEnterTraits:
 	jr z, .start_sun
 	cp TRAIT_SANDSTORM_ON_ENTER
 	jr z, .start_sand
+	farcall TraitOnEnter
 	ret
 .start_rain
 	ld a, RAIN_DANCE

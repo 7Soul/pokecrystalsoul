@@ -42,6 +42,9 @@ TraitDescriptions::
 	dw PickupDescription      ; TRAIT_FIND_BERRY
 	dw MagicTrickDescription  ; TRAIT_UPGRADE_BERRY
 	dw NutritionDescription   ; TRAIT_BOOST_BERRY
+	dw TagSplashDescription   ; TRAIT_PARTY_WATER_BOOST_DEFENSE
+	dw CottonGuardDescription ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
+	dw UpVoltageDescription   ; TRAIT_BATTLE_ELECTRIC_BOOST
 	dw RainDishDescription    ; TRAIT_REGEN_ON_RAIN
 	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
@@ -104,6 +107,7 @@ TraitDescriptions::
 	dw ShieldDustDescription  ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	dw RiptideDescription     ; TRAIT_BOOST_NOT_STAB_WATER_ICE
+	dw BladedWingsDescription ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
 	dw GrandEntranceDescription ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
@@ -383,6 +387,18 @@ NutritionDescription:
 	db   "Berries heal more"
 	next "in battle.@"
 
+TagSplashDescription:
+	db   "Team's WATER type"
+	next "raise DEF more.@"
+
+CottonGuardDescription:
+	db   "Team's GRASS type"
+	next "raise DEF more.@"
+	
+UpVoltageDescription:
+	db   "All ELECTRIC <PKMN>"
+	next "give you power.@"
+
 RainDishDescription:
 	db   "Heal HP when rain"
 	next "starts.@"
@@ -543,7 +559,7 @@ PureToxinDescription:
 	db   "Raises the chance"
 	next "of POISONING.@"
 
-Limberescription:
+LimberDescription:
 	db   "Immunity to being"
 	next "PARALYZED.@"
 
@@ -571,9 +587,9 @@ ObliviousDescription:
 	db   "Immunity to get-"
 	next "ting INFATUATED.@"
 
-AlertDescription:
-	db   "Reduces chance of"
-	next "falling ASLEEP.@"
+InsomniaDescription:
+	db   "Immunity to fall-"
+	next "ing ASLEEP.@"
 
 InnerFlameDescription:
 	db   "Immunity to be-"
@@ -630,6 +646,10 @@ ViciousFormDescription:
 RiptideDescription:
 	db   "Powers Non-STAB vs"
 	next "WATER and ICE.@"
+
+BladedWingsDescription:
+	db   "Powers Non-STAB vs"
+	next "GRASS and BUG.@"
 
 PismalityDescription:
 	db   "Powers Non-STAB"
