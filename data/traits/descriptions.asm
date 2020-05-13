@@ -6,6 +6,7 @@ TraitDescriptions::
 	dw StunBodyDescription    ; TRAIT_CONTACT_FLINCH
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
 	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
+	dw HotCoalsDescription    ; TRAIT_HOT_COALS
 	dw LifeDrainDescription   ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription   ; TRAIT_HEAL_PP_FAINT
 	dw EruptionDescription    ; TRAIT_BURN_FAINT
@@ -242,6 +243,10 @@ HighTempoDescription:
 CuteCharmDescription:
 	db   "Contact may INFATU"
 	next "ATE the attacker.@"
+
+HotCoalsDescription:
+	db   "Contact may spread"
+	next "hot coals around.@"
 
 LifeDrainDescription:
 	db   "Regain HP when a"

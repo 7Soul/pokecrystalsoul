@@ -4276,8 +4276,6 @@ BreakAttraction:
 	ret
 
 SpikesDamage:
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
 	farcall TraitLowerStat
 
 	ld hl, wPlayerScreens
@@ -4290,18 +4288,20 @@ SpikesDamage:
 	ld de, wEnemyMonType
 	ld bc, UpdateEnemyHUD
 .ok
-
+	push bc
 	bit SCREENS_SPIKES, [hl]
-	ret z
-
-	; Flying-types aren't affected by Spikes.
-	ld a, [de]
-	cp FLYING
-	ret z
-	inc de
-	ld a, [de]
-	cp FLYING
-	ret z
+	jr nz, .spikes
+	bit SCREENS_COALS, [hl]
+	jr z, .cancel
+	
+	
+	ld b, FIRE
+	farcall CheckIfTargetIsNthTypeGotValue
+	jr z, .cancel
+.spikes
+	ld b, FLYING
+	farcall CheckIfTargetIsNthTypeGotValue
+	jr z, .cancel
 
 	push bc
 
@@ -4318,6 +4318,10 @@ SpikesDamage:
 
 .hl
 	jp hl
+.cancel 
+	pop bc
+	ret
+
 
 PursuitSwitch:
 	ld a, BATTLE_VARS_MOVE
@@ -9498,16 +9502,6 @@ BattleStartMessage:
 	call PlayStereoCry
 
 .skip_cry
-	ld a, [wBattleType]
-	cp BATTLETYPE_FISH
-	jr nz, .NotFishing
-
-	farcall StubbedTrainerRankings_HookedEncounters
-
-	ld hl, HookedPokemonAttackedText
-	jr .PlaceBattleStartText
-
-.NotFishing:
 	ld hl, PokemonFellFromTreeText
 	cp BATTLETYPE_TREE
 	jr z, .PlaceBattleStartText

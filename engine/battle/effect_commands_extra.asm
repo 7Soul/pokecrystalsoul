@@ -219,6 +219,7 @@ CheckIfTargetIsNthType:
 	jr z, .ok
 	ld de, wBattleMonType1
 .ok
+CheckIfTargetIsNthTypeGotValue:
 	ld a, [de]
 	inc de
 	cp b

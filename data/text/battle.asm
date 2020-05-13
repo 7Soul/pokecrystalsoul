@@ -1046,6 +1046,12 @@ SpikesText:
 	cont "<TARGET>!"
 	prompt
 
+CoalsText:
+	text "COALS scattered"
+	line "all around"
+	cont "<TARGET>!"
+	prompt
+
 IdentifiedText:
 	text "<TARGET> is"
 	line "under the prism"

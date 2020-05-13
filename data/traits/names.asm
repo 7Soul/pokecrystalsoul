@@ -6,6 +6,7 @@ TraitNames::
 	db "Stun Body@"        ; TRAIT_CONTACT_FLINCH
 	db "High Tempo@"       ; TRAIT_CONTACT_CONFUSED
 	db "Cute Charm@"       ; TRAIT_CONTACT_IN_LOVE
+	db "Hot Coals@"        ; TRAIT_HOT_COALS
 	db "Life Drain@"       ; TRAIT_HEAL_HP_FAINT
 	db "Keep Going@"       ; TRAIT_HEAL_PP_FAINT
 	db "Eruption@"         ; TRAIT_BURN_FAINT

@@ -47,6 +47,9 @@ CheckTraitCondition:
 	cp TRAIT_HEAL_HP_AND_STATUS + 1 ; traits lower than this have no conditions
 	ld d, 10 percent
 	jp c, .check_chance
+	cp TRAIT_HOT_COALS + 1 ; 
+	ld d, 100 percent
+	jp c, .check_chance
 	cp TRAIT_REDUCE_RECOIL + 1 ; all traits that require rain weather
 	jp c, .check_recoil
 	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
@@ -912,6 +915,8 @@ TraitsThatRaiseEvasion:
 	db -1
 
 TraitLowerStat:	
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
 	ld hl, .TraitsThatLowerStats
 	call CheckTrait
 	ret nc
@@ -1101,10 +1106,20 @@ TraitContact:
 	call Chance
 	ret nc
 
+	ld a, TRAIT_HOT_COALS
+	call CheckSpecificTrait
+	jr nc, .not_hot_coals
+
+	ld a, SPIKES
+	ld [wBuffer2], a
+	ld a, 6
+	ld [wBuffer3], a
+	jr .finish
+.not_hot_coals
 	ld hl, .TraitsThatRequireContact
 	call CheckTrait
 	ret nc
-
+.finish
 	call Switch_turn
 	ld a, [wBuffer3]
 	ld hl, .StatusCommands
@@ -1118,6 +1133,7 @@ TraitContact:
 	dw BattleCommand_FlinchTarget
 	dw BattleCommand_ConfuseTarget
 	dw BattleCommand_Attract
+	dw DoExactMove
 
 .TraitsThatRequireContact:
 	db TRAIT_CONTACT_BRN

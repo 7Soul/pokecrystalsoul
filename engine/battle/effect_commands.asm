@@ -130,6 +130,18 @@ DoMove:
 ; .DoMoveEffectCommand:
 	; jp hl
 
+DoExactMove:
+	ld a, [wBuffer2]
+	ld [wCurEnemyMove], a
+	ld [wCurPlayerMove], a
+	callfar UpdateMoveData
+	xor a
+	ld [wAttackMissed], a
+	ld [wAlreadyDisobeyed], a
+	ld a, EFFECTIVE
+	ld [wTypeModifier], a
+	jp DoMove
+
 CheckTurn:
 BattleCommand_CheckTurn:
 ; checkturn
