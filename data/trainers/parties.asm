@@ -2616,10 +2616,10 @@ CamperGroup:
 	db -1 ; end
 
 	; CAMPER (11)
-	db "Ted@", TRAINERTYPE_NORMAL
-	db $0F, 5, 0, ARIADOS
-	db $0F, 5, 0, TAUROS
-	db $0F, 5, 1, MANKEY
+	db "Ted@", TRAINERTYPE_ITEM
+	db $0F, 5, 0, ARIADOS, 0, BERRY
+	db $0F, 5, 0, TAUROS, 0, BERRY
+	db $0F, 5, 1, MANKEY, 0, BERRY
 	db -1 ; end
 
 	; CAMPER (12)

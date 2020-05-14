@@ -43,6 +43,7 @@ TraitNames::
 	db "Pickup@"           ; TRAIT_FIND_BERRY
 	db "Magic Trick@"      ; TRAIT_UPGRADE_BERRY
 	db "Nutrition@"        ; TRAIT_BOOST_BERRY
+	db "Harvest@"          ; TRAIT_CLONE_BERRY
 	db "Tag Splash@"       ; TRAIT_PARTY_WATER_BOOST_DEFENSE
 	db "Cotton Guard@"     ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
 	db "Up Voltage@"       ; TRAIT_BATTLE_ELECTRIC_BOOST

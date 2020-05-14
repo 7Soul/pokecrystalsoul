@@ -4524,11 +4524,20 @@ UseOpponentItem:
 	call RefreshBattleHuds
 	callfar GetOpponentItem
 	ld a, [hl]
+	ld b, a
+	push bc
 	ld [wNamedObjectIndexBuffer], a
 	call GetItemName
 	callfar ConsumeHeldItem
 	ld hl, RecoveredUsingText
-	jp StdBattleTextBox
+	call StdBattleTextBox
+	pop bc
+	ld a, b
+	ld [wBuffer2], a
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitCloneBerry
+	ret
 
 ItemRecoveryAnim:
 	push hl
@@ -5188,12 +5197,7 @@ BattleMenu_Pack:
 	ldh [hBGMapMode], a
 	call _LoadBattleFontsHPBar
 	call ClearSprites
-	ld a, [wBattleType]
-	cp BATTLETYPE_TUTORIAL
-	jr z, .tutorial2
 	call GetBattleMonBackpic
-
-.tutorial2
 	call GetEnemyMonFrontpic
 	ld a, $1
 	ld [wMenuCursorY], a
@@ -6931,93 +6935,8 @@ ApplyStatusEffectOnEnemyStats:
 
 ApplyStatusEffectOnStats:
 	ldh [hBattleTurn], a
-	call ApplyPrzEffectOnSpeed
-	jp ApplyBrnEffectOnAttack
-
-ApplyPrzEffectOnSpeed:
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .enemy
-	ld a, [wBattleMonStatus]
-	and 1 << PAR
-	ret z
-	ld hl, wBattleMonSpeed + 1
-	ld a, [hld]
-	ld b, a
-	ld a, [hl]
-	srl a
-	rr b
-	srl a
-	rr b
-	ld [hli], a
-	or b
-	jr nz, .player_ok
-	ld b, $1 ; min speed
-
-.player_ok
-	ld [hl], b
-	ret
-
-.enemy
-	ld a, [wEnemyMonStatus]
-	and 1 << PAR
-	ret z
-	ld hl, wEnemyMonSpeed + 1
-	ld a, [hld]
-	ld b, a
-	ld a, [hl]
-	srl a
-	rr b
-	srl a
-	rr b
-	ld [hli], a
-	or b
-	jr nz, .enemy_ok
-	ld b, $1 ; min speed
-
-.enemy_ok
-	ld [hl], b
-	ret
-
-ApplyBrnEffectOnAttack:
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .enemy
-	ld a, [wBattleMonStatus]
-	and 1 << BRN
-	ret z
-	ld hl, wBattleMonAttack + 1
-	ld a, [hld]
-	ld b, a
-	ld a, [hl]
-	srl a
-	rr b
-	ld [hli], a
-	or b
-	jr nz, .player_ok
-	ld b, $1 ; min attack
-
-.player_ok
-	ld [hl], b
-	ret
-
-.enemy
-	ld a, [wEnemyMonStatus]
-	and 1 << BRN
-	ret z
-	ld hl, wEnemyMonAttack + 1
-	ld a, [hld]
-	ld b, a
-	ld a, [hl]
-	srl a
-	rr b
-	ld [hli], a
-	or b
-	jr nz, .enemy_ok
-	ld b, $1 ; min attack
-
-.enemy_ok
-	ld [hl], b
+	farcall ApplyPrzEffectOnSpeed
+	farcall ApplyBrnEffectOnAttack
 	ret
 
 ApplyStatLevelMultiplierOnAllStats:

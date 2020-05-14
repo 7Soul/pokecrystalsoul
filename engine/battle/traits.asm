@@ -2340,6 +2340,51 @@ TraitCausedBurn:
 	ld hl, BattleCommand_StatUpFailText
 	jp TraitUseBattleCommandSimple
 
+TraitCloneBerry:
+	ld a, [wBuffer3]
+	ld l, a
+	ld a, [wBuffer4]
+	ld h, a
+	push hl
+
+	ld b, 50 percent
+	call Chance
+	jr c, .end
+
+	ld a, [wBuffer2]
+	cp NO_ITEM
+	jr z, .end
+
+	ld hl, BerryList
+	ld de, 1
+	call IsInArray
+	jr nc, .end
+
+	call Switch_turn
+	ld a, TRAIT_CLONE_BERRY
+	call CheckSpecificTrait
+	jr nc, .end
+
+	pop hl
+	ld a, [wBuffer2]
+	ld [hl], a
+
+	ld hl, wBattleMonItem
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .go
+	ld hl, wEnemyMonItem
+.go
+	ld a, [wBuffer2]
+	ld [hl], a
+
+	jp RefreshBattleHuds
+	
+.end
+	pop hl
+	ld [hl], NO_ITEM
+	ret
+
 TraitChangeItem:
 	ld hl, wPartyMon1Item
 	ld de, wOTPartyMon1Item
@@ -2358,7 +2403,7 @@ TraitChangeItem:
 	call CheckSpecificTrait
 	jr nc, .end
 
-	ld hl, .BerryList
+	ld hl, BerryList
 	call Random
 .loopberry
 	sub [hl]
@@ -2392,7 +2437,7 @@ TraitChangeItem:
 	pop hl
 	ret
 
-.BerryList:
+BerryList:
 	db 128, BERRY
 	db 16, PSNCUREBERRY
 	db 16, PRZCUREBERRY
@@ -2794,6 +2839,7 @@ ActivateTrait:
 	ld hl, wTraitActivated
 	set 4, [hl] ; enemy trait
 	ld a, [hl]
+	ret
 .player_user
 	ld hl, BattleText_TraitActivatedPlayer
 	call StdBattleTextBox
@@ -2849,6 +2895,7 @@ OneShotTraits:
 	db TRAIT_SANDSTORM_NO_STATUS
 	db TRAIT_FIND_BERRY
 	db TRAIT_UPGRADE_BERRY
+	db TRAIT_CLONE_BERRY
 	db TRAIT_HEAL_HP_AND_STATUS
 	db TRAIT_REGEN_ON_RAIN
 	db TRAIT_REGEN_ON_SUNSHINE

@@ -49,6 +49,10 @@ ConsumeHeldItem:
 	ld [hl], NO_ITEM
 
 .done
+	ld a, l
+	ld [wBuffer3], a
+	ld a, h
+	ld [wBuffer4], a
 	pop bc
 	pop de
 	pop hl

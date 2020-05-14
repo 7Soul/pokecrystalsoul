@@ -4321,7 +4321,7 @@ BattleCommand_BurnTarget:
 	set BRN, [hl]
 	call UpdateOpponentInParty
 	ld hl, ApplyBrnEffectOnAttack
-	call CallBattleCore
+	call CallEffectsExtraCore
 	ld de, ANIM_BRN
 	call PlayOpponentBattleAnim
 	call RefreshBattleHuds
@@ -4446,7 +4446,7 @@ BattleCommand_ParalyzeTarget:
 	set PAR, [hl]
 	call UpdateOpponentInParty
 	ld hl, ApplyPrzEffectOnSpeed
-	call CallBattleCore
+	call CallEffectsExtraCore
 	ld de, ANIM_PAR
 	call PlayOpponentBattleAnim
 	call RefreshBattleHuds
@@ -5245,10 +5245,10 @@ CalcPlayerStats:
 	call BattleCommand_SwitchTurn
 
 	ld hl, ApplyPrzEffectOnSpeed
-	call CallBattleCore
+	call CallEffectsExtraCore
 
 	ld hl, ApplyBrnEffectOnAttack
-	call CallBattleCore
+	call CallEffectsExtraCore
 
 	jp BattleCommand_SwitchTurn
 
@@ -5263,10 +5263,10 @@ CalcEnemyStats:
 	call BattleCommand_SwitchTurn
 
 	ld hl, ApplyPrzEffectOnSpeed
-	call CallBattleCore
+	call CallEffectsExtraCore
 
 	ld hl, ApplyBrnEffectOnAttack
-	call CallBattleCore
+	call CallEffectsExtraCore
 
 	jp BattleCommand_SwitchTurn
 
@@ -6415,7 +6415,7 @@ BattleCommand_Paralyze:
 	set PAR, [hl]
 	call UpdateOpponentInParty
 	ld hl, ApplyPrzEffectOnSpeed
-	call CallBattleCore
+	call CallEffectsExtraCore
 	call UpdateBattleHuds
 	call PrintParalyze
 	ld hl, UseHeldStatusHealingItem
@@ -7128,13 +7128,16 @@ GetItemHeldEffect:
 	call GetFarHalfword
 	ld b, l
 	ld c, h
-	
-	ld a, c	
+	ld a, c
+	push bc
+	push de
 	ld [wBuffer2], a
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitBoostBerryHeal
 	ld a, [wBuffer2]
+	pop de
+	pop bc
 	ld c, a
 	pop hl
 	ret
@@ -7243,6 +7246,11 @@ PlayOpponentBattleAnim:
 
 CallBattleCore:
 	ld a, BANK("Battle Core")
+	rst FarCall
+	ret
+
+CallEffectsExtraCore:
+	ld a, BANK("bank5B")
 	rst FarCall
 	ret
 

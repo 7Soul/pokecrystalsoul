@@ -43,6 +43,7 @@ TraitDescriptions::
 	dw PickupDescription      ; TRAIT_FIND_BERRY
 	dw MagicTrickDescription  ; TRAIT_UPGRADE_BERRY
 	dw NutritionDescription   ; TRAIT_BOOST_BERRY
+	dw HarvestDescription     ; TRAIT_CLONE_BERRY
 	dw TagSplashDescription   ; TRAIT_PARTY_WATER_BOOST_DEFENSE
 	dw CottonGuardDescription ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
 	dw UpVoltageDescription   ; TRAIT_BATTLE_ELECTRIC_BOOST
@@ -391,6 +392,10 @@ MagicTrickDescription:
 NutritionDescription:
 	db   "Berries heal more"
 	next "in battle.@"
+
+HarvestDescription:
+	db   "May regrow a berry"
+	next "after eating one.@"
 
 TagSplashDescription:
 	db   "Team's WATER type"
