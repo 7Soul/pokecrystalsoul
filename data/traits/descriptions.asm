@@ -123,6 +123,7 @@ TraitDescriptions::
 	dw SetupDescription       ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	dw HeadacheDescription    ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	dw HealtySpiritDescription; TRAIT_REGEN_FIRST_TURNS
+	dw SecretGiftDescription  ; TRAIT_CULL_OPP_LOW_HP
 	dw BounceBackDescription  ; TRAIT_REGEN_LOW_HP
 	dw PoiseDescription       ; TRAIT_ATTACK_BELOW_THIRD
 	dw SolidifyDescription    ; TRAIT_DEFENSE_BELOW_THIRD
@@ -712,6 +713,10 @@ HeadacheDescription:
 HealtySpiritDescription:
 	db   "Regain HP on your"
 	next "first few turns.@"
+	
+SecretGiftDescription:
+	db   "May finish the foe"
+	next "off between turns.@"
 	
 BounceBackDescription:
 	db   "Regain HP under"

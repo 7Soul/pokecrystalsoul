@@ -123,6 +123,7 @@ TraitNames::
 	db "Setup@"            ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	db "Headache@"         ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	db "Healty Spirit@"    ; TRAIT_REGEN_FIRST_TURNS
+	db "Secret Gift@"      ; TRAIT_CULL_OPP_LOW_HP
 	db "Bounce Back@"      ; TRAIT_REGEN_LOW_HP
 	db "Poise@"            ; TRAIT_ATTACK_BELOW_THIRD
 	db "Solidify@"         ; TRAIT_DEFENSE_BELOW_THIRD

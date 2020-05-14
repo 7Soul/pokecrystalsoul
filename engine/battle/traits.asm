@@ -98,9 +98,12 @@ CheckTraitCondition:
 	cp TRAIT_REGEN_FIRST_TURNS + 1 ; all traits on turn 3 and lower
 	ld d, 2
 	jp c, .check_turns_lower
+	cp TRAIT_CULL_OPP_LOW_HP + 1 ; traits that require the opponent to be at certain hp
+	ld b, 10
+	jp c, .check_opp_below_threshold
 	cp TRAIT_REGEN_LOW_HP + 1 ; all traits that require to be below 50% hp
 	ld b, 50
-	jp c, .check_below_threshold
+	jp c, .check_below_threshold 
 	cp TRAIT_CRIT_BELOW_THIRD + 1 ; all traits that require to be below 33% hp
 	ld b, 34
 	jp c, .check_below_threshold
@@ -447,6 +450,21 @@ CheckTraitCondition:
 
 .check_below_threshold
 	call GetHealthPercentage
+	ld a, d
+	cp b
+	jp c, .success ; greater
+	and a
+	ret
+
+.check_opp_below_threshold
+	ld hl, wEnemyMonHP
+	ld de, wEnemyMonMaxHP
+	call GetTraitUser
+	jr c, .got_stats
+	ld hl, wBattleMonHP
+	ld de, wBattleMonMaxHP
+.got_stats
+	call GetHealthPercentageWithAddr ; pops bc in it
 	ld a, d
 	cp b
 	jp c, .success ; greater
@@ -1143,6 +1161,28 @@ TraitContact:
 	db TRAIT_CONTACT_CONFUSED
 	db TRAIT_CONTACT_IN_LOVE
 	db -1
+
+TraitCull:
+	ld a, TRAIT_CULL_OPP_LOW_HP
+	call CheckSpecificTrait
+	ret nc
+
+	call BattleRandom
+	and %1
+	jr z, .heal
+; kill
+	call Switch_turn
+	ld hl, GetMaxHP
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ld hl, SubtractHPFromTarget
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ret
+.heal
+	ld hl, GetSixteenthMaxHP
+	call CallHealAmount
+	jp ResetActivated
 
 TraitPostHitBattleCommand:
 	ld hl, .TraitsThatTriggerBattleEffects
@@ -2616,7 +2656,6 @@ CallFarSpecificTrait:
 	ret
 
 GetHealthPercentage:
-	push bc
 	ld hl, wBattleMonHP
 	ld de, wBattleMonMaxHP
 	call GetTraitUser
@@ -2624,6 +2663,8 @@ GetHealthPercentage:
 	ld hl, wEnemyMonHP
 	ld de, wEnemyMonMaxHP
 .got_stats
+GetHealthPercentageWithAddr:
+	push bc
 ; save old calculation results
 	ldh a, [hMultiplicand + 1]
 	ld b, a
@@ -2907,6 +2948,7 @@ OneShotTraits:
 	db TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	db TRAIT_LOWER_ATTACK_TURN_ZERO
 	db TRAIT_LOWER_RANDOM_TURN_ZERO
+	db TRAIT_CULL_OPP_LOW_HP
 	db TRAIT_REGEN_LOW_HP
 	db TRAIT_ATTACK_BELOW_THIRD
 	db TRAIT_DEFENSE_BELOW_THIRD
