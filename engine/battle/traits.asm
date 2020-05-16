@@ -57,6 +57,10 @@ CheckTraitCondition:
 	ld d, 50
 	ld e, SPEED
 	jp c, .check_stat_difference
+	cp TRAIT_ATK_ON_ATK_DIFF + 1 ; 
+	ld d, 50
+	ld e, ATTACK
+	jp c, .check_stat_difference
 	cp TRAIT_REDUCE_RECOIL + 1 ; all traits that require recoil
 	jp c, .check_recoil
 	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
@@ -747,25 +751,31 @@ TraitsThatRaiseStatAfterDamage:
 TraitOnEnter:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	ld a, TRAIT_PARTY_WATER_BOOST_DEFENSE
-	call CheckSpecificTrait
-	ld d, WATER
+	ld hl, .TraitsThatBoostBasedOnPartyType
+	call CheckTrait
 	jr c, .defense_times
-	ld a, TRAIT_PARTY_GRASS_BOOST_DEFENSE
-	call CheckSpecificTrait
-	ld d, GRASS
-	jr c, .defense_times
-	ld a, TRAIT_BATTLE_ELECTRIC_BOOST
-	call CheckSpecificTrait
-	ld d, ELECTRIC
+	ld hl, .TraitsThatBoostBasedOnAllType
+	call CheckTrait
 	ret nc
-.electric_boost
+.battle_type_boost
+	ld a, [wBuffer3]
+	ld hl, .TypeList2
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld d, [hl]
 	push de
 	call CheckTraitCondition.check_party_for_type
 	pop de
 	jp CheckTraitCondition.check_opp_party_for_type
 
-.defense_times
+.defense_times	
+	ld a, [wBuffer3]
+	ld hl, .TypeList
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld d, [hl]
 	call CheckTraitCondition.check_party_for_type
 	call CheckTraitCount
 	inc a
@@ -784,6 +794,28 @@ TraitOnEnter:
 	call TraitUseBattleCommandSimple
 	pop bc
 	jr .loop
+
+.TraitsThatBoostBasedOnPartyType:
+	db TRAIT_PARTY_WATER_BOOST_DEFENSE
+	db TRAIT_PARTY_GRASS_BOOST_DEFENSE
+	db TRAIT_PARTY_BUG_BOOST_DEFENSE
+	db -1
+
+.TypeList:
+	db WATER
+	db GRASS
+	db BUG
+
+.TraitsThatBoostBasedOnAllType:
+	db TRAIT_BATTLE_ELECTRIC_BOOST
+	db TRAIT_BATTLE_DARK_BOOST
+	db TRAIT_BATTLE_FIRE_BOOST
+	db -1
+
+.TypeList2:
+	db ELECTRIC
+	db DARK
+	db FIRE
 
 TraitRaiseStat:
 	ld a, $FF
@@ -897,6 +929,7 @@ TraitsThatRaiseAttack:
 	db TRAIT_ATTACK_BELOW_THIRD
 	db TRAIT_ATTACK_STATUSED
 	db TRAIT_ATTACK_AFTER_CRIT
+	db TRAIT_ATK_ON_ATK_DIFF
 	db -1
 
 TraitsThatRaiseDefense:
@@ -1154,7 +1187,7 @@ TraitContact:
 
 	ld a, SPIKES
 	ld [wBuffer2], a
-	ld a, 6
+	ld a, 7
 	ld [wBuffer3], a
 	jr .finish
 .not_hot_coals
@@ -1175,6 +1208,7 @@ TraitContact:
 	dw BattleCommand_FlinchTarget
 	dw BattleCommand_ConfuseTarget
 	dw BattleCommand_Attract
+	dw BattleCommand_ParalyseOrSleep
 	dw DoExactMove
 
 .TraitsThatRequireContact:
@@ -1184,6 +1218,7 @@ TraitContact:
 	db TRAIT_CONTACT_FLINCH
 	db TRAIT_CONTACT_CONFUSED
 	db TRAIT_CONTACT_IN_LOVE
+	db TRAIT_CONTACT_SPORE
 	db -1
 
 TraitCull:
@@ -1243,18 +1278,21 @@ TraitPostHitBattleCommand:
 	dw BattleCommand_ParalyzeTarget
 	dw BattleCommand_BurnTarget
 	dw BattleCommand_ParalyzeOrPoisonTarget
+	dw BattleCommand_FreezeOrSlowTarget
 
 .StatusChances:
 	db 8 percent, 12 percent
 	db 16 percent, 25 percent
 	db 16 percent, 25 percent
 	db 10 percent, 10 percent
+	db 15 percent, 20 percent
 
 .TraitsThatTriggerBattleEffects:
 	db TRAIT_FLYING_FRZ
 	db TRAIT_FLYING_PRZ
 	db TRAIT_FLYING_BRN
 	db TRAIT_PRZ_PSN_WITH_GRASS
+	db TRAIT_FRZ_SPD_WITH_WATER
 	db -1
 
 TraitStartWeather:
@@ -1536,7 +1574,8 @@ TraitReducePower:
 	call IsInArray
 	ret nc
 .boost
-	ld a, $67 ; ~0.85
+	; ld a, $67 ; ~0.85
+	ld a, $68 ; ~0.75
 	jp ApplyDamageMod
 .boost_more
 	ld a, $68 ; 0.75
@@ -2965,6 +3004,7 @@ ResetActivated:
 OneShotTraits:
 ; List of traits that can only go off once while the pokemon is out
 	db TRAIT_EVASION_ON_SPEED_DIFF
+	db TRAIT_ATK_ON_ATK_DIFF
 	db TRAIT_ATTACK_OPP_FAINT
 	db TRAIT_SP_ATTACK_OPP_FAINT
 	db TRAIT_RAIN_ATTACK
@@ -3029,6 +3069,7 @@ OneShotTraits:
 	db TRAIT_OPP_SAME_TYPE_CRIT_BOOST
 	db TRAIT_PARTY_WATER_BOOST_DEFENSE
 	db TRAIT_PARTY_GRASS_BOOST_DEFENSE
+	db TRAIT_PARTY_BUG_BOOST_DEFENSE
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE

@@ -3942,6 +3942,13 @@ UpdateMoveData:
 ; .not_variable
 	jp CopyName1
 
+BattleCommand_ParalyseOrSleep:
+	call BattleRandom
+	and 1
+	jr z, .sleep
+	jp BattleCommand_ParalyzeTarget
+.sleep
+
 BattleCommand_SleepTarget:
 ; sleeptarget
 
@@ -4267,14 +4274,6 @@ BattleCommand_EatDream:
 	ld hl, DreamEatenText
 	jp StdBattleTextBox
 
-BattleCommand_ParalyzeOrPoisonTarget:
-	call BattleRandom
-	and 1
-	jr z, .poison
-	jp BattleCommand_ParalyzeTarget
-.poison
-	jp BattleCommand_PoisonTarget
-
 BattleCommand_BurnTarget:
 ; burntarget
 	xor a
@@ -4345,6 +4344,16 @@ Defrost:
 	ld hl, DefrostedOpponentText
 	jp StdBattleTextBox
 
+BattleCommand_FreezeOrSlowTarget:
+	call BattleRandom
+	and 11
+	jr z, .freeze ; 1/4th
+	call BattleCommand_SpeedDown
+	call BattleCommand_StatDownMessage
+	jp BattleCommand_StatDownFailText
+.freeze
+; fallthrough
+
 BattleCommand_FreezeTarget:
 ; freezetarget
 
@@ -4399,6 +4408,13 @@ BattleCommand_FreezeTarget:
 	ld [hl], $1
 	ret
 
+BattleCommand_ParalyzeOrPoisonTarget:
+	call BattleRandom
+	and 1
+	jr z, .paralyze
+	jp BattleCommand_PoisonTarget
+.paralyze
+; fallthrough
 BattleCommand_ParalyzeTarget:
 ; paralyzetarget
 

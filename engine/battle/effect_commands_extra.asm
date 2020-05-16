@@ -679,4 +679,6 @@ SpeedBoostDamage:
 	db SLASH
 	db MACH_PUNCH
 	db OCTAZOOKA
+	db FEATHERGALE
+	db AIR_SLASH
 	db -1

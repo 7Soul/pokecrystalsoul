@@ -2087,7 +2087,7 @@ VaporeonEvosAttacks:
 	db 13, QUICK_ATTACK
 	db 18, JET_STREAM
 	db 21, AURORA_BEAM
-	db 30, SLASH
+	db 30, BITE
 	db 42, HAZE
 	db 47, ACID_ARMOR
 	db 47, RAIN_DANCE

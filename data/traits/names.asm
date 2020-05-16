@@ -6,8 +6,10 @@ TraitNames::
 	db "Stun Body@"        ; TRAIT_CONTACT_FLINCH
 	db "High Tempo@"       ; TRAIT_CONTACT_CONFUSED
 	db "Cute Charm@"       ; TRAIT_CONTACT_IN_LOVE
+	db "Effect Spore@"     ; TRAIT_CONTACT_SPORE
 	db "Hot Coals@"        ; TRAIT_HOT_COALS
 	db "Lightning Fast@"   ; TRAIT_EVASION_ON_SPEED_DIFF
+	db "Unleash Power@"    ; TRAIT_ATK_ON_ATK_DIFF
 	db "Life Drain@"       ; TRAIT_HEAL_HP_FAINT
 	db "Keep Going@"       ; TRAIT_HEAL_PP_FAINT
 	db "Eruption@"         ; TRAIT_BURN_FAINT
@@ -31,7 +33,7 @@ TraitNames::
 	db "Steel Cover@"      ; TRAIT_REDUCE_PERFURATE
 	db "Rock Head@"        ; TRAIT_REDUCE_SELF_RECOIL
 	db "Sniper@"           ; TRAIT_BOOST_CRIT_DAMAGE
-	db "Battle Armor@"     ; TRAIT_REDUCE_CRIT_DAMAGE
+	db "Shell Armor@"      ; TRAIT_REDUCE_CRIT_DAMAGE
 	db "Drain Surge@"      ; TRAIT_BOOST_DRAIN
 	db "Skill Link@"       ; TRAIT_BOOST_MULTI_HIT_COUNT
 	db "Chain Clip@"       ; TRAIT_BOOST_MULTI_HIT_DAMAGE
@@ -47,7 +49,10 @@ TraitNames::
 	db "Harvest@"          ; TRAIT_CLONE_BERRY
 	db "Tag Splash@"       ; TRAIT_PARTY_WATER_BOOST_DEFENSE
 	db "Cotton Guard@"     ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
+	db "Bug Colony@"       ; TRAIT_PARTY_BUG_BOOST_DEFENSE
 	db "Up Voltage@"       ; TRAIT_BATTLE_ELECTRIC_BOOST
+	db "Shadow Cloak@"     ; TRAIT_BATTLE_DARK_BOOST
+	db "Magma Flow@"       ; TRAIT_BATTLE_FIRE_BOOST
 	db "Rain Dish@"        ; TRAIT_REGEN_ON_RAIN
 	db "Monsoon@"          ; TRAIT_RAIN_DURATION
 	db "Drizzle@"          ; TRAIT_RAIN_ON_ENTER
@@ -205,6 +210,7 @@ TraitNames::
 	db "Forest Rage@"      ; TRAIT_BOOST_GRASS_STATUSED
 	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_ATTACK
 	db "Polen Hazard@"     ; TRAIT_PRZ_PSN_WITH_GRASS
+	db "Ice Water@"        ; TRAIT_FRZ_SPD_WITH_WATER
 	db "Ion Field@"        ; TRAIT_REDUCE_ELECTRIC
 	db "Ionize Air@"       ; TRAIT_REDUCE_ELECTRIC_MORE
 	db "Zap Rush@"         ; TRAIT_BOOST_ELECTRIC_SPEED
@@ -216,8 +222,8 @@ TraitNames::
 	db "Hibernate@"        ; TRAIT_REDUCE_ICE_MORE
 	db "South Wind@"       ; TRAIT_BOOST_ICE_HP
 	db "Tyrant Rage@"      ; TRAIT_BOOST_DARK_STATUSED
-	db "Shadow Being@"     ; TRAIT_REDUCE_DARK
+	db "Light Barrier@"    ; TRAIT_REDUCE_DARK
 	db "Brawl@"            ; TRAIT_REDUCE_DARK_MORE
 	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
-	db "Prism Armor@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE
+	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db "Prism Plate@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE

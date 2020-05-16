@@ -6,8 +6,10 @@ TraitDescriptions::
 	dw StunBodyDescription    ; TRAIT_CONTACT_FLINCH
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
 	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
+	dw EffectSporeDescription ; TRAIT_CONTACT_SPORE
 	dw HotCoalsDescription    ; TRAIT_HOT_COALS
 	dw LightningFastDescription ; TRAIT_EVASION_ON_SPEED_DIFF
+	dw UnleashPowerDescription ; TRAIT_ATK_ON_ATK_DIFF
 	dw LifeDrainDescription   ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription   ; TRAIT_HEAL_PP_FAINT
 	dw EruptionDescription    ; TRAIT_BURN_FAINT
@@ -31,7 +33,7 @@ TraitDescriptions::
 	dw SteelCoverDescription  ; TRAIT_REDUCE_PERFURATE
 	dw RockHeadDescription    ; TRAIT_REDUCE_SELF_RECOIL
 	dw SniperDescription      ; TRAIT_BOOST_CRIT_DAMAGE
-	dw BattleArmorDescription ; TRAIT_REDUCE_CRIT_DAMAGE
+	dw ShellArmorDescription ; TRAIT_REDUCE_CRIT_DAMAGE
 	dw DrainSurgeDescription  ; TRAIT_BOOST_DRAIN
 	dw SkillLinkDescription   ; TRAIT_BOOST_MULTI_HIT_COUNT
 	dw ChainClipDescription   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
@@ -47,7 +49,10 @@ TraitDescriptions::
 	dw HarvestDescription     ; TRAIT_CLONE_BERRY
 	dw TagSplashDescription   ; TRAIT_PARTY_WATER_BOOST_DEFENSE
 	dw CottonGuardDescription ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
+	dw BugColonyDescription   ; TRAIT_PARTY_BUG_BOOST_DEFENSE
 	dw UpVoltageDescription   ; TRAIT_BATTLE_ELECTRIC_BOOST
+	dw ShadowCloakDescription ; TRAIT_BATTLE_DARK_BOOST
+	dw MagmaFlowDescription   ; TRAIT_BATTLE_FIRE_BOOST
 	dw RainDishDescription    ; TRAIT_REGEN_ON_RAIN
 	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
@@ -199,6 +204,7 @@ TraitDescriptions::
 	dw WaterSurgeDescription  ; TRAIT_BOOST_WATER_HP
 	dw DeepSeaRageDescription ; TRAIT_BOOST_WATER_STATUSED
 	dw HardeningSandDescription ; TRAIT_REDUCE_WATER_UP_DEFENSE
+	dw IceWaterDescription    ; TRAIT_FRZ_SPD_WITH_WATER
 	dw AridTouchDescription   ; TRAIT_REDUCE_GRASS
 	dw AridShieldDescription  ; TRAIT_REDUCE_GRASS_MORE
 	dw OvergrowDescription    ; TRAIT_BOOST_GRASS_HP
@@ -213,13 +219,13 @@ TraitDescriptions::
 	dw Forewarn2Description   ; TRAIT_REDUCE_PSYCHIC_MORE
 	dw TwoSidedRageDescription; TRAIT_BOOST_PSYCHIC_STATUSED
 	dw ThickCoatDescription   ; TRAIT_REDUCE_ICE
-	dw ThickCoat2Description  ; TRAIT_REDUCE_ICE_MORE
+	dw HibernateDescription   ; TRAIT_REDUCE_ICE_MORE
 	dw SouthWindDescription   ; TRAIT_BOOST_ICE_HP
 	dw ArcticRageDescription  ; TRAIT_BOOST_ICE_STATUSED
-	dw ShadowBeingDescription ; TRAIT_REDUCE_DARK
-	dw ShadowBeing2Description; TRAIT_REDUCE_DARK_MORE
+	dw LightBarrierDescription ; TRAIT_REDUCE_DARK
+	dw BrawlDescription       ; TRAIT_REDUCE_DARK_MORE
 	dw TyrantRageDescription  ; TRAIT_BOOST_DARK_STATUSED
-	dw PrismArmorDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE
+	dw AdaptiveFurDescription ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	dw PrismPlateDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
     dw TraitFFDescription
 
@@ -248,12 +254,20 @@ CuteCharmDescription:
 	db   "Contact may INFATU"
 	next "ATE the attacker.@"
 
+EffectSporeDescription:
+	db   "Contact may PRZ or"
+	next "SLP the attacker.@"
+
 HotCoalsDescription:
 	db   "Contact may spread"
 	next "hot coals around.@"
 
 LightningFastDescription:
 	db   "Ups EVA if SPD is"
+	next "higher than foe's.@"
+
+UnleashPowerDescription:
+	db   "Ups ATK when it is"
 	next "higher than foe's.@"
 
 LifeDrainDescription:
@@ -348,7 +362,7 @@ SniperDescription:
 	db   "Raises the damage"
 	next "of critical hits.@"
 
-BattleArmorDescription:
+ShellArmorDescription:
 	db   "Lowers damage from"
 	next "critical hits.@"
 
@@ -412,8 +426,20 @@ CottonGuardDescription:
 	db   "Team's GRASS type"
 	next "raise DEF more.@"
 	
+BugColonyDescription:
+	db   "Team's BUG type"
+	next "raise DEF more.@"
+	
 UpVoltageDescription:
 	db   "All ELECTRIC <PKMN>"
+	next "give you power.@"
+	
+ShadowCloakDescription:
+	db   "All DARK <PKMN>"
+	next "give you power.@"
+	
+MagmaFlowDescription:
+	db   "All FIRE <PKMN>"
 	next "give you power.@"
 
 RainDishDescription:
@@ -1044,6 +1070,10 @@ PolenHazardDescription:
 	db   "May PSN or PRZ"
 	next "with GRASS moves.@"
 
+IceWaterDescription:
+	db   "May FRZ/SPD down"
+	next "with WATER moves.@"
+
 IonFieldDescription:
 	db   "Reduces ELECTRIC"
 	next "damage taken.@"
@@ -1075,8 +1105,8 @@ TwoSidedRageDescription:
 ThickCoatDescription:
 	db   "Reduces ICE damage"
 	next "taken.@"
-	
-ThickCoat2Description:
+
+HibernateDescription:
 	db   "Resists ICE under"
 	next "half HP.@"
 	
@@ -1088,11 +1118,11 @@ ArcticRageDescription:
 	db   "Boosts ICE under"
 	next "any status.@"
 
-ShadowBeingDescription:
+LightBarrierDescription:
 	db   "Reduces DARK dam-"
 	next "age taken.@"
 	
-ShadowBeing2Description:
+BrawlDescription:
 	db   "Resists DARK under"
 	next "half HP.@"
 	
@@ -1100,7 +1130,7 @@ TyrantRageDescription:
 	db   "Boosts DARK under"
 	next "any status.@"
 
-PrismArmorDescription:
+AdaptiveFurDescription:
 	db   "Take less SUPER-"
 	next "EFFECTIVE damage@"
 	
