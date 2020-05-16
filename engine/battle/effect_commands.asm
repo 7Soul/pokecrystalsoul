@@ -1326,7 +1326,7 @@ BattleCommand_Stab:
 	and TYPE_MASK ; move type in a
 	ld [wCurType], a
 	ld [wMoveType], a
-	farcall ReplaceVariableType
+	; farcall ReplaceVariableType
 	ld a, [wCurType]
 	ld [wMoveType], a
 	jr .no_mod
@@ -1394,6 +1394,10 @@ BattleCommand_Stab:
 	set 7, [hl]
 
 .SkipStab:
+	; ld a, BATTLE_VARS_TRAIT
+	; ld [wBuffer1], a
+	; farcall TraitChangeDamageType
+
 	ld a, [wMoveType]
 	ld b, a
 	ld hl, TypeMatchups
@@ -1579,15 +1583,9 @@ CheckTypeMatchup:
 	and TYPE_MASK ; move type in a
 	ld d, a
 	
-	; ld a, BATTLE_VARS_TRAIT
-	; call GetBattleVar
-	; cp TRAIT_NORMAL_TO_FIRE
-	; ld a, FIRE
-	; ld [hl], a
-
 	ld [wCurType], a
 	ld [wMoveType], a
-	farcall ReplaceVariableType
+	; farcall ReplaceVariableType
 	ld a, [wCurType]
 	ld [wMoveType], a
 	pop hl
@@ -2233,7 +2231,7 @@ BattleCommand_MoveAnimNoSub:
 	call GetBattleVar
 	and TYPE_MASK ; move type in a
 	ld [wCurType], a
-	farcall ReplaceVariableType
+	; farcall ReplaceVariableType
 	ld a, [wMoveType] ; old type
 	ld b, a
 	ld a, [wCurType] ; new type
@@ -2935,32 +2933,6 @@ PlayerAttackDamage:
 	and a
 	ret
 
-TruncateHL_BC:
-.loop
-; Truncate 16-bit values hl and bc to 8-bit values b and c respectively.
-; b = hl, c = bc
-	ld a, h
-	or b
-	jr z, .finish
-
-	call HalveBC
-	
-	srl h
-	rr l
-
-	ld a, l
-	or h
-	jr nz, .finish
-	inc l
-
-.finish
-	ld a, h
-	or b
-	jr nz, .loop
-	
-	ld b, l
-	ret
-
 CheckDamageStatsCritical:
 ; Return carry if boosted stats should be used in damage calculations.
 ; Unboosted stats should be used if the attack is a critical hit,
@@ -3321,11 +3293,13 @@ BattleCommand_DamageCalc:
 	ld [wBuffer1], a
 	farcall TraitDamageBasedOnHP
 
+	farcall SpeedBoostDamage
+
 	; ldh a, [hMultiplicand + 1]
 	; ld [$c002], a
 	; ldh a, [hMultiplicand + 2]
 	; ld [$c003], a
-	
+
 ; Item boosts
 	call GetUserItem
 
@@ -3916,46 +3890,56 @@ UpdateMoveData:
 
 	dec a
 	call GetMoveData
-	call GetMoveName
 
-	push hl
-	push de	
-	ld a, [wCurSpecies]
-	ld e, a
-	farcall IsVariableMove
-	pop de
-	pop hl
-	jr nc, .not_variable
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitChangeDamageType
 
-	ld a, [wBattleMonSpecies]
-	ld [wCurPartySpecies], a
-	ld a, [wBattleMonType1]
-	ld b, a
-	ld a, [wBattleMonType2]
-	ld c, a
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .ok
-	ld a, [wEnemyMonSpecies]
-	ld [wCurPartySpecies], a
-	ld a, [wEnemyMonType1]
-	ld b, a
-	ld a, [wEnemyMonType2]
-	ld c, a
-.ok
-	ld a, [wCurType]
-	ld d, a
-	farcall GetVariableMoveType
 	ld a, BATTLE_VARS_MOVE
 	call GetBattleVar
-	ld e, a
-	farcall GetVariableMoveName
-	ld hl, wStringBuffer1
-	ld de, wStringBuffer2
-	ld bc, wStringBuffer2 - wStringBuffer1
-	jp CopyBytes
-	ret
-.not_variable
+	ld [wCurSpecies], a
+	ld [wNamedObjectIndexBuffer], a
+	dec a
+	call GetMoveName
+
+; 	push hl
+; 	push de	
+; 	ld a, [wCurSpecies]
+; 	ld e, a
+; 	farcall IsVariableMove
+; 	pop de
+; 	pop hl
+; 	jr nc, .not_variable
+
+; 	ld a, [wBattleMonSpecies]
+; 	ld [wCurPartySpecies], a
+; 	ld a, [wBattleMonType1]
+; 	ld b, a
+; 	ld a, [wBattleMonType2]
+; 	ld c, a
+; 	ldh a, [hBattleTurn]
+; 	and a
+; 	jr z, .ok
+; 	ld a, [wEnemyMonSpecies]
+; 	ld [wCurPartySpecies], a
+; 	ld a, [wEnemyMonType1]
+; 	ld b, a
+; 	ld a, [wEnemyMonType2]
+; 	ld c, a
+; .ok
+; 	ld a, [wCurType]
+; 	ld d, a
+; 	farcall GetVariableMoveType
+; 	ld a, BATTLE_VARS_MOVE
+; 	call GetBattleVar
+; 	ld e, a
+; 	farcall GetVariableMoveName
+; 	ld hl, wStringBuffer1
+; 	ld de, wStringBuffer2
+; 	ld bc, wStringBuffer2 - wStringBuffer1
+; 	jp CopyBytes
+; 	ret
+; .not_variable
 	jp CopyName1
 
 BattleCommand_SleepTarget:

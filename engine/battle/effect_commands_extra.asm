@@ -609,3 +609,74 @@ ApplyPrzEffectOnSpeed:
 .enemy_ok
 	ld [hl], b
 	ret
+
+SpeedBoostDamage: 
+	ld a, BATTLE_VARS_MOVE_EFFECT
+	call GetBattleVar
+	and TYPE_MASK
+	cp EFFECT_MULTI_HIT
+	jr z, .speed_boost
+	cp EFFECT_POISON_MULTI_HIT
+	jr z, .speed_boost
+
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	ld hl, .SpeedBoostMoves
+	ld de, 1
+	call IsInArray
+	jr c, .speed_boost
+	ret
+	
+.speed_boost
+	ld hl, wBattleMonSpeed
+	ld de, wEnemyMonSpeed
+	ld a, [hBattleTurn]
+	and a
+	jr z, .got_speed
+	ld hl, wEnemyMonSpeed
+	ld de, wBattleMonSpeed
+.got_speed
+; only boost if user speed is higher, so damage isn't reduced
+	push hl
+	push de
+	ld c, 2
+	call CompareBytes
+	pop de
+	pop hl
+	ret nc
+; user's speed in bc and opp's in hl
+	ld a, [hli]
+	ld b, a
+	ld a, [hl]
+	ld c, a
+	ld a, [de]
+	ld h, a
+	inc de
+	ld a, [de]
+	ld l, a
+	call TruncateHL_BC
+	ld a, c ; user
+	add 20
+	jr nc, .speed_max1
+	ld c, $ff
+.speed_max1
+	ldh [hMultiplier], a
+	call Multiply
+	ld a, b ; opp
+	add 20
+	jr nc, .speed_max2
+	ld c, $ff
+.speed_max2
+	ldh [hDivisor], a
+	ld b, 4
+	call Divide
+	ret
+
+.SpeedBoostMoves:
+	db RAPID_SPIN
+	db SWIFT
+	db ZOOM_FLIGHT
+	db SLASH
+	db MACH_PUNCH
+	db OCTAZOOKA
+	db -1

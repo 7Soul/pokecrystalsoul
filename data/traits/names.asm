@@ -7,6 +7,7 @@ TraitNames::
 	db "High Tempo@"       ; TRAIT_CONTACT_CONFUSED
 	db "Cute Charm@"       ; TRAIT_CONTACT_IN_LOVE
 	db "Hot Coals@"        ; TRAIT_HOT_COALS
+	db "Lightning Fast@"   ; TRAIT_EVASION_ON_SPEED_DIFF
 	db "Life Drain@"       ; TRAIT_HEAL_HP_FAINT
 	db "Keep Going@"       ; TRAIT_HEAL_PP_FAINT
 	db "Eruption@"         ; TRAIT_BURN_FAINT
@@ -57,6 +58,7 @@ TraitNames::
 	db "Tempest@"          ; TRAIT_SANDSTORM_DURATION
 	db "Dust Devil@"       ; TRAIT_SANDSTORM_ON_ENTER
 	db "Healing Aroma@"    ; TRAIT_HEAL_HP_AND_STATUS
+	db "Shed Skin@"        ; TRAIT_HEAL_STATUS
 	db "Reckless@"         ; TRAIT_BOOST_RECOIL
 	db "Deviant@"          ; TRAIT_REDUCE_RECOIL
 	db "Rainy Boon@"       ; TRAIT_RAIN_ATTACK

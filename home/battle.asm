@@ -255,3 +255,29 @@ ApplyDamageMod::
 	pop hl
 	pop bc
 	ret
+
+TruncateHL_BC::
+.loop
+; Truncate 16-bit values hl and bc to 8-bit values b and c respectively.
+; b = hl, c = bc
+	ld a, h
+	or b
+	jr z, .finish
+
+	call HalveBC
+	
+	srl h
+	rr l
+
+	ld a, l
+	or h
+	jr nz, .finish
+	inc l
+
+.finish
+	ld a, h
+	or b
+	jr nz, .loop
+	
+	ld b, l
+	ret

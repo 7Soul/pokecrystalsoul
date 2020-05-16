@@ -7,6 +7,7 @@ TraitDescriptions::
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
 	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
 	dw HotCoalsDescription    ; TRAIT_HOT_COALS
+	dw LightningFastDescription ; TRAIT_EVASION_ON_SPEED_DIFF
 	dw LifeDrainDescription   ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription   ; TRAIT_HEAL_PP_FAINT
 	dw EruptionDescription    ; TRAIT_BURN_FAINT
@@ -57,6 +58,7 @@ TraitDescriptions::
 	dw TempestDescription     ; TRAIT_SANDSTORM_DURATION
 	dw DustDevilDescription   ; TRAIT_SANDSTORM_ON_ENTER
 	dw HealingAromaDescription; TRAIT_HEAL_HP_AND_STATUS
+	dw ShedSkinDescription    ; TRAIT_HEAL_STATUS
 	dw RecklessDescription    ; TRAIT_BOOST_RECOIL
 	dw DeviantDescription     ; TRAIT_REDUCE_RECOIL
 	dw RainyBoon0Description  ; TRAIT_RAIN_ATTACK
@@ -249,6 +251,10 @@ CuteCharmDescription:
 HotCoalsDescription:
 	db   "Contact may spread"
 	next "hot coals around.@"
+
+LightningFastDescription:
+	db   "Ups EVA if SPD is"
+	next "higher than foe's.@"
 
 LifeDrainDescription:
 	db   "Regain HP when a"
@@ -448,6 +454,10 @@ DustDevilDescription:
 
 HealingAromaDescription:
 	db   "May heal HP and"
+	next "status each turn.@"
+
+ShedSkinDescription:
+	db   "May recover from a"
 	next "status each turn.@"
 
 RecklessDescription:

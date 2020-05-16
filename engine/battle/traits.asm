@@ -44,13 +44,20 @@ CheckTraitCondition:
 .GotTrait:
 	cp TRAIT_SANDSTORM_ON_ENTER + 1 ; traits lower than this have no conditions
 	jp c, .success
-	cp TRAIT_HEAL_HP_AND_STATUS + 1 ; traits lower than this have no conditions
+	cp TRAIT_HEAL_HP_AND_STATUS + 1 
 	ld d, 10 percent
+	jp c, .check_chance
+	cp TRAIT_HEAL_STATUS + 1 
+	ld d, 30 percent
 	jp c, .check_chance
 	cp TRAIT_HOT_COALS + 1 ; 
 	ld d, 100 percent
 	jp c, .check_chance
-	cp TRAIT_REDUCE_RECOIL + 1 ; all traits that require rain weather
+	cp TRAIT_EVASION_ON_SPEED_DIFF + 1 ; 
+	ld d, 50
+	ld e, SPEED
+	jp c, .check_stat_difference
+	cp TRAIT_REDUCE_RECOIL + 1 ; all traits that require recoil
 	jp c, .check_recoil
 	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
 	ld d, WEATHER_RAIN
@@ -378,6 +385,14 @@ CheckTraitCondition:
 	and a
 	ret
 
+.check_stat_difference
+	ld a, e
+	call GetStatDifference
+	cp d
+	jp nc, .success
+	and a
+	ret
+
 .check_recoil
 	call GetMoveStructEffect
 	cp EFFECT_RECOIL_HIT
@@ -414,6 +429,7 @@ CheckTraitCondition:
 .check_turns_equal
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
+	dec a
 	cp d
 	jp z, .success ; 
 	and a
@@ -781,6 +797,9 @@ TraitRaiseStat:
 	ld a, TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	call CheckSpecificTrait
 	jr c, .random_stat
+	ld a, TRAIT_EVASION_ON_SPEED_DIFF
+	call CheckSpecificTrait
+	jr c, .evasion
 	xor a
 .loop
 	push af
@@ -819,6 +838,7 @@ TraitRaiseStat:
 
 .end
 	pop af
+.end2
 	ld a, b	
 	ld hl, .JumptableBattleCommands
 	call TraitUseBattleCommand
@@ -832,6 +852,9 @@ TraitRaiseStat:
 	ld a, [wBuffer3]
 	cp 0 ; index 0 also raises acc
 	jr z, .also_raise_acc
+	ret
+.no_raise
+	pop af
 	ret
 .also_raise_acc
 	ld b, ACCURACY
@@ -1065,25 +1088,26 @@ TraitsThatBoostAccuracy:
 TraitReduceAccuracy:
 	ld hl, TraitsThatReduceAccuracy
 	call CheckTrait
-	jr nc, .not_met
+	ret nc
 	ld a, [wBuffer2]
-	cp 216 + 1 ; 85%
-	jr c, .low_acc
-	sub 12 ; 5%
-	jr nc, .end
-.low_acc
-	cp 191 + 1 ; 75%
+	cp 75 percent + 1 ; lower than 75%
 	jr c, .lower_acc
-	sub 18 ; 7%
+	cp 85 percent + 1 ; between 75% and 85%
+	jr c, .low_acc
+	sub 5 percent ; above 85% lowers by 5%
 	jr nc, .end
+	jr .min
+.low_acc	
+	sub 7 percent ; between 75% and 85% lowers by 7%
+	jr nc, .end
+	jr .min
 .lower_acc
-	sub 32 ; 12%
+	sub 12 percent ; under 75% lowers by 12%
 	jr nc, .end
-.min
+.min ; c is set, min is 0
 	xor a
 .end
 	ld [wBuffer2], a
-.not_met
 	ret
 
 TraitsThatReduceAccuracy:
@@ -1327,6 +1351,7 @@ TraitHealStatus:
 
 .TraitsThatHealStatus:
 	db TRAIT_HEAL_HP_AND_STATUS ; 0
+	db TRAIT_HEAL_STATUS ; 1
 	db TRAIT_RAIN_NO_STATUS
 	db TRAIT_SUNSHINE_NO_STATUS
 	db TRAIT_SANDSTORM_NO_STATUS
@@ -1555,7 +1580,7 @@ TraitBoostPower:
 .no_weather
 	ld hl, .TraitsThatBoostTypeStatused
 	call CheckTrait
-	jr c, .boost2
+	jr c, .boost_with_status
 	ld hl, .TraitsThatBoostDamage
 	call CheckTrait
 	jr c, .boost_20
@@ -1587,7 +1612,7 @@ TraitBoostPower:
 .boost_15
 	ld a, $76 ; ~1.16
 	jp ApplyDamageMod
-.boost2
+.boost_with_status
 	ld d, $FE
 	call CheckTraitCondition.check_user_status
 	ret nc
@@ -1703,6 +1728,7 @@ PerfurateMoves:
 	db HORN_DRILL
 	db DRILL_PECK
 	db MEGAHORN
+	db FELL_STINGER
 	db HORN_ATTACK
 	db -1
 
@@ -1892,43 +1918,8 @@ TraitDamageBasedOnStats:
 	pop bc
 	ld a, c
 	jr nc, .loop
-.met
-	ld hl, wBattleMonStats
-	ld de, wEnemyMonStats
-	call GetTraitUser
-	jr c, .got_stats
-	ld hl, wEnemyMonStats
-	ld de, wBattleMonStats
-.got_stats
-	ld b, 0
-	add hl, bc
-	add hl, bc
-	push hl
-	ld h, d
-	ld l, e
-	add hl, bc
-	add hl, bc
-	ld d, h
-	ld e, l
-	pop hl
 
-	ld a, [de] ; opp stat (high byte)
-	sub [hl] ; sub user stat from opp stat (high byte)
-	jr nc, .no_carry
-	cpl
-	inc a
-.no_carry
-	and a ; check high byte diff is 0
-	jr nz, .max ; if there is a diff, then the total diff is clearly above 255
-; check low bytes
-	inc de
-	inc hl
-	ld a, [de] ; opp stat (high byte)
-	sub [hl] ; sub user stat from opp stat
-	jr nc, .no_carry2
-	cpl
-	inc a
-.no_carry2
+	call GetStatDifference
 ; has difference between low bytes
 	ld b, a ; diff is in b
 	ld hl, .Boosts
@@ -1947,7 +1938,7 @@ TraitDamageBasedOnStats:
 .boost
 	jp ApplyDamageMod
 .max
-	ld a, $A7
+	ld a, $FF
 	jr .boost
 
 .Boosts:
@@ -1987,6 +1978,50 @@ TraitsThatBoostDamageBasedOnSpAttack:
 TraitsThatBoostDamageBasedOnSpDefense:
 	db TRAIT_BOOST_ROCK_SP_DEFENSE
 	db -1
+
+GetStatDifference: ; takes stat in `a` and returns difference in `a`
+	ld hl, wBattleMonStats
+	ld de, wEnemyMonStats
+	call GetTraitUser
+	jr c, .got_stats
+	ld hl, wEnemyMonStats
+	ld de, wBattleMonStats
+.got_stats
+	ld b, 0
+; puts user stat in hl
+	add hl, bc
+	add hl, bc
+	push hl
+	ld h, d
+	ld l, e
+; puts opp stat in de
+	add hl, bc
+	add hl, bc
+	ld d, h
+	ld e, l
+	pop hl
+
+	ld a, [de] ; opp stat (high byte)
+	sub [hl] ; sub user stat from opp stat (high byte)
+	jr nc, .no_carry
+	cpl
+	inc a
+.no_carry
+	and a ; check high byte diff is 0
+	jr nz, .max ; if there is a diff, then the total diff is clearly above 255
+; check low bytes
+	inc de
+	inc hl
+	ld a, [de] ; opp stat (high byte)
+	sub [hl] ; sub user stat from opp stat
+	jr nc, .no_carry2
+	cpl
+	inc a
+.no_carry2
+	ret
+.max
+	ld a, $FF
+	ret
 
 TraitDamageBasedOnHP:
 	ld hl, TraitsThatBoostMoveByHP
@@ -2325,7 +2360,7 @@ endr
 	ret
 
 TraitRegenHP:
-	ld hl, TraitsThatRegenerate
+	ld hl, .TraitsThatRegenerate
 	call CheckTrait
 	ret nc
 	
@@ -2339,7 +2374,7 @@ TraitRegenHP:
 .complete_heal
 	jp CallHealAmount
 
-TraitsThatRegenerate:
+.TraitsThatRegenerate:
 	db TRAIT_REGEN_LOW_HP ; 0
 	db TRAIT_REGEN_STATUSED ; 1
 	db TRAIT_REGEN_FIRST_TURNS ; 2
@@ -2379,6 +2414,27 @@ TraitCausedBurn:
 	call TraitUseBattleCommandSimple
 	ld hl, BattleCommand_StatUpFailText
 	jp TraitUseBattleCommandSimple
+
+TraitChangeDamageType:
+	; ld hl, .TraitsThatChangeDamageType
+	; call CheckTrait
+	; ret nc
+
+	; ld a, BATTLE_VARS_MOVE_TYPE
+	; call GetBattleVarAddr
+	; ld a, [hl]
+	; and %11000000
+	; ld b, a
+	; ld a, [hl]
+	; and TYPE_MASK
+	; ld a, FIRE
+	; add b
+	; ld [hl], a
+	ret
+
+.TraitsThatChangeDamageType:
+	; db TRAIT_NORMAL_TO_FIRE_TURN_ZERO
+	db -1
 
 TraitCloneBerry:
 	ld a, [wBuffer3]
@@ -2908,6 +2964,7 @@ ResetActivated:
 
 OneShotTraits:
 ; List of traits that can only go off once while the pokemon is out
+	db TRAIT_EVASION_ON_SPEED_DIFF
 	db TRAIT_ATTACK_OPP_FAINT
 	db TRAIT_SP_ATTACK_OPP_FAINT
 	db TRAIT_RAIN_ATTACK
@@ -2938,6 +2995,7 @@ OneShotTraits:
 	db TRAIT_UPGRADE_BERRY
 	db TRAIT_CLONE_BERRY
 	db TRAIT_HEAL_HP_AND_STATUS
+	db TRAIT_HEAL_STATUS
 	db TRAIT_REGEN_ON_RAIN
 	db TRAIT_REGEN_ON_SUNSHINE
 	db TRAIT_REGEN_ON_SANDSTORM
