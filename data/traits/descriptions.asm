@@ -20,15 +20,9 @@ TraitDescriptions::
 	dw GelidEmbraceDescription ; TRAIT_SP_ATTACK_OPP_FAINT
 	dw UnknownEnergyDescription ; TRAIT_RANDOM_STAT_OPP_FAINT
 	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
-	dw WeaveDescription       ; TRAIT_REDUCE_PUNCHING
-	dw VocalPowerDescription  ; TRAIT_BOOST_SOUND
-	dw SoundproofDescription  ; TRAIT_REDUCE_SOUND
 	dw IronJawsDescription    ; TRAIT_BOOST_BITING
-	dw BonePlateDescription   ; TRAIT_REDUCE_BITING
 	dw IronClawsDescription   ; TRAIT_BOOST_CUTTING
-	dw ShellPolishDescription ; TRAIT_REDUCE_CUTTING
 	dw FocusBeamDescription   ; TRAIT_BOOST_BEAM
-	dw DispersalDescription   ; TRAIT_REDUCE_BEAM
 	dw PowerDrillDescription  ; TRAIT_BOOST_PERFURATE
 	dw SteelCoverDescription  ; TRAIT_REDUCE_PERFURATE
 	dw RockHeadDescription    ; TRAIT_REDUCE_SELF_RECOIL
@@ -50,6 +44,7 @@ TraitDescriptions::
 	dw TagSplashDescription   ; TRAIT_PARTY_WATER_BOOST_DEFENSE
 	dw CottonGuardDescription ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
 	dw BugColonyDescription   ; TRAIT_PARTY_BUG_BOOST_DEFENSE
+	dw SnowFortDescription    ; TRAIT_PARTY_ICE_BOOST_DEFENSE
 	dw UpVoltageDescription   ; TRAIT_BATTLE_ELECTRIC_BOOST
 	dw ShadowCloakDescription ; TRAIT_BATTLE_DARK_BOOST
 	dw MagmaFlowDescription   ; TRAIT_BATTLE_FIRE_BOOST
@@ -109,6 +104,7 @@ TraitDescriptions::
 	dw HyperCutter4Description ; TRAIT_PREVENT_SP_ATTACK_DOWN
 	dw HyperCutter5Description ; TRAIT_PREVENT_SP_DEFENSE_DOWN
 	dw KeenEyeDescription     ; TRAIT_PREVENT_ACCURACY_DOWN
+	dw MagicBounceDescription ; TRAIT_PREVENT_ALL_DOWN
 	dw WonderSkinDescription  ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	dw SereneGraceDescription ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	dw SilverAuraDescription  ; TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
@@ -128,6 +124,7 @@ TraitDescriptions::
 	dw WallDescription        ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
 	dw StretchingDescription  ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	dw SetupDescription       ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	dw PatienceDescription    ; TRAIT_ALL_STATS_AFTER_7_TURNS
 	dw HeadacheDescription    ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	dw HealtySpiritDescription; TRAIT_REGEN_FIRST_TURNS
 	dw SecretGiftDescription  ; TRAIT_CULL_OPP_LOW_HP
@@ -143,6 +140,7 @@ TraitDescriptions::
 	dw AngerDescription       ; TRAIT_ATTACK_AFTER_CRIT
 	dw CurlDescription        ; TRAIT_DEFENSE_AFTER_CRIT
 	dw ScatterDescription     ; TRAIT_SPEED_AFTER_CRIT
+	dw LuckCurseDescription   ; TRAIT_REDUCE_CRIT_MORE
 	dw SuperLuckDescription   ; TRAIT_CRITICAL_AFTER_CRIT
 	dw GutsDescription        ; TRAIT_ATTACK_STATUSED
 	dw MarvelScaleDescription ; TRAIT_DEFENSE_STATUSED
@@ -310,49 +308,21 @@ IronFistDescription:
 	db   "Powers Punching"
 	next "moves.@"
 
-WeaveDescription:
-	db   "Lowers damage from"
-	next "Punching moves.@"
-
-VocalPowerDescription:
-	db   "Powers Sound"
-	next "moves.@"
-
-SoundproofDescription:
-	db   "Lowers damage from"
-	next "Sound moves.@"
-
 IronJawsDescription:
 	db   "Powers Biting"
 	next "moves.@"
-
-BonePlateDescription:
-	db   "Lowers damage from"
-	next "Biting moves.@"
 
 IronClawsDescription:
 	db   "Powers Slashing"
 	next "moves.@"
 
-ShellPolishDescription:
-	db   "Lowers damage from"
-	next "Slashing moves.@"
-
 FocusBeamDescription:
 	db   "Powers Beam"
 	next "moves.@"
 
-DispersalDescription:
-	db   "Lowers damage from"
-	next "Beam moves.@"
-
 PowerDrillDescription:
 	db   "Powers Perfurating"
 	next "moves.@"
-
-SteelCoverDescription:
-	db   "Lowers damage from"
-	next "Puncturing moves.@"
 
 RockHeadDescription:
 	db   "Halves damage taken"
@@ -428,6 +398,10 @@ CottonGuardDescription:
 	
 BugColonyDescription:
 	db   "Team's BUG type"
+	next "raise DEF more.@"
+	
+SnowFortDescription:
+	db   "Team's ICE type"
 	next "raise DEF more.@"
 	
 UpVoltageDescription:
@@ -666,6 +640,10 @@ KeenEyeDescription:
 	db   "Prevents ACC from"
 	next "being lowered.@"
 
+MagicBounceDescription:
+	db   "May prevent a stat"
+	next "being lowered.@"
+
 WonderSkinDescription:
 	db   "Lowers the chance"
 	next "of STATUS moves.@"
@@ -724,7 +702,7 @@ StrangeSignalDescription:
 	
 KeenFocusDescription:
 	db   "Boosts move ACC on"
-	next "your first turn.@"
+	next "your first turns.@"
 	
 PreparationDescription:
 	db   "Ups ATK and ACC by"
@@ -742,6 +720,10 @@ SetupDescription:
 	db   "Ups SP.ATK/ACC by"
 	next "not doing damage.@"
 	
+PatienceDescription:
+	db   "Raises all stats"
+	next "after 7 turns.@"
+
 HeadacheDescription:
 	db   "Ups a random stat"
 	next "every 5 turns.@"
@@ -802,9 +784,13 @@ ScatterDescription:
 	db   "Resist CRITICAL"
 	next "hits and ups SPD.@"
 	
+LuckCurseDescription:
+	db   "Lowers foe's CRIT"
+	next "when hit by one.@"
+
 SuperLuckDescription:
-	db   "Ups CRIT when hit"
-	next "by a CRIT attack.@"
+	db   "Ups CRITICAL when"
+	next "hit by one.@"
 
 GutsDescription:
 	db   "Volatile status"

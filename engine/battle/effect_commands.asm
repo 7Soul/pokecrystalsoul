@@ -1257,11 +1257,20 @@ BattleCommand_Critical:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitBoostCritical
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitLowerCritical
 	pop bc
+; buffer 0 does nothing, 1 raises crit by 1, 2 lowers crit by 1
 	ld a, [wBuffer2]
 	and a
 	jr z, .Tally
 	inc c
+	dec a
+	jr z, .Tally
+	dec c
+	dec c
 
 .Tally:
 	ld hl, CriticalHitChances

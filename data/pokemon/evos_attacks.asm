@@ -2033,7 +2033,7 @@ GyaradosEvosAttacks:
 	db 45, RAIN_DANCE
 	db 50, HYPER_BEAM	
 	db 54, FROZEN_TAIL
-	db 59, RAIN_DANCE
+	; db 59, RAIN_DANCE
 	db 0 ; no more level-up moves
 
 LaprasEvosAttacks:
@@ -3164,6 +3164,12 @@ UnownEvosAttacks:
 
 WobbuffetEvosAttacks:
 	db 0 ; no more evolutions
+	db 1, METRONOME
+	db 1, AMNESIA
+	db 1, ENCORE
+	db 1, LEECH_SEED
+	db 1, SWAGGER
+	db 1, SPITE
 	db 1, COUNTER
 	db 1, MIRROR_COAT
 	db 1, SAFEGUARD

@@ -673,6 +673,8 @@ SpeedBoostDamage:
 	ret
 
 .SpeedBoostMoves:
+	db QUICK_ATTACK
+	db FIRE_SPIN
 	db RAPID_SPIN
 	db SWIFT
 	db ZOOM_FLIGHT

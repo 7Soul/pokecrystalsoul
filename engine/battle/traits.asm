@@ -98,7 +98,7 @@ CheckTraitCondition:
 	jp c, .check_move_has_secondary
 	cp TRAIT_REDUCE_NOT_STAB + 1 ; all traits for non-stab hits
 	jp c, .check_not_stab
-	cp TRAIT_BOOST_ACCURACY_TURN_ZERO + 1 ; all traits on turn 0
+	cp TRAIT_LOWER_RANDOM_TURN_ZERO + 1 ; all traits on turn 0
 	ld d, 0
 	jp c, .check_turns_equal
 	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1 ; 
@@ -107,7 +107,7 @@ CheckTraitCondition:
 	cp TRAIT_RANDOM_STAT_AFTER_5_TURNS + 1 ; 
 	jp c, .check_trait_activated
 	cp TRAIT_REGEN_FIRST_TURNS + 1 ; all traits on turn 3 and lower
-	ld d, 2
+	ld d, 2 ; 0, 1, 2
 	jp c, .check_turns_lower
 	cp TRAIT_CULL_OPP_LOW_HP + 1 ; traits that require the opponent to be at certain hp
 	ld b, 10
@@ -118,7 +118,7 @@ CheckTraitCondition:
 	cp TRAIT_CRIT_BELOW_THIRD + 1 ; all traits that require to be below 33% hp
 	ld b, 34
 	jp c, .check_below_threshold
-	cp TRAIT_SPEED_AFTER_CRIT + 1
+	cp TRAIT_REDUCE_CRIT_MORE + 1
 	jp c, .check_crit
 	cp TRAIT_CRITICAL_AFTER_CRIT + 1
 	ld d, 1
@@ -719,6 +719,9 @@ TraitTurnTriggers:
 	jr c, .no_trigger
 	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1
 	jp c, CheckTraitCondition.check_did_no_dmg_for_three_turns
+	cp TRAIT_ALL_STATS_AFTER_7_TURNS + 1
+	ld d, 7
+	jp c, CheckTraitCondition.check_every_x_turns
 	cp TRAIT_RANDOM_STAT_AFTER_5_TURNS + 1
 	ld d, 5
 	jp c, CheckTraitCondition.check_every_x_turns
@@ -799,12 +802,14 @@ TraitOnEnter:
 	db TRAIT_PARTY_WATER_BOOST_DEFENSE
 	db TRAIT_PARTY_GRASS_BOOST_DEFENSE
 	db TRAIT_PARTY_BUG_BOOST_DEFENSE
+	db TRAIT_PARTY_ICE_BOOST_DEFENSE
 	db -1
 
 .TypeList:
 	db WATER
 	db GRASS
 	db BUG
+	db ICE
 
 .TraitsThatBoostBasedOnAllType:
 	db TRAIT_BATTLE_ELECTRIC_BOOST
@@ -820,6 +825,9 @@ TraitOnEnter:
 TraitRaiseStat:
 	ld a, $FF
 	ld [wBuffer3], a
+	ld a, TRAIT_ALL_STATS_AFTER_7_TURNS
+	call CheckSpecificTrait
+	jr c, .all_stats
 	ld a, TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	call CheckSpecificTrait
 	jr c, .random_stat
@@ -900,6 +908,10 @@ TraitRaiseStat:
 	call ResetActivated
 	ld b, 7
 	jr .end
+.all_stats
+	push af
+	ld b, 8
+	jr .end
 
 .JumptableStatTraits:
 	dbw ATTACK, TraitsThatRaiseAttack
@@ -920,6 +932,7 @@ TraitRaiseStat:
 	dw BattleCommand_AccuracyUp
 	dw BattleCommand_EvasionUp
 	dw BattleCommand_RandomStatUp
+	dw BattleCommand_AllStatsUp
 
 TraitsThatRaiseAttack:
 	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
@@ -1020,15 +1033,30 @@ TraitPreventStatDown:
 	ld hl, .TraitsThatPreventStatDown
 	call CheckTrait
 	ret nc
+
+	ld a, [wBuffer3]
+	cp 6
+	jr nz, .check_stat
 	
+	call BattleRandom
+	cp 20 percent
+	jr c, .prevent
+	jr .dont_prevent
+
+.check_stat
 	ld a, [wLoweredStat]
 	ld b, a
 	ld a, [wBuffer3]
 	cp b
-	ret nz
-
+	jr nz, .dont_prevent
+.prevent
 	ld a, 1
 	ld [wBuffer2], a
+	ret
+.dont_prevent
+	xor a
+	ld [wBuffer2], a
+	call ResetActivated ; reset so a message always appears
 	ret
 
 .TraitsThatPreventStatDown:
@@ -1038,6 +1066,7 @@ TraitPreventStatDown:
 	db TRAIT_PREVENT_SP_ATTACK_DOWN
 	db TRAIT_PREVENT_SP_DEFENSE_DOWN
 	db TRAIT_PREVENT_ACCURACY_DOWN
+	db TRAIT_PREVENT_ALL_DOWN
 	db -1
 
 TraitRaiseLowerOddEven:
@@ -1081,7 +1110,7 @@ TraitRaiseLowerOddEven:
 	jp ActivateTrait
 
 TraitBoostCritical:
-	ld hl, TraitsThatBoostCritical
+	ld hl, .TraitsThatBoostCritical
 	call CheckTrait
 	jr nc, .not_met
 	ld a, 1
@@ -1092,26 +1121,44 @@ TraitBoostCritical:
 	ld [wBuffer2], a
 	ret
 
-TraitsThatBoostCritical:
+.TraitsThatBoostCritical:
 	db TRAIT_CRIT_BELOW_THIRD
 	db TRAIT_CRITICAL_AFTER_CRIT
 	db TRAIT_OPP_SAME_TYPE_CRIT_BOOST
 	db -1
-	
-TraitBoostAccuracy:
-	ld hl, TraitsThatBoostAccuracy
-	call CheckTrait
+
+TraitLowerCritical:
+	ld a, TRAIT_REDUCE_CRIT_MORE
+	call CheckSpecificTrait
 	jr nc, .not_met
+	ld a, 2
+	ld [wBuffer2], a
+	ret
+.not_met
+	xor a
+	ld [wBuffer2], a
+	ret
+
+TraitBoostAccuracy:
+	ld a, TRAIT_BOOST_ACCURACY_TURN_ZERO
+	call CheckSpecificTrait
+	ret nc
+
+	ld a, BATTLE_VARS_TURNS_TAKEN
+ 	call GetBattleVar
+	and a
 	ld a, [wBuffer2]
+	ld b, a
+	jr z, .high_boost
 	srl a
-	add a
-	add a
+.high_boost
+	srl a
+	add b
 	jr nc, .end
 .max
 	ld a, $FF
 .end
 	ld [wBuffer2], a
-.not_met
 	ret
 
 TraitsThatBoostAccuracy:
@@ -1510,6 +1557,8 @@ TraitReduceDamageFromType:
 	db TRAIT_ATTACK_AFTER_CRIT
 	db TRAIT_DEFENSE_AFTER_CRIT
 	db TRAIT_SPEED_AFTER_CRIT
+	db TRAIT_REDUCE_CRIT_MORE
+	db TRAIT_CRITICAL_AFTER_CRIT
 	db -1
 
 .TraitsThatReduceDamageMore: ; under 50% hp
@@ -1543,51 +1592,12 @@ TraitReduceDamageFromType:
 TraitReducePower:
 	ld a, [wCriticalHit]
 	cp 1
-	jr nz, .not_crit
+	ret nz
 	ld a, TRAIT_REDUCE_CRIT_DAMAGE
 	call CheckSpecificTrait
-	jr c, .boost_more
-.not_crit
-	ld c, 6
-.loop
-	ld hl, .JumpTableTraitsReduceMoveClass
-	dec c
-	ld a, c
-	ret z
-	push bc
-	ld b, 0
-	ld c, a
-	add hl, bc
-	ld a, [hl]
-	call CheckSpecificTrait
-	pop bc
-	ld a, c
-	jr nc, .loop
-.met
-	ld a, c
-	ld hl, JumptableMoveClass
-	call GetToJumptable
-	ld a, [hl]
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-	ld de, 1
-	call IsInArray
 	ret nc
-.boost
-	; ld a, $67 ; ~0.85
-	ld a, $68 ; ~0.75
-	jp ApplyDamageMod
-.boost_more
 	ld a, $68 ; 0.75
 	jp ApplyDamageMod
-
-.JumpTableTraitsReduceMoveClass
-	db TRAIT_REDUCE_PUNCHING
-	db TRAIT_REDUCE_SOUND
-	db TRAIT_REDUCE_BITING
-	db TRAIT_REDUCE_CUTTING
-	db TRAIT_REDUCE_BEAM
-	db TRAIT_REDUCE_PERFURATE
 
 TraitBoostPower:
 	ld a, [wCriticalHit]
@@ -1684,7 +1694,6 @@ TraitBoostPower:
 
 .JumpTableTraitsBoostMoveClass
 	db TRAIT_BOOST_PUNCHING
-	db TRAIT_BOOST_SOUND
 	db TRAIT_BOOST_BITING
 	db TRAIT_BOOST_CUTTING
 	db TRAIT_BOOST_BEAM
@@ -1712,7 +1721,6 @@ TraitBoostPower:
 
 JumptableMoveClass:
 	dw PunchingMoves
-	dw SoundMoves
 	dw BitingMoves
 	dw CuttingMoves
 	dw BeamMoves
@@ -1742,16 +1750,6 @@ CuttingMoves:
 	db X_SCISSOR
 	db AIR_SLASH
 	db RAZOR_LEAF
-	db -1
-
-SoundMoves:
-	db BUG_BUZZ
-	db GROWL
-	db HYPER_SONAR
-	db SCREECH
-	db SING
-	db SNORE
-	db SUPERSONIC
 	db -1
 
 BeamMoves:
@@ -1814,7 +1812,6 @@ TraitBoostNonStab:
 .boost_20
 	ld a, $65 ; ~1.2
 	jp ApplyDamageMod
-
 
 TraitsThatBoostNonStab:
 	db TRAIT_BOOST_NOT_STAB
@@ -3070,6 +3067,7 @@ OneShotTraits:
 	db TRAIT_PARTY_WATER_BOOST_DEFENSE
 	db TRAIT_PARTY_GRASS_BOOST_DEFENSE
 	db TRAIT_PARTY_BUG_BOOST_DEFENSE
+	db TRAIT_PARTY_ICE_BOOST_DEFENSE
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE

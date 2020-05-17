@@ -20,17 +20,10 @@ TraitNames::
 	db "Gelid Embrace@"    ; TRAIT_SP_ATTACK_OPP_FAINT
 	db "Unknown Energy@"   ; TRAIT_RANDOM_STAT_OPP_FAINT
 	db "Iron Fist@"        ; TRAIT_BOOST_PUNCHING
-	db "Weave@"            ; TRAIT_REDUCE_PUNCHING
-	db "Vocal Power@"      ; TRAIT_BOOST_SOUND
-	db "Soundproof@"       ; TRAIT_REDUCE_SOUND
 	db "Iron Jaws@"        ; TRAIT_BOOST_BITING
-	db "Bone Plate@"       ; TRAIT_REDUCE_BITING
 	db "Iron Claws@"       ; TRAIT_BOOST_CUTTING
-	db "Shell Polish@"     ; TRAIT_REDUCE_CUTTING
 	db "Focus Beam@"       ; TRAIT_BOOST_BEAM
-	db "Dispersal@"        ; TRAIT_REDUCE_BEAM
 	db "Power Drill@"      ; TRAIT_BOOST_PERFURATE
-	db "Steel Cover@"      ; TRAIT_REDUCE_PERFURATE
 	db "Rock Head@"        ; TRAIT_REDUCE_SELF_RECOIL
 	db "Sniper@"           ; TRAIT_BOOST_CRIT_DAMAGE
 	db "Shell Armor@"      ; TRAIT_REDUCE_CRIT_DAMAGE
@@ -50,6 +43,7 @@ TraitNames::
 	db "Tag Splash@"       ; TRAIT_PARTY_WATER_BOOST_DEFENSE
 	db "Cotton Guard@"     ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
 	db "Bug Colony@"       ; TRAIT_PARTY_BUG_BOOST_DEFENSE
+	db "Snow Fort@"        ; TRAIT_PARTY_ICE_BOOST_DEFENSE
 	db "Up Voltage@"       ; TRAIT_BATTLE_ELECTRIC_BOOST
 	db "Shadow Cloak@"     ; TRAIT_BATTLE_DARK_BOOST
 	db "Magma Flow@"       ; TRAIT_BATTLE_FIRE_BOOST
@@ -109,6 +103,7 @@ TraitNames::
 	db "Absolute Focus@"   ; TRAIT_PREVENT_SP_ATTACK_DOWN
 	db "Lingering Memory@" ; TRAIT_PREVENT_SP_DEFENSE_DOWN
 	db "Keen Eye@"         ; TRAIT_PREVENT_ACCURACY_DOWN
+	db "Magic Bounce@"     ; TRAIT_PREVENT_ALL_DOWN
 	db "Wonder Skin@"      ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	db "Serene Grace@"     ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	db "Silver Aura@"      ; TRAIT_REDUCE_PHYSICAL_TAKEN
@@ -128,6 +123,7 @@ TraitNames::
 	db "Wall Off@"         ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
 	db "Stretching@"       ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	db "Setup@"            ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	db "Patience@"         ; TRAIT_ALL_STATS_AFTER_7_TURNS
 	db "Headache@"         ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	db "Healty Spirit@"    ; TRAIT_REGEN_FIRST_TURNS
 	db "Secret Gift@"      ; TRAIT_CULL_OPP_LOW_HP
@@ -143,6 +139,7 @@ TraitNames::
 	db "Anger@"            ; TRAIT_ATTACK_AFTER_CRIT
 	db "Curl@"             ; TRAIT_DEFENSE_AFTER_CRIT
 	db "Scatter@"          ; TRAIT_SPEED_AFTER_CRIT
+	db "Luck Curse@"       ; TRAIT_REDUCE_CRIT_MORE
 	db "Super Luck@"       ; TRAIT_CRITICAL_AFTER_CRIT
 	db "Guts@"             ; TRAIT_ATTACK_STATUSED
 	db "Marvel Scale@"     ; TRAIT_DEFENSE_STATUSED
