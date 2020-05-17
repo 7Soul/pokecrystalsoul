@@ -683,4 +683,5 @@ SpeedBoostDamage:
 	db OCTAZOOKA
 	db FEATHERGALE
 	db AIR_SLASH
+	db EXTREMESPEED
 	db -1

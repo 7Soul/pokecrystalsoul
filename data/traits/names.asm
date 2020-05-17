@@ -16,7 +16,7 @@ TraitNames::
 	db "Gas Explosion@"    ; TRAIT_POISON_FAINT
 	db "North Star@"       ; TRAIT_FREEZE_FAINT
 	db "Deathly Hex@"      ; TRAIT_CURSE_FAINT
-	db "Ice Pick@"         ; TRAIT_ATTACK_OPP_FAINT
+	db "Moxie@"            ; TRAIT_ATTACK_OPP_FAINT
 	db "Gelid Embrace@"    ; TRAIT_SP_ATTACK_OPP_FAINT
 	db "Unknown Energy@"   ; TRAIT_RANDOM_STAT_OPP_FAINT
 	db "Iron Fist@"        ; TRAIT_BOOST_PUNCHING
@@ -59,7 +59,6 @@ TraitNames::
 	db "Healing Aroma@"    ; TRAIT_HEAL_HP_AND_STATUS
 	db "Shed Skin@"        ; TRAIT_HEAL_STATUS
 	db "Reckless@"         ; TRAIT_BOOST_RECOIL
-	db "Deviant@"          ; TRAIT_REDUCE_RECOIL
 	db "Rainy Boon@"       ; TRAIT_RAIN_ATTACK
 	db "Rainy Boon@"       ; TRAIT_RAIN_DEFENSE
 	db "Rainy Boon@"       ; TRAIT_RAIN_SPEED

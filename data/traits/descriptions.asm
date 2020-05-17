@@ -16,7 +16,7 @@ TraitDescriptions::
 	dw GasExplosionDescription; TRAIT_POISON_FAINT
 	dw NorthStarDescription   ; TRAIT_FREEZE_FAINT
 	dw DeathlyHexDescription  ; TRAIT_CURSE_FAINT
-	dw IcePickDescription     ; TRAIT_ATTACK_OPP_FAINT
+	dw MoxieDescription       ; TRAIT_ATTACK_OPP_FAINT
 	dw GelidEmbraceDescription ; TRAIT_SP_ATTACK_OPP_FAINT
 	dw UnknownEnergyDescription ; TRAIT_RANDOM_STAT_OPP_FAINT
 	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
@@ -24,7 +24,6 @@ TraitDescriptions::
 	dw IronClawsDescription   ; TRAIT_BOOST_CUTTING
 	dw FocusBeamDescription   ; TRAIT_BOOST_BEAM
 	dw PowerDrillDescription  ; TRAIT_BOOST_PERFURATE
-	dw SteelCoverDescription  ; TRAIT_REDUCE_PERFURATE
 	dw RockHeadDescription    ; TRAIT_REDUCE_SELF_RECOIL
 	dw SniperDescription      ; TRAIT_BOOST_CRIT_DAMAGE
 	dw ShellArmorDescription ; TRAIT_REDUCE_CRIT_DAMAGE
@@ -60,7 +59,6 @@ TraitDescriptions::
 	dw HealingAromaDescription; TRAIT_HEAL_HP_AND_STATUS
 	dw ShedSkinDescription    ; TRAIT_HEAL_STATUS
 	dw RecklessDescription    ; TRAIT_BOOST_RECOIL
-	dw DeviantDescription     ; TRAIT_REDUCE_RECOIL
 	dw RainyBoon0Description  ; TRAIT_RAIN_ATTACK
 	dw RainyBoon1Description  ; TRAIT_RAIN_DEFENSE
 	dw RainyBoon2Description  ; TRAIT_RAIN_SPEED
@@ -292,7 +290,7 @@ DeathlyHexDescription:
 	db   "CURSES the foe"
 	next "when you faint.@"
 
-IcePickDescription:
+MoxieDescription:
 	db   "Raises ATK when"
 	next "the foe faints.@"
 

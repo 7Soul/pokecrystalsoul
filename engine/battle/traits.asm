@@ -61,7 +61,7 @@ CheckTraitCondition:
 	ld d, 50
 	ld e, ATTACK
 	jp c, .check_stat_difference
-	cp TRAIT_REDUCE_RECOIL + 1 ; all traits that require recoil
+	cp TRAIT_BOOST_RECOIL + 1 ; all traits that require recoil
 	jp c, .check_recoil
 	cp TRAIT_RAIN_NO_STATUS + 1 ; all traits that require rain weather
 	ld d, WEATHER_RAIN
@@ -505,7 +505,7 @@ CheckTraitCondition:
 	ld a, BATTLE_VARS_MOVE_POWER
 	call GetBattleVar
 	cp d
-	jp c, .not_met
+	jp nc, .not_met
 	jp .success
 
 .check_user_status:
@@ -1469,7 +1469,14 @@ HealAllStatuses:
 	rst FarCall
 	ret
 
-TraitReduceDamageFromType:
+TraitReducePower:
+	ld a, [wCriticalHit]
+	cp 1
+	jr nz, .not_crit
+	ld a, TRAIT_REDUCE_CRIT_DAMAGE
+	call CheckSpecificTrait
+	jp c, ReduceDamage25
+.not_crit
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
 	and TYPE_MASK
@@ -1480,21 +1487,26 @@ TraitReduceDamageFromType:
 	call GetBattleVar
 	cp TRAIT_REDUCE_WATER_UP_DEFENSE
 	jr z, .skip_trigger1
+
 	cp TRAIT_REDUCE_GRASS_UP_ATTACK
 	jr z, .skip_trigger2
 
 	ld a, TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	call CheckSpecificTrait
-	jr c, .reduce_50
+	jp c, ReduceDamage50
+
 	ld hl, .TraitsThatReduceDamageLess
 	call CheckTrait
-	jr c, .reduce_10
+	jp c, ReduceDamage10
+
 	ld hl, .TraitsThatReduceDamage
 	call CheckTrait
-	jr c, .reduce_14
+	jp c, ReduceDamage15
+
 	ld hl, .TraitsThatReduceDamageMore
 	call CheckTrait
 	jr c, .reduce_low_hp
+
 	ld a, [wTypeModifier]
 	cp $11 ; check if its over 10 (normal) or 5 (not effective)
 	ret c
@@ -1504,32 +1516,23 @@ TraitReduceDamageFromType:
 	ld hl, .TraitsThatReduceSuperEffectiveDamage
 	call CheckTrait
 	ret nc
-.reduce_14
-	ld a, $67 ; ~0.86 ; 14% reduction
-	jp ApplyDamageMod
-.reduce_50
-	ld a, $12 ; ~0.5 ; 50% reduction
-	jp ApplyDamageMod
-.reduce_10
-	ld a, $9A ; =0.9 ; 10% reduction
-	jp ApplyDamageMod
+	jp ReduceDamage15
 .reduce_low_hp
 	call GetHealthPercentage
 	ld a, d
 	cp 50
 	ret nc
-	ld a, $57 ; ~0.71 ; 29% reduction
-	jp ApplyDamageMod
+	jp ReduceDamage30
 
 .skip_trigger1
 	ld c, WATER
 	call CheckTraitCondition.check_move_type
-	jr c, .reduce_10
+	jp c, ReduceDamage10
 	ret
 .skip_trigger2
 	ld c, GRASS
 	call CheckTraitCondition.check_move_type
-	jr c, .reduce_10
+	jp c, ReduceDamage10
 	ret
 
 .TraitsThatReduceSuperEffectiveDamage:
@@ -1589,15 +1592,21 @@ TraitReduceDamageFromType:
 	db TRAIT_REDUCE_GRASS_UP_ATTACK
 	db -1
 
-TraitReducePower:
-	ld a, [wCriticalHit]
-	cp 1
-	ret nz
-	ld a, TRAIT_REDUCE_CRIT_DAMAGE
-	call CheckSpecificTrait
-	ret nc
-	ld a, $68 ; 0.75
-	jp ApplyDamageMod
+TraitLowerPriority:
+	; ld hl, JumpTableTraitsBoostMoveClass
+	; call CheckTrait
+	; ret nc
+	
+
+; 	ld a, [wBuffer2]
+; 	dec a
+; 	jr c, .min
+; 	ld [wBuffer2], a
+; 	ret
+; .min
+; 	xor a
+; 	ld [wBuffer2], a
+	ret
 
 TraitBoostPower:
 	ld a, [wCriticalHit]
@@ -1605,14 +1614,17 @@ TraitBoostPower:
 	jr nz, .not_crit
 	ld a, TRAIT_BOOST_CRIT_DAMAGE
 	call CheckSpecificTrait
-	jr c, .boost_25
+	jp c, BoostDamage25
 .not_crit
+	ld a, TRAIT_BOOST_RECOIL
+	call CheckSpecificTrait
+	jp c, BoostDamage20
 	ld a, TRAIT_BOOST_WEAK_MOVES
 	call CheckSpecificTrait
-	jr c, .boost_50
+	jp c, BoostDamage50
 	ld a, TRAIT_BATTLE_ELECTRIC_BOOST
 	call CheckSpecificTrait
-	jr c, .boost_activated_count
+	jp c, .boost_activated_count
 
 	ld a, [wBattleWeather]
 	and a
@@ -1623,8 +1635,8 @@ TraitBoostPower:
 	ld a, BATTLE_VARS_MOVE_POWER
 	call GetBattleVar
 	cp 60
-	jr nc, .boost_20
-	jr .boost_50
+	jp nc, BoostDamage20
+	jp BoostDamage50
 
 .no_weather
 	ld hl, .TraitsThatBoostTypeStatused
@@ -1632,24 +1644,27 @@ TraitBoostPower:
 	jr c, .boost_with_status
 	ld hl, .TraitsThatBoostDamage
 	call CheckTrait
-	jr c, .boost_20
-	ld c, 6
+	jp c, BoostDamage20
+	ld c, 5
 .loop
 	ld hl, .JumpTableTraitsBoostMoveClass
-	dec c
 	ld a, c
-	ret z
+	dec a
 	push bc
 	ld b, 0
 	ld c, a
 	add hl, bc
 	ld a, [hl]
 	call CheckSpecificTrait
+	jr c, .met
+	pop bc
+	dec c
+	ret z
+	jr .loop
+.met
 	pop bc
 	ld a, c
-	jr nc, .loop
-.met
-	ld a, c
+	dec a
 	ld hl, JumptableMoveClass
 	call GetToJumptable
 	ld a, [hl]
@@ -1658,23 +1673,27 @@ TraitBoostPower:
 	ld de, 1
 	call IsInArray
 	ret nc
-.boost_15
-	ld a, $76 ; ~1.16
-	jp ApplyDamageMod
+	call CheckTraitCount
+	and a
+	jr nz, .skip_spd_down
+	call IncreaseTraitCount	
+	call Switch_turn
+	ld hl, BattleCommand_SpeedDown
+	call TraitUseBattleCommandSimple
+	
+	ld hl, BattleCommand_StatDownMessage
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatDownFailText
+	call TraitUseBattleCommandSimple
+	call Switch_turn
+.skip_spd_down
+	jp BoostDamage15
 .boost_with_status
 	ld d, $FE
 	call CheckTraitCondition.check_user_status
-	ret nc
-	; fallthrough
-.boost_20
-	ld a, $65 ; ~1.20
-	jp ApplyDamageMod
-.boost_25
-	ld a, $54 ; ~1.25
-	jp ApplyDamageMod
-.boost_50
-	ld a, $32 ; ~1.5
-	jp ApplyDamageMod
+	jp c, BoostDamage20
+	ret
 .boost_activated_count
 	call CheckTraitCount
 	cp 6
@@ -1691,13 +1710,6 @@ TraitBoostPower:
 	ld a, 10
 	ldh [hDivisor], a
 	jp Divide ; divide damage value that is stored
-
-.JumpTableTraitsBoostMoveClass
-	db TRAIT_BOOST_PUNCHING
-	db TRAIT_BOOST_BITING
-	db TRAIT_BOOST_CUTTING
-	db TRAIT_BOOST_BEAM
-	db TRAIT_BOOST_PERFURATE
 
 .TraitsThatBoostTypeStatused:
 	db TRAIT_BOOST_NORMAL_STATUSED
@@ -1718,6 +1730,13 @@ TraitBoostPower:
 .TraitsThatBoostDamage:
 	db TRAIT_OPP_SAME_TYPE_DMG_BOOST
 	db -1
+
+.JumpTableTraitsBoostMoveClass:
+	db TRAIT_BOOST_PUNCHING
+	db TRAIT_BOOST_BITING
+	db TRAIT_BOOST_CUTTING
+	db TRAIT_BOOST_BEAM
+	db TRAIT_BOOST_PERFURATE
 
 JumptableMoveClass:
 	dw PunchingMoves
@@ -1769,14 +1788,14 @@ PerfurateMoves:
 	db HORN_ATTACK
 	db -1
 
-TraitBoostNonStab:
-	ld a, TRAIT_BOOST_NOT_STAB
-	call CheckSpecificTrait
+TraitBoostNonStab: ; after damage calc, once stab is checked
+	ld hl, .TraitsThatBoostNonStab
+	call CheckTrait
 	ret nc
 
 	ld a, [wBuffer3]
 	and a
-	jr z, .boost_20
+	jp z, BoostDamage20
 	dec a
 	ld b, WATER
 	ld c, ICE
@@ -1802,47 +1821,21 @@ TraitBoostNonStab:
 .boost_25
 	ld a, BATTLE_VARS_MOVE_POWER
 	call GetBattleVar
-	cp 61
-	jr c, .boost_50
-	ld a, $54 ; ~1.25
-	jp ApplyDamageMod
-.boost_50
-	ld a, $32 ; ~1.5
-	jp ApplyDamageMod
-.boost_20
-	ld a, $65 ; ~1.2
-	jp ApplyDamageMod
+	cp 60
+	jp nc, BoostDamage25
+	jp BoostDamage50
 
-TraitsThatBoostNonStab:
+.TraitsThatBoostNonStab:
 	db TRAIT_BOOST_NOT_STAB
 	db TRAIT_BOOST_NOT_STAB_WATER_ICE
 	db TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	db -1
 
-TraitReduceNonStab:
+TraitReduceNonStab: ; after damage calc, once stab is checked
 	ld a, TRAIT_REDUCE_NOT_STAB
 	call CheckSpecificTrait
 	ret nc
-	ld a, $67 ; ~0.86
-	jp ApplyDamageMod
-
-TraitReduceRecoilMoves:
-	ld a, TRAIT_REDUCE_RECOIL
-	call CheckSpecificTrait
-	jr nc, .not_met
-	ld a, $67 ; ~0.86
-	call ApplyDamageMod
-.not_met
-	ret
-
-TraitBoostRecoilMoves:
-	ld a, TRAIT_BOOST_RECOIL
-	call CheckSpecificTrait
-	jr nc, .not_met
-	ld a, $76 ; ~1.16
-	call ApplyDamageMod
-.not_met
-	ret
+	jp ReduceDamage15
 
 TraitBoostDamagePerTurn:
 	ld a, TRAIT_BOOST_DAMAGE_PER_TURN
@@ -2589,6 +2582,42 @@ TraitBoostBerryHeal:
 	add a
 	ld [wBuffer2], a
 	ret
+
+BoostDamage50:
+	ld a, $32 ; ~1.5
+	jp ApplyDamageMod
+
+BoostDamage25:
+	ld a, $54 ; ~1.25
+	jp ApplyDamageMod
+
+BoostDamage20:
+	ld a, $65 ; ~1.20
+	jp ApplyDamageMod
+
+BoostDamage15:
+	ld a, $76 ; ~1.16
+	jp ApplyDamageMod
+
+ReduceDamage50:
+	ld a, $12 ; ~0.5 ; 50% reduction
+	jp ApplyDamageMod
+
+ReduceDamage30:
+	ld a, $57 ; ~0.71 ; 29% reduction
+	jp ApplyDamageMod
+
+ReduceDamage25:
+	ld a, $68 ; ~0.75 ; 25% reduction
+	jp ApplyDamageMod
+
+ReduceDamage15:
+	ld a, $67 ; ~0.86 ; 14% reduction
+	jp ApplyDamageMod
+
+ReduceDamage10:
+	ld a, $9A ; =0.9 ; 10% reduction
+	jp ApplyDamageMod
 
 ContactMoves:
 	db AQUA_TAIL

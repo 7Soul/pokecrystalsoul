@@ -852,10 +852,17 @@ GetMovePriority:
 	jr nz, .loop
 
 	ld a, BASE_PRIORITY
-	ret
+	jr .check_trait
 
 .done
 	ld a, [hl]
+
+.check_trait
+	ld [wBuffer2], a
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitLowerPriority
+	ld a, [wBuffer2]
 	ret
 
 INCLUDE "data/moves/effects_priorities.asm"
@@ -3730,7 +3737,7 @@ endr
 	ld hl, wPlayerSubStatus5
 	res SUBSTATUS_CANT_RUN, [hl]
 	ld hl, wTraitActivated
-	res 1, [hl]
+	res 4, [hl]
 	ret
 
 ResetEnemyStatLevels:

@@ -1462,24 +1462,7 @@ BattleCommand_Stab:
 	ldh [hMultiplicand + 1], a
 	ld a, [hld]
 	ldh [hMultiplicand + 2], a
-
 	call Multiply
-
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c000], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c001], a
-
-	push hl
-	ld a, BATTLE_VARS_TRAIT_OPP
-	ld [wBuffer1], a
-	farcall TraitReduceDamageFromType
-	pop hl
-
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c002], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c003], a
 
 	ldh a, [hProduct + 1]
 	ld b, a
