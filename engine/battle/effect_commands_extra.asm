@@ -165,21 +165,6 @@ GetVariableMoveName2::
 
 INCLUDE "data/moves/variable_moves_table.asm"
 
-CheckIfTargetIsElectricType:
-	ld de, wEnemyMonType1
-	ld a, [hBattleTurn]
-	and a
-	jr z, .ok
-	ld de, wBattleMonType1
-.ok
-	ld a, [de]
-	inc de
-	cp ELECTRIC
-	ret z
-	ld a, [de]
-	cp ELECTRIC
-	ret
-	
 CheckMoveTypeMatchesTarget:
 ; Compare move type to opponent type.
 ; Return z if matching the opponent type,
@@ -212,7 +197,7 @@ CheckMoveTypeMatchesTarget:
 	pop hl
 	ret
 	
-CheckIfTargetIsNthType:
+CheckIfTargetIsNthType: ; takes type in `b`
 	ld de, wEnemyMonType1
 	ldh a, [hBattleTurn]
 	and a
@@ -228,11 +213,11 @@ CheckIfTargetIsNthTypeGotValue:
 	cp b
 	ret	
 
-HeldItems:
-	ld hl, AllItems
-	ret
+; HeldItems:
+; 	ld hl, AllItems
+; 	ret
 
-INCLUDE "data/held_items.asm"
+; INCLUDE "data/held_items.asm"
 	
 CheckOppositeGender:
 	ld a, MON_SPECIES
@@ -611,6 +596,7 @@ ApplyPrzEffectOnSpeed:
 	ret
 
 SpeedBoostDamage: 
+; damage * (user's speed + 20) / (opp's speed + 20)
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
 	and TYPE_MASK

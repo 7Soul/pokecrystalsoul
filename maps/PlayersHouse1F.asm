@@ -124,9 +124,7 @@ MeetMomScript:
 	giveitem TOUGH_HORN
 
 	givepoke VAPOREON, 50
-	; givepoke PORYGON, 50
 	givepoke PIDGEY, 50
-	givepoke SQUIRTLE, 50
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
@@ -139,7 +137,7 @@ MeetMomScript:
 	; setflag ENGINE_STORMBADGE
 	callasm CheatSetFlypoints
 	; warp ROUTE_2, $5, $22
-	warp ROUTE_46, $8, $10
+	warp ROUTE_46, $6, $F
 	; warp ROUTE_40, $a, $a ; battle tower
 	; warp ROUTE_37, $e, $a
 	; warp ILEX_FOREST, $0, $21
@@ -407,7 +405,7 @@ PlayersHouse1F_MapEvents:
 	db 3 ; warp events
 	warp_event  6,  7, NEW_BARK_TOWN, 2
 	warp_event  7,  7, NEW_BARK_TOWN, 2
-	warp_event  9,  0, PLAYERS_HOUSE_2F, 1
+	warp_event  9,  5, PLAYERS_HOUSE_2F, 1
 
 	db 2 ; coord events
 	coord_event  8,  4, SCENE_DEFAULT, MeetMomLeftScript

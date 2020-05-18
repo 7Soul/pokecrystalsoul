@@ -7,6 +7,7 @@ TraitDescriptions::
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
 	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
 	dw EffectSporeDescription ; TRAIT_CONTACT_SPORE
+	dw IronBarbsDescription   ; TRAIT_CONTACT_DAMAGE
 	dw HotCoalsDescription    ; TRAIT_HOT_COALS
 	dw LightningFastDescription ; TRAIT_EVASION_ON_SPEED_DIFF
 	dw UnleashPowerDescription ; TRAIT_ATK_ON_ATK_DIFF
@@ -57,6 +58,11 @@ TraitDescriptions::
 	dw TempestDescription     ; TRAIT_SANDSTORM_DURATION
 	dw DustDevilDescription   ; TRAIT_SANDSTORM_ON_ENTER
 	dw HealingAromaDescription; TRAIT_HEAL_HP_AND_STATUS
+	dw FierceFighterDescription ; TRAIT_RAISE_ATTACK_STAT_LOWERED
+	dw ShellPolishDescription ; TRAIT_RAISE_DEFENSE_STAT_LOWERED
+	dw ShadowRunDescription   ; TRAIT_RAISE_SPEED_STAT_LOWERED
+	dw CompetitiveDescription ; TRAIT_RAISE_SP_ATTACK_STAT_LOWERED
+	dw SlimeCoatDescription   ; TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
 	dw ShedSkinDescription    ; TRAIT_HEAL_STATUS
 	dw RecklessDescription    ; TRAIT_BOOST_RECOIL
 	dw RainyBoon0Description  ; TRAIT_RAIN_ATTACK
@@ -253,6 +259,10 @@ CuteCharmDescription:
 EffectSporeDescription:
 	db   "Contact may PRZ or"
 	next "SLP the attacker.@"
+
+IronBarbsDescription:
+	db   "Foe takes damage"
+	next "on contact.@"
 
 HotCoalsDescription:
 	db   "Contact may spread"
@@ -453,6 +463,26 @@ DustDevilDescription:
 HealingAromaDescription:
 	db   "May heal HP and"
 	next "status each turn.@"
+
+FierceFighterDescription:
+	db   "May up ATK when a"
+	next "stat is lowered.@"
+
+ShellPolishDescription:
+	db   "May up DEF when a"
+	next "stat is lowered.@"
+
+ShadowRunDescription:
+	db   "May up SPD when a"
+	next "stat is lowered.@"
+
+CompetitiveDescription:
+	db   "May up SP.ATK when"
+	next "a stat is lowered.@"
+
+SlimeCoatDescription:
+	db   "May up SP.DEF when"
+	next "a stat is lowered.@"
 
 ShedSkinDescription:
 	db   "May recover from a"

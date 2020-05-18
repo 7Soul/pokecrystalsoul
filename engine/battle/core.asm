@@ -858,11 +858,11 @@ GetMovePriority:
 	ld a, [hl]
 
 .check_trait
-	ld [wBuffer2], a
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitLowerPriority
-	ld a, [wBuffer2]
+	; ld [wBuffer2], a
+	; ld a, BATTLE_VARS_TRAIT
+	; ld [wBuffer1], a
+	; farcall TraitLowerPriority
+	; ld a, [wBuffer2]
 	ret
 
 INCLUDE "data/moves/effects_priorities.asm"

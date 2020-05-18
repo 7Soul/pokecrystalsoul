@@ -4732,7 +4732,6 @@ BattleCommand_EvasionDown2:
 
 BattleCommand_StatDown:
 ; statdown
-
 	ld [wLoweredStat], a
 
 	call CheckMist
@@ -4923,12 +4922,10 @@ BattleCommand_StatDownMessage:
 
 TryLowerStat:
 ; Lower stat c from stat struct hl (buffer de).
-
 	push bc
 	sla c
 	ld b, 0
 	add hl, bc
-	; add de, c
 	ld a, c
 	add e
 	ld e, a
@@ -4984,6 +4981,10 @@ BattleCommand_StatUpFailText:
 
 BattleCommand_StatDownFailText:
 ; statdownfailtext
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitRaiseStatOnStatDown
+
 	ld a, [wFailedMessage]
 	cp 4
 	jp z, .trait

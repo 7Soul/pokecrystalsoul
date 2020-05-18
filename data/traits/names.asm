@@ -7,6 +7,7 @@ TraitNames::
 	db "High Tempo@"       ; TRAIT_CONTACT_CONFUSED
 	db "Cute Charm@"       ; TRAIT_CONTACT_IN_LOVE
 	db "Effect Spore@"     ; TRAIT_CONTACT_SPORE
+	db "Iron Barbs@"       ; TRAIT_CONTACT_DAMAGE
 	db "Hot Coals@"        ; TRAIT_HOT_COALS
 	db "Lightning Fast@"   ; TRAIT_EVASION_ON_SPEED_DIFF
 	db "Unleash Power@"    ; TRAIT_ATK_ON_ATK_DIFF
@@ -57,6 +58,11 @@ TraitNames::
 	db "Tempest@"          ; TRAIT_SANDSTORM_DURATION
 	db "Dust Devil@"       ; TRAIT_SANDSTORM_ON_ENTER
 	db "Healing Aroma@"    ; TRAIT_HEAL_HP_AND_STATUS
+	db "Fierce Fighter@"   ; TRAIT_RAISE_ATTACK_STAT_LOWERED
+	db "Shell Polish@"     ; TRAIT_RAISE_DEFENSE_STAT_LOWERED
+	db "Shadow Run@"       ; TRAIT_RAISE_SPEED_STAT_LOWERED
+	db "Competitive@"      ; TRAIT_RAISE_SP_ATTACK_STAT_LOWERED
+	db "Slime Coat@"       ; TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
 	db "Shed Skin@"        ; TRAIT_HEAL_STATUS
 	db "Reckless@"         ; TRAIT_BOOST_RECOIL
 	db "Rainy Boon@"       ; TRAIT_RAIN_ATTACK

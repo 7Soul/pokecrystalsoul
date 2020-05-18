@@ -45,13 +45,16 @@ CheckTraitCondition:
 	cp TRAIT_SANDSTORM_ON_ENTER + 1 ; traits lower than this have no conditions
 	jp c, .success
 	cp TRAIT_HEAL_HP_AND_STATUS + 1 
-	ld d, 10 percent
+	ld d, 10 percent + 1
+	jp c, .check_chance
+	cp TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED + 1 
+	ld d, 25 percent + 1
 	jp c, .check_chance
 	cp TRAIT_HEAL_STATUS + 1 
-	ld d, 30 percent
+	ld d, 30 percent + 1
 	jp c, .check_chance
 	cp TRAIT_HOT_COALS + 1 ; 
-	ld d, 100 percent
+	ld d, 12 percent + 1
 	jp c, .check_chance
 	cp TRAIT_EVASION_ON_SPEED_DIFF + 1 ; 
 	ld d, 50
@@ -1027,6 +1030,35 @@ TraitLowerStat:
 	db TRAIT_LOWER_RANDOM_TURN_ZERO
 	db -1
 
+TraitRaiseStatOnStatDown:
+	ld a, [wFailedMessage]
+	and a
+	ret nz
+
+	ld hl, .TraitsThatRaiseStatOnStatDown
+	call CheckTrait
+	ret nc
+
+	call BattleRandom
+	cp 25 percent
+	ret nc
+	
+	call ResetActivated
+	call Switch_turn
+	ld a, [wBuffer3]
+	ld b, a
+	inc a
+	ld [wBuffer3], a
+	jp TraitRaiseStat.end2
+
+.TraitsThatRaiseStatOnStatDown:
+	db TRAIT_RAISE_ATTACK_STAT_LOWERED
+	db TRAIT_RAISE_DEFENSE_STAT_LOWERED
+	db TRAIT_RAISE_SPEED_STAT_LOWERED
+	db TRAIT_RAISE_SP_ATTACK_STAT_LOWERED
+	db TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
+	db -1
+
 TraitPreventStatDown:
 	xor a
 	ld [wBuffer2], a
@@ -1224,6 +1256,24 @@ TraitContact:
 	call IsInArray
 	ret nc
 
+	ld a, TRAIT_CONTACT_DAMAGE
+	call CheckSpecificTrait
+	jr nc, .not_prickly
+
+	ld b, ROCK
+	farcall CheckIfTargetIsNthType
+	ret z
+
+	; call Switch_turn
+	ld hl, GetSixteenthMaxHP
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ld hl, SubtractHPFromTarget
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ret
+
+.not_prickly
 	ld b, 12 percent
 	call Chance
 	ret nc
@@ -1591,22 +1641,6 @@ TraitReducePower:
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
 	db TRAIT_REDUCE_GRASS_UP_ATTACK
 	db -1
-
-TraitLowerPriority:
-	; ld hl, JumpTableTraitsBoostMoveClass
-	; call CheckTrait
-	; ret nc
-	
-
-; 	ld a, [wBuffer2]
-; 	dec a
-; 	jr c, .min
-; 	ld [wBuffer2], a
-; 	ret
-; .min
-; 	xor a
-; 	ld [wBuffer2], a
-	ret
 
 TraitBoostPower:
 	ld a, [wCriticalHit]
@@ -3031,6 +3065,11 @@ OneShotTraits:
 ; List of traits that can only go off once while the pokemon is out
 	db TRAIT_EVASION_ON_SPEED_DIFF
 	db TRAIT_ATK_ON_ATK_DIFF
+	db TRAIT_RAISE_ATTACK_STAT_LOWERED
+	db TRAIT_RAISE_DEFENSE_STAT_LOWERED
+	db TRAIT_RAISE_SPEED_STAT_LOWERED
+	db TRAIT_RAISE_SP_ATTACK_STAT_LOWERED
+	db TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
 	db TRAIT_ATTACK_OPP_FAINT
 	db TRAIT_SP_ATTACK_OPP_FAINT
 	db TRAIT_RAIN_ATTACK
