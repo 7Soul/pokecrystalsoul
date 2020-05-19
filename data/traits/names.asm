@@ -20,6 +20,7 @@ TraitNames::
 	db "Moxie@"            ; TRAIT_ATTACK_OPP_FAINT
 	db "Gelid Embrace@"    ; TRAIT_SP_ATTACK_OPP_FAINT
 	db "Unknown Energy@"   ; TRAIT_RANDOM_STAT_OPP_FAINT
+	db "Sturdy@"           ; TRAIT_STURDY
 	db "Iron Fist@"        ; TRAIT_BOOST_PUNCHING
 	db "Iron Jaws@"        ; TRAIT_BOOST_BITING
 	db "Iron Claws@"       ; TRAIT_BOOST_CUTTING

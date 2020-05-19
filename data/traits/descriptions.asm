@@ -20,6 +20,7 @@ TraitDescriptions::
 	dw MoxieDescription       ; TRAIT_ATTACK_OPP_FAINT
 	dw GelidEmbraceDescription ; TRAIT_SP_ATTACK_OPP_FAINT
 	dw UnknownEnergyDescription ; TRAIT_RANDOM_STAT_OPP_FAINT
+	dw SturdyDescription      ; TRAIT_STURDY
 	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
 	dw IronJawsDescription    ; TRAIT_BOOST_BITING
 	dw IronClawsDescription   ; TRAIT_BOOST_CUTTING
@@ -311,6 +312,10 @@ GelidEmbraceDescription:
 UnknownEnergyDescription:
 	db   "Ups a ramdom stat"
 	next "when a foe faints.@"
+
+SturdyDescription:
+	db   "Survive one-hit"
+	next "KO.@"
 
 IronFistDescription:
 	db   "Powers Punching"

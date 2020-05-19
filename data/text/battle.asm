@@ -1218,6 +1218,7 @@ BattleText_TraitActivatedPlayer::
 BattleText_TraitActivatedEnemy::
 	text "@"
 	text_from_ram wEnemyMonNick
+	text_start
 	line "@"
 	text_from_ram wStringBuffer1
 	text_start

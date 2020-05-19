@@ -1340,6 +1340,61 @@ TraitCull:
 	call CallHealAmount
 	jp ResetActivated
 
+TraitSturdyNormal:
+	ld a, [wCriticalHit]
+	cp 2
+	ret z
+; fallthrough
+TraitSturdy:
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	ld a, TRAIT_STURDY
+	call CheckSpecificTrait
+	ret nc
+	
+.got_move
+	call GetTraitUser
+	jr c, .player
+
+	ld de, wEnemyMonHP
+	ld hl, wEnemyMonMaxHP
+	push hl
+	ld c, 2
+	call CompareBytes
+	jr z, .ohko
+	pop hl
+	ret
+.player
+	ld de, wBattleMonHP
+	ld hl, wBattleMonMaxHP
+	push hl
+	ld c, 2
+	call CompareBytes
+	jr z, .ohko
+	pop hl
+	ret
+
+.ohko
+; check if damage is equal or higher than max health
+	pop hl
+	ld de, wCurDamage
+	call CompareBytes
+	ret c
+	ret z
+
+; set damage to current HP - 1
+	ld c, 20
+	call DelayFrames
+	ld hl, BattleCommand_FalseSwipe
+	call TraitUseBattleCommandSimple
+	
+	call ActivateTrait
+	call ResetActivated
+	
+	xor a
+	ld [wBuffer2], a
+	ret
+	
 TraitPostHitBattleCommand:
 	ld hl, .TraitsThatTriggerBattleEffects
 	call CheckTrait
@@ -3028,7 +3083,7 @@ ActivateTrait:
 	call GetBattleVar
 	ld [wNamedObjectIndexBuffer], a
 	call GetTraitName
-	call GetTraitUser	
+	call GetTraitUser
 	jr c, .player_user
 	ld hl, BattleText_TraitActivatedEnemy
 	call StdBattleTextBox

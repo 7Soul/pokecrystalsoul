@@ -10,7 +10,7 @@
 	db GENDER_F50 ; gender ratio
 	db 15 ; step cycles to hatch
 	INCBIN "gfx/pokemon/ariados/front.dimensions"
-	db TRAIT_CONTACT_DAMAGE, TRAIT_CONTACT_DAMAGE, TRAIT_CONTACT_DAMAGE, TRAIT_CONTACT_DAMAGE
+	db TRAIT_STURDY, TRAIT_STURDY, TRAIT_STURDY, TRAIT_STURDY
 	db GROWTH_FAST ; growth rate
 	dn EGG_BUG, EGG_BUG ; egg groups
 
