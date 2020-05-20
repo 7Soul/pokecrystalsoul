@@ -91,8 +91,7 @@ ReadTrainerPartyPieces:
 	push hl
 	ld hl, wBadges
 	ld b, 2
-	call CountSetBits	
-	ld a, [wNumSetBits]
+	call CountSetBits
 	inc a
 	ld b, a
 	pop hl
@@ -114,7 +113,14 @@ ReadTrainerPartyPieces:
 	jp c, .skip
 .always
 	call GetNextTrainerDataByte
+	ld b, a
+	and %11111 ; mask first 5 bits
 	ld d, a ; put level in d
+	ld a, b
+	swap a
+	rrca
+	and %111
+	ld [wEnemyMonEvolve], a ; evolve bit
 	; change level
 	ld a, [wNumSetBits] ; a is number of badges
 	ld b, d ; b is level
@@ -124,8 +130,8 @@ ReadTrainerPartyPieces:
 	pop de
 	pop hl
 	
-	call GetNextTrainerDataByte ; get evolve bit
-	ld [wEnemyMonEvolve], a
+	; call GetNextTrainerDataByte ; get evolve bit
+	; ld [wEnemyMonEvolve], a
 	
 	call GetNextTrainerDataByte ; get speciess
 	ld b, a
@@ -319,7 +325,7 @@ ReadTrainerPartyPieces:
 .skip
 	inc hl
 	inc hl
-	inc hl
+	; inc hl
 	
 	ld a, [wOtherTrainerType]
 	bit TRAINERTYPE_NICKNAME_F, a
@@ -508,7 +514,7 @@ EvolveTrainerMon:
 	add hl, bc
 	add hl, bc
 	ld a, [wEnemyMonEvolve] ; check evolve bit
-	cp 0
+	and a
 	jp z, .done
 	ld a, [wCurPartyLevel]
 	ld d, a ; d = wild mon level
@@ -562,16 +568,17 @@ EvolveTrainerMon:
 	jp c, .donezo
 	pop hl
 	ld a, [wEnemyMonEvolve]
-	cp 1
+	dec a
 	jp z, .eevee_1
-	cp 2
+	dec a
 	jp z, .eevee_2
-	cp 3
+	dec a
 	jp z, .eevee_3
-	cp 4
+	dec a
 	jp z, .eevee_4
-	cp 5
-	jp z, .eevee_5
+.eevee_5
+	ld a, UMBREON
+	ld b, a
 	ret
 .eevee_1
 	ld a, JOLTEON
@@ -589,119 +596,89 @@ EvolveTrainerMon:
 	ld a, ESPEON
 	ld b, a
 	ret
-.eevee_5
-	ld a, UMBREON
-	ld b, a
-	ret
+
 .evolve_gloom
 	ld a, d ; a = wild level
 	cp 35
 	jp c, .donezo
 	pop hl
 	ld a, [wEnemyMonEvolve]
-	cp 1
+	dec a
 	jp z, .gloom_1
-	cp 2
-	jp z, .gloom_2
-.gloom_1
-	ld a, VILEPLUME
-	ld b, a
-	ret
 .gloom_2
 	ld a, BELLOSSOM
-	ld b, a
-	ret
+	jp .load_and_end
+.gloom_1
+	ld a, VILEPLUME
+	jp .load_and_end
+
 .evolve_poliwhirl
 	ld a, d ; a = wild level
 	cp 29
 	jp c, .donezo
 	pop hl
 	ld a, [wEnemyMonEvolve]
-	cp 1
+	dec a
 	jp z, .poliwhirl_1
-	cp 2
-	jp z, .poliwhirl_2
-.poliwhirl_1
-	ld a, POLIWRATH
-	ld b, a
-	ret
 .poliwhirl_2
 	ld a, POLITOED
-	ld b, a
-	ret
+	jp .load_and_end
+.poliwhirl_1
+	ld a, POLIWRATH
+	jp .load_and_end
+
 .evolve_slowpoke
 	ld a, d ; a = wild level
 	cp 37
 	jp c, .donezo
 	pop hl
 	ld a, [wEnemyMonEvolve]
-	cp 1
+	dec a
 	jp z, .slowpoke_1
-	cp 2
-	jp z, .slowpoke_2
-.slowpoke_1
-	ld a, SLOWBRO
-	ld b, a
-	ret
 .slowpoke_2
 	ld a, SLOWKING
-	ld b, a
-	ret
+	jp .load_and_end
+.slowpoke_1
+	ld a, SLOWBRO
+	jp .load_and_end
+
 .evolve_weepinbell
 	ld a, d ; a = wild level
 	cp 35
 	jp c, .donezo
 	ld a, VICTREEBEL
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_exeggcute
 	ld a, d ; a = wild level
 	cp 38
 	jp c, .donezo
 	ld a, EXEGGUTOR
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_growlithe
 	ld a, d ; a = wild level
 	cp 39
 	jp c, .donezo
 	ld a, ARCANINE
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_nidorina
 	ld a, d ; a = wild level
 	cp 33
 	jp c, .donezo
 	ld a, NIDOQUEEN
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_nidorino
 	ld a, d ; a = wild level
 	cp 33
 	jp c, .donezo
 	ld a, NIDOKING
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_seadra
 	ld a, d ; a = wild level
 	cp 36
 	jp c, .donezo
 	ld a, KINGDRA
-	ld b, a
-	ret
-	
-.hitmonlee
-	ld a, HITMONLEE
-	ld b, a
-	ret
-.hitmonchan
-	ld a, HITMONCHAN
-	ld b, a
-	ret
-.hitmontop
-	ld a, HITMONTOP
-	ld b, a
-	ret
+	jp .load_and_end
+
 .evolve_item	
 	pop bc
 	ld a, b
@@ -740,15 +717,13 @@ EvolveTrainerMon:
 	cp 40
 	jp c, .donezo
 	ld a, BLISSEY
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_golbat
 	ld a, d ; a = wild level
 	cp 40
 	jp c, .donezo	
 	ld a, CROBAT
-	ld b, a
-	ret
+	jp .load_and_end
 	
 .evolve_happy
 	pop bc
@@ -771,12 +746,20 @@ EvolveTrainerMon:
 	jp c, .donezo
 	pop hl
 	ld a, [wEnemyMonEvolve]
-	cp 1
+	dec a
 	jp z, .hitmonlee
-	cp 2
+	dec a
 	jp z, .hitmonchan
-	cp 3
-	jp z, .hitmontop
+.hitmontop
+	ld a, HITMONTOP
+	jp .load_and_end
+.hitmonlee
+	ld a, HITMONLEE
+	jp .load_and_end
+.hitmonchan
+	ld a, HITMONCHAN
+	jp .load_and_end
+
 .lower
 .done
 	pop bc
@@ -784,6 +767,9 @@ EvolveTrainerMon:
 	ret
 .donezo
 	pop hl
+	ret
+.load_and_end
+	ld b, a
 	ret
 
 ComputeTrainerReward:

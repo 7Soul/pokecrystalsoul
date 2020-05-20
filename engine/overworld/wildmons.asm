@@ -1243,46 +1243,26 @@ EvolveWildMon:
 .evolve_pichu
 	pop hl
 	ld a, PIKACHU
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_cleffa
 	pop hl
 	ld a, CLEFAIRY
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_igglybuff
 	pop hl
 	ld a, JIGGLYPUFF
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_golbat
 	pop hl
 	ld a, CROBAT
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_chansey
 	pop hl
 	ld a, BLISSEY
-	ld b, a
-	ret
-.check_time
-	ld a, [wTimeOfDay]
-	cp NITE_F
-	jp z, .evolve_umbreon
-.evolve_espeon
-	pop hl
-	ld a, ESPEON
-	ld b, a
-	ret
-.evolve_umbreon
-	pop hl
-	ld a, UMBREON
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_tyrogue
 	pop hl
-	ld b, a
-	ret
+	jp .load_and_end
 .evolve_item
 	jp .done
 .evolve_happy
@@ -1300,11 +1280,17 @@ EvolveWildMon:
 	cp 8 percent
 	ld a, HITMONLEE
 	jp c, .evolve_tyrogue
-	jp .done
+	ld a, d
+	cp 12 percent
+	ld a, HITMONTOP
+	jp c, .evolve_tyrogue
 .lower
 .done
 	pop bc
 	pop hl
+	ret
+.load_and_end
+	ld b, a
 	ret
 
 CheckRepelEffect::

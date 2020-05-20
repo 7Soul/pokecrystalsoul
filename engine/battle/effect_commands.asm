@@ -716,30 +716,30 @@ BattleCommand_CheckObedience:
 
 .obeylevel
 	; The maximum obedience level is constrained by owned badges:
-	ld hl, wJohtoBadges
-
-	; risingbadge
-	bit RISINGBADGE, [hl]
-	ld a, MAX_LEVEL + 1
-	jr nz, .getlevel
-
-	; stormbadge
-	bit STORMBADGE, [hl]
-	ld a, 70
-	jr nz, .getlevel
-
-	; fogbadge
-	bit FOGBADGE, [hl]
-	ld a, 50
-	jr nz, .getlevel
-
-	; hivebadge
-	bit HIVEBADGE, [hl]
-	ld a, 30
-	jr nz, .getlevel
-
-	; no badges
+	ld hl, wBadges
+	ld b, 2
+	call CountSetBits
+	rrca
+	inc a
+	ld b, a
+	dec b
+; no badges
 	ld a, 10
+	jr z, .getlevel
+	dec b
+; 2 badges
+	ld a, 30
+	jr z, .getlevel
+	dec b
+; 4 badges
+	ld a, 50
+	jr z, .getlevel
+	dec b
+; 6 badges
+	ld a, 70
+	jr z, .getlevel
+; 8 badges
+	ld a, MAX_LEVEL + 1
 
 .getlevel
 ; c = obedience level
@@ -2394,10 +2394,6 @@ BattleCommand_ApplyDamage:
 	ld b, 2
 
 .damage
-	ld hl, wCurDamage
-	ld a, $ff
-	ld [hli], a
-	ld [hl], a
 	ld a, b
 	ld [wBuffer2], a
 	farcall TraitSturdyNormal
@@ -5826,34 +5822,34 @@ BattleCommand_HeldFlinch:
 BattleCommand_OHKO:
 ; ohko
 
-; 	call ResetDamage
-; 	ld a, [wTypeModifier]
-; 	and $7f
-; 	jr z, .no_effect
-; 	ld hl, wEnemyMonLevel
-; 	ld de, wBattleMonLevel
-; 	ld bc, wPlayerMoveStruct + MOVE_ACC
-; 	ldh a, [hBattleTurn]
-; 	and a
-; 	jr z, .got_move_accuracy
-; 	push hl
-; 	ld h, d
-; 	ld l, e
-; 	pop de
-; 	ld bc, wEnemyMoveStruct + MOVE_ACC
-; .got_move_accuracy
-; 	ld a, [de]
-; 	sub [hl]
-; 	jr c, .no_effect
-; 	add a
-; 	ld e, a
-; 	ld a, [bc]
-; 	add e
-; 	jr nc, .finish_ohko
-; 	ld a, $ff
-; .finish_ohko
-; 	ld [bc], a
-; 	call BattleCommand_CheckHit
+	call ResetDamage
+	ld a, [wTypeModifier]
+	and $7f
+	jr z, .no_effect
+	ld hl, wEnemyMonLevel
+	ld de, wBattleMonLevel
+	ld bc, wPlayerMoveStruct + MOVE_ACC
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_move_accuracy
+	push hl
+	ld h, d
+	ld l, e
+	pop de
+	ld bc, wEnemyMoveStruct + MOVE_ACC
+.got_move_accuracy
+	ld a, [de]
+	sub [hl]
+	jr c, .no_effect
+	add a
+	ld e, a
+	ld a, [bc]
+	add e
+	jr nc, .finish_ohko
+	ld a, $ff
+.finish_ohko
+	ld [bc], a
+	call BattleCommand_CheckHit
 	ld hl, wCurDamage
 	ld a, $ff
 	ld [hli], a
