@@ -3262,37 +3262,7 @@ BattleCommand_DamageCalc:
 	; ldh a, [hMultiplicand + 2]
 	; ld [$c001], a
 
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitBoostPower
-
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitBoostDamagePerTurn
-
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitBoostDamagePerTurnSlow
-
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitReduceDamagePerTurn ; damage dealt
-
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitResistDamagePerTurn ; damage taken
-
-	ld a, BATTLE_VARS_TRAIT_OPP
-	ld [wBuffer1], a
-	farcall TraitReducePower
-
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitDamageBasedOnStats
-
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitDamageBasedOnHP
+	farcall PowerBoostingTraits
 
 	farcall SpeedBoostDamage
 

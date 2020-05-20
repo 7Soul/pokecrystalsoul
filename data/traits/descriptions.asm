@@ -21,6 +21,7 @@ TraitDescriptions::
 	dw GelidEmbraceDescription ; TRAIT_SP_ATTACK_OPP_FAINT
 	dw UnknownEnergyDescription ; TRAIT_RANDOM_STAT_OPP_FAINT
 	dw SturdyDescription      ; TRAIT_STURDY
+	dw NoGuardDescription     ; TRAIT_PERFECT_ACCURACY
 	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
 	dw IronJawsDescription    ; TRAIT_BOOST_BITING
 	dw IronClawsDescription   ; TRAIT_BOOST_CUTTING
@@ -116,6 +117,7 @@ TraitDescriptions::
 	dw GoldAuraDescription    ; TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
 	dw ShieldDustDescription  ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
+	dw HiddenPotentialDescription ; TRAIT_CRITICAL_NOT_STAB
 	dw RiptideDescription     ; TRAIT_BOOST_NOT_STAB_WATER_ICE
 	dw BladedWingsDescription ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
@@ -316,6 +318,10 @@ UnknownEnergyDescription:
 SturdyDescription:
 	db   "Survive one-hit"
 	next "KO.@"
+
+NoGuardDescription:
+	db   "Both sides gain"
+	next "max ACCURACY.@"
 
 IronFistDescription:
 	db   "Powers Punching"
@@ -700,6 +706,10 @@ ShieldDustDescription:
 ViciousFormDescription:
 	db   "Raises the chance"
 	next "of ADDED effects.@"
+
+HiddenPotentialDescription:
+	db   "Ups Non-STAB CRI-"
+	next "TICAL chance.@"
 
 RiptideDescription:
 	db   "Powers Non-STAB vs"

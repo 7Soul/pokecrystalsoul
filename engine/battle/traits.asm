@@ -1157,6 +1157,7 @@ TraitBoostCritical:
 	db TRAIT_CRIT_BELOW_THIRD
 	db TRAIT_CRITICAL_AFTER_CRIT
 	db TRAIT_OPP_SAME_TYPE_CRIT_BOOST
+	db TRAIT_CRITICAL_NOT_STAB
 	db -1
 
 TraitLowerCritical:
@@ -1172,9 +1173,13 @@ TraitLowerCritical:
 	ret
 
 TraitBoostAccuracy:
-	ld a, TRAIT_BOOST_ACCURACY_TURN_ZERO
-	call CheckSpecificTrait
+	ld hl, TraitsThatBoostAccuracy
+	call CheckTrait
 	ret nc
+
+	ld a, [wBuffer3]
+	and a
+	jr nz, .max ; perfect acc for trait 1
 
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
@@ -1195,6 +1200,7 @@ TraitBoostAccuracy:
 
 TraitsThatBoostAccuracy:
 	db TRAIT_BOOST_ACCURACY_TURN_ZERO
+	db TRAIT_PERFECT_ACCURACY ; 1
 	db -1
 
 TraitReduceAccuracy:
@@ -1696,6 +1702,27 @@ TraitReducePower:
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
 	db TRAIT_REDUCE_GRASS_UP_ATTACK
 	db -1
+
+PowerBoostingTraits:
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	call TraitBoostPower
+
+	call TraitBoostDamagePerTurn
+
+	call TraitBoostDamagePerTurnSlow
+
+	call TraitReduceDamagePerTurn ; damage dealt
+
+	call TraitResistDamagePerTurn ; damage taken
+
+	call TraitDamageBasedOnStats
+
+	call TraitDamageBasedOnHP
+
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	jp TraitReducePower
 
 TraitBoostPower:
 	ld a, [wCriticalHit]

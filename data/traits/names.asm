@@ -21,6 +21,7 @@ TraitNames::
 	db "Gelid Embrace@"    ; TRAIT_SP_ATTACK_OPP_FAINT
 	db "Unknown Energy@"   ; TRAIT_RANDOM_STAT_OPP_FAINT
 	db "Sturdy@"           ; TRAIT_STURDY
+	db "No Guard@"         ; TRAIT_PERFECT_ACCURACY
 	db "Iron Fist@"        ; TRAIT_BOOST_PUNCHING
 	db "Iron Jaws@"        ; TRAIT_BOOST_BITING
 	db "Iron Claws@"       ; TRAIT_BOOST_CUTTING
@@ -116,6 +117,7 @@ TraitNames::
 	db "Gold Aura@"        ; TRAIT_REDUCE_SPECIAL_TAKEN
 	db "Shield Dust@"      ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	db "Vicious Form@"     ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
+	db "Hidden Potential@" ; TRAIT_CRITICAL_NOT_STAB
 	db "Riptide@"          ; TRAIT_BOOST_NOT_STAB_WATER_ICE
 	db "Bladed Wings@"     ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	db "Prismality@"       ; TRAIT_BOOST_NOT_STAB
