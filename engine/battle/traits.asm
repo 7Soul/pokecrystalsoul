@@ -1,4 +1,4 @@
-CheckTrait:
+CheckTrait: ; sets carry if trait can be used, returns move index [wBuffer3] in `a`
 	cp -1
 	ret z
 	call CheckTraitActivated ; check if trait only activates once
@@ -263,6 +263,7 @@ CheckTraitCondition:
 	call ActivateTrait
 .not_one_shot
 	scf
+	ld a, [wBuffer3]
 	ret
 
 .check_chance
@@ -764,7 +765,6 @@ TraitOnEnter:
 	call CheckTrait
 	ret nc
 .battle_type_boost
-	ld a, [wBuffer3]
 	ld hl, .TypeList2
 	ld b, 0
 	ld c, a
@@ -775,8 +775,7 @@ TraitOnEnter:
 	pop de
 	jp CheckTraitCondition.check_opp_party_for_type
 
-.defense_times	
-	ld a, [wBuffer3]
+.defense_times
 	ld hl, .TypeList
 	ld b, 0
 	ld c, a
@@ -1011,7 +1010,6 @@ TraitLowerStat:
 	call CheckTrait
 	ret nc
 
-	ld a, [wBuffer3]
 	ld hl, .StatusCommands
 	call TraitUseBattleCommand
 	
@@ -1066,7 +1064,6 @@ TraitPreventStatDown:
 	call CheckTrait
 	ret nc
 
-	ld a, [wBuffer3]
 	cp 6
 	jr nz, .check_stat
 	
@@ -1177,7 +1174,6 @@ TraitBoostAccuracy:
 	call CheckTrait
 	ret nc
 
-	ld a, [wBuffer3]
 	and a
 	jr nz, .max ; perfect acc for trait 1
 
@@ -1262,15 +1258,29 @@ TraitContact:
 	call IsInArray
 	ret nc
 
-	ld a, TRAIT_CONTACT_DAMAGE
-	call CheckSpecificTrait
+	ld hl, .TraitsThatDealDamageOnContact
+	call CheckTrait
 	jr nc, .not_prickly
 
+	and a
+	jr z, .rock
+
+	ld b, FLYING
+	farcall CheckIfTargetIsNthType
+	ret z
+	ld b, GROUND
+	farcall CheckIfTargetIsNthType
+	ret z
+	jr .do_damage
+.rock
+	ld b, WATER
+	farcall CheckIfTargetIsNthType
+	ret z
 	ld b, ROCK
 	farcall CheckIfTargetIsNthType
 	ret z
 
-	; call Switch_turn
+.do_damage
 	ld hl, GetSixteenthMaxHP
 	ld a, BANK(GetMaxHP)
 	rst FarCall
@@ -1322,6 +1332,11 @@ TraitContact:
 	db TRAIT_CONTACT_CONFUSED
 	db TRAIT_CONTACT_IN_LOVE
 	db TRAIT_CONTACT_SPORE
+	db -1
+
+.TraitsThatDealDamageOnContact:
+	db TRAIT_CONTACT_DAMAGE_ROCK
+	db TRAIT_CONTACT_DAMAGE_GROUND
 	db -1
 
 TraitCull:
@@ -1408,7 +1423,6 @@ TraitPostHitBattleCommand:
 
 	ld hl, .StatusChances
 	ld b, 0
-	ld a, [wBuffer3]
 	ld c, a
 	add hl, bc
 	add hl, bc
@@ -1527,7 +1541,6 @@ TraitHealStatus:
 	call CheckTrait
 	ret nc
 
-	ld a, [wBuffer3]
 	and a
 	jr nz, .only_status ; traits 1 and up only heal status
 
@@ -1909,7 +1922,6 @@ TraitBoostNonStab: ; after damage calc, once stab is checked
 	call CheckTrait
 	ret nc
 
-	ld a, [wBuffer3]
 	and a
 	jp z, BoostDamage20
 	dec a
@@ -2326,9 +2338,9 @@ TraitMultiHit:
 	ld hl, TraitsThatDealWithMultiHit
 	call CheckTrait
 	ret nc
-	ld a, [wBuffer3]
-	cp 1
-	jr nz, .count
+
+	and a
+	jr z, .count
 
 	ld a, BATTLE_VARS_MOVE_POWER
 	call GetBattleVarAddr
@@ -2413,7 +2425,6 @@ TraitFaintMon:
 	call CheckTrait
 	ret nc
 
-	ld a, [wBuffer3]
 	and a
 	jr z, .heal_hp_faint
 	dec a
@@ -2509,7 +2520,6 @@ TraitRegenHP:
 	call CheckTrait
 	ret nc
 	
-	ld a, [wBuffer3]
 	cp 2
 	jr z, .heal_hp_sixteenth
 	ld hl, GetEighthMaxHP

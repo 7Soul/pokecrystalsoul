@@ -7,7 +7,8 @@ TraitDescriptions::
 	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
 	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
 	dw EffectSporeDescription ; TRAIT_CONTACT_SPORE
-	dw IronBarbsDescription   ; TRAIT_CONTACT_DAMAGE
+	dw IronBarbsDescription   ; TRAIT_CONTACT_DAMAGE_ROCK
+	dw SandBruiserDescription ; TRAIT_CONTACT_DAMAGE_GROUND
 	dw HotCoalsDescription    ; TRAIT_HOT_COALS
 	dw LightningFastDescription ; TRAIT_EVASION_ON_SPEED_DIFF
 	dw UnleashPowerDescription ; TRAIT_ATK_ON_ATK_DIFF
@@ -264,7 +265,11 @@ EffectSporeDescription:
 	next "SLP the attacker.@"
 
 IronBarbsDescription:
-	db   "Foe takes damage"
+	db   "Damages most foes"
+	next "on contact.@"
+
+SandBruiserDescription:
+	db   "Damages most foes"
 	next "on contact.@"
 
 HotCoalsDescription:

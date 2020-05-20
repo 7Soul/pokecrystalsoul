@@ -7,7 +7,8 @@ TraitNames::
 	db "High Tempo@"       ; TRAIT_CONTACT_CONFUSED
 	db "Cute Charm@"       ; TRAIT_CONTACT_IN_LOVE
 	db "Effect Spore@"     ; TRAIT_CONTACT_SPORE
-	db "Iron Barbs@"       ; TRAIT_CONTACT_DAMAGE
+	db "Iron Barbs@"       ; TRAIT_CONTACT_DAMAGE_ROCK
+	db "Sand Bruiser@"     ; TRAIT_CONTACT_DAMAGE_GROUND
 	db "Hot Coals@"        ; TRAIT_HOT_COALS
 	db "Lightning Fast@"   ; TRAIT_EVASION_ON_SPEED_DIFF
 	db "Unleash Power@"    ; TRAIT_ATK_ON_ATK_DIFF
