@@ -104,9 +104,12 @@ CheckTraitCondition:
 	cp TRAIT_LOWER_RANDOM_TURN_ZERO + 1 ; all traits on turn 0
 	ld d, 0
 	jp c, .check_turns_equal
+	cp TRAIT_HEAL_HP_AFTER_WATER_MOVE + 1 ; 
+	ld d, 0
+	jp c, .check_trait_activation_over
 	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1 ; 
 	ld d, 3
-	jp c, .check_trait_activation_equal
+	jp c, .check_trait_activation_equal	
 	cp TRAIT_RANDOM_STAT_AFTER_5_TURNS + 1 ; 
 	jp c, .check_trait_activated
 	cp TRAIT_REGEN_FIRST_TURNS + 1 ; all traits on turn 3 and lower
@@ -425,15 +428,6 @@ CheckTraitCondition:
 	and a
 	ret
 
-.check_crit_trigger:
-	ld a, [wCriticalHit]
-	cp 1
-	jr nz, .not_crit_trigger
-	call IncreaseTraitCount
-.not_crit_trigger
-	and a
-	ret
-
 .check_turns_equal
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
@@ -450,6 +444,18 @@ CheckTraitCondition:
 	jr nc, .no_turns_lower ; greater or equal
 	jp .success
 .no_turns_lower
+	and a
+	ret
+
+; Checks if `d` is over trait Activated Count
+.check_trait_activation_over
+	push de
+	call CheckTraitCount
+	pop de
+	cp d
+	jr z, .zero
+	jp nc, .success
+.zero
 	and a
 	ret
 
@@ -659,6 +665,15 @@ CheckTraitCondition:
 	ret
 
 ; triggers
+.check_crit_trigger:
+	ld a, [wCriticalHit]
+	cp 1
+	jr nz, .not_crit_trigger
+	call IncreaseTraitCount
+.not_crit_trigger
+	and a
+	ret
+
 .check_did_no_dmg_for_three_turns:
 	call Get_move_category
 	cp 2
@@ -679,6 +694,27 @@ CheckTraitCondition:
 	jp z, ActivateTrait
 	and a
 	ret
+
+.check_move_type_trigger:
+	ld b, a
+	call GetMoveStructDamage
+	inc hl
+	ld a, [hl]
+	and TYPE_MASK
+	cp c
+	jr z, .is_type
+	cp e
+	jr z, .is_type
+	and a
+	ld a, b ; restore trait into 'a'	
+	ret
+.is_type
+; increase counter 2 times as long as it's 0
+	call CheckTraitCount
+	and a
+	ret nz
+	call IncreaseTraitCount
+	jp IncreaseTraitCount
 
 Get_move_category: ; 0 = physical, 1 = special, 2 = status
 	ld a, BATTLE_VARS_MOVE_TYPE
@@ -719,22 +755,30 @@ GetMoveStructChance:
 TraitTurnTriggers:
 	ld a, [wBuffer1]
 	call GetBattleVar
-	cp TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
+	cp TRAIT_HEAL_HP_AFTER_WATER_MOVE
 	jr c, .no_trigger
+
+	cp TRAIT_HEAL_HP_AFTER_WATER_MOVE + 1
+	ld e, $FF
+	ld c, WATER
+	jr c, CheckTraitCondition.check_move_type_trigger
+
 	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1
 	jp c, CheckTraitCondition.check_did_no_dmg_for_three_turns
+
 	cp TRAIT_ALL_STATS_AFTER_7_TURNS + 1
 	ld d, 7
 	jp c, CheckTraitCondition.check_every_x_turns
+
 	cp TRAIT_RANDOM_STAT_AFTER_5_TURNS + 1
 	ld d, 5
 	jp c, CheckTraitCondition.check_every_x_turns
-	cp TRAIT_SPEED_AFTER_CRIT + 1
+
+	cp TRAIT_REDUCE_CRIT_MORE + 1 ; no trigger before this
 	jp c, .no_trigger
+	
 	cp TRAIT_CRITICAL_AFTER_CRIT + 1
 	jp c, CheckTraitCondition.check_crit_trigger
-	cp TRAIT_OPP_SAME_TYPE_DMG_BOOST + 1
-	jp c, .no_trigger
 .no_trigger
 	ret
 
@@ -2521,10 +2565,12 @@ TraitRegenHP:
 	ret nc
 	
 	cp 2
-	jr z, .heal_hp_sixteenth
+	jr nc, .heal_hp_sixteenth
 	ld hl, GetEighthMaxHP
 	jr .complete_heal
 .heal_hp_sixteenth
+	cp 3
+	call nc, ReduceTraitCount
 	ld hl, GetSixteenthMaxHP
 .complete_heal
 	jp CallHealAmount
@@ -2533,6 +2579,8 @@ TraitRegenHP:
 	db TRAIT_REGEN_LOW_HP ; 0
 	db TRAIT_REGEN_STATUSED ; 1
 	db TRAIT_REGEN_FIRST_TURNS ; 2
+	db TRAIT_HEAL_AFTER_BERRY ; 3
+	db TRAIT_HEAL_HP_AFTER_WATER_MOVE ; 4
 	db -1
 
 TraitBoostBurnPoisonDamage: ; modifies `bc`
@@ -2702,8 +2750,16 @@ BerryList:
 TraitBoostBerryHeal:
 	ld a, TRAIT_BOOST_BERRY
 	call CheckSpecificTrait
+	jr c, .boost_heal
+
+	ld a, TRAIT_HEAL_AFTER_BERRY
+	call CheckSpecificTrait
 	ret nc
 
+	call IncreaseTraitCount
+	jp IncreaseTraitCount
+
+.boost_heal
 	ld a, [wBuffer2]
 	add a
 	ld [wBuffer2], a
@@ -2842,7 +2898,8 @@ CallHealAmount: ; takes `GetEighthMaxHP` or others in `hl`
 	ld [wBuffer6], a
 	jp EffectTraitForceRecoverHP
 	
-EffectTraitForceRecoverHP:	
+EffectTraitForceRecoverHP:
+	call Switch_turn ; RestoreHP restores opponent's hp
 	ld hl, RestoreHP
 	ld a, BANK("Battle Core")
 	rst FarCall
@@ -3038,6 +3095,43 @@ IncreaseTraitCount:
 	jr z, .max2
 	inc a
 .max2
+	rlca
+	add b
+.end
+	ld [hl], a
+	ret
+
+ReduceTraitCount:
+	call GetTraitUser
+	ld hl, wTraitActivated
+	jr c, .player_user
+	ld a, [hl]
+	and %00011111 ; grab the enemy bit (0001) and the player data (1111) to preserve it in b
+	ld b, a
+	ld a, [hl]
+	and %11100000
+	rrca
+	swap a
+	cp 0
+	jr z, .min1
+	dec a
+.min1
+	rlca
+	swap a
+	add b 
+	jr .end
+
+.player_user
+	ld a, [hl]
+	and %11110001 ; grab the player bit (0001) and the enemy data (1111) to preserve it in b
+	ld b, a
+	ld a, [hl]
+	and %1110 ; grab the 3 bits after the player bit
+	rrca
+	cp 0
+	jr z, .min2
+	dec a
+.min2
 	rlca
 	add b
 .end

@@ -128,6 +128,8 @@ TraitDescriptions::
 	dw IntimidateDescription  ; TRAIT_LOWER_ATTACK_TURN_ZERO
 	dw StrangeSignalDescription ; TRAIT_LOWER_RANDOM_TURN_ZERO
 	dw KeenFocusDescription   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
+	dw SlowDigestionDescription ; TRAIT_HEAL_AFTER_BERRY
+	dw LifeDewDescription     ; TRAIT_HEAL_HP_AFTER_WATER_MOVE
 	dw PreparationDescription ; TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
 	dw WallDescription        ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
 	dw StretchingDescription  ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
@@ -752,6 +754,14 @@ KeenFocusDescription:
 	db   "Boosts move ACC on"
 	next "your first turns.@"
 	
+SlowDigestionDescription:
+	db   "Keep healing after"
+	next "eating a berry.@"
+	
+LifeDewDescription:
+	db   "Heal after using"
+	next "WATER moves.@"
+
 PreparationDescription:
 	db   "Ups ATK and ACC by"
 	next "not doing damage.@"
