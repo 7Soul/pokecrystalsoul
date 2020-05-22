@@ -549,6 +549,7 @@ MapObjectMovementPattern:
 	dw .MovementSpinCounterclockwise ; 19
 	dw .MovementBoulderDust ; 1a
 	dw .MovementShakingGrass ; 1b
+	dw .MovementRipple ; 1c
 
 .Null_00:
 	ret
@@ -952,17 +953,27 @@ MapObjectMovementPattern:
 	ld hl, OBJECT_ACTION
 	add hl, bc
 	ld [hl], OBJECT_ACTION_GRASS_SHAKE
+._MovementGrass_Ripple_End:
 	ld hl, OBJECT_STEP_DURATION
 	add hl, de
 	ld a, [hl]
 	add -1
 	ld hl, OBJECT_STEP_DURATION
 	add hl, bc
+	add a
 	ld [hl], a
 	ld hl, OBJECT_STEP_TYPE
 	add hl, bc
 	ld [hl], STEP_TYPE_TRACKING_OBJECT
 	ret
+
+.MovementRipple:
+	call EndSpriteMovement
+	call ._MovementShadow_Grass_Emote_BoulderDust
+	ld hl, OBJECT_ACTION
+	add hl, bc
+	ld [hl], OBJECT_ACTION_RIPPLE
+	jr ._MovementGrass_Ripple_End
 
 ._MovementShadow_Grass_Emote_BoulderDust:
 	ld hl, OBJECT_RANGE
@@ -2042,6 +2053,17 @@ ShakeGrass:
 
 .GrassObject
 	db $00, PAL_OW_TREE, SPRITEMOVEDATA_GRASS
+
+WaterRipple:
+	push bc
+	ld de, .RippleObject
+	call CopyTempObjectData
+	call InitTempObject
+	pop bc
+	ret
+
+.RippleObject
+	db $00, PAL_OW_BLUE, SPRITEMOVEDATA_RIPPLE
 
 ShakeScreen:
 	push bc

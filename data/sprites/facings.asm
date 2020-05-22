@@ -32,6 +32,8 @@ Facings:
 	dw FacingBoulderDust2
 	dw FacingGrass1
 	dw FacingGrass2
+	dw FacingRipple1
+	dw FacingRipple2
 .End
 	dw 0
 
@@ -237,3 +239,13 @@ FacingGrass2:
 	db 2 ; #
 	db  9, -1, ABSOLUTE_TILE_ID, $fe
 	db  9,  9, ABSOLUTE_TILE_ID | X_FLIP, $fe
+
+FacingRipple1:
+	db 2 ; #
+	db  8,  0, ABSOLUTE_TILE_ID, $ff
+	db  8,  8, ABSOLUTE_TILE_ID | X_FLIP, $ff
+
+FacingRipple2:
+	db 2 ; #
+	db  9, -1, ABSOLUTE_TILE_ID, $ff
+	db  9,  9, ABSOLUTE_TILE_ID | X_FLIP, $ff

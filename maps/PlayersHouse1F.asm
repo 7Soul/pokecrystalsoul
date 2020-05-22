@@ -138,6 +138,7 @@ MeetMomScript:
 	callasm CheatSetFlypoints
 	; warp ROUTE_2, $5, $22
 	warp ROUTE_46, $6, $F
+	; warp ROUTE_30, $C, $16
 	; warp ROUTE_40, $a, $a ; battle tower
 	; warp ROUTE_37, $e, $a
 	; warp ILEX_FOREST, $0, $21

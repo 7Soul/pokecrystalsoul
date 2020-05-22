@@ -163,6 +163,7 @@ NUM_CMDQUEUE_TYPES EQU const_value
 	const EMOTE_ROD ; 9
 	const EMOTE_BOULDER_DUST ; 10
 	const EMOTE_GRASS_RUSTLE ; 11
+	const EMOTE_RIPPLE ; 12
 EMOTE_MEM EQU -1
 
 ; fruittree arguments

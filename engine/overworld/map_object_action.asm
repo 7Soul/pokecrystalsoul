@@ -17,6 +17,7 @@ ObjectActionPairPointers:
 	dw SetFacingBoulderDust,           SetFacingStanding
 	dw SetFacingGrassShake,            SetFacingStanding
 	dw SetFacingSkyfall,               SetFacingCurrent
+	dw SetFacingRipple,                SetFacingCurrent
 
 SetFacingStanding:
 	ld hl, OBJECT_FACING_STEP
@@ -285,6 +286,22 @@ SetFacingGrassShake:
 	ld a, FACING_GRASS_1
 	jr z, .ok
 	inc a ; FACING_GRASS_2
+
+.ok
+	ld [hl], a
+	ret
+
+SetFacingRipple:
+	ld hl, OBJECT_STEP_FRAME
+	add hl, bc
+	inc [hl]
+	ld a, [hl]
+	ld hl, OBJECT_FACING_STEP
+	add hl, bc
+	and 4
+	ld a, FACING_RIPPLE_1
+	jr z, .ok
+	inc a ; FACING_RIPPLE_2
 
 .ok
 	ld [hl], a

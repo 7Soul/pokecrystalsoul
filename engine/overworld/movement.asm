@@ -671,12 +671,17 @@ NormalStep:
 	ld a, [hl]
 	call CheckSuperTallGrassTile
 	jr z, .shake_grass
-
+	call CheckShallowWaterTile
+	jr z, .water_ripple
 	call CheckGrassTile
 	jr c, .skip_grass
 
 .shake_grass
 	call ShakeGrass
+	jr .skip_grass
+	
+.water_ripple
+	call WaterRipple
 
 .skip_grass
 	ld hl, wCenteredObject
