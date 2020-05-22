@@ -300,7 +300,7 @@ DoPlayerMovement::
 	ret
 
 .walk
-	ld a, STEP_BIKE
+	ld a, STEP_WALK
 	call .DoStep
 	scf
 	ret
@@ -461,7 +461,7 @@ DoPlayerMovement::
 
 .Steps:
 	dw .SlowStep
-	dw .NormalStep
+	dw .FastStep ;
 	dw .FastStep
 	dw .JumpStep
 	dw .SlideStep

@@ -2253,7 +2253,7 @@ Function5688:
 	ld hl, OBJECT_NEXT_TILE
 	add hl, bc
 	ld [hl], a
-	farcall UpdateTallGrassFlags ; no need to farcall
+	call UpdateTallGrassFlags
 	ret
 
 Function56a3:
