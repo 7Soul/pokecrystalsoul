@@ -44,9 +44,8 @@ FindNest:
 	ld hl, JohtoWaterWildMons
 	call .FindWater
 	call .RoamMon1
-	call .RoamMon2	
-	call .RoamMon3	
-	ret
+	call .RoamMon2
+	jp .RoamMon3
 
 .kanto
 	decoord 0, 0
@@ -55,8 +54,8 @@ FindNest:
 	ld hl, KantoWaterWildMons
 	call .FindWater
 	call .RoamMon4
-	call .RoamMon5	
-	jp .RoamMon6	
+	call .RoamMon5
+	jp .RoamMon6
 
 .FindGrass:
 	ld a, [hl]
@@ -67,7 +66,7 @@ FindNest:
 	ld b, a
 	ld a, [hli]
 	ld c, a
-	inc hl ; ;
+	inc hl ;
 	inc hl ; skip encounter chance
 	ld a, NUM_GRASSMON * 2
 	call .SearchMapForMon

@@ -3,7 +3,7 @@
 JohtoShallowWildMons:
 
 	map_id ROUTE_30
-	db 8 percent, 8 percent ; encounter rate
+	db 4 percent, 4 percent ; encounter rate
 	; morn/day
 	db 1, MARILL
 	db 1, BELLSPROUT
@@ -20,7 +20,7 @@ JohtoShallowWildMons:
 	db 1, SEEL
 
 	map_id ROUTE_31
-	db 8 percent, 8 percent ; encounter rate
+	db 4 percent, 4 percent ; encounter rate
 	; morn/day
 	db 1, MARILL
 	db 1, BELLSPROUT
@@ -37,7 +37,7 @@ JohtoShallowWildMons:
 	db 1, SEEL
 
 	map_id ROUTE_32
-	db 8 percent, 8 percent ; encounter rate
+	db 4 percent, 4 percent ; encounter rate
 	; morn/day
 	db 1, WOOPER
 	db 1, WOOPER
@@ -54,7 +54,7 @@ JohtoShallowWildMons:
 	db 1, TENTACOOL
 
 	map_id ROUTE_34
-	db 8 percent, 8 percent ; encounter rate
+	db 4 percent, 4 percent ; encounter rate
 	; morn/day
 	db 1, PSYDUCK
 	db 1, SNUBBULL
@@ -71,7 +71,7 @@ JohtoShallowWildMons:
 	db 1, SQUIRTLE
 
 	map_id OLIVINE_CITY
-	db 8 percent, 8 percent ; encounter rate
+	db 4 percent, 4 percent ; encounter rate
 	; morn/day
 	db 1, PIDGEY
 	db 1, SHUCKLE
@@ -88,7 +88,7 @@ JohtoShallowWildMons:
 	db 1, CORSOLA
 
 	map_id CIANWOOD_CITY
-	db 8 percent, 8 percent ; encounter rate
+	db 4 percent, 4 percent ; encounter rate
 	; morn/day
 	db 1, PIDGEY
 	db 1, SHUCKLE
