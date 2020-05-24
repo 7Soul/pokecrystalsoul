@@ -183,4 +183,5 @@ SpecialsPointers::
 	add_special InitialClearDSTFlag
 	add_special DummySpecial_c224 ; $a8
 	add_special GetPreEvolution ; $a8
-	;add_special GiveCubone
+	add_special GetContestType
+	add_special CheckContestEntry

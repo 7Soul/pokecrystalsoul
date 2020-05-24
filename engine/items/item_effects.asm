@@ -697,8 +697,8 @@ PokeBallEffect:
 	ret z
 	cp BATTLETYPE_DEBUG
 	ret z
-	cp BATTLETYPE_CONTEST
-	jr z, .used_park_ball
+	; cp BATTLETYPE_CONTEST
+	; jr z, .used_park_ball
 
 	ld a, [wWildMon]
 	and a
@@ -713,10 +713,10 @@ PokeBallEffect:
 	ld [wItemQuantityChangeBuffer], a
 	jp TossItem
 
-.used_park_ball
-	ld hl, wParkBallsRemaining
-	dec [hl]
-	ret
+; .used_park_ball
+; 	ld hl, wParkBallsRemaining
+; 	dec [hl]
+; 	ret
 	
 BallMultiplierFunctionTable:
 ; table of routines that increase or decrease the catch rate based on

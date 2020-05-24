@@ -77,6 +77,8 @@ ContestDropOffMons:
 	ld a, [hli]
 	or [hl]
 	jr z, .fainted
+	call CheckContestEntry
+	jr nz, .wrong_type
 ; Mask the rest of your party by setting the count to 1...
 	ld hl, wPartyCount
 	ld a, 1
@@ -93,6 +95,11 @@ ContestDropOffMons:
 
 .fainted
 	ld a, $1
+	ld [wScriptVar], a
+	ret
+
+.wrong_type
+	ld a, $2
 	ld [wScriptVar], a
 	ret
 

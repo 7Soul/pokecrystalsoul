@@ -1382,6 +1382,11 @@ TeacherGroup:
 	db $8F, $07, SMEARGLE, $00, AGILITY, NASTY_PLOT, BUG_BUZZ, THUNDERBOLT
 	db -1 ; end
 
+	; TEACHER (5)
+	db "Yohane@", TRAINERTYPE_NORMAL
+	db $0F, $03, BULBASAUR
+	db -1 ; end
+
 SabrinaGroup:
 	; BIRD_KEEPER (1)
 	db "Sabrina@", TRAINERTYPE_ITEM | TRAINERTYPE_DVS | TRAINERTYPE_MOVES

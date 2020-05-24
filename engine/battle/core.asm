@@ -5082,12 +5082,12 @@ BattleMenu:
 .ok
 
 .loop
-	ld a, [wBattleType]
-	cp BATTLETYPE_CONTEST
-	jr nz, .not_contest
-	farcall ContestBattleMenu	
-	jr .next
-.not_contest
+; 	ld a, [wBattleType]
+; 	cp BATTLETYPE_CONTEST
+; 	jr nz, .not_contest
+; 	farcall ContestBattleMenu	
+; 	jr .next
+; .not_contest
 	call LoadBattleMenu2
 	ret c
 
@@ -5151,8 +5151,8 @@ BattleMenu_Pack:
 	ld a, [wBattleType]
 	cp BATTLETYPE_TUTORIAL
 	jr z, .tutorial
-	cp BATTLETYPE_CONTEST
-	jr z, .contest
+	; cp BATTLETYPE_CONTEST
+	; jr z, .contest
 
 	farcall BattlePack
 	ld a, [wBattlePlayerAction]
@@ -5167,10 +5167,10 @@ BattleMenu_Pack:
 	call DoItemEffect
 	jr .got_item
 
-.contest
-	ld a, PARK_BALL
-	ld [wCurItem], a
-	call DoItemEffect
+; .contest
+; 	ld a, PARK_BALL
+; 	ld [wCurItem], a
+; 	call DoItemEffect
 
 .got_item
 	call .UseItem

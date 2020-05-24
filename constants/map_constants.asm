@@ -70,7 +70,13 @@ ENDM
 	map_const BURNED_TOWER_1F,                             10,  9 ; 13
 	map_const BURNED_TOWER_B1F,                            10,  9 ; 14
 	map_const NATIONAL_PARK,                               20, 27 ; 15
-	map_const NATIONAL_PARK_BUG_CONTEST,                   20, 27 ; 16
+	map_const NATIONAL_PARK_CONTEST_NORMAL_FIGHTING,       20, 27 ; 16
+	map_const NATIONAL_PARK_CONTEST_FLYING_GROUND,         20, 27 ; 16
+	; map_const NATIONAL_PARK_CONTEST_ROCK_BUG,              20, 27 ; 16
+	; map_const NATIONAL_PARK_CONTEST_FIRE_WATER,            20, 27 ; 16
+	; map_const NATIONAL_PARK_CONTEST_GRASS_ELECTRIC,        20, 27 ; 16
+	; map_const NATIONAL_PARK_CONTEST_PSYCHIC_ICE,           20, 27 ; 16
+	; map_const NATIONAL_PARK_CONTEST_DARK,                  20, 27 ; 16
 	map_const RADIO_TOWER_1F,                               9,  4 ; 17
 	map_const RADIO_TOWER_2F,                               9,  4 ; 18
 	map_const RADIO_TOWER_3F,                               9,  4 ; 19

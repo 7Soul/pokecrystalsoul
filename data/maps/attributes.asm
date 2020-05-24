@@ -357,7 +357,13 @@ ENDM
 	map_attributes BurnedTower1F, BURNED_TOWER_1F, $00, 0
 	map_attributes BurnedTowerB1F, BURNED_TOWER_B1F, $09, 0
 	map_attributes NationalPark, NATIONAL_PARK, $00, 0
-	map_attributes NationalParkBugContest, NATIONAL_PARK_BUG_CONTEST, $00, 0
+	map_attributes NationalParkContest1, NATIONAL_PARK_CONTEST_NORMAL_FIGHTING, $00, 0
+	map_attributes NationalParkContest2, NATIONAL_PARK_CONTEST_FLYING_GROUND, $00, 0
+	; map_attributes NationalParkContest3, NATIONAL_PARK_CONTEST_ROCK_BUG, $00, 0
+	; map_attributes NationalParkContest4, NATIONAL_PARK_CONTEST_FIRE_WATER, $00, 0
+	; map_attributes NationalParkContest5, NATIONAL_PARK_CONTEST_GRASS_ELECTRIC, $00, 0
+	; map_attributes NationalParkContest6, NATIONAL_PARK_CONTEST_PSYCHIC_ICE, $00, 0
+	; map_attributes NationalParkContest7, NATIONAL_PARK_CONTEST_DARK, $00, 0
 	map_attributes RadioTower1F, RADIO_TOWER_1F, $00, 0
 	map_attributes RadioTower2F, RADIO_TOWER_2F, $00, 0
 	map_attributes RadioTower3F, RADIO_TOWER_3F, $00, 0

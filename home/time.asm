@@ -172,6 +172,9 @@ FixTime::
 	ld c, a
 	ld a, [wStartDay]
 	adc c
+if DEF(_DEBUG)
+	ld a, 2
+endc
 	ld [wCurDay], a
 	ret
 
@@ -190,7 +193,6 @@ InitDayOfWeek::
 	ld [wStringBuffer2 + 2], a
 	ldh a, [hSeconds]
 	ld [wStringBuffer2 + 3], a
-	jr InitTime ; useless
 
 InitTime::
 	farcall _InitTime

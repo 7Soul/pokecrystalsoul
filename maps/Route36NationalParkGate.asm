@@ -45,10 +45,9 @@ Route36NationalParkGate_MapScripts:
 .CheckIfContestAvailable:
 	checkevent EVENT_WARPED_FROM_ROUTE_35_NATIONAL_PARK_GATE
 	iftrue .Return
-	checkcode VAR_WEEKDAY
-	ifequal TUESDAY, .SetContestOfficer
-	ifequal THURSDAY, .SetContestOfficer
-	ifequal SATURDAY, .SetContestOfficer
+	special GetContestType
+	ifnotequal 14, .SetContestOfficer
+
 	checkflag ENGINE_BUG_CONTEST_TIMER
 	iftrue .SetContestOfficer
 	disappear ROUTE36NATIONALPARKGATE_OFFICER1
@@ -91,7 +90,7 @@ Route36NationalParkGate_MapScripts:
 	playsound SFX_EXIT_BUILDING
 	special FadeOutPalettes
 	waitsfx
-	warpfacing LEFT, NATIONAL_PARK_BUG_CONTEST, 33, 18
+	warpfacing LEFT, NATIONAL_PARK_CONTEST_NORMAL_FIGHTING, 33, 18
 	end
 
 .CopyContestants:
@@ -139,17 +138,19 @@ Route36NationalParkGate_MapScripts:
 	end
 
 Route36OfficerScriptContest:
-	checkcode VAR_WEEKDAY
-	ifequal SUNDAY, _ContestNotOn
-	ifequal MONDAY, _ContestNotOn
-	ifequal WEDNESDAY, _ContestNotOn
-	ifequal FRIDAY, _ContestNotOn
+	special GetContestType
+	ifequal 14, _ContestNotOn
+	; checkcode VAR_WEEKDAY
+	; ifequal SUNDAY, _ContestNotOn
+	; ifequal MONDAY, _ContestNotOn
+	; ifequal WEDNESDAY, _ContestNotOn
+	; ifequal FRIDAY, _ContestNotOn
 	faceplayer
 	opentext
 	checkflag ENGINE_DAILY_BUG_CONTEST
 	iftrue Route36Officer_ContestHasConcluded
-	scall Route36ParkGate_DayToText
-	writetext UnknownText_0x6add5
+	; scall Route36ParkGate_DayToText
+	writetext TextContestIsOn
 	yesorno
 	iffalse .DecidedNotToJoinContest
 	checkcode VAR_PARTYCOUNT
@@ -159,13 +160,13 @@ Route36OfficerScriptContest:
 .ResumeStartingContest:
 	setflag ENGINE_BUG_CONTEST_TIMER
 	special PlayMapMusic
-	writetext UnknownText_0x6ae87
-	buttonsound
-	waitsfx
-	writetext UnknownText_0x6aeb1
-	playsound SFX_ITEM
-	waitsfx
-	writetext UnknownText_0x6aecc
+	; writetext UnknownText_0x6ae87
+	; buttonsound
+	; waitsfx
+	; writetext UnknownText_0x6aeb1
+	; playsound SFX_ITEM
+	; waitsfx
+	writetext TextAboutToStart
 	waitbutton
 	closetext
 	setflag ENGINE_BUG_CONTEST_TIMER
@@ -175,26 +176,27 @@ Route36OfficerScriptContest:
 	special FadeOutPalettes
 	waitsfx
 	special SelectRandomBugContestContestants
-	warpfacing LEFT, NATIONAL_PARK_BUG_CONTEST, 33, 18
+	warpfacing LEFT, NATIONAL_PARK_CONTEST_NORMAL_FIGHTING, 33, 18
 	end
 
 .LeaveMonsWithOfficer:
 	checkcode VAR_PARTYCOUNT
 	ifless PARTY_LENGTH, .ContinueLeavingMons
-	checkcode VAR_BOXSPACE
-	ifequal 0, .BoxFull
+	; checkcode VAR_BOXSPACE
+	; ifequal 0, .BoxFull
 .ContinueLeavingMons:
 	special CheckFirstMonIsEgg
 	ifequal TRUE, .FirstMonIsEgg
-	writetext UnknownText_0x6afb0
+	writetext TextYouHaveMoreThanOnePkMn
 	yesorno
 	iffalse .RefusedToLeaveMons
 	special ContestDropOffMons
-	iftrue .FirstMonIsFainted
+	ifequal $1, .FirstMonIsFainted
+	ifequal $2, .FirstMonIsWrongType
 	setevent EVENT_LEFT_MONS_WITH_CONTEST_OFFICER
-	writetext UnknownText_0x6b021
+	writetext TextIllHoldYouOtherMon
 	buttonsound
-	writetext UnknownText_0x6b055
+	writetext TextPlayerMonLeftWithHelper
 	playsound SFX_GOT_SAFARI_BALLS
 	waitsfx
 	buttonsound
@@ -213,7 +215,13 @@ Route36OfficerScriptContest:
 	end
 
 .FirstMonIsFainted:
-	writetext UnknownText_0x6b0f2
+	writetext TextFirstMonIsFainted
+	waitbutton
+	closetext
+	end
+
+.FirstMonIsWrongType:
+	writetext TextFirstMonIsWrongType
 	waitbutton
 	closetext
 	end
@@ -473,64 +481,52 @@ MovementData_0x6add1:
 	turn_head UP
 	step_end
 
-UnknownText_0x6add5:
-	text "Today's @"
-	text_from_ram wStringBuffer3
-	text "."
-	line "That means the"
-
-	para "Bug-Catching Con-"
-	line "test is on today."
+TextContestIsOn:
+	text "The Type-Contest"
+	line "is on today!"
 
 	para "The rules are sim-"
-	line "ple."
+	line "ple:"
 
-	para "Using one of your"
-	line "#MON, catch a"
+	para "Each day trainers"
+	line "bring in one <PKMN>"
 
-	para "bug #MON to be"
-	line "judged."
+	para "of a specific type"
+	line "for battling."
 
-	para "Would you like to"
-	line "give it a try?"
+	para "Today's type is"
+	line "the @"
+	text_from_ram wStringBuffer1
+	text " type."
+
+	para "Would you like"
+	line "to join?"
 	done
 
-UnknownText_0x6ae87:
-	text "Here are the PARK"
-	line "BALLS for the"
-	cont "Contest."
+; UnknownText_0x6ae87:
+; 	text "Here are the PARK"
+; 	line "BALLS for the"
+; 	cont "Contest."
+; 	done
+
+; UnknownText_0x6aeb1:
+; 	text "<PLAYER> received"
+; 	line "20 PARK BALLS."
+; 	done
+
+TextAboutToStart:
+	text "The person who is"
+	line "able to defeat"
+	cont "3 other trainers"
+	cont "wins a prize."
+
+	para "If your <PKMN> faints"
+	line "you're out."
+
+	para "Good luck!"
 	done
 
-UnknownText_0x6aeb1:
-	text "<PLAYER> received"
-	line "20 PARK BALLS."
-	done
-
-UnknownText_0x6aecc:
-	text "The person who"
-	line "gets the strong-"
-	cont "est bug #MON"
-	cont "is the winner."
-
-	para "You have 20"
-	line "minutes."
-
-	para "If you run out of"
-	line "PARK BALLS, you're"
-	cont "done."
-
-	para "You can keep the"
-	line "last #MON you"
-	cont "catch as your own."
-
-	para "Go out and catch"
-	line "the strongest bug"
-
-	para "#MON you can"
-	line "find!"
-	done
-
-UnknownText_0x6afb0:
+TextYouHaveMoreThanOnePkMn:
 	text "Uh-oh…"
 
 	para "You have more than"
@@ -548,13 +544,13 @@ UnknownText_0x6afb0:
 	line "you?"
 	done
 
-UnknownText_0x6b021:
+TextIllHoldYouOtherMon:
 	text "Fine, we'll hold"
 	line "your other #MON"
 	cont "while you compete."
 	done
 
-UnknownText_0x6b055:
+TextPlayerMonLeftWithHelper:
 	text "<PLAYER>'s #MON"
 	line "were left with the"
 	cont "CONTEST HELPER."
@@ -574,12 +570,26 @@ UnknownText_0x6b0c6:
 	cont "future."
 	done
 
-UnknownText_0x6b0f2:
+TextFirstMonIsFainted:
 	text "Uh-oh…"
 	line "The first #MON"
 
 	para "in your party"
 	line "can't battle."
+
+	para "Please switch it"
+	line "with the #MON"
+
+	para "you want to use,"
+	line "then come see me."
+	done
+
+TextFirstMonIsWrongType:
+	text "Uh-oh…"
+	line "The first #MON"
+
+	para "in your party is"
+	line "the wrong type."
 
 	para "Please switch it"
 	line "with the #MON"

@@ -1,9 +1,46 @@
-GiveParkBalls:
+GiveParkBalls: ; starts victory count
 	xor a
 	ld [wContestMon], a
-	ld a, 20
+	ld a, 3
 	ld [wParkBallsRemaining], a
 	farcall StartBugContestTimer
+	ret
+
+GetContestType:
+; SAT night (14) means no contest
+	call GetWeekday ; 0 to 6 (SUN to SAT)
+	add a ; 0, 2, 4, 6... 12
+	ld b, a
+	ld a, [wTimeOfDay]
+	cp NITE_F
+	jr c, .day
+	inc b
+.day
+	ld a, b
+	ld [wScriptVar], a
+	ld [wNamedObjectIndexBuffer], a
+	predef GetTypeName
+	ret
+
+CheckContestEntry: ; Checks if partymon1 is the right type
+	ld a, [wPartyMon1Species]
+	ld [wCurSpecies], a
+	call GetBaseData
+	call GetContestType
+	ld a, [wScriptVar]
+	ld b, a
+	ld a, [wBaseType1]
+	cp b
+	jr z, .right_type
+	ld a, [wBaseType2]
+	cp b
+	jr z, .right_type
+	ld a, FALSE
+	ld [wScriptVar], a
+	ret
+.right_type
+	ld a, TRUE
+	ld [wScriptVar], a
 	ret
 
 BugCatchingContestBattleScript::

@@ -26,6 +26,15 @@ StartBattleWithMapTrainerScript:
 	reloadmapafterbattle
 	trainerflagaction SET_FLAG
 	loadvar wRunningTrainerBattleScript, -1
-
+	copybytetovar wParkBallsRemaining
+	ifequal 0, .end
+	addvar -1
+	copyvartobyte wParkBallsRemaining
+	ifnotequal 0, .end
+	wait 10
+	jumpstd bugcontestresultswarp
+.end
+	return
+	
 AlreadyBeatenTrainerScript:
 	scripttalkafter
