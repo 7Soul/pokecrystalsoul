@@ -2571,11 +2571,63 @@ Pokedex_GetArea:
 
 .GetAndPlaceNest:
 	ld [wTownMapCursorLandmark], a
+	hlcoord 0, 0
+	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
+	xor a
+	call ByteFill
+	push hl
+	ld a, [wTownMapCursorLandmark]
+	add a
 	ld e, a
-	farcall FindNest ; load nest landmarks into wTileMap[0,0]
+	pop hl
+	farcall FindNest ; load (land) nest landmarks into wTileMap[0,0]
 	decoord 0, 0
 	ld hl, wVirtualOAMSprite00
+	ld bc, 0
 .nestloop
+	ld a, [de]
+	and a
+	jr z, .check_water_nest
+	push de
+	ld e, a
+	push hl
+	push bc
+	farcall GetLandmarkCoords
+	pop bc
+	pop hl
+	; load into OAM
+	ld a, d
+	sub 4
+	ld [hli], a ; y
+	ld a, e
+	sub 4
+	ld [hli], a ; x
+	ld a, $78 ; nest icon
+	ld [hli], a ; tile id
+	xor a
+	ld [hli], a ; attributes
+	ld a, SPRITEOAMSTRUCT_LENGTH
+	add c
+	ld c, a
+	; next
+	pop de
+	inc de
+	jr .nestloop
+
+.check_water_nest
+	ld a, [wTownMapCursorLandmark]
+	add a
+	inc a
+	ld e, a
+	hlcoord 0, 0
+	push bc
+	farcall FindNest ; load (water) nest landmarks into wTileMap[0,0]
+	pop bc
+	decoord 0, 0
+	ld hl, wVirtualOAMSprite00
+	ld b, 0
+	add hl, bc
+.nestloop_w
 	ld a, [de]
 	and a
 	jr z, .done_nest
@@ -2591,14 +2643,14 @@ Pokedex_GetArea:
 	ld a, e
 	sub 4
 	ld [hli], a ; x
-	ld a, $78 ; nest icon
+	ld a, $77 ; nest icon
 	ld [hli], a ; tile id
-	xor a
+	ld a, 1
 	ld [hli], a ; attributes
 	; next
 	pop de
 	inc de
-	jr .nestloop
+	jr .nestloop_w
 
 .done_nest
 	ld hl, wVirtualOAM
@@ -2632,6 +2684,7 @@ Pokedex_GetArea:
 	ld a, $77 ; nest icon
 	ld [hli], a ; tile id
 	xor a
+	ld a, 3
 	ld [hli], a ; attributes
 	; next
 	pop de

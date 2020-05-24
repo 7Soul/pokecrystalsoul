@@ -26,6 +26,7 @@ StartBattleWithMapTrainerScript:
 	reloadmapafterbattle
 	trainerflagaction SET_FLAG
 	loadvar wRunningTrainerBattleScript, -1
+; count down victories for type contest
 	copybytetovar wParkBallsRemaining
 	ifequal 0, .end
 	addvar -1

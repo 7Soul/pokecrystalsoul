@@ -126,6 +126,7 @@ MeetMomScript:
 	givepoke GEODUDE, 50
 	givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
+	givepoke BELLSPROUT, 50
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges

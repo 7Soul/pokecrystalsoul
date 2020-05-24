@@ -27,32 +27,43 @@ LoadWildMonData:
 
 FindNest:
 ; Parameters:
-; e: 0 = Johto, 1 = Kanto
+; e: 0 = Johto, 1 Johto Water, 2 = Kanto, 3 Kanto Water
 ; wNamedObjectIndexBuffer: species
-	hlcoord 0, 0
-	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
-	xor a
-	call ByteFill
+	
 	ld a, e
-	and a
-	jr nz, .kanto
+	cp 2
+	jr nc, .kanto
+	ld a, e
+	and 1
+	jr nz, .check_water
 	decoord 0, 0
 	ld hl, JohtoGrassWildMons
 	call .FindGrass	
+	jr .end
+.check_water
+	decoord 0, 0
 	ld hl, JohtoShallowWildMons
 	call .FindShallow
 	ld hl, JohtoWaterWildMons
 	call .FindWater
+.end
 	call .RoamMon1
 	call .RoamMon2
 	jp .RoamMon3
 
 .kanto
+	ld a, e
+	and 1
+	jr nz, .check_water_kanto
 	decoord 0, 0
 	ld hl, KantoGrassWildMons
 	call .FindGrass
+	jr .end_kanto
+.check_water_kanto
+	decoord 0, 0
 	ld hl, KantoWaterWildMons
 	call .FindWater
+.end_kanto
 	call .RoamMon4
 	call .RoamMon5
 	jp .RoamMon6
