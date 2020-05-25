@@ -22,7 +22,7 @@ _TitleScreen:
 	ldh [rVBK], a
 
 ; Decompress running Suicune gfx
-	ld hl, TitleSuicuneGFX
+	ld hl, TitleLogoGFX
 	ld de, vTiles1
 	call Decompress
 
@@ -98,6 +98,10 @@ _TitleScreen:
 	ld de, vTiles0
 	call Decompress
 
+	ld hl, LetterOGFX
+	ld de, vTiles0 tile $3C
+	call Decompress
+
 ; Clear screen tiles
 	hlbgcoord 0, 0
 	ld bc, 64 * BG_MAP_WIDTH
@@ -124,6 +128,8 @@ _TitleScreen:
 
 ; Initialize background crystal
 	call InitializeBackground
+
+	call InitializeO
 
 ; Save WRAM bank
 	ldh a, [rSVBK]
@@ -308,7 +314,7 @@ InitializeBackground:
 	ld hl, wVirtualOAMSprite00
 	ld d, -$22
 	ld e, $0
-	ld c, 5
+	ld c, 5 ; columns
 .loop
 	push bc
 	call .InitColumn
@@ -321,8 +327,44 @@ InitializeBackground:
 	ret
 
 .InitColumn:
-	ld c, $6
+	ld c, $6 ; column
 	ld b, $40
+.loop2
+	ld a, d
+	ld [hli], a ; y
+	ld a, b
+	ld [hli], a ; x
+	add $8
+	ld b, a
+	ld a, e
+	ld [hli], a ; tile id
+	inc e
+	inc e
+	ld a, 0 | PRIORITY
+	ld [hli], a ; attributes
+	dec c
+	jr nz, .loop2
+	ret
+
+InitializeO:
+	ld hl, wVirtualOAMSprite30
+	ld d, $16 ; y pos
+	ld e, $3C ; tile id
+	ld c, 2 ; columns
+.loop
+	push bc
+	call .InitColumn
+	pop bc
+	ld a, $10 ; 16
+	add d
+	ld d, a
+	dec c
+	jr nz, .loop
+	ret
+
+.InitColumn:
+	ld c, $4 ; columns of tiles to print
+	ld b, $8 ; x pos
 .loop2
 	ld a, d
 	ld [hli], a ; y
@@ -364,14 +406,17 @@ endr
 
 	ret
 
-TitleSuicuneGFX:
-INCBIN "gfx/title/suicune.2bpp.lz"
+; TitleSuicuneGFX:
+; INCBIN "gfx/title/suicune.2bpp.lz"
 
 TitleLogoGFX:
 INCBIN "gfx/title/logo.2bpp.lz"
 
 TitleCrystalGFX:
 INCBIN "gfx/title/crystal.2bpp.lz"
+
+LetterOGFX:
+INCBIN "gfx/title/letter_o.2bpp.lz"
 
 TitleScreenPalettes:
 INCLUDE "gfx/title/title.pal"

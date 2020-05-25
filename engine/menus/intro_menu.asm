@@ -1353,46 +1353,46 @@ ResetClock:
 	farcall _ResetClock
 	jp Init
 
-Unreferenced_Function639b:
-	; If bit 0 or 1 of [wTitleScreenTimer] is set, we don't need to be here.
-	ld a, [wTitleScreenTimer]
-	and %00000011
-	ret nz
-	ld bc, wSpriteAnim10
-	ld hl, SPRITEANIMSTRUCT_FRAME
-	add hl, bc ; over-the-top compicated way to load wc3ae into hl
-	ld l, [hl]
-	ld h, 0
-	add hl, hl
-	add hl, hl
-	ld de, .Data63ca
-	add hl, de
-	; If bit 2 of [wTitleScreenTimer] is set, get the second dw; else, get the first dw
-	ld a, [wTitleScreenTimer]
-	and %00000100
-	srl a
-	srl a
-	ld e, a
-	ld d, 0
-	add hl, de
-	add hl, de
-	ld a, [hli]
-	and a
-	ret z
-	ld e, a
-	ld d, [hl]
-	ld a, SPRITE_ANIM_INDEX_GS_TITLE_TRAIL
-	call _InitSpriteAnimStruct
-	ret
+; Unreferenced_Function639b:
+; 	; If bit 0 or 1 of [wTitleScreenTimer] is set, we don't need to be here.
+; 	ld a, [wTitleScreenTimer]
+; 	and %00000011
+; 	ret nz
+; 	ld bc, wSpriteAnim10
+; 	ld hl, SPRITEANIMSTRUCT_FRAME
+; 	add hl, bc ; over-the-top compicated way to load wc3ae into hl
+; 	ld l, [hl]
+; 	ld h, 0
+; 	add hl, hl
+; 	add hl, hl
+; 	ld de, .Data63ca
+; 	add hl, de
+; 	; If bit 2 of [wTitleScreenTimer] is set, get the second dw; else, get the first dw
+; 	ld a, [wTitleScreenTimer]
+; 	and %00000100
+; 	srl a
+; 	srl a
+; 	ld e, a
+; 	ld d, 0
+; 	add hl, de
+; 	add hl, de
+; 	ld a, [hli]
+; 	and a
+; 	ret z
+; 	ld e, a
+; 	ld d, [hl]
+; 	ld a, SPRITE_ANIM_INDEX_GS_TITLE_TRAIL
+; 	call _InitSpriteAnimStruct
+; 	ret
 
-.Data63ca:
-; frame 0 y, x; frame 1 y, x
-	db 11 * 8 + 4, 10 * 8,  0 * 8,      0 * 8
-	db 11 * 8 + 4, 13 * 8, 11 * 8 + 4, 11 * 8
-	db 11 * 8 + 4, 13 * 8, 11 * 8 + 4, 15 * 8
-	db 11 * 8 + 4, 17 * 8, 11 * 8 + 4, 15 * 8
-	db  0 * 8,      0 * 8, 11 * 8 + 4, 15 * 8
-	db  0 * 8,      0 * 8, 11 * 8 + 4, 11 * 8
+; .Data63ca:
+; ; frame 0 y, x; frame 1 y, x
+; 	db 11 * 8 + 4, 10 * 8,  0 * 8,      0 * 8
+; 	db 11 * 8 + 4, 13 * 8, 11 * 8 + 4, 11 * 8
+; 	db 11 * 8 + 4, 13 * 8, 11 * 8 + 4, 15 * 8
+; 	db 11 * 8 + 4, 17 * 8, 11 * 8 + 4, 15 * 8
+; 	db  0 * 8,      0 * 8, 11 * 8 + 4, 15 * 8
+; 	db  0 * 8,      0 * 8, 11 * 8 + 4, 11 * 8
 
 Copyright:
 	call ClearTileMap
