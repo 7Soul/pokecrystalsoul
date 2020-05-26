@@ -1,5 +1,5 @@
 _TitleScreen:
-	call ClearBGPalettes
+	; call ClearBGPalettes
 	call ClearSprites
 	call ClearTileMap
 
@@ -22,7 +22,7 @@ _TitleScreen:
 	ldh [rVBK], a
 
 ; Decompress running Suicune gfx
-	ld hl, TitleLogoGFX
+	ld hl, TitlePokeballGFX
 	ld de, vTiles1
 	call Decompress
 
@@ -39,7 +39,7 @@ _TitleScreen:
 ; line 0 (copyright)
 	hlbgcoord 0, 0, vBGMap1
 	ld bc, BG_MAP_WIDTH
-	ld a, 7 ; palette
+	ld a, 4 ; palette
 	call ByteFill
 
 ; BG Map 0:
@@ -116,7 +116,7 @@ _TitleScreen:
 	call DrawTitleGraphic
 
 ; Draw copyright text
-	hlbgcoord 3, 0, vBGMap1
+	hlbgcoord 0, 0, vBGMap1
 	lb bc, 1, 13
 	ld d, $c
 	ld e, $10
@@ -127,7 +127,7 @@ _TitleScreen:
 	call LoadSuicuneFrame
 
 ; Initialize background crystal
-	call InitializeBackground
+	; call InitializeBackground
 
 	call InitializeO
 
@@ -234,7 +234,7 @@ SuicuneFrameIterator:
 	ret nz
 
 	ld a, c
-	and %11000
+	and %11111000
 	sla a
 	swap a
 	ld e, a
@@ -252,29 +252,41 @@ SuicuneFrameIterator:
 	ret
 
 .Frames:
-	db $80 ; vTiles3 tile $80
-	db $88 ; vTiles3 tile $88
-	db $00 ; vTiles5 tile $00
-	db $08 ; vTiles5 tile $08
+	db $80
+	db $83
+	db $86
+	db $89
+	db $8C
+	db $8F
+	db $92
+	db $95
+	db $B0
+	db $B3
+	db $B6
+	db $B9
+	db $BC
+	db $BF
+	db $C2
+	db $C5
 
 LoadSuicuneFrame:
-	hlcoord 6, 12
-	ld b, 6
+	hlcoord 8, 12
+	ld b, 2
 .bgrows
-	ld c, 8
+	ld c, 3
 .col
 	ld a, d
 	ld [hli], a
 	inc d
 	dec c
 	jr nz, .col
-	ld a, SCREEN_WIDTH - 8
+	ld a, SCREEN_WIDTH - 3
 	add l
 	ld l, a
 	ld a, 0
 	adc h
 	ld h, a
-	ld a, 8
+	ld a, 21
 	add d
 	ld d, a
 	dec b
@@ -347,8 +359,8 @@ InitializeBackground:
 	ret
 
 InitializeO:
-	ld hl, wVirtualOAMSprite30
-	ld d, $16 ; y pos
+	ld hl, wVirtualOAMSprite00
+	ld d, -$8 ; y pos
 	ld e, $3C ; tile id
 	ld c, 2 ; columns
 .loop
@@ -364,7 +376,7 @@ InitializeO:
 
 .InitColumn:
 	ld c, $4 ; columns of tiles to print
-	ld b, $8 ; x pos
+	ld b, $28 ; x pos
 .loop2
 	ld a, d
 	ld [hli], a ; y
@@ -375,8 +387,15 @@ InitializeO:
 	ld a, e
 	ld [hli], a ; tile id
 	inc e
-	inc e
-	ld a, 0 | PRIORITY
+	inc e ; tile
+	ld a, d
+	cp $F8
+	jr z, .pal1
+	ld a, 2 ; pal
+	jr .got_pal
+.pal1
+	ld a, 1
+.got_pal
 	ld [hli], a ; attributes
 	dec c
 	jr nz, .loop2
@@ -389,14 +408,14 @@ AnimateTitleCrystal:
 ; y is really from the bottom of the sprite, which is two tiles high
 	ld hl, wVirtualOAMSprite00YCoord
 	ld a, [hl]
-	cp 6 + 2 * TILE_WIDTH
+	cp $28
 	ret z
 
 ; Move all 30 parts of the crystal down by 2
-	ld c, 30
+	ld c, 8
 .loop
 	ld a, [hl]
-	add 2
+	add 4
 	ld [hli], a ; y
 rept SPRITEOAMSTRUCT_LENGTH + -1
 	inc hl
@@ -406,8 +425,8 @@ endr
 
 	ret
 
-; TitleSuicuneGFX:
-; INCBIN "gfx/title/suicune.2bpp.lz"
+TitlePokeballGFX:
+INCBIN "gfx/title/pokeball.2bpp.lz"
 
 TitleLogoGFX:
 INCBIN "gfx/title/logo.2bpp.lz"

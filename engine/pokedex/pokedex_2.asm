@@ -86,11 +86,13 @@ DisplayDexEntry:
 	jp z, .skip_pic
 	farcall Pokedex_PlaceFrontpicTopLeftCorner
 .skip_pic
+	ld a, [wCurPartySpecies]
+	ld [wNamedObjectIndexBuffer], a
 
 	call GetPokemonName
 	hlcoord 9, 1
 	call PlaceString ; mon species
-	ld a, [wTempSpecies]
+	ld a, [wCurPartySpecies]
 	ld [wCurSpecies], a
 	ld b, a
 	call GetDexEntryPointer
@@ -278,7 +280,9 @@ DisplayDexEntry:
 ; Page 2
 	push bc
 	push de
-	; call GetBaseData
+	ld a, [wCurPartySpecies]
+	ld [wCurSpecies], a
+	call GetBaseData
 ; clear area
 	lb bc, 6, 11
 	hlcoord 9, 4

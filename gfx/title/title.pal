@@ -1,59 +1,61 @@
-; BG
+; BG 0
 	RGB 00, 00, 00
-	RGB 19, 00, 00
-	RGB 15, 08, 31
-	RGB 15, 08, 31
-
+	RGB 29, 27, 30
+	RGB 26, 06, 08
+	RGB 03, 02, 04
+; BG 1
 	RGB 00, 00, 00
 	RGB 31, 31, 31
 	RGB 15, 16, 31
 	RGB 31, 01, 13
-
+; BG 2
 	RGB 00, 00, 00
-	RGB 07, 07, 07
+	RGB 21, 21, 21
 	RGB 31, 31, 31
-	RGB 02, 03, 30
-
+	RGB 26, 06, 08 ; red border
+; BG 3
 	RGB 00, 00, 00
-	RGB 13, 13, 13
-	RGB 31, 31, 18
-	RGB 02, 03, 30
-
+	RGB 21, 21, 21
+	RGB 31, 31, 31
+	RGB 22, 04, 08 ; red border 2
+; BG 4
 	RGB 00, 00, 00
-	RGB 19, 19, 19
-	RGB 29, 28, 12
-	RGB 02, 03, 30
-
+	RGB 21, 21, 21
+	RGB 15, 16, 17
+	RGB 29, 27, 09 ; yellow border
+; BG 5
 	RGB 00, 00, 00
 	RGB 25, 25, 25
-	RGB 28, 25, 06
-	RGB 02, 03, 30
-
+	RGB 15, 16, 17
+	RGB 06, 17, 30 ; blue border
+; BG 6
 	RGB 00, 00, 00
 	RGB 31, 31, 31
-	RGB 26, 21, 00
-	RGB 02, 03, 30
-
+	RGB 15, 16, 17
+	RGB 06, 23, 30 ; blue border 2
+; BG 7 ; copyright text
 	RGB 00, 00, 00
 	RGB 11, 11, 19
 	RGB 31, 31, 31
 	RGB 00, 00, 00
 
-; OBJ
+; OBJ 0
 	RGB 00, 00, 00
 	RGB 10, 00, 15
-	RGB 17, 05, 22
-	RGB 19, 09, 31
-
-	RGB 31, 31, 31
-	RGB 00, 00, 00
-	RGB 00, 00, 00
+	RGB 26, 06, 08
 	RGB 00, 00, 00
 
+; OBJ 1
 	RGB 31, 31, 31
-	RGB 00, 00, 00
-	RGB 00, 00, 00
-	RGB 00, 00, 00
+	RGB 22, 26, 16 ; green
+	RGB 26, 06, 08 ; red 2
+	RGB 28, 12, 09 ; red 1	
+	
+; OBJ 2
+	RGB 31, 31, 31
+	RGB 28, 29, 29 ; white
+	RGB 20, 23, 26 ; blue
+	RGB 18, 17, 21 ; purple	
 
 	RGB 31, 31, 31
 	RGB 00, 00, 00
