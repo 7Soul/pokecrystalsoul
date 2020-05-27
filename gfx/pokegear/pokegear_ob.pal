@@ -1,0 +1,10 @@
+; Grass nest
+	RGB 31, 31, 31
+	RGB 03, 26, 03
+	RGB 03, 26, 03
+	RGB 00, 00, 00
+; Water nest
+	RGB 31, 31, 31
+	RGB 16, 24, 31
+	RGB 08, 16, 31
+	RGB 00, 00, 00

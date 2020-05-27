@@ -2390,13 +2390,8 @@ Pokedex_GetArea:
 	ld a, $1
 	ldh [hInMenu], a
 	ld de, PokedexNestIconGFX
-	ld hl, vTiles0 tile $77
-	lb bc, BANK(PokedexNestIconGFX), 9
-	call Request2bpp
-
-	ld de, PokedexNestIconGFX
-	ld hl, vTiles2 tile $3A ; load swarm/nest instructions
-	lb bc, BANK(PokedexNestIconGFX), 9
+	ld hl, vTiles0 tile $37
+	lb bc, BANK(PokedexNestIconGFX), 12
 	call Request2bpp
 
 	call .GetPlayerOrFastShipIcon
@@ -2417,10 +2412,15 @@ Pokedex_GetArea:
 	ld b, SCGB_POKEGEAR_PALS
 	call GetSGBLayout
 	call SetPalettes
+
+	ld de, PokedexNestIconGFX
+	ld hl, vTiles2 tile $3c ; load swarm/nest instructions
+	lb bc, BANK(PokedexNestIconGFX), 9
+	call Request2bpp
+
 	xor a
 	ldh [hBGMapMode], a
 	xor a ; JOHTO_REGION
-
 	ld a, [wNamedObjectIndexBuffer]
 	ld [wCurPartySpecies], a
 	predef GetPreEvolution
@@ -2533,10 +2533,10 @@ Pokedex_GetArea:
 .BlinkNestIcons:
 	ldh a, [hVBlankCounter]
 	ld e, a
-	and $f
+	and $5 ; 
 	ret nz
 	ld a, e
-	and $10
+	and $28
 	jr nz, .copy_sprites
 	call ClearSprites
 	ret
@@ -2586,8 +2586,10 @@ Pokedex_GetArea:
 	ld bc, 0
 .nestloop
 	ld a, [de]
+	and NEST_LANDMARK_MASK
 	and a
 	jr z, .check_water_nest
+	push de
 	push de
 	ld e, a
 	push hl
@@ -2602,9 +2604,16 @@ Pokedex_GetArea:
 	ld a, e
 	sub 4
 	ld [hli], a ; x
-	ld a, $78 ; nest icon
+; check nest size mask
+	pop de
+	ld a, [de]
+	and NEST_SIZE_MASK
+	ld a, $37 ; nest icon
+	jr z, .nest_size
+	inc a
+.nest_size
 	ld [hli], a ; tile id
-	xor a
+	ld a, 1
 	ld [hli], a ; attributes
 	ld a, SPRITEOAMSTRUCT_LENGTH
 	add c
@@ -2629,8 +2638,10 @@ Pokedex_GetArea:
 	add hl, bc
 .nestloop_w
 	ld a, [de]
+	and NEST_LANDMARK_MASK
 	and a
 	jr z, .done_nest
+	push de
 	push de
 	ld e, a
 	push hl
@@ -2643,9 +2654,16 @@ Pokedex_GetArea:
 	ld a, e
 	sub 4
 	ld [hli], a ; x
-	ld a, $77 ; nest icon
+	; check nest size mask
+	pop de
+	ld a, [de]
+	and NEST_SIZE_MASK
+	ld a, $39 ; nest icon
+	jr z, .nest_size_water
+	inc a
+.nest_size_water
 	ld [hli], a ; tile id
-	ld a, 1
+	ld a, 2
 	ld [hli], a ; attributes
 	; next
 	pop de
@@ -2662,7 +2680,7 @@ Pokedex_GetArea:
 .GetAndPlaceNest2:
 	ld [wTownMapCursorLandmark], a
 	ld e, a
-	farcall FindNest2 ; load nest landmarks into wTileMap[0,0]
+	; farcall FindNest2 ; load nest landmarks into wTileMap[0,0]
 	decoord 0, 0
 	ld hl, wVirtualOAMSprite00
 .nestloop2

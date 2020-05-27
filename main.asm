@@ -460,7 +460,7 @@ INCLUDE "engine/movie/crystal_intro.asm"
 
 SECTION "bank3E", ROMX
 
-INCLUDE "engine/gfx/load_font.asm"
+INCLUDE "engine/gfx/load_font.asm" ; removed footprints from it
 INCLUDE "engine/link/time_capsule.asm"
 INCLUDE "engine/events/name_rater.asm"
 INCLUDE "engine/events/play_slow_cry.asm"

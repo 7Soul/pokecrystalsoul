@@ -4,14 +4,23 @@
 ## Pokemon
 Pokemon that were too weak or overpowered received some rebalancing. All movesets were updated.
 
+The types Poison, Ghost, Steel and Dragon were removed. Several pokémon had their types changed to accomodate this
+
 Changes in stats, movepools and held items makes using unevolved Pokemon at higher levels more viable
 
-DVs are spread out differently. They go from 1 to 10 and there's a higher chance to get a 10
-- 25% chance of 10, 18% chance of 9, 6% chance of 8 to 2 and 12% chance of 1
+Evolutions that require trading are replaced with a level evolution. Lowered evolution level for Pokémon that evolved at too high level (babies for example).
 
-Evolutions that require trading are replaced with a level evolution
+Pokémon gain extra stats over time if you don't evolve them. Unevolved Pokémon start weaker but slowly climb to be on par (or even better in certain stats) than their evolved forms
 
 HP growth is less level-dependant
+
+### Traits
+New 'Traits' replacing DVs
+
+These are similar to Abilities and can be seen in the stats screen
+
+Each species has 4 possible traits it can have. Two common (30% each) and two a little more rare (20%)
+
 
 ## Wild
 All Pokemon are obtainable
@@ -20,20 +29,19 @@ Levels of wild pokemon scale with badges
 
 Pokemon can appear evolved if their level is high enough (for any Pokemon that evolves through leveling or happiness + Tyrogue)
 
-Higher shiny chance (1/1024)
+Higher shiny chance (1/900) with better colors
 
 Very minor boost to catch rate for all Pokemon
 
-Wild Legendaries can be found in some areas, but you may find a completely different Pokemon instead.
+Wild Legendaries can be found at random as you gain more badges
 
-3% base chance to run into this encounter. 
-
-Then a chance based on the number of badges, ranging from 100% to 68% to cancel out of this encounter entirely.
-
-Then a 50% chance to roll this encounter into a completely random pokemon.
+### Shallow Water
+Different Pokémon can be found by walking in shallow water. This replaces Fishing
 
 ## Moves
-Many moves rebalanced, removed or added (see below)
+Over 50 new moves
+
+Many moves rebalanced, some similar moves removed
 
 Physical/Special split
 
@@ -41,59 +49,71 @@ Physical/Special split
 
 Special Pokeballs are more effective. Fast ball and Moon ball x4 to x8, Net ball x3 to x4, Heavy Ball has a wider range. Ultra ball x2 to x3 and price adjusted to compensate.
 
-Special Pokeballs sell for more.
-
-Fast Ball also works on Abra.
-
 Repels last twice as long (100, 200, 300 steps for each of the repel types). To compensate, they're 85% more expensive. Repels also ask if you want to auto-reaply.
 
-Type boost items add 20% damage instead of 10%.
+### Held Items
 
-Berries sell for more.
-
-## Held Items
-New class of held items that empower unevolved pokemon. They can be found being held by wild unevolved Pokemon. When given to an unevolved Pokemon it displays the message "X feels stronger".
-
-  ### Effects:  
-  - Prevents evolving  
-  - Leftovers (heal 1/16th HP per turn)  
-  - Increases all stats (but not HP) by 50%  
-  - Gives +2 Critical to moves of the same type of the Pokemon with a power of or below 60
+Type boost items come with a downside of lowering HP a little
   
 ## Battle
-Super effective deal +80% instead of +100%. Not Very Effective deal -30% instead of -50%
-
 STAB is +33% instead of +50%. Random damage variation is 5% instead if 15%
+
+Double weakness is 3x damage instead of 4x
 
 No random crits for regular moves but increasing your crit chance works as normal
 
-Removed badge type boost
-
-Several battle animations are faster
-
-Electric type can't be paralyzed and Fire types can't be burned
+Lowering accuracy is slightly less effective. -1 lowers it by 20% instead of 25%
 
 Gain EXP after catching a pokemon
 
 Happiness is gained faster by battle
 
+Trainers give 15% more exp
+
+EXP gain changed based on the level difference between your Pokémon and the opponent's
+
 ## Trainers and Gym Leaders
 
-Team composition and levels scale with badges
+Team composition and levels scale with badges. Their teams can change and their pokémon can evolve. They also scale based on your party's average level, so overleveling is less effective
 
 AI tries to use stat up moves more smartly
 
-Smart AI understands how to use new moves
-
 A message lets you know if the opponent has a held item
+
+Gyms have to be beaten in one go for any rewards. Leaving will reset the Gym
+
+## Pokédex
+The Pokédex shows much more information: Base stats, Egg group, Traits, Catch rate, Exp and Held items
+
+The "Area" section will display Rare Nest locations if you found it or heard about it before. It also shows land and water encounters separately
+
+A new "Moves" section shows learnset the for that pokémon. You onlock more information as you battle more pokémon
+
+## Events
+
+### Roaming Pokémon
+Suicune added back as a roaming pokémon
+
+The legendary birds can be unlocked to roam Kanto
+
+Beating the Elite 4 will respawn previously caught roamers
+
+The more roamers you catch, the less likely they are to run (don't run at all after 2)
+
+### Breeding
+On average, half as many steps for breeding
+
+Eggs hatch faster, and hatch at level 1
+
+Eggs get different color palettes
+
+Traits can be passed to the egg
 
 ## Bug Fixes
 Fixed [all of these common](https://github.com/pret/pokecrystal/blob/master/docs/bugs_and_glitches.md) bugs
 
 ## Graphical
 Redone battle UI and stats interface
-
-Can see DVs and held item buffs in stats menu
 
 Revamped tilesets for maps
 
@@ -105,9 +125,6 @@ Many Pokemon sprites have had their normal colors and shiny colors updated
 
 Some back sprites were made bigger to show more of the Pokemon
 
-## Events
-After choosing your starter with Elm, you get the Pokedex and 5 Pokeballs and you're ready to go
-
 ## Misc
 Faster pokecenters, berry tree messages, and "forget move" messages
 
@@ -115,6 +132,8 @@ Morning starts at 6AM instead of 4AM, making Night last 10 hours and Day last 14
 
 New interface frames to choose from
 
-"Instant" text speed option
+"Instant" text speed option and "alway run" movement speed
 
 If a wild pokemon has a held item, the game will tell you, same for trainer battles.
+
+Several moves can be used in the place of HMs. Surf and Fly can be learned from tutors

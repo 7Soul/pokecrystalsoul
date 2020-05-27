@@ -517,9 +517,21 @@ _CGB_PokegearPals:
 	ld a, BANK(wBGPals1)
 	call FarCopyWRAM
 	call ApplyPals
+	
+	ld hl, .NestPokegearPals
+	ld de, wOBPals1 palette 1 ; 
+	ld bc, 2 palettes
+	ld a, BANK(wOBPals1)
+	call FarCopyWRAM
+	call ApplyAttrMap
+	call ApplyPals
+
 	ld a, $1
 	ldh [hCGBPalUpdate], a
 	ret
+
+.NestPokegearPals:
+INCLUDE "gfx/pokegear/pokegear_ob.pal"
 
 _CGB_StatsScreenHPPals:
 	ld de, wBGPals1

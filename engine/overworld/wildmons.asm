@@ -69,6 +69,8 @@ FindNest:
 	jp .RoamMon6
 
 .FindGrass:
+	ld a, 1
+	ld [wBuffer2], a
 	ld a, [hl]
 	cp -1
 	ret z
@@ -82,6 +84,9 @@ FindNest:
 	ld a, NUM_GRASSMON * 2
 	call .SearchMapForMon
 	jr nc, .next_grass
+	ld b, a
+	ld a, [wBuffer1]
+	add b
 	ld [de], a
 	inc de
 
@@ -92,6 +97,8 @@ FindNest:
 	jr .FindGrass
 	
 .FindShallow:
+	ld a, 2
+	ld [wBuffer2], a
 	ld a, [hl]
 	cp -1
 	ret z
@@ -105,6 +112,9 @@ FindNest:
 	ld a, NUM_SHALLOWMON * 2
 	call .SearchMapForMon
 	jr nc, .next_shallow
+	ld b, a
+	ld a, [wBuffer1]
+	add b
 	ld [de], a
 	inc de
 
@@ -115,6 +125,8 @@ FindNest:
 	jr .FindShallow
 
 .FindWater:
+	ld a, 3
+	ld [wBuffer2], a
 	ld a, [hl]
 	cp -1
 	ret z
@@ -127,6 +139,9 @@ FindNest:
 	ld a, NUM_WATERMON
 	call .SearchMapForMon
 	jr nc, .next_water
+	ld b, a
+	ld a, [wBuffer1]
+	add b
 	ld [de], a
 	inc de
 
@@ -177,6 +192,48 @@ FindNest:
 	ret
 
 .found
+	pop af
+	push af
+	push bc
+	ld b, a
+	ld a, [wBuffer2]
+	dec a
+	jr z, .grass_size_check
+	dec a
+	jr z, .shallow_size_check
+; fallthrough
+	ld a, b
+	cp 3
+	jr c, .smallnest ; 
+	jr .bignest
+
+.shallow_size_check
+	ld a, b
+	cp 4
+	jr c, .smallnest ; 
+	cp 7
+	jr c, .bignest ; end of day data
+	cp $A
+	jr c, .smallnest
+	jr .bignest
+	
+.grass_size_check
+	ld a, b
+	cp 5
+	jr c, .smallnest ; 
+	cp 8
+	jr c, .bignest ; end of day data
+	cp $C
+	jr c, .smallnest
+; fallthrough
+.bignest
+	ld a, NEST_SIZE_MASK
+	jr .got_size
+.smallnest
+	xor a
+.got_size
+	ld [wBuffer1], a
+	pop bc
 	pop af
 	jp .AppendNest
 
@@ -300,122 +357,122 @@ FindNest:
 	inc de
 	ret
 
-FindNest2:
-; Parameters:
-; e: 0 = Johto, 1 = Kanto
-; wNamedObjectIndexBuffer: species
-	hlcoord 0, 0
-	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
-	xor a
-	call ByteFill
-	ld a, e
-	and a
-	jr nz, .kanto
-	decoord 0, 0
-	ld hl, JohtoGrassRareWildMons
-	call .FindSwarm
-	ret
+; FindNest2:
+; ; Parameters:
+; ; e: 0 = Johto, 1 = Kanto
+; ; wNamedObjectIndexBuffer: species
+; 	hlcoord 0, 0
+; 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
+; 	xor a
+; 	call ByteFill
+; 	ld a, e
+; 	and a
+; 	jr nz, .kanto
+; 	decoord 0, 0
+; 	ld hl, JohtoGrassRareWildMons
+; 	call .FindSwarm
+; 	ret
 
-.kanto
-	decoord 0, 0
-	ld hl, KantoGrassRareWildMons
-	call .FindSwarm
+; .kanto
+; 	decoord 0, 0
+; 	ld hl, KantoGrassRareWildMons
+; 	call .FindSwarm
 
-.FindSwarm:
-	ld a, [hl]
-	cp -1
-	ret z
-	push hl
-	ld a, [hli]
-	ld c, a ; c has swarm map landmark
+; .FindSwarm:
+; 	ld a, [hl]
+; 	cp -1
+; 	ret z
+; 	push hl
+; 	ld a, [hli]
+; 	ld c, a ; c has swarm map landmark
 
-	inc hl ; go to pokemon species
-	call .CheckSwarmMonMatch
-	jr nc, .next_swarm
-	ld [de], a
-	inc de
+; 	inc hl ; go to pokemon species
+; 	call .CheckSwarmMonMatch
+; 	jr nc, .next_swarm
+; 	ld [de], a
+; 	inc de
 
-.next_swarm
-	pop hl
-	ld bc, $3
-	add hl, bc
-	jr .FindSwarm
+; .next_swarm
+; 	pop hl
+; 	ld bc, $3
+; 	add hl, bc
+; 	jr .FindSwarm
 	
-.CheckSwarmMonMatch:
-	push af
-	ld a, [wNamedObjectIndexBuffer]
-	cp CYNDAQUIL
-	jr nz, .n_cyndaquil
-	ld a, CHARMANDER
-.n_cyndaquil
-	cp TOTODILE
-	jr nz, .n_totodile
-	ld a, SQUIRTLE
-.n_totodile
-	cp CHIKORITA
-	jr nz, .n_bulba
-	ld a, BULBASAUR
-.n_bulba
-	cp WEEDLE
-	jr nz, .n_caterpie
-	ld a, CATERPIE
-.n_caterpie
-	cp NIDORAN_M
-	jr nz, .n_nidoran
-	ld a, NIDORAN_F
-.n_nidoran
-	cp KABUTO
-	jr nz, .n_omanyte
-	ld a, OMANYTE	
-.n_omanyte
-	ld [wTempSpecies], a
-	cp [hl]
-	jr z, .foundSwarm
-	pop af	
-	and a
-	ret
+; .CheckSwarmMonMatch:
+; 	push af
+; 	ld a, [wNamedObjectIndexBuffer]
+; 	cp CYNDAQUIL
+; 	jr nz, .n_cyndaquil
+; 	ld a, CHARMANDER
+; .n_cyndaquil
+; 	cp TOTODILE
+; 	jr nz, .n_totodile
+; 	ld a, SQUIRTLE
+; .n_totodile
+; 	cp CHIKORITA
+; 	jr nz, .n_bulba
+; 	ld a, BULBASAUR
+; .n_bulba
+; 	cp WEEDLE
+; 	jr nz, .n_caterpie
+; 	ld a, CATERPIE
+; .n_caterpie
+; 	cp NIDORAN_M
+; 	jr nz, .n_nidoran
+; 	ld a, NIDORAN_F
+; .n_nidoran
+; 	cp KABUTO
+; 	jr nz, .n_omanyte
+; 	ld a, OMANYTE	
+; .n_omanyte
+; 	ld [wTempSpecies], a
+; 	cp [hl]
+; 	jr z, .foundSwarm
+; 	pop af	
+; 	and a
+; 	ret
 
-.foundSwarm
-	pop af
-	dec hl
-	dec hl
-	jp .AppendNestSwarm
+; .foundSwarm
+; 	pop af
+; 	dec hl
+; 	dec hl
+; 	jp .AppendNestSwarm
 
-.AppendNestSwarm
-	push de
-	hlcoord 0, 0
-	ld de, SCREEN_WIDTH * SCREEN_HEIGHT
-.AppendNestSwarmLoop:
-	ld a, [hl]
-	cp c
-	jr z, .end_nest_swarm
-	dec de
-	ld a, e
-	or d
-	jr nz, .AppendNestSwarmLoop
-	ld a, c
-	ld [wMonOrItemNameBuffer], a
-	pop de
+; .AppendNestSwarm
+; 	push de
+; 	hlcoord 0, 0
+; 	ld de, SCREEN_WIDTH * SCREEN_HEIGHT
+; .AppendNestSwarmLoop:
+; 	ld a, [hl]
+; 	cp c
+; 	jr z, .end_nest_swarm
+; 	dec de
+; 	ld a, e
+; 	or d
+; 	jr nz, .AppendNestSwarmLoop
+; 	ld a, c
+; 	ld [wMonOrItemNameBuffer], a
+; 	pop de
 
-	ld hl, wSwarmLandmarkFlags
-	ld b, CHECK_FLAG
-	predef SmallFarFlagAction
-	ld a, c
-	and a
-	jr nz, .knows_swarm ;have swarm knowledge
-	and a
-	ret
+; 	ld hl, wSwarmLandmarkFlags
+; 	ld b, CHECK_FLAG
+; 	predef SmallFarFlagAction
+; 	ld a, c
+; 	and a
+; 	jr nz, .knows_swarm ;have swarm knowledge
+; 	and a
+; 	ret
 
-.knows_swarm
-	ld a, [wMonOrItemNameBuffer]
-	ld c, a
-	scf
-	ret
+; .knows_swarm
+; 	ld a, [wMonOrItemNameBuffer]
+; 	ld c, a
+; 	scf
+; 	ret
 
-.end_nest_swarm
-	pop de
-	and a
-	ret
+; .end_nest_swarm
+; 	pop de
+; 	and a
+; 	ret
 
 TryWildEncounter::
 ; Try to trigger a wild encounter.

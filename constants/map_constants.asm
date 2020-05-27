@@ -51,7 +51,7 @@ ENDM
 	map_const ROUTE_42_ECRUTEAK_GATE,                       5,  4 ;  4
 	map_const ROUTE_42,                                    30,  9 ;  5
 	map_const ROUTE_44,                                    30,  9 ;  6
-	map_const MAHOGANY_TOWN,                               10,  9 ;  7
+	map_const MAHOGANY_TOWN,                               10, 10 ;  7
 
 	newgroup                                                      ;  3
 
