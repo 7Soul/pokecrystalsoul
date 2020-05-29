@@ -28,4 +28,35 @@
 	RGB 02, 16, 08
 	RGB 01, 11, 07
 	RGB 08, 16, 31
+
+; border
+	RGB 25, 25, 25
+	RGB 21, 21, 21
+	RGB 11, 11, 11
+	RGB 07, 07, 07
+; grass
+	RGB 30, 25, 26
+	RGB 13, 29, 09
+	RGB 03, 24, 03
+	RGB 02, 16, 08
+; city/mountain
+	RGB 30, 25, 18
+	RGB 25, 13, 13
+	RGB 23, 14, 03
+	RGB 16, 10, 02
+; dirt
+	RGB 03, 24, 03
+	RGB 02, 16, 08
+	RGB 23, 14, 03
+	RGB 16, 10, 02
+; water
+	RGB 08, 16, 25
+	RGB 16, 22, 25
+	RGB 20, 28, 25
+	RGB 02, 10, 28
+; shore
+	RGB 03, 24, 03
+	RGB 02, 16, 08
+	RGB 01, 11, 07
+	RGB 08, 16, 25
 	

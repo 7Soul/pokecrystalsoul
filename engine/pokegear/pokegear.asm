@@ -2389,9 +2389,10 @@ Pokedex_GetArea:
 	ldh [hBGMapMode], a
 	ld a, $1
 	ldh [hInMenu], a
+; load nest icons
 	ld de, PokedexNestIconGFX
 	ld hl, vTiles0 tile $37
-	lb bc, BANK(PokedexNestIconGFX), 12
+	lb bc, BANK(PokedexNestIconGFX), 5
 	call Request2bpp
 
 	call .GetPlayerOrFastShipIcon
@@ -2412,9 +2413,9 @@ Pokedex_GetArea:
 	ld b, SCGB_POKEGEAR_PALS
 	call GetSGBLayout
 	call SetPalettes
-
+; load swarm/nest instructions
 	ld de, PokedexNestIconGFX
-	ld hl, vTiles2 tile $3c ; load swarm/nest instructions
+	ld hl, vTiles2 tile $3c 
 	lb bc, BANK(PokedexNestIconGFX), 9
 	call Request2bpp
 
@@ -2588,7 +2589,25 @@ Pokedex_GetArea:
 	ld a, [de]
 	and NEST_LANDMARK_MASK
 	and a
-	jr z, .check_water_nest
+	jp z, .done_nest
+	;jr z, .check_water_nest
+
+	ld a, [wTimeOfDay]
+	cp DAY_F
+	jr z, .day
+; night
+	ld a, [de]
+	and NEST_TIME_MASK
+	jr z, .skip_nest ; bit not set
+	jr .done_time_check
+.day
+	ld a, [de]
+	and NEST_TIME_MASK
+	jr nz, .skip_nest ; bit set
+
+.done_time_check
+	ld a, [de]
+	and NEST_LANDMARK_MASK
 	push de
 	push de
 	ld e, a
@@ -2609,12 +2628,19 @@ Pokedex_GetArea:
 	ld a, [de]
 	and NEST_SIZE_MASK
 	ld a, $37 ; nest icon
-	jr z, .nest_size
+	jr nz, .nest_size
 	inc a
 .nest_size
 	ld [hli], a ; tile id
 	ld a, 1
 	ld [hli], a ; attributes
+	jr .next_grass_nest
+.skip_nest
+	ld bc, SPRITEOAMSTRUCT_LENGTH
+	add hl, bc
+	inc de
+	jr .nestloop
+.next_grass_nest
 	ld a, SPRITEOAMSTRUCT_LENGTH
 	add c
 	ld c, a

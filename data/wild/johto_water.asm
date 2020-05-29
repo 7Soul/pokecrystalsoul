@@ -131,17 +131,17 @@ JohtoWaterWildMons:
 
 	map_id ROUTE_30
 	db 2 percent ; encounter rate
-	db 1, POLIWAG
-	db 1, MARILL
-	db 1, CHINCHOU
+	db 1, MAGIKARP
 	db 1, GOLDEEN
+	db 2, STARYU
+	db 1, DRATINI
 
 	map_id ROUTE_31
 	db 2 percent ; encounter rate
-	db 1, POLIWAG
-	db 1, MARILL
-	db 1, CHINCHOU
+	db 1, MAGIKARP
 	db 1, GOLDEEN
+	db 2, STARYU
+	db 1, DRATINI
 
 	map_id ROUTE_32
 	db 6 percent ; encounter rate

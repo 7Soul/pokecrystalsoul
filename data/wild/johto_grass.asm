@@ -861,20 +861,20 @@ JohtoGrassWildMons:
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn/day
 	db 1, LEDYBA
-	db 1, MARILL
+	db 1, PICHU
 	db 1, MAREEP
 	db 2, CATERPIE
 	db 1, CUBONE
 	db 2, SPINARAK
-	db 1, PICHU
+	db 1, EEVEE
 	; nite
 	db 1, SPINARAK
-	db 1, MARILL
+	db 1, PICHU
 	db 1, MAREEP
 	db 2, PINECO
 	db 1, CUBONE
 	db 2, LEDYBA
-	db 1, PICHU
+	db 1, EEVEE
 
 	map_id ROUTE_31
 	db 10 percent, 10 percent ; encounter rates: morn/day/nite

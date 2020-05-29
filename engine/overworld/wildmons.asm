@@ -227,10 +227,22 @@ FindNest:
 	jr c, .smallnest
 ; fallthrough
 .bignest
+	ld a, b
+	cp 8
+	jr c, .night_bignest
 	ld a, NEST_SIZE_MASK
 	jr .got_size
 .smallnest
+	ld a, b
+	cp 8
+	jr c, .night_smallnest
 	xor a
+	jr .got_size
+.night_bignest
+	ld a, NEST_SIZE_MASK + NEST_TIME_MASK
+	jr .got_size
+.night_smallnest
+	ld a, NEST_TIME_MASK
 .got_size
 	ld [wBuffer1], a
 	pop bc

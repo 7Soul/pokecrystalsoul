@@ -40,15 +40,16 @@ InitClock:
 	call Request1bpp
 	call .ClearScreen
 	call WaitBGMap
-	call RotateFourPalettesRight
+	; call RotateFourPalettesRight
 	; ld hl, Text_WokeUpOak
 	; call PrintText
 	ld hl, wTimeSetBuffer
 	ld bc, 50
 	xor a
 	call ByteFill
-	ld a, 10 ; default hour = 10 AM
+	ld a, 8 ; default hour = 8 AM
 	ld [wInitHourBuffer], a
+	ld [wStringBuffer2 + 1], a ;;;
 	jp .MinutesAreSet ; skip
 
 .loop

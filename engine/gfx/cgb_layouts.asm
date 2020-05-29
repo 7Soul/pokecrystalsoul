@@ -512,6 +512,12 @@ _CGB_PokegearPals:
 .male
 	ld hl, MalePokegearPals
 .got_pals
+	ld a, [wTimeOfDay]
+	cp DAY_F
+	jr z, .got_time
+	ld bc, PALETTE_SIZE * 6
+	add hl, bc
+.got_time
 	ld de, wBGPals1
 	ld bc, 6 palettes
 	ld a, BANK(wBGPals1)
