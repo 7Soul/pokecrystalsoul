@@ -368,10 +368,6 @@ wc688:: ds 2
 wc68a:: ds 350
 
 NEXTU ; c608
-; surrounding tiles
-wSurroundingTiles:: ds SURROUNDING_WIDTH * SURROUNDING_HEIGHT
-
-NEXTU ; c608
 ; box save buffer
 wBoxPartialData:: ds 480
 wBoxPartialDataEnd::
@@ -2063,9 +2059,9 @@ wTilesetBlocksBank:: db ; d1dc
 wTilesetBlocksAddress:: dw ; d1dd
 wTilesetCollisionBank:: db ; d1df
 wTilesetCollisionAddress:: dw ; d1e0
+wTilesetAttributesBank:: db
+wTilesetAttributesAddress:: dw
 wTilesetAnim:: dw ; bank 3f ; d1e2
-	ds 2 ; unused ; d1e4
-wTilesetPalettes:: dw ; bank 3f ; d1e6
 wTilesetEnd::
 
 wEvolvableFlags:: flag_array PARTY_LENGTH ; d1e8
@@ -2117,7 +2113,7 @@ NEXTU ; d1ea
 wMagikarpLength:: dw
 wSelectedDecoration:: db
 wOtherDecoration::    db
-	ds 3
+wTilesetDataAddress:: dw
 wCurEnemyItem:: db
 ENDU ; d1f7
 
@@ -3011,6 +3007,11 @@ w3_dd68:: ds SCREEN_WIDTH * SCREEN_HEIGHT
 w3_dfec:: ds $10
 w3_dffc:: ds 4
 
+SECTION "Surrounding Data", WRAMX
+
+wSurroundingTiles:: ds SURROUNDING_WIDTH * SURROUNDING_HEIGHT
+
+wSurroundingAttributes:: ds SURROUNDING_WIDTH * SURROUNDING_HEIGHT
 
 SECTION "GBC Video", WRAMX
 

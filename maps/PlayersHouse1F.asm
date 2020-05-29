@@ -123,10 +123,8 @@ MeetMomScript:
 	giveitem BERRY, 99
 	giveitem TOUGH_HORN
 
-	givepoke GEODUDE, 50
 	givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
-	givepoke VOLTORB, 50
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	; callasm CheatGiveJohtoBadges
