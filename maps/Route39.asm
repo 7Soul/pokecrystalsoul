@@ -344,9 +344,11 @@ Route39TrainerTipsText:
 Route39_MapEvents:
 	db 0, 0 ; filler
 
-	db 2 ; warp events
+	db 4 ; warp events
 	warp_event  3,  3, ROUTE_39_BARN, 1
 	warp_event  7,  3, ROUTE_39_FARMHOUSE, 1
+	warp_event 11, 37, ROUTE_39_OLIVINE_GATE, 1
+	warp_event 12, 37, ROUTE_39_OLIVINE_GATE, 2
 
 	db 0 ; coord events
 

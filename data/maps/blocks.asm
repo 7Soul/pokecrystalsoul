@@ -197,6 +197,7 @@ CherrygroveEvolutionSpeechHouse_Blocks:
 Route30BerryHouse_Blocks:
 	INCBIN "maps/House1.blk"
 
+Route39OlivineGate_Blocks:
 SafariZoneFuchsiaGateBeta_Blocks:
 Route19FuchsiaGate_Blocks:
 Route43MahoganyGate_Blocks:
@@ -265,7 +266,6 @@ Route39_Blocks:
 PlayersHouse1F_Blocks:
 	INCBIN "maps/PlayersHouse1F.blk"
 
-Route38EcruteakGate_Blocks:
 Route42EcruteakGate_Blocks:
 Route32RuinsOfAlphGate_Blocks:
 IlexForestAzaleaGate_Blocks:

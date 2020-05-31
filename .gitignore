@@ -1,5 +1,7 @@
 *.pyxel
 publish/**
+*.lnk
+*.ini
 
 # generated
 *.tx

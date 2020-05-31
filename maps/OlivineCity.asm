@@ -285,31 +285,32 @@ OlivineCityBattleTowerSignText_NotYetOpen:
 OlivineCity_MapEvents:
 	db 0, 0 ; filler
 
-	db 10 ; warp events
-	warp_event 13, 21, OLIVINE_POKECENTER_1F, 1
-	warp_event 10, 10, OLIVINE_GYM, 1
-	warp_event 11, 10, OLIVINE_GYM, 2
-	warp_event 23, 11, OLIVINE_TIMS_HOUSE, 1
-	warp_event 23, 15, OLIVINE_PUNISHMENT_SPEECH_HOUSE, 1
-	warp_event 13, 15, OLIVINE_GOOD_ROD_HOUSE, 1
-	warp_event  7, 21, OLIVINE_CAFE, 1
-	warp_event 33, 17, OLIVINE_LIGHTHOUSE_1F, 1
-	warp_event 19, 27, OLIVINE_PORT_PASSAGE, 1
-	warp_event 20, 27, OLIVINE_PORT_PASSAGE, 2
+	db 11 ; warp events
+	warp_event 13, 25, OLIVINE_POKECENTER_1F, 1
+	warp_event 10, 14, OLIVINE_GYM, 1
+	warp_event 11, 14, OLIVINE_GYM, 2
+	warp_event 25, 15, OLIVINE_TIMS_HOUSE, 1
+	warp_event 25, 19, OLIVINE_PUNISHMENT_SPEECH_HOUSE, 1
+	warp_event 13, 19, OLIVINE_GOOD_ROD_HOUSE, 1
+	warp_event  7, 25, OLIVINE_CAFE, 1
+	warp_event 33, 21, OLIVINE_LIGHTHOUSE_1F, 1
+	warp_event 19, 31, OLIVINE_PORT_PASSAGE, 1
+	warp_event 20, 31, OLIVINE_PORT_PASSAGE, 2
+	warp_event 19,  5, ROUTE_39_OLIVINE_GATE, 3
 
 	db 2 ; coord events
-	coord_event  4,  5, SCENE_DEFAULT, OlivineCityRivalSceneTop
-	coord_event  4,  6, SCENE_DEFAULT, OlivineCityRivalSceneBottom
+	coord_event  4,  9, SCENE_DEFAULT, OlivineCityRivalSceneTop
+	coord_event  4, 10, SCENE_DEFAULT, OlivineCityRivalSceneBottom
 
 	db 5 ; bg events
-	bg_event 17, 11, BGEVENT_READ, OlivineCitySign
-	bg_event 20, 24, BGEVENT_READ, OlivineCityPortSign
-	bg_event 12, 11, BGEVENT_READ, OlivineGymSign
-	bg_event 23, 21, BGEVENT_READ, OlivineLighthouseSign
-	bg_event  3, 23, BGEVENT_READ, OlivineCityBattleTowerSign
+	bg_event 17, 15, BGEVENT_READ, OlivineCitySign
+	bg_event 20, 28, BGEVENT_READ, OlivineCityPortSign
+	bg_event 12, 14, BGEVENT_READ, OlivineGymSign
+	bg_event 23, 25, BGEVENT_READ, OlivineLighthouseSign
+	bg_event  3, 26, BGEVENT_READ, OlivineCityBattleTowerSign
 
 	db 4 ; object events
-	object_event 26, 23, SPRITE_SAILOR, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor1Script, -1
-	object_event  8, 16, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, OlivineCityStandingYoungsterScript, -1
-	object_event 20, 18, SPRITE_SAILOR, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor2Script, -1
-	object_event  2,  5, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_OLIVINE_CITY
+	object_event 26, 27, SPRITE_SAILOR, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor1Script, -1
+	object_event  8, 20, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, OlivineCityStandingYoungsterScript, -1
+	object_event 20, 22, SPRITE_SAILOR, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor2Script, -1
+	object_event  2,  9, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_OLIVINE_CITY

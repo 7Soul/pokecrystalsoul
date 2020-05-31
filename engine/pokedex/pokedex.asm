@@ -1605,6 +1605,7 @@ Pokedex_GetSelectedMon:
 	add hl, de
 	ld a, [hl]
 	ld [wTempSpecies], a
+	ld [wCurPartySpecies], a
 	ret
 
 Pokedex_CheckCaught:

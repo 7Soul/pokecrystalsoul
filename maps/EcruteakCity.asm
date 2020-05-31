@@ -257,7 +257,7 @@ BurnedTowerSignText:
 EcruteakCity_MapEvents:
 	db 0, 0 ; filler
 
-	db 15 ; warp events
+	db 13 ; warp events
 	warp_event 35, 26, ROUTE_42_ECRUTEAK_GATE, 1
 	warp_event 35, 27, ROUTE_42_ECRUTEAK_GATE, 2
 	warp_event 18, 11, ECRUTEAK_TIN_TOWER_ENTRANCE, 1
@@ -271,8 +271,6 @@ EcruteakCity_MapEvents:
 	warp_event 31, 21, ECRUTEAK_ITEMFINDER_HOUSE, 1
 	warp_event 37,  7, TIN_TOWER_1F, 1
 	warp_event  5,  5, BURNED_TOWER_1F, 1
-	warp_event  0, 18, ROUTE_38_ECRUTEAK_GATE, 3
-	warp_event  0, 19, ROUTE_38_ECRUTEAK_GATE, 4
 
 	db 0 ; coord events
 

@@ -31,7 +31,7 @@ SpawnPoints:
 	spawn AZALEA_TOWN,                15, 10
 	spawn CIANWOOD_CITY,              23, 44
 	spawn GOLDENROD_CITY,             15, 28
-	spawn OLIVINE_CITY,               13, 22
+	spawn OLIVINE_CITY,               13, 26
 	spawn ECRUTEAK_CITY,              23, 28
 	spawn MAHOGANY_TOWN,              15, 14
 	spawn LAKE_OF_RAGE,               21, 29

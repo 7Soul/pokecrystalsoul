@@ -35,13 +35,12 @@ ENDM
 	map_const OLIVINE_PUNISHMENT_SPEECH_HOUSE,              4,  4 ;  5
 	map_const OLIVINE_GOOD_ROD_HOUSE,                       4,  4 ;  6
 	map_const OLIVINE_CAFE,                                 4,  4 ;  7
-	; map_const OLIVINE_MART,                                 6,  4 ;  8
-	map_const ROUTE_38_ECRUTEAK_GATE,                       5,  4 ;  9
+	map_const ROUTE_39_OLIVINE_GATE,                        5,  4 ;  9
 	map_const ROUTE_39_BARN,                                4,  4 ; 10
 	map_const ROUTE_39_FARMHOUSE,                           4,  4 ; 11
 	map_const ROUTE_38,                                    20,  9 ; 12
-	map_const ROUTE_39,                                    11, 18 ; 13
-	map_const OLIVINE_CITY,                                20, 18 ; 14
+	map_const ROUTE_39,                                    11, 22 ; 13
+	map_const OLIVINE_CITY,                                20, 20 ; 14
 
 	newgroup                                                      ;  2
 
@@ -217,7 +216,7 @@ ENDM
 	map_const KURTS_HOUSE,                                  8,  4 ;  4
 	map_const AZALEA_GYM,                                  13, 17 ;  5
 	map_const ROUTE_33,                                    14, 15 ;  6
-	map_const AZALEA_TOWN,                                 20, 11 ;  7
+	map_const AZALEA_TOWN,                                 21, 11 ;  7
 
 	newgroup                                                      ;  9
 

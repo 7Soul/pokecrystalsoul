@@ -125,11 +125,11 @@ MeetMomScript:
 
 	givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
-	callasm CheatFillPokedex
+	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
-	; callasm CheatGiveJohtoBadges
+	callasm CheatGiveJohtoBadges
 	; callasm CheatGiveKantoBadges
-	callasm CheatGiveRandomBadges
+	; callasm CheatGiveRandomBadges
 	; setflag ENGINE_ZEPHYRBADGE
 	; verbosegiveitem TM_MUD_BOMB
 	; setflag ENGINE_HIVEBADGE
@@ -137,8 +137,8 @@ MeetMomScript:
 	; setflag ENGINE_STORMBADGE
 	callasm CheatSetFlypoints
 	; warp ROUTE_2, $5, $22
-	warp ROUTE_36_NATIONAL_PARK_GATE, $0, $6
-	; warp ROUTE_46, $6, $F
+	; warp ROUTE_36_NATIONAL_PARK_GATE, $0, $6
+	warp ROUTE_46, $6, $F
 	; warp ROUTE_30, $C, $16
 	; warp ROUTE_40, $a, $a ; battle tower
 	; warp ROUTE_37, $e, $a

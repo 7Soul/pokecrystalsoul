@@ -394,7 +394,7 @@ CianwoodCity_MapEvents:
 
 	db 7 ; bg events
 	bg_event 14, 34, BGEVENT_READ, CianwoodCitySign
-	bg_event 10, 45, BGEVENT_READ, CianwoodGymSign
+	bg_event 12, 44, BGEVENT_READ, CianwoodGymSign
 	bg_event 13, 47, BGEVENT_READ, CianwoodPharmacySign
 	bg_event  8, 32, BGEVENT_READ, CianwoodPhotoStudioSign
 	bg_event  8, 24, BGEVENT_READ, CianwoodPokeSeerSign
@@ -403,7 +403,7 @@ CianwoodCity_MapEvents:
 
 	db 12 ; object events
 	object_event 19, 43, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CianwoodCityYoungster, -1
-	object_event 23, 34, SPRITE_POKEFAN_M, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityPokefanM, -1
+	object_event 25, 32, SPRITE_POKEFAN_M, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityPokefanM, -1
 	object_event 14, 41, SPRITE_LASS, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityLass, -1
 	object_event  8, 16, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityRock, -1
 	object_event  9, 17, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityRock, -1
