@@ -91,6 +91,4 @@ PredefPointers::
 	add_predef IsVariableMove
 	add_predef GetVariableMoveType
 	add_predef GetVariableMoveName
-	add_predef GetVariableMoveName2
-	add_predef TraitRaiseStat
 	add_predef PrintTraitDesc

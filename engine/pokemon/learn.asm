@@ -2,21 +2,18 @@ LearnMove:
 	ld a, [wPutativeTMHMMove]
 	ld e, a
 	predef IsVariableMove
-	ld a, [wCurType]
-	and a
-	jr z, .not_variable
+	jr nc, .not_variable
 
 	ld a, [wBaseType1]
 	ld b, a
 	ld a, [wBaseType2]
 	ld c, a
-	ld a, [wCurType]
-	ld d, a
-	predef GetVariableMoveType
-	ld a, [wPutativeTMHMMove]
-	ld e, a
-	ld a, [wCurType]
-	predef GetVariableMoveName2
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	predef GetVariableMoveName
+	ld de, wStringBuffer2
+	ld bc, wStringBuffer3 - wStringBuffer2
+	call CopyBytes
 
 .not_variable
 	call LoadTileMapToTempTileMap
@@ -74,9 +71,7 @@ LearnMove:
 	ld a, [wCurSpecies]
 	ld e, a
 	predef IsVariableMove
-	ld a, [wCurType]
-	and a
-	jr z, .not_variable2
+	jr nc, .not_variable2
 
 	ld a, [wBaseType1]
 	ld b, a
@@ -84,10 +79,8 @@ LearnMove:
 	ld c, a
 	ld a, [wCurType]
 	ld d, a
-	predef GetVariableMoveType
-	ld a, [wCurSpecies]
-	ld e, a
-	ld a, [wMoveType]
+	farcall GetVariableMoveType
+	jr nc, .not_variable2
 	predef GetVariableMoveName
 .not_variable2
 

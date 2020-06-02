@@ -298,3 +298,31 @@ NUM_ATTACKS EQU const_value + -1
 	const BATTLEANIM_WOBBLE
 	const BATTLEANIM_SHAKE
 	const BATTLEANIM_HIT_CONFUSION
+
+	const_def
+	const TIDE_CLASH      ; 00
+	const FLUTTER_CLAP    ; 01
+	const STONE_EDGE      ; 02
+	const BRAVE_BIRD      ; 03
+	const WOOD_HAMMER     ; 04
+	const ICE_SHARD       ; 05
+	const NIGHT_SLASH     ; 06
+	const LEAF_BLADE      ; 07
+	const SEED_BOMB       ; 08
+	const AERIAL_ACE      ; 09
+	const FEATHERDANCE    ; 0a
+	const FISSURE         ; 0b
+	const SHEER_COLD      ; 0c
+	const GUILLOTINE_     ; 0d
+	const WITHDRAW        ; 0e
+	const IRON_DEFENSE    ; 0f
+	const BONE_RUSH       ; 10
+	const BONEMERANG      ; 11
+	const ENERGY_BALL     ; 12
+	const FLAIL           ; 13
+	const MUD_SHOT        ; 14
+	const MEGA_SPLASH     ; 15
+	const SAND_DIVE       ; 16
+	const HURRICANE       ; 17
+	const RAZOR_SHELL     ; 18
+	

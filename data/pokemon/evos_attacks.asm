@@ -268,8 +268,8 @@ PidgeyEvosAttacks:
 	db 36, DOUBLE_TEAM ; unevolved move
 	db 40, MIRROR_MOVE
 	db 46, SWAGGER
-	db 50, FLY ;;;
-	; might add hurricane and tailwind
+	db 46, FLY ;;;;;
+	db 50, DIZZY_PUNCH ; becomes Hurricane
 	db 0 ; no more level-up moves
 
 PidgeottoEvosAttacks:
@@ -285,7 +285,7 @@ PidgeottoEvosAttacks:
 	db 35, WING_ATTACK
 	db 43, MIRROR_MOVE
 	db 49, SWAGGER
-	db 53, FLY ;;;
+	db 54, DIZZY_PUNCH ; becomes Hurricane
 	db 0 ; no more level-up moves
 
 PidgeotEvosAttacks:
@@ -296,7 +296,7 @@ PidgeotEvosAttacks:
 	db 35, WING_ATTACK
 	db 44, MIRROR_MOVE
 	db 51, SWAGGER
-	db 57, FLY ;;;
+	db 57, DIZZY_PUNCH ; becomes Hurricane
 	db 0 ; no more level-up moves
 
 RattataEvosAttacks:
@@ -346,6 +346,7 @@ SpearowEvosAttacks:
 	db 25, AGILITY
 	db 33, RECOVER
 	db 37, DRILL_PECK
+	db 48, JUMP_KICK
 	db 0 ; no more level-up moves
 
 FearowEvosAttacks:
@@ -2018,6 +2019,7 @@ MagikarpEvosAttacks:
 	db 40, REVERSAL ; becomes Flail
 	db 46, CLOSE_COMBAT
 	db 51, SKY_ATTACK
+	db 55, ICY_WIND ; becomes Mega Splash
 	db 0 ; no more level-up moves
 
 GyaradosEvosAttacks:
@@ -2033,7 +2035,6 @@ GyaradosEvosAttacks:
 	db 45, RAIN_DANCE
 	db 50, HYPER_BEAM	
 	db 54, FROZEN_TAIL
-	; db 59, RAIN_DANCE
 	db 0 ; no more level-up moves
 
 LaprasEvosAttacks:

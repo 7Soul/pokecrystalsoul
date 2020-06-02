@@ -1195,7 +1195,6 @@ BattleCommand_Critical:
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK
-	; call ReplaceVariableType
 .has_mod
 	ld b, a
 	ld a, [de]
@@ -1334,9 +1333,6 @@ BattleCommand_Stab:
 	call GetBattleVar
 	and TYPE_MASK ; move type in a
 	ld [wCurType], a
-	ld [wMoveType], a
-	; farcall ReplaceVariableType
-	ld a, [wCurType]
 	ld [wMoveType], a
 	jr .no_mod
 .has_mod
@@ -1574,11 +1570,7 @@ CheckTypeMatchup:
 	call GetBattleVarAddr
 	and TYPE_MASK ; move type in a
 	ld d, a
-	
 	ld [wCurType], a
-	ld [wMoveType], a
-	; farcall ReplaceVariableType
-	ld a, [wCurType]
 	ld [wMoveType], a
 	pop hl
 
@@ -2215,21 +2207,21 @@ BattleCommand_MoveAnimNoSub:
 	xor a
 	ld [wKickCounter], a
 
-	ld a, [wMoveType]
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-	ld e, a ; move id in e
+	; ld a, [wMoveType]
+	; ld a, BATTLE_VARS_MOVE_ANIM
+	; call GetBattleVar
+	; ld e, a ; move id in e
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK ; move type in a
-	ld [wCurType], a
-	; farcall ReplaceVariableType
-	ld a, [wMoveType] ; old type
-	ld b, a
-	ld a, [wCurType] ; new type
-	cp b
-	jr z, .triplekick
-	ld [wBattleAnimParam], a	
+	; ld [wCurType], a
+
+	; ld a, [wMoveType] ; old type
+	; ld b, a
+	; ld a, [wCurType] ; new type
+	; cp b
+	; jr z, .triplekick
+	ld [wBattleAnimParam], a
 
 .triplekick
 	ld a, BATTLE_VARS_MOVE_ANIM
@@ -3854,59 +3846,37 @@ UpdateMoveData:
 	call GetBattleVar
 	ld [wCurSpecies], a
 	ld [wNamedObjectIndexBuffer], a
-
 	dec a
 	call GetMoveData
 
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitChangeDamageType
+	; ld a, BATTLE_VARS_TRAIT
+	; ld [wBuffer1], a
+	; farcall TraitChangeDamageType
+	ld a, [wCurSpecies]
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	ld a, BATTLE_VARS_TYPE1
+	call GetBattleVar
+	ld b, a
+	ld a, BATTLE_VARS_TYPE2
+	call GetBattleVar
+	ld c, a
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	farcall GetVariableMoveName
+	ld hl, wStringBuffer1
+	ld de, wStringBuffer2
+	ld bc, wStringBuffer2 - wStringBuffer1
+	jp CopyBytes
 
+.not_variable
 	ld a, BATTLE_VARS_MOVE
 	call GetBattleVar
 	ld [wCurSpecies], a
 	ld [wNamedObjectIndexBuffer], a
 	dec a
 	call GetMoveName
-
-; 	push hl
-; 	push de	
-; 	ld a, [wCurSpecies]
-; 	ld e, a
-; 	farcall IsVariableMove
-; 	pop de
-; 	pop hl
-; 	jr nc, .not_variable
-
-; 	ld a, [wBattleMonSpecies]
-; 	ld [wCurPartySpecies], a
-; 	ld a, [wBattleMonType1]
-; 	ld b, a
-; 	ld a, [wBattleMonType2]
-; 	ld c, a
-; 	ldh a, [hBattleTurn]
-; 	and a
-; 	jr z, .ok
-; 	ld a, [wEnemyMonSpecies]
-; 	ld [wCurPartySpecies], a
-; 	ld a, [wEnemyMonType1]
-; 	ld b, a
-; 	ld a, [wEnemyMonType2]
-; 	ld c, a
-; .ok
-; 	ld a, [wCurType]
-; 	ld d, a
-; 	farcall GetVariableMoveType
-; 	ld a, BATTLE_VARS_MOVE
-; 	call GetBattleVar
-; 	ld e, a
-; 	farcall GetVariableMoveName
-; 	ld hl, wStringBuffer1
-; 	ld de, wStringBuffer2
-; 	ld bc, wStringBuffer2 - wStringBuffer1
-; 	jp CopyBytes
-; 	ret
-; .not_variable
 	jp CopyName1
 
 BattleCommand_ParalyseOrSleep:
@@ -7235,7 +7205,29 @@ GetMoveAttr:
 
 GetMoveData:
 ; Copy move struct a to de.
+	inc a
+	push de
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	ld a, BATTLE_VARS_TYPE1
+	call GetBattleVar
+	ld b, a
+	ld a, BATTLE_VARS_TYPE2
+	call GetBattleVar
+	ld c, a
+	predef GetVariableMoveType
+	jr nc, .not_variable
+	ld a, d
+	ld hl, VarMoves
+	jr .got_move_data
+
+.not_variable
+	ld a, e
+	dec a
 	ld hl, Moves
+.got_move_data
+	pop de
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, BANK(Moves)

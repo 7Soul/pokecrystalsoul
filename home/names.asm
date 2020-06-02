@@ -282,41 +282,16 @@ GetTraitName::
 	ret
 
 GetVariableMoveName::
-; takes type in wCurType, move id in 'e' and puts string in wStringBuffer1
-	ld hl, .VariableMovesNames
-	ld c, 0
-
-.move_loop
-	ld a, [hli]
-	cp -2
-	jr z, .end
-	
-	cp e
-	jr z, .found_move
-	inc c ; wrong move
-	inc hl
-	jr .move_loop
-
-.found_move
-	ld a, [wCurType] ; type
- 	ld b, a
-	ld a, [hli]
-	cp b
-	jr z, .got_type
-	inc c ; right move, wrong type
-	jr .move_loop
-
-.got_type
+; takes move id in 'e' and puts string in wStringBuffer1
 	ld hl, .VariableMovesText
-	ld a, c
-	cp 0
+	ld a, e
+	and a
 	jr z, .got_text
-
 .skip
 	ld a, [hli]
 	cp "@"
 	jr nz, .skip
-	dec c
+	dec e
 	jr z, .got_text
 	jr .skip
 
@@ -332,29 +307,6 @@ GetVariableMoveName::
 	ld a, e
 	ld [wNamedObjectIndexBuffer], a
 	jp GetMoveName
-
-.VariableMovesNames:
-	db FIRE_PLAY,    WATER
-	db FIRE_PLAY,    FLYING
-	db CROSS_CHOP,   ROCK
-	db DOUBLE_EDGE,  FLYING
-	db DOUBLE_EDGE,  GRASS
-	db QUICK_ATTACK, ICE
-	db SLASH,        DARK
-	db SLASH,        GRASS
-	db SCREECH,      FLYING
-	db DRILL_PECK,   GRASS
-	db FAINT_ATTACK, FLYING
-	db HORN_DRILL,   GROUND
-	db HORN_DRILL,   DARK
-	db HORN_DRILL,   ICE
-	db HARDEN,       WATER
-	db ROCK_BLAST,   GROUND
-	db FEATHERGALE,  GROUND
-	db SHADOW_BALL,  GRASS
-	db REVERSAL,     NORMAL
-	db ICY_WIND,     GROUND
-	db -2
 
 .VariableMovesText:
 	db "Tide Clash@"
@@ -377,3 +329,7 @@ GetVariableMoveName::
 	db "Energy Ball@"
 	db "Flail@"
 	db "Mud Shot@"
+	db "Mega Splash@"
+	db "Sand Dive@"
+	db "Hurricane@"
+	db "Razor Shell@"

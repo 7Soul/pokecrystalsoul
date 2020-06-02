@@ -1,40 +1,13 @@
-ReplaceVariableType::
-; takes move at e and pokemon types at bc
-; has original type at wCurType
-	ld a, [wCurType]
-	ld [wMoveType], a
-	push af
-	push hl
-	push de
-	call IsVariableMove
-	jr nc, .not_variable
-	ld a, [wCurType]
-	ld d, a
-	call GetVariableMoveType
-	ld a, [wCurType]
-	pop af
-	pop de
-	pop hl
-	ret
-.not_variable
-	pop de
-	ld a, [wMoveType]
-	ld [wCurType], a ; restores original type
-	pop af
-	pop hl
-	ret
-
+; sets carry flag if move 'e' is variable		
+; saves index into 'd' and `a`
 IsVariableMove::
-; sets c if move 'e' is variable
-; saves id into wCurType
 	xor a
-	ld [wCurType], a
 	ld hl, VariableMoves
 	ld d, 0
 .moves_loop
 	ld a, [hli]
 	cp -1
-	ret z
+	jr z, .not_var
 	cp e
 	jr z, .found_move
 	inc d
@@ -44,12 +17,15 @@ IsVariableMove::
 	ld [wCurType], a
 	scf
 	ret
+.not_var
+	and a
+	ret
 
+; takes mon types in `b` and `c`, and puts variable move id in `e` and `a`		
+; takes variable id in `d` from IsVariableMove
 GetVariableMoveType::
-; takes mon types in 'b' and 'c', and and puts type in wCurType and 'a'
-; takes variable id in 'd' from IsVariableMove
 	ld hl, VariableTypesByName
-	ld a, [wCurSpecies] ; move id
+	ld a, [wCurSpecies] ; original move
 	ld e, a
 	ld a, [hli]
 	cp e
@@ -73,12 +49,12 @@ GetVariableMoveType::
 	push bc
 	ld a, [wBattleMode] ; overworld or battle check
 	and a
-	jp nz, .battle
+	jr nz, .battle
 	ld a, [wCurPartySpecies]
 	ld b, a
 	jr .got_species
 .battle
-	ld a, [wCurPartySpecies]
+	ld a, [wBattleMonSpecies]
 	ld b, a
 	ldh a, [hBattleTurn]
 	and a
@@ -87,7 +63,7 @@ GetVariableMoveType::
 	ld b, a
 
 .got_species
-	ld a, b
+	ld a, b ; species
 	pop bc
 	ld e, a
 	
@@ -99,7 +75,10 @@ GetVariableMoveType::
 
 .found_mon_name
 	ld a, [hl]
-	ld [wCurType], a
+	cp -1
+	jr z, .no_type_match
+	ld e, a
+	scf
 	ret
 
 .check_by_type
@@ -134,33 +113,15 @@ GetVariableMoveType::
 
 .got_variable
 	ld a, [hl]
-	ld [wCurType], a
+	ld e, a
+	scf
 	ret
 
 .no_type_match
-; restores original type into wCurType
-	push bc
+; restores original type
 	ld a, [wCurSpecies]
-	dec a
-	ld bc, MOVE_LENGTH
-	ld hl, Moves
-	call AddNTimes
-	ld de, wStringBuffer1
-	ld a, BANK(Moves)
-	call FarCopyBytes
-	ld a, [wStringBuffer1 + MOVE_TYPE]
-	and TYPE_MASK
-	ld [wCurType], a
-	pop bc
-	; ld a, [wMoveType]
-	; ld [wCurType], a ; restores original type
-	ret
-
-GetVariableMoveName2::
-	call GetVariableMoveName
-	ld de, wStringBuffer2
-	ld bc, wStringBuffer3 - wStringBuffer2
-	call CopyBytes
+	ld e, a
+	and a
 	ret
 
 INCLUDE "data/moves/variable_moves_table.asm"

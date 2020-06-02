@@ -463,7 +463,7 @@ BrnString: db "BRN@"
 FrzString: db "FRZ@"
 ParString: db "PAR@"
 
-ListMoves:
+ListMovesAsdf:
 ; List moves at hl, spaced every [wBuffer1] tiles.
 	ld de, wListMoves_MoveIndicesBuffer
 	ld b, $0
@@ -588,7 +588,7 @@ ListHasKnownMove:
 	scf
 	ret
 
-ListMovesAsdf:
+ListMoves:
 ; List moves at hl, spaced every [wBuffer1] tiles.
 	ld de, wListMoves_MoveIndicesBuffer
 	ld b, $0
@@ -665,7 +665,6 @@ ListMovesAsdf:
 	push hl
 	push de
 
-
 	ld a, [wBattleMode] ; overworld or battle check
 	and a
 	jp nz, .battle
@@ -691,7 +690,8 @@ ListMovesAsdf:
 	ld a, [wCurType]
 	ld d, a
 	farcall GetVariableMoveType
-	ld a, [wCurSpecies]
+	jr nc, .not_variable
+	ld a, [wCurType]
 	ld e, a
 	farcall GetVariableMoveName
 	pop af

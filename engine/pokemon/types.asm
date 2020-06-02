@@ -42,47 +42,36 @@ PrintMoveType:
 
 	push hl
 	ld a, b
-	ld [wCurSpecies], a
+	push de
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	ld a, BATTLE_VARS_TYPE1
+	call GetBattleVar
+	ld b, a
+	ld a, BATTLE_VARS_TYPE2
+	call GetBattleVar
+	ld c, a
+	predef GetVariableMoveType
+	jr nc, .not_variable
+	ld a, d
+	ld hl, VarMoves
+	jr .got_move_data
+
+.not_variable
+	ld a, e
 	dec a
-	ld bc, MOVE_LENGTH
 	ld hl, Moves
+.got_move_data
+	pop de
+	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld de, wStringBuffer1
 	ld a, BANK(Moves)
 	call FarCopyBytes
 	ld a, [wStringBuffer1 + MOVE_TYPE]
 	and TYPE_MASK
-	ld [wCurType], a
-	ld b, a
 	pop hl
-
-	push hl
-	push bc
-	ld a, [wCurSpecies] ; move id
-	ld e, a
-	farcall IsVariableMove
-	jr nc, .not_variable
-
-	ld a, [wBattleMonType1]
-	ld b, a
-	ld a, [wBattleMonType2]
-	ld c, a
-	ld a, [wCurType]
-	ld d, a
-	farcall GetVariableMoveType
-	pop bc
-	pop hl
-	ld a, [wCurType]
-	ld b, a
-	
-	jr .end
-
-.not_variable
-	pop bc
-	ld a, b
-	ld [wCurType], a
-	pop hl
-	ld a, [wCurType]
 	ld b, a
 .end
 
