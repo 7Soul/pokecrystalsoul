@@ -691,8 +691,6 @@ ListMoves:
 	ld d, a
 	farcall GetVariableMoveType
 	jr nc, .not_variable
-	ld a, [wCurType]
-	ld e, a
 	farcall GetVariableMoveName
 	pop af
 	ld a, [wCurType]

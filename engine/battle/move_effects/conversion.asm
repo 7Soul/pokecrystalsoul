@@ -22,10 +22,23 @@ BattleCommand_Conversion:
 	jr z, .okay
 	push hl
 	push bc
+	push de
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	ld a, e
+	ld hl, VarMoves + MOVE_TYPE
+	jr .got_move_pointer
+.not_variable
+	ld a, e
 	dec a
 	ld hl, Moves + MOVE_TYPE
+.got_move_pointer
 	call GetMoveAttr
 	and TYPE_MASK
+	pop de
 	ld [de], a
 	inc de
 	pop bc

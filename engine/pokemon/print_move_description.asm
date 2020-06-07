@@ -12,27 +12,27 @@ PrintMoveDesc:
 	ld d, [hl]
 	pop hl
 
-	ld a, [wCurSpecies]
-	cp FIRE_PLAY
-	jr nz, .end
-	ld a, [wBattleMonType1]
-	cp WATER
-	jr z, .water_play
-	cp FIRE
-	jr z, .fire_play
-	ld a, [wBattleMonType2]
-	cp WATER
-	jr z, .water_play
-	cp FIRE
-	jr z, .fire_play
-	ld de, .FlyingPlayDesc
-	jr .end
-.water_play
-	ld de, .WaterPlayDesc
-	jr .end
-.fire_play
-	ld de, .FirePlayDesc
-.end
+; 	ld a, [wCurSpecies]
+; 	cp FIRE_PLAY
+; 	jr nz, .end
+; 	ld a, [wBattleMonType1]
+; 	cp WATER
+; 	jr z, .water_play
+; 	cp FIRE
+; 	jr z, .fire_play
+; 	ld a, [wBattleMonType2]
+; 	cp WATER
+; 	jr z, .water_play
+; 	cp FIRE
+; 	jr z, .fire_play
+; 	ld de, .FlyingPlayDesc
+; 	jr .end
+; .water_play
+; 	ld de, .WaterPlayDesc
+; 	jr .end
+; .fire_play
+; 	ld de, .FirePlayDesc
+; .end
 	jp PlaceString
 
-INCLUDE "data/moves/variable_moves_names.asm"
+; INCLUDE "data/moves/variable_moves_names.asm"

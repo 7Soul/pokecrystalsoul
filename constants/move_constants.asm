@@ -306,23 +306,25 @@ NUM_ATTACKS EQU const_value + -1
 	const BRAVE_BIRD      ; 03
 	const WOOD_HAMMER     ; 04
 	const ICE_SHARD       ; 05
-	const NIGHT_SLASH     ; 06
-	const LEAF_BLADE      ; 07
-	const SEED_BOMB       ; 08
-	const AERIAL_ACE      ; 09
-	const FEATHERDANCE    ; 0a
-	const FISSURE         ; 0b
-	const SHEER_COLD      ; 0c
-	const GUILLOTINE_     ; 0d
-	const WITHDRAW        ; 0e
-	const IRON_DEFENSE    ; 0f
-	const BONE_RUSH       ; 10
-	const BONEMERANG      ; 11
-	const ENERGY_BALL     ; 12
-	const FLAIL           ; 13
-	const MUD_SHOT        ; 14
-	const MEGA_SPLASH     ; 15
-	const SAND_DIVE       ; 16
-	const HURRICANE       ; 17
-	const RAZOR_SHELL     ; 18
-	
+	const ACCELEROCK_MOVE ; 06
+	const NIGHT_SLASH     ; 07
+	const LEAF_BLADE      ; 08
+	const SEED_BOMB       ; 09
+	const AERIAL_ACE      ; 0a
+	const FEATHERDANCE    ; 0b
+	const FISSURE         ; 0c
+	const SHEER_COLD      ; 0d
+	const GUILLOTINE_     ; 0e
+	const WITHDRAW        ; 0f
+	const IRON_DEFENSE    ; 10
+	const BONE_RUSH       ; 11
+	const BONEMERANG      ; 12
+	const ENERGY_BALL     ; 13
+	const FLAIL           ; 14
+	const MUD_SHOT        ; 15
+	const MEGA_SPLASH     ; 16
+	const SAND_DIVE       ; 17
+	const HURRICANE       ; 18
+	const RAZOR_SHELL     ; 19
+	const POWER_WHIP      ; 1a
+	const ROCK_POLISH     ; 1b

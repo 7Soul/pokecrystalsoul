@@ -577,8 +577,17 @@ FillEggMove:
 	jp z, .no_moves
 	ld [de], a
 ; set pp
+	ld a, [wCurVariableMove]
+	cp -1
+	jr z, .not_variable
+	ld hl, VarMoves + MOVE_PP
+	jr .got_move_data
+
+.not_variable
+	ld a, b
 	dec a
 	ld hl, Moves + MOVE_PP
+.got_move_data
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, BANK(Moves)
@@ -683,8 +692,19 @@ FillMoves:
 	ld hl, MON_PP - MON_MOVES
 	add hl, de
 	push hl
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	ld a, e
+	ld hl, VarMoves + MOVE_PP
+	jr .got_move_pointer
+.not_variable
+	ld a, e
 	dec a
 	ld hl, Moves + MOVE_PP
+.got_move_pointer
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, BANK(Moves)
@@ -692,7 +712,7 @@ FillMoves:
 	pop hl
 	ld [hl], a
 	pop hl
-	jr .NextMove
+	jp .NextMove
 
 .done
 	pop bc

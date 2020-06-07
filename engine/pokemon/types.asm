@@ -41,25 +41,15 @@ PrintMoveType:
 ; Print the type of move b at hl.
 
 	push hl
-	ld a, b
 	push de
-	ld e, a
-	farcall IsVariableMove
-	jr nc, .not_variable
-	ld a, BATTLE_VARS_TYPE1
-	call GetBattleVar
-	ld b, a
-	ld a, BATTLE_VARS_TYPE2
-	call GetBattleVar
-	ld c, a
-	predef GetVariableMoveType
-	jr nc, .not_variable
-	ld a, d
+	ld a, [wCurVariableMove]
+	cp -1
+	jr z, .not_variable
 	ld hl, VarMoves
 	jr .got_move_data
 
 .not_variable
-	ld a, e
+	ld a, b
 	dec a
 	ld hl, Moves
 .got_move_data

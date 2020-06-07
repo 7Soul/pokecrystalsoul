@@ -1844,8 +1844,19 @@ AI_Smart_Conversion2:
 	jr nz, .asm_38dc9
 
 	push hl
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	ld a, e
+	ld hl, VarMoves + MOVE_TYPE
+	jr .got_move_pointer
+.not_variable
+	ld a, e
 	dec a
 	ld hl, Moves + MOVE_TYPE
+.got_move_pointer
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 

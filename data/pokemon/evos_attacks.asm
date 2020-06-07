@@ -80,6 +80,7 @@ CharmanderEvosAttacks:
 	db 37, FLAMETHROWER
 	db 44, CRUNCH
 	db 52, MIRROR_MOVE
+	db 52, DOUBLE_EDGE ; becomes Flare Blitz
 	db 0 ; no more level-up moves
 
 CharmeleonEvosAttacks:
@@ -346,7 +347,7 @@ SpearowEvosAttacks:
 	db 25, AGILITY
 	db 33, RECOVER
 	db 37, DRILL_PECK
-	db 48, JUMP_KICK
+	db 48, JUMP_KICK ; becomes Sand Dive
 	db 0 ; no more level-up moves
 
 FearowEvosAttacks:
@@ -1402,7 +1403,7 @@ ShellderEvosAttacks:
 	db EVOLVE_ITEM, WATER_STONE, CLOYSTER
 	db 0 ; no more evolutions
 	db 1, WATER_GUN
-	db 3, HARDEN
+	db 3, HARDEN ; becomes Withdraw
 	db 9, POWDER_SNOW
 	db 14, SUPERSONIC
 	db 18, JET_STREAM
@@ -1524,7 +1525,7 @@ KrabbyEvosAttacks:
 	db 1, BUBBLE
 	db 5, VICEGRIP
 	db 8, LEER
-	db 10, HARDEN
+	db 10, HARDEN ; becomes Withdraw
 	db 13, BUBBLEBEAM
 	db 19, ICY_WIND ; becomes Mud Shot
 	db 22, FROZEN_CLAW
@@ -1539,7 +1540,7 @@ KrabbyEvosAttacks:
 
 KinglerEvosAttacks:
 	db 0 ; no more evolutions
-	db 10, HARDEN
+	db 10, HARDEN ; becomes Withdraw
 	db 13, BUBBLEBEAM
 	db 19, ICY_WIND ; becomes Mud Shot
 	db 21, FROZEN_CLAW
@@ -1626,7 +1627,7 @@ CuboneEvosAttacks:
 	db 27, FALSE_SWIPE
 	db 37, ROCK_BLAST ; becomes Bone Rush
 	db 42, SKULL_BASH
-	db 45, DOUBLE_EDGE
+	db 45, DOUBLE_EDGE ; becomes Wood Hammer
 	db 50, EARTHQUAKE
 	db 0 ; no more level-up moves
 
@@ -1638,7 +1639,7 @@ MarowakEvosAttacks:
 	db 27, FALSE_SWIPE
 	db 38, ROCK_BLAST ; becomes Bone Rush
 	db 44, SKULL_BASH
-	db 49, DOUBLE_EDGE
+	db 49, DOUBLE_EDGE ; becomes Wood Hammer
 	db 55, EARTHQUAKE
 	db 0 ; no more level-up moves
 
@@ -1677,14 +1678,16 @@ LickitungEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, LICK
 	db 7, SUPERSONIC
+	db 10, ACID
 	db 13, DEFENSE_CURL
-	db 19, STOMP
-	db 25, WRAP
-	db 31, DISABLE
-	db 37, SLAM
-	db 43, BODY_SLAM
-	db 44, SCREECH
-	db 53, DOUBLE_EDGE
+	db 18, STOMP
+	db 21, DISABLE
+	db 25, WRAP	
+	db 30, SLAM
+	db 33, ROLLOUT
+	db 36, SCREECH
+	db 45, THRASH
+	db 53, CONSTRICT ; becomes Power Whip
 	db 0 ; no more level-up moves
 
 KoffingEvosAttacks:
@@ -1768,7 +1771,7 @@ ChanseyEvosAttacks:
 
 TangelaEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, CONSTRICT
+	db 1, POUND
 	db 4, SLEEP_POWDER
 	db 10, ABSORB
 	db 13, POISONPOWDER
@@ -1777,7 +1780,8 @@ TangelaEvosAttacks:
 	db 31, MEGA_DRAIN
 	db 34, STUN_SPORE
 	db 40, SLAM
-	db 46, GROWTH
+	db 43, GROWTH
+	db 46, CONSTRICT ; becomes Power Whip
 	db 0 ; no more level-up moves
 
 KangaskhanEvosAttacks:
@@ -2089,7 +2093,8 @@ VaporeonEvosAttacks:
 	db 18, JET_STREAM
 	db 21, AURORA_BEAM
 	db 30, BITE
-	db 42, HAZE
+	db 42, FIRE_PLAY
+	; db 42, HAZE
 	db 47, ACID_ARMOR
 	db 47, RAIN_DANCE
 	db 54, HYDRO_PUMP
@@ -2149,7 +2154,7 @@ OmanyteEvosAttacks:
 	db EVOLVE_LEVEL, 35, OMASTAR
 	db 0 ; no more evolutions
 	db 1, CONSTRICT
-	db 1, HARDEN
+	db 1, HARDEN ; becomes Withdraw
 	db 6, BITE
 	db 10, WATER_GUN
 	db 15, ROLLOUT
@@ -2205,7 +2210,8 @@ KabutopsEvosAttacks:
 AerodactylEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, WING_ATTACK
-	db 8, AGILITY
+	db 8, AGILITY ; becomes Rock Polish
+	db 11, QUICK_ATTACK ; becomes Accelerock
 	db 15, BITE
 	db 22, SUPERSONIC
 	db 29, ANCIENTPOWER

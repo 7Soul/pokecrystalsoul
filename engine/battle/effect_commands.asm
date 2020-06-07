@@ -1339,19 +1339,6 @@ BattleCommand_Stab:
 	ld a, b
 	ld [wCurType], a
 .no_mod
-; 	push hl
-; 	push de
-; 	ld a, BATTLE_VARS_MOVE_ANIM
-; 	call GetBattleVar
-; 	ld e, a
-; 	push hl
-; 	call IsVariableMove
-; 	pop hl
-; 	jr nc, .not_variable
-; 	call GetVariableMoveType
-; .not_variable
-; 	pop de
-; 	pop hl
 
 	push hl
 	push de
@@ -3864,6 +3851,7 @@ UpdateMoveData:
 	ld c, a
 	farcall GetVariableMoveType
 	jr nc, .not_variable
+	
 	farcall GetVariableMoveName
 	ld hl, wStringBuffer1
 	ld de, wStringBuffer2
@@ -7218,7 +7206,7 @@ GetMoveData:
 	ld c, a
 	predef GetVariableMoveType
 	jr nc, .not_variable
-	ld a, d
+	ld a, e
 	ld hl, VarMoves
 	jr .got_move_data
 

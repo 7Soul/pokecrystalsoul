@@ -478,11 +478,23 @@ FillPP:
 	ld a, [hli]
 	and a
 	jr z, .next
-	dec a
 	push hl
 	push de
 	push bc
+	ld [wCurSpecies], a
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	ld a, e
+	ld hl, VarMoves
+	jr .got_move_pointer
+.not_variable
+	ld a, e
+	dec a
 	ld hl, Moves
+.got_move_pointer
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld de, wStringBuffer1

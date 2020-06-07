@@ -3,11 +3,6 @@ LearnMove:
 	ld e, a
 	predef IsVariableMove
 	jr nc, .not_variable
-
-	ld a, [wBaseType1]
-	ld b, a
-	ld a, [wBaseType2]
-	ld c, a
 	farcall GetVariableMoveType
 	jr nc, .not_variable
 	predef GetVariableMoveName
@@ -72,13 +67,6 @@ LearnMove:
 	ld e, a
 	predef IsVariableMove
 	jr nc, .not_variable2
-
-	ld a, [wBaseType1]
-	ld b, a
-	ld a, [wBaseType2]
-	ld c, a
-	ld a, [wCurType]
-	ld d, a
 	farcall GetVariableMoveType
 	jr nc, .not_variable2
 	predef GetVariableMoveName
@@ -97,8 +85,19 @@ LearnMove:
 
 	push hl
 	push de
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable3
+	farcall GetVariableMoveType
+	jr nc, .not_variable3
+	ld a, e
+	ld hl, VarMoves + MOVE_PP
+	jr .got_move_pointer
+.not_variable3
+	ld a, e
 	dec a
 	ld hl, Moves + MOVE_PP
+.got_move_pointer
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, BANK(Moves)

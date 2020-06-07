@@ -1,10 +1,16 @@
 GetMoveCategoryName:
 ; Copy the category name of move b to wStringBuffer1.
-
+	ld a, [wCurVariableMove]
+	cp -1
+	jr z, .not_variable
+	ld hl, VarMoves + MOVE_TYPE
+	jr .got_move_pointer
+.not_variable
 	ld a, b
 	dec a
-	ld bc, MOVE_LENGTH
 	ld hl, Moves + MOVE_TYPE
+.got_move_pointer
+	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, BANK(Moves)
 	call GetFarByte

@@ -2973,11 +2973,22 @@ GetMaxPPOfMove:
 	call GetMthMoveOfNthPartymon
 
 .gotdatmove
-	ld a, [hl]
-	dec a
-
 	push hl
+	ld a, [hl]
+	ld [wCurSpecies], a
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	ld a, e
+	ld hl, VarMoves + MOVE_PP
+	jr .got_move_pointer
+.not_variable
+	ld a, e
+	dec a
 	ld hl, Moves + MOVE_PP
+.got_move_pointer
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, BANK(Moves)

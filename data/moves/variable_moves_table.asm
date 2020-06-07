@@ -1,72 +1,60 @@
-VariableTypes:
-	; pokemon type to check, type to change the move to, etc, etc, -1
-	db NORMAL, NORMAL, -1
-	db WATER, TIDE_CLASH, 	FLYING, FLUTTER_CLAP, 	-1 ; Kindle Clash -> Tide Clash, Flutter Clap
-	db ROCK, STONE_EDGE, 	DARK, STONE_EDGE,       -1 ; Cross Chop -> Stone Edge
-	db FLYING, BRAVE_BIRD, 	GRASS, WOOD_HAMMER,     ROCK, WOOD_HAMMER,      -1 ; Double Edge -> Brave Bird, Wood Hammer
-	db ICE, ICE_SHARD,      -1 ; Quick Attack -> Ice Shard
-	db DARK, NIGHT_SLASH,   GRASS, LEAF_BLADE,      -1 ; Slash -> Night Slash, Leaf Blade
-	db GRASS, GRASS, 		-1 ; Drill Peck -> Seed Bomb
-	db FLYING, AERIAL_ACE, 	-1 ; Faint Attack -> Aerial Ace
-	db FLYING, FEATHERDANCE,-1 ; Screech -> Feather Dance
-	db GROUND, FISSURE,     ROCK, FISSURE, 		    ICE, SHEER_COLD,           DARK, GUILLOTINE_,     WATER, GUILLOTINE_,    BUG, GUILLOTINE_, -1 ; Horn Drill (normal) -> Fissure (ground), Sheer Cold (ice), Guillotine (dark)
-	db WATER, WITHDRAW,     ICE, WITHDRAW, -1 ; Withdraw (water)
-	db ROCK, IRON_DEFENSE,  -1 ; Iron Defense (rock)
-	db GROUND, BONE_RUSH,   -1 ; Bone Rush (ground)
-	db GROUND, BONEMERANG,  -1 ; Bonemerang (ground)
-	db GRASS, ENERGY_BALL,  -1 ; Energy Ball (grass)
-	db WATER, FLAIL,        GROUND, FLAIL,           -1 ; Flail (water)
-	db GROUND, MUD_SHOT,    ROCK, MUD_SHOT,          -1 ; Mud Shot (ground)
-	db FLYING, SAND_DIVE,   GROUND, SAND_DIVE,          -1 ; Sand Dive (ground)
-	db FLYING, HURRICANE,   -1 ; Hurricane (flying)
-	db WATER, RAZOR_SHELL,  -1 ; Razor Shell (water)
-	db -1
-
-VariableTypesByName: ; -1 = forced original move
-	db FIRE_PLAY, VAPOREON, FLUTTER_CLAP
-	db SLASH, MEOWTH, NIGHT_SLASH
-	db SLASH, PERSIAN, NIGHT_SLASH
-	db SLASH, FARFETCH_D, NIGHT_SLASH
-	db QUICK_ATTACK, VAPOREON, ICE_SHARD
-	db DRILL_PECK, SNORLAX, SEED_BOMB
-	db DOUBLE_EDGE, CUBONE, WOOD_HAMMER
-	db DOUBLE_EDGE, MAROWAK, WOOD_HAMMER
-	db HORN_DRILL, GLIGAR, GUILLOTINE_
-	db HORN_DRILL, GOLDEEN, -1
-	db HORN_DRILL, SEAKING, -1
-	db HORN_DRILL, SUICUNE, SHEER_COLD
-	db ICY_WIND, SWINUB, -1
-	db ICY_WIND, PILOSWINE, -1
-	db ICY_WIND, MAGIKARP, MEGA_SPLASH
-	db ICY_WIND, GYARADOS, MEGA_SPLASH
-	db FROZEN_TAIL, PILOSWINE, RAZOR_SHELL
-	db -2
-
 VariableMoves::
 	db NO_MOVE
-	db FIRE_PLAY ; Tide Clash (water), Flutter Clap (flying)
-	db CROSS_CHOP ; Stone Edge (rock)
-	db DOUBLE_EDGE ; Brave Bird (flying), Wood Hammer (grass) ; todo anim
-	db QUICK_ATTACK ; Ice Shard (ice)
-	db SLASH ; Night Slash (dark), Leaf Blade (grass)
-	db DRILL_PECK ; Seed Bomb (grass) ; todo anim
-	db FAINT_ATTACK ; Aerial Ace (flying) ; todo anim
-	db SCREECH ; Feather Dance (flying) ; todo anim
-	db HORN_DRILL ; Fissure (ground), Sheer Cold (ice), Guillotine (dark)
-	db HARDEN ; Withdraw (water) ; todo anim
-	db BARRIER ; Iron Defense (rock) ; todo anim
-	db ROCK_BLAST ; Bone Rush (ground)
-	db FEATHERGALE ; Bonemerang (ground)
-	db SHADOW_BALL ; Energy Ball (grass) ; todo anim
-	db REVERSAL ; Flail (normal) ; todo anim
-	db ICY_WIND ; Mud Shot (ground) ; todo anim
-	db JUMP_KICK ; Sand Dive (ground) ; todo anim
-	db DIZZY_PUNCH ; Hurricane (flying) ; todo anim
-	db FROZEN_TAIL ; Razor Shell (water) ; todo anim
+	db FIRE_PLAY ; Tide Clash, Flutter Clap
+	db CROSS_CHOP ; Stone Edge
+	db DOUBLE_EDGE ; Brave Bird, Wood Hammer ; todo anim
+	db QUICK_ATTACK ; Ice Shard, Accelerock
+	db SLASH ; Night Slash, Leaf Blade
+	db DRILL_PECK ; Seed Bomb ; todo anim
+	db FAINT_ATTACK ; Aerial Ace ; todo anim
+	db SCREECH ; Feather Dance ; todo anim
+	db HORN_DRILL ; Fissure, Sheer Cold, Guillotine
+	db HARDEN ; Withdraw ; todo anim
+	db BARRIER ; Iron Defense ; todo anim
+	db ROCK_BLAST ; Bone Rush
+	db FEATHERGALE ; Bonemerang
+	db SHADOW_BALL ; Energy Ball ; todo anim
+	db REVERSAL ; Flail ; todo anim
+	db ICY_WIND ; Mud Shot ; todo anim
+	db JUMP_KICK ; Sand Dive ; todo anim
+	db DIZZY_PUNCH ; Hurricane ; todo anim
+	db FROZEN_TAIL ; Razor Shell ; todo anim
+	db CONSTRICT ; Power Whip ; todo anim
+	db AGILITY ; Rock Polish ; todo anim
 	db -1
+
+VariableTypesByName:
+	db FIRE_PLAY, TIDE_CLASH, GOLDEEN, SEAKING, POLITOED, MANTINE, -1
+	db FIRE_PLAY, FLUTTER_CLAP, SPEAROW, FEAROW, FARFETCH_D, VAPOREON, ZAPDOS, YANMA, DELIBIRD, -1
+	db CROSS_CHOP, STONE_EDGE, GEODUDE, GRAVELER, GOLEM, ONIX, STEELIX, RHYHORN, RHYDON, SUDOWOODO, LARVITAR, PUPITAR, TYRANITAR, - 1
+	db DOUBLE_EDGE, BRAVE_BIRD, FARFETCH_D, HO_OH, -1
+	db DOUBLE_EDGE, WOOD_HAMMER, GEODUDE, GRAVELER, GOLEM, EXEGGUTOR, CUBONE, MAROWAK, SUDOWOODO, -1
+	db QUICK_ATTACK, ICE_SHARD, SEEL, DEWGONG, LAPRAS, SNEASEL, -1
+	db QUICK_ATTACK, ACCELEROCK_MOVE, AERODACTYL, -1
+	db SLASH, NIGHT_SLASH, MEOWTH, PERSIAN, FARFETCH_D, -1
+	db SLASH, LEAF_BLADE, BELLSPROUT, WEEPINBELL, VICTREEBEL, -1
+	db DRILL_PECK, SEED_BOMB, BULBASAUR, IVYSAUR, VENUSAUR, SNORLAX, -1
+	db FAINT_ATTACK, AERIAL_ACE, SPEAROW, FEAROW, -1
+	db SCREECH, FEATHERDANCE, PIDGEY, PIDGEOTTO, PIDGEOT, -1
+	db HORN_DRILL, FISSURE, DIGLETT, DUGTRIO, -1
+	db HORN_DRILL, SHEER_COLD, SEEL, DEWGONG, ARTICUNO, SUICUNE, -1
+	db HORN_DRILL, GUILLOTINE_, KRABBY, KINGLER, PINSIR, GLIGAR, -1
+	db HARDEN, WITHDRAW, SQUIRTLE, WARTORTLE, BLASTOISE, SHELLDER, CLOYSTER, KRABBY, KINGLER, OMANYTE, OMASTAR, KABUTO, KABUTOPS, SHUCKLE, -1
+	db BARRIER, IRON_DEFENSE, -1
+	db ROCK_BLAST, BONE_RUSH, CUBONE, MAROWAK, -1
+	db FEATHERGALE, BONEMERANG, CUBONE, MAROWAK, -1
+	db SHADOW_BALL, ENERGY_BALL, SUNKERN, SUNFLORA, CELEBI, -1
+	db REVERSAL, FLAIL, KRABBY, KINGLER, GOLDEEN, SEAKING, MAGIKARP, GYARADOS, TOTODILE, CROCONAW, FERALIGATR, CHINCHOU, LANTURN, DUNSPARCE, QWILFISH, SWINUB, PILOSWINE, CORSOLA, PHANPY, DONPHAN, -1
+	db ICY_WIND, MUD_SHOT, POLIWAG, POLIWHIRL, POLIWRATH, KRABBY, KINGLER, OMANYTE, OMASTAR, KABUTO, KABUTOPS, POLITOED, WOOPER, QUAGSIRE, -1 
+	db ICY_WIND, MEGA_SPLASH, MAGIKARP, GYARADOS, -1
+	db JUMP_KICK, SAND_DIVE, SPEAROW, FEAROW, -1
+	db DIZZY_PUNCH, HURRICANE, PIDGEY, PIDGEOTTO, PIDGEOT, -1
+	db FROZEN_TAIL, RAZOR_SHELL, -1
+	db CONSTRICT, POWER_WHIP, LICKITUNG, TANGELA, -1
+	db AGILITY, ROCK_POLISH, AERODACTYL, -1
+	db -2
 
  ; needs animations:
  ; heal bell -> aromatherapy
  ; add lava plume -> scald
  ; strenght / drill peck / seed bomb / x-scissor
-

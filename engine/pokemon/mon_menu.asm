@@ -1344,6 +1344,16 @@ PrepareToPlaceMoveData:
 	add hl, bc
 	ld a, [hl]
 	ld [wCurSpecies], a
+
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	
+.not_variable
+	; ld a, e
+	; ld [wCurSpecies], a
 	hlcoord 1, 12
 	lb bc, 5, 18
 	jp ClearBox
@@ -1372,9 +1382,17 @@ PlaceMoveData:
 	ld [hl], "/"
 	inc hl
 	predef PrintMoveType
+	ld a, [wCurVariableMove]
+	cp -1
+	jr z, .not_variable
+	ld hl, VarMoves + MOVE_POWER
+	jr .got_move_power
+
+.not_variable
 	ld a, [wCurSpecies]
 	dec a
 	ld hl, Moves + MOVE_POWER
+.got_move_power
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, BANK(Moves)
@@ -1396,9 +1414,16 @@ PlaceMoveData:
 	hlcoord 12, 12 ; MoveAcc string
 	ld de, String_MoveAcc
 	call PlaceString
+	ld a, [wCurVariableMove]
+	cp -1
+	jr z, .not_variable2
+	ld hl, VarMoves + MOVE_ACC
+	jr .got_move_acc
+.not_variable2
 	ld a, [wCurSpecies]
 	dec a
 	ld hl, Moves + MOVE_ACC
+.got_move_acc
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	; convert internal accuracy representation to a number

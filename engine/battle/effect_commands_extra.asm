@@ -1,7 +1,8 @@
 ; sets carry flag if move 'e' is variable		
 ; saves index into 'd' and `a`
 IsVariableMove::
-	xor a
+	ld a, -1
+	ld [wCurVariableMove], a
 	ld hl, VariableMoves
 	ld d, 0
 .moves_loop
@@ -25,100 +26,58 @@ IsVariableMove::
 ; takes variable id in `d` from IsVariableMove
 GetVariableMoveType::
 	ld hl, VariableTypesByName
+.loop_variable_types_by_name
+	ld a, [hl]
+	cp -2
+	jr z, .no_type_match
+
 	ld a, [wCurSpecies] ; original move
 	ld e, a
 	ld a, [hli]
 	cp e
 	jr z, .found_move
-	dec hl
-.loop_variable_types_by_name
-	ld a, [hl]
-	cp -2
-	jr z, .check_by_type
-
-	ld a, [wCurSpecies]
-	ld e, a
+.get_to_next_move
 	ld a, [hli]
-	cp e
-	jr z, .found_move
-	inc hl
-	inc hl
+	cp -1
+	jr nz, .get_to_next_move
 	jr .loop_variable_types_by_name
 
 .found_move
-	push bc
+	ld a, [hli]
+	ld [wCurVariableMove], a ; save our new move
 	ld a, [wBattleMode] ; overworld or battle check
 	and a
 	jr nz, .battle
 	ld a, [wCurPartySpecies]
-	ld b, a
+	ld e, a
 	jr .got_species
 .battle
 	ld a, [wBattleMonSpecies]
-	ld b, a
+	ld e, a
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .got_species
 	ld a, [wEnemyMonSpecies]
-	ld b, a
-
-.got_species
-	ld a, b ; species
-	pop bc
 	ld e, a
-	
+
+.got_species ; got species we're looking at
 	ld a, [hli]
-	cp e
+	cp -1
+	jr z, .loop_variable_types_by_name ; move isn't variable to this species
+	cp e 
 	jr z, .found_mon_name
-	inc hl
-	jr .loop_variable_types_by_name 
+	jr .got_species 
 
-.found_mon_name
-	ld a, [hl]
-	cp -1
-	jr z, .no_type_match
-	ld e, a
-	scf
-	ret
-
-.check_by_type
-	ld e, 0
-	ld hl, VariableTypes
-	ld a, d
-	and a
-	jr z, .loop ; if d is 0 start at first entry
-
-.loop_variable_types
-	ld a, [hli]
-	cp -1
-	jr nz, .loop_variable_types
-
-	inc e
-	ld a, e
-	cp d
-	jr z, .loop
-	jr .loop_variable_types
-
-.loop
-	ld a, [hli]
-	cp -1
-	jr z, .no_type_match
-
-	cp c
-	jr z, .got_variable
-	cp b
-	jr z, .got_variable
-	inc hl
-	jr .loop
-
-.got_variable
-	ld a, [hl]
+.found_mon_name ; in table
+	ld a, [wCurVariableMove]
 	ld e, a
 	scf
 	ret
 
 .no_type_match
 ; restores original type
+	ld a, -1
+	ld [wCurVariableMove], a
 	ld a, [wCurSpecies]
 	ld e, a
 	and a
