@@ -641,6 +641,7 @@ Pokedex_GetMoves:
 	ld [wMovesMaxCount], a
 	ld [wMovesLevelOneCount], a
 	ld a, [wTempSpecies]
+	ld [wCurOTMon], a
 	ld [wCurPartySpecies], a	
 	dec a
 
@@ -820,6 +821,8 @@ Pokedex_GetMoves:
 	push hl
 	push de
 	ld [wNamedObjectIndexBuffer], a	
+	ld a, [wCurOTMon]
+	ld [wCurPartySpecies], a
 	
 ; get position
 	hlcoord 6, 6
@@ -862,18 +865,25 @@ Pokedex_GetMoves:
 
 	ld a, [wPokedexStatus]
 	add c  ; current move index
-
+	push hl
 	cp b
 	jr nc, .unknown_move
 
-.levelOneMove
-	call GetBaseData
-	ld a, [wBaseType1]
-	ld [wBattleMonType1], a
-	ld a, [wBaseType2]
-	ld [wBattleMonType2], a
+; levelOneMove
+	ld a, [wNamedObjectIndexBuffer]
+	ld [wCurSpecies], a
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	farcall GetVariableMoveName
+	ld de, wStringBuffer1
+	jr .unknown_move
+.not_variable
 	call GetMoveName
 .unknown_move
+	pop hl
 	call PlaceString
 	pop de
 	pop hl

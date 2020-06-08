@@ -11,7 +11,7 @@ MoveDescriptions::
 	dw ThunderpunchDescription
 	dw ScratchDescription
 	dw VicegripDescription
-	dw GuillotineDescription
+	dw AcupressureDescription
 	dw ChargeBeamDescription
 	dw SwordsDanceDescription
 	dw AquaTailDescription
@@ -305,9 +305,9 @@ VicegripDescription:
 	db   "Grips with power-"
 	next "ful pincers.@"
 
-GuillotineDescription:
-	db   "A one-hit KO,"
-	next "pincer attack.@"
+AcupressureDescription:
+	db   "Raises a random"
+	next "stat two times.@"
 
 ChargeBeamDescription:
 	db   "High chance to in-"

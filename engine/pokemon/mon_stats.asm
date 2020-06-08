@@ -665,27 +665,6 @@ ListMoves:
 	push hl
 	push de
 
-	ld a, [wBattleMode] ; overworld or battle check
-	and a
-	jp nz, .battle
-
-	ld a, [wCurPartySpecies]
-	dec a
-	ld hl, BaseData + BASE_TYPES
-	ld bc, BASE_DATA_SIZE
-	call AddNTimes
-	ld a, [hli]
-	ld b, a
-	ld a, [hl]
-	ld c, a
-	jr .got_types
-.battle
-	ld a, $0
-	ldh [hBattleTurn], a
-	ld a, [wBattleMonType1]
-	ld b, a
-	ld a, [wBattleMonType2]
-	ld c, a
 .got_types
 	ld a, [wCurType]
 	ld d, a

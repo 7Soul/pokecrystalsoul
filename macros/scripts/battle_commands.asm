@@ -192,6 +192,7 @@ ENDM
 	command getwildstorm			; b9
 	command fireplay				; ba
 	command recalcstats				; bc
+	command acupressure				; bd
 
 	enum_start $fe
 	command endturn                 ; fe

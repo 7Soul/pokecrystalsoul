@@ -170,4 +170,4 @@ MoveEffectsPointers:
 	dw LeafShield
 	dw JetStream
 	dw FirePlay
-	
+	dw Acupressure

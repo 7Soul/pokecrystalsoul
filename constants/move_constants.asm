@@ -17,7 +17,7 @@
 	const THUNDERPUNCH ; 09
 	const SCRATCH      ; 0a
 	const VICEGRIP     ; 0b
-	const GUILLOTINE   ; 0c
+	const ACUPRESSURE  ; 0c
 	const CHARGE_BEAM  ; 0d
 	const SWORDS_DANCE ; 0e
 	const AQUA_TAIL    ; 0f
@@ -307,24 +307,31 @@ NUM_ATTACKS EQU const_value + -1
 	const WOOD_HAMMER     ; 04
 	const ICE_SHARD       ; 05
 	const ACCELEROCK_MOVE ; 06
-	const NIGHT_SLASH     ; 07
-	const LEAF_BLADE      ; 08
-	const SEED_BOMB       ; 09
-	const AERIAL_ACE      ; 0a
-	const FEATHERDANCE    ; 0b
-	const FISSURE         ; 0c
-	const SHEER_COLD      ; 0d
-	const GUILLOTINE_     ; 0e
-	const WITHDRAW        ; 0f
-	const IRON_DEFENSE    ; 10
-	const BONE_RUSH       ; 11
-	const BONEMERANG      ; 12
-	const ENERGY_BALL     ; 13
-	const FLAIL           ; 14
-	const MUD_SHOT        ; 15
-	const MEGA_SPLASH     ; 16
-	const SAND_DIVE       ; 17
-	const HURRICANE       ; 18
-	const RAZOR_SHELL     ; 19
-	const POWER_WHIP      ; 1a
-	const ROCK_POLISH     ; 1b
+	const AQUA_JET        ; 07
+	const NIGHT_SLASH     ; 08
+	const LEAF_BLADE      ; 09
+	const SEED_BOMB       ; 0a
+	const AERIAL_ACE      ; 0b
+	const FEATHERDANCE    ; 0c
+	const FISSURE         ; 0d
+	const SHEER_COLD      ; 0e
+	const GUILLOTINE      ; 0f
+	const WITHDRAW        ; 10
+	const IRON_DEFENSE    ; 11
+	const BONE_RUSH       ; 12
+	const BONEMERANG      ; 13
+	const ENERGY_BALL     ; 14
+	const FLAIL           ; 15
+	const MUD_SHOT        ; 16
+	const MEGA_SPLASH     ; 17
+	const SAND_DIVE       ; 18
+	const HURRICANE       ; 19
+	const RAZOR_SHELL     ; 1a
+	const SPIRAL_KICK     ; 1b
+	const POWER_WHIP      ; 1c
+	const ROCK_POLISH     ; 1d
+	const SHOCK_STING     ; 1e
+	const ROCK_TUMBLE     ; 1f
+	const BRUTAL_VINE     ; 20
+	const DOUBLE_HIT      ; 21
+	const WATERFALL       ; 22

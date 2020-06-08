@@ -10,7 +10,7 @@ MoveNames::
 	db "Thunderpunch@"
 	db "Scratch@"
 	db "Vicegrip@"
-	db "Guillotine@"
+	db "Acupressure@"
 	db "Charge Beam@"
 	db "Swords Dance@"
 	db "Aqua Tail@"

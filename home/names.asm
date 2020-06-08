@@ -303,11 +303,6 @@ GetVariableMoveName::
 	pop hl
 	ret
 
-.end ; restores original name of type didnt change
-	ld a, e
-	ld [wNamedObjectIndexBuffer], a
-	jp GetMoveName
-
 .VariableMovesText:
 	db "Tide Clash@"
 	db "Flutter Clap@"
@@ -316,6 +311,7 @@ GetVariableMoveName::
 	db "Wood Hammer@"
 	db "Ice Shard@"
 	db "Accelerock@"
+	db "Aqua Jet@"
 	db "Night Slash@"
 	db "Leaf Blade@"
 	db "Seed Bomb@"
@@ -335,5 +331,11 @@ GetVariableMoveName::
 	db "Sand Dive@"
 	db "Hurricane@"
 	db "Razor Shell@"
+	db "Spiral Kick@"
 	db "Power Whip@"
 	db "Rock Polish@"
+	db "Shock Sting@"
+	db "Rock Tumble@"
+	db "Brutal Vine@"
+	db "Double Hit@"
+	db "Waterfall@"

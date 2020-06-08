@@ -3075,6 +3075,7 @@ wBattleAnimLoops:: db ; d415
 wBattleAnimVar:: db ; d416
 wBattleAnimByte:: db ; d417
 wBattleAnimOAMPointerLo:: db ; d418
+wBattleAnimBank:: db
 
 UNION ; d419
 ; unidentified

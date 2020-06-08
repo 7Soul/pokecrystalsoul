@@ -2355,3 +2355,15 @@ FirePlay:
 	buildopponentrage
 	posthiteffects
 	endmove
+
+Acupressure:
+	checkobedience
+	usedmovetext
+	doturn
+	acupressure
+	lowersub
+	statupanim
+	raisesub
+	statupmessage
+	statupfailtext
+	endmove

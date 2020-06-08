@@ -22,8 +22,7 @@ IsVariableMove::
 	and a
 	ret
 
-; takes mon types in `b` and `c`, and puts variable move id in `e` and `a`		
-; takes variable id in `d` from IsVariableMove
+; takes move id in `wCurSpecies`, and puts variable move id in `e`, `a`	and `wCurVariableMove`	
 GetVariableMoveType::
 	ld hl, VariableTypesByName
 .loop_variable_types_by_name

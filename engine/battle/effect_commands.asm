@@ -4386,6 +4386,31 @@ BattleCommand_RandomStatUp:
 	ld b, a
 	jr BattleCommand_StatUp
 
+BattleCommand_Acupressure:
+; 
+	ld a, 5
+	call RandomRange
+	ld c, a
+	ld hl, wPlayerStatLevels
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_stat_levels
+	ld hl, wEnemyStatLevels
+.got_stat_levels
+	ld b, [hl]
+	inc b
+	ld a, $d
+	cp b
+	jp c, .cant_raise_stat
+	ld a, c
+	add 16
+	ld b, a
+	jr BattleCommand_StatUp
+
+.cant_raise_stat
+	call AnimateFailedMove
+	jp PrintButItFailed
+
 BattleCommand_AttackUp:
 ; attackup
 	ld b, ATTACK

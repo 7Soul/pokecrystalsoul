@@ -191,3 +191,4 @@ BattleCommandPointers:
 	dw BattleCommand_GetWildStorm
 	dw BattleCommand_FirePlay
 	dw BattleCommand_RecalcStats
+	dw BattleCommand_Acupressure

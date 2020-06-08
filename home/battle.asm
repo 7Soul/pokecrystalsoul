@@ -186,6 +186,8 @@ GetBattleAnimPointer::
 	rst Bankswitch
 
 	ld a, [hli]
+	ld [wBattleAnimBank], a
+	ld a, [hli]
 	ld [wBattleAnimAddress], a
 	ld a, [hl]
 	ld [wBattleAnimAddress + 1], a
@@ -199,13 +201,13 @@ GetBattleAnimByte::
 	push hl
 	push de
 
+	ld a, [wBattleAnimBank]
+	rst Bankswitch
+
 	ld hl, wBattleAnimAddress
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-
-	ld a, BANK(BattleAnimations)
-	rst Bankswitch
 
 	ld a, [de]
 	ld [wBattleAnimByte], a
