@@ -3075,7 +3075,6 @@ wBattleAnimLoops:: db ; d415
 wBattleAnimVar:: db ; d416
 wBattleAnimByte:: db ; d417
 wBattleAnimOAMPointerLo:: db ; d418
-wBattleAnimBank:: db
 
 UNION ; d419
 ; unidentified
@@ -3105,6 +3104,7 @@ wSurfWaveBGEffect:: ds $40
 wSurfWaveBGEffectEnd::
 ENDU ; d462
 
+wBattleAnimBank:: db
 
 SECTION "Mobile RAM", WRAMX
 

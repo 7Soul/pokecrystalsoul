@@ -2898,6 +2898,8 @@ BattleAnim_QuickAttack:
 	anim_2gfx ANIM_GFX_SPEED, ANIM_GFX_HIT
 	anim_sound 0, 0, SFX_MENU
 	anim_if_param_equal ICE, .ice_spear
+	anim_if_param_equal ROCK, .accelerock
+	anim_if_param_equal WATER, .aqua_jet
 	anim_bgeffect ANIM_BG_HIDE_MON, $0, $1, $0
 	anim_obj ANIM_OBJ_SPEED_LINE, 24, 88, $2
 	anim_obj ANIM_OBJ_SPEED_LINE, 32, 88, $1
@@ -2917,7 +2919,38 @@ BattleAnim_QuickAttack:
 	anim_wait 6
 	anim_sound 0, 1, SFX_SHINE
 	anim_obj ANIM_OBJ_ICE_SHARD, 146, 62, $20
+	anim_wait 8
+	anim_jump .end
+.accelerock
+	anim_2gfx ANIM_GFX_ROCKS, ANIM_GFX_HIT
+	anim_sound 0, 0, SFX_STRENGTH
+	anim_obj ANIM_OBJ_ACCELEROCK, 116, 62, $10
 	anim_wait 6
+	anim_obj ANIM_OBJ_ACCELEROCK, 131, 54, $10
+	anim_wait 6
+	anim_obj ANIM_OBJ_ACCELEROCK, 146, 62, $10
+	anim_wait 6
+	anim_sound 0, 0, SFX_STRENGTH
+	anim_obj ANIM_OBJ_ACCELEROCK, 124, 62, $20
+	anim_wait 6
+	anim_obj ANIM_OBJ_ACCELEROCK, 131, 54, $20
+	anim_wait 6
+	anim_obj ANIM_OBJ_ACCELEROCK, 138, 62, $20
+	anim_wait 8
+	anim_jump .end
+.aqua_jet
+	anim_2gfx ANIM_GFX_SPLASH, ANIM_GFX_HIT
+	anim_sound 6, 3, SFX_WATER_GUN
+	anim_obj ANIM_OBJ_SPLASH, 72, 98, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_SPLASH, 72+12, 98-8, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_SPLASH, 72+24, 98-16, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_SPLASH, 72+36, 98-24, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_SPLASH, 72+48, 98-32, $0
+	anim_wait 8
 .end
 	anim_sound 0, 1, SFX_COMET_PUNCH
 	anim_obj ANIM_OBJ_01, 136, 56, $0
@@ -3634,7 +3667,7 @@ BattleAnim_Octazooka:
 	anim_wait 8
 	anim_if_param_equal $0, .done
 .loop
-	anim_obj ANIM_OBJ_SMOKE, 132, 60, $20
+	anim_obj ANIM_OBJ_SMOKE, 64, 92, $6c
 	anim_wait 8
 	anim_loop 5, .loop
 	anim_wait 128
@@ -3775,13 +3808,13 @@ BattleAnim_ZenHeadbutt:
 	anim_wait 3
 	
 	anim_sound 0, 0, SFX_WARP_TO
-	anim_obj ANIM_OBJ_44, 44, 108, $0
-	anim_obj ANIM_OBJ_44, 44, 100, $0
-	anim_obj ANIM_OBJ_44, 44, 92, $0
-	anim_obj ANIM_OBJ_44, 44, 84, $0
-	anim_obj ANIM_OBJ_44, 44, 76, $0
-	anim_obj ANIM_OBJ_44, 44, 68, $0
-	anim_obj ANIM_OBJ_44, 44, 60, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 108, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 100, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 92, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 84, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 76, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 68, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 60, $0
 	anim_wait 16
 	
 	anim_wait 4
@@ -4936,13 +4969,13 @@ BattleAnim_ScaryFace_branch_cbadc:
 BattleAnim_Fly_branch_cbb12:
 BattleAnim_Teleport_branch_cbb12:
 	anim_sound 0, 0, SFX_WARP_TO
-	anim_obj ANIM_OBJ_44, 44, 108, $0
-	anim_obj ANIM_OBJ_44, 44, 100, $0
-	anim_obj ANIM_OBJ_44, 44, 92, $0
-	anim_obj ANIM_OBJ_44, 44, 84, $0
-	anim_obj ANIM_OBJ_44, 44, 76, $0
-	anim_obj ANIM_OBJ_44, 44, 68, $0
-	anim_obj ANIM_OBJ_44, 44, 60, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 108, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 100, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 92, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 84, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 76, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 68, $0
+	anim_obj ANIM_OBJ_TELEPORT, 44, 60, $0
 	anim_ret
 
 BattleAnim_AuroraBeam_branch_cbb39:

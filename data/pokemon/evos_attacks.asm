@@ -2096,13 +2096,13 @@ VaporeonEvosAttacks:
 	db 1, TAIL_WHIP
 	db 1, SAND_ATTACK
 	db 1, WATER_GUN
-	db 13, QUICK_ATTACK
+	; db 13, QUICK_ATTACK
 	db 18, JET_STREAM
 	db 21, AURORA_BEAM
 	db 30, BITE
 	db 42, HAZE
 	db 47, ACID_ARMOR
-	db 47, RAIN_DANCE
+	db 47, QUICK_ATTACK
 	db 54, HYDRO_PUMP
 	db 0 ; no more level-up moves
 

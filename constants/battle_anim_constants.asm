@@ -97,7 +97,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_41
 	const ANIM_OBJ_42
 	const ANIM_OBJ_SONICBOOM_JP
-	const ANIM_OBJ_44
+	const ANIM_OBJ_TELEPORT
 	const ANIM_OBJ_ABSORB
 	const ANIM_OBJ_EGG
 	const ANIM_OBJ_47
@@ -230,6 +230,8 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_ICE_SHARD
 	const ANIM_OBJ_01_BLUE
 	const ANIM_OBJ_BONEMERANG
+	const ANIM_OBJ_ACCELEROCK ; c9
+	const ANIM_OBJ_SPLASH
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def
@@ -505,6 +507,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const BATTLEANIMFRAMESET_BA
 	const BATTLEANIMFRAMESET_BB
 	const BATTLEANIMFRAMESET_BC
+	const BATTLEANIMFRAMESET_BD
 
 ; BattleAnimOAMData indexes (see data/battle_anims/oam.asm)
 	const_def
@@ -725,6 +728,10 @@ NUM_ANIM_OBJECTS EQU 10
 	const BATTLEANIMOAMSET_D6
 	const BATTLEANIMOAMSET_D7
 	const BATTLEANIMOAMSET_D8
+	const BATTLEANIMOAMSET_D9
+	const BATTLEANIMOAMSET_E0
+	const BATTLEANIMOAMSET_E1
+	const BATTLEANIMOAMSET_E2
 
 ; BattleBGEffects indexes (see engine/battle_anims/bg_effects.asm)
 	const_def 1
@@ -823,6 +830,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_GFX_ANGELS
 	const ANIM_GFX_WAVE
 	const ANIM_GFX_AEROBLAST
+	const ANIM_GFX_SPLASH
 
 ; battle_bg_effect struct members (see macros/wram.asm)
 	const_def
