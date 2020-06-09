@@ -2102,7 +2102,7 @@ VaporeonEvosAttacks:
 	db 30, BITE
 	db 42, HAZE
 	db 47, ACID_ARMOR
-	db 47, QUICK_ATTACK
+	db 47, DOUBLE_EDGE
 	db 54, HYDRO_PUMP
 	db 0 ; no more level-up moves
 

@@ -7223,12 +7223,6 @@ GetMoveData:
 	ld e, a
 	farcall IsVariableMove
 	jr nc, .not_variable
-	ld a, BATTLE_VARS_TYPE1
-	call GetBattleVar
-	ld b, a
-	ld a, BATTLE_VARS_TYPE2
-	call GetBattleVar
-	ld c, a
 	predef GetVariableMoveType
 	jr nc, .not_variable
 	ld a, e

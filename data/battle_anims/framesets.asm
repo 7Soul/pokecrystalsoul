@@ -190,6 +190,7 @@ BattleAnimFrameData:
 	dw .Frameset_bb ; BATTLEANIMFRAMESET_BB
 	dw .Frameset_bc ; BATTLEANIMFRAMESET_BC
 	dw .Frameset_bd ; BATTLEANIMFRAMESET_BD
+	dw .Frameset_be ; BATTLEANIMFRAMESET_BE
 
 .Frameset_00:
 	frame BATTLEANIMOAMSET_00,  6
@@ -1318,9 +1319,20 @@ BattleAnimFrameData:
 	frame BATTLEANIMOAMSET_D8,  1, OAM_X_FLIP
 	dorestart
 	
-.Frameset_bd:
+.Frameset_bd: ; 2x2 tiles, mirrored into a 4x2
 	frame BATTLEANIMOAMSET_D9,  4
 	frame BATTLEANIMOAMSET_E0,  4
 	frame BATTLEANIMOAMSET_E1,  4
 	frame BATTLEANIMOAMSET_E2,  4
+	delanim
+	
+.Frameset_be: ; 2x2 tiles, not mirrored
+	frame BATTLEANIMOAMSET_E3,  3
+	frame BATTLEANIMOAMSET_E4,  3
+	frame BATTLEANIMOAMSET_E3,  5
+	frame BATTLEANIMOAMSET_E4,  5
+	frame BATTLEANIMOAMSET_E3,  7
+	frame BATTLEANIMOAMSET_E4,  7
+	frame BATTLEANIMOAMSET_E3,  8
+	frame BATTLEANIMOAMSET_E4,  8
 	delanim

@@ -2092,23 +2092,13 @@ BattleAnim_TakeDown:
 	anim_ret
 
 BattleAnim_DoubleEdge:
-	anim_1gfx ANIM_GFX_HIT
 	anim_call BattleAnim_FollowEnemyFeet_0
-	anim_if_param_equal FLYING, .brave_bird1
-	anim_if_param_equal GRASS, .wood_hammer
+	
+	anim_if_param_equal FLYING, .bravebird
+	anim_if_param_equal GRASS, .woodhammer
+; doubleedge
 	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $4, $10
-	anim_jump .double_edge
-.brave_bird1
-	anim_sound 0, 0, SFX_MENU
-	anim_bgeffect ANIM_BG_HIDE_MON, $0, $1, $0
-	anim_wait 16
-	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
-.wood_hammer
-	anim_sound 0, 1, SFX_SUBMISSION
-	anim_wait 6
-.double_edge
 	anim_1gfx ANIM_GFX_HIT
-	anim_bgeffect ANIM_BG_TACKLE, $0, $1, $0
 	anim_wait 3
 	anim_sound 0, 1, SFX_TACKLE
 	anim_obj ANIM_OBJ_00, 128, 48, $0
@@ -2117,6 +2107,48 @@ BattleAnim_DoubleEdge:
 	anim_obj ANIM_OBJ_00, 144, 48, $0
 	anim_wait 3
 	anim_call BattleAnim_ShowMon_0
+	anim_ret
+
+.bravebird
+	anim_1gfx ANIM_GFX_WIND
+	anim_sound 0, 0, SFX_MENU
+	anim_bgeffect ANIM_BG_TACKLE, $0, $1, $0
+	anim_wait 8
+	anim_bgeffect ANIM_BG_HIDE_MON, $0, $1, $0
+	anim_wait 8
+	anim_sound 0, 0, SFX_MENU
+	anim_obj ANIM_OBJ_RAPID_SPIN, 88, 100, $0
+	anim_wait 4
+	anim_obj ANIM_OBJ_RAPID_SPIN, 100+16, 100-15, $0
+	anim_wait 4
+	anim_obj ANIM_OBJ_RAPID_SPIN, 100+32, 100-30, $0
+	anim_wait 4
+	anim_obj ANIM_OBJ_RAPID_SPIN, 100+48, 100-45, $0
+	anim_wait 8
+	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
+	anim_ret
+
+.woodhammer
+	anim_2gfx ANIM_GFX_WOOD, ANIM_GFX_PLANT
+	anim_wait 12
+	anim_sound 0, 1, SFX_SUBMISSION
+	anim_wait 1
+	anim_obj ANIM_OBJ_WOOD, 128-12, 64, $30
+	anim_wait 1
+	anim_obj ANIM_OBJ_WOOD, 144-12, 48, $20
+	anim_wait 1
+	anim_obj ANIM_OBJ_WOOD, 160-12, 64, $30
+	anim_wait 8
+	anim_obj ANIM_OBJ_RAZOR_LEAF, 128-8, 48+8, $5c
+	anim_wait 1
+	anim_obj ANIM_OBJ_RAZOR_LEAF, 132-8, 62, $e8
+	anim_wait 1
+	anim_obj ANIM_OBJ_RAZOR_LEAF, 144-8, 48+8, $14
+	anim_wait 1
+	anim_obj ANIM_OBJ_RAZOR_LEAF, 112, 56, $28
+	anim_wait 2
+	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
+	anim_wait 32
 	anim_ret
 
 BattleAnim_Submission:
@@ -4595,7 +4627,7 @@ BattleAnim_HiddenPower:
 	anim_ret
 
 BattleAnim_CrossChop:
-	anim_if_param_equal $3, .stone_edge
+	anim_if_param_equal ROCK, .stone_edge
 	anim_1gfx ANIM_GFX_CUT
 	anim_sound 0, 1, SFX_CUT
 	anim_obj ANIM_OBJ_A0, 152, 40, $0

@@ -659,20 +659,10 @@ ListMoves:
 	ld e, a
 	farcall IsVariableMove
 	jr nc, .not_variable
-	pop de
-	pop hl
-
-	push hl
-	push de
-
-.got_types
-	ld a, [wCurType]
-	ld d, a
 	farcall GetVariableMoveType
 	jr nc, .not_variable
 	farcall GetVariableMoveName
 	pop af
-	ld a, [wCurType]
 	pop bc
 	pop de
 	pop hl

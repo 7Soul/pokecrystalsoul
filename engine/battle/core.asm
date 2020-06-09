@@ -5542,6 +5542,7 @@ CheckAmuletCoin:
 	ret
 
 MoveSelectionScreen:
+	call SetPlayerTurn
 	call IsMobileBattle
 	jr nz, .not_mobile
 	farcall MobileMoveSelectionScreen
