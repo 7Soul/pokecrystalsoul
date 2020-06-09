@@ -48,5 +48,6 @@ AnimObjGFX:
 	anim_obj_gfx 24, AnimObjAeroblastGFX
 	anim_obj_gfx 16, AnimObjSplashGFX
 	anim_obj_gfx  8, AnimObjWoodGFX
+	anim_obj_gfx  4, AnimObjSnowGFX
 	anim_obj_gfx  1, NULL
 	anim_obj_gfx  1, NULL

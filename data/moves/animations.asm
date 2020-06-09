@@ -2273,8 +2273,8 @@ BattleAnim_FuryAttack:
 	anim_ret
 
 BattleAnim_HornDrill:
-	anim_if_param_equal ROCK, .fissure
-	anim_if_param_equal ICE, .sheer_cold
+	anim_if_param_equal GROUND, .fissure
+	anim_if_param_equal ICE, .sheercold
 	anim_if_param_equal DARK, .guillotine
 
 	anim_2gfx ANIM_GFX_HORN, ANIM_GFX_HIT
@@ -2304,7 +2304,37 @@ BattleAnim_HornDrill:
 	anim_wait 24
 	anim_loop 4, .loop_fissure
 	anim_ret
-.sheer_cold
+.sheercold
+	anim_1gfx ANIM_GFX_SNOW
+.loop_sheercold
+	anim_sound 6, 2, SFX_SHINE
+	anim_obj ANIM_OBJ_SNOW, 16, 32, $09
+	anim_wait 6
+	anim_obj ANIM_OBJ_SNOW, 8, 64, $09
+	anim_wait 6
+	anim_loop 3, .loop_sheercold
+
+.loop_sheercold2
+	anim_sound 0, 1, SFX_SHINE
+	anim_obj ANIM_OBJ_SNOW, 16, 32, $0b
+	anim_wait 5
+	anim_sound 0, 1, SFX_SHINE
+	anim_obj ANIM_OBJ_SNOW, 8, 64, $0b
+	anim_wait 5
+	anim_loop 3, .loop_sheercold2
+
+.loop_sheercold3
+	anim_sound 0, 1, SFX_SHINE
+	anim_obj ANIM_OBJ_SNOW, 16, 32, $0c
+	anim_wait 3
+	anim_sound 0, 1, SFX_EMBER
+	anim_obj ANIM_OBJ_SNOW, 8, 64, $0c
+	anim_wait 3
+	anim_loop 3, .loop_sheercold3
+
+	anim_wait 8
+	anim_sound 0, 1, SFX_VICEGRIP
+	anim_wait 8
 	anim_ret
 .guillotine
 	anim_1gfx ANIM_GFX_CUT

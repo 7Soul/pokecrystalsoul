@@ -218,12 +218,13 @@ BattleAnimOAMData:
 	dbbw $00, 14, .OAMData_d6 ; BATTLEANIMOAMSET_D6
 	dbbw $00, 12, .OAMData_d7 ; BATTLEANIMOAMSET_D7
 	dbbw $04,  4, .OAMData_30 ; BATTLEANIMOAMSET_D8 ; bone
-	dbbw $00,  8, .OAMData_cd ; BATTLEANIMOAMSET_D9
-	dbbw $04,  8, .OAMData_cd ; BATTLEANIMOAMSET_E0
-	dbbw $08,  8, .OAMData_cd ; BATTLEANIMOAMSET_E1
-	dbbw $0C,  8, .OAMData_cd ; BATTLEANIMOAMSET_E2
-	dbbw $00,  4, .OAMData_03 ; BATTLEANIMOAMSET_E3
-	dbbw $04,  4, .OAMData_03 ; BATTLEANIMOAMSET_E4
+	dbbw $00,  8, .OAMData_cd ; BATTLEANIMOAMSET_D9 ; water spout
+	dbbw $04,  8, .OAMData_cd ; BATTLEANIMOAMSET_E0 ; water spout
+	dbbw $08,  8, .OAMData_cd ; BATTLEANIMOAMSET_E1 ; water spout
+	dbbw $0C,  8, .OAMData_cd ; BATTLEANIMOAMSET_E2 ; water spout
+	dbbw $00,  4, .OAMData_03 ; BATTLEANIMOAMSET_E3 ; wood
+	dbbw $04,  4, .OAMData_03 ; BATTLEANIMOAMSET_E4 ; wood
+	dbbw $00, 16, .OAMData_00 ; BATTLEANIMOAMSET_E5 ; snow
 
 .OAMData_11:
 	dsprite  -1, 0,  -1, 4, $00, $0

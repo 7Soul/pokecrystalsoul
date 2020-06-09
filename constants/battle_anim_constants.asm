@@ -233,6 +233,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_ACCELEROCK ; c9
 	const ANIM_OBJ_SPLASH
 	const ANIM_OBJ_WOOD
+	const ANIM_OBJ_SNOW
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def
@@ -510,6 +511,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const BATTLEANIMFRAMESET_BC
 	const BATTLEANIMFRAMESET_BD
 	const BATTLEANIMFRAMESET_BE
+	const BATTLEANIMFRAMESET_BF
 
 ; BattleAnimOAMData indexes (see data/battle_anims/oam.asm)
 	const_def
@@ -838,6 +840,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_GFX_AEROBLAST
 	const ANIM_GFX_SPLASH
 	const ANIM_GFX_WOOD
+	const ANIM_GFX_SNOW
 
 ; battle_bg_effect struct members (see macros/wram.asm)
 	const_def

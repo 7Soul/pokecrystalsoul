@@ -1411,6 +1411,10 @@ TraitSturdyNormal:
 	ret z
 ; fallthrough
 TraitSturdy:
+	ld a, [wAttackMissed]
+	and a
+	ret nz
+
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	ld a, TRAIT_STURDY
