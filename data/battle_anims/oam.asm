@@ -225,6 +225,7 @@ BattleAnimOAMData:
 	dbbw $00,  4, .OAMData_03 ; BATTLEANIMOAMSET_E3 ; wood
 	dbbw $04,  4, .OAMData_03 ; BATTLEANIMOAMSET_E4 ; wood
 	dbbw $00, 16, .OAMData_00 ; BATTLEANIMOAMSET_E5 ; snow
+	dbbw $00,  4, .OAMData_03_flipped ; BATTLEANIMOAMSET_E6 ; hand poiting down
 
 .OAMData_11:
 	dsprite  -1, 0,  -1, 4, $00, $0
@@ -239,6 +240,12 @@ BattleAnimOAMData:
 	dsprite  -1, 0,   0, 0, $01, $0
 	dsprite   0, 0,  -1, 0, $02, $0
 	dsprite   0, 0,   0, 0, $03, $0
+
+.OAMData_03_flipped:
+	dsprite  -1, 0,  -1, 0, $02, Y_FLIP
+	dsprite  -1, 0,   0, 0, $03, Y_FLIP
+	dsprite   0, 0,  -1, 0, $00, Y_FLIP
+	dsprite   0, 0,   0, 0, $01, Y_FLIP
 
 .OAMData_02:
 	dsprite  -1, 0,  -1, 0, $00, $0

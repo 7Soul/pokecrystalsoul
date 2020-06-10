@@ -12,7 +12,7 @@ BattleAnimations::
 	dba BattleAnim_Thunderpunch
 	dba BattleAnim_Scratch
 	dba BattleAnim_Vicegrip
-	dba BattleAnim_Guillotine
+	dba BattleAnim_Acupressure
 	dba BattleAnim_ChargeBeam
 	dba BattleAnim_SwordsDance
 	dba BattleAnim_AquaTail
@@ -2353,7 +2353,7 @@ BattleAnim_HornDrill:
 
 BattleAnim_PoisonSting:
 	anim_2gfx ANIM_GFX_HORN, ANIM_GFX_HIT
-	anim_obj ANIM_OBJ_60, 64, 92, $14
+	anim_obj ANIM_OBJ_PIN_MISSILE, 64, 92, $14
 	anim_wait 16
 	anim_sound 0, 1, SFX_POISON_STING
 	anim_obj ANIM_OBJ_05, 136, 56, $0
@@ -2363,8 +2363,8 @@ BattleAnim_PoisonSting:
 BattleAnim_Twineedle:
 	anim_2gfx ANIM_GFX_HORN, ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_POISON_STING
-	anim_obj ANIM_OBJ_60, 64, 92, $14
-	anim_obj ANIM_OBJ_60, 56, 84, $14
+	anim_obj ANIM_OBJ_PIN_MISSILE, 64, 92, $14
+	anim_obj ANIM_OBJ_PIN_MISSILE, 56, 84, $14
 	anim_wait 16
 	anim_sound 0, 1, SFX_POISON_STING
 	anim_obj ANIM_OBJ_05, 136, 56, $0
@@ -2375,13 +2375,13 @@ BattleAnim_Twineedle:
 BattleAnim_PinMissile:
 	anim_2gfx ANIM_GFX_HORN, ANIM_GFX_HIT
 .loop
-	anim_obj ANIM_OBJ_60, 64, 92, $28
+	anim_obj ANIM_OBJ_PIN_MISSILE, 64, 92, $28
 	anim_wait 8
-	anim_obj ANIM_OBJ_60, 56, 84, $28
+	anim_obj ANIM_OBJ_PIN_MISSILE, 56, 84, $28
 	anim_sound 0, 1, SFX_POISON_STING
 	anim_obj ANIM_OBJ_05, 136, 56, $0
 	anim_wait 8
-	anim_obj ANIM_OBJ_60, 52, 88, $28
+	anim_obj ANIM_OBJ_PIN_MISSILE, 52, 88, $28
 	anim_sound 0, 1, SFX_POISON_STING
 	anim_obj ANIM_OBJ_05, 128, 48, $0
 	anim_wait 8
@@ -2394,13 +2394,13 @@ BattleAnim_PinMissile:
 BattleAnim_SpikeCannon:
 	anim_2gfx ANIM_GFX_HORN, ANIM_GFX_HIT
 .loop
-	anim_obj ANIM_OBJ_60, 64, 92, $18
+	anim_obj ANIM_OBJ_PIN_MISSILE, 64, 92, $18
 	anim_wait 8
-	anim_obj ANIM_OBJ_60, 56, 84, $18
+	anim_obj ANIM_OBJ_PIN_MISSILE, 56, 84, $18
 	anim_sound 0, 1, SFX_POISON_STING
 	anim_obj ANIM_OBJ_05, 136, 56, $0
 	anim_wait 8
-	anim_obj ANIM_OBJ_60, 52, 88, $18
+	anim_obj ANIM_OBJ_PIN_MISSILE, 52, 88, $18
 	anim_sound 0, 1, SFX_POISON_STING
 	anim_obj ANIM_OBJ_05, 128, 48, $0
 	anim_wait 8
@@ -2617,6 +2617,7 @@ BattleAnim_Peck:
 	anim_ret
 
 BattleAnim_DrillPeck:
+	anim_if_param_equal GRASS, .seedbomb
 	anim_1gfx ANIM_GFX_HIT
 .loop
 	anim_sound 0, 1, SFX_PECK
@@ -2635,7 +2636,52 @@ BattleAnim_DrillPeck:
 	anim_wait 16
 	anim_ret
 
-BattleAnim_Guillotine:
+.seedbomb
+	anim_2gfx ANIM_GFX_PLANT, ANIM_GFX_EXPLOSION
+	anim_sound 6, 2, SFX_MENU
+	anim_obj ANIM_OBJ_SEED_BOMB, 48, 88, $24
+	anim_wait 8
+	anim_sound 3, 2, SFX_MENU
+	anim_obj ANIM_OBJ_SEED_BOMB, 48, 88, $30
+	anim_wait 8
+	anim_sound 1, 1, SFX_MENU
+	anim_obj ANIM_OBJ_SEED_BOMB, 48, 88, $2c
+	anim_wait 8
+	anim_sound 1, 1, SFX_MENU
+	anim_obj ANIM_OBJ_SEED_BOMB, 48, 88, $28
+
+	anim_wait 8
+	anim_sound 0, 0, SFX_OUTRAGE
+	anim_obj ANIM_OBJ_17, 120, 58, $0
+	anim_wait 8
+	anim_sound 0, 0, SFX_OUTRAGE
+	anim_obj ANIM_OBJ_17, 132, 64, $0
+	anim_wait 8
+	anim_sound 0, 0, SFX_OUTRAGE
+	anim_obj ANIM_OBJ_17, 128, 60, $0
+	anim_wait 8
+	anim_sound 0, 0, SFX_EGG_BOMB
+	anim_obj ANIM_OBJ_17, 124, 64, $0
+	anim_wait 16
+	anim_ret
+
+BattleAnim_Acupressure:
+	anim_2gfx ANIM_GFX_MISC, ANIM_GFX_NOISE
+	anim_sound 0, 0, SFX_MENU
+	anim_obj ANIM_OBJ_ACUPRESSURE, 50, 92, $12
+	anim_wait 34
+.loop
+	anim_sound 0, 0, SFX_GRASS_RUSTLE
+	anim_obj ANIM_OBJ_4B, 58, 100-6, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_4B, 58, 100, $1
+	anim_wait 3
+	anim_sound 0, 0, SFX_JUMP_OVER_LEDGE
+	anim_obj ANIM_OBJ_4B, 58, 100+6, $2
+	anim_wait 18
+	anim_loop 2, .loop
+	anim_sound 0, 0, SFX_GRASS_RUSTLE
+	anim_wait 8
 	anim_ret
 
 BattleAnim_MagmaStorm:
@@ -3182,9 +3228,9 @@ BattleAnim_Toxic:
 BattleAnim_Metronome:
 	anim_2gfx ANIM_GFX_MISC, ANIM_GFX_SPEED
 	anim_sound 0, 0, SFX_METRONOME
-	anim_obj ANIM_OBJ_7A, 72, 88, $0
+	anim_obj ANIM_OBJ_METRONOME, 72, 88, $0
 .loop
-	anim_obj ANIM_OBJ_7B, 72, 80, $0
+	anim_obj ANIM_OBJ_METRONOME_SPARKS, 72, 80, $0
 	anim_wait 8
 	anim_loop 5, .loop
 	anim_wait 48
