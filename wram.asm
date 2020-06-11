@@ -544,7 +544,6 @@ wPlayerDamageTaken:: dw ; c682
 wEnemyDamageTaken:: dw ; c684
 
 wBattleReward:: ds 3 ; c686
-wBattleAnimParam::
 wKickCounter::
 wSpecialWildBattle:: db ; c689 ; custom
 wBattleScriptBuffer:: ds 40 ; c68a
@@ -553,7 +552,7 @@ wBattleScriptBufferAddress:: dw ; c6b2
 
 wTurnEnded:: db ; c6b4
 
-	ds 1
+wBattleAnimParam:: db
 
 wPlayerStats:: ; c6b6
 wPlayerAttack:: dw
@@ -3075,6 +3074,7 @@ wBattleAnimLoops:: db ; d415
 wBattleAnimVar:: db ; d416
 wBattleAnimByte:: db ; d417
 wBattleAnimOAMPointerLo:: db ; d418
+wBattleAnimBank:: db
 
 UNION ; d419
 ; unidentified
@@ -3104,7 +3104,7 @@ wSurfWaveBGEffect:: ds $40
 wSurfWaveBGEffectEnd::
 ENDU ; d462
 
-wBattleAnimBank:: db
+
 
 SECTION "Mobile RAM", WRAMX
 

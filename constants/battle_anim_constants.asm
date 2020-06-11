@@ -84,23 +84,23 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_34
 	const ANIM_OBJ_CLAMP
 	const ANIM_OBJ_BITE
-	const ANIM_OBJ_37
-	const ANIM_OBJ_38
-	const ANIM_OBJ_39
-	const ANIM_OBJ_3A
-	const ANIM_OBJ_3B
-	const ANIM_OBJ_3C
-	const ANIM_OBJ_3D
+	const ANIM_OBJ_CUT_DOWN_LEFT
+	const ANIM_OBJ_CUT_DOWN_RIGHT
+	const ANIM_OBJ_CUT_UP
+	const ANIM_OBJ_CUT_LONG_LEFT
+	const ANIM_OBJ_CUT_LONG_RIGHT
+	const ANIM_OBJ_RADIAL_CIRCLES
+	const ANIM_OBJ_CIRCLE
 	const ANIM_OBJ_GUST
-	const ANIM_OBJ_3F
-	const ANIM_OBJ_40
-	const ANIM_OBJ_41
-	const ANIM_OBJ_42
+	const ANIM_OBJ_AIR_BLADE1
+	const ANIM_OBJ_AIR_BLADE2
+	const ANIM_OBJ_RAZOR_WIND1
+	const ANIM_OBJ_RAZOR_WIND2
 	const ANIM_OBJ_SONICBOOM_JP
 	const ANIM_OBJ_TELEPORT
 	const ANIM_OBJ_ABSORB
 	const ANIM_OBJ_EGG
-	const ANIM_OBJ_47
+	const ANIM_OBJ_FOCUS
 	const ANIM_OBJ_48
 	const ANIM_OBJ_49
 	const ANIM_OBJ_LEECH_SEED
@@ -236,6 +236,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_SNOW
 	const ANIM_OBJ_SEED_BOMB
 	const ANIM_OBJ_ACUPRESSURE
+	const ANIM_OBJ_FEATHER
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def
@@ -516,6 +517,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const BATTLEANIMFRAMESET_BE
 	const BATTLEANIMFRAMESET_BF
 	const BATTLEANIMFRAMESET_C0
+	const BATTLEANIMFRAMESET_C1
 
 ; BattleAnimOAMData indexes (see data/battle_anims/oam.asm)
 	const_def
@@ -744,6 +746,10 @@ NUM_ANIM_OBJECTS EQU 10
 	const BATTLEANIMOAMSET_E4
 	const BATTLEANIMOAMSET_E5
 	const BATTLEANIMOAMSET_E6
+	const BATTLEANIMOAMSET_E7
+	const BATTLEANIMOAMSET_E8
+	const BATTLEANIMOAMSET_E9
+	const BATTLEANIMOAMSET_EA
 
 ; BattleBGEffects indexes (see engine/battle_anims/bg_effects.asm)
 	const_def 1
@@ -845,6 +851,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_GFX_SPLASH
 	const ANIM_GFX_WOOD
 	const ANIM_GFX_SNOW
+	const ANIM_GFX_FEATHER
 
 ; battle_bg_effect struct members (see macros/wram.asm)
 	const_def

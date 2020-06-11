@@ -194,6 +194,7 @@ BattleAnimFrameData:
 	dw .Frameset_be ; BATTLEANIMFRAMESET_BE
 	dw .Frameset_bf ; BATTLEANIMFRAMESET_BF
 	dw .Frameset_c0 ; BATTLEANIMFRAMESET_C0
+	dw .Frameset_c1 ; BATTLEANIMFRAMESET_C1
 
 .Frameset_00:
 	frame BATTLEANIMOAMSET_00,  6
@@ -1351,3 +1352,45 @@ BattleAnimFrameData:
 .Frameset_c0:
 	frame BATTLEANIMOAMSET_E6,  8
 	endanim
+		
+.Frameset_c1: ; 2x2 tiles, not mirrored
+	frame BATTLEANIMOAMSET_E3,  6
+	frame BATTLEANIMOAMSET_E4,  6
+	frame BATTLEANIMOAMSET_E7,  6
+	frame BATTLEANIMOAMSET_E8,  6
+	frame BATTLEANIMOAMSET_E3,  6
+	frame BATTLEANIMOAMSET_E4,  6
+	frame BATTLEANIMOAMSET_E7,  6
+	frame BATTLEANIMOAMSET_E8,  6
+	frame BATTLEANIMOAMSET_E3,  6
+	dorepeat 1
+	frame BATTLEANIMOAMSET_E4,  6
+	dorepeat 1
+	frame BATTLEANIMOAMSET_E7,  6
+	dorepeat 1
+	frame BATTLEANIMOAMSET_E8,  6
+	dorepeat 1
+	frame BATTLEANIMOAMSET_E3,  6
+	dorepeat 1
+	frame BATTLEANIMOAMSET_E4,  6
+	dorepeat 1
+	frame BATTLEANIMOAMSET_E7,  6
+	dorepeat 1
+	frame BATTLEANIMOAMSET_E8,  6
+	dorepeat 2
+	frame BATTLEANIMOAMSET_E3,  6
+	dorepeat 2
+	frame BATTLEANIMOAMSET_E4,  6
+	dorepeat 2
+	frame BATTLEANIMOAMSET_E7,  6
+	dorepeat 2
+	frame BATTLEANIMOAMSET_E8,  6
+	dorepeat 2
+	frame BATTLEANIMOAMSET_E3,  6
+	dorepeat 2
+	frame BATTLEANIMOAMSET_E4,  6
+	dorepeat 2
+	frame BATTLEANIMOAMSET_E7,  6
+	dorepeat 2
+	frame BATTLEANIMOAMSET_E8,  6
+	delanim

@@ -3,7 +3,7 @@ BugContest_SetCaughtContestMon:
 	and a
 	jr z, .firstcatch
 	ld [wNamedObjectIndexBuffer], a
-	farcall DisplayAlreadyCaughtText
+	; farcall DisplayAlreadyCaughtText
 	farcall DisplayCaughtContestMonStats
 	lb bc, 14, 7
 	call PlaceYesNoBox

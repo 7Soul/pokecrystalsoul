@@ -1857,9 +1857,17 @@ BattleCommand_CheckHit:
 
 	cp EARTHQUAKE
 	ret z
-	; cp FISSURE
-	; ret z
 	cp MAGNITUDE
+	ret z
+	cp HORN_DRILL
+	jr z, .check_fissure1
+	jr .LockedOn
+
+.check_fissure1
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK
+	cp GROUND
 	ret z
 
 .LockedOn:
@@ -1915,10 +1923,17 @@ BattleCommand_CheckHit:
 
 	cp EARTHQUAKE
 	ret z
-	; cp FISSURE
-	; ret z
 	cp MAGNITUDE
-	ret
+	ret z
+	jr z, .check_fissure2
+	jr .LockedOn
+
+.check_fissure2
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK
+	cp GROUND
+	ret z
 
 .ThunderRain:
 ; Return z if the current move always hits in rain, and it is raining.
@@ -2194,20 +2209,9 @@ BattleCommand_MoveAnimNoSub:
 	xor a
 	ld [wKickCounter], a
 
-	; ld a, [wMoveType]
-	; ld a, BATTLE_VARS_MOVE_ANIM
-	; call GetBattleVar
-	; ld e, a ; move id in e
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK ; move type in a
-	; ld [wCurType], a
-
-	; ld a, [wMoveType] ; old type
-	; ld b, a
-	; ld a, [wCurType] ; new type
-	; cp b
-	; jr z, .triplekick
 	ld [wBattleAnimParam], a
 
 .triplekick
@@ -2269,6 +2273,10 @@ BattleCommand_StatUpDownAnim:
 	ld [wNumHits], a
 	xor a
 	ld [wKickCounter], a
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK ; move type in a
+	ld [wBattleAnimParam], a
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
 	ld e, a
