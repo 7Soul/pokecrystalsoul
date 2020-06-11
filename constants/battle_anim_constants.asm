@@ -237,6 +237,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_SEED_BOMB
 	const ANIM_OBJ_ACUPRESSURE
 	const ANIM_OBJ_FEATHER
+	const ANIM_OBJ_ENERGY_BALL
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def

@@ -3209,6 +3209,7 @@ BattleAnim_Makeshift:
 	anim_ret
 
 BattleAnim_Barrier:
+	anim_if_param_equal ROCK, .irondefense
 	anim_1gfx ANIM_GFX_REFLECT
 	anim_enemyfeetobj
 	anim_bgeffect ANIM_BG_06, $0, $2, $0
@@ -3219,6 +3220,23 @@ BattleAnim_Barrier:
 	anim_sound 0, 0, SFX_SHINE
 	anim_obj ANIM_OBJ_SCREEN, 72, 80, $0
 	anim_wait 32
+	anim_ret
+
+.irondefense
+	anim_2gfx ANIM_GFX_MISC, ANIM_GFX_REFLECT
+	anim_sound 0, 1, SFX_SPIDER_WEB
+.loop
+	anim_obj ANIM_OBJ_LOCK_ON, 48, 96, $3
+	anim_obj ANIM_OBJ_LOCK_ON, 48, 96, $12
+	anim_obj ANIM_OBJ_LOCK_ON, 48, 96, $20
+	anim_obj ANIM_OBJ_LOCK_ON, 48, 96, $31
+	anim_wait 40
+
+	anim_obp0 $0
+	anim_call BattleAnim_FollowEnemyFeet_0_bank2
+	anim_call BattleAnim_Harden_branch_cbc43
+	anim_call BattleAnim_ShowMon_0_bank2
+	anim_wait 8
 	anim_ret
 
 BattleAnim_DarkPulse: ; DARK PULSE
@@ -5349,6 +5367,7 @@ BattleAnim_Ancientpower:
 	anim_ret
 
 BattleAnim_ShadowBall:
+	anim_if_param_equal GRASS, .energyball
 	anim_2gfx ANIM_GFX_EGG, ANIM_GFX_SMOKE
 	anim_bgeffect ANIM_BG_NIGHT_SHADE, $0, $0, $8
 	anim_bgp $1b
@@ -5358,6 +5377,23 @@ BattleAnim_ShadowBall:
 	anim_obj ANIM_OBJ_BALL_POOF, 132, 56, $10
 	anim_incbgeffect ANIM_BG_NIGHT_SHADE
 	anim_wait 24
+	anim_ret
+
+.energyball
+	anim_2gfx ANIM_GFX_EGG, ANIM_GFX_SMOKE
+	anim_bgeffect ANIM_BG_WHITE_HUES, $0, $8, $0
+	anim_wait 16
+	
+	anim_obj ANIM_OBJ_ENERGY_BALL, 64, 92, $2
+.loop
+	anim_sound 0, 0, SFX_HYDRO_PUMP
+	anim_wait 6
+	anim_sound 0, 0, SFX_GIGA_DRAIN
+	anim_wait 6
+	anim_loop 4, .loop
+	anim_sound 0, 0, SFX_EGG_BOMB
+	anim_obj ANIM_OBJ_BALL_POOF, 132, 56, $0
+	anim_wait 16
 	anim_ret
 
 BattleAnim_FutureSight:
