@@ -2019,7 +2019,7 @@ BattleAnim_DizzyPunch:
 	anim_2gfx ANIM_GFX_STATUS, ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_MEGA_PUNCH
 	anim_obj ANIM_OBJ_HIT_BIG_YFIX, 136, 40, $0
-	anim_obj ANIM_OBJ_SMALL_YFIX, 136, 64, $0
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 136, 64, $0
 	anim_wait 16
 	anim_sound 0, 1, SFX_KINESIS
 	anim_obj ANIM_OBJ_CHICK, 136, 24, $15
@@ -2697,10 +2697,10 @@ BattleAnim_Kinesis:
 BattleAnim_Peck:
 	anim_1gfx ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_PECK
-	anim_obj ANIM_OBJ_SMALL_YFIX, 128, 48, $0
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 128, 48, $0
 	anim_wait 8
 	anim_sound 0, 1, SFX_PECK
-	anim_obj ANIM_OBJ_SMALL_YFIX, 136, 56, $0
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 136, 56, $0
 	anim_wait 16
 	anim_ret
 
@@ -2709,16 +2709,16 @@ BattleAnim_DrillPeck:
 	anim_1gfx ANIM_GFX_HIT
 .loop
 	anim_sound 0, 1, SFX_PECK
-	anim_obj ANIM_OBJ_SMALL_YFIX, 124, 56, $0
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 124, 56, $0
 	anim_wait 4
 	anim_sound 0, 1, SFX_PECK
-	anim_obj ANIM_OBJ_SMALL_YFIX, 132, 48, $0
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 132, 48, $0
 	anim_wait 4
 	anim_sound 0, 1, SFX_PECK
-	anim_obj ANIM_OBJ_SMALL_YFIX, 140, 56, $0
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 140, 56, $0
 	anim_wait 4
 	anim_sound 0, 1, SFX_PECK
-	anim_obj ANIM_OBJ_SMALL_YFIX, 132, 64, $0
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 132, 64, $0
 	anim_wait 4
 	anim_loop 5, .loop
 	anim_wait 16
@@ -4726,6 +4726,8 @@ BattleAnim_FellStinger:
 	anim_ret
 
 BattleAnim_FrozenTail:
+	anim_if_param_equal WATER, .razorshell
+	anim_if_param_equal FIGHTING, .spiralkick
 	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_ICE
 	anim_obp0 $0
 	anim_sound 0, 0, SFX_RAGE
@@ -4741,6 +4743,57 @@ BattleAnim_FrozenTail:
 	anim_wait 8
 	anim_incbgeffect ANIM_BG_26
 	anim_call BattleAnim_ShowMon_0_bank2
+	anim_wait 16
+	anim_ret
+
+.razorshell
+	anim_1gfx ANIM_GFX_CUT
+	anim_sound 0, 1, SFX_CUT
+	anim_obj ANIM_OBJ_CUT_LONG_LEFT, 152-4, 40-6, $0
+	anim_wait 12
+	anim_clearobjs
+	anim_1gfx ANIM_GFX_SPLASH
+	anim_sound 32, 2, SFX_WATER_GUN
+	anim_obj ANIM_OBJ_SPLASH, 128-4, 64+6, $0
+	anim_wait 16
+	anim_ret
+
+.spiralkick
+	anim_1gfx ANIM_GFX_HIT
+	anim_setvar 0
+.loop
+	anim_sound 0, 1, SFX_KARATE_CHOP
+	anim_if_var_equal $1, .hit_small
+	anim_obj ANIM_OBJ_HIT_YFIX, 132+24, 48-16, $0
+	anim_obj ANIM_OBJ_HIT_YFIX, 132-24, 48+16, $0
+	anim_obj ANIM_OBJ_FOOT, 132, 48-16, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_FOOT, 132+12, 48-12, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_FOOT, 132+12, 48+12, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_FOOT, 132, 48+16, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_FOOT, 132-16, 48, $0
+	anim_wait 3
+	anim_jump .after_hit
+.hit_small
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 132+24, 48+8, $0
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 132-24, 48-16, $0
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 132, 48+24, $0
+	anim_obj ANIM_OBJ_FOOT, 132, 48-16, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_FOOT, 132+16, 48, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_FOOT, 132, 48+16, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_FOOT, 132-12, 48+12, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_FOOT, 132-12, 48-12, $0
+	anim_wait 3
+.after_hit
+	anim_incvar
+	anim_loop 3, .loop
 	anim_wait 16
 	anim_ret
 

@@ -1315,7 +1315,7 @@ DoduoEvosAttacks:
 	db 10, RAGE
 	db 12, FURY_ATTACK
 	db 17, PURSUIT
-	db 22, SPIRAL_KICK
+	db 22, FROZEN_TAIL
 	db 28, ACUPRESSURE
 	db 32, DOUBLE_KICK ; becomes Double Hit
 	db 37, AGILITY
@@ -1328,7 +1328,7 @@ DodrioEvosAttacks:
 	db 0 ; no more evolutions
 	db 12, FURY_ATTACK
 	db 17, PURSUIT
-	db 22, SPIRAL_KICK
+	db 22, FROZEN_TAIL
 	db 28, ACUPRESSURE
 	db 34, DOUBLE_KICK ; becomes Double Hit
 	db 39, AGILITY
@@ -2099,10 +2099,10 @@ VaporeonEvosAttacks:
 	db 13, QUICK_ATTACK
 	db 18, JET_STREAM
 	db 21, AURORA_BEAM
+	db 30, FROZEN_TAIL
 	db 30, BITE
 	db 42, HAZE
 	db 47, ACID_ARMOR
-	db 47, DIZZY_PUNCH
 	db 54, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
