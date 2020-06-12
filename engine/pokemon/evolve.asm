@@ -509,6 +509,8 @@ FillEggMove:
 	push hl
 	push de
 	push bc
+	call GetPreEvolution
+	call GetPreEvolution
 	ld hl, EggMovePointers
 	ld a, [wCurPartySpecies]
 	dec a

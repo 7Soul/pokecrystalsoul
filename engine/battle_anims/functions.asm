@@ -923,7 +923,7 @@ BattleAnimFunction_RazorLeaf:
 .three
 	ld a, BATTLEANIMFRAMESET_16
 	call ReinitBattleAnimFrameset
-	ld hl, BATTLEANIMSTRUCT_01
+	ld hl, BATTLEANIMSTRUCT_FLAGS
 	add hl, bc
 	res 5, [hl]
 .four
@@ -1288,7 +1288,7 @@ Functioncd728:
 	ld hl, BATTLEANIMSTRUCT_YCOORD
 	add hl, bc
 	ld [hl], $30
-	ld hl, BATTLEANIMSTRUCT_01
+	ld hl, BATTLEANIMSTRUCT_FLAGS
 	add hl, bc
 	ld a, [hl]
 	and $1
@@ -1859,7 +1859,7 @@ Functioncda8d:
 	ld hl, BATTLEANIMSTRUCT_YOFFSET
 	add hl, bc
 	ld [hl], a
-	ld hl, BATTLEANIMSTRUCT_02
+	ld hl, BATTLEANIMSTRUCT_YFIX
 	add hl, bc
 	ld a, [hl]
 	add $2
@@ -1973,10 +1973,10 @@ Functioncdb28:
 	ret nc
 	inc [hl]
 	inc [hl]
-	ld hl, BATTLEANIMSTRUCT_01
+	ld hl, BATTLEANIMSTRUCT_FLAGS
 	add hl, bc
 	set 0, [hl]
-	ld hl, BATTLEANIMSTRUCT_02
+	ld hl, BATTLEANIMSTRUCT_YFIX
 	add hl, bc
 	ld [hl], $90
 	ld hl, BATTLEANIMSTRUCT_FRAME
@@ -2549,7 +2549,7 @@ Functioncde72:
 	ld a, [hl]
 	and a
 	jr nz, .asm_cde83
-	ld hl, BATTLEANIMSTRUCT_01
+	ld hl, BATTLEANIMSTRUCT_FLAGS
 	add hl, bc
 	set 6, [hl]
 .asm_cde83

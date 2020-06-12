@@ -351,7 +351,7 @@ BattleAnimCommands::
 	dw BattleAnimCmd_E7
 	dw BattleAnimCmd_UpdateActorPic
 	dw BattleAnimCmd_Minimize
-	dw BattleAnimCmd_EA ; dummy
+	dw BattleAnimCmd_IfKickCounterEqual ; dummy
 	dw BattleAnimCmd_EB ; dummy
 	dw BattleAnimCmd_EC ; dummy
 	dw BattleAnimCmd_ED ; dummy
@@ -374,7 +374,6 @@ BattleAnimCommands::
 	dw BattleAnimCmd_Call
 	dw BattleAnimCmd_Ret
 
-BattleAnimCmd_EA:
 BattleAnimCmd_EB:
 BattleAnimCmd_EC:
 BattleAnimCmd_ED:
@@ -538,6 +537,7 @@ BattleAnimCmd_IfVarEqual:
 BattleAnimCmd_IfParamEqual:
 	call GetBattleAnimByte
 	ld hl, wBattleAnimParam
+BattleAnimCmd_GotParam:
 	cp [hl]
 	jr z, .jump
 
@@ -1081,6 +1081,11 @@ BattleAnimCmd_Minimize:
 	ldh [rSVBK], a
 	ret
 
+BattleAnimCmd_IfKickCounterEqual:
+	call GetBattleAnimByte
+	ld hl, wKickCounter
+	jp BattleAnimCmd_GotParam
+	
 BattleAnimCmd_DropSub:
 	ldh a, [rSVBK]
 	push af

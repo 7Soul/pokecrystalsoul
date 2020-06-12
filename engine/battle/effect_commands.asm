@@ -2499,6 +2499,10 @@ GetFailureResultText:
 	call StdBattleTextBox
 	ld a, $1
 	ld [wKickCounter], a
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK ; move type in a
+	ld [wBattleAnimParam], a
 	call LoadMoveAnim
 	ld c, TRUE
 	ldh a, [hBattleTurn]

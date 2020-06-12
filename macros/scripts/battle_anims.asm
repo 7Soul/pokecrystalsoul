@@ -171,9 +171,11 @@ anim_minimize: MACRO
 	db anim_minimize_command
 ENDM
 
-	enum anim_0xea_command ; $ea
-anim_0xea: MACRO
-	db anim_0xea_command
+	enum anim_if_kickcounter_equal_command ; $ea
+anim_if_kickcounter_equal: MACRO
+	db anim_if_kickcounter_equal_command
+	db \1 ; value
+	dw \2 ; address
 ENDM
 
 	enum anim_0xeb_command ; $eb

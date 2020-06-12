@@ -685,7 +685,6 @@ SpinarakEggMoves:
 	db BATON_PASS
 	db PURSUIT
 	db SPARK
-	db TWINEEDLE
 	db -1 ; end
 
 ChinchouEggMoves:
