@@ -1841,6 +1841,7 @@ BattleAnim_Confusion:
 	anim_ret
 
 BattleAnim_Constrict:
+	anim_if_param_equal GRASS, .powerwhip
 	anim_1gfx ANIM_GFX_ROPE
 	anim_sound 0, 1, SFX_BIND
 	anim_obj ANIM_OBJ_49, 132, 64, $0
@@ -1851,6 +1852,30 @@ BattleAnim_Constrict:
 	anim_wait 8
 	anim_obj ANIM_OBJ_48, 132, 56, $0
 	anim_wait 64
+	anim_ret
+
+.powerwhip
+	anim_2gfx ANIM_GFX_ROPE, ANIM_GFX_WHIP
+	anim_obj ANIM_OBJ_48, 132, 48, $0
+	anim_sound 0, 2, SFX_VINE_WHIP
+	anim_wait 5
+	anim_obj ANIM_OBJ_RAZOR_WIND1, 128-8, 32, $0
+	anim_wait 5
+	anim_obj ANIM_OBJ_RAZOR_WIND2, 128+16, 48, $0
+	anim_wait 5
+	anim_obj ANIM_OBJ_RAZOR_WIND1, 128-16, 58, $0
+	anim_wait 8
+	anim_clearobjs
+	anim_wait 16
+	anim_obj ANIM_OBJ_49, 132, 52, $0
+	anim_sound 0, 2, SFX_VINE_WHIP
+	anim_wait 5
+	anim_obj ANIM_OBJ_RAZOR_WIND1, 128-12, 64, $0
+	anim_wait 5
+	anim_obj ANIM_OBJ_RAZOR_WIND1, 128-12, 52, $0
+	anim_wait 5
+	anim_obj ANIM_OBJ_RAZOR_WIND2, 128+16, 48, $0
+	anim_wait 16
 	anim_ret
 
 BattleAnim_Earthquake:
@@ -2875,10 +2900,32 @@ BattleAnim_NightShade:
 	anim_ret
 
 BattleAnim_Lick:
+	anim_if_param_equal ELECTRIC, .shocksting
 	anim_1gfx ANIM_GFX_WATER
 	anim_sound 0, 1, SFX_LICK
 	anim_obj ANIM_OBJ_LICK, 136, 56, $0
 	anim_wait 64
+	anim_ret
+
+.shocksting
+	anim_1gfx ANIM_GFX_BEAM
+	anim_bgeffect ANIM_BG_ALTERNATE_HUES, $0, $2, $0
+	anim_sound 0, 1, SFX_THUNDERSHOCK
+.loop
+	anim_obj ANIM_OBJ_BEAM_IMPACT, 130+10, 54-8, $0
+	anim_wait 3
+	anim_clearobjs
+	anim_obj ANIM_OBJ_BEAM_IMPACT_FLIP, 122-2, 50+4, $0
+	anim_wait 3
+	anim_clearobjs
+	anim_obj ANIM_OBJ_BEAM_IMPACT, 130+14, 54-9, $0
+	anim_wait 3
+	anim_clearobjs
+	anim_obj ANIM_OBJ_BEAM_IMPACT_FLIP, 122-4, 50+3, $0
+	anim_wait 3
+	anim_clearobjs
+	anim_loop 4, .loop
+	anim_wait 8
 	anim_ret
 
 BattleAnim_TriAttack:
@@ -3207,6 +3254,7 @@ BattleAnim_DefenseCurl:
 	anim_ret
 
 BattleAnim_SeismicToss:
+	anim_if_param_equal ROCK, .rocktumble
 	anim_2gfx ANIM_GFX_GLOBE, ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_20, $10, $1, $20
 	anim_sound 0, 0, SFX_STRENGTH
@@ -3218,6 +3266,21 @@ BattleAnim_SeismicToss:
 	anim_obj ANIM_OBJ_HIT_BIG_YFIX, 132, 40, $0
 	anim_wait 16
 	anim_ret
+
+.rocktumble
+	anim_2gfx ANIM_GFX_ROCKS, ANIM_GFX_HIT
+	anim_wait 6
+	anim_sound 0, 0, SFX_SPARK
+	anim_obj ANIM_OBJ_ANCIENTPOWER, 132, 64, $24
+	anim_wait 16
+	anim_obj ANIM_OBJ_HIT_YFIX, 132+9, 40-2, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 132-8, 48, $0
+	anim_wait 5
+	anim_obj ANIM_OBJ_HIT_YFIX, 132+6, 52, $0
+	anim_wait 16
+	anim_ret
+
 
 BattleAnim_Rage:
 	anim_1gfx ANIM_GFX_HIT
@@ -3239,6 +3302,7 @@ BattleAnim_Rage:
 	anim_ret
 
 BattleAnim_Agility:
+	anim_if_param_equal ROCK, .rockpolish
 	anim_1gfx ANIM_GFX_WIND
 	anim_obp0 $fc
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
@@ -3256,6 +3320,24 @@ BattleAnim_Agility:
 	anim_wait 4
 	anim_loop 18, .loop
 	anim_incbgeffect ANIM_BG_18
+	anim_call BattleAnim_ShowMon_0_bank2
+	anim_ret
+
+.rockpolish
+	anim_1gfx ANIM_GFX_SHINE
+	anim_sound 0, 0, SFX_FORESIGHT
+	anim_wait 4
+	anim_call BattleAnim_FollowEnemyFeet_0_bank2
+	anim_bgeffect ANIM_BG_WAVE_DEFORM_USER, $0, $1, $0
+	anim_wait 12
+	anim_obj ANIM_OBJ_FORESIGHT, 64, 88, $0
+	anim_wait 12
+	anim_obj ANIM_OBJ_FORESIGHT, 64-24, 88-8, $0
+	anim_wait 12
+	anim_obj ANIM_OBJ_FORESIGHT, 64-12, 88+12, $0
+	anim_wait 12
+	anim_incbgeffect ANIM_BG_WAVE_DEFORM_USER
+	anim_wait 48
 	anim_call BattleAnim_ShowMon_0_bank2
 	anim_ret
 
@@ -5130,8 +5212,8 @@ BattleAnim_ScaryFace_branch_cbadc:
 	anim_obj ANIM_OBJ_4E, 96, 64, $0
 	anim_obj ANIM_OBJ_4E, 120, 60, $0
 	anim_obj ANIM_OBJ_4E, 112, 56, $0
-	anim_obj ANIM_OBJ_4F, 130, 54, $0
-	anim_obj ANIM_OBJ_4F, 122, 50, $0
+	anim_obj ANIM_OBJ_BEAM_IMPACT, 130, 54, $0
+	anim_obj ANIM_OBJ_BEAM_IMPACT, 122, 50, $0
 	anim_ret
 
 BattleAnim_Fly_branch_cbb12:

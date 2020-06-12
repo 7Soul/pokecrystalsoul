@@ -2079,7 +2079,7 @@ EeveeEvosAttacks:
 	db 1, TACKLE
 	db 1, TAIL_WHIP
 	db 1, GROWL
-	db 8, SAND_ATTACK	
+	db 8, SAND_ATTACK
 	db 13, QUICK_ATTACK
 	db 17, SWIFT
 	db 25, TAKE_DOWN	

@@ -228,6 +228,8 @@ BattleAnimOAMData:
 	dbbw $00,  4, .OAMData_03_flipped ; BATTLEANIMOAMSET_E6 ; hand poiting down
 	dbbw $08,  4, .OAMData_03 ; BATTLEANIMOAMSET_E7 ; 
 	dbbw $0C,  4, .OAMData_03 ; BATTLEANIMOAMSET_E8 ; 
+	dbbw $04,  6, .OAMData_31_f ; BATTLEANIMOAMSET_E9
+	
 
 .OAMData_11:
 	dsprite  -1, 0,  -1, 4, $00, $0
@@ -459,6 +461,14 @@ BattleAnimOAMData:
 	dsprite  -1, 4,   0, 0, $03, $0
 	dsprite   0, 4,  -1, 0, $04, $0
 	dsprite   0, 4,   0, 0, $05, $0
+
+.OAMData_31_f:
+	dsprite  -2, 4,   0, 0, $00, X_FLIP
+	dsprite  -2, 4,  -1, 0, $01, X_FLIP
+	dsprite  -1, 4,   0, 0, $02, X_FLIP
+	dsprite  -1, 4,  -1, 0, $03, X_FLIP
+	dsprite   0, 4,   0, 0, $04, X_FLIP
+	dsprite   0, 4,  -1, 0, $05, X_FLIP
 
 .OAMData_76:
 	dsprite  -1, 5,  -1, 0, $00, $0

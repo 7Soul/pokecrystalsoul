@@ -108,7 +108,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_WAVE
 	const ANIM_OBJ_CONFUSE_RAY
 	const ANIM_OBJ_4E
-	const ANIM_OBJ_4F
+	const ANIM_OBJ_BEAM_IMPACT
 	const ANIM_OBJ_SCREEN
 	const ANIM_OBJ_HARDEN
 	const ANIM_OBJ_CHICK
@@ -241,6 +241,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_MUD
 	const ANIM_OBJ_SAND_SIMPLE
 	const ANIM_OBJ_HURRICANE
+	const ANIM_OBJ_BEAM_IMPACT_FLIP
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def
@@ -522,6 +523,7 @@ NUM_ANIM_OBJECTS EQU 10
 	const BATTLEANIMFRAMESET_BF
 	const BATTLEANIMFRAMESET_C0
 	const BATTLEANIMFRAMESET_C1
+	const BATTLEANIMFRAMESET_C2
 
 ; BattleAnimOAMData indexes (see data/battle_anims/oam.asm)
 	const_def
