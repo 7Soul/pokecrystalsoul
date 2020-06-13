@@ -2190,10 +2190,16 @@ BattleCommand_MoveAnimNoSub:
 
 .got_rollout_count
 	ld [wNumHits], a
+
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK ; move type in a
+	ld [wBattleAnimParam], a
+
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
-	; cp EFFECT_MULTI_HIT
-	; jr z, .alternate_anim
+	cp EFFECT_MULTI_HIT
+	jr z, .alternate_anim
 	cp EFFECT_CONVERSION
 	jr z, .alternate_anim
 	cp EFFECT_TRIPLE_KICK
@@ -2208,11 +2214,6 @@ BattleCommand_MoveAnimNoSub:
 	jr z, .alternate_anim
 	xor a
 	ld [wKickCounter], a
-
-	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVar
-	and TYPE_MASK ; move type in a
-	ld [wBattleAnimParam], a
 
 .triplekick
 	ld a, BATTLE_VARS_MOVE_ANIM
@@ -5963,10 +5964,6 @@ BattleCommand_Charge:
 	ld hl, .Solarbeam
 	jr z, .done
 
-	cp SKULL_BASH
-	ld hl, .SkullBash
-	jr z, .done
-
 	cp SKY_ATTACK
 	ld hl, .SkyAttack
 	jr z, .done
@@ -5978,7 +5975,19 @@ BattleCommand_Charge:
 	cp DIG
 	ld hl, .Dig
 
+	cp SKULL_BASH
+	ld hl, .SkullBash
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK
+	cp GRASS
+	jr z, .brutalvine
+
 .done
+	ret
+
+.brutalvine
+	ld hl, .BrutalVine
 	ret
 
 .Solarbeam:
@@ -5988,7 +5997,12 @@ BattleCommand_Charge:
 
 .SkullBash:
 ; 'lowered its head!'
-	text_jump UnknownText_0x1c0d3a
+	text_jump Text_LoweredItsHead
+	db "@"
+
+.BrutalVine:
+; 'lowered its head!'
+	text_jump Text_VinesWaveAround
 	db "@"
 
 .SkyAttack:

@@ -1347,7 +1347,7 @@ SeelEvosAttacks:
 	db 15, QUICK_ATTACK ; becomes Ice Shard
 	db 18, AURORA_BEAM
 	db 21, REST
-	db 27, WATERFALL
+	db 27, DARK_PULSE ; becomes Waterfall
 	db 32, TAKE_DOWN
 	db 37, ICE_BEAM
 	db 43, AQUA_TAIL
@@ -1359,7 +1359,7 @@ DewgongEvosAttacks:
 	db 0 ; no more evolutions
 	db 18, AURORA_BEAM
 	db 21, REST
-	db 27, WATERFALL
+	db 27, DARK_PULSE ; becomes Waterfall
 	db 32, TAKE_DOWN
 	db 33, HORN_DRILL ; becomes Sheer Cold
 	db 38, ICE_BEAM
@@ -1719,10 +1719,11 @@ WeezingEvosAttacks:
 	db 1, SELFDESTRUCT
 	db 27, SMOKESCREEN
 	db 31, WILL_O_WISP
-	db 35, HAZE
-	db 37, ROLLOUT
-	db 43, EXPLOSION
-	db 48, SUNNY_DAY
+	db 33, DOUBLE_KICK ; becomes Double Hit
+	db 36, HAZE
+	db 39, ROLLOUT
+	db 45, EXPLOSION
+	db 50, SUNNY_DAY
 	db 54, FIRE_FLICK
 	db 0 ; no more level-up moves
 
@@ -1819,6 +1820,7 @@ HorseaEvosAttacks:
 	db 26, FOCUS_ENERGY
 	db 29, TWISTER
 	db 33, AGILITY
+	db 35, DARK_PULSE ; becomes Waterfall
 	db 43, HYDRO_PUMP
 	db 48, EXTREMESPEED
 	db 0 ; no more level-up moves
@@ -1833,6 +1835,7 @@ SeadraEvosAttacks:
 	db 29, FOCUS_ENERGY
 	db 33, TWISTER
 	db 37, AGILITY
+	db 40, DARK_PULSE ; becomes Waterfall
 	db 48, HYDRO_PUMP
 	db 53, SPARK
 	db 60, EXTREMESPEED
@@ -2099,8 +2102,8 @@ VaporeonEvosAttacks:
 	db 13, QUICK_ATTACK
 	db 18, JET_STREAM
 	db 21, AURORA_BEAM
-	db 30, FROZEN_TAIL
 	db 30, BITE
+	db 35, DARK_PULSE ; becomes Waterfall
 	db 42, HAZE
 	db 47, ACID_ARMOR
 	db 54, HYDRO_PUMP
@@ -3633,6 +3636,7 @@ KingdraEvosAttacks:
 	db 1, LEER
 	db 32, TWISTER
 	db 38, AGILITY
+	db 41, DARK_PULSE ; becomes Waterfall
 	db 44, AQUA_TAIL
 	db 49, PRISM_LIGHT
 	db 55, ICE_BEAM

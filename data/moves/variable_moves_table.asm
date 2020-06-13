@@ -15,7 +15,7 @@ VariableMoves::
 	db FEATHERGALE ; Bonemerang
 	db SHADOW_BALL ; Energy Ball
 	db REVERSAL ; Flail
-	db ICY_WIND ; Mud Shot, Mega Splash ; todo anim
+	db ICY_WIND ; Mud Shot, Mega Splash
 	db JUMP_KICK ; Sand Dive
 	db DIZZY_PUNCH ; Hurricane
 	db FROZEN_TAIL ; Razor Shell, Spiral Kick
@@ -23,9 +23,9 @@ VariableMoves::
 	db AGILITY ; Rock Polish
 	db LICK ; Shock Sting
 	db SEISMIC_TOSS ; Rock Tumble
-	db SKULL_BASH ; Brutal Vine ; todo anim
-	db DOUBLE_KICK ; Double Hit ; todo anim
-	db DARK_PULSE ; Waterfall ; todo anim
+	db SKULL_BASH ; Brutal Vine
+	db DOUBLE_KICK ; Double Hit
+	db DARK_PULSE ; Waterfall
 	db -1
 
 VariableTypesByName:
@@ -60,10 +60,10 @@ VariableTypesByName:
 	db CONSTRICT, POWER_WHIP, LICKITUNG, TANGELA, -1
 	db AGILITY, ROCK_POLISH, AERODACTYL, -1
 	db LICK, SHOCK_STING, TENTACOOL, TENTACRUEL, SANDSHREW, SANDSLASH, -1
-	db SEISMIC_TOSS, ROCK_TUMBLE, VAPOREON, ARIADOS, ONIX, STEELIX, -1
+	db SEISMIC_TOSS, ROCK_TUMBLE, ONIX, STEELIX, -1
 	db SKULL_BASH, BRUTAL_VINE, TANGELA, -1
-	db DOUBLE_KICK, DOUBLE_HIT, DODUO, DODRIO, -1
-	db DARK_PULSE, WATERFALL, DODUO, DODRIO, -1
+	db DOUBLE_KICK, DOUBLE_HIT, KIFFING, WEEZING, DODUO, DODRIO, -1
+	db DARK_PULSE, WATERFALL, SEEL, DEWGONG, GOLDEEN, SEAKING, HORSEA, SEADRA, VAPOREON, KINGDRA -1
 	db -2
 
  ; needs animations:

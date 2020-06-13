@@ -1127,7 +1127,7 @@ BattleAnimFunction_0C:
 	ld [hl], d
 	ret
 
-BattleAnimFunction_0D:
+BattleAnimFunction_0D: ; Surf
 	call BattleAnim_AnonJumptable
 .anon_dw
 	dw .zero
@@ -1149,11 +1149,14 @@ BattleAnimFunction_0D:
 	ld hl, BATTLEANIMSTRUCT_PARAM
 	add hl, bc
 	ld e, [hl]
+	cp $1
+	jr .special
 	ld hl, BATTLEANIMSTRUCT_YCOORD
 	add hl, bc
 	ld a, [hl]
 	cp e
 	jr nc, .asm_cd69b
+.special
 	call BattleAnim_IncAnonJumptableIndex
 	xor a
 	ldh [hLYOverrideStart], a

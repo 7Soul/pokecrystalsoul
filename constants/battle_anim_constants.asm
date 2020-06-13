@@ -242,6 +242,8 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_SAND_SIMPLE
 	const ANIM_OBJ_HURRICANE
 	const ANIM_OBJ_BEAM_IMPACT_FLIP
+	const ANIM_OBJ_BEAM_IMPACT_YFIX
+	const ANIM_OBJ_BEAM_IMPACT_FLIP_YFIX
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def

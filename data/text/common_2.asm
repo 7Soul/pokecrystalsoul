@@ -698,9 +698,14 @@ UnknownText_0x1c0d26::
 	line "took in sunlight!"
 	prompt
 
-UnknownText_0x1c0d3a::
+Text_LoweredItsHead::
 	text_start
 	line "lowered its head!"
+	prompt
+
+Text_VinesWaveAround::
+	text_start
+	line "expands its vines!"
 	prompt
 
 UnknownText_0x1c0d4e::
