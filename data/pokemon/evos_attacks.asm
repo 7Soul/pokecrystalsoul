@@ -164,7 +164,7 @@ CaterpieEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, STRING_SHOT
-	db 5, PIN_MISSILE
+	db 5, DOUBLESLAP ; becomes Pin Missile
 	db 9, LEECH_LIFE
 	db 14, NASTY_PLOT
 	db 19, PURSUIT
@@ -179,7 +179,7 @@ MetapodEvosAttacks:
 	db EVOLVE_LEVEL, 10, BUTTERFREE
 	db 0 ; no more evolutions
 	db 1, HARDEN
-	db 5, PIN_MISSILE
+	db 5, DOUBLESLAP ; becomes Pin Missile
 	db 6, HARDEN
 	db 9, LEECH_LIFE
 	db 14, NASTY_PLOT
@@ -249,7 +249,7 @@ BeedrillEvosAttacks:
 	db 23, VENOSHOCK
 	db 28, ZOOM_FLIGHT
 	db 30, PURSUIT
-	db 35, PIN_MISSILE
+	db 35, DOUBLESLAP ; becomes Pin Missile
 	db 41, AGILITY
 	db 44, FELL_STINGER
 	db 51, SKY_ATTACK
@@ -1164,7 +1164,7 @@ GeodudeEvosAttacks:
 	db 16, MAGNITUDE
 	db 24, SELFDESTRUCT
 	db 26, HARDEN
-	db 29, ROCK_BLAST
+	db 29, DOUBLESLAP ; becomes Rock Blast
 	db 34, EARTHQUAKE
 	db 36, EXPLOSION
 	db 40, DOUBLE_EDGE ; changes to wood hammer
@@ -1179,7 +1179,7 @@ GravelerEvosAttacks:
 	db 16, MAGNITUDE
 	db 24, SELFDESTRUCT
 	db 27, HARDEN
-	db 31, ROCK_BLAST
+	db 31, DOUBLESLAP ; becomes Rock Blast
 	db 36, EARTHQUAKE
 	db 40, EXPLOSION
 	db 45, DOUBLE_EDGE
@@ -1190,7 +1190,7 @@ GolemEvosAttacks:
 	db 0 ; no more evolutions
 	db 24, SELFDESTRUCT
 	db 27, HARDEN
-	db 31, ROCK_BLAST
+	db 31, DOUBLESLAP ; becomes Rock Blast
 	db 36, EARTHQUAKE
 	db 44, EXPLOSION
 	db 59, DOUBLE_EDGE
@@ -1630,7 +1630,7 @@ CuboneEvosAttacks:
 	db 21, FEATHERGALE ; becomes Bonemerang
 	db 24, LEAF_SHIELD	
 	db 27, FALSE_SWIPE
-	db 37, ROCK_BLAST ; becomes Bone Rush
+	db 37, DOUBLESLAP ; becomes Bone Rush
 	db 42, SKULL_BASH
 	db 45, DOUBLE_EDGE ; becomes Wood Hammer
 	db 50, EARTHQUAKE
@@ -1642,7 +1642,7 @@ MarowakEvosAttacks:
 	db 21, FEATHERGALE ; becomes Bonemerang
 	db 24, LEAF_SHIELD	
 	db 27, FALSE_SWIPE
-	db 38, ROCK_BLAST ; becomes Bone Rush
+	db 38, DOUBLESLAP ; becomes Bone Rush
 	db 44, SKULL_BASH
 	db 49, DOUBLE_EDGE ; becomes Wood Hammer
 	db 55, EARTHQUAKE
@@ -1734,7 +1734,7 @@ RhyhornEvosAttacks:
 	db 1, TAIL_WHIP
 	db 8, STOMP
 	db 12, FURY_ATTACK
-	db 18, ROCK_BLAST
+	db 18, DOUBLESLAP ; becomes Rock Blast
 	db 22, SCARY_FACE
 	db 26, ROCK_TOMB
 	db 30, STAMPEDE
@@ -2119,7 +2119,7 @@ JolteonEvosAttacks:
 	db 19, SHARPEN
 	db 23, QUICK_ATTACK
 	db 30, DOUBLE_KICK
-	db 36, PIN_MISSILE
+	db 36, DOUBLESLAP ; becomes Pin Missile
 	db 42, THUNDER_WAVE
 	db 47, AGILITY
 	db 52, THUNDER
@@ -2172,7 +2172,7 @@ OmanyteEvosAttacks:
 	db 28, JET_STREAM
 	db 32, PROTECT
 	db 37, ANCIENTPOWER
-	db 46, ROCK_BLAST
+	db 46, DOUBLESLAP ; becomes Rock Blast
 	db 52, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -2183,7 +2183,7 @@ OmastarEvosAttacks:
 	db 28, JET_STREAM
 	db 32, PROTECT
 	db 38, ANCIENTPOWER
-	db 48, ROCK_BLAST
+	db 48, DOUBLESLAP ; becomes Rock Blast
 	db 55, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -3329,7 +3329,7 @@ QwilfishEvosAttacks:
 	db 9, MINIMIZE
 	db 15, WATER_GUN
 	db 19, ROLLOUT
-	db 25, PIN_MISSILE
+	db 25, DOUBLESLAP ; becomes Pin Missile
 	db 29, REVERSAL ; becomes Flail
 	db 33, JET_STREAM
 	db 38, TAKE_DOWN
@@ -3364,7 +3364,7 @@ ShuckleEvosAttacks: ; done
 	db 16, SAFEGUARD
 	db 23, ROCK_THROW
 	db 27, LEAF_SHIELD
-	db 30, ROCK_BLAST
+	db 30, DOUBLESLAP ; becomes Rock Blast
 	db 37, REST
 	db 42, BUG_BUZZ
 	db 45, SKULL_BASH
@@ -3381,7 +3381,7 @@ HeracrossEvosAttacks:
 	db 19, FURY_ATTACK
 	db 23, COUNTER
 	db 28, BRICK_BREAK
-	db 31, PIN_MISSILE
+	db 31, DOUBLESLAP ; becomes Pin Missile
 	db 34, TAKE_DOWN
 	db 37, MEGAHORN
 	db 43, CLOSE_COMBAT
@@ -3508,7 +3508,7 @@ CorsolaEvosAttacks:
 	db 17, BUBBLEBEAM
 	db 20, ANCIENTPOWER
 	db 29, ACID_ARMOR
-	db 31, ROCK_BLAST
+	db 31, DOUBLESLAP ; becomes Rock
 	db 35, ENDURE
 	db 38, JET_STREAM
 	db 43, POWER_GEM

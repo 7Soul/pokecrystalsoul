@@ -358,7 +358,7 @@ ShellderEggMoves:
 	db RAPID_SPIN
 	db SCREECH
 	db MUD_BOMB
-	db ROCK_BLAST
+	db DOUBLESLAP ; becomes Rock Blast
 	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
 
@@ -834,7 +834,7 @@ GirafarigEggMoves:
 
 PinecoEggMoves:
 	db REFLECT
-	db PIN_MISSILE
+	db DOUBLESLAP ; becomes Pin Missile
 	db REVERSAL
 	db SWIFT
 	db ENDURE

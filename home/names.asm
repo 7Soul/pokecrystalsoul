@@ -304,6 +304,9 @@ GetVariableMoveName::
 	ret
 
 .VariableMovesText:
+	db "Bone Rush@"
+	db "Pin Missile@"
+	db "Rock Blast@"
 	db "Tide Clash@"
 	db "Flutter Clap@"
 	db "Stone Edge@"
@@ -322,7 +325,6 @@ GetVariableMoveName::
 	db "Guillotine@"	
 	db "Withdraw@"
 	db "Iron Defense@"
-	db "Bone Rush@"
 	db "Bonemerang@"
 	db "Energy Ball@"
 	db "Flail@"

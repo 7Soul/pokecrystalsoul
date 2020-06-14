@@ -512,33 +512,33 @@ DexEntryScreen_MenuActionJumptable:
 	call Pokedex_GetSGBLayout
 	ret
 
-.Print:
-	call Pokedex_ApplyPrintPals
-	xor a
-	ldh [hSCX], a
-	ld a, [wPrevDexEntryBackup]
-	push af
-	ld a, [wPrevDexEntryJumptableIndex]
-	push af
-	ld a, [wJumptableIndex]
-	push af
-	farcall PrintDexEntry
-	pop af
-	ld [wJumptableIndex], a
-	pop af
-	ld [wPrevDexEntryJumptableIndex], a
-	pop af
-	ld [wPrevDexEntryBackup], a
-	call ClearBGPalettes
-	call DisableLCD
-	call Pokedex_LoadInvertedFont
-	call Pokedex_RedisplayDexEntry
-	call EnableLCD
-	call WaitBGMap
-	ld a, POKEDEX_SCX
-	ldh [hSCX], a
-	call Pokedex_ApplyUsualPals
-	ret
+; .Print:
+; 	call Pokedex_ApplyPrintPals
+; 	xor a
+; 	ldh [hSCX], a
+; 	ld a, [wPrevDexEntryBackup]
+; 	push af
+; 	ld a, [wPrevDexEntryJumptableIndex]
+; 	push af
+; 	ld a, [wJumptableIndex]
+; 	push af
+; 	farcall PrintDexEntry
+; 	pop af
+; 	ld [wJumptableIndex], a
+; 	pop af
+; 	ld [wPrevDexEntryJumptableIndex], a
+; 	pop af
+; 	ld [wPrevDexEntryBackup], a
+; 	call ClearBGPalettes
+; 	call DisableLCD
+; 	call Pokedex_LoadInvertedFont
+; 	call Pokedex_RedisplayDexEntry
+; 	call EnableLCD
+; 	call WaitBGMap
+; 	ld a, POKEDEX_SCX
+; 	ldh [hSCX], a
+; 	call Pokedex_ApplyUsualPals
+; 	ret
 
 
 Pokedex_RedisplayDexEntry:
@@ -1199,10 +1199,10 @@ Pokedex_DrawDexEntryScreenBG:
 	; call Pokedex_PlaceFrontpicTopLeftCorner
 	ret
 
-.Height:
-	db "HT  ?", $5e, "??", $5f, -1 ; HT  ?'??"
-.Weight:
-	db "WT   ???lb", -1 ; WT   ???lb
+; .Height:
+; 	db "HT  ?", $5e, "??", $5f, -1 ; HT  ?'??"
+; .Weight:
+; 	db "WT   ???lb", -1 ; WT   ???lb
 .MenuItems:
 	; db $3b, "  PAGE  AREA  CRY  ", -1
 	db $3b, "  PAGE  AREA  MOVES", -1
@@ -1492,16 +1492,16 @@ Pokedex_PrintListing:
 ; Prints the list of Pokémon on the main Pokédex screen.
 
 ; This check is completely useless.
-	ld a, [wCurDexMode]
-	cp DEXMODE_OLD
-	jr z, .okay
-	ld c, 11
-	jr .resume
-.okay
+; 	ld a, [wCurDexMode]
+; 	cp DEXMODE_OLD
+; 	jr z, .okay
+; 	ld c, 11
+; 	jr .resume
+; .okay
 	ld c, 11
 ; End useless check
 
-.resume
+; .resume
 ; Clear (2 * [wDexListingHeight] + 1) by 11 box starting at 0,1
 	hlcoord 0, 1
 	ld a, [wDexListingHeight]
