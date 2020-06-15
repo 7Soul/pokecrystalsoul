@@ -151,7 +151,7 @@ BattleAnimOAMData:
 	dbbw $00,  6, .OAMData_93 ; BATTLEANIMOAMSET_93
 	dbbw $04,  4, .OAMData_03 ; BATTLEANIMOAMSET_94
 	dbbw $0a,  4, .OAMData_04 ; BATTLEANIMOAMSET_95
-	dbbw $15,  4, .OAMData_30 ; BATTLEANIMOAMSET_96
+	; dbbw $15,  4, .OAMData_30 ; BATTLEANIMOAMSET_96
 	dbbw $28,  4, .OAMData_03 ; BATTLEANIMOAMSET_97 ; feather
 	dbbw $0c,  4, .OAMData_04 ; BATTLEANIMOAMSET_98
 	dbbw $0a,  4, .OAMData_99 ; BATTLEANIMOAMSET_99
@@ -229,6 +229,8 @@ BattleAnimOAMData:
 	dbbw $08,  4, .OAMData_03 ; BATTLEANIMOAMSET_E7 ; 
 	dbbw $0C,  4, .OAMData_03 ; BATTLEANIMOAMSET_E8 ; 
 	dbbw $04,  6, .OAMData_31_f ; BATTLEANIMOAMSET_E9
+	dbbw $04,  6, .OAMData_31 ; BATTLEANIMOAMSET_EA ; unused
+	dbbw $00,  4, .OAMData_03_mirrored ; BATTLEANIMOAMSET_EB
 	
 
 .OAMData_11:
@@ -250,6 +252,12 @@ BattleAnimOAMData:
 	dsprite  -1, 0,   0, 0, $03, Y_FLIP
 	dsprite   0, 0,  -1, 0, $00, Y_FLIP
 	dsprite   0, 0,   0, 0, $01, Y_FLIP
+
+.OAMData_03_mirrored:
+	dsprite  -1, 0,  -1, 0, $01, X_FLIP
+	dsprite  -1, 0,   0, 0, $00, X_FLIP
+	dsprite   0, 0,  -1, 0, $03, X_FLIP
+	dsprite   0, 0,   0, 0, $02, X_FLIP
 
 .OAMData_02:
 	dsprite  -1, 0,  -1, 0, $00, $0

@@ -2861,6 +2861,7 @@ BattleAnim_DrillPeck:
 	anim_ret
 
 BattleAnim_Acupressure:
+	anim_if_param_equal GROUND, .gathersand
 	anim_2gfx ANIM_GFX_MISC, ANIM_GFX_NOISE
 	anim_sound 0, 0, SFX_MENU
 	anim_obj ANIM_OBJ_ACUPRESSURE, 50, 92, $12
@@ -2876,6 +2877,21 @@ BattleAnim_Acupressure:
 	anim_wait 18
 	anim_loop 2, .loop
 	anim_sound 0, 0, SFX_GRASS_RUSTLE
+	anim_wait 8
+	anim_ret
+
+.gathersand
+	anim_1gfx ANIM_GFX_SAND
+.loop1
+	anim_sound 0, 0, SFX_RAZOR_WIND
+	anim_obj ANIM_OBJ_SAND_SIMPLE, 64-12-28, 100+4, $2
+	anim_obj ANIM_OBJ_SAND_SIMPLE_FLIP, 64+12, 100+4, $2
+	anim_wait 24
+	anim_sound 0, 0, SFX_RAZOR_WIND
+	anim_obj ANIM_OBJ_SAND_SIMPLE, 64-28-6, 100, $0
+	anim_obj ANIM_OBJ_SAND_SIMPLE_FLIP, 64+6, 100, $0
+	anim_wait 32
+	anim_loop 2, .loop1
 	anim_wait 8
 	anim_ret
 
@@ -5319,14 +5335,14 @@ BattleAnim_PowerGem_branch:
 BattleAnim_DreamEater_branch_cbab3:
 BattleAnim_GigaDrain_branch_cbab3:
 BattleAnim_LeechLife_branch_cbab3:
-	anim_obj ANIM_OBJ_71, 132, 44, $0
-	anim_obj ANIM_OBJ_71, 132, 44, $8
-	anim_obj ANIM_OBJ_71, 132, 44, $10
-	anim_obj ANIM_OBJ_71, 132, 44, $18
-	anim_obj ANIM_OBJ_71, 132, 44, $20
-	anim_obj ANIM_OBJ_71, 132, 44, $28
-	anim_obj ANIM_OBJ_71, 132, 44, $30
-	anim_obj ANIM_OBJ_71, 132, 44, $38
+	anim_obj ANIM_OBJ_LEECH_BLUE, 132, 44, $0
+	anim_obj ANIM_OBJ_LEECH_BLUE, 132, 44, $8
+	anim_obj ANIM_OBJ_LEECH_BLUE, 132, 44, $10
+	anim_obj ANIM_OBJ_LEECH_BLUE, 132, 44, $18
+	anim_obj ANIM_OBJ_LEECH_BLUE, 132, 44, $20
+	anim_obj ANIM_OBJ_LEECH_BLUE, 132, 44, $28
+	anim_obj ANIM_OBJ_LEECH_BLUE, 132, 44, $30
+	anim_obj ANIM_OBJ_LEECH_BLUE, 132, 44, $38
 	anim_ret
 
 BattleAnim_Glare_branch_cbadc:

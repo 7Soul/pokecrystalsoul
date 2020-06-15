@@ -52,6 +52,7 @@ DoBattleAnimFrame:
 	dw BattleAnimFunction_24 ; 24
 	dw BattleAnimFunction_25 ; 25
 	dw BattleAnimFunction_26 ; 26
+	dw BattleAnimFunction_26b ; 26
 	dw BattleAnimFunction_27 ; 27
 	dw BattleAnimFunction_28 ; 28
 	dw BattleAnimFunction_SpiralDescent ; 29
@@ -2537,6 +2538,22 @@ BattleAnimFunction_26:
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	inc [hl]
+	ret
+
+BattleAnimFunction_26b:
+	ld hl, BATTLEANIMSTRUCT_0F
+	add hl, bc
+	ld a, [hl]
+	dec [hl]
+	dec [hl]
+	ld d, $10
+	call BattleAnim_Sine
+	ld hl, BATTLEANIMSTRUCT_YOFFSET
+	add hl, bc
+	ld [hl], a
+	ld hl, BATTLEANIMSTRUCT_XCOORD
+	add hl, bc
+	dec [hl]
 	ret
 
 BattleAnimFunction_27:

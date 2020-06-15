@@ -4400,10 +4400,21 @@ BattleCommand_RandomStatUp:
 	jr BattleCommand_StatUp
 
 BattleCommand_Acupressure:
-; 
+; 	
 	ld a, 5
 	call RandomRange
 	ld c, a
+
+	ld a, [wCurVariableMove]
+	cp GATHER_SAND
+	jr nz, .got_stat
+	ld c, DEFENSE
+	call Random
+	and 1
+	jr z, .got_stat
+	ld c, SP_DEFENSE
+
+.got_stat
 	ld hl, wPlayerStatLevels
 	ldh a, [hBattleTurn]
 	and a

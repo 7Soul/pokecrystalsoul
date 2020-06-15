@@ -433,6 +433,7 @@ SandshrewEvosAttacks:
 	db 16, ROLLOUT
 	db 20, SWIFT
 	db 23, SLASH
+	db 25, ACUPRESSURE ; becomes Gather Sand
 	db 30, DIG
 	db 34, SHARPEN
 	db 37, FURY_ATTACK
@@ -446,7 +447,8 @@ SandslashEvosAttacks:
 	db 13, RAPID_SPIN
 	db 16, ROLLOUT
 	db 20, SWIFT
-	db 26, SLASH
+	db 25, SLASH
+	db 28, ACUPRESSURE ; becomes Gather Sand
 	db 33, DIG
 	db 37, SHARPEN
 	db 41, FURY_ATTACK
@@ -811,6 +813,7 @@ DiglettEvosAttacks:
 	db 5, SAND_ATTACK
 	db 13, MAGNITUDE
 	db 17, DIG
+	db 20, ACUPRESSURE ; becomes Gather Sand
 	db 25, MUD_BOMB
 	db 29, POWER_GEM
 	db 35, SLASH
@@ -821,9 +824,9 @@ DiglettEvosAttacks:
 
 DugtrioEvosAttacks:
 	db 0 ; no more evolutions
-	db 4, GROWL
 	db 13, MAGNITUDE
 	db 17, DIG
+	db 20, ACUPRESSURE ; becomes Gather Sand
 	db 25, TRI_ATTACK
 	db 27, STAMPEDE
 	db 35, POWER_GEM

@@ -105,6 +105,7 @@ BattleAnimFrameData:
 	dw .Frameset_65 ; BATTLEANIMFRAMESET_65
 	dw .Frameset_66 ; BATTLEANIMFRAMESET_66
 	dw .Frameset_67 ; BATTLEANIMFRAMESET_67
+	dw .Frameset_67b ; BATTLEANIMFRAMESET_67B
 	dw .Frameset_68 ; BATTLEANIMFRAMESET_68
 	dw .Frameset_69 ; BATTLEANIMFRAMESET_69
 	dw .Frameset_6a ; BATTLEANIMFRAMESET_6A
@@ -118,7 +119,7 @@ BattleAnimFrameData:
 	dw .Frameset_72 ; BATTLEANIMFRAMESET_72
 	dw .Frameset_73 ; BATTLEANIMFRAMESET_73
 	dw .Frameset_74 ; BATTLEANIMFRAMESET_74
-	dw .Frameset_75 ; BATTLEANIMFRAMESET_75
+	; dw .Frameset_75 ; BATTLEANIMFRAMESET_75
 	dw .Frameset_76 ; BATTLEANIMFRAMESET_76
 	dw .Frameset_77 ; BATTLEANIMFRAMESET_77 ; feather
 	dw .Frameset_78 ; BATTLEANIMFRAMESET_78
@@ -156,7 +157,7 @@ BattleAnimFrameData:
 	dw .Frameset_98 ; BATTLEANIMFRAMESET_98
 	dw .Frameset_99 ; BATTLEANIMFRAMESET_99
 	dw .Frameset_9a ; BATTLEANIMFRAMESET_9A
-	dw .Frameset_9b ; BATTLEANIMFRAMESET_9B
+	; dw .Frameset_9b ; BATTLEANIMFRAMESET_9B
 	dw .Frameset_9c ; BATTLEANIMFRAMESET_9C
 	dw .Frameset_9d ; BATTLEANIMFRAMESET_9D
 	dw .Frameset_9e ; BATTLEANIMFRAMESET_9E
@@ -881,6 +882,10 @@ BattleAnimFrameData:
 	frame BATTLEANIMOAMSET_1B, 16
 	delanim
 
+.Frameset_67b:
+	frame BATTLEANIMOAMSET_EB, 16
+	delanim
+
 .Frameset_68:
 	dorepeat 15
 	frame BATTLEANIMOAMSET_84, 15
@@ -951,9 +956,9 @@ BattleAnimFrameData:
 	frame BATTLEANIMOAMSET_95,  8
 	endanim
 
-.Frameset_75:
-	frame BATTLEANIMOAMSET_96,  8
-	endanim
+; .Frameset_75:
+; 	frame BATTLEANIMOAMSET_96,  8
+; 	endanim
 
 .Frameset_76:
 	frame BATTLEANIMOAMSET_95,  8
@@ -1116,9 +1121,9 @@ BattleAnimFrameData:
 	frame BATTLEANIMOAMSET_B7, 32
 	endanim
 
-.Frameset_9b:
-	frame BATTLEANIMOAMSET_1B, 32
-	endanim
+; .Frameset_9b:
+; 	frame BATTLEANIMOAMSET_1B, 32
+; 	endanim
 
 .Frameset_9c:
 	frame BATTLEANIMOAMSET_B8, 32

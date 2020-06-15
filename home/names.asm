@@ -307,6 +307,7 @@ GetVariableMoveName::
 	db "Bone Rush@"
 	db "Pin Missile@"
 	db "Rock Blast@"
+	db "Gather Sand@"
 	db "Tide Clash@"
 	db "Flutter Clap@"
 	db "Stone Edge@"

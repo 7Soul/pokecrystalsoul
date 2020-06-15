@@ -12,27 +12,16 @@ PrintMoveDesc:
 	ld d, [hl]
 	pop hl
 
-; 	ld a, [wCurSpecies]
-; 	cp FIRE_PLAY
-; 	jr nz, .end
-; 	ld a, [wBattleMonType1]
-; 	cp WATER
-; 	jr z, .water_play
-; 	cp FIRE
-; 	jr z, .fire_play
-; 	ld a, [wBattleMonType2]
-; 	cp WATER
-; 	jr z, .water_play
-; 	cp FIRE
-; 	jr z, .fire_play
-; 	ld de, .FlyingPlayDesc
-; 	jr .end
-; .water_play
-; 	ld de, .WaterPlayDesc
-; 	jr .end
-; .fire_play
-; 	ld de, .FirePlayDesc
-; .end
+	ld a, [wCurVariableMove]
+	cp -1
+	jr z, .not_variable
+	cp GATHER_SAND
+	jr nz, .not_variable
+	ld de, .GatherSandDesc
+
+.not_variable
 	jp PlaceString
 
-; INCLUDE "data/moves/variable_moves_names.asm"
+.GatherSandDesc:
+	db   "Ups DEF or SP.DEF"
+	next "two times.@"
