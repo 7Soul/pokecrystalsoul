@@ -374,6 +374,7 @@ EkansEvosAttacks:
 	db 12, GLARE
 	db 17, SCREECH
 	db 20, ACID
+	db 24, ACUPRESSURE ; becomes Gather Sand
 	db 28, VENOSHOCK
 	db 36, MUD_BOMB	
 	db 41, HAZE
@@ -387,6 +388,7 @@ ArbokEvosAttacks:
 	db 17, SCREECH
 	db 20, ACID
 	db 21, CRUNCH
+	db 28, ACUPRESSURE ; becomes Gather Sand
 	db 30, VENOSHOCK
 	db 39, MUD_BOMB	
 	db 45, HAZE

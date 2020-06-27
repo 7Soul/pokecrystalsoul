@@ -314,6 +314,10 @@ ListMovePP:
 	pop af
 	ld [hl], a
 	pop de
+
+	; ld a, b
+	; call FillInCostBar
+
 	pop hl
 	push hl
 	ld bc, wTempMonPP - (wTempMonMoves + 1)
@@ -323,16 +327,20 @@ ListMovePP:
 	ld [wStringBuffer1 + 4], a
 	ld h, d
 	ld l, e
-	push hl
-	ld de, wStringBuffer1 + 4
-	lb bc, 1, 2
-	call PrintNum
-	ld a, "/"
-	ld [hli], a
-	ld de, wTempPP
-	lb bc, 1, 2
-	call PrintNum
-	pop hl
+	call FillInCostBar
+	; push hl
+	; ld de, wStringBuffer1 + 4
+	; lb bc, 1, 2
+	; call PrintNum
+	; ld a, "/"
+	; ld [hli], a
+	; inc hl
+	; inc hl
+	; inc hl
+	; ld de, wTempPP
+	; lb bc, 1, 2
+	; call PrintNum
+	; pop hl
 	ld a, [wBuffer1]
 	ld e, a
 	ld d, 0
@@ -355,6 +363,55 @@ ListMovePP:
 	add hl, de
 	dec c
 	jr nz, .load_loop
+	ret
+
+FillInCostBar:
+	push hl
+	call CalcCostBar
+	call PlaceCostBar
+	pop hl
+	ret
+
+PlaceCostBar:
+.loop
+	ld a, b
+	and a
+	jr z, .finish
+	sub 2
+	jr c, .half
+	ld b, a
+
+	ld a, $72 ; full bar
+	ld [hli], a
+
+	ld a, b
+	and a
+	jr z, .finish
+	jr .loop
+	
+.half
+	ld a, $71 ; half bar
+	ld [hli], a
+
+.finish
+	ret
+
+CalcCostBar:
+	ld b, 0
+	and a
+	jr z, .finish
+.loop
+	sub 10
+	jr c, .half
+	inc b
+	inc b
+	and a
+	jr z, .finish
+	
+	jr .loop
+.half
+	inc b
+.finish
 	ret
 
 ; Unreferenced_Function50cd0:

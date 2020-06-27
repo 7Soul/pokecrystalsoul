@@ -80,6 +80,7 @@ MON_DEF_EXP            EQUS "(wPartyMon1DefExp - wPartyMon1)"
 MON_SPD_EXP            EQUS "(wPartyMon1SpdExp - wPartyMon1)"
 MON_SPC_EXP            EQUS "(wPartyMon1SpcExp - wPartyMon1)"
 MON_DVS                EQUS "(wPartyMon1DVs - wPartyMon1)"
+MON_STAMINA            EQUS "(wPartyMon1Stamina - wPartyMon1)"
 MON_PP                 EQUS "(wPartyMon1PP - wPartyMon1)"
 MON_HAPPINESS          EQUS "(wPartyMon1Happiness - wPartyMon1)"
 MON_PKRUS              EQUS "(wPartyMon1PokerusStatus - wPartyMon1)"
@@ -213,4 +214,5 @@ HAPPINESS_THRESHOLD_2 EQU 200
 PP_UP_MASK EQU %11000000
 PP_UP_ONE  EQU %01000000
 PP_MASK    EQU %00111111
+STA_MAX    EQU 70
 

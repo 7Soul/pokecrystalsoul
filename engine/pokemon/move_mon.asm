@@ -143,7 +143,6 @@ GeneratePartyMonStats:
 	ld a, [hl]
 .set_trait
 	ld [de], a
-	; ld [$c001], a
 	inc de
 	pop hl
 .copy_moves
@@ -255,7 +254,6 @@ endr
 	ld l, e
 	ld [hl], a
 	
-	
 .TryShiny
 	call Random
 	cp 5 percent ; 4.7%
@@ -316,7 +314,11 @@ endr
 .initializeDVs
 	ld [de], a
 	inc de
-	inc de ; skip second DV byte
+
+	; Stamina
+	ld a, 70
+	ld [de], a
+	inc de
 .end_dvs
 	; Initialize PP.
 	pop hl
@@ -380,7 +382,7 @@ endr
 	ld a, [wEnemyMonDVs]
 	ld [de], a
 	inc de
-	ld a, [wEnemyMonDVs + 1]
+	ld a, [wEnemyMonStamina]
 	ld [de], a
 	inc de
 

@@ -205,13 +205,13 @@ ClearActorHud:
 	jr z, .player
 
 	hlcoord 1, 0
-	lb bc, 4, 10
+	lb bc, 3, 10
 	call ClearBox
 	ret
 
 .player
 	hlcoord 9, 7
-	lb bc, 5, 11
+	lb bc, 4, 11
 	call ClearBox
 	ret
 

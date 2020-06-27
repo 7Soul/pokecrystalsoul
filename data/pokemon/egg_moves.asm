@@ -61,7 +61,7 @@ PidgeyEggMoves:
 	db FAINT_ATTACK
 	db AIR_SLASH
 	db ICICLE_WING
-	db FIRE_PLAY
+	db FIRE_PLAY ; becomes Flutter Clap
 	db -1 ; end
 
 RattataEggMoves:

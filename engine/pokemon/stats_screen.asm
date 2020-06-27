@@ -723,17 +723,22 @@ StatsScreen_LoadGFX:
 	hlcoord 1, 11
 	ld b, $0
 	predef DrawPlayerHP
-	;hlcoord 10, 12
-	;ld [hl], $41 ; right HP/exp bar end cap
 	ld a, [wBaseDexNo]
-	ld [wDeciramBuffer], a
 	ld [wCurSpecies], a
-	hlcoord 14, 11
-	ld [hl], "№"
+	hlcoord 12, 11
+	; ld [hl], "№"
+	; inc hl
+	; ld [hl], "."
+	; inc hl
+	ld [hl], "S"
 	inc hl
-	ld [hl], "."
+	ld [hl], "T"
+	inc hl
+	ld [hl], "A"
 	inc hl
 	hlcoord 16, 11
+	ld a, [wTempMonStamina]
+	ld [wDeciramBuffer], a
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
 	ld de, wDeciramBuffer
 	call PrintNum

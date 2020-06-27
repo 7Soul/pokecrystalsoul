@@ -912,22 +912,6 @@ ChooseWildEncounter:
 	pop de
 	jr .continue_with_legendary
 
-.randomize
-	; call Random
-	; cp 92 percent
-	; ld a, 1
-	; ld [wSpecialWildBattle], a
-	; jp nc, .continue_with_legendary ; 8% chance to keep the legendary
-	
-	; pop hl
-	; pop bc
-	; pop de
-	; ld a, 251
-	; call RandomRange
-	; inc a
-	; ld b, a
-	; jp .done	
-	
 .not_legendary
 	pop hl
 	pop bc
@@ -949,10 +933,9 @@ ChooseWildEncounter:
 	jp nc, .lucky_isset
 
 	; Add 2 lucky encounters
-	ld a, [wLuckyWild]
-	inc a
-	inc a
-	ld [wLuckyWild], a
+	ld hl, wLuckyWild
+	inc [hl]
+	inc [hl]
 
 .lucky_isset	
 	; 11% (11*255/100 -> 1c hex) chance of special map encounter that replaces current encounter if conditions are met

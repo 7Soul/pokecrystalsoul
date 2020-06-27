@@ -306,11 +306,11 @@ OlivineCity_MapEvents:
 	bg_event 17, 15, BGEVENT_READ, OlivineCitySign
 	bg_event 20, 28, BGEVENT_READ, OlivineCityPortSign
 	bg_event 12, 14, BGEVENT_READ, OlivineGymSign
-	bg_event 23, 25, BGEVENT_READ, OlivineLighthouseSign
+	bg_event 22, 24, BGEVENT_READ, OlivineLighthouseSign
 	bg_event  3, 26, BGEVENT_READ, OlivineCityBattleTowerSign
 
 	db 4 ; object events
-	object_event 26, 27, SPRITE_SAILOR, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor1Script, -1
+	object_event 28, 24, SPRITE_SAILOR, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor1Script, -1
 	object_event  8, 20, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, OlivineCityStandingYoungsterScript, -1
 	object_event 20, 22, SPRITE_SAILOR, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor2Script, -1
 	object_event  2,  9, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_OLIVINE_CITY

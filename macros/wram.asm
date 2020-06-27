@@ -17,7 +17,8 @@ box_struct: MACRO
 \1DefExp::         dw
 \1SpdExp::         dw
 \1SpcExp::         dw
-\1DVs::            dw
+\1DVs::            db
+\1Stamina::        db
 \1PP::             ds NUM_MOVES
 \1Happiness::      db
 \1PokerusStatus::  db
@@ -83,7 +84,8 @@ battle_struct: MACRO
 \1Trait::     db
 \1Moves::     ds NUM_MOVES
 \1MovesEnd::
-\1DVs::       dw
+\1DVs::       db
+\1Stamina::   db
 \1PP::        ds NUM_MOVES
 \1Happiness:: db
 \1Level::     db

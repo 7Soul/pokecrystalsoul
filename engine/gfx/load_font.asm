@@ -28,7 +28,7 @@ _LoadFontsExtra2::
 _LoadFontsBattleExtra::
 	ld de, FontBattleExtra
 	ld hl, vTiles2 tile $60
-	lb bc, BANK(FontBattleExtra), 25
+	lb bc, BANK(FontBattleExtra), 12
 	call Get2bpp_2
 	jr LoadFrame
 
@@ -54,9 +54,9 @@ LoadBattleFontsHPBar:
 	ld hl, vTiles2 tile $60
 	lb bc, BANK(FontBattleExtra), 12
 	call Get2bpp_2
-	ld hl, vTiles2 tile $70
-	ld de, FontBattleExtra + 16 tiles ; "<DO>"
-	lb bc, BANK(FontBattleExtra), 3 ; "<DO>" to "『"
+	ld hl, vTiles2 tile $71
+	ld de, FontBattleExtra + 22 tiles
+	lb bc, BANK(FontBattleExtra), 2
 	call Get2bpp_2
 	call LoadFrame
 

@@ -203,8 +203,8 @@ ReadTrainerPartyPieces:
 	call GetNextTrainerDataByte
 	ld [de], a ; DV byte
 	inc de
-	xor a
-	ld [de], a ; unused DV byte
+	ld a, 70
+	ld [de], a ; Stamina
 .no_dvs
 
 ; item?

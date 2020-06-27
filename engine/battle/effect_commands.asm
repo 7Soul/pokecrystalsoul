@@ -1008,35 +1008,36 @@ BattleCommand_DoTurn:
 	and a
 	jp nz, EndMoveEffect
 
-	; SubStatus5
-	inc de
-	inc de
+; 	; SubStatus5
+; 	inc de
+; 	inc de
 
-	ld a, [de]
-	bit SUBSTATUS_TRANSFORMED, a
-	ret nz
+; 	ld a, [de]
+; 	bit SUBSTATUS_TRANSFORMED, a
+; 	ret nz
 
-	ldh a, [hBattleTurn]
-	and a
+; 	ldh a, [hBattleTurn]
+; 	and a
 
-	ld hl, wPartyMon1PP
-	ld a, [wCurBattleMon]
-	jr z, .player
+; 	ld hl, wPartyMon1PP
+; 	ld a, [wCurBattleMon]
+; 	jr z, .player
 
-; mimic this part entirely if wildbattle
-	ld a, [wBattleMode]
-	dec a
-	jr z, .wild
+; ; mimic this part entirely if wildbattle
+; 	ld a, [wBattleMode]
+; 	dec a
+; 	jr z, .wild
 
-	ld hl, wOTPartyMon1PP
-	ld a, [wCurOTMon]
+; 	ld hl, wOTPartyMon1PP
+; 	ld a, [wCurOTMon]
 
-.player
-	call GetPartyLocation
-	push hl
-	farcall CheckMimicUsed
-	pop hl
-	ret c
+; .player
+; 	call GetPartyLocation
+; 	push hl
+; 	call CheckMimicUsed
+; 	pop hl
+; 	ret c
+	ret
 
 .consume_pp
 	ldh a, [hBattleTurn]
@@ -1051,8 +1052,31 @@ BattleCommand_DoTurn:
 	add hl, bc
 	ld a, [hl]
 	and PP_MASK
+	ld b, a
+
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wPartyMon1Stamina
+	ld de, wBattleMonStamina
+	ld a, [wCurBattleMon]
+	jr z, .reduce_stamina
+	ld hl, wOTPartyMon1Stamina
+	ld de, wEnemyMonStamina
+	ld a, [wCurOTMon]
+
+.reduce_stamina
+	push bc
+	call GetPartyLocation
+	pop bc
+	ld a, [hl]
+	sub b
+	jr nc, .min
+	xor a
+	and a
 	jr z, .out_of_pp
-	dec [hl]
+.min
+	ld [hl], a
+	ld [de], a
 	ld b, 0
 	ret
 
@@ -1096,7 +1120,7 @@ BattleCommand_DoTurn:
 	ld b, 1
 	ret
 
-.continuousmoves
+.continuousmoves:
 	db EFFECT_RAZOR_WIND
 	db EFFECT_SKY_ATTACK
 	db EFFECT_SKULL_BASH
@@ -1105,6 +1129,36 @@ BattleCommand_DoTurn:
 	db EFFECT_ROLLOUT
 	db EFFECT_RAMPAGE
 	db -1
+
+CheckMimicUsed:
+	ldh a, [hBattleTurn]
+	and a
+	ld a, [wCurMoveNum]
+	jr z, .player
+	ld a, [wCurEnemyMoveNum]
+
+.player
+	ld c, a
+	ld a, MON_MOVES
+	call UserPartyAttr
+
+	ld a, BATTLE_VARS_MOVE
+	call GetBattleVar
+	cp MIMIC
+	jr z, .mimic
+
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	cp MIMIC
+	jr nz, .mimic
+
+	scf
+	ret
+
+.mimic
+	and a
+	ret
 
 BattleCommand_Critical:
 ; critical
@@ -5985,6 +6039,7 @@ BattleCommand_Charge:
 
 	cp DIG
 	ld hl, .Dig
+	jr z, .done
 
 	cp SKULL_BASH
 	ld hl, .SkullBash

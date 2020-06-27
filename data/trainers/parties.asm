@@ -2631,8 +2631,8 @@ CamperGroup:
 
 	; CAMPER (11)
 	db "Ted@", TRAINERTYPE_DVS
-	db $0F, $25, SPINARAK, $72
-	db $4F, $25, MANKEY, 0
+	db $0F, $25, EKANS, 0
+	db $4F, $25, TAUROS, 0
 	db $4F, $05, TAUROS, 0
 	db -1 ; end
 

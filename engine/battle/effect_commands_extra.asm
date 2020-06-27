@@ -271,36 +271,6 @@ IgnoreSleepOnly:
 	scf
 	ret
 	
-CheckMimicUsed:
-	ldh a, [hBattleTurn]
-	and a
-	ld a, [wCurMoveNum]
-	jr z, .player
-	ld a, [wCurEnemyMoveNum]
-
-.player
-	ld c, a
-	ld a, MON_MOVES
-	call UserPartyAttr
-
-	ld a, BATTLE_VARS_MOVE
-	call GetBattleVar
-	cp MIMIC
-	jr z, .mimic
-;
-	ld b, 0
-	add hl, bc
-	ld a, [hl]
-	cp MIMIC
-	jr nz, .mimic
-
-	scf
-	ret
-
-.mimic
-	and a
-	ret
-	
 CheckPlayerHasMonToSwitchTo:
 	ld a, [wPartyCount]
 	ld d, a

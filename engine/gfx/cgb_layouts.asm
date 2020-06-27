@@ -432,6 +432,16 @@ _CGB_FinishBattleScreenLayout:
 	lb bc, 4, 10
 	ld a, PAL_BATTLE_BG_ENEMY_HP
 	call FillBoxCGB
+	; Enemy stamina bar
+	hlcoord 3, 3, wAttrMap
+	lb bc, 1, 7
+	ld a, PAL_BATTLE_BG_EXP
+	call FillBoxCGB
+	; ; Move cost bars
+	; hlcoord 3, 3, wAttrMap
+	; lb bc, 1, 7
+	; ld a, PAL_BATTLE_BG_EXP
+	; call FillBoxCGB
 	hlcoord 10, 7, wAttrMap
 	lb bc, 5, 10
 	ld a, PAL_BATTLE_BG_PLAYER_HP

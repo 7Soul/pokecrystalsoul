@@ -171,7 +171,7 @@ BattleTurn:
 	ld [wCurDamage], a
 	ld [wCurDamage + 1], a
 
-	call HandleBerserkGene
+	; call HandleBerserkGene
 	call UpdateBattleMonInParty
 	farcall AIChooseMove
 
@@ -219,7 +219,11 @@ BattleTurn:
 	and a
 	jr nz, .quit
 
+	call RegenPartyStamina
+	call RegenOTPartyStamina
+
 	call HandleBetweenTurnEffects
+	
 	ld a, [wBattleEnded]
 	and a
 	jr nz, .quit
@@ -244,6 +248,102 @@ Stubbed_Function3c1bf:
 
 .finish
 	call CloseSRAM
+	ret
+
+RegenPartyStamina:
+	xor a
+	ld [wCurPartyMon], a
+	ld hl, wPartySpecies
+.loop
+	ld b, a
+	ld a, [hli]
+	cp -1
+	jr z, .done
+	cp EGG
+	jr z, .next
+
+	push hl
+	ld a, MON_STAMINA
+	call GetPartyParamLocation
+	
+	ld a, [wCurBattleMon]
+	cp b
+	ld c, 5
+	jr z, .same_battlemon
+	ld c, 10
+.same_battlemon
+	ld a, [hl]
+	add c
+	cp STA_MAX
+	jr c, .max
+	ld a, STA_MAX
+.max
+	ld [hl], a
+	ld c, a
+	ld a, [wCurBattleMon]
+	cp b
+	jr nz, .not_battlemon
+	ld hl, wBattleMonStamina	
+	ld a, c
+	ld [hl], a
+.not_battlemon
+	pop hl
+.next
+	ld a, [wCurPartyMon]
+	inc a
+	ld [wCurPartyMon], a
+	jr .loop
+.done
+	ret
+	
+RegenOTPartyStamina:
+	xor a
+	ld [wCurPartyMon], a
+	ld hl, wOTPartySpecies
+.loop
+	ld b, a
+	ld a, [hli]
+	cp -1
+	jr z, .done
+
+	push hl
+	push bc
+	ld hl, wOTPartyMons
+	ld c, MON_STAMINA
+	ld b, 0
+	add hl, bc
+	ld a, [wCurPartyMon]
+	call GetPartyLocation
+	pop bc
+	
+	ld a, [wCurOTMon]
+	cp b
+	ld c, 5
+	jr z, .same_battlemon
+	ld c, 10
+.same_battlemon
+	ld a, [hl]
+	add c
+	cp STA_MAX
+	jr c, .max
+	ld a, STA_MAX
+.max
+	ld [hl], a
+	ld c, a
+	ld a, [wCurOTMon]
+	cp b
+	jr nz, .not_battlemon
+	ld hl, wEnemyMonStamina	
+	ld a, c
+	ld [hl], a
+.not_battlemon
+	pop hl
+.next
+	ld a, [wCurPartyMon]
+	inc a
+	ld [wCurPartyMon], a
+	jr .loop
+.done
 	ret
 
 HandleBetweenTurnEffects:
@@ -352,81 +452,81 @@ CheckFaint_EnemyThenPlayer:
 	scf
 	ret
 
-HandleBerserkGene:
-	ldh a, [hSerialConnectionStatus]
-	cp USING_EXTERNAL_CLOCK
-	jr z, .reverse
+; HandleBerserkGene:
+; 	ldh a, [hSerialConnectionStatus]
+; 	cp USING_EXTERNAL_CLOCK
+; 	jr z, .reverse
 
-	call .player
-	jr .enemy
+; 	call .player
+; 	jr .enemy
 
-.reverse
-	call .enemy
-	; fallthrough
+; .reverse
+; 	call .enemy
+; 	; fallthrough
 
-.player
-	call SetPlayerTurn
-	ld de, wPartyMon1Item
-	ld a, [wCurBattleMon]
-	ld b, a
-	jr .go
+; .player
+; 	call SetPlayerTurn
+; 	ld de, wPartyMon1Item
+; 	ld a, [wCurBattleMon]
+; 	ld b, a
+; 	jr .go
 
-.enemy
-	call SetEnemyTurn
-	ld de, wOTPartyMon1Item
-	ld a, [wCurOTMon]
-	ld b, a
-	; fallthrough
+; .enemy
+; 	call SetEnemyTurn
+; 	ld de, wOTPartyMon1Item
+; 	ld a, [wCurOTMon]
+; 	ld b, a
+; 	; fallthrough
 
-.go
-	push de
-	push bc
-	callfar GetUserItem
-	ld a, [hl]
-	ld [wNamedObjectIndexBuffer], a
-	sub BERSERK_GENE
-	pop bc
-	pop de
-	ret nz
+; .go
+; 	push de
+; 	push bc
+; 	callfar GetUserItem
+; 	ld a, [hl]
+; 	ld [wNamedObjectIndexBuffer], a
+; 	sub BERSERK_GENE
+; 	pop bc
+; 	pop de
+; 	ret nz
 
-	ld [hl], a
+; 	ld [hl], a
 
-	ld h, d
-	ld l, e
-	ld a, b
-	call GetPartyLocation
-	xor a
-	ld [hl], a
-	ld a, BATTLE_VARS_SUBSTATUS3
-	call GetBattleVarAddr
-	push af
-	set SUBSTATUS_CONFUSED, [hl]
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVarAddr
-	push hl
-	push af
-	xor a
-	ld [hl], a
-	ld [wAttackMissed], a
-	ld [wEffectFailed], a
-	farcall BattleCommand_AttackUp2
-	pop af
-	pop hl
-	ld [hl], a
-	call GetItemName
-	ld hl, BattleText_UsersStringBuffer1Activated
-	call StdBattleTextBox
-	callfar BattleCommand_StatUpMessage
-	pop af
-	bit SUBSTATUS_CONFUSED, a
-	ret nz
-	xor a
-	ld [wNumHits], a
-	ld de, ANIM_CONFUSED
-	call Call_PlayBattleAnim_OnlyIfVisible
-	call SwitchTurnCore
-	ld hl, BecameConfusedText
-	jp StdBattleTextBox
+; 	ld h, d
+; 	ld l, e
+; 	ld a, b
+; 	call GetPartyLocation
+; 	xor a
+; 	ld [hl], a
+; 	ld a, BATTLE_VARS_SUBSTATUS3
+; 	call GetBattleVarAddr
+; 	push af
+; 	set SUBSTATUS_CONFUSED, [hl]
+; 	ld a, BATTLE_VARS_MOVE_ANIM
+; 	call GetBattleVarAddr
+; 	push hl
+; 	push af
+; 	xor a
+; 	ld [hl], a
+; 	ld [wAttackMissed], a
+; 	ld [wEffectFailed], a
+; 	farcall BattleCommand_AttackUp2
+; 	pop af
+; 	pop hl
+; 	ld [hl], a
+; 	call GetItemName
+; 	ld hl, BattleText_UsersStringBuffer1Activated
+; 	call StdBattleTextBox
+; 	callfar BattleCommand_StatUpMessage
+; 	pop af
+; 	bit SUBSTATUS_CONFUSED, a
+; 	ret nz
+; 	xor a
+; 	ld [wNumHits], a
+; 	ld de, ANIM_CONFUSED
+; 	call Call_PlayBattleAnim_OnlyIfVisible
+; 	call SwitchTurnCore
+; 	ld hl, BecameConfusedText
+; 	jp StdBattleTextBox
 
 EnemyTriesToFlee:
 	ld a, [wLinkMode]
@@ -972,13 +1072,13 @@ Battle_PlayerFirst:
 
 PlayerTurn_EndOpponentProtectEndureDestinyBond:
 	call SetPlayerTurn
-	call EndUserDestinyBond
+	; call EndUserDestinyBond
 	callfar DoPlayerTurn
 	jp EndOpponentProtectEndureDestinyBond
 
 EnemyTurn_EndOpponentProtectEndureDestinyBond:
 	call SetEnemyTurn
-	call EndUserDestinyBond
+	; call EndUserDestinyBond
 	callfar DoEnemyTurn
 	jp EndOpponentProtectEndureDestinyBond
 
@@ -992,11 +1092,11 @@ EndOpponentProtectEndureDestinyBond:
 	res SUBSTATUS_DESTINY_BOND, [hl]
 	ret
 
-EndUserDestinyBond:
-	ld a, BATTLE_VARS_SUBSTATUS5
-	call GetBattleVarAddr
-	res SUBSTATUS_DESTINY_BOND, [hl]
-	ret
+; EndUserDestinyBond:
+; 	ld a, BATTLE_VARS_SUBSTATUS5
+; 	call GetBattleVarAddr
+; 	res SUBSTATUS_DESTINY_BOND, [hl]
+; 	ret
 
 HasUserFainted:
 	ldh a, [hBattleTurn]
@@ -4807,10 +4907,15 @@ DrawPlayerHUD:
 	ld d, h
 	ld e, l
 
-	hlcoord 10, 11
-	ld a, [wTempMonLevel]
+	; hlcoord 10, 11
+	; ld a, [wTempMonLevel]
+	; ld b, a
+	; call FillInExpBar
+
+	hlcoord 11, 11
+	ld a, [wTempMonStamina]
 	ld b, a
-	call FillInExpBar
+	call FillInStaminaBar
 	pop de
 	ret
 
@@ -4982,6 +5087,10 @@ DrawEnemyHUD:
 	ld [wTempMonLevel], a
 	call PrintLevel
 .skip_level
+	hlcoord 3, 3
+	ld a, [wEnemyMonStamina]
+	ld b, a
+	call FillInStaminaBar
 
 	ld hl, wEnemyMonHP
 	ld a, [hli]
@@ -5542,21 +5651,27 @@ CheckAmuletCoin:
 	ret
 
 MoveSelectionScreen:
+	xor a ; PARTYMON
+	ld [wMonType], a
+	ld a, [wCurBattleMon]
+	ld [wCurPartyMon], a
+	predef CopyMonToTempMon
+
 	call SetPlayerTurn
 	call IsMobileBattle
 	jr nz, .not_mobile
 	farcall MobileMoveSelectionScreen
 	ret
 
-.not_mobile
+.not_mobile	
 	ld hl, wEnemyMonMoves
 	ld a, [wMoveSelectionMenuType]
 	dec a
 	jr z, .got_menu_type
 	dec a
 	jr z, .ether_elixer_menu
-	call CheckPlayerHasUsableMoves
-	ret z ; use Struggle
+	; call CheckPlayerHasUsableMoves
+	; ret z ; use Struggle
 	ld hl, wBattleMonMoves
 	jr .got_menu_type
 
@@ -5571,23 +5686,23 @@ MoveSelectionScreen:
 	xor a
 	ldh [hBGMapMode], a
 
-	hlcoord 4, 17 - NUM_MOVES - 1
+	hlcoord 0, 17 - NUM_MOVES - 1
 	ld b, 4
-	ld c, 14
+	ld c, 18
 	ld a, [wMoveSelectionMenuType]
 	cp $2
 	jr nz, .got_dims
-	hlcoord 4, 17 - NUM_MOVES - 1 - 4
+	hlcoord 0, 17 - NUM_MOVES - 1 - 4
 	ld b, 4
-	ld c, 14
+	ld c, 18
 .got_dims
 	call TextBox
 
-	hlcoord 6, 17 - NUM_MOVES
+	hlcoord 5, 17 - NUM_MOVES
 	ld a, [wMoveSelectionMenuType]
 	cp $2
 	jr nz, .got_start_coord
-	hlcoord 6, 17 - NUM_MOVES - 4
+	hlcoord 5, 17 - NUM_MOVES - 4
 .got_start_coord
 	ld a, [wBattleMonSpecies]
 	ld [wCurPartySpecies], a
@@ -5595,13 +5710,17 @@ MoveSelectionScreen:
 	ld a, SCREEN_WIDTH
 	ld [wBuffer1], a
 	predef ListMoves
+	hlcoord 2, 13
+	ld a, SCREEN_WIDTH
+	ld [wBuffer1], a
+	predef ListMovePP
 
-	ld b, 5
+	ld b, 1
 	ld a, [wMoveSelectionMenuType]
 	cp $2
 	ld a, 17 - NUM_MOVES
 	jr nz, .got_default_coord
-	ld b, 5
+	ld b, 1
 	ld a, 17 - NUM_MOVES - 4
 
 .got_default_coord
@@ -5661,7 +5780,7 @@ MoveSelectionScreen:
 	ld a, [wMoveSwapBuffer]
 	and a
 	jr z, .interpret_joypad
-	hlcoord 5, 13
+	hlcoord 1, 13
 	ld bc, SCREEN_WIDTH
 	dec a
 	call AddNTimes
@@ -5714,7 +5833,13 @@ MoveSelectionScreen:
 	add hl, bc
 	ld a, [hl]
 	and PP_MASK
-	jr z, .no_pp_left
+	
+	ld b, a
+	ld hl, wBattleMonStamina
+	ld a, [hl]
+	sub b
+	jr c, .no_pp_left
+
 	ld a, [wPlayerDisableCount]
 	swap a
 	and $f
@@ -5741,7 +5866,11 @@ MoveSelectionScreen:
 	jr .place_textbox_start_over
 
 .no_pp_left
-	ld hl, BattleText_TheresNoPPLeftForThisMove
+	; ld hl, BattleText_TheresNoPPLeftForThisMove
+	ld a, STRUGGLE
+	ld [wCurPlayerMove], a
+	xor a
+	ret
 
 .place_textbox_start_over
 	call StdBattleTextBox
@@ -5860,8 +5989,8 @@ MoveInfoBox:
 	xor a
 	ldh [hBGMapMode], a
 
-	hlcoord 0, 8
-	ld b, 3
+	hlcoord 0, 9
+	ld b, 2
 	ld c, 9
 	call TextBox
 	call MobileTextBorder
@@ -5869,15 +5998,15 @@ MoveInfoBox:
 	hlcoord 0, 12
 	ld a, $c2 ; mid left
 	ld [hli], a
-	hlcoord 4, 12
-	ld a, $c1 ; mid down
-	ld [hli], a
+	; hlcoord 4, 12
+	; ld a, $c1 ; mid down
+	; ld [hli], a
 	hlcoord 10, 12
 	ld a, $c0 ; mid up
 	ld [hli], a
-	hlcoord 4, 17
-	ld a, $c0 ; mid up
-	ld [hli], a
+	; hlcoord 4, 17
+	; ld a, $c0 ; mid up
+	; ld [hli], a
 	
 	ld a, [wPlayerDisableCount]
 	and a
@@ -5890,7 +6019,7 @@ MoveInfoBox:
 	cp b
 	jr nz, .not_disabled
 
-	hlcoord 1, 10
+	hlcoord 1, 11
 	ld de, .Disabled
 	call PlaceString
 	jr .done
@@ -5916,18 +6045,12 @@ MoveInfoBox:
 	ld hl, wMenuCursorY
 	ld c, [hl]
 	inc [hl]
-	ld b, 0
-	ld hl, wBattleMonPP
-	add hl, bc
-	ld a, [hl]
-	and PP_MASK
-	ld [wStringBuffer1], a
-	call .PrintPP
+
 	callfar UpdateMoveData
 	ld a, [wPlayerMoveStruct + MOVE_ANIM]
 	ld b, a
 	farcall GetMoveCategoryName
-	hlcoord 1, 9
+	hlcoord 1, 10
 	ld de, wStringBuffer1
 	call PlaceString
 
@@ -5937,7 +6060,7 @@ MoveInfoBox:
 
 	ld a, [wPlayerMoveStruct + MOVE_ANIM]
 	ld b, a
-	hlcoord 2, 10
+	hlcoord 2, 11
 	predef PrintMoveType
 
 .done
@@ -5946,72 +6069,51 @@ MoveInfoBox:
 .Disabled:
 	db "Disabled!@"
 
-.PrintPP:
-	hlcoord 5, 11
-	ld a, [wLinkMode] ; What's the point of this check?
-	cp LINK_MOBILE
-	jr c, .ok
-	hlcoord 5, 11
-.ok
-	push hl
-	ld de, wStringBuffer1
-	lb bc, 1, 2
-	call PrintNum
-	pop hl
-	inc hl
-	inc hl
-	ld [hl], "/"
-	inc hl
-	ld de, wNamedObjectIndexBuffer
-	lb bc, 1, 2
-	call PrintNum
-	ret
+; CheckPlayerHasUsableMoves:
+; 	ld a, STRUGGLE
+; 	ld [wCurPlayerMove], a
+; 	ld a, [wPlayerDisableCount]
+; 	and a
+; 	ld hl, wBattleMonPP
+; 	jr nz, .disabled
 
-CheckPlayerHasUsableMoves:
-	ld a, STRUGGLE
-	ld [wCurPlayerMove], a
-	ld a, [wPlayerDisableCount]
-	and a
-	ld hl, wBattleMonPP
-	jr nz, .disabled
+; 	ld a, [hli]
+; 	or [hl]
+; 	inc hl
+; 	or [hl]
+; 	inc hl
+; 	or [hl]
+; 	and PP_MASK
+; 	ret nz
+; 	jr .force_struggle
 
-	ld a, [hli]
-	or [hl]
-	inc hl
-	or [hl]
-	inc hl
-	or [hl]
-	and PP_MASK
-	ret nz
-	jr .force_struggle
+; .disabled
+; 	swap a
+; 	and $f
+; 	ld b, a
+; 	ld d, NUM_MOVES + 1
+; 	xor a
+; .loop
+; 	dec d
+; 	jr z, .done
+; 	ld c, [hl]
+; 	inc hl
+; 	dec b
+; 	jr z, .loop
+; 	or c
+; 	jr .loop
 
-.disabled
-	swap a
-	and $f
-	ld b, a
-	ld d, NUM_MOVES + 1
-	xor a
-.loop
-	dec d
-	jr z, .done
-	ld c, [hl]
-	inc hl
-	dec b
-	jr z, .loop
-	or c
-	jr .loop
+; .done
+; 	and PP_MASK
+; 	ret nz
 
-.done
-	and PP_MASK
-	ret nz
-
-.force_struggle
-	ld hl, BattleText_MonHasNoMovesLeft
-	call StdBattleTextBox
-	ld c, 60
-	call DelayFrames
-	xor a
-	ret
+; .force_struggle
+; 	ld hl, BattleText_MonHasNoMovesLeft
+; 	call StdBattleTextBox
+; 	ld c, 60
+; 	call DelayFrames
+; 	xor a
+; 	ret
 
 ParseEnemyAction:
 	ld a, [wEnemyIsSwitching]
@@ -6081,6 +6183,13 @@ ParseEnemyAction:
 	jr z, .disabled
 	ld a, [de]
 	and PP_MASK
+
+	ld b, a
+	ld hl, wEnemyMonStamina
+	ld a, [hl]
+	sub b
+	jr c, .struggle
+
 	jr nz, .enough_pp
 
 .disabled
@@ -6486,8 +6595,11 @@ LoadEnemyMon:
 	dec a
 	jr nz, .Happiness
 
+	ld hl, wEnemyMonStamina
+	ld a, STA_MAX
+	ld [hl], a
+	
 ; Species-specfic:
-
 ; Unown
 	ld a, [wTempEnemyMonSpecies]
 	cp UNOWN
@@ -6650,9 +6762,13 @@ LoadEnemyMon:
 
 .OpponentParty:
 ; Get HP from the party struct
-	ld hl, (wOTPartyMon1HP + 1)
+	ld hl, (wOTPartyMon1MaxHP + 1)
 	ld a, [wCurPartyMon]
 	call GetPartyLocation
+	ld a, [hld]
+	ld [wEnemyMonMaxHP + 1], a
+	ld a, [hld]
+	ld [wEnemyMonMaxHP], a
 	ld a, [hld]
 	ld [wEnemyMonHP + 1], a
 	ld a, [hld]
@@ -7947,6 +8063,8 @@ AnimateExpBar:
 	ldh [hProduct + 3], a
 
 .finish
+	ld c, 60
+	call DelayFrames
 	pop bc
 	ret
 
@@ -8206,6 +8324,52 @@ FillInExpBar:
 	ld de, 7
 	add hl, de
 	jp PlaceExpBar
+
+FillInStaminaBar:
+	push hl
+	call CalcStaminaBar
+	pop hl
+	ld de, 0
+	add hl, de
+	jp PlaceStaminaBar
+
+PlaceStaminaBar:
+.loop
+	ld a, b
+	sub 2
+	jr c, .half
+	ld b, a
+
+	ld a, $72 ; full bar
+	ld [hli], a
+
+	ld a, b
+	and a
+	jr z, .finish
+	jr .loop
+	
+.half
+	ld a, $71 ; half bar
+	ld [hli], a
+
+.finish
+	ret
+
+CalcStaminaBar:
+	ld b, 0
+.loop
+	sub 10
+	jr c, .half
+	inc b
+	inc b
+	and a
+	jr z, .finish
+	
+	jr .loop
+.half
+	inc b
+.finish
+	ret
 
 CalcExpBar:
 ; Calculate the percent exp between this level and the next

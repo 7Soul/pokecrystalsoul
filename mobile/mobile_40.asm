@@ -1754,8 +1754,8 @@ Function100b7a:
 MobileMoveSelectionScreen:
 	xor a
 	ld [wMoveSwapBuffer], a
-	farcall CheckPlayerHasUsableMoves
-	ret z
+	; farcall CheckPlayerHasUsableMoves
+	; ret z
 	call Function100dd8
 	jp c, xor_a_dec_a
 	call Function100e72
