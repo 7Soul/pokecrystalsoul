@@ -21,21 +21,14 @@ BattleCommand_Conversion2:
 	and TYPE_MASK
 	ld d, a
 	pop hl
-	cp CURSE_T
-	jr z, .failed
 	call AnimateCurrentMove
 	call BattleCommand_SwitchTurn
 
 .loop
 	call BattleRandom
 	maskbits NUM_TYPES
-	cp UNUSED_TYPES
-	jr c, .okay
-	cp UNUSED_TYPES_END
-	jr c, .loop
 	cp TYPES_END
 	jr nc, .loop
-.okay
 	ld [hli], a
 	ld [hld], a
 	push hl

@@ -1,5 +1,5 @@
-; sets carry flag if move 'e' is variable		
-; saves index into 'd' and `a`
+; sets carry flag if move `e` is variable		
+; saves index into `a`, `d` and `wCurType`
 IsVariableMove::
 	ld a, -1
 	ld [wCurVariableMove], a
@@ -22,7 +22,7 @@ IsVariableMove::
 	and a
 	ret
 
-; takes move id in `wCurSpecies`, and puts variable move id in `e`, `a`	and `wCurVariableMove`	
+; takes variable index in `d`, and puts variable move id in `e`, `a` and `wCurVariableMove`
 GetVariableMoveType::
 	ld hl, VariablePointers
 	dec d

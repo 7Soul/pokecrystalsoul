@@ -283,3 +283,19 @@ TruncateHL_BC::
 	
 	ld b, l
 	ret
+
+HasUserFainted::
+	ldh a, [hBattleTurn]
+	and a
+	jr z, HasPlayerFainted
+HasEnemyFainted::
+	ld hl, wEnemyMonHP
+	jr CheckIfHPIsZero
+
+HasPlayerFainted::
+	ld hl, wBattleMonHP
+
+CheckIfHPIsZero::
+	ld a, [hli]
+	or [hl]
+	ret

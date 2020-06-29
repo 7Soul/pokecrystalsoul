@@ -34,13 +34,8 @@ HiddenPowerDamage:
 
 ; Skip Normal
 	inc a
+	add SPECIAL
 
-; Skip unused types
-	cp UNUSED_TYPES
-	jr c, .done
-	add SPECIAL - UNUSED_TYPES
-
-.done
 ; Overwrite the current move type.
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE

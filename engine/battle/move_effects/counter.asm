@@ -33,6 +33,7 @@ BattleCommand_Counter:
 	ret z
 
 	ld a, [wStringBuffer1 + MOVE_TYPE]
+	and STATUS
 	cp SPECIAL
 	ret nc
 

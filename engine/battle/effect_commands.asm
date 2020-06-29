@@ -2859,6 +2859,7 @@ PlayerAttackDamage:
 	
 .no_leaf_shield
 	ld a, [hl]
+	and STATUS
 	cp SPECIAL
 	jr nc, .special
 
@@ -2939,6 +2940,7 @@ CheckDamageStatsCritical:
 	and a
 	jr nz, .enemy
 	ld a, [wPlayerMoveStructType]
+	and STATUS
 	cp SPECIAL
 ; special
 	ld a, [wPlayerSAtkLevel]
@@ -2953,6 +2955,7 @@ CheckDamageStatsCritical:
 
 .enemy
 	ld a, [wEnemyMoveStructType]
+	and STATUS
 	cp SPECIAL
 ; special
 	ld a, [wEnemySAtkLevel]
@@ -3001,6 +3004,7 @@ EnemyAttackDamage:
 	
 .no_leaf_shield
 	ld a, [hl]
+	and STATUS
 	cp SPECIAL
 	jr nc, .Special
 

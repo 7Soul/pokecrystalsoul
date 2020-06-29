@@ -13,32 +13,19 @@
 	const GROUND	; 4
 	const ROCK		; 5
 	const BUG		; 6
-
-UNUSED_TYPES EQU const_value
-	const TYPE_10	; 7
-	const TYPE_11	; 8
-	const TYPE_12	; 9
-	const TYPE_13	; a
-	const TYPE_14	; b
-	const TYPE_15	; c
-	const TYPE_16	; d
-	const TYPE_17	; e
-	const TYPE_18	; f
-	const CURSE_T	; 10
-UNUSED_TYPES_END EQU const_value
-
-	const FIRE		; 11
-	const WATER		; 12
-	const GRASS		; 13
-	const ELECTRIC	; 14
-	const PSYCHIC	; 15
-	const ICE		; 16
-	const DARK		; 17
+	const FIRE		; 7
+	const WATER		; 8
+	const GRASS		; 9
+	const ELECTRIC	; a
+	const PSYCHIC	; b
+	const ICE		; c
+	const DARK		; d
 TYPES_END EQU const_value
 
-TYPE_MASK EQU %00111111
+TYPE_MASK EQU %00001111
 PHYSICAL  EQU %01000000
 SPECIAL   EQU %10000000
 STATUS    EQU %11000000
+CONTACT   EQU %00100000
 
-NUM_TYPES EQU TYPES_END + UNUSED_TYPES - UNUSED_TYPES_END
+NUM_TYPES EQU TYPES_END

@@ -172,6 +172,7 @@ BattleTurn:
 	ld [wCurDamage + 1], a
 
 	; call HandleBerserkGene
+	call SwitchTurnCore
 	call UpdateBattleMonInParty
 	farcall AIChooseMove
 
@@ -1094,22 +1095,6 @@ EndOpponentProtectEndureDestinyBond:
 ; 	call GetBattleVarAddr
 ; 	res SUBSTATUS_UNKNOWN_5, [hl]
 ; 	ret
-
-HasUserFainted:
-	ldh a, [hBattleTurn]
-	and a
-	jr z, HasPlayerFainted
-HasEnemyFainted:
-	ld hl, wEnemyMonHP
-	jr CheckIfHPIsZero
-
-HasPlayerFainted:
-	ld hl, wBattleMonHP
-
-CheckIfHPIsZero:
-	ld a, [hli]
-	or [hl]
-	ret
 
 ResidualDamage:
 ; Return z if the user fainted before

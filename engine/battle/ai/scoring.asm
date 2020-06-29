@@ -1521,6 +1521,7 @@ AI_Smart_Counter:
 	jr z, .asm_38c0e
 
 	ld a, [wEnemyMoveStruct + MOVE_TYPE]
+	
 	cp SPECIAL
 	jr nc, .asm_38c0e
 
@@ -1549,6 +1550,7 @@ AI_Smart_Counter:
 	jr z, .asm_38c38
 
 	ld a, [wEnemyMoveStruct + MOVE_TYPE]
+	and STATUS
 	cp SPECIAL
 	jr nc, .asm_38c38
 
@@ -2011,11 +2013,14 @@ endr
 	ret
 
 AI_Smart_Curse:
-	ld a, [wEnemyMonType1]
-	cp CURSE_T
+	ld a, [wEnemyMonSpecies]
+	cp GASTLY
 	jr z, .ghostcurse
-	ld a, [wEnemyMonType2]
-	cp CURSE_T
+	cp HAUNTER
+	jr z, .ghostcurse
+	cp GENGAR
+	jr z, .ghostcurse
+	cp MISDREAVUS
 	jr z, .ghostcurse
 
 	call AICheckEnemyHalfHP
@@ -2027,16 +2032,36 @@ AI_Smart_Curse:
 	cp $9
 	ret nc
 
-	ld a, [wBattleMonType1]
-	cp CURSE_T
-	jr z, .asm_38e92
+; 80% chance to encourage it to raise Defense against player if they have more ATK than SP.ATK
+; Get the opponent's species
+	push hl
+	ld a, [wBattleMonSpecies]
+; Get the pointer for the enemy's Pokémon's base Attack	
+	ld hl, BaseData + BASE_ATK
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+; Get the Pokémon's base Attack
+	ld a, BANK(BaseData)
+	call GetFarByte
+	ld d, a
+; Get the pointer for the enemy's Pokémon's base Sp.Attack
+	ld bc, BASE_SAT - BASE_ATK
+	add hl, bc
+; Get the Pokémon's base Defense
+	ld a, BANK(BaseData)
+	call GetFarByte
+	pop hl
+	
+	cp d
+	ret c ; If Attack is lower than Sp.Attack, don't do anything
+
 	call AI_80_20
 	ret c
 	dec [hl]
 	dec [hl]
 	ret
 
-.asm_38e90
+.asm_38e90 ; discourage 4 times
 	inc [hl]
 	inc [hl]
 .asm_38e92
@@ -2690,6 +2715,7 @@ AI_Smart_MirrorCoat:
 	jr z, .asm_391a8
 
 	ld a, [wEnemyMoveStruct + MOVE_TYPE]
+	and STATUS
 	cp SPECIAL
 	jr c, .asm_391a8
 
@@ -2718,6 +2744,7 @@ AI_Smart_MirrorCoat:
 	jr z, .asm_391d2
 
 	ld a, [wEnemyMoveStruct + MOVE_TYPE]
+	and STATUS
 	cp SPECIAL
 	jr c, .asm_391d2
 

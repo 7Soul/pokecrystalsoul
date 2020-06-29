@@ -17,6 +17,7 @@ GetMoveCategoryName:
 
 ; Mask out the type
 	and $ff ^ TYPE_MASK
+	and STATUS
 ; Shift the category bits into the range 0-2
 	rlc a
 	rlc a

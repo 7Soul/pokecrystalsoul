@@ -720,6 +720,7 @@ Get_move_category: ; 0 = physical, 1 = special, 2 = status
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
 	and $ff ^ TYPE_MASK
+	and STATUS
 	rlc a
 	rlc a
 	dec a
@@ -1295,12 +1296,13 @@ TraitReduceSelfRecoil:
 	ret
 
 TraitContact:
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVar
+	and CONTACT
+	ret z
+
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	ld de, 1
-	ld hl, ContactMoves
-	call IsInArray
-	ret nc
 
 	ld hl, .TraitsThatDealDamageOnContact
 	call CheckTrait
@@ -2805,80 +2807,6 @@ ReduceDamage10:
 	ld a, $9A ; =0.9 ; 10% reduction
 	jp ApplyDamageMod
 
-ContactMoves:
-	db AQUA_TAIL
-	db BODY_SLAM
-	db BITE
-	db BRICK_BREAK
-	db CLAMP
-	db CLOSE_COMBAT
-	db COMET_PUNCH
-	db CONSTRICT
-	db COUNTER
-	db CRABHAMMER
-	db CROSS_CHOP
-	db CRUNCH
-	db DIG
-	db DIZZY_PUNCH
-	db DOUBLE_KICK
-	db DOUBLE_EDGE
-	db DOUBLESLAP
-	db DRILL_PECK
-	db DYNAMICPUNCH
-	db EXTREMESPEED
-	db FAINT_ATTACK
-	db FIRE_PUNCH
-	db FLAME_WHEEL
-	db FLY
-	db FURY_ATTACK
-	db FURY_CUTTER
-	db HAMMER_ARM
-	db HEADBUTT
-	db HORN_ATTACK
-	db HORN_DRILL
-	db HYPER_FANG
-	db ICE_PUNCH
-	db KARATE_CHOP
-	db LEECH_LIFE
-	db LICK
-	db LOW_KICK
-	db MACH_PUNCH
-	db MEGA_KICK
-	db MEGA_PUNCH
-	db MEGAHORN
-	db PECK
-	db PETAL_DANCE
-	db POUND
-	db PURSUIT
-	db QUICK_ATTACK
-	db RAGE
-	db RAPID_SPIN
-	db REVERSAL
-	db ROCK_SMASH
-	db ROLLOUT
-	db ROLLING_KICK
-	db SCRATCH
-	db SEISMIC_TOSS
-	db SKULL_BASH
-	db SLAM
-	db SLASH
-	db STAMPEDE
-	db STOMP
-	db SUBMISSION
-	db SUPER_FANG	
-	db TACKLE
-	db TAKE_DOWN
-	db THRASH
-	db THUNDERPUNCH
-	db TRIPLE_KICK
-	db VICEGRIP
-	db VITAL_THROW
-	db WAKEUP_SLAP
-	db WRAP
-	db X_SCISSOR
-	db ZEN_HEADBUTT
-	db -1
-	
 Chance: ; takes `percent` in `b` and sets carry flag
 	call BattleRandom
 	cp b

@@ -545,7 +545,8 @@ wEnemyDamageTaken:: dw ; c684
 
 wBattleReward:: ds 3 ; c686
 wKickCounter::
-wSpecialWildBattle:: db ; c689 ; custom
+wSpecialWildBattle:: 
+	db
 wBattleScriptBuffer:: ds 40 ; c68a
 
 wBattleScriptBufferAddress:: dw ; c6b2
