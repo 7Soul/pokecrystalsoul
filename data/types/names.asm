@@ -3,6 +3,7 @@ TypeNames:
 	dw Normal
 	dw Fighting
 	dw Flying
+	dw Poison
 	dw Ground
 	dw Rock
 	dw Bug
@@ -27,6 +28,7 @@ TypeNames:
 Normal:    db "NORMAL@"
 Fighting:  db "FIGHTING@"
 Flying:    db "FLYING@"
+Poison:    db "POISON@"
 Ground:    db "GROUND@"
 Rock:      db "ROCK@"
 Bug:       db "BUG@"

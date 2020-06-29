@@ -9,30 +9,31 @@
 	const NORMAL	; 0
 	const FIGHTING 	; 1
 	const FLYING	; 2
-	const GROUND	; 3
-	const ROCK		; 4
-	const BUG		; 5
+	const POISON	; 3
+	const GROUND	; 4
+	const ROCK		; 5
+	const BUG		; 6
 
 UNUSED_TYPES EQU const_value
-	const TYPE_10	; 6
-	const TYPE_11	; 7
-	const TYPE_12	; 8
-	const TYPE_13	; 9
-	const TYPE_14	; a
-	const TYPE_15	; b
-	const TYPE_16	; c
-	const TYPE_17	; d
-	const TYPE_18	; e
-	const CURSE_T	; f
+	const TYPE_10	; 7
+	const TYPE_11	; 8
+	const TYPE_12	; 9
+	const TYPE_13	; a
+	const TYPE_14	; b
+	const TYPE_15	; c
+	const TYPE_16	; d
+	const TYPE_17	; e
+	const TYPE_18	; f
+	const CURSE_T	; 10
 UNUSED_TYPES_END EQU const_value
 
-	const FIRE		; 10
-	const WATER		; 11
-	const GRASS		; 12
-	const ELECTRIC	; 13
-	const PSYCHIC	; 14
-	const ICE		; 15
-	const DARK		; 16
+	const FIRE		; 11
+	const WATER		; 12
+	const GRASS		; 13
+	const ELECTRIC	; 14
+	const PSYCHIC	; 15
+	const ICE		; 16
+	const DARK		; 17
 TYPES_END EQU const_value
 
 TYPE_MASK EQU %00111111

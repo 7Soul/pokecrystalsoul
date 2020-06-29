@@ -24,24 +24,25 @@ IsVariableMove::
 
 ; takes move id in `wCurSpecies`, and puts variable move id in `e`, `a`	and `wCurVariableMove`	
 GetVariableMoveType::
-	ld hl, VariableTypesByName
+	ld hl, VariablePointers
+	dec d
+	ld a, d
+	add a
+	add d
+	ld e, a
+	sbc a, a ; Sign-extend A
+	ld d, a
+	add hl, de
+	inc hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	
 .loop_variable_types_by_name
 	ld a, [hl]
 	cp -2
 	jr z, .no_type_match
-
-	ld a, [wCurSpecies] ; original move
-	ld e, a
-	ld a, [hli]
-	cp e
-	jr z, .found_move
-.get_to_next_move
-	ld a, [hli]
-	cp -1
-	jr nz, .get_to_next_move
-	jr .loop_variable_types_by_name
-
-.found_move
+; found move
 	ld a, [hli]
 	ld [wCurVariableMove], a ; save our new move
 	ld a, [wBattleMode] ; overworld or battle check

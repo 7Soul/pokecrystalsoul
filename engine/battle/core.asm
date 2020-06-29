@@ -726,7 +726,7 @@ ParsePlayerAction:
 	and a
 	jr nz, .reset_bide
 	ld a, [wPlayerSubStatus3]
-	and 1 << SUBSTATUS_BIDE
+	and 1 << SUBSTATUS_UNKNOWN_4
 	jr nz, .locked_in
 	xor a
 	ld [wMoveSelectionMenuType], a
@@ -779,7 +779,7 @@ ParsePlayerAction:
 
 .reset_bide
 	ld hl, wPlayerSubStatus3
-	res SUBSTATUS_BIDE, [hl]
+	res SUBSTATUS_UNKNOWN_4, [hl]
 
 .locked_in
 	xor a
@@ -1087,15 +1087,12 @@ EndOpponentProtectEndureDestinyBond:
 	call GetBattleVarAddr
 	res SUBSTATUS_PROTECT, [hl]
 	res SUBSTATUS_ENDURE, [hl]
-	ld a, BATTLE_VARS_SUBSTATUS5_OPP
-	call GetBattleVarAddr
-	res SUBSTATUS_DESTINY_BOND, [hl]
 	ret
 
 ; EndUserDestinyBond:
 ; 	ld a, BATTLE_VARS_SUBSTATUS5
 ; 	call GetBattleVarAddr
-; 	res SUBSTATUS_DESTINY_BOND, [hl]
+; 	res SUBSTATUS_UNKNOWN_5, [hl]
 ; 	ret
 
 HasUserFainted:
@@ -6141,7 +6138,7 @@ ParseEnemyAction:
 	bit SUBSTATUS_ROLLOUT, a
 	jp nz, .skip_load
 	ld a, [wEnemySubStatus3]
-	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_BIDE
+	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_UNKNOWN_4
 	jp nz, .skip_load
 
 	ld hl, wEnemySubStatus5
@@ -6287,7 +6284,7 @@ CheckEnemyLockedIn:
 
 	ld hl, wEnemySubStatus3
 	ld a, [hl]
-	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_BIDE
+	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_UNKNOWN_4
 	ret nz
 
 	ld hl, wEnemySubStatus1

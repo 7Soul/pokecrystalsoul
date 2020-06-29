@@ -1037,7 +1037,7 @@ AI_Smart_TrapTarget:
 	jr nz, .asm_38a91
 
 	ld a, [wPlayerSubStatus1]
-	and 1 << SUBSTATUS_IN_LOVE | 1 << SUBSTATUS_ROLLOUT | 1 << SUBSTATUS_IDENTIFIED | 1 << SUBSTATUS_NIGHTMARE
+	and 1 << SUBSTATUS_IN_LOVE | 1 << SUBSTATUS_ROLLOUT | 1 << SUBSTATUS_PRISM_LIGHT | 1 << SUBSTATUS_NIGHTMARE
 	jr nz, .asm_38a91
 
 ; Else, 50% chance to greatly encourage this move if it's the player's Pokemon first turn.
@@ -1941,7 +1941,7 @@ AI_Smart_MeanLook:
 ; 80% chance to greatly encourage this move if the player is either
 ; in love, identified, stuck in Rollout, or has a Nightmare.
 	ld a, [wPlayerSubStatus1]
-	and 1 << SUBSTATUS_IN_LOVE | 1 << SUBSTATUS_ROLLOUT | 1 << SUBSTATUS_IDENTIFIED | 1 << SUBSTATUS_NIGHTMARE
+	and 1 << SUBSTATUS_IN_LOVE | 1 << SUBSTATUS_ROLLOUT | 1 << SUBSTATUS_PRISM_LIGHT | 1 << SUBSTATUS_NIGHTMARE
 	jr nz, .asm_38e26
 
 ; Otherwise, discourage this move unless the player only has not very effective moves against the enemy.
@@ -3132,7 +3132,7 @@ CheckMonTypeMatchup:
 	jr nz, .Next
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
 	call GetBattleVar
-	bit SUBSTATUS_IDENTIFIED, a
+	bit SUBSTATUS_PRISM_LIGHT, a
 	jr z, .End
 	
 	cp -1
@@ -3662,10 +3662,10 @@ AI_Status:
 	call AIGetEnemyMove
 
 	ld a, [wEnemyMoveStruct + MOVE_EFFECT]
-	; cp EFFECT_TOXIC
-	; jr z, .poisonimmunity
-	; cp EFFECT_POISON
-	; jr z, .poisonimmunity
+	cp EFFECT_TOXIC
+	jr z, .poisonimmunity
+	cp EFFECT_POISON
+	jr z, .poisonimmunity
 	cp EFFECT_SLEEP
 	jr z, .typeimmunity
 	cp EFFECT_PARALYZE
@@ -3678,14 +3678,14 @@ AI_Status:
 	jr z, .checkmove
 	jr .typeimmunity
 
-; .poisonimmunity
-	; ld a, [wBattleMonType1]
-	; cp POISON
-	; jr z, .immune
-	; ld a, [wBattleMonType2]
-	; cp POISON
-	; jr z, .immune
-	; jr .typeimmunity
+.poisonimmunity
+	ld a, [wBattleMonType1]
+	cp POISON
+	jr z, .immune
+	ld a, [wBattleMonType2]
+	cp POISON
+	jr z, .immune
+	jr .typeimmunity
 
 .paraimmunity
 	ld a, [wBattleMonType1]

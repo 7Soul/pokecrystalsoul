@@ -3,7 +3,7 @@
 	db  46,  57,  40,  50,  40,  40
 	;   hp  atk  def  spd  sat  sdf
 
-	db GROUND, NORMAL ; type
+	db POISON, POISON ; type
 	db 235 ; catch rate
 	db 60 ; base exp
 	db NO_ITEM, ACCELEROCK ; items

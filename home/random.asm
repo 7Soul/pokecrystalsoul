@@ -51,10 +51,10 @@ RandomRange::
 ; Return a random number between 0 and a (non-inclusive).
 
 	push bc
-
+	ld c, a
 	; b = $100 % c
-	cpl
-    dec a
+	xor a
+	sub c
 .mod
 	sub c
 	jr nc, .mod

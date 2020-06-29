@@ -3,7 +3,7 @@
 	db  80, 120,  65,  70, 95,  60
 	;   hp  atk  def  spd  sat  sdf
 
-	db GRASS, FIGHTING ; type
+	db GRASS, POISON ; type
 	db 45 ; catch rate
 	db 191 ; base exp
 	db NO_ITEM, NO_ITEM ; items

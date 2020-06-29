@@ -125,6 +125,7 @@ MeetMomScript:
 
 	givepoke RATICATE, 50
 	givepoke PIDGEY, 50
+	givepoke EKANS, 50
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	callasm CheatGiveJohtoBadges

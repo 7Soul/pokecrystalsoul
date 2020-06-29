@@ -142,7 +142,7 @@ AI_Redundant:
 	cp NORMAL
 	jr nz, .Redundant	
 	ld a, [wPlayerSubStatus1]
-	bit SUBSTATUS_IDENTIFIED, a	
+	bit SUBSTATUS_PRISM_LIGHT, a	
 	ret
 
 .PerishSong:

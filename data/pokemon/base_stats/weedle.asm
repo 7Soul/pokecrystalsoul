@@ -3,7 +3,7 @@
 	db  40,  35,  30,  50,  20,  20
 	;   hp  atk  def  spd  sat  sdf
 
-	db BUG, BUG ; type
+	db BUG, POISON ; type
 	db 255 ; catch rate
 	db 52 ; base exp
 	db NO_ITEM, TOUGH_HORN ; items

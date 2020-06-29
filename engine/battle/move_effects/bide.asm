@@ -3,7 +3,7 @@ BattleCommand_StoreEnergy:
 
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVar
-	bit SUBSTATUS_BIDE, a
+	bit SUBSTATUS_UNKNOWN_4, a
 	ret z
 
 	ld hl, wPlayerRolloutCount
@@ -17,7 +17,7 @@ BattleCommand_StoreEnergy:
 
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
-	res SUBSTATUS_BIDE, [hl]
+	res SUBSTATUS_UNKNOWN_4, [hl]
 
 	ld hl, UnleashedEnergyText
 	call StdBattleTextBox
@@ -82,7 +82,7 @@ BattleCommand_UnleashEnergy:
 .got_damage
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
-	set SUBSTATUS_BIDE, [hl]
+	set SUBSTATUS_UNKNOWN_4, [hl]
 	xor a
 	ld [de], a
 	inc de

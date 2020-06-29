@@ -51,9 +51,9 @@ Moves:
 	move THRASH,       EFFECT_RAMPAGE,            90, NORMAL,   PHYSICAL, 100, 20,   0
 	move DOUBLE_EDGE,  EFFECT_RECOIL_HIT,        120, NORMAL,   PHYSICAL, 100, 10,   0
 	move TAIL_WHIP,    EFFECT_DEFENSE_DOWN,        0, NORMAL,   STATUS,   100, 30,   0
-	move POISON_STING, EFFECT_POISON_HIT,         15, BUG,      PHYSICAL, 100, 35,  30
+	move POISON_STING, EFFECT_POISON_HIT,         15, POISON,   PHYSICAL, 100, 35,  30
 	move TWINEEDLE,    EFFECT_POISON_MULTI_HIT,   30, BUG,      PHYSICAL, 100, 25,  30
-	move UNUSED_MOVE_1,  EFFECT_MULTI_HIT,          15, BUG,      PHYSICAL,  85, 20,   0
+	move UNUSED_MOVE_1,EFFECT_MULTI_HIT,          15, BUG,      PHYSICAL,  85, 20,   0
 	move LEER,         EFFECT_DEFENSE_DOWN,        0, NORMAL,   STATUS,   100, 30,   0
 	move BITE,         EFFECT_FLINCH_HIT,         60, DARK,     PHYSICAL, 100, 10,  30
 	move GROWL,        EFFECT_ATTACK_DOWN,         0, NORMAL,   STATUS,   100, 40,   0
@@ -62,7 +62,7 @@ Moves:
 	move SUPERSONIC,   EFFECT_CONFUSE,             0, NORMAL,   STATUS,    55, 20,   0
 	move SONICBOOM,    EFFECT_STATIC_DAMAGE,      20, NORMAL,   SPECIAL,   90, 20,   0
 	move DISABLE,      EFFECT_DISABLE,             0, NORMAL,   STATUS,    55, 20,   0
-	move ACID,         EFFECT_DEFENSE_DOWN_HIT,   40, GRASS,    SPECIAL,  100, 30,  30
+	move ACID,         EFFECT_DEFENSE_DOWN_HIT,   40, POISON,   SPECIAL,  100, 30,  30
 	move EMBER,        EFFECT_BURN_HIT,           40, FIRE,     SPECIAL,  100, 25,  10
 	move FLAMETHROWER, EFFECT_BURN_HIT,           95, FIRE,     SPECIAL,  100, 15,  10
 	move MIST,         EFFECT_MIST,                0, ICE,      STATUS,   100, 30,   0
@@ -88,7 +88,7 @@ Moves:
 	move GROWTH,       EFFECT_SP_ATK_UP,           0, NORMAL,   STATUS,   100, 40,   0
 	move RAZOR_LEAF,   EFFECT_NORMAL_HIT,         55, GRASS,    PHYSICAL,  95, 25,   0
 	move SOLARBEAM,    EFFECT_SOLARBEAM,         120, GRASS,    SPECIAL,  100, 10,   0
-	move POISONPOWDER, EFFECT_POISON,              0, GRASS,    STATUS,    75, 35,   0
+	move POISONPOWDER, EFFECT_POISON,              0, POISON,   STATUS,    75, 35,   0
 	move STUN_SPORE,   EFFECT_PARALYZE,            0, GRASS,    STATUS,    75, 30,   0
 	move SLEEP_POWDER, EFFECT_SLEEP,               0, GRASS,    STATUS,    75, 15,   0
 	move PETAL_DANCE,  EFFECT_RAMPAGE,            80, GRASS,    SPECIAL,  100, 20,   0
@@ -103,7 +103,7 @@ Moves:
 	move EARTHQUAKE,   EFFECT_EARTHQUAKE,        100, GROUND,   PHYSICAL, 100, 10,   0
 	move SIGNAL_BEAM,  EFFECT_CONFUSE_HIT,        75, BUG,      SPECIAL,  100, 15,  10
 	move DIG,          EFFECT_FLY,                60, GROUND,   PHYSICAL, 100, 10,   0
-	move TOXIC,        EFFECT_TOXIC,               0, DARK,     STATUS,    85, 10,   0
+	move TOXIC,        EFFECT_TOXIC,               0, POISON,   STATUS,    85, 10,   0
 	move CONFUSION,    EFFECT_CONFUSE_HIT,        50, PSYCHIC,  SPECIAL,  100, 25,  10
 	move PSYCHIC_M,    EFFECT_SP_DEF_DOWN_HIT,    90, PSYCHIC,  SPECIAL,  100, 10,  10
 	move HYPNOSIS,     EFFECT_SLEEP,               0, PSYCHIC,  STATUS,    60, 20,   0
@@ -134,8 +134,8 @@ Moves:
 	move SELFDESTRUCT, EFFECT_SELFDESTRUCT,      200, NORMAL,   PHYSICAL, 100,  5,   0
 	move EGG_BOMB,     EFFECT_NORMAL_HIT,        100, NORMAL,   PHYSICAL,  75, 10,   0
 	move LICK,         EFFECT_PARALYZE_HIT,       20, DARK,     PHYSICAL, 100, 30,  30
-	move SMOG,         EFFECT_POISON_HIT,         20, DARK,     SPECIAL,   70, 20,  40
-	move SLUDGE,       EFFECT_POISON_HIT,         65, DARK,     SPECIAL,  100, 20,  30
+	move SMOG,         EFFECT_POISON_HIT,         20, POISON,   SPECIAL,   70, 20,  40
+	move SLUDGE,       EFFECT_POISON_HIT,         65, POISON,   SPECIAL,  100, 20,  30
 	move MAKESHIFT,    EFFECT_ATTACK_UP_HIT,      50, NORMAL,   PHYSICAL,  70, 20, 100
 	move FIRE_BLAST,   EFFECT_BURN_HIT,          120, FIRE,     SPECIAL,   85,  5,  10
 	move DARK_PULSE,   EFFECT_FLINCH_HIT,         80, DARK,     SPECIAL,  100, 15,  30
@@ -146,11 +146,11 @@ Moves:
 	move CONSTRICT,    EFFECT_SPEED_DOWN_HIT,     50, NORMAL,   PHYSICAL, 100, 35,  30
 	move AMNESIA,      EFFECT_SP_DEF_UP_2,         0, PSYCHIC,  STATUS,   100, 20,   0
 	move KINESIS,      EFFECT_ACCURACY_DOWN,       0, PSYCHIC,  STATUS,    80, 15,   0
-	move VENOSHOCK,    EFFECT_VENOSHOCK,          65, DARK,     SPECIAL,  100, 10,   0
+	move VENOSHOCK,    EFFECT_VENOSHOCK,          65, POISON,   SPECIAL,  100, 10,   0
 	move INFERNO,      EFFECT_BURN_HIT,           85, FIRE,     SPECIAL,   50,  5, 100
 	move GLARE,        EFFECT_PARALYZE,            0, NORMAL,   STATUS,    75, 30,   0
 	move DREAM_EATER,  EFFECT_DREAM_EATER,       100, PSYCHIC,  SPECIAL,  100, 15,   0
-	move POISON_GAS,   EFFECT_POISON,              0, DARK,     STATUS,    55, 40,   0
+	move POISON_GAS,   EFFECT_POISON,              0, POISON,   STATUS,    55, 40,   0
 	move UNUSED_MOVE_2,EFFECT_MULTI_HIT,          25, ROCK,     PHYSICAL,  85, 10,   0
 	move LEECH_LIFE,   EFFECT_LEECH_HIT,          40, BUG,      PHYSICAL, 100, 15,   0
 	move STAMPEDE,     EFFECT_STAMPEDE,			  80, NORMAL,   PHYSICAL,  75,  5, 100
@@ -199,7 +199,7 @@ Moves:
 	move FAINT_ATTACK, EFFECT_ALWAYS_HIT,         60, DARK,     PHYSICAL, 100, 20,   0
 	move SWEET_KISS,   EFFECT_CONFUSE,             0, NORMAL,   STATUS,    75, 10,   0
 	move BELLY_DRUM,   EFFECT_BELLY_DRUM,          0, NORMAL,   STATUS,   100, 10,   0
-	move SLUDGE_BOMB,  EFFECT_POISON_HIT,         90, DARK,     SPECIAL,  100, 10,  30
+	move SLUDGE_BOMB,  EFFECT_POISON_HIT,         90, POISON,   SPECIAL,  100, 10,  30
 	move MUD_BOMB,     EFFECT_ACCURACY_DOWN_HIT,  65, GROUND,   SPECIAL,   85, 10,  30
 	move OCTAZOOKA,    EFFECT_ACCURACY_DOWN_HIT,  65, WATER,    SPECIAL,   95, 10,  30
 	move SPIKES,       EFFECT_SPIKES,              0, GROUND,   STATUS,   100, 20,   0
@@ -263,7 +263,7 @@ Moves:
 	move ROCK_SMASH,   EFFECT_DEFENSE_DOWN_HIT,   40, FIGHTING, PHYSICAL, 100, 15,  50
 	move WHIRLPOOL,    EFFECT_TRAP_TARGET,        15, WATER,    SPECIAL,   70, 15,   0
 	move POWER_GEM,    EFFECT_NORMAL_HIT,         80, ROCK,     SPECIAL,  100, 20,   0
-	move GUNK_SHOT,    EFFECT_POISON_HIT,        120, DARK,     PHYSICAL,  80,  5,  30
+	move GUNK_SHOT,    EFFECT_POISON_HIT,        120, POISON,   PHYSICAL,  80,  5,  30
 	move SILVER_WIND,  EFFECT_ALL_UP_HIT,         60, BUG,      SPECIAL,  100,  5,  10
 	move WILL_O_WISP,  EFFECT_BURN,                0, FIRE,     STATUS,   100,  5,   0
 

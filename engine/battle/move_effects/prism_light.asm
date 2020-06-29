@@ -27,12 +27,12 @@ BattleCommand_PrismLight:
 ; fail if reused
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
 	call GetBattleVarAddr
-	bit SUBSTATUS_IDENTIFIED, [hl]
+	bit SUBSTATUS_PRISM_LIGHT, [hl]
 	jr nz, .failed
 	
 ; success
 	pop hl
-	set SUBSTATUS_IDENTIFIED, [hl]
+	set SUBSTATUS_PRISM_LIGHT, [hl]
 	call AnimateCurrentMove
 	ld hl, IdentifiedText
 	jp StdBattleTextBox

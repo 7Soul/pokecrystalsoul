@@ -8,6 +8,7 @@ PokedexTypeSearchStrings:
 	db "ELECTRIC@"
 	db "  ICE   @"
 	db "FIGHTING@"
+	db " POISON @"
 	db " GROUND @"
 	db " FLYING @"
 	db "PSYCHIC @"

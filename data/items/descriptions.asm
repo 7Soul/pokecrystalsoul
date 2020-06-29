@@ -284,6 +284,11 @@ BicycleDesc:
 	next "for fast movement.@"
 
 MoonStoneDesc:
+FireStoneDesc:
+ThunderStoneDesc:
+WaterStoneDesc:
+LeafStoneDesc:
+SunStoneDesc:
 	db   "Evolves certain"
 	next "kinds of #MON.@"
 
@@ -339,18 +344,6 @@ MaxElixerDesc:
 	db   "Fully restores the"
 	next "PP of one #MON.@"
 
-FireStoneDesc:
-	db   "Evolves certain"
-	next "kinds of #MON.@"
-
-ThunderStoneDesc:
-	db   "Evolves certain"
-	next "kinds of #MON.@"
-
-WaterStoneDesc:
-	db   "Evolves certain"
-	next "kinds of #MON.@"
-
 ToughHornDesc:
 	db   "Powers unevolved"
 	next "BUG-Types.@"
@@ -386,10 +379,6 @@ RareCandyDesc:
 XAccuracyDesc:
 	db   "Raises accuracy."
 	next "(1 BTL)@"
-
-LeafStoneDesc:
-	db   "Evolves certain"
-	next "kinds of #MON.@"
 
 MetalPowderDesc:
 	db   "Raises DEFENSE of"
@@ -914,10 +903,6 @@ NormalBoxDesc:
 GorgeousBoxDesc:
 	db   "Open it and see"
 	next "what's inside.@"
-
-SunStoneDesc:
-	db   "Evolves certain"
-	next "kinds of #MON.@"
 
 PolkadotBowDesc:
 	db   "Powers up normal-"

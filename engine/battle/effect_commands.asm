@@ -379,7 +379,7 @@ CantMove:
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
 	ld a, [hl]
-	and $ff ^ (1 << SUBSTATUS_BIDE | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_CHARGED)
+	and $ff ^ (1 << SUBSTATUS_UNKNOWN_4 | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_CHARGED)
 	ld [hl], a
 
 	call ResetFuryCutterCount
@@ -1000,7 +1000,7 @@ BattleCommand_DoTurn:
 	ret z
 
 	ld a, [de]
-	and 1 << SUBSTATUS_IN_LOOP | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_BIDE
+	and 1 << SUBSTATUS_IN_LOOP | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_UNKNOWN_4
 	ret nz
 
 	call .consume_pp
@@ -1456,7 +1456,7 @@ BattleCommand_Stab:
 	jr nz, .SkipPrismLightCheck
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
 	call GetBattleVar
-	bit SUBSTATUS_IDENTIFIED, a
+	bit SUBSTATUS_PRISM_LIGHT, a
 	jp z, .end
 
 	cp -1
@@ -1633,7 +1633,7 @@ CheckTypeMatchup:
 	jr nz, .Next
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
 	call GetBattleVar
-	bit SUBSTATUS_IDENTIFIED, a
+	bit SUBSTATUS_PRISM_LIGHT, a
 	jr z, .End
 	
 	cp -1
@@ -2669,58 +2669,6 @@ BattleCommand_CheckFaint:
 	or [hl]
 	ret nz
 
-	ld a, BATTLE_VARS_SUBSTATUS5_OPP
-	call GetBattleVar
-	bit SUBSTATUS_DESTINY_BOND, a
-	jr z, .no_dbond
-
-	ld hl, TookDownWithItText
-	call StdBattleTextBox
-
-	ldh a, [hBattleTurn]
-	and a
-	ld hl, wEnemyMonMaxHP + 1
-	bccoord 2, 2 ; hp bar
-	ld a, 0
-	jr nz, .got_max_hp
-	ld hl, wBattleMonMaxHP + 1
-	bccoord 10, 9 ; hp bar
-	ld a, 1
-
-.got_max_hp
-	ld [wWhichHPBar], a
-	ld a, [hld]
-	ld [wBuffer1], a
-	ld a, [hld]
-	ld [wBuffer2], a
-	ld a, [hl]
-	ld [wBuffer3], a
-	xor a
-	ld [hld], a
-	ld a, [hl]
-	ld [wBuffer4], a
-	xor a
-	ld [hl], a
-	ld [wBuffer5], a
-	ld [wBuffer6], a
-	ld h, b
-	ld l, c
-	predef AnimateHPBar
-	call RefreshBattleHuds
-
-	call BattleCommand_SwitchTurn
-	xor a
-	ld [wNumHits], a
-	ld [wFXAnimID + 1], a
-	inc a
-	ld [wKickCounter], a
-	;ld a, DESTINY_BOND
-	call LoadAnim
-	call BattleCommand_SwitchTurn
-
-	jr .finish
-
-.no_dbond
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
 	cp EFFECT_MULTI_HIT
@@ -3910,12 +3858,6 @@ UpdateMoveData:
 	ld e, a
 	farcall IsVariableMove
 	jr nc, .not_variable
-	ld a, BATTLE_VARS_TYPE1
-	call GetBattleVar
-	ld b, a
-	ld a, BATTLE_VARS_TYPE2
-	call GetBattleVar
-	ld c, a
 	farcall GetVariableMoveType
 	jr nc, .not_variable
 	
@@ -4052,8 +3994,9 @@ BattleCommand_PoisonTarget:
 	ld a, [wTypeModifier]
 	and $7f
 	ret z
-	;farcall CheckIfTargetIsPoisonType
-	;ret z
+	ld b, POISON
+	farcall CheckIfTargetIsNthType ; Don't poison a Poison-type
+	ret z
 	call GetOpponentItem
 	ld a, b
 	cp HELD_PREVENT_POISON
@@ -4422,7 +4365,7 @@ BattleCommand_ParalyzeTarget:
 	and $7f
 	ret z
 	ld b, ELECTRIC
-	farcall CheckIfTargetIsNthType
+	farcall CheckIfTargetIsNthType ; Don't paralyze an Electric-type
 	ret z
 	call GetOpponentItem
 	ld a, b

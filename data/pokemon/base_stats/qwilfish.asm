@@ -3,7 +3,7 @@
 	db  55,  95,  105,  65,  55,  95
 	;   hp  atk  def  spd  sat  sdf
 
-	db WATER, DARK ; type
+	db WATER, POISON ; type
 	db 45 ; catch rate
 	db 100 ; base exp
 	db NO_ITEM, NO_ITEM ; items
