@@ -1079,38 +1079,56 @@ BattleCommand_DoTurn:
 .reduce_stamina_wild
 	ld a, [hl]
 	sub b
-	jr nc, .min
+	jr nc, .not_min
 	xor a
-	and a
-	jr z, .out_of_pp
-.min
+.not_min
 	ld [hl], a
 	ld [de], a
+	; jr z, .out_of_pp
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .update_HUD
+	ld hl, UpdateEnemyHUD
+	call CallBattleCore
+	ld b, 0
+	ret
+.update_HUD
+	ld hl, UpdatePlayerHUD
+	call CallBattleCore
 	ld b, 0
 	ret
 
-.wild
-	ld hl, wEnemyMonMoves
-	ld a, [wCurEnemyMoveNum]
-	ld c, a
-	ld b, 0
-	add hl, bc
-	ld a, [hl]
-	cp MIMIC
-	jr z, .mimic
-	ld hl, wWildMonMoves
-	add hl, bc
-	ld a, [hl]
-	cp MIMIC
-	ret z
+; .wild
+; 	ld hl, wEnemyMonMoves
+; 	ld a, [wCurEnemyMoveNum]
+; 	ld c, a
+; 	ld b, 0
+; 	add hl, bc
+; 	ld a, [hl]
+; 	cp MIMIC
+; 	jr z, .mimic
+; 	ld hl, wWildMonMoves
+; 	add hl, bc
+; 	ld a, [hl]
+; 	cp MIMIC
+; 	ret z
 
-.mimic
-	ld hl, wWildMonMoves
-	call .consume_pp
-	ret
+; .mimic
+; 	ld hl, wWildMonMoves
+; 	call .consume_pp
+; 	ret
 
 .out_of_pp
-	call BattleCommand_MoveDelay
+	ld c, 40
+	call DelayFrames
+	ld hl, MonIsExhausted
+	call StdBattleTextBox
+	call BattleCommand_SwitchTurn
+	call BattleCommand_RandomStatDown
+	call BattleCommand_StatDownMessage
+	call BattleCommand_SwitchTurn
+	ld b, 0
+	ret
 ; get move effect
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar

@@ -602,6 +602,11 @@ HasNoPPLeftText:
 	text "!"
 	prompt
 
+MonIsExhausted:
+	text "<USER>"
+	line "exhausted itself!"
+	prompt
+
 WentToSleepText:
 	text "<USER>"
 	line "went to sleep!"

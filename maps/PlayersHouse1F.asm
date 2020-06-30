@@ -123,7 +123,7 @@ MeetMomScript:
 	giveitem BERRY, 99
 	giveitem TOUGH_HORN
 
-	givepoke RATICATE, 50
+	givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
 	givepoke EKANS, 50
 	; callasm CheatFillPokedex

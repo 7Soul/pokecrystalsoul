@@ -188,10 +188,10 @@ BattleTurn:
 	jr c, .skip_iteration
 .loop1
 	call BattleMenu
-	jr c, .quit
+	jp c, .quit
 	ld a, [wBattleEnded]
 	and a
-	jr nz, .quit
+	jp nz, .quit
 	ld a, [wForcedSwitch] ; roared/whirlwinded/teleported
 	and a
 	jr nz, .quit
@@ -220,23 +220,6 @@ BattleTurn:
 	and a
 	jr nz, .quit
 
-	call RegenPartyStamina
-
-	ld a, [wBattleMode]
-	dec a
-	jr nz, .regen_OT_stamina
-	ld hl, wEnemyMonStamina
-	ld a, [hl]
-	add 5
-	cp STA_MAX
-	jr c, .max
-	ld a, STA_MAX
-.max
-	ld [hl], a
-	jr .done_wild
-.regen_OT_stamina
-	call RegenOTPartyStamina
-.done_wild
 	call HandleBetweenTurnEffects
 	
 	ld a, [wBattleEnded]
@@ -280,12 +263,18 @@ RegenPartyStamina:
 	push hl
 	ld a, MON_STAMINA
 	call GetPartyParamLocation
-	
+
+	ld c, 5
+	ld a, [hl]
+	and a ; 0 stamina?
+	jr nz, .got_stamina
+	sla c
+	sla c
+.got_stamina
 	ld a, [wCurBattleMon]
 	cp b
-	ld c, 5
 	jr z, .same_battlemon
-	ld c, 10
+	sla c
 .same_battlemon
 	ld a, [hl]
 	add c
@@ -1087,13 +1076,11 @@ Battle_PlayerFirst:
 
 PlayerTurn_EndOpponentProtectEndureDestinyBond:
 	call SetPlayerTurn
-	; call EndUserDestinyBond
 	callfar DoPlayerTurn
 	jp EndOpponentProtectEndureDestinyBond
 
 EnemyTurn_EndOpponentProtectEndureDestinyBond:
 	call SetEnemyTurn
-	; call EndUserDestinyBond
 	callfar DoEnemyTurn
 	jp EndOpponentProtectEndureDestinyBond
 
@@ -1102,13 +1089,52 @@ EndOpponentProtectEndureDestinyBond:
 	call GetBattleVarAddr
 	res SUBSTATUS_PROTECT, [hl]
 	res SUBSTATUS_ENDURE, [hl]
-	ret
 
-; EndUserDestinyBond:
-; 	ld a, BATTLE_VARS_SUBSTATUS5
-; 	call GetBattleVarAddr
-; 	res SUBSTATUS_UNKNOWN_5, [hl]
-; 	ret
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wBattleMonStamina
+	jr z, .got_stamina
+	ld hl, wEnemyMonStamina
+.got_stamina
+	ld a, [hl]
+	and a
+	jr nz, .has_stamina
+	ld c, 20
+	call DelayFrames
+	ld hl, MonIsExhausted
+	call StdBattleTextBox
+	call SwitchTurnCore
+	callfar BattleCommand_RandomStatDown
+	callfar BattleCommand_StatDownMessage
+	call SwitchTurnCore
+.has_stamina
+
+	ldh a, [hBattleTurn]
+	and a
+	jr nz, .enemy_stamina
+	call RegenPartyStamina
+	call UpdatePlayerHUD
+	jr .done_wild
+.enemy_stamina
+	ld a, [wBattleMode]
+	dec a
+	jr nz, .regen_OT_stamina
+; wild mon
+	ld hl, wEnemyMonStamina
+	ld a, [hl]
+	add 5
+	cp STA_MAX
+	jr c, .max
+	ld a, STA_MAX
+.max
+	ld [hl], a
+	jr .done_wild
+.regen_OT_stamina
+; enemy party mon
+	call RegenOTPartyStamina
+	call UpdateEnemyHUD
+.done_wild
+	ret
 
 ResidualDamage:
 ; Return z if the user fainted before
@@ -5822,19 +5848,19 @@ MoveSelectionScreen:
 	pop af
 	ret nz
 
-	ld hl, wBattleMonPP
-	ld a, [wMenuCursorY]
-	ld c, a
-	ld b, 0
-	add hl, bc
-	ld a, [hl]
-	and PP_MASK
+	; ld hl, wBattleMonPP
+	; ld a, [wMenuCursorY]
+	; ld c, a
+	; ld b, 0
+	; add hl, bc
+	; ld a, [hl]
+	; and PP_MASK
 	
-	ld b, a
-	ld hl, wBattleMonStamina
-	ld a, [hl]
-	sub b
-	jr c, .no_pp_left
+	; ld b, a
+	; ld hl, wBattleMonStamina
+	; ld a, [hl]
+	; sub b
+	; jr c, .no_pp_left
 
 	ld a, [wPlayerDisableCount]
 	swap a
@@ -5863,9 +5889,9 @@ MoveSelectionScreen:
 
 .no_pp_left
 	; ld hl, BattleText_TheresNoPPLeftForThisMove
-	ld a, STRUGGLE
-	ld [wCurPlayerMove], a
-	xor a
+	; ld a, STRUGGLE
+	; ld [wCurPlayerMove], a
+	; xor a
 	ret
 
 .place_textbox_start_over
@@ -6171,29 +6197,29 @@ ParseEnemyAction:
 	ld de, wEnemyMonPP
 	ld b, NUM_MOVES
 .loop
-	ld a, [hl]
-	and a
-	jp z, .struggle
+	; ld a, [hl]
+	; and a
+	; jp z, .struggle
 	ld a, [wEnemyDisabledMove]
 	cp [hl]
 	jr z, .disabled
-	ld a, [de]
-	and PP_MASK
+	; ld a, [de]
+	; and PP_MASK
 
-	ld b, a
-	ld hl, wEnemyMonStamina
-	ld a, [hl]
-	sub b
-	jr c, .struggle
+	; ld b, a
+	; ld hl, wEnemyMonStamina
+	; ld a, [hl]
+	; sub b
+	; jr c, .struggle
 
-	jr nz, .enough_pp
+	jr .enough_pp
 
 .disabled
 	inc hl
 	inc de
 	dec b
 	jr nz, .loop
-	jr .struggle
+	; jr .struggle
 
 .enough_pp
 	ld a, [wBattleMode]
@@ -8332,6 +8358,8 @@ FillInStaminaBar:
 PlaceStaminaBar:
 .loop
 	ld a, b
+	and a
+	jr z, .finish ; empty bar
 	sub 2
 	jr c, .half
 	ld b, a
@@ -8353,6 +8381,8 @@ PlaceStaminaBar:
 
 CalcStaminaBar:
 	ld b, 0
+	and a
+	jr z, .finish ; no stamina
 .loop
 	sub 10
 	jr c, .half

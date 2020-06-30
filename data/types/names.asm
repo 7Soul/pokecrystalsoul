@@ -7,16 +7,6 @@ TypeNames:
 	dw Ground
 	dw Rock
 	dw Bug
-	dw Normal
-	dw Normal
-	dw Normal
-	dw Normal
-	dw Normal
-	dw Normal
-	dw Normal
-	dw Normal
-	dw Normal
-	dw CurseType
 	dw Fire
 	dw Water
 	dw Grass

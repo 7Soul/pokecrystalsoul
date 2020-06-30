@@ -146,7 +146,7 @@ Moves:
 	move CONSTRICT,    EFFECT_SPEED_DOWN_HIT,     50, NORMAL,   PHYSICAL + CONTACT, 100, 35,  30
 	move AMNESIA,      EFFECT_SP_DEF_UP_2,         0, PSYCHIC,  STATUS,             100, 20,   0
 	move KINESIS,      EFFECT_ACCURACY_DOWN,       0, PSYCHIC,  STATUS,              80, 15,   0
-	move VENOSHOCK,    EFFECT_VENOSHOCK,          65, POISON,   SPECIAL,            100, 10,   0
+	move VENOSHOCK,    EFFECT_VENOSHOCK,          65, POISON,   SPECIAL,            100, 30,   0
 	move INFERNO,      EFFECT_BURN_HIT,           85, FIRE,     SPECIAL,             50,  5, 100
 	move GLARE,        EFFECT_PARALYZE,            0, NORMAL,   STATUS,              75, 30,   0
 	move DREAM_EATER,  EFFECT_DREAM_EATER,       100, PSYCHIC,  SPECIAL,            100, 15,   0
@@ -162,7 +162,7 @@ Moves:
 	move MAGMA_STORM,  EFFECT_TRAP_TARGET,        70, FIRE,     STATUS,              75,  5,   0
 	move PSYWAVE,      EFFECT_PSYWAVE,             1, PSYCHIC,  SPECIAL,            100, 15,   0
 	move AIR_SLASH,    EFFECT_FLINCH_HIT,         75, FLYING,   SPECIAL,             95, 15,  30
-	move ACID_ARMOR,   EFFECT_DEFENSE_UP_2,        0, DARK,     STATUS,             100, 10,   0
+	move ACID_ARMOR,   EFFECT_DEFENSE_UP_2,        0, DARK,     STATUS,             100, 30,   0
 	move CRABHAMMER,   EFFECT_NORMAL_HIT,         90, WATER,    PHYSICAL + CONTACT,  85, 10,   0
 	move EXPLOSION,    EFFECT_SELFDESTRUCT,      250, NORMAL,   PHYSICAL,           100,  5,   0
 	move JET_STREAM,   EFFECT_JET_STREAM,         60, WATER,    SPECIAL,            100, 10,   0
@@ -200,7 +200,7 @@ Moves:
 	move SWEET_KISS,   EFFECT_CONFUSE,             0, NORMAL,   STATUS,              75, 10,   0
 	move BELLY_DRUM,   EFFECT_BELLY_DRUM,          0, NORMAL,   STATUS,             100, 10,   0
 	move SLUDGE_BOMB,  EFFECT_POISON_HIT,         90, POISON,   SPECIAL,            100, 10,  30
-	move MUD_BOMB,     EFFECT_ACCURACY_DOWN_HIT,  65, GROUND,   SPECIAL,             85, 10,  30
+	move MUD_BOMB,     EFFECT_ACCURACY_DOWN_HIT,  65, GROUND,   SPECIAL,             85, 30,  30
 	move OCTAZOOKA,    EFFECT_ACCURACY_DOWN_HIT,  65, WATER,    SPECIAL,             95, 10,  30
 	move SPIKES,       EFFECT_SPIKES,              0, GROUND,   STATUS,             100, 20,   0
 	move ZAP_CANNON,   EFFECT_PARALYZE_HIT,      100, ELECTRIC, SPECIAL,             50,  5, 100
