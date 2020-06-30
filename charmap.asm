@@ -41,7 +41,7 @@
 	charmap "<LV>",      $6e
 
 	charmap "<DO>",      $70 ; hiragana small do, unused
-	charmap "◀",         $71
+	charmap "◀",         $6f
 	charmap "『",         $72 ; Japanese opening quote, unused
 	charmap "<ID>",      $73
 	charmap "№",         $74
@@ -50,7 +50,7 @@
 	charmap " ",         $7f ; gfx/frames/space.png
 	
 	; needed for StatsScreen_PlaceShinyIcon and PrintPartyMonPage1
-	charmap "⁂",         $3f ; gfx/stats/stats_tiles.png, tile 14
+	charmap "⁂",         $3b ; gfx/stats/stats_tiles.png, tile 14
 
 ; Actual characters (from gfx/font/font.png)
 

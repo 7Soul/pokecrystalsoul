@@ -760,7 +760,7 @@ ListMoves:
 	ld a, b
 .nonmove_loop
 	push af
-	ld [hl], "-"
+	; ld [hl], "-"
 	ld a, [wBuffer1]
 	ld c, a
 	ld b, 0

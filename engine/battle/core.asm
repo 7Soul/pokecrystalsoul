@@ -221,8 +221,22 @@ BattleTurn:
 	jr nz, .quit
 
 	call RegenPartyStamina
-	call RegenOTPartyStamina
 
+	ld a, [wBattleMode]
+	dec a
+	jr nz, .regen_OT_stamina
+	ld hl, wEnemyMonStamina
+	ld a, [hl]
+	add 5
+	cp STA_MAX
+	jr c, .max
+	ld a, STA_MAX
+.max
+	ld [hl], a
+	jr .done_wild
+.regen_OT_stamina
+	call RegenOTPartyStamina
+.done_wild
 	call HandleBetweenTurnEffects
 	
 	ld a, [wBattleEnded]

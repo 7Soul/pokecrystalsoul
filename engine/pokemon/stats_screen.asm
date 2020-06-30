@@ -409,7 +409,6 @@ StatsScreen_InitUpperHalf:
 	;call GetPokemonName
 	;call PlaceString
 	;call StatsScreen_PlaceHorizontalDivider
-	;call StatsScreen_PlacePageSwitchArrows
 	call StatsScreen_PlaceShinyIcon
 	ret
 
@@ -447,18 +446,6 @@ StatsScreen_InitUpperHalf:
 	dw wOTPartyMonNicknames
 	dw sBoxMonNicknames
 	dw wBufferMonNick
-
-Unreferenced_Function4df7f:
-	hlcoord 7, 0
-	ld bc, SCREEN_WIDTH
-	ld d, SCREEN_HEIGHT
-.loop
-	ld a, $31 ; vertical divider
-	ld [hl], a
-	add hl, bc
-	dec d
-	jr nz, .loop
-	ret
 
 StatsScreen_PlaceHorizontalDividerTopBlue:
 	hlcoord 0, 7
@@ -626,13 +613,6 @@ StatsScreen_PlaceHorizontalDividerBotGreen:
 	ld a, $bf ; bot right corner
 	ld [hli], a
 	ret
-	
-StatsScreen_PlacePageSwitchArrows:
-	hlcoord 11, 6
-	ld [hl], "◀"
-	hlcoord 18, 6
-	ld [hl], "▶"
-	ret
 
 StatsScreen_PlaceShinyIcon:
 	ld bc, wTempMonDVs
@@ -720,31 +700,27 @@ StatsScreen_LoadGFX:
 	
 	call .PlaceOTInfo
 
-	hlcoord 1, 11
+	hlcoord 10, 11
 	ld b, $0
 	predef DrawPlayerHP
-	ld a, [wBaseDexNo]
-	ld [wCurSpecies], a
-	hlcoord 12, 11
-	; ld [hl], "№"
+	; ld a, [wBaseDexNo]
+	; ld [wCurSpecies], a
+	; hlcoord 12, 11
+	; ld [hl], "S"
 	; inc hl
-	; ld [hl], "."
+	; ld [hl], "T"
 	; inc hl
-	ld [hl], "S"
-	inc hl
-	ld [hl], "T"
-	inc hl
-	ld [hl], "A"
-	inc hl
-	hlcoord 16, 11
-	ld a, [wTempMonStamina]
-	ld [wDeciramBuffer], a
-	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
-	ld de, wDeciramBuffer
-	call PrintNum
+	; ld [hl], "A"
+	; inc hl
+	; hlcoord 16, 11
+	; ld a, [wTempMonStamina]
+	; ld [wDeciramBuffer], a
+	; lb bc, PRINTNUM_LEADINGZEROS | 1, 3
+	; ld de, wDeciramBuffer
+	; call PrintNum
 	
 	ld de, .Status_String
-	hlcoord 1, 13
+	hlcoord 1, 11
 	call PlaceString
 	ld de, .Type_String
 	hlcoord 10, 13
@@ -762,7 +738,7 @@ StatsScreen_LoadGFX:
 	ld a, [wMonType]
 	cp BOXMON
 	jr z, .StatusOK
-	hlcoord 6, 14
+	hlcoord 6, 12
 	push hl
 	ld de, wTempMonStatus
 	predef PlaceStatusString
@@ -810,9 +786,9 @@ StatsScreen_LoadGFX:
 	ld de, wTempMonExp + 2
 	predef FillInExpBar
 	hlcoord 1, 9
-	ld [hl], $40 ; left exp bar end cap
+	ld [hl], $3a ; left exp bar end cap
 	hlcoord 10, 9
-	ld [hl], $41 ; right exp bar end cap
+	ld [hl], $3b ; right exp bar end cap
 	call StatsScreen_PlaceHorizontalDividerBotPink
 	ret
 
@@ -848,7 +824,7 @@ StatsScreen_LoadGFX:
 
 .PlaceOTInfo:
 	ld de, OTString
-	hlcoord 1, 15
+	hlcoord 1, 13
 	call PlaceString
 	
 	ld a, [wBuffer6]
@@ -861,16 +837,16 @@ StatsScreen_LoadGFX:
 	call GetNicknamePointer
 	call CopyNickname
 .place_ot_name
-	hlcoord 3, 16
+	hlcoord 3, 14
 	call PlaceString
 
 	ld a, [wBuffer6]
 	cp $AA
 	jr z, .done
 	ld de, IDNoString
-	hlcoord 11, 16
+	hlcoord 1, 16
 	call PlaceString
-	hlcoord 14, 16
+	hlcoord 4, 16
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
 	ld de, wTempMonID
 	call PrintNum
@@ -931,7 +907,7 @@ StatsScreen_LoadGFX:
 	ld de, wListMoves_MoveIndicesBuffer
 	ld bc, NUM_MOVES
 	call CopyBytes
-	hlcoord 1, 10
+	hlcoord 5, 10
 	ld a, SCREEN_WIDTH * 2
 	ld [wBuffer1], a
 	ld a, [wBaseType1]
@@ -939,7 +915,7 @@ StatsScreen_LoadGFX:
 	ld a, [wBaseType2]
 	ld [wBattleMonType2], a
 	predef ListMoves
-	hlcoord 14, 10
+	hlcoord 1, 10
 	ld a, SCREEN_WIDTH * 2
 	ld [wBuffer1], a
 	predef ListMovePP
@@ -1291,17 +1267,17 @@ StatsScreen_AnimateEgg:
 
 StatsScreen_LoadPageIndicators:
 	hlcoord 2, 5
-	ld a, $36 ; first of 4 small square tiles
+	ld a, $31 ; first of 4 small square tiles
 	call .load_square
 	hlcoord 4, 5
-	ld a, $36 ; " " " "
+	ld a, $31 ; " " " "
 	call .load_square
 	hlcoord 6, 5
-	ld a, $36 ; " " " "
+	ld a, $31 ; " " " "
 	call .load_square
 	ld a, c
 	cp GREEN_PAGE
-	ld a, $3a ; first of 4 large square tiles
+	ld a, $35 ; first of 4 large square tiles
 	hlcoord 2, 5 ; PINK_PAGE (< GREEN_PAGE)
 	jr c, .load_square
 	hlcoord 4, 5 ; GREEN_PAGE (= GREEN_PAGE)

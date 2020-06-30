@@ -28,7 +28,11 @@ _LoadFontsExtra2::
 _LoadFontsBattleExtra::
 	ld de, FontBattleExtra
 	ld hl, vTiles2 tile $60
-	lb bc, BANK(FontBattleExtra), 12
+	lb bc, BANK(FontBattleExtra), 16
+	call Get2bpp_2
+	ld hl, vTiles2 tile $71
+	ld de, FontBattleExtra + 22 tiles
+	lb bc, BANK(FontBattleExtra), 2
 	call Get2bpp_2
 	jr LoadFrame
 
@@ -52,7 +56,7 @@ LoadFrame:
 LoadBattleFontsHPBar:
 	ld de, FontBattleExtra
 	ld hl, vTiles2 tile $60
-	lb bc, BANK(FontBattleExtra), 12
+	lb bc, BANK(FontBattleExtra), 16
 	call Get2bpp_2
 	ld hl, vTiles2 tile $71
 	ld de, FontBattleExtra + 22 tiles
@@ -100,6 +104,6 @@ StatsScreen_LoadFont:
 LoadStatsScreenPageTilesGFX:
 	ld de, StatsScreenPageTilesGFX
 	ld hl, vTiles2 tile $31
-	lb bc, BANK(StatsScreenPageTilesGFX), 17
+	lb bc, BANK(StatsScreenPageTilesGFX), 11
 	call Get2bpp_2
 	ret

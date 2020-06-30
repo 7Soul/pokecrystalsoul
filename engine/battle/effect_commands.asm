@@ -1003,12 +1003,14 @@ BattleCommand_DoTurn:
 	and 1 << SUBSTATUS_IN_LOOP | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_UNKNOWN_4
 	ret nz
 
+	push de
 	call .consume_pp
+	pop de
 	ld a, b
 	and a
 	jp nz, EndMoveEffect
 
-; 	; SubStatus5
+	; SubStatus5
 ; 	inc de
 ; 	inc de
 
@@ -1019,7 +1021,7 @@ BattleCommand_DoTurn:
 ; 	ldh a, [hBattleTurn]
 ; 	and a
 
-; 	ld hl, wPartyMon1PP
+; 	ld hl, wPartyMon1Stamina
 ; 	ld a, [wCurBattleMon]
 ; 	jr z, .player
 
@@ -1028,7 +1030,8 @@ BattleCommand_DoTurn:
 ; 	dec a
 ; 	jr z, .wild
 
-; 	ld hl, wOTPartyMon1PP
+
+; 	ld hl, wOTPartyMon1Stamina
 ; 	ld a, [wCurOTMon]
 
 ; .player
@@ -1060,6 +1063,11 @@ BattleCommand_DoTurn:
 	ld de, wBattleMonStamina
 	ld a, [wCurBattleMon]
 	jr z, .reduce_stamina
+	ld hl, wEnemyMonStamina
+	ld de, wEnemyMonStamina
+	ld a, [wBattleMode]
+	dec a
+	jr z, .reduce_stamina_wild
 	ld hl, wOTPartyMon1Stamina
 	ld de, wEnemyMonStamina
 	ld a, [wCurOTMon]
@@ -1068,6 +1076,7 @@ BattleCommand_DoTurn:
 	push bc
 	call GetPartyLocation
 	pop bc
+.reduce_stamina_wild
 	ld a, [hl]
 	sub b
 	jr nc, .min
@@ -1096,7 +1105,7 @@ BattleCommand_DoTurn:
 	ret z
 
 .mimic
-	ld hl, wWildMonPP
+	ld hl, wWildMonMoves
 	call .consume_pp
 	ret
 
