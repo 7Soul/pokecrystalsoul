@@ -264,7 +264,7 @@ RegenPartyStamina:
 	ld a, MON_STAMINA
 	call GetPartyParamLocation
 
-	ld c, 5
+	ld c, STA_HALF
 	ld a, [hl]
 	and a ; 0 stamina?
 	jr nz, .got_stamina
@@ -276,18 +276,57 @@ RegenPartyStamina:
 	jr z, .same_battlemon
 	sla c
 .same_battlemon
+	push bc
 	ld a, [hl]
+	and STA_MASK
 	add c
 	cp STA_MAX
 	jr c, .max
 	ld a, STA_MAX
 .max
+	ld b, a
+	ld a, [hl]
+	and STA_EX_MASK
+	or b
 	ld [hl], a
+	pop bc
 	ld c, a
 	ld a, [wCurBattleMon]
 	cp b
 	jr nz, .not_battlemon
 	ld hl, wBattleMonStamina	
+	ld a, c
+	ld [hl], a
+.not_battlemon
+	pop hl
+.next
+	ld a, [wCurPartyMon]
+	inc a
+	ld [wCurPartyMon], a
+	jr .loop
+.done
+	ret
+
+UpdatePartyStamina: ; copies battlemon stamina to partymon stamina
+	ld c, a
+	xor a
+	ld [wCurPartyMon], a
+	ld hl, wPartySpecies
+.loop
+	ld b, a
+	ld a, [hli]
+	cp -1
+	jr z, .done
+	cp EGG
+	jr z, .next
+
+	push hl
+	ld a, MON_STAMINA
+	call GetPartyParamLocation
+
+	ld a, [wCurBattleMon]
+	cp b
+	jr nz, .not_battlemon
 	ld a, c
 	ld [hl], a
 .not_battlemon
@@ -1097,8 +1136,22 @@ EndOpponentProtectEndureDestinyBond:
 	ld hl, wEnemyMonStamina
 .got_stamina
 	ld a, [hl]
+	and STA_MASK
+	ld b, a
 	and a
 	jr nz, .has_stamina
+	ld a, [hl]
+	and STA_EX_MASK
+	swap a
+	rra
+	cp %111
+	jr z, .maxed
+	inc a
+.maxed
+	sla a
+	swap a
+	or b
+	call UpdatePartyStamina
 	ld c, 20
 	call DelayFrames
 	ld hl, MonIsExhausted
@@ -1122,6 +1175,7 @@ EndOpponentProtectEndureDestinyBond:
 ; wild mon
 	ld hl, wEnemyMonStamina
 	ld a, [hl]
+	and STA_MASK
 	add 5
 	cp STA_MAX
 	jr c, .max
@@ -4936,6 +4990,7 @@ DrawPlayerHUD:
 
 	hlcoord 11, 11
 	ld a, [wTempMonStamina]
+	and STA_MASK
 	ld b, a
 	call FillInStaminaBar
 	pop de
@@ -5111,6 +5166,7 @@ DrawEnemyHUD:
 .skip_level
 	hlcoord 3, 3
 	ld a, [wEnemyMonStamina]
+	and STA_MASK
 	ld b, a
 	call FillInStaminaBar
 
@@ -8384,7 +8440,7 @@ CalcStaminaBar:
 	and a
 	jr z, .finish ; no stamina
 .loop
-	sub 10
+	sub STA_BAR
 	jr c, .half
 	inc b
 	inc b

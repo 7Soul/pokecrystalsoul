@@ -401,7 +401,7 @@ CalcCostBar:
 	and a
 	jr z, .finish
 .loop
-	sub 10
+	sub STA_BAR
 	jr c, .half
 	inc b
 	inc b

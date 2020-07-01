@@ -203,7 +203,7 @@ ReadTrainerPartyPieces:
 	call GetNextTrainerDataByte
 	ld [de], a ; DV byte
 	inc de
-	ld a, 70
+	ld a, STA_MAX
 	ld [de], a ; Stamina
 .no_dvs
 

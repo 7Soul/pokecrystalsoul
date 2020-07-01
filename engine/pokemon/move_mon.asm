@@ -316,7 +316,7 @@ endr
 	inc de
 
 	; Stamina
-	ld a, 70
+	ld a, STA_MAX
 	ld [de], a
 	inc de
 .end_dvs

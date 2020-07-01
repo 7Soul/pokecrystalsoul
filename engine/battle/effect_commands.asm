@@ -1078,13 +1078,20 @@ BattleCommand_DoTurn:
 	pop bc
 .reduce_stamina_wild
 	ld a, [hl]
+	and STA_MASK
 	sub b
 	jr nc, .not_min
 	xor a
 .not_min
+	ld c, a
+	ld a, [hl]
+	and STA_EX_MASK
+	or c
 	ld [hl], a
 	ld [de], a
 	; jr z, .out_of_pp
+
+; Update HUD
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .update_HUD
