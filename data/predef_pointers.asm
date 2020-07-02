@@ -92,5 +92,4 @@ PredefPointers::
 	add_predef GetVariableMoveType
 	add_predef GetVariableMoveName
 	add_predef PrintTraitDesc
-	; add_predef RegenPartyStamina
-	; add_predef RegenOTPartyStamina
+	

@@ -249,9 +249,14 @@ Stubbed_Function3c1bf:
 	ret
 
 RegenPartyStamina:
+	ld c, a
+	ld hl, wPartySpecies
+	and a
+	jr z, .got_party_species
+	ld hl, wOTPartySpecies
+.got_party_species
 	xor a
 	ld [wCurPartyMon], a
-	ld hl, wPartySpecies
 .loop
 	ld b, a
 	ld a, [hli]
@@ -260,10 +265,32 @@ RegenPartyStamina:
 	cp EGG
 	jr z, .next
 
+	ld a, c
+	push bc
 	push hl
+	and a ; partymon?
+	jr nz, .get_otmon
 	ld a, MON_STAMINA
 	call GetPartyParamLocation
+	ld a, [wCurBattleMon]
+	ld [wBuffer1], a
+	ld de, wBattleMonStamina
+	jr .got_stamina_location
 
+.get_otmon
+	push bc
+	ld hl, wOTPartyMons
+	ld c, MON_STAMINA
+	ld b, 0
+	add hl, bc
+	ld a, [wCurPartyMon]
+	call GetPartyLocation
+	pop bc
+	ld a, [wCurOTMon]
+	ld [wBuffer1], a
+	ld de, wEnemyMonStamina
+
+.got_stamina_location
 	ld c, STA_HALF
 	ld a, [hl]
 	and a ; 0 stamina?
@@ -271,7 +298,7 @@ RegenPartyStamina:
 	sla c
 	sla c
 .got_stamina
-	ld a, [wCurBattleMon]
+	ld a, [wBuffer1]
 	cp b
 	jr z, .same_battlemon
 	sla c
@@ -291,10 +318,11 @@ RegenPartyStamina:
 	ld [hl], a
 	pop bc
 	ld c, a
-	ld a, [wCurBattleMon]
+	ld a, [wBuffer1]
 	cp b
 	jr nz, .not_battlemon
-	ld hl, wBattleMonStamina	
+	ld h, d
+	ld l, e
 	ld a, c
 	ld [hl], a
 .not_battlemon
@@ -303,90 +331,28 @@ RegenPartyStamina:
 	ld a, [wCurPartyMon]
 	inc a
 	ld [wCurPartyMon], a
-	jr .loop
-.done
-	ret
-
-UpdatePartyStamina: ; copies battlemon stamina to partymon stamina
-	ld c, a
-	xor a
-	ld [wCurPartyMon], a
-	ld hl, wPartySpecies
-.loop
-	ld b, a
-	ld a, [hli]
-	cp -1
-	jr z, .done
-	cp EGG
-	jr z, .next
-
-	push hl
-	ld a, MON_STAMINA
-	call GetPartyParamLocation
-
-	ld a, [wCurBattleMon]
-	cp b
-	jr nz, .not_battlemon
-	ld a, c
-	ld [hl], a
-.not_battlemon
-	pop hl
-.next
-	ld a, [wCurPartyMon]
-	inc a
-	ld [wCurPartyMon], a
-	jr .loop
-.done
-	ret
-	
-RegenOTPartyStamina:
-	xor a
-	ld [wCurPartyMon], a
-	ld hl, wOTPartySpecies
-.loop
-	ld b, a
-	ld a, [hli]
-	cp -1
-	jr z, .done
-
-	push hl
-	push bc
-	ld hl, wOTPartyMons
-	ld c, MON_STAMINA
-	ld b, 0
-	add hl, bc
-	ld a, [wCurPartyMon]
-	call GetPartyLocation
 	pop bc
-	
-	ld a, [wCurOTMon]
-	cp b
-	ld c, 5
-	jr z, .same_battlemon
-	ld c, 10
-.same_battlemon
-	ld a, [hl]
-	add c
-	cp STA_MAX
-	jr c, .max
-	ld a, STA_MAX
-.max
-	ld [hl], a
-	ld c, a
-	ld a, [wCurOTMon]
-	cp b
-	jr nz, .not_battlemon
-	ld hl, wEnemyMonStamina	
-	ld a, c
-	ld [hl], a
-.not_battlemon
-	pop hl
-.next
-	ld a, [wCurPartyMon]
-	inc a
-	ld [wCurPartyMon], a
 	jr .loop
 .done
+	pop bc
+	ret
+
+; Copies current battlemon stamina to partymon stamina. 	
+; Takes current stamina (including exhaustion bits) in `hl` and PARTYMON or OTPARTYMON in `[wBuffer1]`
+UpdatePartyStamina: 
+	ld a, [hl]
+	ld d, a
+	ld a, [wBuffer1] 
+	and a ; PARTYMON?
+	ld hl, wPartyMon1Stamina
+	ld a, [wCurBattleMon]
+	jr z, .got_party_stamina_pointer
+	ld hl, wOTPartyMon1Stamina
+	ld a, [wCurOTMon]
+.got_party_stamina_pointer
+	call GetPartyLocation
+	ld a, d
+	ld [hl], a
 	ret
 
 HandleBetweenTurnEffects:
@@ -1128,18 +1094,24 @@ EndOpponentProtectEndureDestinyBond:
 	call GetBattleVarAddr
 	res SUBSTATUS_PROTECT, [hl]
 	res SUBSTATUS_ENDURE, [hl]
-
+	
 	ldh a, [hBattleTurn]
 	and a
 	ld hl, wBattleMonStamina
+	ld a, PARTYMON
+	ld [wBuffer1], a
 	jr z, .got_stamina
+
+	ld a, OTPARTYMON
+	ld [wBuffer1], a
 	ld hl, wEnemyMonStamina
 .got_stamina
 	ld a, [hl]
 	and STA_MASK
 	ld b, a
-	and a
+	and a ; 0 stamina?
 	jr nz, .has_stamina
+; Increase exhaustion counter
 	ld a, [hl]
 	and STA_EX_MASK
 	swap a
@@ -1151,7 +1123,12 @@ EndOpponentProtectEndureDestinyBond:
 	sla a
 	swap a
 	or b
+	ld [hl], a
+	ld a, [wBattleMode]
+	dec a
+	jr z, .wild
 	call UpdatePartyStamina
+.wild
 	ld c, 20
 	call DelayFrames
 	ld hl, MonIsExhausted
@@ -1161,10 +1138,11 @@ EndOpponentProtectEndureDestinyBond:
 	callfar BattleCommand_StatDownMessage
 	call SwitchTurnCore
 .has_stamina
-
+; Regen stamina between turns
 	ldh a, [hBattleTurn]
 	and a
 	jr nz, .enemy_stamina
+	ld a, PARTYMON
 	call RegenPartyStamina
 	call UpdatePlayerHUD
 	jr .done_wild
@@ -1176,7 +1154,7 @@ EndOpponentProtectEndureDestinyBond:
 	ld hl, wEnemyMonStamina
 	ld a, [hl]
 	and STA_MASK
-	add 5
+	add STA_HALF ; half a bar
 	cp STA_MAX
 	jr c, .max
 	ld a, STA_MAX
@@ -1185,9 +1163,10 @@ EndOpponentProtectEndureDestinyBond:
 	jr .done_wild
 .regen_OT_stamina
 ; enemy party mon
-	call RegenOTPartyStamina
-	call UpdateEnemyHUD
+	ld a, OTPARTYMON
+	call RegenPartyStamina
 .done_wild
+	call UpdateEnemyHUD
 	ret
 
 ResidualDamage:
