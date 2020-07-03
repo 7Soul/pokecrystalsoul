@@ -3285,19 +3285,9 @@ BattleCommand_DamageCalc:
 	ld b, $4
 	call Divide
 
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c000], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c001], a
-
 	farcall PowerBoostingTraits
 
 	farcall SpeedBoostDamage
-
-	; ldh a, [hMultiplicand + 1]
-	; ld [$c002], a
-	; ldh a, [hMultiplicand + 2]
-	; ld [$c003], a
 
 ; Item boosts
 	call GetUserItem
@@ -3923,7 +3913,10 @@ BattleCommand_ParalyseOrSleep:
 
 BattleCommand_SleepTarget:
 ; sleeptarget
+	xor a
+	ld [wBuffer3], a
 
+BattleCommand_SleepSimple:
 	call GetOpponentItem
 	ld a, b
 	cp HELD_PREVENT_SLEEP
@@ -3960,6 +3953,18 @@ BattleCommand_SleepTarget:
 	call CheckSubstituteOpp
 	jr nz, .fail
 
+	ld a, [wBuffer3]
+	and a
+	jr z, .normal_sleep
+
+	xor a
+	ld [wNumHits], a
+	ld de, ANIM_SLP
+	call PlayOpponentBattleAnim
+	ld b, $7
+	jr .random_loop
+	
+.normal_sleep
 	call AnimateCurrentMove
 	ld b, $7
 	ld a, [wInBattleTowerBattle]
@@ -4012,9 +4017,9 @@ BattleCommand_SleepTarget:
 	bit SUBSTATUS_LOCK_ON, a
 	jr nz, .dont_fail
 
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	ret c
+	; call BattleRandom
+	; cp 25 percent + 1 ; 25% chance AI fails
+	; ret c
 
 .dont_fail
 	xor a
@@ -4675,7 +4680,13 @@ BattleCommand_RandomStatDown:
 ; 
 	ld a, 5
 	call RandomRange
-	ld b, a
+	jr BattleCommand_StatDown
+
+BattleCommand_RandomStatDown2:
+; 	
+	ld a, 5
+	call RandomRange
+	add 16
 	jr BattleCommand_StatDown
 
 BattleCommand_AttackDown:

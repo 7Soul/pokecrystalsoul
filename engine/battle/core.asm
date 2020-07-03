@@ -248,113 +248,6 @@ Stubbed_Function3c1bf:
 	call CloseSRAM
 	ret
 
-RegenPartyStamina:
-	ld c, a
-	ld hl, wPartySpecies
-	and a
-	jr z, .got_party_species
-	ld hl, wOTPartySpecies
-.got_party_species
-	xor a
-	ld [wCurPartyMon], a
-.loop
-	ld b, a
-	ld a, [hli]
-	cp -1
-	jr z, .done
-	cp EGG
-	jr z, .next
-
-	ld a, c
-	push bc
-	push hl
-	and a ; partymon?
-	jr nz, .get_otmon
-	ld a, MON_STAMINA
-	call GetPartyParamLocation
-	ld a, [wCurBattleMon]
-	ld [wBuffer1], a
-	ld de, wBattleMonStamina
-	jr .got_stamina_location
-
-.get_otmon
-	push bc
-	ld hl, wOTPartyMons
-	ld c, MON_STAMINA
-	ld b, 0
-	add hl, bc
-	ld a, [wCurPartyMon]
-	call GetPartyLocation
-	pop bc
-	ld a, [wCurOTMon]
-	ld [wBuffer1], a
-	ld de, wEnemyMonStamina
-
-.got_stamina_location
-	ld c, STA_HALF
-	ld a, [hl]
-	and a ; 0 stamina?
-	jr nz, .got_stamina
-	sla c
-	sla c
-.got_stamina
-	ld a, [wBuffer1]
-	cp b
-	jr z, .same_battlemon
-	sla c
-.same_battlemon
-	push bc
-	ld a, [hl]
-	and STA_MASK
-	add c
-	cp STA_MAX
-	jr c, .max
-	ld a, STA_MAX
-.max
-	ld b, a
-	ld a, [hl]
-	and STA_EX_MASK
-	or b
-	ld [hl], a
-	pop bc
-	ld c, a
-	ld a, [wBuffer1]
-	cp b
-	jr nz, .not_battlemon
-	ld h, d
-	ld l, e
-	ld a, c
-	ld [hl], a
-.not_battlemon
-	pop hl
-.next
-	ld a, [wCurPartyMon]
-	inc a
-	ld [wCurPartyMon], a
-	pop bc
-	jr .loop
-.done
-	pop bc
-	ret
-
-; Copies current battlemon stamina to partymon stamina. 	
-; Takes current stamina (including exhaustion bits) in `hl` and PARTYMON or OTPARTYMON in `[wBuffer1]`
-UpdatePartyStamina: 
-	ld a, [hl]
-	ld d, a
-	ld a, [wBuffer1] 
-	and a ; PARTYMON?
-	ld hl, wPartyMon1Stamina
-	ld a, [wCurBattleMon]
-	jr z, .got_party_stamina_pointer
-	ld hl, wOTPartyMon1Stamina
-	ld a, [wCurOTMon]
-.got_party_stamina_pointer
-	call GetPartyLocation
-	ld a, d
-	ld [hl], a
-	ret
-
 HandleBetweenTurnEffects:
 	ldh a, [hSerialConnectionStatus]
 	cp USING_EXTERNAL_CLOCK
@@ -1116,7 +1009,7 @@ EndOpponentProtectEndureDestinyBond:
 	and STA_EX_MASK
 	swap a
 	rra
-	cp %111
+	cp %11
 	jr z, .maxed
 	inc a
 .maxed
@@ -1124,6 +1017,7 @@ EndOpponentProtectEndureDestinyBond:
 	swap a
 	or b
 	ld [hl], a
+	ld [wBuffer2], a
 	ld a, [wBattleMode]
 	dec a
 	jr z, .wild
@@ -1134,8 +1028,28 @@ EndOpponentProtectEndureDestinyBond:
 	ld hl, MonIsExhausted
 	call StdBattleTextBox
 	call SwitchTurnCore
+	xor a
+	ld [wAttackMissed], a
+	ld a, [wBuffer2]
+	and STA_EX_MASK
+	swap a
+	rra
+	dec a
+	jr z, .one_ex
+	dec a
+	jr z, .two_ex
+	ld a, 1
+	ld [wBuffer3], a
+	callfar BattleCommand_SleepSimple
+	jr .end_ex2
+.two_ex
+	callfar BattleCommand_RandomStatDown2
+	jr .end_ex
+.one_ex
 	callfar BattleCommand_RandomStatDown
+.end_ex
 	callfar BattleCommand_StatDownMessage
+.end_ex2
 	call SwitchTurnCore
 .has_stamina
 ; Regen stamina between turns
@@ -1143,6 +1057,7 @@ EndOpponentProtectEndureDestinyBond:
 	and a
 	jr nz, .enemy_stamina
 	ld a, PARTYMON
+	ld [wBuffer1], a
 	call RegenPartyStamina
 	call UpdatePlayerHUD
 	jr .done_wild
@@ -1164,6 +1079,7 @@ EndOpponentProtectEndureDestinyBond:
 .regen_OT_stamina
 ; enemy party mon
 	ld a, OTPARTYMON
+	ld [wBuffer1], a
 	call RegenPartyStamina
 .done_wild
 	call UpdateEnemyHUD

@@ -283,7 +283,9 @@ GetTraitName::
 
 GetVariableMoveName::
 ; takes move id in 'e' and puts string in wStringBuffer1
-	ld hl, .VariableMovesText
+	ld a, BANK(VariableMoveNames)
+	rst Bankswitch
+	ld hl, VariableMoveNames
 	ld a, e
 	and a
 	jr z, .got_text
@@ -302,43 +304,3 @@ GetVariableMoveName::
 	call CopyBytes
 	pop hl
 	ret
-
-.VariableMovesText:
-	db "Bone Rush@"
-	db "Pin Missile@"
-	db "Rock Blast@"
-	db "Gather Sand@"
-	db "Tide Clash@"
-	db "Flutter Clap@"
-	db "Stone Edge@"
-	db "Brave Bird@"
-	db "Wood Hammer@"
-	db "Ice Shard@"
-	db "Accelerock@"
-	db "Aqua Jet@"
-	db "Night Slash@"
-	db "Leaf Blade@"
-	db "Seed Bomb@"
-	db "Aerial Ace@"
-	db "FeatherDance@"
-	db "Fissure@"
-	db "Sheer Cold@"
-	db "Guillotine@"	
-	db "Withdraw@"
-	db "Iron Defense@"
-	db "Bonemerang@"
-	db "Energy Ball@"
-	db "Flail@"
-	db "Mud Shot@"
-	db "Mega Splash@"
-	db "Sand Dive@"
-	db "Hurricane@"
-	db "Razor Shell@"
-	db "Spiral Kick@"
-	db "Power Whip@"
-	db "Rock Polish@"
-	db "Shock Sting@"
-	db "Rock Tumble@"
-	db "Brutal Vine@"
-	db "Double Hit@"
-	db "Waterfall@"
