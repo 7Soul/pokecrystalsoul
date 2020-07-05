@@ -1008,12 +1008,13 @@ EndOpponentProtectEndureDestinyBond:
 	ld a, [hl]
 	and STA_EX_MASK
 	swap a
-	rra
+	; rra
 	cp %11
 	jr z, .maxed
 	inc a
 .maxed
-	sla a
+	; sla a
+	ld c, a
 	swap a
 	or b
 	ld [hl], a
@@ -1023,26 +1024,25 @@ EndOpponentProtectEndureDestinyBond:
 	jr z, .wild
 	call UpdatePartyStamina
 .wild
+	ld a, c
+	cp %11
+	jr z, .already_max
 	ld c, 20
 	call DelayFrames
 	ld hl, MonIsExhausted
 	call StdBattleTextBox
+.already_max
 	call SwitchTurnCore
 	xor a
 	ld [wAttackMissed], a
 	ld a, [wBuffer2]
 	and STA_EX_MASK
 	swap a
-	rra
+	; rra
 	dec a
 	jr z, .one_ex
 	dec a
-	jr z, .two_ex
-	ld a, 1
-	ld [wBuffer3], a
-	callfar BattleCommand_SleepSimple
-	jr .end_ex2
-.two_ex
+	jr nz, .end_ex2
 	callfar BattleCommand_RandomStatDown2
 	jr .end_ex
 .one_ex

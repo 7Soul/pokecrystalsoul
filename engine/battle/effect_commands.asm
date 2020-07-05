@@ -701,6 +701,14 @@ BattleCommand_CheckObedience:
 	and a
 	ret nz
 
+	ld a, [wBattleMonStamina]
+	and STA_EX_MASK
+	cp $30
+	ld b, $80
+	ld c, $40 ; half of b (means 25% chance down the line)
+	ld d, $c0 ; b + c
+	jp z, .rand1
+
 	; If the monster's id doesn't match the player's,
 	; some conditions need to be met.
 	ld a, MON_ID
@@ -755,11 +763,7 @@ BattleCommand_CheckObedience:
 	add b
 	ld b, a
 
-; No overflow (this should never happen)
-	jr nc, .checklevel
-	ld b, $ff
-
-.checklevel
+; checklevel
 ; If the monster's level is lower than the obedience level, it will obey.
 	ld a, c
 	cp d
@@ -793,12 +797,12 @@ BattleCommand_CheckObedience:
 	jr c, .UseInstead
 
 ; No hope of using a move now.
-
 ; b = number of levels the monster is above the obedience level
 	ld a, d
 	sub c
 	ld b, a
 
+.force
 ; The chance of napping is the difference out of 256.
 	call BattleRandom
 	swap a
@@ -821,7 +825,13 @@ BattleCommand_CheckObedience:
 	and SLP
 	jr z, .Nap
 
-	ld [wBattleMonStatus], a
+	ld hl, wBattleMonStatus
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player_status
+	ld hl, wEnemyMonStatus
+.player_status
+	ld [hl], a
 
 	ld hl, BeganToNapText
 	jr .Print
@@ -881,17 +891,17 @@ BattleCommand_CheckObedience:
 	jr nz, .GetTotalPP
 
 .CheckMovePP:
-	ld hl, wBattleMonPP
-	ld a, [wCurMoveNum]
-	ld e, a
-	ld d, 0
-	add hl, de
+	; ld hl, wBattleMonPP
+	; ld a, [wCurMoveNum]
+	; ld e, a
+	; ld d, 0
+	; add hl, de
 
 ; Can't use another move if only one move has PP.
-	ld a, [hl]
-	and PP_MASK
-	cp b
-	jr z, .DoNothing
+	; ld a, [hl]
+	; and PP_MASK
+	; cp b
+	; jr z, .DoNothing
 
 ; Make sure we can actually use the move once we get there.
 	ld a, 1
@@ -918,13 +928,13 @@ BattleCommand_CheckObedience:
 
 ; Make sure it has PP.
 	ld [wCurMoveNum], a
-	ld hl, wBattleMonPP
-	ld e, a
-	ld d, 0
-	add hl, de
-	ld a, [hl]
-	and PP_MASK
-	jr z, .RandomMove
+	; ld hl, wBattleMonPP
+	; ld e, a
+	; ld d, 0
+	; add hl, de
+	; ld a, [hl]
+	; and PP_MASK
+	; jr z, .RandomMove
 
 ; Use it.
 	ld a, [wCurMoveNum]

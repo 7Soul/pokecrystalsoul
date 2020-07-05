@@ -393,6 +393,7 @@ RegenPartyStamina::
 ; Copies current battlemon stamina to partymon stamina. 	
 ; Takes current stamina (including exhaustion bits) in `hl` and PARTYMON or OTPARTYMON in `[wBuffer1]`
 UpdatePartyStamina::
+	push bc
 	ld a, [wBuffer1] 
 	and a ; PARTYMON?
 	ld hl, wPartyMon1Stamina
@@ -404,4 +405,5 @@ UpdatePartyStamina::
 	call GetPartyLocation
 	ld a, [wBuffer2]
 	ld [hl], a
+	pop bc
 	ret
