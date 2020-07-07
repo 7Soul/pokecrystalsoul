@@ -108,6 +108,7 @@ MeetMomScript:
 	setevent EVENT_RIVAL_CHERRYGROVE_CITY
 	setmapscene NEW_BARK_TOWN, SCENE_FINISHED
 	addcellnum PHONE_BILL
+	addcellnum PHONE_LEAGUE
 	setevent EVENT_RELEASED_THE_BEASTS
 	special InitRoamMons
 	special InitKantoRoamMons

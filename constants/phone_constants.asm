@@ -38,6 +38,7 @@
 	const PHONE_HIKER_PARRY
 	const PHONE_PICNICKER_ERIN
 	const PHONE_BUENA
+	const PHONE_LEAGUE
 
 ; SpecialPhoneCallList indexes (see data/phone/special_calls.asm)
 	const_def
@@ -50,6 +51,7 @@
 	const SPECIALCALL_BIKESHOP
 	const SPECIALCALL_WORRIED
 	const SPECIALCALL_MASTERBALL
+	const SPECIALCALL_ACHIEVEMENT
 
 ; phone struct members
 	const_def

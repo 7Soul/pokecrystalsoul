@@ -361,6 +361,7 @@ INCLUDE "data/phone/text/wilton_overworld.asm"
 INCLUDE "data/phone/text/kenji_overworld.asm"
 INCLUDE "data/phone/text/parry_overworld.asm"
 INCLUDE "data/phone/text/erin_overworld.asm"
+INCLUDE "data/phone/text/achievements.asm"
 
 
 SECTION "bank2E", ROMX

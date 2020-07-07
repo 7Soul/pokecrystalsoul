@@ -103,3 +103,13 @@ CheckReceivedDex::
 	ld a, c
 	and a
 	ret
+
+SetAchievement:: ; takes event flag in `de`
+	ld b, SET_FLAG
+	call EventFlagAction
+	ld de, EVENT_HAS_NEW_ACHIVEMENT
+	ld b, SET_FLAG
+	call EventFlagAction
+	ld a, SPECIALCALL_ACHIEVEMENT
+	ld [wSpecialPhoneCallID], a
+	ret

@@ -409,7 +409,24 @@ PokeBallEffect:
 	ld hl, Text_ThreeShakes
 	jp z, .shake_and_break_free
 .caught
-
+	ld hl, wBaseTraits
+	ld a, [wEnemyMonTrait]
+	ld b, a
+	ld c, 4
+.trait_loop
+	ld a, [hli]
+	dec c
+	jr z, .last_trait
+	cp b
+	jr nz, .trait_loop
+	; found trait
+	ld a, c
+	cp 2
+	jr nc, .not_rare
+.last_trait
+	ld de, EVENT_CAUGHT_MON_RARE_TRAIT
+	call SetAchievement
+.not_rare
 	ld hl, wEnemyMonStatus
 	ld a, [hli]
 	push af

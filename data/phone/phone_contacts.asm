@@ -15,6 +15,8 @@ PhoneContacts:
 	phone TRAINER_NONE, PHONECONTACT_BIKESHOP, OAKS_LAB,      0,       UnusedPhoneScript,   0,       UnusedPhoneScript
 	phone TRAINER_NONE, PHONECONTACT_BILL,  N_A,              ANYTIME, BillPhoneScript1,    0,       BillPhoneScript2
 	phone TRAINER_NONE, PHONECONTACT_ELM,   ELMS_LAB,         ANYTIME, ElmPhoneScript1,     0,       ElmPhoneScript2
+	phone TRAINER_NONE, PHONECONTACT_BUENA, GOLDENROD_DEPT_STORE_ROOF, ANYTIME, BuenaPhoneScript1, ANYTIME, BuenaPhoneScript2
+	phone TRAINER_NONE, PHONECONTACT_LEAGUE,OAKS_LAB,         ANYTIME, LeagueAchievementCall, 0,     LeagueAchievementCall
 	phone SCHOOLBOY,    JACK1,              NATIONAL_PARK,    ANYTIME, JackPhoneScript1,    ANYTIME, JackPhoneScript2
 	phone POKEFANF,     BEVERLY1,           NATIONAL_PARK,    ANYTIME, BeverlyPhoneScript1, ANYTIME, BeverlyPhoneScript2
 	phone SAILOR,       HUEY1,              OLIVINE_LIGHTHOUSE_2F, ANYTIME, HueyPhoneScript1, ANYTIME, HueyPhoneScript2
@@ -47,4 +49,3 @@ PhoneContacts:
 	phone BLACKBELT_T,  KENJI3,             ROUTE_45,         ANYTIME, KenjiPhoneScript1,   ANYTIME, KenjiPhoneScript2
 	phone HIKER,        PARRY1,             ROUTE_45,         ANYTIME, ParryPhoneScript1,   ANYTIME, ParryPhoneScript2
 	phone PICNICKER,    ERIN1,              ROUTE_46,         ANYTIME, ErinPhoneScript1,    ANYTIME, ErinPhoneScript2
-	phone TRAINER_NONE, PHONECONTACT_BUENA, GOLDENROD_DEPT_STORE_ROOF, ANYTIME, BuenaPhoneScript1, ANYTIME, BuenaPhoneScript2

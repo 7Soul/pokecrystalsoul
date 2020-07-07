@@ -2670,7 +2670,8 @@ wParryFightCount::   db
 wErinFightCount::    db
 ; da0e
 
-	ds 50
+wAchievements:: flag_array NUM_ACHIEVEMENTS
+	ds 48
 
 wEventFlags:: flag_array NUM_EVENTS ; da72
 ; db6c

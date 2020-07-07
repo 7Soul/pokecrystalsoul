@@ -1883,3 +1883,27 @@ ErinWantsBattle:
 	landmarktotext ROUTE_46, MEM_BUFFER_2
 	setflag ENGINE_ERIN
 	farjump PhoneScript_WantsToBattle_Female
+
+LeagueAchievementCall:
+	checkcode VAR_SPECIALPHONECALL
+	ifequal SPECIALCALL_ACHIEVEMENT, .achievement
+	specialphonecall SPECIALCALL_NONE
+	jump .end
+.achievement
+	checkevent EVENT_HAS_NEW_ACHIVEMENT
+	iffalse .end
+	farwritetext AchievNewText
+	buttonsound
+	checkevent EVENT_CAUGHT_MON_RARE_TRAIT
+	iftrue .rare_trait
+	jump .end ; temp
+.rare_trait
+	checkevent EVENT_CAUGHT_MON_RARE_TRAIT_WARNED
+	iftrue .end
+	
+	farwritetext AchievCaughtRareTraitText
+	setevent EVENT_CAUGHT_MON_RARE_TRAIT_WARNED
+.end
+	clearevent EVENT_HAS_NEW_ACHIVEMENT
+	specialphonecall SPECIALCALL_NONE
+	end
