@@ -11,8 +11,7 @@ CheckTrait: ; sets carry if trait can be used, returns move index [wBuffer3] in 
 	jr z, .end
 	ld a, BATTLE_VARS_TRAIT ; load this if wBuffer1 is some other value just in case
 .end
-	call CheckTraitCondition
-	ret
+	jp CheckTraitCondition
 .already_activated
 	and a
 	ret
@@ -20,12 +19,11 @@ CheckTrait: ; sets carry if trait can be used, returns move index [wBuffer3] in 
 CheckSpecificTrait:
 	ld b, a
 	call CheckTraitActivated ; check if trait only activates once
-	jr c, .no_trait	
+	jr c, .no_trait
 	ld a, [wBuffer1]
 	call GetBattleVar
 	cp b
-	jr nz, .no_trait
-	jp CheckTraitCondition.GotTrait
+	jr z, CheckTraitCondition.GotTrait
 .no_trait
 	and a
 	ret
@@ -57,12 +55,10 @@ CheckTraitCondition:
 	ld d, 12 percent + 1
 	jp c, .check_chance
 	cp TRAIT_EVASION_ON_SPEED_DIFF + 1 ; 
-	ld d, 50
-	ld e, SPEED
+	lb de, 50, SPEED
 	jp c, .check_stat_difference
 	cp TRAIT_ATK_ON_ATK_DIFF + 1 ; 
-	ld d, 50
-	ld e, ATTACK
+	lb de, 50, ATTACK
 	jp c, .check_stat_difference
 	cp TRAIT_BOOST_RECOIL + 1 ; all traits that require recoil
 	jp c, .check_recoil
@@ -366,9 +362,8 @@ CheckTraitCondition:
 
 .check_move_physical
 	call Get_move_category
-	cp 0
-	jp z, .success
 	and a
+	jp z, .success
 	ret
 	
 .check_move_special
@@ -441,9 +436,7 @@ CheckTraitCondition:
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
 	cp d
-	jr nc, .no_turns_lower ; greater or equal
-	jp .success
-.no_turns_lower
+	jp c, .success ; greater or equal
 	and a
 	ret
 
@@ -544,11 +537,11 @@ CheckTraitCondition:
 	jr .not_status
 .isANY ; non-volatile
 	ld a, [hl]
-	cp 0
+	and a
 	jp nz, .success
 .isANYANY
 	ld a, [hl]
-	cp 0
+	and a
 	jp nz, .success
 	ld a, BATTLE_VARS_SUBSTATUS1
 	call GetBattleVarAddr
@@ -576,10 +569,8 @@ CheckTraitCondition:
 .loop_ss3
 	rlca
 	dec b
-	jr z, .check_substatus3
-	jr .loop_ss3
-	
-.check_substatus3
+	jr nz, .loop_ss3
+
 	ld b, a
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
@@ -601,14 +592,13 @@ CheckTraitCondition:
 .got_party
 	call GetTraitUserAddr
 	pop de
-	ld b, 1 << (PARTY_LENGTH - 1)
-	ld c, 0
+	lb bc, 1 << (PARTY_LENGTH - 1), 0
 
 .loop
 	ld a, [hli]
 	cp $ff
 	ret z
-	cp $0
+	and a
 	ret z
 
 	push hl
@@ -690,9 +680,8 @@ CheckTraitCondition:
 	sub d
 	jr nc, .mod1
 	add d
-	cp 0
-	jp z, ActivateTrait
 	and a
+	jp z, ActivateTrait
 	ret
 
 .check_move_type_trigger:
@@ -721,8 +710,8 @@ Get_move_category: ; 0 = physical, 1 = special, 2 = status
  	call GetBattleVarAddr
 	and $ff ^ TYPE_MASK
 	and STATUS
-	rlc a
-	rlc a
+	rlca
+	rlca
 	dec a
 	ret
 
@@ -757,7 +746,7 @@ TraitTurnTriggers:
 	ld a, [wBuffer1]
 	call GetBattleVar
 	cp TRAIT_HEAL_HP_AFTER_WATER_MOVE
-	jr c, .no_trigger
+	ret c
 
 	cp TRAIT_HEAL_HP_AFTER_WATER_MOVE + 1
 	ld e, $FF
@@ -776,11 +765,10 @@ TraitTurnTriggers:
 	jp c, CheckTraitCondition.check_every_x_turns
 
 	cp TRAIT_REDUCE_CRIT_MORE + 1 ; no trigger before this
-	jp c, .no_trigger
+	ret c
 	
 	cp TRAIT_CRITICAL_AFTER_CRIT + 1
 	jp c, CheckTraitCondition.check_crit_trigger
-.no_trigger
 	ret
 
 TraitRaiseStatAfterDamage:
@@ -937,7 +925,7 @@ TraitRaiseStat:
 	call TraitUseBattleCommandSimple
 
 	ld a, [wBuffer3]
-	cp 0 ; index 0 also raises acc
+	and a ; index 0 also raises acc
 	jr z, .also_raise_acc
 	ret
 .no_raise
@@ -1130,8 +1118,7 @@ TraitPreventStatDown:
 .dont_prevent
 	xor a
 	ld [wBuffer2], a
-	call ResetActivated ; reset so a message always appears
-	ret
+	jp ResetActivated ; reset so a message always appears
 
 .TraitsThatPreventStatDown:
 	db TRAIT_PREVENT_ATTACK_DOWN
@@ -1280,7 +1267,7 @@ TraitReduceSelfRecoil:
 	ld b, a
 	ld a, [wCurDamage + 1]
 	ld c, a
-	jr nc, .not_met
+	ret nc
 	; 50%
 	srl b
 	rr c	
@@ -1292,7 +1279,6 @@ TraitReduceSelfRecoil:
 	ld [wBuffer2], a
 	ld a, c
 	ld [wBuffer3], a
-.not_met
 	ret
 
 TraitContact:
@@ -1526,11 +1512,9 @@ TraitStartWeather:
 .not_start_weather
 	ld hl, .TraitsThatBoostWeather
 	call CheckTrait
-	jr nc, .no_boost
-	ld a, 6
-	jr .end
-.no_boost
 	ld a, 5
+	jr nc, .end
+	ld a, 6
 .end
 	ld [wWeatherCount], a
 	ret
@@ -1846,7 +1830,6 @@ TraitBoostPower:
 	dec a
 	ld hl, JumptableMoveClass
 	call GetToJumptable
-	ld a, [hl]
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
 	ld de, 1
@@ -1883,7 +1866,7 @@ TraitBoostPower:
 	ld a, 10
 	add b
 .boost
-	ld [hMultiplier], a
+	ldh [hMultiplier], a
 	call Multiply ; multiply damage value that is stored
 	ld b, 4
 	ld a, 10
@@ -1975,12 +1958,10 @@ TraitBoostNonStab: ; after damage calc, once stab is checked
 	and a
 	jp z, BoostDamage20
 	dec a
-	ld b, WATER
-	ld c, ICE
+	lb bc, WATER, ICE
 	jr z, .types
 	dec a
-	ld b, GRASS
-	ld c, BUG
+	lb bc, GRASS, BUG
 	ret nz
 .types
 	ld a, BATTLE_VARS_TYPE1_OPP
@@ -2031,7 +2012,7 @@ TraitBoostDamagePerTurn:
 	ld a, 24
 	add b
 .boost
-	ld [hMultiplier], a
+	ldh [hMultiplier], a
 	call Multiply ; multiply damage value that is stored
 	ld b, 4
 	ld a, 25
@@ -2054,7 +2035,7 @@ TraitBoostDamagePerTurnSlow:
 	ld a, 8
 	add b
 .boost
-	ld [hMultiplier], a
+	ldh [hMultiplier], a
 	call Multiply ; multiply damage value that is stored
 	ld b, 4
 	ld a, 10
@@ -2073,11 +2054,10 @@ TraitReduceDamagePerTurn:
 	jr c, .max
 	ld a, 7 ; the max is 7
 .max
-	ld b, a
-	ld a, 27
-	sub b
+	cpl        ; a - 27
+	add 27 + 1 ; 
 .boost
-	ld [hMultiplier], a
+	ldh [hMultiplier], a
 	call Multiply ; multiply damage value that is stored
 	ld b, 4
 	ld a, 20
@@ -2096,11 +2076,10 @@ TraitResistDamagePerTurn:
 	jr c, .max
 	ld a, 7 ; the max is 7
 .max
-	ld b, a
-	ld a, 24
-	sub b
+	cpl        ; a + 24
+	add 24 + 1 ;
 .boost
-	ld [hMultiplier], a
+	ldh [hMultiplier], a
 	call Multiply ; multiply damage value that is stored
 	ld b, 4
 	ld a, 25
@@ -2221,10 +2200,9 @@ GetStatDifference: ; takes stat in `a` and returns difference in `a`
 	inc hl
 	ld a, [de] ; opp stat (high byte)
 	sub [hl] ; sub user stat from opp stat
-	jr nc, .no_carry2
+	ret nc
 	cpl
 	inc a
-.no_carry2
 	ret
 .max
 	ld a, $FF
@@ -2421,7 +2399,7 @@ TraitPP:
 	call CheckTrait
 	ret nc
 	ld a, [wBuffer2]
-	cp 0
+	and a
 	jr nz, .without_chance
 	call BattleRandom
 	cp 10 percent
@@ -2828,8 +2806,7 @@ CallHealAmount: ; takes `GetEighthMaxHP` or others in `hl`
 	rst FarCall
 	ld a, c
 	ld [wBuffer6], a
-	jp EffectTraitForceRecoverHP
-	
+; fallthrough	
 EffectTraitForceRecoverHP:
 	call Switch_turn ; RestoreHP restores opponent's hp
 	ld hl, RestoreHP
@@ -2888,8 +2865,7 @@ GetToJumptable:
 
 CallFarSpecificTrait:
 	ld a, [wBuffer1]
-	call CheckSpecificTrait
-	ret
+	jp CheckSpecificTrait
 
 GetHealthPercentage:
 	ld hl, wBattleMonHP
@@ -3044,7 +3020,7 @@ ReduceTraitCount:
 	and %11100000
 	rrca
 	swap a
-	cp 0
+	and a
 	jr z, .min1
 	dec a
 .min1
@@ -3060,7 +3036,7 @@ ReduceTraitCount:
 	ld a, [hl]
 	and %1110 ; grab the 3 bits after the player bit
 	rrca
-	cp 0
+	and a
 	jr z, .min2
 	dec a
 .min2

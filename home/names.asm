@@ -186,10 +186,8 @@ GetTMHMName::
 ; TM/HM prefix
 	cp HM01
 	push af
-	jr c, .TM
-	jr .asm_34a1
+	jr nc, .asm_34a1
 
-.TM:
 	ld hl, .TMText
 	ld bc, .TMTextEnd - .TMText
 
@@ -294,9 +292,7 @@ GetVariableMoveName::
 	cp "@"
 	jr nz, .skip
 	dec e
-	jr z, .got_text
-	jr .skip
-
+	jr nz, .skip
 .got_text
 	push hl
 	ld de, wStringBuffer1

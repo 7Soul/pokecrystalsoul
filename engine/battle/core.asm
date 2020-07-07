@@ -158,9 +158,8 @@ WildFled_EnemyFled_LinkBattleCanceled:
 
 BattleTurn:
 .loop
-	call Stubbed_Function3c1bf
 	call CheckContestBattleOver
-	jp c, .quit
+	ret c
 
 	xor a
 	ld [wPlayerIsSwitching], a
@@ -181,26 +180,26 @@ BattleTurn:
 	farcall Function100da5
 	farcall StartMobileInactivityTimer
 	farcall Function100dd8
-	jp c, .quit
+	ret c
 .not_disconnected
 
 	call CheckPlayerLockedIn
 	jr c, .skip_iteration
 .loop1
 	call BattleMenu
-	jp c, .quit
+	ret c
 	ld a, [wBattleEnded]
 	and a
-	jp nz, .quit
+	ret nz
 	ld a, [wForcedSwitch] ; roared/whirlwinded/teleported
 	and a
-	jr nz, .quit
+	ret nz
 .skip_iteration
 	call ParsePlayerAction
 	jr nz, .loop1
 
 	call EnemyTriesToFlee
-	jr c, .quit
+	ret c
 
 	call DetermineMoveOrder
 	jr c, .false
@@ -210,43 +209,22 @@ BattleTurn:
 	call Battle_PlayerFirst
 .proceed
 	call CheckMobileBattleError
-	jr c, .quit
+	ret c
 
 	ld a, [wForcedSwitch]
 	and a
-	jr nz, .quit
+	ret nz
 
 	ld a, [wBattleEnded]
 	and a
-	jr nz, .quit
+	ret nz
 
 	call HandleBetweenTurnEffects
 	
 	ld a, [wBattleEnded]
 	and a
-	jr nz, .quit
+	ret nz
 	jp .loop
-
-.quit
-	ret
-
-Stubbed_Function3c1bf:
-	ret
-	ld a, 5 ; MBC30 bank used by JP Crystal; inaccessible by MBC3
-	call GetSRAMBank
-	ld hl, $a89b ; address of MBC30 bank
-	inc [hl]
-	jr nz, .finish
-	dec hl
-	inc [hl]
-	jr nz, .finish
-	dec [hl]
-	inc hl
-	dec [hl]
-
-.finish
-	call CloseSRAM
-	ret
 
 HandleBetweenTurnEffects:
 	ldh a, [hSerialConnectionStatus]
@@ -536,7 +514,6 @@ DetermineMoveOrder:
 	call BattleRandom
 	cp c
 	jp c, .enemy_first
-	jr .speed_check
 
 .speed_check
 	ld de, wBattleMonSpeed
@@ -852,19 +829,9 @@ GetMovePriority:
 	inc hl
 	cp -1
 	jr nz, .loop
-
 	ld a, BASE_PRIORITY
-	jr .check_trait
-
 .done
 	ld a, [hl]
-
-.check_trait
-	; ld [wBuffer2], a
-	; ld a, BATTLE_VARS_TRAIT
-	; ld [wBuffer1], a
-	; farcall TraitLowerPriority
-	; ld a, [wBuffer2]
 	ret
 
 INCLUDE "data/moves/effects_priorities.asm"
@@ -980,7 +947,6 @@ PlayerTurn_EndOpponentProtectEndureDestinyBond:
 EnemyTurn_EndOpponentProtectEndureDestinyBond:
 	call SetEnemyTurn
 	callfar DoEnemyTurn
-	jp EndOpponentProtectEndureDestinyBond
 
 EndOpponentProtectEndureDestinyBond:
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
@@ -1458,7 +1424,7 @@ HandleMysteryberry:
 	callfar GetUserItem
 	ld a, b
 	cp HELD_RESTORE_PP
-	jr nz, .quit
+	ret nz
 	ld hl, wPartyMon1PP
 	ld a, [wCurBattleMon]
 	call GetPartyLocation
@@ -1489,7 +1455,7 @@ HandleMysteryberry:
 .loop
 	ld a, [hl]
 	and a
-	jr z, .quit
+	ret z
 	ld a, [de]
 	and PP_MASK
 	jr z, .restore
@@ -1499,8 +1465,6 @@ HandleMysteryberry:
 	ld a, c
 	cp NUM_MOVES
 	jr nz, .loop
-
-.quit
 	ret
 
 .restore
@@ -2006,9 +1970,8 @@ GetSixteenthMaxHP:
 	; round up
 	ld a, c
 	and a
-	jr nz, .ok
+	ret nz
 	inc c
-.ok
 	ret
 
 GetEighthMaxHP:
@@ -2020,9 +1983,8 @@ GetEighthMaxHP:
 ; round up
 	ld a, c
 	and a
-	jr nz, .end
+	ret nz
 	inc c
-.end
 	ret
 
 GetQuarterMaxHP:
@@ -2039,9 +2001,8 @@ GetQuarterMaxHP:
 ; round up
 	ld a, c
 	and a
-	jr nz, .end
+	ret nz
 	inc c
-.end
 	ret
 
 GetHalfMaxHP:
@@ -2574,14 +2535,12 @@ WinTrainerBattle:
 	; either you're on a map playing the gym theme or the battle theme is the gym theme, gain no exp
 	ld a, [wMapMusic]
 	cp MUSIC_GYM
-	jr z, .maybe_no_money ; trainers in gyms don't give money
-	jr .normal_money
-.maybe_no_money
+	jr nz, .normal_money ; trainers in gyms don't give money
+
 	push hl
 	call IsGymLeader ; gym leaders always give money
 	pop hl
 	jr c, .normal_money
-.no_money
 	ret
 
 .normal_money
@@ -2856,8 +2815,7 @@ PlayerMonFaintHappinessMod:
 	ld [wBattleResult], a
 	ld a, [wWhichMonFaintedFirst]
 	and a
-	ret z
-	ret ; ??????????
+	ret
 
 AskUseNextPokemon:
 	call EmptyBattleTextBox
@@ -3183,7 +3141,6 @@ EnemyMonFaintedAnimation:
 PlayerMonFaintedAnimation:
 	hlcoord 1, 10
 	decoord 1, 11
-	jp MonFaintedAnimation
 
 MonFaintedAnimation:
 	ld a, [wcfbe]
@@ -4544,7 +4501,6 @@ HandleHPHealingItem:
 	ld [wBuffer4], a
 	adc a
 	ld b, a
-	ld a, b
 	cp [hl]
 	ld a, c
 	pop bc
@@ -4744,7 +4700,6 @@ HandleStatBoostingHeldItems:
 
 .player_1
 	call .DoEnemy
-	jp .DoPlayer
 
 .DoPlayer:
 	call GetPartymonItem
@@ -4920,7 +4875,6 @@ CheckDanger:
 PrintPlayerHUD:
 	ld de, wBattleMonNick
 	hlcoord 10, 7
-	call ret_3e138
 	call PlaceString
 
 	push bc
@@ -5007,7 +4961,6 @@ DrawEnemyHUD:
 	call GetBaseData
 	ld de, wEnemyMonNick
 	hlcoord 1, 0
-	call ret_3e138
 	call PlaceString
 	ld h, b
 	ld l, c
@@ -5131,8 +5084,6 @@ DrawEnemyHUD:
 
 UpdateEnemyHPPal:
 	ld hl, wEnemyHPPal
-	call UpdateHPPal
-	ret
 
 UpdateHPPal:
 	ld b, [hl]
@@ -5141,9 +5092,6 @@ UpdateHPPal:
 	cp b
 	ret z
 	jp FinishBattleAnim
-
-ret_3e138:
-	ret
 
 BattleMenu:
 	xor a
@@ -5245,13 +5193,6 @@ BattleMenu_Pack:
 	ld a, POKE_BALL
 	ld [wCurItem], a
 	call DoItemEffect
-	jr .got_item
-
-; .contest
-; 	ld a, PARK_BALL
-; 	ld [wCurItem], a
-; 	call DoItemEffect
-
 .got_item
 	call .UseItem
 	ret
@@ -7487,8 +7428,6 @@ GiveExperiencePoints:
 	add $64
 	sub b
 	ld b, a ; 'b' is opp level - party level
-	
-	ld a, b
 	cp $5e ; player is 6 or more levels higher
 	ld a, $1c ; 1/4 exp (28)
 	jr c, .cont_calc
@@ -7500,7 +7439,6 @@ GiveExperiencePoints:
 	cp $61 ; player is 3 levels higher
 	ld a, $e ; half exp (14)
 	jr c, .cont_calc
-	ld a, b
 	ld a, b
 	cp $64 ; player is up to 2 levels higher
 	ld a, 7 ; normal exp
@@ -7869,7 +7807,6 @@ BoostExp:
 	ldh [hProduct + 2], a
 
 ; load experience value
-	ldh a, [hProduct + 2]
 	ld b, a
 	ldh a, [hProduct + 3]
 	ld c, a
@@ -8302,13 +8239,12 @@ FillInStaminaBar:
 	pop hl
 	ld de, 0
 	add hl, de
-	jp PlaceStaminaBar
-
+; fallthrough
 PlaceStaminaBar:
 .loop
 	ld a, b
 	and a
-	jr z, .finish ; empty bar
+	ret z ; empty bar
 	sub 2
 	jr c, .half
 	ld b, a
@@ -8318,32 +8254,29 @@ PlaceStaminaBar:
 
 	ld a, b
 	and a
-	jr z, .finish
+	ret z
 	jr .loop
 	
 .half
 	ld a, $71 ; half bar
 	ld [hli], a
-
-.finish
 	ret
 
 CalcStaminaBar:
 	ld b, 0
 	and a
-	jr z, .finish ; no stamina
+	ret z ; no stamina
 .loop
 	sub STA_BAR
 	jr c, .half
 	inc b
 	inc b
 	and a
-	jr z, .finish
+	ret z
 	
 	jr .loop
 .half
 	inc b
-.finish
 	ret
 
 CalcExpBar:
@@ -8675,7 +8608,7 @@ InitEnemyTrainer:
 	ld [wBattleMode], a
 
 	call IsGymLeader
-	jr nc, .done
+	ret nc
 	xor a
 	ld [wCurPartyMon], a
 	ld a, [wPartyCount]
@@ -8692,12 +8625,10 @@ InitEnemyTrainer:
 .skipfaintedmon
 	pop bc
 	dec b
-	jr z, .done
+	ret z
 	ld hl, wCurPartyMon
 	inc [hl]
 	jr .partyloop
-.done
-	ret
 
 InitEnemyWildmon:
 	ld a, WILD_BATTLE
@@ -9082,7 +9013,7 @@ ReadAndPrintLinkBattleRecord:
 	hlcoord 6, 4
 	ld de, sLinkBattleWins
 	call .PrintZerosIfNoSaveFileExists
-	jr c, .quit
+	ret c
 
 	lb bc, 2, 4
 	call PrintNum
@@ -9099,10 +9030,7 @@ ReadAndPrintLinkBattleRecord:
 	call .PrintZerosIfNoSaveFileExists
 
 	lb bc, 2, 4
-	call PrintNum
-
-.quit
-	ret
+	jp PrintNum
 
 .PrintZerosIfNoSaveFileExists:
 	ld a, [wSavedAtLeastOnce]

@@ -69,8 +69,7 @@ UpdateOpponentInParty::
 UpdateUserInParty::
 	ldh a, [hBattleTurn]
 	and a
-	jr z, UpdateBattleMonInParty
-	jr UpdateEnemyMonInParty
+	jr nz, UpdateEnemyMonInParty
 
 UpdateBattleMonInParty::
 ; Update level, status, current HP
@@ -332,8 +331,7 @@ RegenPartyStamina::
 .get_otmon
 	push bc
 	ld hl, wOTPartyMons
-	ld c, MON_STAMINA
-	ld b, 0
+	lb bc, 0, MON_STAMINA
 	add hl, bc
 	ld a, [wCurPartyMon]
 	call GetPartyLocation

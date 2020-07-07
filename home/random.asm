@@ -85,7 +85,7 @@ RandomDVs::
 
 	cp $b
 	jr c, .ok ; 2 chances of getting a 10
-	sub 1
+	dec a
 .ok
 	sla a
 	sla a
@@ -98,7 +98,7 @@ RandomDVs::
 
 	cp $b
 	jr c, .ok2 ; 2 chances of getting a 10
-	sub 1
+	dec a
 .ok2
 	add b
 	pop bc
