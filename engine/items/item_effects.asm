@@ -1462,6 +1462,27 @@ BattlemonRestoreHealth:
 	ld [wBattleMonHP + 1], a
 	ret
 
+BattlemonRestoreStamina:
+	call IsItemUsedOnBattleMon
+	ret nc
+	ld a, MON_STAMINA
+	call GetPartyParamLocation
+	ld a, [hl]
+	ld [wBattleMonStamina], a
+	ret
+
+BattlemonRegenStamina:
+	call IsItemUsedOnBattleMon
+	ret nc
+	ld a, [wPlayerSubStatus2]
+	and %11100001
+	ld b, a
+	ld a, e
+	sla a
+	or b
+	ld [wPlayerSubStatus2], a
+	ret
+
 HealStatus:
 	call IsItemUsedOnBattleMon
 	ret nc
@@ -1694,6 +1715,11 @@ ItemRestoreHP:
 	call GetHealingItemAmount
 	call RestoreHealth
 	call BattlemonRestoreHealth
+	call GetStaminaItemAmount
+	call RestoreStamina
+	call BattlemonRestoreStamina
+	call GetStaminaItemRegenAmount
+	call BattlemonRegenStamina
 	call HealHP_SFX_GFX
 	ld a, PARTYMENUTEXT_HEAL_HP
 	ld [wPartyMenuActionText], a
@@ -1867,6 +1893,23 @@ RestoreHealth:
 .finish
 	ret
 
+RestoreStamina:
+	ld a, MON_STAMINA
+	call GetPartyParamLocation
+	ld a, [hl]
+	and STA_MASK
+	add e
+	cp STA_MAX
+	jr c, .max
+	ld a, STA_MAX
+.max
+	ld c, a
+	ld a, [hl]
+	and STA_EX_MASK
+	or c
+	ld [hl], a
+	ret
+
 RemoveHP:
 	ld a, MON_HP + 1
 	call GetPartyParamLocation
@@ -1981,10 +2024,23 @@ GetOneFifthMaxHP:
 	pop bc
 	ret
 
+GetStaminaItemAmount:
+	push hl
+	ld a, [wCurItem]
+	ld hl, HealingStaminaAmounts
+	jp GetHealingItemAmount.GotPointer
+
+GetStaminaItemRegenAmount:
+	push hl
+	ld a, [wCurItem]
+	ld hl, HealingStaminaOverTime
+	jp GetHealingItemAmount.GotPointer
+
 GetHealingItemAmount:
 	push hl
 	ld a, [wCurItem]
 	ld hl, HealingHPAmounts
+.GotPointer:
 	ld d, a
 .next
 	ld a, [hli]

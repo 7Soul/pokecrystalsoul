@@ -464,12 +464,12 @@ wPlayerSubStatus1:: ; c668
 wPlayerSubStatus2:: ; c669
 ; bit
 ; 7
-; 6
-; 5
-; 4
-; 3
-; 2
-; 1
+; 6 
+; 5 
+; 4 regen amount ; 1 bit, = 1 or 2 stamina
+; 3 regen turns ; 3 bits (0 to 7)
+; 2 regen turns
+; 1 regen turns
 ; 0 curled
 	db
 wPlayerSubStatus3:: ; c66a

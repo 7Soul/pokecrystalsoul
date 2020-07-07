@@ -356,6 +356,7 @@ RegenPartyStamina::
 	jr z, .same_battlemon
 	sla c
 .same_battlemon
+	call ItemStaminaRegen
 	push bc
 	ld a, [hl]
 	and STA_MASK
@@ -406,4 +407,47 @@ UpdatePartyStamina::
 	ld a, [wBuffer2]
 	ld [hl], a
 	pop bc
+	ret
+
+ItemStaminaRegen::
+	push hl
+	ld a, [wBuffer2]
+	cp b
+	jr nz, .no_regen
+	ld a, BATTLE_VARS_SUBSTATUS2
+	call GetBattleVarAddr
+	ld a, [hl]
+	and %11110001
+	ld b, a
+; count turns
+	ld a, [hl]
+	and SUBSTATUS_REGEN_STAMINA_TURNS
+	rra
+	and a
+	jr z, .no_regen
+	dec a
+	jr nz, .min
+; turns became 0
+	xor a
+	res SUBSTATUS_REGEN_STAMINA, [hl]
+.min
+	sla a
+	or b
+	ld [hl], a
+; increases regen amount
+	and SUBSTATUS_REGEN_STAMINA_MASK
+	jr z, .regen_one
+	inc c
+.regen_one
+	inc c
+	inc c ; for loop
+	ld a, [wBattleMonStamina]
+.loop
+	dec c
+	and STA_MASK
+	add c
+	cp STA_MAX
+	jr nc, .loop
+.no_regen
+	pop hl
 	ret

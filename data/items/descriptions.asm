@@ -313,24 +313,24 @@ ParlyzHealDesc:
 	next "#MON.@"
 
 FullRestoreDesc:
-	db   "Fully restores HP"
-	next "& status.@"
+	db   "HP/Status recover"
+	next "& 14 STA/7 turns.@"
 
 MaxPotionDesc:
-	db   "Fully restores"
-	next "#MON HP.@"
+	db   "Restores All HP"
+	next "and 5 STA.@"
 
 HyperPotionDesc:
-	db   "Restores #MON"
-	next "HP by 200.@"
+	db   "Restores 120 HP"
+	next "and 4 STA.@"
 
 SuperPotionDesc:
-	db   "Restores #MON"
-	next "HP by 50.@"
+	db   "Restores 60 HP and"
+	next "3 STA.@"
 
 PotionDesc:
-	db   "Restores #MON"
-	next "HP by 20.@"
+	db   "Restores 20 HP and"
+	next "2 STA.@"
 
 EscapeRopeDesc:
 	db   "Use for escaping"
@@ -425,16 +425,16 @@ UnusedDesc:
 	next "BUG-Types.@"
 
 FreshWaterDesc:
-	db   "Restores #MON"
-	next "HP by 50.@"
+	db   "Restores 50 HP and"
+	next "3 STA in 3 turns.@"
 
 SodaPopDesc:
-	db   "Restores #MON"
-	next "HP by 60.@"
+	db   "Restores 60 HP and"
+	next "4 STA in 4 turns.@"
 
 LemonadeDesc:
-	db   "Restores #MON"
-	next "HP by 80.@"
+	db   "Restores 80 HP and"
+	next "5 STA in 5 turns.@"
 
 XAttackDesc:
 	db   "Raises ATTACK."
@@ -528,8 +528,8 @@ SilverWingDesc:
 	next "colored feather.@"
 
 MoomooMilkDesc:
-	db   "Restores #MON"
-	next "HP by 100.@"
+	db   "Restores 100 HP &"
+	next "6 STA in 3 turns.@"
 
 QuickClawDesc:
 	db   "Raises 1st strike"
@@ -691,8 +691,8 @@ SpellTagDesc:
 	next "type moves. (HOLD)@"
 
 RageCandyBarDesc:
-	db   "Restores #MON"
-	next "HP by 20.@"
+	db   "Restores 20 HP and"
+	next "1 STA in 1 turn.@"
 
 GSBallDesc:
 	db   "The mysterious"

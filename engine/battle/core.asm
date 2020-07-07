@@ -1008,12 +1008,18 @@ EndOpponentProtectEndureDestinyBond:
 	ld a, [hl]
 	and STA_EX_MASK
 	swap a
-	; rra
 	cp %11
-	jr z, .maxed
+	jr z, .max_ex
 	inc a
-.maxed
-	; sla a
+	push af
+	push bc
+	ld c, 20
+	call DelayFrames
+	ld hl, MonIsExhausted
+	call StdBattleTextBox
+	pop bc
+	pop af
+.max_ex
 	ld c, a
 	swap a
 	or b
@@ -1024,14 +1030,6 @@ EndOpponentProtectEndureDestinyBond:
 	jr z, .wild
 	call UpdatePartyStamina
 .wild
-	ld a, c
-	cp %11
-	jr z, .already_max
-	ld c, 20
-	call DelayFrames
-	ld hl, MonIsExhausted
-	call StdBattleTextBox
-.already_max
 	call SwitchTurnCore
 	xor a
 	ld [wAttackMissed], a

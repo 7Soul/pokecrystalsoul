@@ -117,11 +117,13 @@ MeetMomScript:
 	giveitem POKE_BALL, 99
 	giveitem RARE_CANDY, 99
 	giveitem MAX_REPEL, 99
+	giveitem POTION, 99
+	giveitem SUPER_POTION, 99
+	giveitem FRESH_WATER, 99
 	giveitem MAX_POTION, 99
 	giveitem ETHER, 99
 	giveitem MAX_REVIVE, 99
 	giveitem BERRY, 99
-	giveitem TOUGH_HORN
 
 	givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
