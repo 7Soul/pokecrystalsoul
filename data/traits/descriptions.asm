@@ -1,241 +1,257 @@
 TraitDescriptions::
 ; entries correspond to move ids (see constants/move_constants.asm)
-	dw FlameBodyDescription   ; TRAIT_CONTACT_BRN
-	dw PoisonPointDescription ; TRAIT_CONTACT_PSN
-	dw StaticDescription   ; TRAIT_CONTACT_PRZ
-	dw StunBodyDescription    ; TRAIT_CONTACT_FLINCH
-	dw HighTempoDescription   ; TRAIT_CONTACT_CONFUSED
-	dw CuteCharmDescription   ; TRAIT_CONTACT_IN_LOVE
-	dw EffectSporeDescription ; TRAIT_CONTACT_SPORE
-	dw IronBarbsDescription   ; TRAIT_CONTACT_DAMAGE_ROCK
-	dw SandBruiserDescription ; TRAIT_CONTACT_DAMAGE_GROUND
-	dw HotCoalsDescription    ; TRAIT_HOT_COALS
-	dw LightningFastDescription ; TRAIT_EVASION_ON_SPEED_DIFF
-	dw UnleashPowerDescription ; TRAIT_ATK_ON_ATK_DIFF
-	dw LifeDrainDescription   ; TRAIT_HEAL_HP_FAINT
-	dw KeepGoingDescription   ; TRAIT_HEAL_PP_FAINT
-	dw EruptionDescription    ; TRAIT_BURN_FAINT
-	dw GasExplosionDescription; TRAIT_POISON_FAINT
-	dw NorthStarDescription   ; TRAIT_FREEZE_FAINT
-	dw DeathlyHexDescription  ; TRAIT_CURSE_FAINT
-	dw MoxieDescription       ; TRAIT_ATTACK_OPP_FAINT
-	dw GelidEmbraceDescription ; TRAIT_SP_ATTACK_OPP_FAINT
-	dw UnknownEnergyDescription ; TRAIT_RANDOM_STAT_OPP_FAINT
-	dw SturdyDescription      ; TRAIT_STURDY
-	dw NoGuardDescription     ; TRAIT_PERFECT_ACCURACY
-	dw IronFistDescription    ; TRAIT_BOOST_PUNCHING
-	dw IronJawsDescription    ; TRAIT_BOOST_BITING
-	dw IronClawsDescription   ; TRAIT_BOOST_CUTTING
-	dw FocusBeamDescription   ; TRAIT_BOOST_BEAM
-	dw PowerDrillDescription  ; TRAIT_BOOST_PERFURATE
-	dw RockHeadDescription    ; TRAIT_REDUCE_SELF_RECOIL
-	dw SniperDescription      ; TRAIT_BOOST_CRIT_DAMAGE
-	dw ShellArmorDescription ; TRAIT_REDUCE_CRIT_DAMAGE
-	dw DrainSurgeDescription  ; TRAIT_BOOST_DRAIN
-	dw SkillLinkDescription   ; TRAIT_BOOST_MULTI_HIT_COUNT
-	dw ChainClipDescription   ; TRAIT_BOOST_MULTI_HIT_DAMAGE
-	dw LimitBreakerDescription; TRAIT_BOOST_DAMAGE_PER_TURN
-	dw GigaImpactDescription  ; TRAIT_REDUCE_DAMAGE_PER_TURN
-	dw SlowStartDescription   ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
-	dw PendulumDescription    ; TRAIT_ATTACK_SPECIAL_ODD_EVEN
-	dw HotPotatoDescription   ; TRAIT_BOOST_BRN_OPP_ITEM
-	dw FireworksDescription   ; TRAIT_RANDOM_STAT_BRN
-	dw PickupDescription      ; TRAIT_FIND_BERRY
-	dw MagicTrickDescription  ; TRAIT_UPGRADE_BERRY
-	dw NutritionDescription   ; TRAIT_BOOST_BERRY
-	dw HarvestDescription     ; TRAIT_CLONE_BERRY
-	dw TagSplashDescription   ; TRAIT_PARTY_WATER_BOOST_DEFENSE
-	dw CottonGuardDescription ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
-	dw BugColonyDescription   ; TRAIT_PARTY_BUG_BOOST_DEFENSE
-	dw SnowFortDescription    ; TRAIT_PARTY_ICE_BOOST_DEFENSE
-	dw UpVoltageDescription   ; TRAIT_BATTLE_ELECTRIC_BOOST
-	dw ShadowCloakDescription ; TRAIT_BATTLE_DARK_BOOST
-	dw MagmaFlowDescription   ; TRAIT_BATTLE_FIRE_BOOST
-	dw RainDishDescription    ; TRAIT_REGEN_ON_RAIN
-	dw MonsoonDescription     ; TRAIT_RAIN_DURATION
-	dw DrizzleDescription     ; TRAIT_RAIN_ON_ENTER
-	dw VerdantBodyDescription ; TRAIT_REGEN_ON_SUNSHINE
-	dw BlueSkyDescription     ; TRAIT_SUNSHINE_DURATION
-	dw DroughtDescription     ; TRAIT_SUNSHINE_ON_ENTER
-	dw RebuildDescription     ; TRAIT_REGEN_ON_SANDSTORM
-	dw TempestDescription     ; TRAIT_SANDSTORM_DURATION
-	dw DustDevilDescription   ; TRAIT_SANDSTORM_ON_ENTER
-	dw HealingAromaDescription; TRAIT_HEAL_HP_AND_STATUS
-	dw FierceFighterDescription ; TRAIT_RAISE_ATTACK_STAT_LOWERED
-	dw ShellPolishDescription ; TRAIT_RAISE_DEFENSE_STAT_LOWERED
-	dw ShadowRunDescription   ; TRAIT_RAISE_SPEED_STAT_LOWERED
-	dw CompetitiveDescription ; TRAIT_RAISE_SP_ATTACK_STAT_LOWERED
-	dw SlimeCoatDescription   ; TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
-	dw ShedSkinDescription    ; TRAIT_HEAL_STATUS
-	dw RecklessDescription    ; TRAIT_BOOST_RECOIL
-	dw RainyBoon0Description  ; TRAIT_RAIN_ATTACK
-	dw RainyBoon1Description  ; TRAIT_RAIN_DEFENSE
-	dw RainyBoon2Description  ; TRAIT_RAIN_SPEED
-	dw RainyBoon3Description  ; TRAIT_RAIN_SP_ATTACK
-	dw RainyBoon4Description  ; TRAIT_RAIN_SP_DEFENSE
-	dw RainyBoon5Description  ; TRAIT_RAIN_ACCURACY
-	dw RainyBoon6Description  ; TRAIT_RAIN_EVASION
-	dw HydrationDescription   ; TRAIT_RAIN_NO_STATUS
-	dw SunnyBoon0Description  ; TRAIT_SUNSHINE_ATTACK
-	dw SunnyBoon1Description  ; TRAIT_SUNSHINE_DEFENSE 
-	dw SunnyBoon2Description  ; TRAIT_SUNSHINE_SPEED
-	dw SunnyBoon3Description  ; TRAIT_SUNSHINE_SP_ATTACK
-	dw SunnyBoon4Description  ; TRAIT_SUNSHINE_SP_DEFENSE
-	dw SunnyBoon5Description  ; TRAIT_SUNSHINE_ACCURACY
-	dw SunnyBoon6Description  ; TRAIT_SUNSHINE_EVASION
-	dw LeafGuardDescription   ; TRAIT_SUNSHINE_NO_STATUS
-	dw StormBoon0Description  ; TRAIT_SANDSTORM_ATTACK
-	dw StormBoon1Description  ; TRAIT_SANDSTORM_DEFENSE
-	dw StormBoon2Description  ; TRAIT_SANDSTORM_SPEED
-	dw StormBoon3Description  ; TRAIT_SANDSTORM_SP_ATTACK
-	dw StormBoon4Description  ; TRAIT_SANDSTORM_SP_DEFENS
-	dw StormBoon5Description  ; TRAIT_SANDSTORM_ACCURACY
-	dw StormBoon6Description  ; TRAIT_SANDSTORM_EVASION
-	dw SandFilterDescription  ; TRAIT_SANDSTORM_NO_STATUS
-	dw WaterVeilDescription   ; TRAIT_BRN_IMMUNE
-	dw HeatUpDescription      ; TRAIT_BOOST_EFFECT_BRN
-	dw AntivenomDescription   ; TRAIT_PSN_IMMUNE
-	dw PureToxinDescription   ; TRAIT_BOOST_EFFECT_PSN
-	dw LimberDescription      ; TRAIT_PRZ_IMMUNE
-	dw ConduitDescription     ; TRAIT_BOOST_EFFECT_PRZ
-	dw InnerFocusDescription  ; TRAIT_FLINCH_IMMUNE
-	dw PresenceDescription    ; TRAIT_BOOST_EFFECT_FLINCH
-	dw OwnTempoDescription    ; TRAIT_CONFUSED_IMMUNE
-	dw MetronomeTDescription  ; TRAIT_BOOST_EFFECT_CONFUSE
-	dw ObliviousDescription   ; TRAIT_IN_LOVE_IMMUNE
-	dw InsomniaDescription    ; TRAIT_SLEEP_IMMUNE
-	dw InnerFlameDescription  ; TRAIT_FRZ_IMMUNE
-	dw HyperCutterDescription ; TRAIT_PREVENT_ATTACK_DOWN
-	dw BigPecksDescription    ; TRAIT_PREVENT_DEFENSE_DOWN
-	dw HyperCutter3Description ; TRAIT_PREVENT_SPEED_DOWN
-	dw HyperCutter4Description ; TRAIT_PREVENT_SP_ATTACK_DOWN
-	dw HyperCutter5Description ; TRAIT_PREVENT_SP_DEFENSE_DOWN
-	dw KeenEyeDescription     ; TRAIT_PREVENT_ACCURACY_DOWN
-	dw MagicBounceDescription ; TRAIT_PREVENT_ALL_DOWN
-	dw WonderSkinDescription  ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
-	dw SereneGraceDescription ; TRAIT_BOOST_EFFECT_NO_DAMAGE
-	dw SilverAuraDescription  ; TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
-	dw GoldAuraDescription    ; TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
-	dw ShieldDustDescription  ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
-	dw ViciousFormDescription ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
+	dw FlameBodyDescription       ; TRAIT_CONTACT_BRN
+	dw PoisonPointDescription     ; TRAIT_CONTACT_PSN
+	dw StaticDescription          ; TRAIT_CONTACT_PRZ
+	dw StunBodyDescription        ; TRAIT_CONTACT_FLINCH
+	dw HighTempoDescription       ; TRAIT_CONTACT_CONFUSED
+	dw CuteCharmDescription       ; TRAIT_CONTACT_IN_LOVE
+	dw EffectSporeDescription     ; TRAIT_CONTACT_SPORE
+	dw IronBarbsDescription       ; TRAIT_CONTACT_DAMAGE_ROCK
+	dw SandBruiserDescription     ; TRAIT_CONTACT_DAMAGE_GROUND
+	dw HotCoalsDescription        ; TRAIT_HOT_COALS
+	dw LightningFastDescription   ; TRAIT_EVASION_ON_SPEED_DIFF
+	dw UnleashPowerDescription    ; TRAIT_ATK_ON_ATK_DIFF
+	dw LifeDrainDescription       ; TRAIT_HEAL_HP_FAINT
+	dw KeepGoingDescription       ; TRAIT_HEAL_PP_FAINT
+	dw EruptionDescription        ; TRAIT_BURN_FAINT
+	dw GasExplosionDescription    ; TRAIT_POISON_FAINT
+	dw NorthStarDescription       ; TRAIT_FREEZE_FAINT
+	dw DeathlyHexDescription      ; TRAIT_CURSE_FAINT
+	dw MoxieDescription           ; TRAIT_ATTACK_OPP_FAINT
+	dw GelidEmbraceDescription    ; TRAIT_SP_ATTACK_OPP_FAINT
+	dw UnknownEnergyDescription   ; TRAIT_RANDOM_STAT_OPP_FAINT
+	dw SturdyDescription          ; TRAIT_STURDY
+	dw NoGuardDescription         ; TRAIT_PERFECT_ACCURACY
+	dw IronFistDescription        ; TRAIT_BOOST_PUNCHING
+	dw IronJawsDescription        ; TRAIT_BOOST_BITING
+	dw IronClawsDescription       ; TRAIT_BOOST_CUTTING
+	dw FocusBeamDescription       ; TRAIT_BOOST_BEAM
+	dw PowerDrillDescription      ; TRAIT_BOOST_PERFURATE
+	dw RockHeadDescription        ; TRAIT_REDUCE_SELF_RECOIL
+	dw SniperDescription          ; TRAIT_BOOST_CRIT_DAMAGE
+	dw ShellArmorDescription      ; TRAIT_REDUCE_CRIT_DAMAGE
+	dw DrainSurgeDescription      ; TRAIT_BOOST_DRAIN
+	dw SkillLinkDescription       ; TRAIT_BOOST_MULTI_HIT_COUNT
+	dw ChainClipDescription       ; TRAIT_BOOST_MULTI_HIT_DAMAGE
+	dw LimitBreakerDescription    ; TRAIT_BOOST_DAMAGE_PER_TURN
+	dw GigaImpactDescription      ; TRAIT_REDUCE_DAMAGE_PER_TURN
+	dw SlowStartDescription       ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
+	dw PendulumDescription        ; TRAIT_ATTACK_SPECIAL_ODD_EVEN
+	dw HotPotatoDescription       ; TRAIT_BOOST_BRN_OPP_ITEM
+	dw FireworksDescription       ; TRAIT_RANDOM_STAT_BRN
+	dw PickupDescription          ; TRAIT_FIND_BERRY
+	dw MagicTrickDescription      ; TRAIT_UPGRADE_BERRY
+	dw NutritionDescription       ; TRAIT_BOOST_BERRY
+	dw HarvestDescription         ; TRAIT_CLONE_BERRY
+
+	dw BandTogetherDescription    ; TRAIT_PARTY_NORMAL_BOOST_DEFENSE
+	dw PracticePalsDescription    ; TRAIT_PARTY_FIGHTING_BOOST_DEFENSE
+	dw FlockDescription           ; TRAIT_PARTY_FLYING_BOOST_DEFENSE
+	dw ContaminateDescription     ; TRAIT_PARTY_POISON_BOOST_DEFENSE
+	dw MoundDescription           ; TRAIT_PARTY_GROUND_BOOST_DEFENSE
+	dw PileUpDescription          ; TRAIT_PARTY_ROCK_BOOST_DEFENSE
+	dw BugColonyDescription       ; TRAIT_PARTY_BUG_BOOST_DEFENSE
+	dw EngulfDescription          ; TRAIT_PARTY_FIRE_BOOST_DEFENSE
+	dw TagSplashDescription       ; TRAIT_PARTY_WATER_BOOST_DEFENSE
+	dw CottonGuardDescription     ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
+	dw MagnetZoneDescription      ; TRAIT_PARTY_ELECTRIC_BOOST_DEFENSE
+	dw PowerTapDescription        ; TRAIT_PARTY_PSYCHIC_BOOST_DEFENSE
+	dw SnowFortDescription        ; TRAIT_PARTY_ICE_BOOST_DEFENSE
+	dw ShadowCloakDescription     ; TRAIT_PARTY_DARK_BOOST_DEFENSE
+
+	dw UpVoltageDescription       ; TRAIT_BATTLE_ELECTRIC_BOOST
+	dw ShadowCloak2Description    ; TRAIT_BATTLE_DARK_BOOST
+	dw MagmaFlowDescription       ; TRAIT_BATTLE_FIRE_BOOST
+
+	dw RainDishDescription        ; TRAIT_REGEN_ON_RAIN
+	dw MonsoonDescription         ; TRAIT_RAIN_DURATION
+	dw DrizzleDescription         ; TRAIT_RAIN_ON_ENTER
+	dw VerdantBodyDescription     ; TRAIT_REGEN_ON_SUNSHINE
+	dw BlueSkyDescription         ; TRAIT_SUNSHINE_DURATION
+	dw DroughtDescription         ; TRAIT_SUNSHINE_ON_ENTER
+	dw RebuildDescription         ; TRAIT_REGEN_ON_SANDSTORM
+	dw TempestDescription         ; TRAIT_SANDSTORM_DURATION
+	dw DustDevilDescription       ; TRAIT_SANDSTORM_ON_ENTER
+	dw HealingAromaDescription    ; TRAIT_HEAL_HP_AND_STATUS
+	dw FierceFighterDescription   ; TRAIT_RAISE_ATTACK_STAT_LOWERED
+	dw ShellPolishDescription     ; TRAIT_RAISE_DEFENSE_STAT_LOWERED
+	dw ShadowRunDescription       ; TRAIT_RAISE_SPEED_STAT_LOWERED
+	dw CompetitiveDescription     ; TRAIT_RAISE_SP_ATTACK_STAT_LOWERED
+	dw SlimeCoatDescription       ; TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
+	dw ShedSkinDescription        ; TRAIT_HEAL_STATUS
+	dw RecklessDescription        ; TRAIT_BOOST_RECOIL
+	dw RainyBoon0Description      ; TRAIT_RAIN_ATTACK
+	dw RainyBoon1Description      ; TRAIT_RAIN_DEFENSE
+	dw SwiftSwimmerDescription    ; TRAIT_RAIN_SPEED
+	dw RainyBoon3Description      ; TRAIT_RAIN_SP_ATTACK
+	dw RainyBoon4Description      ; TRAIT_RAIN_SP_DEFENSE
+	dw StormySkiesDescription     ; TRAIT_RAIN_ACCURACY
+	dw ColdRainDescription        ; TRAIT_RAIN_EVASION
+	dw HydrationDescription       ; TRAIT_RAIN_NO_STATUS
+	dw SunnyBoon0Description      ; TRAIT_SUNSHINE_ATTACK
+	dw SunnyBoon1Description      ; TRAIT_SUNSHINE_DEFENSE 
+	dw BurnUpDescription          ; TRAIT_SUNSHINE_SPEED
+	dw SunnyBoon3Description      ; TRAIT_SUNSHINE_SP_ATTACK
+	dw SunnyBoon4Description      ; TRAIT_SUNSHINE_SP_DEFENSE
+	dw SunDanceDescription        ; TRAIT_SUNSHINE_ACCURACY
+	dw SunnyBoon6Description      ; TRAIT_SUNSHINE_EVASION
+	dw LeafGuardDescription       ; TRAIT_SUNSHINE_NO_STATUS
+	dw StormBoon0Description      ; TRAIT_SANDSTORM_ATTACK
+	dw StormBoon1Description      ; TRAIT_SANDSTORM_DEFENSE
+	dw SandCutterDescription      ; TRAIT_SANDSTORM_SPEED
+	dw StormBoon3Description      ; TRAIT_SANDSTORM_SP_ATTACK
+	dw StormBoon4Description      ; TRAIT_SANDSTORM_SP_DEFENS
+	dw StormBoon5Description      ; TRAIT_SANDSTORM_ACCURACY
+	dw SandVeilDescription        ; TRAIT_SANDSTORM_EVASION
+	dw SandFilterDescription      ; TRAIT_SANDSTORM_NO_STATUS
+	dw WaterVeilDescription       ; TRAIT_BRN_IMMUNE
+	dw HeatUpDescription          ; TRAIT_BOOST_EFFECT_BRN
+	dw AntivenomDescription       ; TRAIT_PSN_IMMUNE
+	dw PureToxinDescription       ; TRAIT_BOOST_EFFECT_PSN
+	dw LimberDescription          ; TRAIT_PRZ_IMMUNE
+	dw ConduitDescription         ; TRAIT_BOOST_EFFECT_PRZ
+	dw InnerFocusDescription      ; TRAIT_FLINCH_IMMUNE
+	dw PresenceDescription        ; TRAIT_BOOST_EFFECT_FLINCH
+	dw OwnTempoDescription        ; TRAIT_CONFUSED_IMMUNE
+	dw MetronomeTDescription      ; TRAIT_BOOST_EFFECT_CONFUSE
+	dw ObliviousDescription       ; TRAIT_IN_LOVE_IMMUNE
+	dw InsomniaDescription        ; TRAIT_SLEEP_IMMUNE
+	dw InnerFlameDescription      ; TRAIT_FRZ_IMMUNE
+	dw HyperCutterDescription     ; TRAIT_PREVENT_ATTACK_DOWN
+	dw BigPecksDescription        ; TRAIT_PREVENT_DEFENSE_DOWN
+	dw TurbochargerDescription    ; TRAIT_PREVENT_SPEED_DOWN
+	dw AbsoluteMemoryDescription  ; TRAIT_PREVENT_SP_ATTACK_DOWN
+	dw LingeringMemoryDescription ; TRAIT_PREVENT_SP_DEFENSE_DOWN
+	dw KeenEyeDescription         ; TRAIT_PREVENT_ACCURACY_DOWN
+	dw MagicBounceDescription     ; TRAIT_PREVENT_ALL_DOWN
+	dw WonderSkinDescription      ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
+	dw SereneGraceDescription     ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	dw SilverAuraDescription      ; TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
+	dw GoldAuraDescription        ; TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
+	dw ShieldDustDescription      ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
+	dw ViciousFormDescription     ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	dw HiddenPotentialDescription ; TRAIT_CRITICAL_NOT_STAB
-	dw RiptideDescription     ; TRAIT_BOOST_NOT_STAB_WATER_ICE
-	dw BladedWingsDescription ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
-	dw PismalityDescription   ; TRAIT_BOOST_NOT_STAB
-	dw MasteryDescription     ; TRAIT_REDUCE_NOT_STAB
-	dw GrandEntranceDescription ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
-	dw FreeShotDescription    ; TRAIT_GAIN_PP_TURN_ZERO
-	dw IntimidateDescription  ; TRAIT_LOWER_ATTACK_TURN_ZERO
-	dw StrangeSignalDescription ; TRAIT_LOWER_RANDOM_TURN_ZERO
-	dw KeenFocusDescription   ; TRAIT_BOOST_ACCURACY_TURN_ZERO
-	dw SlowDigestionDescription ; TRAIT_HEAL_AFTER_BERRY
-	dw LifeDewDescription     ; TRAIT_HEAL_HP_AFTER_WATER_MOVE
-	dw PreparationDescription ; TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
-	dw WallDescription        ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
-	dw StretchingDescription  ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
-	dw SetupDescription       ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
-	dw PatienceDescription    ; TRAIT_ALL_STATS_AFTER_7_TURNS
-	dw HeadacheDescription    ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
-	dw HealtySpiritDescription; TRAIT_REGEN_FIRST_TURNS
-	dw SecretGiftDescription  ; TRAIT_CULL_OPP_LOW_HP
-	dw BounceBackDescription  ; TRAIT_REGEN_LOW_HP
-	dw PoiseDescription       ; TRAIT_ATTACK_BELOW_THIRD
-	dw SolidifyDescription    ; TRAIT_DEFENSE_BELOW_THIRD
-	dw ScamperDescription     ; TRAIT_SPEED_BELOW_THIRD
-	dw BerserkDescription     ; TRAIT_SP_ATTACK_BELOW_THIRD
-	dw GoldGuardDescription   ; TRAIT_SP_DEFENSE_BELOW_THIRD
-	dw TakeAimDescription     ; TRAIT_ACCURACY_BELOW_THIRD
-	dw DangerSenseDescription ; TRAIT_EVASION_BELOW_THIRD
-	dw AllOutDescription      ; TRAIT_CRIT_BELOW_THIRD
-	dw AngerDescription       ; TRAIT_ATTACK_AFTER_CRIT
-	dw CurlDescription        ; TRAIT_DEFENSE_AFTER_CRIT
-	dw ScatterDescription     ; TRAIT_SPEED_AFTER_CRIT
-	dw LuckCurseDescription   ; TRAIT_REDUCE_CRIT_MORE
-	dw SuperLuckDescription   ; TRAIT_CRITICAL_AFTER_CRIT
-	dw GutsDescription        ; TRAIT_ATTACK_STATUSED
-	dw MarvelScaleDescription ; TRAIT_DEFENSE_STATUSED
-	dw QuickFeetDescription   ; TRAIT_SPEED_STATUSED
-	dw DiamondLightDescription; TRAIT_SP_ATTACK_STATUSED
-	dw WaterShellDescription  ; TRAIT_SP_DEFENSE_STATUSED
-	dw RefineDescription      ; TRAIT_ACCURACY_STATUSED
-	dw SmokeVeilDescription   ; TRAIT_EVASION_STATUSED
-	dw PointPanicDescription  ; TRAIT_HEAL_PP_STATUSED
-	dw DefragDescription      ; TRAIT_REGEN_STATUSED
-	dw TagledFeetDescription  ; TRAIT_EVASION_WHEN_CONFUSED
-	dw SteadfastDescription   ; TRAIT_RANDOM_STAT_WHEN_FLINCHED
-	dw NemesisDescription     ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
-	dw PunchOutDescription    ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
-	dw TechnicianDescription  ; TRAIT_BOOST_WEAK_MOVES
-	dw PermafrostDescription  ; TRAIT_REDUCE_BRN_AND_FIRE
-	dw GroundWireDescription  ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
-	dw SteelWingsDescription  ; TRAIT_REDUCE_FLINCH_AND_ROCK
-	dw PerseveranceDescription; TRAIT_REDUCE_SLP_AND_PSYCHIC
-	dw SurvivalDescription    ; TRAIT_REDUCE_PSN_AND_BUG
-	dw IceSheddingDescription ; TRAIT_REDUCE_FRZ_AND_ICE
-	dw MindBlockDescription   ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
-	dw ThickFatDescription    ; TRAIT_DEFENSE_ICE_FIRE_HIT
-	dw RattledDescription     ; TRAIT_SPEED_BUG_DARK_HIT
-	dw StoneSkinDescription   ; TRAIT_REDUCE_NORMAL
-	dw StoneSkin2Description  ; TRAIT_REDUCE_NORMAL_MORE
-	dw FadeDescription        ; TRAIT_REDUCE_NORMAL_ACC
-	dw WildRageDescription    ; TRAIT_BOOST_NORMAL_STATUSED
-	dw HitBreakerDescription  ; TRAIT_REDUCE_FIGHTING
-	dw HitBreaker2Description ; TRAIT_REDUCE_FIGHTING_MORE
-	dw FlailingRageDescription; TRAIT_BOOST_FIGHTING_STATUSED
-	dw CarapaceDescription    ; TRAIT_REDUCE_FLYING
-	dw Carapace2Description   ; TRAIT_REDUCE_FLYING_MORE
-	dw FlightRushDescription  ; TRAIT_BOOST_FLYING_SPEED
-	dw AirRageDescription     ; TRAIT_BOOST_FLYING_STATUSED
-	dw IceLegendeDescription  ; TRAIT_FLYING_FRZ
-	dw ThunderLegendDescription ; TRAIT_FLYING_PRZ
-	dw FireLegendDescription  ; TRAIT_FLYING_BRN
-	dw FlyingLegendDescription ; TRAIT_BOOST_FLYING_DURING_WEATHER
-	dw ShockAbsorbDescription ; TRAIT_REDUCE_GROUND
-	dw ShockAbsorb2Description; TRAIT_REDUCE_GROUND_MORE
-	dw TremorRageDescription  ; TRAIT_BOOST_GROUND_STATUSED
-	dw ShapeCastDescription   ; TRAIT_REDUCE_ROCK
-	dw ShapeCast2Description  ; TRAIT_REDUCE_ROCK_MORE
-	dw IronCoatDescription    ; TRAIT_BOOST_ROCK_DEFENSE
-	dw GoldCoatDescription    ; TRAIT_BOOST_ROCK_SP_DEFENSE
+	dw RiptideDescription         ; TRAIT_BOOST_NOT_STAB_WATER_ICE
+	dw BladedWingsDescription     ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
+	dw PismalityDescription       ; TRAIT_BOOST_NOT_STAB
+	dw MasteryDescription         ; TRAIT_REDUCE_NOT_STAB
+	dw GrandEntranceDescription   ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
+	dw FreeShotDescription        ; TRAIT_GAIN_PP_TURN_ZERO
+	dw IntimidateDescription      ; TRAIT_LOWER_ATTACK_TURN_ZERO
+	dw StrangeSignalDescription   ; TRAIT_LOWER_RANDOM_TURN_ZERO
+	dw KeenFocusDescription       ; TRAIT_BOOST_ACCURACY_TURN_ZERO
+	dw SlowDigestionDescription   ; TRAIT_HEAL_AFTER_BERRY
+	dw LifeDewDescription         ; TRAIT_HEAL_HP_AFTER_WATER_MOVE
+	dw PreparationDescription     ; TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
+	dw WallDescription            ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
+	dw StretchingDescription      ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
+	dw SetupDescription           ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	dw PatienceDescription        ; TRAIT_ALL_STATS_AFTER_7_TURNS
+	dw HeadacheDescription        ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
+	dw HealtySpiritDescription    ; TRAIT_REGEN_FIRST_TURNS
+	dw SecretGiftDescription      ; TRAIT_CULL_OPP_LOW_HP
+	dw BounceBackDescription      ; TRAIT_REGEN_LOW_HP
+	dw PoiseDescription           ; TRAIT_ATTACK_BELOW_THIRD
+	dw SolidifyDescription        ; TRAIT_DEFENSE_BELOW_THIRD
+	dw ScamperDescription         ; TRAIT_SPEED_BELOW_THIRD
+	dw BerserkDescription         ; TRAIT_SP_ATTACK_BELOW_THIRD
+	dw GoldGuardDescription       ; TRAIT_SP_DEFENSE_BELOW_THIRD
+	dw TakeAimDescription         ; TRAIT_ACCURACY_BELOW_THIRD
+	dw DangerSenseDescription     ; TRAIT_EVASION_BELOW_THIRD
+	dw AllOutDescription          ; TRAIT_CRIT_BELOW_THIRD
+	dw AngerDescription           ; TRAIT_ATTACK_AFTER_CRIT
+	dw CurlDescription            ; TRAIT_DEFENSE_AFTER_CRIT
+	dw ScatterDescription         ; TRAIT_SPEED_AFTER_CRIT
+	dw LuckCurseDescription       ; TRAIT_REDUCE_CRIT_MORE
+	dw SuperLuckDescription       ; TRAIT_CRITICAL_AFTER_CRIT
+	dw GutsDescription            ; TRAIT_ATTACK_STATUSED
+	dw MarvelScaleDescription     ; TRAIT_DEFENSE_STATUSED
+	dw QuickFeetDescription       ; TRAIT_SPEED_STATUSED
+	dw DiamondLightDescription    ; TRAIT_SP_ATTACK_STATUSED
+	dw WaterShellDescription      ; TRAIT_SP_DEFENSE_STATUSED
+	dw RefineDescription          ; TRAIT_ACCURACY_STATUSED
+	dw SmokeVeilDescription       ; TRAIT_EVASION_STATUSED
+	dw PointPanicDescription      ; TRAIT_HEAL_PP_STATUSED
+	dw DefragDescription          ; TRAIT_REGEN_STATUSED
+	dw TagledFeetDescription      ; TRAIT_EVASION_WHEN_CONFUSED
+	dw SteadfastDescription       ; TRAIT_RANDOM_STAT_WHEN_FLINCHED
+	dw NemesisDescription         ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
+	dw PunchOutDescription        ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
+	dw TechnicianDescription      ; TRAIT_BOOST_WEAK_MOVES
+	dw PermafrostDescription      ; TRAIT_REDUCE_BRN_AND_FIRE
+	dw GroundWireDescription      ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
+	dw SteelWingsDescription      ; TRAIT_REDUCE_FLINCH_AND_ROCK
+	dw PerseveranceDescription    ; TRAIT_REDUCE_SLP_AND_PSYCHIC
+	dw ShakeOffDescription        ; TRAIT_REDUCE_PSN_AND_BUG
+	dw IceSheddingDescription     ; TRAIT_REDUCE_FRZ_AND_ICE
+	dw MindBlockDescription       ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	dw ThickFatDescription        ; TRAIT_DEFENSE_ICE_FIRE_HIT
+	dw RattledDescription         ; TRAIT_SPEED_BUG_DARK_HIT
+	dw StoneSkinDescription       ; TRAIT_REDUCE_NORMAL
+	dw BoneArmorDescription       ; TRAIT_REDUCE_NORMAL_MORE
+	dw FadeDescription            ; TRAIT_REDUCE_NORMAL_ACC
+	dw WildRageDescription        ; TRAIT_BOOST_NORMAL_STATUSED
+	dw HitBreakerDescription      ; TRAIT_REDUCE_FIGHTING
+	dw HitBreaker2Description     ; TRAIT_REDUCE_FIGHTING_MORE
+	dw FlailingRageDescription    ; TRAIT_BOOST_FIGHTING_STATUSED
+	dw CarapaceDescription        ; TRAIT_REDUCE_FLYING
+	dw Carapace2Description       ; TRAIT_REDUCE_FLYING_MORE
+	dw FlightRushDescription      ; TRAIT_BOOST_FLYING_SPEED
+	dw AirRageDescription         ; TRAIT_BOOST_FLYING_STATUSED
+	dw IceLegendeDescription      ; TRAIT_FLYING_FRZ
+	dw ThunderLegendDescription   ; TRAIT_FLYING_PRZ
+	dw FireLegendDescription      ; TRAIT_FLYING_BRN
+	dw FlyingLegendDescription    ; TRAIT_BOOST_FLYING_DURING_WEATHER
+	dw Poison1Description      ; TRAIT_REDUCE_POISON
+	dw ImmunityDescription      ; TRAIT_REDUCE_POISON_MORE
+	dw Poison2Description      ; TRAIT_BOOST_POISON_STATUSED
+	dw ShockAbsorbDescription     ; TRAIT_REDUCE_GROUND
+	dw ShockAbsorb2Description    ; TRAIT_REDUCE_GROUND_MORE
+	dw TremorRageDescription      ; TRAIT_BOOST_GROUND_STATUSED
+	dw ShapeCastDescription       ; TRAIT_REDUCE_ROCK
+	dw ShapeMoldDescription       ; TRAIT_REDUCE_ROCK_MORE
+	dw IronCoatDescription        ; TRAIT_BOOST_ROCK_DEFENSE
+	dw GoldCoatDescription        ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	dw RollingRockRageDescription ; TRAIT_BOOST_ROCK_STATUSED
-	dw FumeCoatDescription    ; TRAIT_REDUCE_BUG
-	dw AshCoatDescription     ; TRAIT_REDUCE_BUG_MORE
-	dw SwarmDescription       ; TRAIT_BOOST_BUG_HP
-	dw BuzzingRageDescription ; TRAIT_BOOST_BUG_STATUSED
-	dw HeatproofDescription   ; TRAIT_REDUCE_FIRE
-	dw FireproofDescription   ; TRAIT_REDUCE_FIRE_MORE
-	dw BlazeDescription       ; TRAIT_BOOST_FIRE_HP
-	dw MoltenRageDescription  ; TRAIT_BOOST_FIRE_STATUSED
-	dw WaterproofDescription  ; TRAIT_REDUCE_WATER
-	dw Waterproof2Description ; TRAIT_REDUCE_WATER_MORE
-	dw HardWaterDescription   ; TRAIT_BOOST_WATER_DEFENSE
-	dw WaterSurgeDescription  ; TRAIT_BOOST_WATER_HP
-	dw DeepSeaRageDescription ; TRAIT_BOOST_WATER_STATUSED
-	dw HardeningSandDescription ; TRAIT_REDUCE_WATER_UP_DEFENSE
-	dw IceWaterDescription    ; TRAIT_FRZ_SPD_WITH_WATER
-	dw AridTouchDescription   ; TRAIT_REDUCE_GRASS
-	dw AridShieldDescription  ; TRAIT_REDUCE_GRASS_MORE
-	dw OvergrowDescription    ; TRAIT_BOOST_GRASS_HP
-	dw ForestRageDescription  ; TRAIT_BOOST_GRASS_STATUSED
-	dw SapSipperDescription   ; TRAIT_REDUCE_GRASS_UP_ATTACK
-	dw PolenHazardDescription ; TRAIT_PRZ_PSN_WITH_GRASS
-	dw IonFieldDescription    ; TRAIT_REDUCE_ELECTRIC
-	dw IonField2Description   ; TRAIT_REDUCE_ELECTRIC_MORE
-	dw ZapRushDescription     ; TRAIT_BOOST_ELECTRIC_SPEED
-	dw ZapRageDescription     ; TRAIT_BOOST_ELECTRIC_STATUSED
-	dw ForewarnDescription    ; TRAIT_REDUCE_PSYCHIC
-	dw Forewarn2Description   ; TRAIT_REDUCE_PSYCHIC_MORE
-	dw TwoSidedRageDescription; TRAIT_BOOST_PSYCHIC_STATUSED
-	dw ThickCoatDescription   ; TRAIT_REDUCE_ICE
-	dw HibernateDescription   ; TRAIT_REDUCE_ICE_MORE
-	dw SouthWindDescription   ; TRAIT_BOOST_ICE_HP
-	dw ArcticRageDescription  ; TRAIT_BOOST_ICE_STATUSED
-	dw LightBarrierDescription ; TRAIT_REDUCE_DARK
-	dw BrawlDescription       ; TRAIT_REDUCE_DARK_MORE
-	dw TyrantRageDescription  ; TRAIT_BOOST_DARK_STATUSED
-	dw AdaptiveFurDescription ; TRAIT_REDUCE_SUPER_EFFECTIVE
-	dw PrismPlateDescription  ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
-    dw TraitFFDescription
+	dw FumeCoatDescription        ; TRAIT_REDUCE_BUG
+	dw AshCoatDescription         ; TRAIT_REDUCE_BUG_MORE
+	dw SwarmDescription           ; TRAIT_BOOST_BUG_HP
+	dw BuzzingRageDescription     ; TRAIT_BOOST_BUG_STATUSED
+	dw HeatproofDescription       ; TRAIT_REDUCE_FIRE
+	dw FireproofDescription       ; TRAIT_REDUCE_FIRE_MORE
+	dw BlazeDescription           ; TRAIT_BOOST_FIRE_HP
+	dw MoltenRageDescription      ; TRAIT_BOOST_FIRE_STATUSED
+	dw WaterproofDescription      ; TRAIT_REDUCE_WATER
+	dw WaterRepelDescription      ; TRAIT_REDUCE_WATER_MORE
+	dw HardWaterDescription       ; TRAIT_BOOST_WATER_DEFENSE
+	dw TorrentDescription         ; TRAIT_BOOST_WATER_HP
+	dw DeepSeaRageDescription     ; TRAIT_BOOST_WATER_STATUSED
+	dw HardeningSandDescription   ; TRAIT_REDUCE_WATER_UP_DEFENSE
+	dw IceWaterDescription        ; TRAIT_FRZ_SPD_WITH_WATER
+	dw AridTouchDescription       ; TRAIT_REDUCE_GRASS
+	dw AridShieldDescription      ; TRAIT_REDUCE_GRASS_MORE
+	dw OvergrowDescription        ; TRAIT_BOOST_GRASS_HP
+	dw ForestRageDescription      ; TRAIT_BOOST_GRASS_STATUSED
+	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_ATTACK
+	dw PolenHazardDescription     ; TRAIT_PRZ_PSN_WITH_GRASS
+	dw IonFieldDescription        ; TRAIT_REDUCE_ELECTRIC
+	dw IonField2Description       ; TRAIT_REDUCE_ELECTRIC_MORE
+	dw ZapRushDescription         ; TRAIT_BOOST_ELECTRIC_SPEED
+	dw ZapRageDescription         ; TRAIT_BOOST_ELECTRIC_STATUSED
+	dw ForewarnDescription        ; TRAIT_REDUCE_PSYCHIC
+	dw Forewarn2Description       ; TRAIT_REDUCE_PSYCHIC_MORE
+	dw TwoSidedRageDescription    ; TRAIT_BOOST_PSYCHIC_STATUSED
+	dw ThickCoatDescription       ; TRAIT_REDUCE_ICE
+	dw HibernateDescription       ; TRAIT_REDUCE_ICE_MORE
+	dw SouthWindDescription       ; TRAIT_BOOST_ICE_HP
+	dw ArcticRageDescription      ; TRAIT_BOOST_ICE_STATUSED
+	dw BrawlDescription           ; TRAIT_REDUCE_DARK
+	dw LightBarrierDescription    ; TRAIT_REDUCE_DARK_MORE
+	dw TyrantRageDescription      ; TRAIT_BOOST_DARK_STATUSED
+	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
+	dw PrismPlateDescription      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
+    dw TraitFFDescription    
 
 
 FlameBodyDescription:
@@ -267,9 +283,6 @@ EffectSporeDescription:
 	next "SLP the attacker.@"
 
 IronBarbsDescription:
-	db   "Damages most foes"
-	next "on contact.@"
-
 SandBruiserDescription:
 	db   "Damages most foes"
 	next "on contact.@"
@@ -414,22 +427,62 @@ HarvestDescription:
 	db   "May regrow a berry"
 	next "after eating one.@"
 
+BandTogetherDescription:
+	db   "Team's NORMAL type"
+	next "resist up.@"
+
+PracticePalsDescription:
+	db   "Team's FIGHTING"
+	next "resist up.@"
+
+FlockDescription:
+	db   "Team's FLYING type"
+	next "resist up.@"
+  
+ContaminateDescription:
+	db   "Team's POISON type"
+	next "resist up.@"
+
+MoundDescription:
+	db   "Team's GROUND type"
+	next "resist up.@"
+
+PileUpDescription:
+	db   "Team's ROCK type"
+	next "resist up.@"
+
+BugColonyDescription:
+	db   "Team's BUG type"
+	next "resist up.@"
+
+EngulfDescription:
+	db   "Team's FIRE type"
+	next "resist up.@"
+
 TagSplashDescription:
 	db   "Team's WATER type"
-	next "raise DEF more.@"
+	next "resist up.@"
 
 CottonGuardDescription:
 	db   "Team's GRASS type"
-	next "raise DEF more.@"
-	
-BugColonyDescription:
-	db   "Team's BUG type"
-	next "raise DEF more.@"
-	
+	next "resist up.@"
+
+MagnetZoneDescription:
+	db   "Team's ELECTRIC"
+	next "type resist up.@"
+
+PowerTapDescription:
+	db   "Team's PSYCHIC"
+	next "type resist up.@"
+
 SnowFortDescription:
 	db   "Team's ICE type"
-	next "raise DEF more.@"
-	
+	next "resist up.@"
+
+ShadowCloakDescription:
+	db   "Team's DARK type"
+	next "resist up.@"
+
 UpVoltageDescription:
 	db   "All ELECTRIC <PKMN>"
 	next "give you power.@"
@@ -522,7 +575,7 @@ RainyBoon1Description:
 	db   "Raises DEF during"
 	next "rain.@"
 
-RainyBoon2Description:
+SwiftSwimmerDescription:
 	db   "Raises SPD during"
 	next "rain.@"
 
@@ -534,11 +587,11 @@ RainyBoon4Description:
 	db   "Raises SP.DEF"
 	next "during rain.@"
 
-RainyBoon5Description:
+StormySkiesDescription:
 	db   "Raises ACCURACY"
 	next "during rain.@"
 
-RainyBoon6Description:
+ColdRainDescription:
 	db   "Raises EVASION"
 	next "during rain.@"
 
@@ -554,7 +607,7 @@ SunnyBoon1Description:
 	db   "Raises DEF when"
 	next "it's sunny.@"
 
-SunnyBoon2Description:
+BurnUpDescription:
 	db   "Raises SPD when"
 	next "it's sunny.@"
 
@@ -566,7 +619,7 @@ SunnyBoon4Description:
 	db   "Raises SP.DEF when"
 	next "it's sunny.@"
 
-SunnyBoon5Description:
+SunDanceDescription:
 	db   "Raises ACCURACY"
 	next "when it's sunny.@"
 
@@ -586,7 +639,7 @@ StormBoon1Description:
 	db   "Raises DEF in a"
 	next "sandstorm.@"
 
-StormBoon2Description:
+SandCutterDescription:
 	db   "Raises SPD in a"
 	next "sandstorm.@"
 
@@ -602,7 +655,7 @@ StormBoon5Description:
 	db   "Raises ACCURACY"
 	next "in a sandstorm.@"
 
-StormBoon6Description:
+SandVeilDescription:
 	db   "Raises EVASION"
 	next "in a sandstorm.@"
 
@@ -670,15 +723,15 @@ BigPecksDescription:
 	db   "Prevents DEF from"
 	next "being lowered.@"
 
-HyperCutter3Description:
+TurbochargerDescription:
 	db   "Prevents SPD from"
 	next "being lowered.@"
 
-HyperCutter4Description:
+AbsoluteMemoryDescription:
 	db   "Prevents SP.ATK"
 	next "being lowered.@"
 
-HyperCutter5Description:
+LingeringMemoryDescription:
 	db   "Prevents SP.DEF"
 	next "being lowered.@"
 
@@ -922,7 +975,7 @@ PerseveranceDescription:
 	db   "SLP and DARK are"
 	next "weakened.@"
 
-SurvivalDescription:
+ShakeOffDescription:
 	db   "PSN and BUG are"
 	next "weakened.@"
 	
@@ -946,7 +999,7 @@ StoneSkinDescription:
 	db   "Reduces NORMAL"
 	next "damage taken.@"
 	
-StoneSkin2Description:
+BoneArmorDescription:
 	db   "Resists NORMAL"
 	next "under half HP.@"
 
@@ -1002,6 +1055,18 @@ FlyingLegendDescription:
 	db   "Boosts FLYING du-"
 	next "ring any weather.@"
 
+Poison1Description:
+	db   "Reduces POISON"
+	next "damage taken.@"
+	
+ImmunityDescription:
+	db   "Resists POISON"
+	next "under half HP.@"
+	
+Poison2Description:
+	db   "Boosts POISON un-"
+	next "der any status.@"
+
 ShockAbsorbDescription:
 	db   "Reduces GROUND"
 	next "damage taken.@"
@@ -1018,7 +1083,7 @@ ShapeCastDescription:
 	db   "Reduces ROCK dam-"
 	next "age taken.@"
 	
-ShapeCast2Description:
+ShapeMoldDescription:
 	db   "Resists ROCK under"
 	next "half HP.@"
 	
@@ -1070,7 +1135,7 @@ WaterproofDescription:
 	db   "Reduces WATER dam-"
 	next "age taken.@"
 	
-Waterproof2Description:
+WaterRepelDescription:
 	db   "Resists WATER"
 	next "under half HP.@"
 	
@@ -1078,7 +1143,7 @@ HardWaterDescription:
 	db   "DEFENSE disparity"
 	next "boosts WATER.@"
 	
-WaterSurgeDescription:
+TorrentDescription:
 	db   "Missing HEALTH"
 	next "boosts WATER.@"
 
@@ -1162,11 +1227,11 @@ ArcticRageDescription:
 	db   "Boosts ICE under"
 	next "any status.@"
 
-LightBarrierDescription:
+BrawlDescription:
 	db   "Reduces DARK dam-"
 	next "age taken.@"
 	
-BrawlDescription:
+LightBarrierDescription:
 	db   "Resists DARK under"
 	next "half HP.@"
 	

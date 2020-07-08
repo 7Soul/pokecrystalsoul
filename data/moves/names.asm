@@ -258,6 +258,7 @@ VariableMoveNames::
 	db "Bone Rush@"
 	db "Pin Missile@"
 	db "Rock Blast@"
+	db "Icicle Spear@"
 	db "Gather Sand@"
 	db "Tide Clash@"
 	db "Flutter Clap@"

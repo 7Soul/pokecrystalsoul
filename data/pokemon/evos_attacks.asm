@@ -1410,30 +1410,34 @@ MukEvosAttacks:
 ShellderEvosAttacks:
 	db EVOLVE_ITEM, WATER_STONE, CLOYSTER
 	db 0 ; no more evolutions
-	db 1, WATER_GUN
+	db 1, TACKLE
 	db 3, HARDEN ; becomes Withdraw
-	db 9, POWDER_SNOW
-	db 14, SUPERSONIC
-	db 18, JET_STREAM
-	db 22, CLAMP
-	db 27, AURORA_BEAM
-	db 30, PROTECT
+	db 8, SUPERSONIC
+	db 13, DOUBLESLAP ; becomes Icicle Spear
+	db 16, PROTECT
+	db 20, LEER
+	db 24, CLAMP
+	db 28, QUICK_ATTACK	; becomes Ice Shard
 	db 32, FROZEN_TAIL ; becomes Razor Shell
-	db 36, ICE_BEAM
-	db 45, HYDRO_PUMP
+	db 37, AURORA_BEAM
+	db 40, WHIRLPOOL
+	db 43, BARRIER ; Becomes Iron Defense
+	db 46, ICE_BEAM
+	db 53, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 CloysterEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, POWDER_SNOW
-	db 20, JET_STREAM
-	db 24, CLAMP
-	db 30, AURORA_BEAM
-	db 35, PROTECT
-	db 38, FROZEN_TAIL ; becomes Razor Shell
-	db 41, ICE_BEAM
-	db 48, SPIKES
-	db 53, HYDRO_PUMP
+	db 1, PROTECT
+	db 1, LEER
+	db 1, CLAMP
+	db 1, QUICK_ATTACK	; becomes Ice Shard
+	db 33, FROZEN_TAIL ; becomes Razor Shell
+	db 38, AURORA_BEAM
+	db 42, WHIRLPOOL
+	db 46, BARRIER ; Becomes Iron Defense
+	db 50, ICE_BEAM
+	db 57, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 GastlyEvosAttacks:
@@ -3513,7 +3517,7 @@ CorsolaEvosAttacks:
 	db 17, BUBBLEBEAM
 	db 20, ANCIENTPOWER
 	db 29, ACID_ARMOR
-	db 31, DOUBLESLAP ; becomes Rock
+	db 31, DOUBLESLAP ; becomes Rock Blast
 	db 35, ENDURE
 	db 38, JET_STREAM
 	db 43, POWER_GEM

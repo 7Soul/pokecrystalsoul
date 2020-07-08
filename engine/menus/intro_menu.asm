@@ -148,20 +148,6 @@ RandomizeStarters:
 	add hl, bc
 	ld a, [hl]
 	ld [wRandomStarterItem], a
-	;
-	; ld a, [wRandomStarter1]
-	; ld [$c006], a
-	; ld a, [wRandomStarter2]
-	; ld [$c007], a
-	; ld a, [wRandomStarter3]
-	; ld [$c008], a
-	; ld a, [wRandomStarter4]
-	; ld [$c009], a
-	; ld a, [wRandomStarter5]
-	; ld [$c00a], a
-	; ld a, [wRandomStarter6]
-	; ld [$c00b], a
-	;
 	ret
 	
 .pokelist: ; random mon list

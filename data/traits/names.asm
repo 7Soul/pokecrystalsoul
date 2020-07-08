@@ -44,10 +44,22 @@ TraitNames::
 	db "Magic Trick@"      ; TRAIT_UPGRADE_BERRY
 	db "Nutrition@"        ; TRAIT_BOOST_BERRY
 	db "Harvest@"          ; TRAIT_CLONE_BERRY
+
+	db "Band Together@"    ; TRAIT_PARTY_NORMAL_BOOST_DEFENSE
+	db "Practice Pals@"    ; TRAIT_PARTY_FIGHTING_BOOST_DEFENSE
+	db "Flock@"            ; TRAIT_PARTY_FLYING_BOOST_DEFENSE
+	db "Contaminate@"      ; TRAIT_PARTY_POISON_BOOST_DEFENSE
+	db "Mound@"            ; TRAIT_PARTY_GROUND_BOOST_DEFENSE
+	db "Stack Up@"         ; TRAIT_PARTY_ROCK_BOOST_DEFENSE
+	db "Bug Colony@"       ; TRAIT_PARTY_BUG_BOOST_DEFENSE
+	db "Engulf@"           ; TRAIT_PARTY_FIRE_BOOST_DEFENSE
 	db "Tag Splash@"       ; TRAIT_PARTY_WATER_BOOST_DEFENSE
 	db "Cotton Guard@"     ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
-	db "Bug Colony@"       ; TRAIT_PARTY_BUG_BOOST_DEFENSE
+	db "Magnet Zone@"      ; TRAIT_PARTY_ELECTRIC_BOOST_DEFENSE
+	db "Power Tap@"        ; TRAIT_PARTY_PSYCHIC_BOOST_DEFENSE
 	db "Snow Fort@"        ; TRAIT_PARTY_ICE_BOOST_DEFENSE
+	db "Shadow Cloak@"     ; TRAIT_PARTY_DARK_BOOST_DEFENSE
+
 	db "Up Voltage@"       ; TRAIT_BATTLE_ELECTRIC_BOOST
 	db "Shadow Cloak@"     ; TRAIT_BATTLE_DARK_BOOST
 	db "Magma Flow@"       ; TRAIT_BATTLE_FIRE_BOOST
@@ -70,27 +82,27 @@ TraitNames::
 	db "Reckless@"         ; TRAIT_BOOST_RECOIL
 	db "Rainy Boon@"       ; TRAIT_RAIN_ATTACK
 	db "Rainy Boon@"       ; TRAIT_RAIN_DEFENSE
-	db "Rainy Boon@"       ; TRAIT_RAIN_SPEED
+	db "Swift Swimmer@"    ; TRAIT_RAIN_SPEED
 	db "Rainy Boon@"       ; TRAIT_RAIN_SP_ATTACK
 	db "Rainy Boon@"       ; TRAIT_RAIN_SP_DEFENSE
-	db "Rainy Boon@"       ; TRAIT_RAIN_ACCURACY
-	db "Rainy Boon@"       ; TRAIT_RAIN_EVASION
+	db "Stormy Skies@"     ; TRAIT_RAIN_ACCURACY
+	db "Cold Rain@"        ; TRAIT_RAIN_EVASION
 	db "Hydration@"        ; TRAIT_RAIN_NO_STATUS
 	db "Sunny Boon@"       ; TRAIT_SUNSHINE_ATTACK
 	db "Sunny Boon@"       ; TRAIT_SUNSHINE_DEFENSE 
-	db "Sunny Boon@"       ; TRAIT_SUNSHINE_SPEED
+	db "Burn Up@"          ; TRAIT_SUNSHINE_SPEED
 	db "Sunny Boon@"       ; TRAIT_SUNSHINE_SP_ATTACK
 	db "Sunny Boon@"       ; TRAIT_SUNSHINE_SP_DEFENSE
-	db "Sunny Boon@"       ; TRAIT_SUNSHINE_ACCURACY
+	db "Sun Dance@"        ; TRAIT_SUNSHINE_ACCURACY
 	db "Sunny Boon@"       ; TRAIT_SUNSHINE_EVASION
 	db "Leaf Guard@"       ; TRAIT_SUNSHINE_NO_STATUS
 	db "Storm Boon@"       ; TRAIT_SANDSTORM_ATTACK
 	db "Storm Boon@"       ; TRAIT_SANDSTORM_DEFENSE
-	db "Storm Boon@"       ; TRAIT_SANDSTORM_SPEED
+	db "Sand Cutter@"      ; TRAIT_SANDSTORM_SPEED
 	db "Storm Boon@"       ; TRAIT_SANDSTORM_SP_ATTACK
 	db "Storm Boon@"       ; TRAIT_SANDSTORM_SP_DEFENS
 	db "Storm Boon@"       ; TRAIT_SANDSTORM_ACCURACY
-	db "Storm Boon@"       ; TRAIT_SANDSTORM_EVASION
+	db "Sand Veil@"        ; TRAIT_SANDSTORM_EVASION
 	db "Sand Filter@"      ; TRAIT_SANDSTORM_NO_STATUS
 	db "Water Veil@"       ; TRAIT_BRN_IMMUNE
 	db "Heat Up@"          ; TRAIT_BOOST_EFFECT_BRN
@@ -107,7 +119,7 @@ TraitNames::
 	db "Inner Flame@"      ; TRAIT_FRZ_IMMUNE
 	db "Hyper Cutter@"     ; TRAIT_PREVENT_ATTACK_DOWN
 	db "Big Pecks@"        ; TRAIT_PREVENT_DEFENSE_DOWN
-	db "?@"                ; TRAIT_PREVENT_SPEED_DOWN
+	db "Turbocharger@"     ; TRAIT_PREVENT_SPEED_DOWN
 	db "Absolute Focus@"   ; TRAIT_PREVENT_SP_ATTACK_DOWN
 	db "Lingering Memory@" ; TRAIT_PREVENT_SP_DEFENSE_DOWN
 	db "Keen Eye@"         ; TRAIT_PREVENT_ACCURACY_DOWN
@@ -170,13 +182,13 @@ TraitNames::
 	db "Ground Wire@"      ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	db "Steel Wings@"      ; TRAIT_REDUCE_FLINCH_AND_ROCK
 	db "Perseverance@"     ; TRAIT_REDUCE_SLP_AND_DARK
-	db "Survival@"         ; TRAIT_REDUCE_PSN_AND_BUG
+	db "Shake Off@"        ; TRAIT_REDUCE_PSN_AND_BUG
 	db "Ice Shedding@"     ; TRAIT_REDUCE_FRZ_AND_ICE
 	db "Mind Block@"       ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
 	db "Thick Fat@"        ; TRAIT_DEFENSE_ICE_FIRE_HIT
 	db "Rattled@"          ; TRAIT_SPEED_BUG_DARK_HIT
 	db "Stone Skin@"       ; TRAIT_REDUCE_NORMAL
-	db "Steel Skin@"       ; TRAIT_REDUCE_NORMAL_MORE
+	db "Bone Armor@"       ; TRAIT_REDUCE_NORMAL_MORE
 	db "Fade@"             ; TRAIT_REDUCE_NORMAL_ACC
 	db "Wild Rage@"        ; TRAIT_BOOST_NORMAL_STATUSED
 	db "Hit Breaker@"      ; TRAIT_REDUCE_FIGHTING
@@ -190,6 +202,9 @@ TraitNames::
 	db "Thunder Legend@"   ; TRAIT_FLYING_PRZ
 	db "Fire Legend@"      ; TRAIT_FLYING_BRN
 	db "Flying Legend@"    ; TRAIT_BOOST_FLYING_DURING_WEATHER
+	db "?@"                 ; TRAIT_REDUCE_POISON
+	db "Immunity@"         ; TRAIT_REDUCE_POISON_MORE
+	db "?@"                 ; TRAIT_BOOST_POISON_STATUSED
 	db "Shock Absorb@"     ; TRAIT_REDUCE_GROUND
 	db "Dissipate@"        ; TRAIT_REDUCE_GROUND_MORE
 	db "Tremor Rate@"      ; TRAIT_BOOST_GROUND_STATUSED
@@ -209,7 +224,7 @@ TraitNames::
 	db "Waterproof@"       ; TRAIT_REDUCE_WATER
 	db "Water Repel@"      ; TRAIT_REDUCE_WATER_MORE
 	db "Hard Water@"       ; TRAIT_BOOST_WATER_DEFENSE
-	db "Water Surge@"      ; TRAIT_BOOST_WATER_HP
+	db "Torrent@"          ; TRAIT_BOOST_WATER_HP
 	db "Deep Sea Rage@"    ; TRAIT_BOOST_WATER_STATUSED
 	db "Hardening Sand@"   ; TRAIT_REDUCE_WATER_UP_DEFENSE
 	db "Arid Touch@"       ; TRAIT_REDUCE_GRASS
@@ -230,8 +245,8 @@ TraitNames::
 	db "Hibernate@"        ; TRAIT_REDUCE_ICE_MORE
 	db "South Wind@"       ; TRAIT_BOOST_ICE_HP
 	db "Tyrant Rage@"      ; TRAIT_BOOST_DARK_STATUSED
-	db "Light Barrier@"    ; TRAIT_REDUCE_DARK
-	db "Brawl@"            ; TRAIT_REDUCE_DARK_MORE
+	db "Brawl@"            ; TRAIT_REDUCE_DARK
+	db "Light Barrier@"    ; TRAIT_REDUCE_DARK_MORE
 	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
 	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db "Prism Plate@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
