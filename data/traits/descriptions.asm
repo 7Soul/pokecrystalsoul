@@ -95,8 +95,8 @@ TraitDescriptions::
 	dw BurnUpDescription          ; TRAIT_SUNSHINE_SPEED
 	; dw SunnyBoon3Description      ; TRAIT_SUNSHINE_SP_ATTACK
 	; dw SunnyBoon4Description      ; TRAIT_SUNSHINE_SP_DEFENSE
-	dw SunDanceDescription        ; TRAIT_SUNSHINE_ACCURACY
-	; dw SunnyBoon6Description      ; TRAIT_SUNSHINE_EVASION
+	; dw SunDanceDescription        ; TRAIT_SUNSHINE_ACCURACY
+	dw SunDanceDescription      ; TRAIT_SUNSHINE_EVASION
 	dw LeafGuardDescription       ; TRAIT_SUNSHINE_NO_STATUS
 	; dw StormBoon0Description      ; TRAIT_SANDSTORM_ATTACK
 	; dw StormBoon1Description      ; TRAIT_SANDSTORM_DEFENSE
@@ -137,11 +137,12 @@ TraitDescriptions::
 	dw BladedWingsDescription     ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	dw PismalityDescription       ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription         ; TRAIT_REDUCE_NOT_STAB
+	dw IgniteDescription          ; TRAIT_BOOST_POWER_BRN_SELF
+	dw KeenFocusDescription       ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	dw GrandEntranceDescription   ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	dw FreeShotDescription        ; TRAIT_GAIN_PP_TURN_ZERO
 	dw IntimidateDescription      ; TRAIT_LOWER_ATTACK_TURN_ZERO
 	dw StrangeSignalDescription   ; TRAIT_LOWER_RANDOM_TURN_ZERO
-	dw KeenFocusDescription       ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	dw SlowDigestionDescription   ; TRAIT_HEAL_AFTER_BERRY
 	dw LifeDewDescription         ; TRAIT_HEAL_HP_AFTER_WATER_MOVE
 	dw PreparationDescription     ; TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
@@ -626,7 +627,7 @@ BurnUpDescription:
 ; 	next "it's sunny.@"
 
 SunDanceDescription:
-	db   "Raises ACCURACY"
+	db   "Raises EVASION"
 	next "when it's sunny.@"
 
 ; SunnyBoon6Description:
@@ -792,6 +793,14 @@ PismalityDescription:
 MasteryDescription:
 	db   "Lowers damage from"
 	next "Non-STAB attacks.@"
+		
+IgniteDescription:
+	db   "Burn yourself to"
+	next "empower 1st move.@"
+	
+KeenFocusDescription:
+	db   "Boosts move ACC on"
+	next "your first turns.@"
 	
 GrandEntranceDescription:
 	db   "First damage taken"
@@ -808,11 +817,7 @@ IntimidateDescription:
 StrangeSignalDescription:
 	db   "Lowers a foe's"
 	next "random stat.@"
-	
-KeenFocusDescription:
-	db   "Boosts move ACC on"
-	next "your first turns.@"
-	
+
 SlowDigestionDescription:
 	db   "Keep healing after"
 	next "eating a berry.@"

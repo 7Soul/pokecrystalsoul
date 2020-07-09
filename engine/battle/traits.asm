@@ -1025,7 +1025,6 @@ TraitsThatRaiseSpDefense:
 
 TraitsThatRaiseAccuracy:
 	db TRAIT_RAIN_ACCURACY
-	db TRAIT_SUNSHINE_ACCURACY
 	db TRAIT_ACCURACY_BELOW_THIRD
 	db TRAIT_ACCURACY_STATUSED
 	db -1
@@ -1797,9 +1796,9 @@ TraitBoostPower:
 	ld a, TRAIT_BOOST_WEAK_MOVES
 	call CheckSpecificTrait
 	jp c, BoostDamage50
-	; ld a, TRAIT_BATTLE_ELECTRIC_BOOST
-	; call CheckSpecificTrait
-	; jp c, .boost_activated_count
+	ld a, TRAIT_BOOST_POWER_BRN_SELF
+	call CheckSpecificTrait
+	jp c, BoostDamage50BurnSelf
 
 	ld a, [wBattleWeather]
 	and a
@@ -2782,6 +2781,13 @@ BoostDamage50:
 	ld a, $32 ; ~1.5
 	jp ApplyDamageMod
 
+BoostDamage50BurnSelf:
+	call BoostDamage50
+	call Switch_turn
+	ld hl, BattleCommand_BurnTargetSimple
+	call TraitUseBattleCommandSimple
+	jp Switch_turn
+
 BoostDamage25:
 	ld a, $54 ; ~1.25
 	jp ApplyDamageMod
@@ -3202,7 +3208,6 @@ OneShotTraits:
 	db TRAIT_RAIN_EVASION
 	db TRAIT_RAIN_NO_STATUS
 	db TRAIT_SUNSHINE_SPEED
-	db TRAIT_SUNSHINE_ACCURACY
 	db TRAIT_SUNSHINE_EVASION
 	db TRAIT_SUNSHINE_NO_STATUS	
 	db TRAIT_SANDSTORM_SPEED

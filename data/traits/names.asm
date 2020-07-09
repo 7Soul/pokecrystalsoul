@@ -87,15 +87,15 @@ TraitNames::
 	; db "Rainy Boon@"       ; TRAIT_RAIN_SP_ATTACK
 	; db "Rainy Boon@"       ; TRAIT_RAIN_SP_DEFENSE
 	db "Stormy Skies@"     ; TRAIT_RAIN_ACCURACY
-	db "Cold Rain@"        ; TRAIT_RAIN_EVASION
+	db "Water Dance@"      ; TRAIT_RAIN_EVASION
 	db "Hydration@"        ; TRAIT_RAIN_NO_STATUS
 	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_ATTACK
 	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_DEFENSE 
 	db "Burn Up@"          ; TRAIT_SUNSHINE_SPEED
 	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_SP_ATTACK
 	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_SP_DEFENSE
-	db "Sun Dance@"        ; TRAIT_SUNSHINE_ACCURACY
-	db "Sunny Boon@"       ; TRAIT_SUNSHINE_EVASION
+	db "Sun Dance@"        ; TRAIT_SUNSHINE_EVASION
+	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_EVASION
 	db "Leaf Guard@"       ; TRAIT_SUNSHINE_NO_STATUS
 	; db "Storm Boon@"       ; TRAIT_SANDSTORM_ATTACK
 	; db "Storm Boon@"       ; TRAIT_SANDSTORM_DEFENSE
@@ -136,6 +136,7 @@ TraitNames::
 	db "Bladed Wings@"     ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	db "Prismality@"       ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"          ; TRAIT_REDUCE_NOT_STAB
+	db "Ignite@"           ; TRAIT_BOOST_POWER_BRN_SELF
 	db "Keen Focus@"       ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	db "Grand Entrance@"   ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	db "Free Shot@"        ; TRAIT_GAIN_PP_TURN_ZERO

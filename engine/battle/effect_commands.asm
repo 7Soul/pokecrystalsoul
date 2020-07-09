@@ -4265,6 +4265,10 @@ BattleCommand_EatDream:
 
 BattleCommand_BurnTarget:
 ; burntarget
+	ld b, FIRE
+	farcall CheckIfTargetIsNthType ; Don't burn a Fire-type
+	ret z
+BattleCommand_BurnTargetSimple:
 	xor a
 	ld [wNumHits], a
 	call CheckSubstituteOpp
@@ -4275,9 +4279,6 @@ BattleCommand_BurnTarget:
 	jp nz, Defrost
 	ld a, [wTypeModifier]
 	and $7f
-	ret z
-	ld b, FIRE
-	farcall CheckIfTargetIsNthType ; Don't burn a Fire-type
 	ret z
 	call GetOpponentItem
 	ld a, b
