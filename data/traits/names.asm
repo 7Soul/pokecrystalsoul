@@ -31,6 +31,7 @@ TraitNames::
 	db "Rock Head@"        ; TRAIT_REDUCE_SELF_RECOIL
 	db "Sniper@"           ; TRAIT_BOOST_CRIT_DAMAGE
 	db "Shell Armor@"      ; TRAIT_REDUCE_CRIT_DAMAGE
+	db "Liquid Ooze@"      ; TRAIT_PSN_DRAIN
 	db "Drain Surge@"      ; TRAIT_BOOST_DRAIN
 	db "Skill Link@"       ; TRAIT_BOOST_MULTI_HIT_COUNT
 	db "Chain Clip@"       ; TRAIT_BOOST_MULTI_HIT_DAMAGE

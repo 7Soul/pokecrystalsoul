@@ -4037,7 +4037,11 @@ BattleCommand_SleepSimple:
 
 BattleCommand_PoisonTarget:
 ; poisontarget
-
+	ld b, POISON
+	farcall CheckIfTargetIsNthType ; Don't poison a Poison-type
+	ret z
+; fallthrough
+BattleCommand_PoisonTargetSimple: ; ignores target's type
 	call CheckSubstituteOpp
 	ret nz
 	ld a, BATTLE_VARS_STATUS_OPP
@@ -4046,9 +4050,6 @@ BattleCommand_PoisonTarget:
 	ret nz
 	ld a, [wTypeModifier]
 	and $7f
-	ret z
-	ld b, POISON
-	farcall CheckIfTargetIsNthType ; Don't poison a Poison-type
 	ret z
 	call GetOpponentItem
 	ld a, b

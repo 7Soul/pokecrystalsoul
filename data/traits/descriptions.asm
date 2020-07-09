@@ -31,6 +31,7 @@ TraitDescriptions::
 	dw RockHeadDescription        ; TRAIT_REDUCE_SELF_RECOIL
 	dw SniperDescription          ; TRAIT_BOOST_CRIT_DAMAGE
 	dw ShellArmorDescription      ; TRAIT_REDUCE_CRIT_DAMAGE
+	dw LiquidOozeDescription      ; TRAIT_PSN_DRAIN
 	dw DrainSurgeDescription      ; TRAIT_BOOST_DRAIN
 	dw SkillLinkDescription       ; TRAIT_BOOST_MULTI_HIT_COUNT
 	dw ChainClipDescription       ; TRAIT_BOOST_MULTI_HIT_DAMAGE
@@ -375,6 +376,10 @@ SniperDescription:
 ShellArmorDescription:
 	db   "Lowers damage from"
 	next "critical hits.@"
+
+LiquidOozeDescription:
+	db   "Cause PSN when foe"
+	next "drains life.@"
 
 DrainSurgeDescription:
 	db   "Ups life drain"

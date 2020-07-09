@@ -1468,7 +1468,7 @@ TraitPostHitBattleCommand:
 	add hl, bc
 	ld a, [hli]
 	ld b, a
-.chance	
+.chance
 ; double chance for moves under 60 power
 	ld a, BATTLE_VARS_MOVE_POWER
  	call GetBattleVar
@@ -1491,6 +1491,7 @@ TraitPostHitBattleCommand:
 	dw BattleCommand_BurnTarget
 	dw BattleCommand_ParalyzeOrPoisonTarget
 	dw BattleCommand_FreezeOrSlowTarget
+	dw BattleCommand_PoisonTarget
 
 .StatusChances:
 	db 8 percent, 12 percent
@@ -1498,6 +1499,7 @@ TraitPostHitBattleCommand:
 	db 16 percent, 25 percent
 	db 10 percent, 10 percent
 	db 15 percent, 20 percent
+	db 100 percent, 100 percent
 
 .TraitsThatTriggerBattleEffects:
 	db TRAIT_FLYING_FRZ
@@ -1505,6 +1507,7 @@ TraitPostHitBattleCommand:
 	db TRAIT_FLYING_BRN
 	db TRAIT_PRZ_PSN_WITH_GRASS
 	db TRAIT_FRZ_SPD_WITH_WATER
+	db TRAIT_PSN_DRAIN ; 5
 	db -1
 
 TraitStartWeather:
@@ -2295,6 +2298,16 @@ TraitBoostDrain:
 	ld a, l
 	ldh [hDividend + 1], a
 	ret
+
+TraitWhenDrained:
+	ld a, TRAIT_PSN_DRAIN
+	call CheckSpecificTrait
+	ret nc
+
+	call Switch_turn
+	ld hl, BattleCommand_PoisonTargetSimple
+	call TraitUseBattleCommandSimple
+	jp Switch_turn
 
 TraitBoostEffectChance:
 	ld hl, .TraitsThatBoostEffectChance
