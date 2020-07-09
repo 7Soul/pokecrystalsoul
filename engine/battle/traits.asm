@@ -150,6 +150,11 @@ CheckTraitCondition:
 	and TYPE_MASK
 	ld d, a
 	pop af
+	cp TRAIT_REDUCE_PSN_AND_POISON
+	ld b, a
+	ld c, POISON
+	call c, .check_move_type
+	call c, .check_move_psn
 	cp TRAIT_REDUCE_BRN_AND_FIRE
 	ld b, a
 	ld c, FIRE
@@ -172,7 +177,7 @@ CheckTraitCondition:
 	call c, .check_move_sleep
 	cp TRAIT_REDUCE_PSN_AND_BUG
 	ld b, a
-	ld c, DARK
+	ld c, BUG
 	call c, .check_move_type
 	call c, .check_move_psn
 	cp TRAIT_REDUCE_FRZ_AND_ICE
@@ -805,27 +810,10 @@ TraitOnEnter:
 	ld [wBuffer1], a
 	ld hl, .TraitsThatBoostBasedOnPartyType
 	call CheckTrait
-	jr c, .defense_times
-	ld hl, .TraitsThatBoostBasedOnAllType
-	call CheckTrait
 	ret nc
-.battle_type_boost
-	ld hl, .TypeList
-	ld b, 0
-	ld c, a
-	add hl, bc
-	ld d, [hl]
-	push de
-	call CheckTraitCondition.check_party_for_type
-	pop de
-	jp CheckTraitCondition.check_opp_party_for_type
 
-.defense_times
-	ld hl, .TypeList
-	ld b, 0
-	ld c, a
-	add hl, bc
-	ld d, [hl]
+	ld a, [wBuffer3]
+	ld d, a
 	call CheckTraitCondition.check_party_for_type
 	call CheckTraitCount
 	inc a
@@ -834,9 +822,15 @@ TraitOnEnter:
 	dec c
 	ret z
 	push bc
+	ld a, c
+	and 1
+	jr z, .sp_def
 	ld hl, BattleCommand_DefenseUp
+	jr .raised_stat
+.sp_def
+	ld hl, BattleCommand_SpecialDefenseUp
+.raised_stat
 	call TraitUseBattleCommandSimple
-
 	ld hl, BattleCommand_StatUpMessage
 	call TraitUseBattleCommandSimple
 
@@ -860,23 +854,6 @@ TraitOnEnter:
 	db TRAIT_PARTY_PSYCHIC_BOOST_DEFENSE
 	db TRAIT_PARTY_ICE_BOOST_DEFENSE
 	db TRAIT_PARTY_DARK_BOOST_DEFENSE
-	db -1
-
-.TraitsThatBoostBasedOnAllType:
-	db TRAIT_BATTLE_NORMAL_BOOST
-	db TRAIT_BATTLE_FIGHTING_BOOST
-	db TRAIT_BATTLE_FLYING_BOOST
-	db TRAIT_BATTLE_POISON_BOOST
-	db TRAIT_BATTLE_GROUND_BOOST
-	db TRAIT_BATTLE_ROCK_BOOST
-	db TRAIT_BATTLE_BUG_BOOST
-	db TRAIT_BATTLE_FIRE_BOOST
-	db TRAIT_BATTLE_WATER_BOOST
-	db TRAIT_BATTLE_GRASS_BOOST
-	db TRAIT_BATTLE_ELECTRIC_BOOST
-	db TRAIT_BATTLE_PSYCHIC_BOOST
-	db TRAIT_BATTLE_ICE_BOOST
-	db TRAIT_BATTLE_DARK_BOOST
 	db -1
 
 .TypeList:
@@ -1009,9 +986,6 @@ TraitRaiseStat:
 
 TraitsThatRaiseAttack:
 	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
-	db TRAIT_RAIN_ATTACK
-	db TRAIT_SUNSHINE_ATTACK
-	db TRAIT_SANDSTORM_ATTACK
 	db TRAIT_ATTACK_BELOW_THIRD
 	db TRAIT_ATTACK_STATUSED
 	db TRAIT_ATTACK_AFTER_CRIT
@@ -1020,9 +994,6 @@ TraitsThatRaiseAttack:
 
 TraitsThatRaiseDefense:
 	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING ; 6
-	db TRAIT_RAIN_DEFENSE
-	db TRAIT_SUNSHINE_DEFENSE
-	db TRAIT_SANDSTORM_DEFENSE
 	db TRAIT_DEFENSE_BELOW_THIRD
 	db TRAIT_DEFENSE_STATUSED
 	db TRAIT_DEFENSE_AFTER_CRIT
@@ -1043,17 +1014,11 @@ TraitsThatRaiseSpeed:
 
 TraitsThatRaiseSpAttack:
 	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
-	db TRAIT_RAIN_SP_ATTACK
-	db TRAIT_SUNSHINE_SP_ATTACK
-	db TRAIT_SANDSTORM_SP_ATTACK
 	db TRAIT_SP_ATTACK_BELOW_THIRD
 	db TRAIT_SP_ATTACK_STATUSED
 	db -1
 
 TraitsThatRaiseSpDefense:
-	db TRAIT_RAIN_SP_DEFENSE
-	db TRAIT_SUNSHINE_SP_DEFENSE
-	db TRAIT_SANDSTORM_SP_DEFENSE
 	db TRAIT_SP_DEFENSE_BELOW_THIRD
 	db TRAIT_SP_DEFENSE_STATUSED
 	db -1
@@ -1061,7 +1026,6 @@ TraitsThatRaiseSpDefense:
 TraitsThatRaiseAccuracy:
 	db TRAIT_RAIN_ACCURACY
 	db TRAIT_SUNSHINE_ACCURACY
-	db TRAIT_SANDSTORM_ACCURACY
 	db TRAIT_ACCURACY_BELOW_THIRD
 	db TRAIT_ACCURACY_STATUSED
 	db -1
@@ -1781,6 +1745,7 @@ TraitReducePower:
 	db -1
 
 .TraitsThatReduceDamageLess: ; 10%
+	db TRAIT_REDUCE_PSN_AND_POISON
 	db TRAIT_REDUCE_BRN_AND_FIRE
 	db TRAIT_REDUCE_PRZ_AND_ELECTRIC
 	db TRAIT_REDUCE_FLINCH_AND_ROCK
@@ -1813,6 +1778,8 @@ PowerBoostingTraits:
 	ld [wBuffer1], a
 	jp TraitReducePower
 
+; PRINTV TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
+
 TraitBoostPower:
 	ld a, [wCriticalHit]
 	cp 1
@@ -1827,9 +1794,9 @@ TraitBoostPower:
 	ld a, TRAIT_BOOST_WEAK_MOVES
 	call CheckSpecificTrait
 	jp c, BoostDamage50
-	ld a, TRAIT_BATTLE_ELECTRIC_BOOST
-	call CheckSpecificTrait
-	jp c, .boost_activated_count
+	; ld a, TRAIT_BATTLE_ELECTRIC_BOOST
+	; call CheckSpecificTrait
+	; jp c, .boost_activated_count
 
 	ld a, [wBattleWeather]
 	and a
@@ -2382,11 +2349,12 @@ TraitReduceEffectChance:
 .TraitsThatReduceEffectChance:
 	db TRAIT_REDUCE_EFFECT_NO_DAMAGE ; 0
 	db TRAIT_REDUCE_EFFECT_WITH_DAMAGE ; 1
-	db TRAIT_REDUCE_BRN_AND_FIRE ; 2
-	db TRAIT_REDUCE_PRZ_AND_ELECTRIC ; 3
-	db TRAIT_REDUCE_FLINCH_AND_ROCK ; 4
-	db TRAIT_REDUCE_SLP_AND_DARK ; 5
-	db TRAIT_REDUCE_PSN_AND_BUG ; 6
+	db TRAIT_REDUCE_PSN_AND_POISON ; 2
+	db TRAIT_REDUCE_BRN_AND_FIRE ; 3
+	db TRAIT_REDUCE_PRZ_AND_ELECTRIC ; 4
+	db TRAIT_REDUCE_FLINCH_AND_ROCK ; 5
+	db TRAIT_REDUCE_SLP_AND_DARK ; 6
+	db TRAIT_REDUCE_PSN_AND_BUG ; 7
 	db -1
 
 TraitNegateEffectChance:
@@ -3216,28 +3184,15 @@ OneShotTraits:
 	db TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
 	db TRAIT_ATTACK_OPP_FAINT
 	db TRAIT_SP_ATTACK_OPP_FAINT
-	db TRAIT_RAIN_ATTACK
-	db TRAIT_RAIN_DEFENSE
 	db TRAIT_RAIN_SPEED
-	db TRAIT_RAIN_SP_ATTACK
-	db TRAIT_RAIN_SP_DEFENSE
 	db TRAIT_RAIN_ACCURACY
 	db TRAIT_RAIN_EVASION
 	db TRAIT_RAIN_NO_STATUS
-	db TRAIT_SUNSHINE_ATTACK
-	db TRAIT_SUNSHINE_DEFENSE 
 	db TRAIT_SUNSHINE_SPEED
-	db TRAIT_SUNSHINE_SP_ATTACK
-	db TRAIT_SUNSHINE_SP_DEFENSE
 	db TRAIT_SUNSHINE_ACCURACY
 	db TRAIT_SUNSHINE_EVASION
 	db TRAIT_SUNSHINE_NO_STATUS	
-	db TRAIT_SANDSTORM_ATTACK
-	db TRAIT_SANDSTORM_DEFENSE
 	db TRAIT_SANDSTORM_SPEED
-	db TRAIT_SANDSTORM_SP_ATTACK
-	db TRAIT_SANDSTORM_SP_DEFENSE
-	db TRAIT_SANDSTORM_ACCURACY
 	db TRAIT_SANDSTORM_EVASION
 	db TRAIT_SANDSTORM_NO_STATUS
 	db TRAIT_FIND_BERRY
@@ -3276,10 +3231,20 @@ OneShotTraits:
 	db TRAIT_ACCURACY_STATUSED
 	db TRAIT_EVASION_STATUSED
 	db TRAIT_OPP_SAME_TYPE_CRIT_BOOST
+	db TRAIT_PARTY_NORMAL_BOOST_DEFENSE
+	db TRAIT_PARTY_FIGHTING_BOOST_DEFENSE
+	db TRAIT_PARTY_FLYING_BOOST_DEFENSE
+	db TRAIT_PARTY_POISON_BOOST_DEFENSE
+	db TRAIT_PARTY_GROUND_BOOST_DEFENSE
+	db TRAIT_PARTY_ROCK_BOOST_DEFENSE
+	db TRAIT_PARTY_BUG_BOOST_DEFENSE
+	db TRAIT_PARTY_FIRE_BOOST_DEFENSE
 	db TRAIT_PARTY_WATER_BOOST_DEFENSE
 	db TRAIT_PARTY_GRASS_BOOST_DEFENSE
-	db TRAIT_PARTY_BUG_BOOST_DEFENSE
+	db TRAIT_PARTY_ELECTRIC_BOOST_DEFENSE
+	db TRAIT_PARTY_PSYCHIC_BOOST_DEFENSE
 	db TRAIT_PARTY_ICE_BOOST_DEFENSE
+	db TRAIT_PARTY_DARK_BOOST_DEFENSE
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
@@ -3287,3 +3252,7 @@ OneShotTraits:
 	db TRAIT_EVASION_WHEN_CONFUSED
 	db TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	db -1
+
+; PRINTT "Trait Count left: "
+; PRINTV $FF - TRAIT_COUNT
+; PRINTT "\n"

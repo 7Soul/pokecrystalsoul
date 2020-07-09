@@ -60,9 +60,9 @@ TraitDescriptions::
 	dw SnowFortDescription        ; TRAIT_PARTY_ICE_BOOST_DEFENSE
 	dw ShadowCloakDescription     ; TRAIT_PARTY_DARK_BOOST_DEFENSE
 
-	dw UpVoltageDescription       ; TRAIT_BATTLE_ELECTRIC_BOOST
-	dw ShadowCloak2Description    ; TRAIT_BATTLE_DARK_BOOST
-	dw MagmaFlowDescription       ; TRAIT_BATTLE_FIRE_BOOST
+	; dw UpVoltageDescription       ; TRAIT_BATTLE_ELECTRIC_BOOST
+	; dw ShadowCloak2Description    ; TRAIT_BATTLE_DARK_BOOST
+	; dw SecondSkinDescription      ; TRAIT_BATTLE_FIRE_BOOST
 
 	dw RainDishDescription        ; TRAIT_REGEN_ON_RAIN
 	dw MonsoonDescription         ; TRAIT_RAIN_DURATION
@@ -81,28 +81,28 @@ TraitDescriptions::
 	dw SlimeCoatDescription       ; TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
 	dw ShedSkinDescription        ; TRAIT_HEAL_STATUS
 	dw RecklessDescription        ; TRAIT_BOOST_RECOIL
-	dw RainyBoon0Description      ; TRAIT_RAIN_ATTACK
-	dw RainyBoon1Description      ; TRAIT_RAIN_DEFENSE
+	; dw RainyBoon0Description      ; TRAIT_RAIN_ATTACK
+	; dw RainyBoon1Description      ; TRAIT_RAIN_DEFENSE
 	dw SwiftSwimmerDescription    ; TRAIT_RAIN_SPEED
-	dw RainyBoon3Description      ; TRAIT_RAIN_SP_ATTACK
-	dw RainyBoon4Description      ; TRAIT_RAIN_SP_DEFENSE
+	; dw RainyBoon3Description      ; TRAIT_RAIN_SP_ATTACK
+	; dw RainyBoon4Description      ; TRAIT_RAIN_SP_DEFENSE
 	dw StormySkiesDescription     ; TRAIT_RAIN_ACCURACY
 	dw ColdRainDescription        ; TRAIT_RAIN_EVASION
 	dw HydrationDescription       ; TRAIT_RAIN_NO_STATUS
-	dw SunnyBoon0Description      ; TRAIT_SUNSHINE_ATTACK
-	dw SunnyBoon1Description      ; TRAIT_SUNSHINE_DEFENSE 
+	; dw SunnyBoon0Description      ; TRAIT_SUNSHINE_ATTACK
+	; dw SunnyBoon1Description      ; TRAIT_SUNSHINE_DEFENSE 
 	dw BurnUpDescription          ; TRAIT_SUNSHINE_SPEED
-	dw SunnyBoon3Description      ; TRAIT_SUNSHINE_SP_ATTACK
-	dw SunnyBoon4Description      ; TRAIT_SUNSHINE_SP_DEFENSE
+	; dw SunnyBoon3Description      ; TRAIT_SUNSHINE_SP_ATTACK
+	; dw SunnyBoon4Description      ; TRAIT_SUNSHINE_SP_DEFENSE
 	dw SunDanceDescription        ; TRAIT_SUNSHINE_ACCURACY
-	dw SunnyBoon6Description      ; TRAIT_SUNSHINE_EVASION
+	; dw SunnyBoon6Description      ; TRAIT_SUNSHINE_EVASION
 	dw LeafGuardDescription       ; TRAIT_SUNSHINE_NO_STATUS
-	dw StormBoon0Description      ; TRAIT_SANDSTORM_ATTACK
-	dw StormBoon1Description      ; TRAIT_SANDSTORM_DEFENSE
+	; dw StormBoon0Description      ; TRAIT_SANDSTORM_ATTACK
+	; dw StormBoon1Description      ; TRAIT_SANDSTORM_DEFENSE
 	dw SandCutterDescription      ; TRAIT_SANDSTORM_SPEED
-	dw StormBoon3Description      ; TRAIT_SANDSTORM_SP_ATTACK
-	dw StormBoon4Description      ; TRAIT_SANDSTORM_SP_DEFENS
-	dw StormBoon5Description      ; TRAIT_SANDSTORM_ACCURACY
+	; dw StormBoon3Description      ; TRAIT_SANDSTORM_SP_ATTACK
+	; dw StormBoon4Description      ; TRAIT_SANDSTORM_SP_DEFENS
+	; dw StormBoon5Description      ; TRAIT_SANDSTORM_ACCURACY
 	dw SandVeilDescription        ; TRAIT_SANDSTORM_EVASION
 	dw SandFilterDescription      ; TRAIT_SANDSTORM_NO_STATUS
 	dw WaterVeilDescription       ; TRAIT_BRN_IMMUNE
@@ -179,9 +179,10 @@ TraitDescriptions::
 	dw NemesisDescription         ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
 	dw PunchOutDescription        ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
 	dw TechnicianDescription      ; TRAIT_BOOST_WEAK_MOVES
-	dw PermafrostDescription      ; TRAIT_REDUCE_BRN_AND_FIRE
+	dw SecondSkinDescription      ; TRAIT_REDUCE_PSN_AND_POISON
+	dw ProtectedFurDescription    ; TRAIT_REDUCE_BRN_AND_FIRE
 	dw GroundWireDescription      ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
-	dw SteelWingsDescription      ; TRAIT_REDUCE_FLINCH_AND_ROCK
+	dw SuperCarapaceDescription   ; TRAIT_REDUCE_FLINCH_AND_ROCK
 	dw PerseveranceDescription    ; TRAIT_REDUCE_SLP_AND_PSYCHIC
 	dw ShakeOffDescription        ; TRAIT_REDUCE_PSN_AND_BUG
 	dw IceSheddingDescription     ; TRAIT_REDUCE_FRZ_AND_ICE
@@ -483,17 +484,17 @@ ShadowCloakDescription:
 	db   "Team's DARK type"
 	next "resist up.@"
 
-UpVoltageDescription:
-	db   "All ELECTRIC <PKMN>"
-	next "give you power.@"
+; UpVoltageDescription:
+; 	db   "All ELECTRIC <PKMN>"
+; 	next "give you power.@"
 	
-ShadowCloakDescription:
-	db   "All DARK <PKMN>"
-	next "give you power.@"
+; ShadowCloakDescription:
+; 	db   "All DARK <PKMN>"
+; 	next "give you power.@"
 	
-MagmaFlowDescription:
-	db   "All FIRE <PKMN>"
-	next "give you power.@"
+; SecondSkinDescription:
+; 	db   "All FIRE <PKMN>"
+; 	next "give you power.@"
 
 RainDishDescription:
 	db   "Heal HP when rain"
@@ -567,25 +568,25 @@ DeviantDescription:
 	db   "Lowers damage from"
 	next "moves with recoil.@"
 	
-RainyBoon0Description:
-	db   "Raises ATK during"
-	next "rain.@"
+; RainyBoon0Description:
+; 	db   "Raises ATK during"
+; 	next "rain.@"
 
-RainyBoon1Description:
-	db   "Raises DEF during"
-	next "rain.@"
+; RainyBoon1Description:
+; 	db   "Raises DEF during"
+; 	next "rain.@"
 
 SwiftSwimmerDescription:
 	db   "Raises SPD during"
 	next "rain.@"
 
-RainyBoon3Description:
-	db   "Raises SP.ATK"
-	next "during rain.@"
+; RainyBoon3Description:
+; 	db   "Raises SP.ATK"
+; 	next "during rain.@"
 
-RainyBoon4Description:
-	db   "Raises SP.DEF"
-	next "during rain.@"
+; RainyBoon4Description:
+; 	db   "Raises SP.DEF"
+; 	next "during rain.@"
 
 StormySkiesDescription:
 	db   "Raises ACCURACY"
@@ -599,61 +600,61 @@ HydrationDescription:
 	db   "Rain heals status"
 	next "conditions.@"
 
-SunnyBoon0Description:
-	db   "Raises ATK when"
-	next "it's sunny.@"
+; SunnyBoon0Description:
+; 	db   "Raises ATK when"
+; 	next "it's sunny.@"
 
-SunnyBoon1Description:
-	db   "Raises DEF when"
-	next "it's sunny.@"
+; SunnyBoon1Description:
+; 	db   "Raises DEF when"
+; 	next "it's sunny.@"
 
 BurnUpDescription:
 	db   "Raises SPD when"
 	next "it's sunny.@"
 
-SunnyBoon3Description:
-	db   "Raises SP.ATK when"
-	next "it's sunny.@"
+; SunnyBoon3Description:
+; 	db   "Raises SP.ATK when"
+; 	next "it's sunny.@"
 
-SunnyBoon4Description:
-	db   "Raises SP.DEF when"
-	next "it's sunny.@"
+; SunnyBoon4Description:
+; 	db   "Raises SP.DEF when"
+; 	next "it's sunny.@"
 
 SunDanceDescription:
 	db   "Raises ACCURACY"
 	next "when it's sunny.@"
 
-SunnyBoon6Description:
-	db   "Raises EVASION"
-	next "when it's sunny.@"
+; SunnyBoon6Description:
+; 	db   "Raises EVASION"
+; 	next "when it's sunny.@"
 
 LeafGuardDescription:
 	db   "Heals status cond-"
 	next "itions when sunny.@"
 
-StormBoon0Description:
-	db   "Raises ATK in a"
-	next "sandstorm.@"
+; StormBoon0Description:
+; 	db   "Raises ATK in a"
+; 	next "sandstorm.@"
 
-StormBoon1Description:
-	db   "Raises DEF in a"
-	next "sandstorm.@"
+; StormBoon1Description:
+; 	db   "Raises DEF in a"
+; 	next "sandstorm.@"
 
 SandCutterDescription:
 	db   "Raises SPD in a"
 	next "sandstorm.@"
 
-StormBoon3Description:
-	db   "Raises SP.ATK when"
-	next "in a sandstorm.@"
+; StormBoon3Description:
+; 	db   "Raises SP.ATK when"
+; 	next "in a sandstorm.@"
 
-StormBoon4Description:
-	db   "Raises SP.DEF when"
-	next "in a sandstorm.@"
+; StormBoon4Description:
+; 	db   "Raises SP.DEF when"
+; 	next "in a sandstorm.@"
 
-StormBoon5Description:
-	db   "Raises ACCURACY"
-	next "in a sandstorm.@"
+; StormBoon5Description:
+; 	db   "Raises ACCURACY"
+; 	next "in a sandstorm.@"
 
 SandVeilDescription:
 	db   "Raises EVASION"
@@ -959,7 +960,11 @@ TechnicianDescription:
 	db   "Raises damage of"
 	next "weaker moves.@"
 
-PermafrostDescription:
+SecondSkinDescription:
+	db   "PSN and POISON are"
+	next "weakened.@"
+
+ProtectedFurDescription:
 	db   "BRN and FIRE are"
 	next "weakened.@"
 	
@@ -967,7 +972,7 @@ GroundWireDescription:
 	db   "PRZ and ELECTRIC"
 	next "are weakened.@"
 	
-SteelWingsDescription:
+SuperCarapaceDescription:
 	db   "FLINCH and ROCK"
 	next "are weakened.@"
 
