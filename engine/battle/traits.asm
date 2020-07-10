@@ -427,10 +427,7 @@ CheckTraitCondition:
 .check_not_stab ; stab = nc, non-stab = c
 	ld hl, wTypeModifier
 	bit 7, [hl]
-	jr nz, .yes
-	scf
-	ret
-.yes
+	jp z, .success
 	and a
 	ret
 
@@ -2016,7 +2013,10 @@ TraitBoostNonStab: ; after damage calc, once stab is checked
 	dec a
 	ld b, GRASS
 	ld c, BUG
-	ret nz
+	jr z, .types
+	dec a
+	ld b, FIRE
+	ld c, PSYCHIC
 .types
 	ld a, BATTLE_VARS_TYPE1_OPP
 	call GetBattleVar
@@ -2042,6 +2042,7 @@ TraitBoostNonStab: ; after damage calc, once stab is checked
 	db TRAIT_BOOST_NOT_STAB
 	db TRAIT_BOOST_NOT_STAB_WATER_ICE
 	db TRAIT_BOOST_NOT_STAB_GRASS_BUG
+	db TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
 	db -1
 
 TraitReduceNonStab: ; after damage calc, once stab is checked

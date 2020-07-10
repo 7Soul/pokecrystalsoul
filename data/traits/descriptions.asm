@@ -137,6 +137,7 @@ TraitDescriptions::
 	dw HiddenPotentialDescription ; TRAIT_CRITICAL_NOT_STAB
 	dw RiptideDescription         ; TRAIT_BOOST_NOT_STAB_WATER_ICE
 	dw BladedWingsDescription     ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
+	dw DarkWatersDescription      ; TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
 	dw PismalityDescription       ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription         ; TRAIT_REDUCE_NOT_STAB
 	dw IgniteDescription          ; TRAIT_BOOST_POWER_BRN_SELF
@@ -799,6 +800,10 @@ RiptideDescription:
 BladedWingsDescription:
 	db   "Powers Non-STAB vs"
 	next "GRASS and BUG.@"
+
+DarkWatersDescription:
+	db   "Powers Non-STAB vs"
+	next "FIRE and PSYCHIC.@"
 
 PismalityDescription:
 	db   "Powers Non-STAB"

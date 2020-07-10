@@ -136,6 +136,7 @@ TraitNames::
 	db "Hidden Potential@" ; TRAIT_CRITICAL_NOT_STAB
 	db "Riptide@"          ; TRAIT_BOOST_NOT_STAB_WATER_ICE
 	db "Bladed Wings@"     ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
+	db "Dark Waters@"      ; TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
 	db "Prismality@"       ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"          ; TRAIT_REDUCE_NOT_STAB
 	db "Ignite@"           ; TRAIT_BOOST_POWER_BRN_SELF

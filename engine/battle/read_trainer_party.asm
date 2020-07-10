@@ -550,7 +550,7 @@ EvolveTrainerMon:
 	cp EVOLVE_HAPPINESS
 	jp z, .evolve_happy
 	cp EVOLVE_STAT
-	jp z, .evolve_stat	
+	jp z, .evolve_stat
 	
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte ; a = evolve level
@@ -614,7 +614,6 @@ EvolveTrainerMon:
 	ld a, d ; a = wild level
 	cp 35
 	jp c, .donezo
-	pop hl
 	ld a, [wEnemyMonEvolve]
 	dec a
 	jp z, .gloom_1
@@ -629,7 +628,6 @@ EvolveTrainerMon:
 	ld a, d ; a = wild level
 	cp 29
 	jp c, .donezo
-	pop hl
 	ld a, [wEnemyMonEvolve]
 	dec a
 	jp z, .poliwhirl_1
@@ -644,7 +642,6 @@ EvolveTrainerMon:
 	ld a, d ; a = wild level
 	cp 37
 	jp c, .donezo
-	pop hl
 	ld a, [wEnemyMonEvolve]
 	dec a
 	jp z, .slowpoke_1
@@ -654,7 +651,6 @@ EvolveTrainerMon:
 .slowpoke_1
 	ld a, SLOWBRO
 	jp .load_and_end
-
 .evolve_weepinbell
 	ld a, d ; a = wild level
 	cp 35
@@ -692,7 +688,7 @@ EvolveTrainerMon:
 	ld a, KINGDRA
 	jp .load_and_end
 
-.evolve_item	
+.evolve_item
 	pop bc
 	ld a, b
 	cp EEVEE
@@ -757,7 +753,6 @@ EvolveTrainerMon:
 	ld a, d ; a = wild level
 	cp 20
 	jp c, .donezo
-	pop hl
 	ld a, [wEnemyMonEvolve]
 	dec a
 	jp z, .hitmonlee
@@ -783,6 +778,7 @@ EvolveTrainerMon:
 	ret
 .load_and_end
 	ld b, a
+	pop hl
 	ret
 
 ComputeTrainerReward:
