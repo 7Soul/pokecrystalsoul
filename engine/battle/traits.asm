@@ -129,6 +129,9 @@ CheckTraitCondition:
 	cp TRAIT_CRITICAL_AFTER_CRIT + 1
 	ld d, 1
 	jp c, .check_trait_activation_equal
+	cp TRAIT_STATUS_TO_SLP + 1
+	ld d, $FF
+	jp c, .check_user_status
 	cp TRAIT_REGEN_STATUSED + 1
 	ld d, $FE
 	jp c, .check_user_status
@@ -1400,6 +1403,25 @@ TraitCull:
 	ld hl, GetSixteenthMaxHP
 	call CallHealAmount
 	jp ResetActivated
+
+TraitReplaceStatus:
+	ld a, TRAIT_STATUS_TO_SLP
+	call CheckSpecificTrait
+	ret nc
+
+	ld a, BATTLE_VARS_STATUS
+	call GetBattleVarAddr
+	ld a, [hl]
+	and SLP
+	ret nz
+	xor a
+	ld [hl], a
+	inc a
+	ld [wBuffer3], a
+	call Switch_turn
+	ld hl, BattleCommand_SleepSimple
+	call TraitUseBattleCommandSimple
+	jp Switch_turn
 
 TraitSturdyNormal:
 	ld a, [wCriticalHit]

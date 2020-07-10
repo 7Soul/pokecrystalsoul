@@ -3969,8 +3969,10 @@ BattleCommand_SleepSimple:
 
 	xor a
 	ld [wNumHits], a
+	push de
 	ld de, ANIM_SLP
 	call PlayOpponentBattleAnim
+	pop de
 	ld b, $7
 	jr .random_loop
 	

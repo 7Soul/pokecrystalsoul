@@ -1115,6 +1115,10 @@ ResidualDamage:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitCull
+
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitReplaceStatus
 	call SwitchTurnCore
 
 	call HasUserFainted

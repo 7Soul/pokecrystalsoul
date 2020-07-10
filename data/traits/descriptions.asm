@@ -167,6 +167,7 @@ TraitDescriptions::
 	dw ScatterDescription         ; TRAIT_SPEED_AFTER_CRIT
 	dw LuckCurseDescription       ; TRAIT_REDUCE_CRIT_MORE
 	dw SuperLuckDescription       ; TRAIT_CRITICAL_AFTER_CRIT
+	dw SleepCurseDescription      ; TRAIT_STATUS_TO_SLP
 	dw GutsDescription            ; TRAIT_ATTACK_STATUSED
 	dw MarvelScaleDescription     ; TRAIT_DEFENSE_STATUSED
 	dw QuickFeetDescription       ; TRAIT_SPEED_STATUSED
@@ -914,6 +915,10 @@ LuckCurseDescription:
 SuperLuckDescription:
 	db   "Ups CRITICAL when"
 	next "hit by one.@"
+
+SleepCurseDescription:
+	db   "Changes foe's"
+	next "status to SLP.@"
 
 GutsDescription:
 	db   "Volatile status"

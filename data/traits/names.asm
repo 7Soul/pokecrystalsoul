@@ -166,6 +166,7 @@ TraitNames::
 	db "Scatter@"          ; TRAIT_SPEED_AFTER_CRIT
 	db "Luck Curse@"       ; TRAIT_REDUCE_CRIT_MORE
 	db "Super Luck@"       ; TRAIT_CRITICAL_AFTER_CRIT
+	db "Sleep Curse@"      ; TRAIT_STATUS_TO_SLP
 	db "Guts@"             ; TRAIT_ATTACK_STATUSED
 	db "Marvel Scale@"     ; TRAIT_DEFENSE_STATUSED
 	db "Quick Feet@"       ; TRAIT_SPEED_STATUSED
