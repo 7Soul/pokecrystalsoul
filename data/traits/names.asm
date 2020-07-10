@@ -188,6 +188,7 @@ TraitNames::
 	db "Shake Off@"        ; TRAIT_REDUCE_PSN_AND_BUG
 	db "Ice Shedding@"     ; TRAIT_REDUCE_FRZ_AND_ICE
 	db "Mind Block@"       ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	db "Morning Dew@"      ; TRAIT_REDUCE_WATER_FIRE_HIT
 	db "Thick Fat@"        ; TRAIT_DEFENSE_ICE_FIRE_HIT
 	db "Rattled@"          ; TRAIT_SPEED_BUG_DARK_HIT
 	db "Stone Skin@"       ; TRAIT_REDUCE_NORMAL

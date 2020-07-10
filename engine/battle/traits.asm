@@ -190,12 +190,17 @@ CheckTraitCondition:
 	ld c, PSYCHIC
 	call c, .check_move_type
 	call c, .check_move_confused
-	cp TRAIT_DEFENSE_ICE_FIRE_HIT ; 
+	cp TRAIT_REDUCE_WATER_FIRE_HIT + 1; 
+	ld b, a
+	ld c, WATER
+	ld e, FIRE
+	jp c, .check_move_type
+	cp TRAIT_DEFENSE_ICE_FIRE_HIT + 1; 
 	ld b, a
 	ld c, FIRE
 	ld e, ICE
 	jp c, .check_move_type
-	cp TRAIT_SPEED_BUG_DARK_HIT ; 
+	cp TRAIT_SPEED_BUG_DARK_HIT + 1; 
 	ld b, a
 	ld c, BUG
 	ld e, DARK
@@ -1661,6 +1666,10 @@ TraitReducePower:
 	call CheckSpecificTrait
 	jp c, ReduceDamage50
 
+	ld a, TRAIT_REDUCE_WATER_FIRE_HIT
+	call CheckSpecificTrait
+	jp c, ReduceDamage50
+
 	ld hl, .TraitsThatReduceDamageLess
 	call CheckTrait
 	jp c, ReduceDamage10
@@ -2962,7 +2971,7 @@ GetTraitUserAddr:
 	ld a, [wBuffer1]
 	cp BATTLE_VARS_TRAIT
 	jr z, .end_de
-	ret ; player's turn & checking player's trait
+	ret ; enemy's turn & checking enemy's trait
 .player_turn
 	ld a, [wBuffer1]
 	cp BATTLE_VARS_TRAIT
@@ -2979,10 +2988,10 @@ GetTraitUser:
 	jr z, .player_turn
 ; enemy turn
 	ld a, [wBuffer1]
-	cp BATTLE_VARS_TRAIT
-	jr z, .end
+	cp BATTLE_VARS_TRAIT_OPP
+	jr nz, .end
 	scf
-	ret ; enemy's turn player's trait
+	ret ; enemy's turn opp's trait (user's)
 .player_turn
 	ld a, [wBuffer1]
 	cp BATTLE_VARS_TRAIT
@@ -3161,15 +3170,35 @@ ActivateTrait:
 	call GetTraitName
 	call GetTraitUser
 	jr c, .player_user
+	ldh a, [hBattleTurn]
+	and a
+	jr nz, .okturn1
+	call Switch_turn
 	ld hl, BattleText_TraitActivatedEnemy
 	call StdBattleTextBox
+	call Switch_turn
+	jr .end1
+.okturn1
+	ld hl, BattleText_TraitActivatedEnemy
+	call StdBattleTextBox
+.end1
 	ld hl, wTraitActivated
 	set 4, [hl] ; enemy trait
 	ld a, [hl]
 	ret
 .player_user
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .okturn
+	call Switch_turn
 	ld hl, BattleText_TraitActivatedPlayer
 	call StdBattleTextBox
+	call Switch_turn
+	jr .end
+.okturn
+	ld hl, BattleText_TraitActivatedPlayer
+	call StdBattleTextBox
+.end
 	ld hl, wTraitActivated
 	set 0, [hl] ; player trait
 	ld a, [hl]
@@ -3265,6 +3294,7 @@ OneShotTraits:
 	db TRAIT_PARTY_DARK_BOOST_DEFENSE
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
 	db TRAIT_SPEED_BUG_DARK_HIT
+	db TRAIT_REDUCE_WATER_FIRE_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
 	db TRAIT_REDUCE_GRASS_UP_ATTACK
 	db TRAIT_EVASION_WHEN_CONFUSED

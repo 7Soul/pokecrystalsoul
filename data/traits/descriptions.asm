@@ -189,6 +189,7 @@ TraitDescriptions::
 	dw ShakeOffDescription        ; TRAIT_REDUCE_PSN_AND_BUG
 	dw IceSheddingDescription     ; TRAIT_REDUCE_FRZ_AND_ICE
 	dw MindBlockDescription       ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	dw MorningDewDescription      ; TRAIT_REDUCE_WATER_FIRE_HIT
 	dw ThickFatDescription        ; TRAIT_DEFENSE_ICE_FIRE_HIT
 	dw RattledDescription         ; TRAIT_SPEED_BUG_DARK_HIT
 	dw StoneSkinDescription       ; TRAIT_REDUCE_NORMAL
@@ -1001,6 +1002,10 @@ IceSheddingDescription:
 MindBlockDescription:
 	db   "CONFUSION and PSY-"
 	next "CHIC are weakened.@"
+
+MorningDewDescription:
+	db   "1st hit from WATER"
+	next "or FIRE is halved.@"
 
 ThickFatDescription:
 	db   "Ups DEF when hit"
