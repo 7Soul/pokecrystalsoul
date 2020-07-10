@@ -129,6 +129,7 @@ TraitNames::
 	db "Serene Grace@"     ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	db "Silver Aura@"      ; TRAIT_REDUCE_PHYSICAL_TAKEN
 	db "Gold Aura@"        ; TRAIT_REDUCE_SPECIAL_TAKEN
+	db "Sheer Force@"      ; TRAIT_BOOST_DAMAGE_WITH_EFFECT
 	db "Shield Dust@"      ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	db "Vicious Form@"     ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	db "Hidden Potential@" ; TRAIT_CRITICAL_NOT_STAB

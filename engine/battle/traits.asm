@@ -1827,6 +1827,9 @@ TraitBoostPower:
 	call CheckSpecificTrait
 	jp c, BoostDamage25
 .not_crit
+	ld a, TRAIT_BOOST_DAMAGE_WITH_EFFECT
+	call CheckSpecificTrait
+	jp c, BoostDamage25
 	ld a, TRAIT_BOOST_RECOIL
 	call CheckSpecificTrait
 	jp c, BoostDamage20
@@ -2386,30 +2389,32 @@ TraitReduceEffectChance:
 	ld b, a ; save 1/2
 	rrca
 	add b ; add 1/2 and 1/4
-	ld b, a ; 75%
-.end
-	ld a, b
 	ld [wBuffer2], a
 	ret
-.min
-	ld b, 0
-	jr .end
 
 .TraitsThatReduceEffectChance:
-	db TRAIT_REDUCE_EFFECT_NO_DAMAGE ; 0
-	db TRAIT_REDUCE_EFFECT_WITH_DAMAGE ; 1
-	db TRAIT_REDUCE_PSN_AND_POISON ; 2
-	db TRAIT_REDUCE_BRN_AND_FIRE ; 3
-	db TRAIT_REDUCE_PRZ_AND_ELECTRIC ; 4
-	db TRAIT_REDUCE_FLINCH_AND_ROCK ; 5
-	db TRAIT_REDUCE_SLP_AND_DARK ; 6
-	db TRAIT_REDUCE_PSN_AND_BUG ; 7
+	db TRAIT_REDUCE_EFFECT_NO_DAMAGE ; 1
+	db TRAIT_REDUCE_EFFECT_WITH_DAMAGE ; 2
+	db TRAIT_REDUCE_PSN_AND_POISON ; 3
+	db TRAIT_REDUCE_BRN_AND_FIRE ; 4
+	db TRAIT_REDUCE_PRZ_AND_ELECTRIC ; 5
+	db TRAIT_REDUCE_FLINCH_AND_ROCK ; 6
+	db TRAIT_REDUCE_SLP_AND_DARK ; 7
+	db TRAIT_REDUCE_PSN_AND_BUG ; 8
 	db -1
 
 TraitNegateEffectChance:
 	ld hl, .TraitsThatNegateEffectChance
 	call CheckTrait
+	jr c, .got_trait
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	ld a, TRAIT_BOOST_DAMAGE_WITH_EFFECT
+	call CheckSpecificTrait
 	ret nc
+
+.got_trait
 	xor a
 	ld [wBuffer2], a
 	ret

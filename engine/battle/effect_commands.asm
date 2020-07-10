@@ -2164,9 +2164,7 @@ BattleCommand_EffectChance:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitBoostEffectChance
-	pop hl
 
-	push hl
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitReduceEffectChance

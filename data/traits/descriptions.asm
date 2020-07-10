@@ -130,6 +130,7 @@ TraitDescriptions::
 	dw SereneGraceDescription     ; TRAIT_BOOST_EFFECT_NO_DAMAGE
 	dw SilverAuraDescription      ; TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
 	dw GoldAuraDescription        ; TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
+	dw SheerForceDescription      ; TRAIT_BOOST_DAMAGE_WITH_EFFECT
 	dw ShieldDustDescription      ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
 	dw ViciousFormDescription     ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	dw HiddenPotentialDescription ; TRAIT_CRITICAL_NOT_STAB
@@ -770,6 +771,10 @@ GoldAuraDescription:
 	db   "Ups resist to SPE-"
 	next "CIAL over time.@"
 
+SheerForceDescription:
+	db   "Removes ADDED ef-"
+	next "fects for POWER.@"
+	
 ShieldDustDescription:
 	db   "Lowers the chance"
 	next "of ADDED effects.@"
