@@ -164,6 +164,8 @@ TraitNames::
 	db "Anger@"            ; TRAIT_ATTACK_AFTER_CRIT
 	db "Curl@"             ; TRAIT_DEFENSE_AFTER_CRIT
 	db "Scatter@"          ; TRAIT_SPEED_AFTER_CRIT
+	db "Third Eye@"        ; TRAIT_SP_ATTACK_AFTER_CRIT
+	db "Moon Protection@"  ; TRAIT_SP_DEFENSE_AFTER_CRIT
 	db "Luck Curse@"       ; TRAIT_REDUCE_CRIT_MORE
 	db "Super Luck@"       ; TRAIT_CRITICAL_AFTER_CRIT
 	db "Sleep Curse@"      ; TRAIT_STATUS_TO_SLP

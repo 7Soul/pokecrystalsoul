@@ -165,6 +165,8 @@ TraitDescriptions::
 	dw AngerDescription           ; TRAIT_ATTACK_AFTER_CRIT
 	dw CurlDescription            ; TRAIT_DEFENSE_AFTER_CRIT
 	dw ScatterDescription         ; TRAIT_SPEED_AFTER_CRIT
+	dw ThirdEyeDescription        ; TRAIT_SP_ATTACK_AFTER_CRIT
+	dw MoonProtectionDescription  ; TRAIT_SP_DEFENSE_AFTER_CRIT
 	dw LuckCurseDescription       ; TRAIT_REDUCE_CRIT_MORE
 	dw SuperLuckDescription       ; TRAIT_CRITICAL_AFTER_CRIT
 	dw SleepCurseDescription      ; TRAIT_STATUS_TO_SLP
@@ -908,6 +910,14 @@ ScatterDescription:
 	db   "Resist CRITICAL"
 	next "hits and ups SPD.@"
 	
+ThirdEyeDescription:
+	db   "Resist CRITICAL"
+	next "and ups SP.ATK.@"
+	
+MoonProtectionDescription:
+	db   "Resist CRITICAL"
+	next "and ups SP.DEF.@"
+
 LuckCurseDescription:
 	db   "Lowers foe's CRIT"
 	next "when hit by one.@"
