@@ -2501,6 +2501,7 @@ TraitFaintPlayerMon: ; user mon faints
 	jr z, .player_turn
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
+	jp TraitFaintMon
 
 .player_turn
 	ld a, BATTLE_VARS_TRAIT
@@ -2512,9 +2513,10 @@ TraitFaintMon:
 
 	call Switch_turn
 	ld a, [wBuffer3]
+	and a
+	jr z, .do_damage
 	ld hl, .StatusCommands
 	call TraitUseBattleCommand
-	
 	call Switch_turn
 .not_1
 	ld a, BATTLE_VARS_TRAIT
@@ -2549,6 +2551,19 @@ TraitFaintMon:
 	ld [wBuffer6], a
 	jp EffectTraitForceRecoverHP
 
+.do_damage
+	ld de, SELFDESTRUCT
+	farcall FarPlayBattleAnimation
+	call Switch_turn
+	call ActivateTrait
+	ld hl, GetQuarterMaxHP
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ld hl, SubtractHPFromTarget
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	jp Switch_turn
+
 .StatusCommands:
 	dw BattleCommand_BurnTarget
 	dw BattleCommand_PoisonTarget
@@ -2561,6 +2576,7 @@ TraitFaintMon:
 	dw BattleCommand_RandomStatUp
 
 TraitsThatTriggerOnFaintMon:
+	db TRAIT_DAMAGE_FAINT ; 0
 	db TRAIT_BURN_FAINT
 	db TRAIT_POISON_FAINT
 	db TRAIT_FREEZE_FAINT

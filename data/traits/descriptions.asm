@@ -14,6 +14,7 @@ TraitDescriptions::
 	dw UnleashPowerDescription    ; TRAIT_ATK_ON_ATK_DIFF
 	dw LifeDrainDescription       ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription       ; TRAIT_HEAL_PP_FAINT
+	dw BoomDescription            ; TRAIT_DAMAGE_FAINT
 	dw EruptionDescription        ; TRAIT_BURN_FAINT
 	dw GasExplosionDescription    ; TRAIT_POISON_FAINT
 	dw NorthStarDescription       ; TRAIT_FREEZE_FAINT
@@ -314,6 +315,10 @@ LifeDrainDescription:
 KeepGoingDescription:
 	db   "Regain PP when a"
 	next "foe faints.@"
+
+BoomDescription:
+	db   "Damages foe when"
+	next "you faint.@"
 
 EruptionDescription:
 	db   "BURNS the foe when"

@@ -599,6 +599,8 @@ FillEggMove:
 	pop bc
 	pop de
 	pop hl
+	ld a, [wTempSpecies]
+	ld [wCurPartySpecies], a
 	ret
 
 FillMoves:

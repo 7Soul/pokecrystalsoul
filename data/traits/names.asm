@@ -14,6 +14,7 @@ TraitNames::
 	db "Unleash Power@"    ; TRAIT_ATK_ON_ATK_DIFF
 	db "Life Drain@"       ; TRAIT_HEAL_HP_FAINT
 	db "Keep Going@"       ; TRAIT_HEAL_PP_FAINT
+	db "Boom@"             ; TRAIT_DAMAGE_FAINT
 	db "Eruption@"         ; TRAIT_BURN_FAINT
 	db "Gas Explosion@"    ; TRAIT_POISON_FAINT
 	db "North Star@"       ; TRAIT_FREEZE_FAINT
