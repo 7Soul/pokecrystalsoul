@@ -218,6 +218,7 @@ TraitNames::
 	db "Shock Absorb@"     ; TRAIT_REDUCE_GROUND
 	db "Dissipate@"        ; TRAIT_REDUCE_GROUND_MORE
 	db "Tremor Rate@"      ; TRAIT_BOOST_GROUND_STATUSED
+	db "Balloon@"          ; TRAIT_RESIST_GROUND_LATER
 	db "Shape Cast@"       ; TRAIT_REDUCE_ROCK
 	db "Shape Mold@"       ; TRAIT_REDUCE_ROCK_MORE
 	db "Iron Coat@"        ; TRAIT_BOOST_ROCK_DEFENSE

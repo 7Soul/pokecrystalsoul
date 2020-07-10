@@ -214,6 +214,10 @@ CheckTraitCondition:
 	jp c, .check_move_type
 	cp TRAIT_REDUCE_FLYING ; traits that require move type to be FIGHTING
 	ld b, a
+	ld c, POISON
+	jp c, .check_move_type
+	cp TRAIT_REDUCE_POISON ; traits that require move type to be POISON
+	ld b, a
 	ld c, FIGHTING
 	jp c, .check_move_type
 	cp TRAIT_REDUCE_GROUND ; traits that require move type to be FLYING
@@ -454,6 +458,16 @@ CheckTraitCondition:
 	jr nc, .no_turns_lower ; greater or equal
 	jp .success
 .no_turns_lower
+	and a
+	ret
+
+.check_turns_greater
+	ld a, BATTLE_VARS_TURNS_TAKEN
+ 	call GetBattleVar
+	cp d
+	jr c, .turns_lower ; lower
+	jp .success
+.turns_lower
 	and a
 	ret
 
@@ -1693,6 +1707,15 @@ TraitReducePower:
 	call CheckSpecificTrait
 	jp c, ReduceDamage50
 
+	ld a, BATTLE_VARS_TURNS_TAKEN
+ 	call GetBattleVar
+	cp 1
+	jr c, .not_balloon
+	ld a, TRAIT_RESIST_GROUND_LATER
+	call CheckSpecificTrait
+	jp c, ReduceDamage25
+
+.not_balloon
 	ld hl, .TraitsThatReduceDamageLess
 	call CheckTrait
 	jp c, ReduceDamage10
@@ -1745,6 +1768,7 @@ TraitReducePower:
 	db TRAIT_REDUCE_NORMAL
 	db TRAIT_REDUCE_FIGHTING
 	db TRAIT_REDUCE_FLYING
+	db TRAIT_REDUCE_POISON
 	db TRAIT_REDUCE_GROUND
 	db TRAIT_REDUCE_ROCK
 	db TRAIT_REDUCE_BUG
@@ -1768,6 +1792,7 @@ TraitReducePower:
 	db TRAIT_REDUCE_NORMAL_MORE
 	db TRAIT_REDUCE_FIGHTING_MORE
 	db TRAIT_REDUCE_FLYING_MORE
+	db TRAIT_REDUCE_POISON_MORE
 	db TRAIT_REDUCE_GROUND_MORE
 	db TRAIT_REDUCE_ROCK_MORE
 	db TRAIT_REDUCE_BUG_MORE
@@ -1926,6 +1951,7 @@ TraitBoostPower:
 	db TRAIT_BOOST_NORMAL_STATUSED
 	db TRAIT_BOOST_FIGHTING_STATUSED
 	db TRAIT_BOOST_FLYING_STATUSED
+	db TRAIT_BOOST_POISON_STATUSED
 	db TRAIT_BOOST_GROUND_STATUSED
 	db TRAIT_BOOST_ROCK_STATUSED
 	db TRAIT_BOOST_BUG_STATUSED

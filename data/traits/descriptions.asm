@@ -219,6 +219,7 @@ TraitDescriptions::
 	dw ShockAbsorbDescription     ; TRAIT_REDUCE_GROUND
 	dw ShockAbsorb2Description    ; TRAIT_REDUCE_GROUND_MORE
 	dw TremorRageDescription      ; TRAIT_BOOST_GROUND_STATUSED
+	dw BalloonDescription         ; TRAIT_RESIST_GROUND_LATER
 	dw ShapeCastDescription       ; TRAIT_REDUCE_ROCK
 	dw ShapeMoldDescription       ; TRAIT_REDUCE_ROCK_MORE
 	dw IronCoatDescription        ; TRAIT_BOOST_ROCK_DEFENSE
@@ -1128,6 +1129,10 @@ ShockAbsorb2Description:
 TremorRageDescription:
 	db   "Boosts GROUND un-"
 	next "der any status.@"
+	
+BalloonDescription:
+	db   "Resist GROUND past"
+	next "1st turn.@"
 
 ShapeCastDescription:
 	db   "Reduces ROCK dam-"
