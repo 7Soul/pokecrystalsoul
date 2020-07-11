@@ -208,55 +208,55 @@ CheckTraitCondition:
 	ld c, BUG
 	ld e, DARK
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_FIGHTING ; traits below this that require move type to be NORMAL
+	cp TRAIT_REDUCE_FIGHTING_MORE ; traits below this that require move type to be NORMAL
 	ld b, a
 	ld c, NORMAL
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_FLYING ; traits that require move type to be FIGHTING
+	cp TRAIT_REDUCE_FLYING_MORE ; traits that require move type to be FIGHTING
 	ld b, a
 	ld c, POISON
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_POISON ; traits that require move type to be POISON
+	cp TRAIT_REDUCE_POISON_MORE ; traits that require move type to be POISON
 	ld b, a
 	ld c, FIGHTING
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_GROUND ; traits that require move type to be FLYING
+	cp TRAIT_REDUCE_GROUND_MORE ; traits that require move type to be FLYING
 	ld b, a
 	ld c, FLYING
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_ROCK; traits that require move type to be GROUND
+	cp TRAIT_REDUCE_ROCK_MORE ; traits that require move type to be GROUND
 	ld b, a
 	ld c, GROUND
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_BUG ; traits that require move type to be ROCK
+	cp TRAIT_REDUCE_BUG_MORE ; traits that require move type to be ROCK
 	ld b, a
 	ld c, ROCK
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_FIRE ; traits that require move type to be BUG
+	cp TRAIT_REDUCE_FIRE_MORE ; traits that require move type to be BUG
 	ld b, a
 	ld c, BUG
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_WATER ; traits that require move type to be FIRE
+	cp TRAIT_REDUCE_WATER_MORE ; traits that require move type to be FIRE
 	ld b, a
 	ld c, FIRE
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_GRASS ; traits that require move type to be WATER
+	cp TRAIT_REDUCE_GRASS_MORE ; traits that require move type to be WATER
 	ld b, a
 	ld c, WATER
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_ELECTRIC ; traits that require move type to be GRASS
+	cp TRAIT_REDUCE_ELECTRIC_MORE ; traits that require move type to be GRASS
 	ld b, a
 	ld c, GRASS
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_PSYCHIC ; traits that require move type to be ELECTRIC
+	cp TRAIT_REDUCE_PSYCHIC_MORE ; traits that require move type to be ELECTRIC
 	ld b, a
 	ld c, ELECTRIC
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_ICE ; traits that require move type to be PSYCHIC
+	cp TRAIT_REDUCE_ICE_MORE ; traits that require move type to be PSYCHIC
 	ld b, a
 	ld c, PSYCHIC
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_DARK ; traits that require move type to be ICE
+	cp TRAIT_REDUCE_DARK_MORE ; traits that require move type to be ICE
 	ld b, a
 	ld c, ICE
 	jp c, .check_move_type
@@ -1060,14 +1060,22 @@ TraitsThatRaiseEvasion:
 	db TRAIT_EVASION_STATUSED
 	db -1
 
-TraitLowerStat:	
+TraitLowerStatAfterDamage:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	ld hl, .TraitsThatLowerStats
+	ld hl, TraitsThatLowerStats
 	call CheckTrait
 	ret nc
 
-	ld hl, .StatusCommands
+	cp 3
+	ret nc
+
+	call BattleRandom
+	cp 85 percent + 1
+	ret c
+
+	ld a, [wBuffer3]
+	ld hl, StatusCommands
 	call TraitUseBattleCommand
 	
 	ld hl, BattleCommand_StatDownMessage
@@ -1076,11 +1084,34 @@ TraitLowerStat:
 	ld hl, BattleCommand_StatDownFailText
 	jp TraitUseBattleCommandSimple
 
-.StatusCommands:
+TraitLowerStat:	
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	ld hl, TraitsThatLowerStats + 3
+	call CheckTrait
+	ret nc
+
+	add 3
+	ld hl, StatusCommands
+	call TraitUseBattleCommand
+	
+	ld hl, BattleCommand_StatDownMessage
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatDownFailText
+	jp TraitUseBattleCommandSimple
+
+StatusCommands:
+	dw BattleCommand_SpecialAttackDown
+	dw BattleCommand_SpecialAttackDown
+	dw BattleCommand_SpecialAttackDown
 	dw BattleCommand_AttackDown
 	dw BattleCommand_RandomStatDown
 
-.TraitsThatLowerStats:
+TraitsThatLowerStats:
+	db TRAIT_LOWER_SP_ATTACK_FIRE
+	db TRAIT_LOWER_SP_ATTACK_WATER
+	db TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db TRAIT_LOWER_ATTACK_TURN_ZERO
 	db TRAIT_LOWER_RANDOM_TURN_ZERO
 	db -1
@@ -1766,19 +1797,6 @@ TraitReducePower:
 
 .TraitsThatReduceDamage:
 	db TRAIT_REDUCE_NORMAL
-	db TRAIT_REDUCE_FIGHTING
-	db TRAIT_REDUCE_FLYING
-	db TRAIT_REDUCE_POISON
-	db TRAIT_REDUCE_GROUND
-	db TRAIT_REDUCE_ROCK
-	db TRAIT_REDUCE_BUG
-	db TRAIT_REDUCE_FIRE
-	db TRAIT_REDUCE_WATER
-	db TRAIT_REDUCE_GRASS
-	db TRAIT_REDUCE_ELECTRIC
-	db TRAIT_REDUCE_PSYCHIC
-	db TRAIT_REDUCE_ICE
-	db TRAIT_REDUCE_DARK
 	db TRAIT_ATTACK_AFTER_CRIT
 	db TRAIT_DEFENSE_AFTER_CRIT
 	db TRAIT_SPEED_AFTER_CRIT

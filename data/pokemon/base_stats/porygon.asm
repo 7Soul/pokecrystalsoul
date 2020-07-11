@@ -10,7 +10,7 @@
 	db GENDER_UNKNOWN ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/porygon/front.dimensions"
-	db TRAIT_REDUCE_ELECTRIC, TRAIT_BOOST_NOT_STAB, TRAIT_REGEN_STATUSED, TRAIT_CONTACT_PRZ
+	db 0, 0, 0, 0
 	db GROWTH_MEDIUM_FAST ; growth rate
 	dn EGG_MINERAL, EGG_MINERAL ; egg groups
 

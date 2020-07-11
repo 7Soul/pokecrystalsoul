@@ -987,6 +987,18 @@ EndOpponentProtectEndureDestinyBond:
 	call GetBattleVarAddr
 	res SUBSTATUS_PROTECT, [hl]
 	res SUBSTATUS_ENDURE, [hl]
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitLowerStatAfterDamage
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitRaiseStatAfterDamage
+
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitRaiseStatAfterDamage
 	
 	ldh a, [hBattleTurn]
 	and a

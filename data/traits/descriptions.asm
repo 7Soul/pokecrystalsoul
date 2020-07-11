@@ -202,10 +202,8 @@ TraitDescriptions::
 	dw BoneArmorDescription       ; TRAIT_REDUCE_NORMAL_MORE
 	dw FadeDescription            ; TRAIT_REDUCE_NORMAL_ACC
 	dw WildRageDescription        ; TRAIT_BOOST_NORMAL_STATUSED
-	dw HitBreakerDescription      ; TRAIT_REDUCE_FIGHTING
 	dw HitBreaker2Description     ; TRAIT_REDUCE_FIGHTING_MORE
 	dw FlailingRageDescription    ; TRAIT_BOOST_FIGHTING_STATUSED
-	dw CarapaceDescription        ; TRAIT_REDUCE_FLYING
 	dw Carapace2Description       ; TRAIT_REDUCE_FLYING_MORE
 	dw FlightRushDescription      ; TRAIT_BOOST_FLYING_SPEED
 	dw AirRageDescription         ; TRAIT_BOOST_FLYING_STATUSED
@@ -213,51 +211,43 @@ TraitDescriptions::
 	dw ThunderLegendDescription   ; TRAIT_FLYING_PRZ
 	dw FireLegendDescription      ; TRAIT_FLYING_BRN
 	dw FlyingLegendDescription    ; TRAIT_BOOST_FLYING_DURING_WEATHER
-	dw Poison1Description      ; TRAIT_REDUCE_POISON
-	dw ImmunityDescription      ; TRAIT_REDUCE_POISON_MORE
-	dw Poison2Description      ; TRAIT_BOOST_POISON_STATUSED
-	dw ShockAbsorbDescription     ; TRAIT_REDUCE_GROUND
+	dw ImmunityDescription        ; TRAIT_REDUCE_POISON_MORE
+	dw AcidizeDescription         ; TRAIT_BOOST_POISON_STATUSED
 	dw ShockAbsorb2Description    ; TRAIT_REDUCE_GROUND_MORE
 	dw TremorRageDescription      ; TRAIT_BOOST_GROUND_STATUSED
 	dw BalloonDescription         ; TRAIT_RESIST_GROUND_LATER
-	dw ShapeCastDescription       ; TRAIT_REDUCE_ROCK
 	dw ShapeMoldDescription       ; TRAIT_REDUCE_ROCK_MORE
 	dw IronCoatDescription        ; TRAIT_BOOST_ROCK_DEFENSE
 	dw GoldCoatDescription        ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	dw RollingRockRageDescription ; TRAIT_BOOST_ROCK_STATUSED
-	dw FumeCoatDescription        ; TRAIT_REDUCE_BUG
 	dw AshCoatDescription         ; TRAIT_REDUCE_BUG_MORE
 	dw SwarmDescription           ; TRAIT_BOOST_BUG_HP
 	dw BuzzingRageDescription     ; TRAIT_BOOST_BUG_STATUSED
-	dw HeatproofDescription       ; TRAIT_REDUCE_FIRE
 	dw FireproofDescription       ; TRAIT_REDUCE_FIRE_MORE
 	dw BlazeDescription           ; TRAIT_BOOST_FIRE_HP
 	dw MoltenRageDescription      ; TRAIT_BOOST_FIRE_STATUSED
-	dw WaterproofDescription      ; TRAIT_REDUCE_WATER
+	dw MysticFireDescription      ; TRAIT_LOWER_SP_ATTACK_FIRE
 	dw WaterRepelDescription      ; TRAIT_REDUCE_WATER_MORE
 	dw HardWaterDescription       ; TRAIT_BOOST_WATER_DEFENSE
 	dw TorrentDescription         ; TRAIT_BOOST_WATER_HP
 	dw DeepSeaRageDescription     ; TRAIT_BOOST_WATER_STATUSED
 	dw HardeningSandDescription   ; TRAIT_REDUCE_WATER_UP_DEFENSE
 	dw IceWaterDescription        ; TRAIT_FRZ_SPD_WITH_WATER
-	dw AridTouchDescription       ; TRAIT_REDUCE_GRASS
+	dw MysticWaterDescription     ; TRAIT_LOWER_SP_ATTACK_WATER
 	dw AridShieldDescription      ; TRAIT_REDUCE_GRASS_MORE
 	dw OvergrowDescription        ; TRAIT_BOOST_GRASS_HP
 	dw ForestRageDescription      ; TRAIT_BOOST_GRASS_STATUSED
 	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_ATTACK
 	dw PolenHazardDescription     ; TRAIT_PRZ_PSN_WITH_GRASS
-	dw IonFieldDescription        ; TRAIT_REDUCE_ELECTRIC
-	dw IonField2Description       ; TRAIT_REDUCE_ELECTRIC_MORE
+	dw IonizeAirDescription       ; TRAIT_REDUCE_ELECTRIC_MORE
 	dw ZapRushDescription         ; TRAIT_BOOST_ELECTRIC_SPEED
 	dw ZapRageDescription         ; TRAIT_BOOST_ELECTRIC_STATUSED
-	dw ForewarnDescription        ; TRAIT_REDUCE_PSYCHIC
+	dw MysticWaveDescription      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	dw Forewarn2Description       ; TRAIT_REDUCE_PSYCHIC_MORE
 	dw TwoSidedRageDescription    ; TRAIT_BOOST_PSYCHIC_STATUSED
-	dw ThickCoatDescription       ; TRAIT_REDUCE_ICE
 	dw HibernateDescription       ; TRAIT_REDUCE_ICE_MORE
 	dw SouthWindDescription       ; TRAIT_BOOST_ICE_HP
 	dw ArcticRageDescription      ; TRAIT_BOOST_ICE_STATUSED
-	dw BrawlDescription           ; TRAIT_REDUCE_DARK
 	dw LightBarrierDescription    ; TRAIT_REDUCE_DARK_MORE
 	dw TyrantRageDescription      ; TRAIT_BOOST_DARK_STATUSED
 	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
@@ -1062,10 +1052,6 @@ WildRageDescription:
 	db   "Boosts NORMAL un-"
 	next "der any status.@"
 
-HitBreakerDescription:
-	db   "Reduces FIGHTING"
-	next "damage taken.@"
-
 HitBreaker2Description:
 	db   "Resists FIGHTING"
 	next "under half HP.@"
@@ -1073,10 +1059,6 @@ HitBreaker2Description:
 FlailingRageDescription:
 	db   "Boosts FIGHTING"
 	next "under any status.@"
-
-CarapaceDescription:
-	db   "Reduces FLYING"
-	next "damage taken.@"
 
 Carapace2Description:
 	db   "Resists FLYING"
@@ -1106,22 +1088,14 @@ FlyingLegendDescription:
 	db   "Boosts FLYING du-"
 	next "ring any weather.@"
 
-Poison1Description:
-	db   "Reduces POISON"
-	next "damage taken.@"
-	
 ImmunityDescription:
 	db   "Resists POISON"
 	next "under half HP.@"
 	
-Poison2Description:
+AcidizeDescription:
 	db   "Boosts POISON un-"
 	next "der any status.@"
 
-ShockAbsorbDescription:
-	db   "Reduces GROUND"
-	next "damage taken.@"
-	
 ShockAbsorb2Description:
 	db   "Resists GROUND"
 	next "under half HP.@"
@@ -1134,10 +1108,6 @@ BalloonDescription:
 	db   "Resist GROUND past"
 	next "1st turn.@"
 
-ShapeCastDescription:
-	db   "Reduces ROCK dam-"
-	next "age taken.@"
-	
 ShapeMoldDescription:
 	db   "Resists ROCK under"
 	next "half HP.@"
@@ -1154,10 +1124,6 @@ RollingRockRageDescription:
 	db   "Boosts ROCK under"
 	next "any status.@"
 
-FumeCoatDescription:
-	db   "Reduces BUG damage"
-	next "taken.@"
-	
 AshCoatDescription:
 	db   "Resists BUG under"
 	next "half HP.@"
@@ -1170,10 +1136,6 @@ BuzzingRageDescription:
 	db   "Boosts BUG under"
 	next "any status.@"
 
-HeatproofDescription:
-	db   "Reduces FIRE dam-"
-	next "age taken.@"
-	
 FireproofDescription:
 	db   "Resists FIRE under"
 	next "half HP.@"
@@ -1185,11 +1147,11 @@ BlazeDescription:
 MoltenRageDescription:
 	db   "Boosts FIRE under"
 	next "any status.@"
-
-WaterproofDescription:
-	db   "Reduces WATER dam-"
-	next "age taken.@"
 	
+MysticFireDescription:
+	db   "Lowers SP.ATK with"
+	next "FIRE attacks.@"
+
 WaterRepelDescription:
 	db   "Resists WATER"
 	next "under half HP.@"
@@ -1210,10 +1172,14 @@ HardeningSandDescription:
 	db   "Resists WATER and"
 	next "ups DEF when hit.@"
 
-AridTouchDescription:
-	db   "Reduces GRASS dam-"
-	next "age taken.@"
-	
+IceWaterDescription:
+	db   "May FRZ/SPD down"
+	next "with WATER moves.@"
+
+MysticWaterDescription:
+	db   "Lowers SP.ATK with"
+	next "WATER attacks.@"
+
 AridShieldDescription:
 	db   "Resists GRASS"
 	next "under half HP.@"
@@ -1234,15 +1200,7 @@ PolenHazardDescription:
 	db   "May PSN or PRZ"
 	next "with GRASS moves.@"
 
-IceWaterDescription:
-	db   "May FRZ/SPD down"
-	next "with WATER moves.@"
-
-IonFieldDescription:
-	db   "Reduces ELECTRIC"
-	next "damage taken.@"
-		
-IonField2Description:
+IonizeAirDescription:
 	db   "Resists ELECTRIC"
 	next "under half HP.@"
 		
@@ -1254,10 +1212,10 @@ ZapRageDescription:
 	db   "Boosts ELECTRIC"
 	next "under any status.@"
 
-ForewarnDescription:
-	db   "Reduces PSYCHIC"
-	next "damage taken.@"
-	
+MysticWaveDescription:
+	db   "Lowers SP.ATK with"
+	next "ELECTRIC attacks.@"
+
 Forewarn2Description:
 	db   "Resists PSYCHIC"
 	next "under half HP.@"
@@ -1265,10 +1223,6 @@ Forewarn2Description:
 TwoSidedRageDescription:
 	db   "Boosts PSYCHIC"
 	next "under any status.@"
-
-ThickCoatDescription:
-	db   "Reduces ICE damage"
-	next "taken.@"
 
 HibernateDescription:
 	db   "Resists ICE under"
@@ -1282,10 +1236,6 @@ ArcticRageDescription:
 	db   "Boosts ICE under"
 	next "any status.@"
 
-BrawlDescription:
-	db   "Reduces DARK dam-"
-	next "age taken.@"
-	
 LightBarrierDescription:
 	db   "Resists DARK under"
 	next "half HP.@"

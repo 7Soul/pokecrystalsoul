@@ -201,10 +201,8 @@ TraitNames::
 	db "Bone Armor@"       ; TRAIT_REDUCE_NORMAL_MORE
 	db "Fade@"             ; TRAIT_REDUCE_NORMAL_ACC
 	db "Wild Rage@"        ; TRAIT_BOOST_NORMAL_STATUSED
-	db "Hit Breaker@"      ; TRAIT_REDUCE_FIGHTING
 	db "Hit Blocker@"      ; TRAIT_REDUCE_FIGHTING_MORE
 	db "Flailing Rage@"    ; TRAIT_BOOST_FIGHTING_STATUSED
-	db "Carapace@"         ; TRAIT_REDUCE_FLYING
 	db "Iron Shell@"       ; TRAIT_REDUCE_FLYING_MORE
 	db "Flight Rush@"      ; TRAIT_BOOST_FLYING_SPEED
 	db "Air Rage@"         ; TRAIT_BOOST_FLYING_STATUSED
@@ -212,51 +210,43 @@ TraitNames::
 	db "Thunder Legend@"   ; TRAIT_FLYING_PRZ
 	db "Fire Legend@"      ; TRAIT_FLYING_BRN
 	db "Flying Legend@"    ; TRAIT_BOOST_FLYING_DURING_WEATHER
-	db "?@"                 ; TRAIT_REDUCE_POISON
 	db "Immunity@"         ; TRAIT_REDUCE_POISON_MORE
-	db "?@"                 ; TRAIT_BOOST_POISON_STATUSED
-	db "Shock Absorb@"     ; TRAIT_REDUCE_GROUND
+	db "Acidize@"          ; TRAIT_BOOST_POISON_STATUSED
 	db "Dissipate@"        ; TRAIT_REDUCE_GROUND_MORE
 	db "Tremor Rate@"      ; TRAIT_BOOST_GROUND_STATUSED
 	db "Balloon@"          ; TRAIT_RESIST_GROUND_LATER
-	db "Shape Cast@"       ; TRAIT_REDUCE_ROCK
 	db "Shape Mold@"       ; TRAIT_REDUCE_ROCK_MORE
 	db "Iron Coat@"        ; TRAIT_BOOST_ROCK_DEFENSE
 	db "Golden Coat@"      ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	db "Rolling Rock Rage@"; TRAIT_BOOST_ROCK_STATUSED
-	db "Fume Coat@"        ; TRAIT_REDUCE_BUG
 	db "Ash Coat@"         ; TRAIT_REDUCE_BUG_MORE
 	db "Swarm@"            ; TRAIT_BOOST_BUG_HP
 	db "Buzzing Rage@"     ; TRAIT_BOOST_BUG_STATUSED
-	db "Heatproof@"        ; TRAIT_REDUCE_FIRE
 	db "Fireproof@"        ; TRAIT_REDUCE_FIRE_MORE
 	db "Blaze@"            ; TRAIT_BOOST_FIRE_HP
 	db "Molten Rage@"      ; TRAIT_BOOST_FIRE_STATUSED
-	db "Waterproof@"       ; TRAIT_REDUCE_WATER
+	db "Mystic Fire@"      ; TRAIT_LOWER_SP_ATTACK_FIRE
 	db "Water Repel@"      ; TRAIT_REDUCE_WATER_MORE
 	db "Hard Water@"       ; TRAIT_BOOST_WATER_DEFENSE
 	db "Torrent@"          ; TRAIT_BOOST_WATER_HP
 	db "Deep Sea Rage@"    ; TRAIT_BOOST_WATER_STATUSED
 	db "Hardening Sand@"   ; TRAIT_REDUCE_WATER_UP_DEFENSE
-	db "Arid Touch@"       ; TRAIT_REDUCE_GRASS
+	db "Ice Water@"        ; TRAIT_FRZ_SPD_WITH_WATER
+	db "Mystic Water@"     ; TRAIT_LOWER_SP_ATTACK_WATER
 	db "Arid Shield@"      ; TRAIT_REDUCE_GRASS_MORE
 	db "Overgrow@"         ; TRAIT_BOOST_GRASS_HP
 	db "Forest Rage@"      ; TRAIT_BOOST_GRASS_STATUSED
 	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_ATTACK
 	db "Polen Hazard@"     ; TRAIT_PRZ_PSN_WITH_GRASS
-	db "Ice Water@"        ; TRAIT_FRZ_SPD_WITH_WATER
-	db "Ion Field@"        ; TRAIT_REDUCE_ELECTRIC
 	db "Ionize Air@"       ; TRAIT_REDUCE_ELECTRIC_MORE
 	db "Zap Rush@"         ; TRAIT_BOOST_ELECTRIC_SPEED
 	db "Zap Rage@"         ; TRAIT_BOOST_ELECTRIC_STATUSED
-	db "Forewarn@"         ; TRAIT_REDUCE_PSYCHIC
+	db "Mystic Wave@"      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db "Prediction@"       ; TRAIT_REDUCE_PSYCHIC_MORE
 	db "Two-Sided Rage@"   ; TRAIT_BOOST_PSYCHIC_STATUSED
-	db "Thick Coat@"       ; TRAIT_REDUCE_ICE
 	db "Hibernate@"        ; TRAIT_REDUCE_ICE_MORE
 	db "South Wind@"       ; TRAIT_BOOST_ICE_HP
 	db "Tyrant Rage@"      ; TRAIT_BOOST_DARK_STATUSED
-	db "Brawl@"            ; TRAIT_REDUCE_DARK
 	db "Light Barrier@"    ; TRAIT_REDUCE_DARK_MORE
 	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
 	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE
