@@ -250,6 +250,7 @@ TraitDescriptions::
 	dw ArcticRageDescription      ; TRAIT_BOOST_ICE_STATUSED
 	dw LightBarrierDescription    ; TRAIT_REDUCE_DARK_MORE
 	dw TyrantRageDescription      ; TRAIT_BOOST_DARK_STATUSED
+	dw TintedLensDescription      ; TRAIT_BOOST_NOT_EFFECTIVE
 	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	dw PrismPlateDescription      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
     dw TraitFFDescription    
@@ -1243,6 +1244,10 @@ LightBarrierDescription:
 TyrantRageDescription:
 	db   "Boosts DARK under"
 	next "any status.@"
+
+TintedLensDescription:
+	db   "Raises NOT VERY"
+	next "EFFECTIVE damage.@"
 
 AdaptiveFurDescription:
 	db   "Take less SUPER-"

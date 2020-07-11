@@ -1586,9 +1586,13 @@ BattleCommand_Stab:
 	ld [wBuffer1], a
 	farcall TraitBoostNonStab
 
+	farcall TraitBoostNotEffective
+
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitReduceNonStab
+
+	farcall TraitReduceVeryEffective
 
 	ld hl, wCurDamage
 	ldh a, [hMultiplicand + 1] ; damage after stab trait

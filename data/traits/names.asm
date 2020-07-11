@@ -249,5 +249,6 @@ TraitNames::
 	db "Tyrant Rage@"      ; TRAIT_BOOST_DARK_STATUSED
 	db "Light Barrier@"    ; TRAIT_REDUCE_DARK_MORE
 	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
+	db "Tinted Lens@"      ; TRAIT_BOOST_NOT_EFFECTIVE
 	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db "Prism Plate@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE

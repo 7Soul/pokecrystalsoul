@@ -260,11 +260,11 @@ CheckTraitCondition:
 	ld b, a
 	ld c, ICE
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_SUPER_EFFECTIVE ; traits that require move type to be DARK
+	cp TRAIT_BOOST_NOT_EFFECTIVE ; traits that require move type to be DARK
 	ld b, a
 	ld c, DARK
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_SUPER_EFFECTIVE ; 
+	cp TRAIT_BOOST_NOT_EFFECTIVE ; 
 	jp z, .success
 .not_met1
 	pop af
@@ -1757,19 +1757,8 @@ TraitReducePower:
 
 	ld hl, .TraitsThatReduceDamageMore
 	call CheckTrait
-	jr c, .reduce_low_hp
-
-	ld a, [wTypeModifier]
-	cp $11 ; check if its over 10 (normal) or 5 (not effective)
-	ret c
-	ld hl, .TraitsThatReduceSuperEffectiveDamageMore
-	call CheckTrait
-	jr c, .reduce_low_hp
-	ld hl, .TraitsThatReduceSuperEffectiveDamage
-	call CheckTrait
 	ret nc
-	jp ReduceDamage15
-.reduce_low_hp
+
 	call GetHealthPercentage
 	ld a, d
 	cp 50
@@ -1786,14 +1775,6 @@ TraitReducePower:
 	call CheckTraitCondition.check_move_type
 	jp c, ReduceDamage10
 	ret
-
-.TraitsThatReduceSuperEffectiveDamage:
-	db TRAIT_REDUCE_SUPER_EFFECTIVE
-	db -1
-
-.TraitsThatReduceSuperEffectiveDamageMore:
-	db TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
-	db -1
 
 .TraitsThatReduceDamage:
 	db TRAIT_REDUCE_NORMAL
@@ -1858,6 +1839,42 @@ PowerBoostingTraits:
 	jp TraitReducePower
 
 ; PRINTV TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
+
+TraitReduceVeryEffective:
+	ld a, [wTypeModifier]
+	and $7f
+	cp 20 ; check if its over 10 (normal) or 5 (not effective)
+	ret nz
+	ld hl, .TraitsThatReduceSuperEffectiveDamageMore
+	call CheckTrait
+	jr nc, .next
+	call GetHealthPercentage
+	ld a, d
+	cp 50
+	ret nc
+	jp ReduceDamage30
+.next
+	ld hl, .TraitsThatReduceSuperEffectiveDamage
+	call CheckTrait
+	ret nc
+	jp ReduceDamage15
+
+.TraitsThatReduceSuperEffectiveDamage:
+	db TRAIT_REDUCE_SUPER_EFFECTIVE
+	db -1
+
+.TraitsThatReduceSuperEffectiveDamageMore:
+	db TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
+	db -1
+
+TraitBoostNotEffective:
+	ld a, [wTypeModifier]
+	and $7f
+	cp $5 ; check if its over 10 (normal) or 5 (not effective)
+	ret nz
+	ld a, TRAIT_BOOST_NOT_EFFECTIVE
+	call CheckSpecificTrait
+	jp c, BoostDamage20
 
 TraitBoostPower:
 	ld a, [wCriticalHit]
