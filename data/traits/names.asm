@@ -171,6 +171,8 @@ TraitNames::
 	db "Moon Protection@"  ; TRAIT_SP_DEFENSE_AFTER_CRIT
 	db "Luck Curse@"       ; TRAIT_REDUCE_CRIT_MORE
 	db "Super Luck@"       ; TRAIT_CRITICAL_AFTER_CRIT
+	db "Magnetism@"        ; TRAIT_PASS_STATUS
+	db "Synchronize@"      ; TRAIT_PASS_STATUS_WITH_PHYSICAL
 	db "Sleep Curse@"      ; TRAIT_STATUS_TO_SLP
 	db "Guts@"             ; TRAIT_ATTACK_STATUSED
 	db "Marvel Scale@"     ; TRAIT_DEFENSE_STATUSED

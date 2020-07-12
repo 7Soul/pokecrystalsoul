@@ -57,7 +57,6 @@ FieldNamesString:
 	db "Cut@"
 	db "Cut@"
 	db "Cut@"
-	db "Cut@"
 	db "Burn@"
 	db "Burn@"
 	db "Burn@"

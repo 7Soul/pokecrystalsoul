@@ -1116,6 +1116,37 @@ TraitsThatLowerStats:
 	db TRAIT_LOWER_RANDOM_TURN_ZERO
 	db -1
 
+TraitPassStatusWithAttack:
+	ld a, TRAIT_PASS_STATUS_WITH_PHYSICAL
+	call CheckSpecificTrait
+	ret nc
+
+	call Get_move_category
+	and a
+	ret nz
+
+	call BattleRandom
+	cp 50 percent
+	ret c
+
+	ld a, BATTLE_VARS_STATUS_OPP
+	call GetBattleVarAddr
+	ld d, h
+	ld e, l
+	ld a, BATTLE_VARS_STATUS
+	call GetBattleVarAddr
+; fallthrough
+PassStatus:
+; stop if opp already has a status
+	ld a, [de]
+	and a
+	ret nz
+
+	ld a, [hl] ; user's status
+	ld [de], a
+	ld hl, BattleText_TraitPassedStatus
+	jp StdBattleTextBox
+
 TraitRaiseStatOnStatDown:
 	ld a, [wFailedMessage]
 	and a
@@ -1650,6 +1681,57 @@ TraitSandstormStarts:
 .TraitsThatTriggerOnSandstormStart:
 	db TRAIT_REGEN_ON_SANDSTORM
 	db -1
+
+TraitPassStatus:
+	ld a, TRAIT_PASS_STATUS
+	call CheckSpecificTrait
+	ret nc
+
+	call BattleRandom
+	cp 75 percent
+	ret c
+
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player
+
+	farcall CheckAnyOtherAlivePartyMons ; check player party in enemy's turn
+	ret z
+	jr .not_last_mon
+.player 
+	farcall CheckAnyOtherAliveEnemyMons ; check enemy party in player's turn
+	ret z
+	
+.not_last_mon
+	ld de, wOTPartyCount
+	ld hl, wCurOTMon
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_count
+	ld de, wPartyCount
+	ld hl, wCurBattleMon
+.got_count
+	ld a, [de]
+.loop
+	call RandomRange
+	cp [hl]
+	jr z, .loop
+	ld b, a
+
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wOTPartyMon1Status
+	ld a, b
+	jr z, .got_party
+	ld hl, wPartyMon1Status
+	ld a, b
+.got_party
+	call GetPartyLocation
+	ld d, h
+	ld e, l
+	ld a, BATTLE_VARS_STATUS
+	call GetBattleVarAddr
+	jp PassStatus
 
 TraitHealStatus:
 	ld hl, .TraitsThatHealStatus
@@ -3378,6 +3460,7 @@ OneShotTraits:
 	db TRAIT_ACCURACY_BELOW_THIRD
 	db TRAIT_EVASION_BELOW_THIRD 
 	db TRAIT_CRIT_BELOW_THIRD
+	db TRAIT_PASS_STATUS
 	db TRAIT_ATTACK_STATUSED
 	db TRAIT_DEFENSE_STATUSED
 	db TRAIT_SPEED_STATUSED

@@ -994,6 +994,10 @@ EndOpponentProtectEndureDestinyBond:
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
+	farcall TraitPassStatusWithAttack
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
 	farcall TraitRaiseStatAfterDamage
 
 	ld a, BATTLE_VARS_TRAIT_OPP
@@ -1106,6 +1110,10 @@ ResidualDamage:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitHealStatus
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitPassStatus
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a

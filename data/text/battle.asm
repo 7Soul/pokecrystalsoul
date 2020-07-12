@@ -1229,3 +1229,8 @@ BattleText_TraitActivatedEnemy::
 	text_start
 	cont "activated!"
 	prompt
+
+BattleText_TraitPassedStatus::
+	text "Passed status to"
+	line "foe."
+	prompt

@@ -172,6 +172,8 @@ TraitDescriptions::
 	dw MoonProtectionDescription  ; TRAIT_SP_DEFENSE_AFTER_CRIT
 	dw LuckCurseDescription       ; TRAIT_REDUCE_CRIT_MORE
 	dw SuperLuckDescription       ; TRAIT_CRITICAL_AFTER_CRIT
+	dw MagnetismDescription       ; TRAIT_PASS_STATUS
+	dw SynchronizeDescription     ; TRAIT_PASS_STATUS_WITH_PHYSICAL
 	dw SleepCurseDescription      ; TRAIT_STATUS_TO_SLP
 	dw GutsDescription            ; TRAIT_ATTACK_STATUSED
 	dw MarvelScaleDescription     ; TRAIT_DEFENSE_STATUSED
@@ -932,6 +934,14 @@ LuckCurseDescription:
 SuperLuckDescription:
 	db   "Ups CRITICAL when"
 	next "hit by one.@"
+
+MagnetismDescription :
+	db   "Pass a status to"
+	next "foe's party.@"
+
+SynchronizeDescription:
+	db   "PHYSICAL move may"
+	next "pass status over.@"
 
 SleepCurseDescription:
 	db   "Changes foe's"
