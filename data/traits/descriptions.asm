@@ -253,6 +253,7 @@ TraitDescriptions::
 	dw LightBarrierDescription    ; TRAIT_REDUCE_DARK_MORE
 	dw TyrantRageDescription      ; TRAIT_BOOST_DARK_STATUSED
 	dw TintedLensDescription      ; TRAIT_BOOST_NOT_EFFECTIVE
+	dw InkBombDescription         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	dw PrismPlateDescription      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
     dw TraitFFDescription    
@@ -1258,6 +1259,10 @@ TyrantRageDescription:
 TintedLensDescription:
 	db   "Raises NOT VERY"
 	next "EFFECTIVE damage.@"
+
+InkBombDescription:
+	db   "S.EFFECTIVE trig-"
+	next "gers ACC lowering.@"
 
 AdaptiveFurDescription:
 	db   "Take less SUPER-"

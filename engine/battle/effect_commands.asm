@@ -1586,12 +1586,16 @@ BattleCommand_Stab:
 	ld [wBuffer1], a
 	farcall TraitBoostNonStab
 
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
 	farcall TraitBoostNotEffective
 
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitReduceNonStab
 
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
 	farcall TraitReduceVeryEffective
 
 	ld hl, wCurDamage

@@ -264,8 +264,8 @@ CheckTraitCondition:
 	ld b, a
 	ld c, DARK
 	jp c, .check_move_type
-	cp TRAIT_BOOST_NOT_EFFECTIVE ; 
-	jp z, .success
+	
+	jr .success
 .not_met1
 	pop af
 .not_met
@@ -1065,7 +1065,7 @@ TraitLowerStatAfterDamage:
 	ld [wBuffer1], a
 	ld hl, TraitsThatLowerStats
 	call CheckTrait
-	ret nc
+	jr nc, .check_opp
 
 	cp 3
 	ret nc
@@ -1077,12 +1077,36 @@ TraitLowerStatAfterDamage:
 	ld a, [wBuffer3]
 	ld hl, StatusCommands
 	call TraitUseBattleCommand
-	
+.end
 	ld hl, BattleCommand_StatDownMessage
 	call TraitUseBattleCommandSimple
 
 	ld hl, BattleCommand_StatDownFailText
 	jp TraitUseBattleCommandSimple
+
+.check_opp
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	ld a, TRAIT_SUPER_EFFECTIVE_LOWER_ACC
+	call CheckSpecificTrait
+	ret nc
+
+	ld a, [wTypeModifier]
+	and $7f
+	cp 20 ; check if its over 10 (normal) or 5 (not effective)
+	ret nz
+
+	call CheckTraitActivatedSimple
+	ret c
+
+	call ActivateTrait
+	call Switch_turn
+	ld hl, BattleCommand_AccuracyDown
+	call TraitUseBattleCommandSimple
+	ld hl, BattleCommand_StatDownMessage
+	call TraitUseBattleCommandSimple
+	ld hl, BattleCommand_StatDownFailText
+	jp TraitUseBattleCommandSimpleSwitchTurn
 
 TraitLowerStat:	
 	ld a, BATTLE_VARS_TRAIT
@@ -1239,8 +1263,7 @@ TraitRaiseLowerOddEven:
 	jr nc, .already_activated
 	call Switch_turn
 	ld hl, BattleCommand_SpecialAttackDown
-	call TraitUseBattleCommandSimple
-	jp Switch_turn
+	jp TraitUseBattleCommandSimpleSwitchTurn
 
 .odd
 	ld hl, BattleCommand_SpecialAttackUp
@@ -1252,8 +1275,7 @@ TraitRaiseLowerOddEven:
 	jr nc, .already_activated
 	call Switch_turn
 	ld hl, BattleCommand_AttackDown
-	call TraitUseBattleCommandSimple
-	jp Switch_turn
+	jp TraitUseBattleCommandSimpleSwitchTurn
 .already_activated
 	jp ActivateTrait
 
@@ -2038,8 +2060,7 @@ TraitBoostPower:
 	call TraitUseBattleCommandSimple
 
 	ld hl, BattleCommand_StatDownFailText
-	call TraitUseBattleCommandSimple
-	call Switch_turn
+	call TraitUseBattleCommandSimpleSwitchTurn
 .skip_spd_down
 	jp BoostDamage15
 .boost_with_status
@@ -2489,8 +2510,7 @@ TraitWhenDrained:
 
 	call Switch_turn
 	ld hl, BattleCommand_PoisonTargetSimple
-	call TraitUseBattleCommandSimple
-	jp Switch_turn
+	jp TraitUseBattleCommandSimpleSwitchTurn
 
 TraitBoostEffectChance:
 	ld hl, .TraitsThatBoostEffectChance
@@ -2987,8 +3007,7 @@ BoostDamage50BurnSelf:
 	call BoostDamage50
 	call Switch_turn
 	ld hl, BattleCommand_BurnTargetSimple
-	call TraitUseBattleCommandSimple
-	jp Switch_turn
+	jp TraitUseBattleCommandSimpleSwitchTurn
 
 BoostDamage25:
 	ld a, $54 ; ~1.25
@@ -3085,6 +3104,10 @@ TraitUseBattleCommandSimple:
 	rst FarCall
 	ret
 
+TraitUseBattleCommandSimpleSwitchTurn:
+	ld a, BANK("Effect Commands")
+	rst FarCall
+;fallthrough
 Switch_turn:
 	ld hl, BattleCommand_SwitchTurn
 	ld a, BANK("Effect Commands")

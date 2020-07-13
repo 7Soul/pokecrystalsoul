@@ -252,5 +252,6 @@ TraitNames::
 	db "Light Barrier@"    ; TRAIT_REDUCE_DARK_MORE
 	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
 	db "Tinted Lens@"      ; TRAIT_BOOST_NOT_EFFECTIVE
+	db "Ink Bomb@"         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db "Prism Plate@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
