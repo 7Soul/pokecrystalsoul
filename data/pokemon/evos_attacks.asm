@@ -258,7 +258,7 @@ BeedrillEvosAttacks:
 PidgeyEvosAttacks:
 	db EVOLVE_LEVEL, 18, PIDGEOTTO
 	db 0 ; no more evolutions
-	db 1, SCREECH
+	db 1, TACKLE
 	db 5, SAND_ATTACK
 	db 8, GUST
 	db 13, QUICK_ATTACK
@@ -375,8 +375,9 @@ EkansEvosAttacks:
 	db 17, SCREECH
 	db 20, ACID
 	db 24, ACUPRESSURE ; becomes Gather Sand
-	db 28, VENOSHOCK
+	; db 28, VENOSHOCK
 	db 36, MUD_BOMB	
+	db 36, AGILITY	
 	db 41, HAZE
 	db 44, ACID_ARMOR
 	db 49, GUNK_SHOT
@@ -389,8 +390,9 @@ ArbokEvosAttacks:
 	db 20, ACID
 	db 21, CRUNCH
 	db 28, ACUPRESSURE ; becomes Gather Sand
-	db 30, VENOSHOCK
+	; db 30, VENOSHOCK
 	db 39, MUD_BOMB	
+	db 36, AGILITY	
 	db 45, HAZE
 	db 49, ACID_ARMOR
 	db 54, GUNK_SHOT

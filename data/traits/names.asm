@@ -12,6 +12,7 @@ TraitNames::
 	db "Hot Coals@"        ; TRAIT_HOT_COALS
 	db "Lightning Fast@"   ; TRAIT_EVASION_ON_SPEED_DIFF
 	db "Unleash Power@"    ; TRAIT_ATK_ON_ATK_DIFF
+	db "Tailwind@"         ; TRAIT_COPY_SPD_BUFFS
 	db "Life Drain@"       ; TRAIT_HEAL_HP_FAINT
 	db "Keep Going@"       ; TRAIT_HEAL_PP_FAINT
 	db "Boom@"             ; TRAIT_DAMAGE_FAINT
@@ -46,7 +47,6 @@ TraitNames::
 	db "Magic Trick@"      ; TRAIT_UPGRADE_BERRY
 	db "Nutrition@"        ; TRAIT_BOOST_BERRY
 	db "Harvest@"          ; TRAIT_CLONE_BERRY
-
 	db "Band Together@"    ; TRAIT_PARTY_NORMAL_BOOST_DEFENSE
 	db "Practice Pals@"    ; TRAIT_PARTY_FIGHTING_BOOST_DEFENSE
 	db "Flock@"            ; TRAIT_PARTY_FLYING_BOOST_DEFENSE
@@ -61,10 +61,6 @@ TraitNames::
 	db "Power Tap@"        ; TRAIT_PARTY_PSYCHIC_BOOST_DEFENSE
 	db "Snow Fort@"        ; TRAIT_PARTY_ICE_BOOST_DEFENSE
 	db "Shadow Cloak@"     ; TRAIT_PARTY_DARK_BOOST_DEFENSE
-
-	; db "Up Voltage@"       ; TRAIT_BATTLE_ELECTRIC_BOOST
-	; db "Shadow Cloak@"     ; TRAIT_BATTLE_DARK_BOOST
-	; db "Magma Flow@"       ; TRAIT_BATTLE_FIRE_BOOST
 	db "Rain Dish@"        ; TRAIT_REGEN_ON_RAIN
 	db "Monsoon@"          ; TRAIT_RAIN_DURATION
 	db "Drizzle@"          ; TRAIT_RAIN_ON_ENTER
@@ -82,28 +78,14 @@ TraitNames::
 	db "Slime Coat@"       ; TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
 	db "Shed Skin@"        ; TRAIT_HEAL_STATUS
 	db "Reckless@"         ; TRAIT_BOOST_RECOIL
-	; db "Rainy Boon@"       ; TRAIT_RAIN_ATTACK
-	; db "Rainy Boon@"       ; TRAIT_RAIN_DEFENSE
 	db "Swift Swimmer@"    ; TRAIT_RAIN_SPEED
-	; db "Rainy Boon@"       ; TRAIT_RAIN_SP_ATTACK
-	; db "Rainy Boon@"       ; TRAIT_RAIN_SP_DEFENSE
 	db "Stormy Skies@"     ; TRAIT_RAIN_ACCURACY
 	db "Water Dance@"      ; TRAIT_RAIN_EVASION
 	db "Hydration@"        ; TRAIT_RAIN_NO_STATUS
-	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_ATTACK
-	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_DEFENSE 
 	db "Burn Up@"          ; TRAIT_SUNSHINE_SPEED
-	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_SP_ATTACK
-	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_SP_DEFENSE
 	db "Sun Dance@"        ; TRAIT_SUNSHINE_EVASION
-	; db "Sunny Boon@"       ; TRAIT_SUNSHINE_EVASION
 	db "Leaf Guard@"       ; TRAIT_SUNSHINE_NO_STATUS
-	; db "Storm Boon@"       ; TRAIT_SANDSTORM_ATTACK
-	; db "Storm Boon@"       ; TRAIT_SANDSTORM_DEFENSE
 	db "Sand Cutter@"      ; TRAIT_SANDSTORM_SPEED
-	; db "Storm Boon@"       ; TRAIT_SANDSTORM_SP_ATTACK
-	; db "Storm Boon@"       ; TRAIT_SANDSTORM_SP_DEFENSE
-	; db "Storm Boon@"       ; TRAIT_SANDSTORM_ACCURACY
 	db "Sand Veil@"        ; TRAIT_SANDSTORM_EVASION
 	db "Sand Filter@"      ; TRAIT_SANDSTORM_NO_STATUS
 	db "Water Veil@"       ; TRAIT_BRN_IMMUNE

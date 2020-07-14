@@ -12,6 +12,7 @@ TraitDescriptions::
 	dw HotCoalsDescription        ; TRAIT_HOT_COALS
 	dw LightningFastDescription   ; TRAIT_EVASION_ON_SPEED_DIFF
 	dw UnleashPowerDescription    ; TRAIT_ATK_ON_ATK_DIFF
+	dw TailwindDescription        ; TRAIT_COPY_SPD_BUFFS
 	dw LifeDrainDescription       ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription       ; TRAIT_HEAL_PP_FAINT
 	dw BoomDescription            ; TRAIT_DAMAGE_FAINT
@@ -46,7 +47,6 @@ TraitDescriptions::
 	dw MagicTrickDescription      ; TRAIT_UPGRADE_BERRY
 	dw NutritionDescription       ; TRAIT_BOOST_BERRY
 	dw HarvestDescription         ; TRAIT_CLONE_BERRY
-
 	dw BandTogetherDescription    ; TRAIT_PARTY_NORMAL_BOOST_DEFENSE
 	dw PracticePalsDescription    ; TRAIT_PARTY_FIGHTING_BOOST_DEFENSE
 	dw FlockDescription           ; TRAIT_PARTY_FLYING_BOOST_DEFENSE
@@ -61,11 +61,6 @@ TraitDescriptions::
 	dw PowerTapDescription        ; TRAIT_PARTY_PSYCHIC_BOOST_DEFENSE
 	dw SnowFortDescription        ; TRAIT_PARTY_ICE_BOOST_DEFENSE
 	dw ShadowCloakDescription     ; TRAIT_PARTY_DARK_BOOST_DEFENSE
-
-	; dw UpVoltageDescription       ; TRAIT_BATTLE_ELECTRIC_BOOST
-	; dw ShadowCloak2Description    ; TRAIT_BATTLE_DARK_BOOST
-	; dw SecondSkinDescription      ; TRAIT_BATTLE_FIRE_BOOST
-
 	dw RainDishDescription        ; TRAIT_REGEN_ON_RAIN
 	dw MonsoonDescription         ; TRAIT_RAIN_DURATION
 	dw DrizzleDescription         ; TRAIT_RAIN_ON_ENTER
@@ -83,28 +78,14 @@ TraitDescriptions::
 	dw SlimeCoatDescription       ; TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
 	dw ShedSkinDescription        ; TRAIT_HEAL_STATUS
 	dw RecklessDescription        ; TRAIT_BOOST_RECOIL
-	; dw RainyBoon0Description      ; TRAIT_RAIN_ATTACK
-	; dw RainyBoon1Description      ; TRAIT_RAIN_DEFENSE
 	dw SwiftSwimmerDescription    ; TRAIT_RAIN_SPEED
-	; dw RainyBoon3Description      ; TRAIT_RAIN_SP_ATTACK
-	; dw RainyBoon4Description      ; TRAIT_RAIN_SP_DEFENSE
 	dw StormySkiesDescription     ; TRAIT_RAIN_ACCURACY
 	dw ColdRainDescription        ; TRAIT_RAIN_EVASION
 	dw HydrationDescription       ; TRAIT_RAIN_NO_STATUS
-	; dw SunnyBoon0Description      ; TRAIT_SUNSHINE_ATTACK
-	; dw SunnyBoon1Description      ; TRAIT_SUNSHINE_DEFENSE 
 	dw BurnUpDescription          ; TRAIT_SUNSHINE_SPEED
-	; dw SunnyBoon3Description      ; TRAIT_SUNSHINE_SP_ATTACK
-	; dw SunnyBoon4Description      ; TRAIT_SUNSHINE_SP_DEFENSE
-	; dw SunDanceDescription        ; TRAIT_SUNSHINE_ACCURACY
-	dw SunDanceDescription      ; TRAIT_SUNSHINE_EVASION
+	dw SunDanceDescription        ; TRAIT_SUNSHINE_EVASION
 	dw LeafGuardDescription       ; TRAIT_SUNSHINE_NO_STATUS
-	; dw StormBoon0Description      ; TRAIT_SANDSTORM_ATTACK
-	; dw StormBoon1Description      ; TRAIT_SANDSTORM_DEFENSE
 	dw SandCutterDescription      ; TRAIT_SANDSTORM_SPEED
-	; dw StormBoon3Description      ; TRAIT_SANDSTORM_SP_ATTACK
-	; dw StormBoon4Description      ; TRAIT_SANDSTORM_SP_DEFENS
-	; dw StormBoon5Description      ; TRAIT_SANDSTORM_ACCURACY
 	dw SandVeilDescription        ; TRAIT_SANDSTORM_EVASION
 	dw SandFilterDescription      ; TRAIT_SANDSTORM_NO_STATUS
 	dw WaterVeilDescription       ; TRAIT_BRN_IMMUNE
@@ -303,6 +284,10 @@ LightningFastDescription:
 UnleashPowerDescription:
 	db   "Ups ATK when it is"
 	next "higher than foe's.@"
+
+TailwindDescription:
+	db   "Matches foe's in-"
+	next "creases in SPD.@"
 
 LifeDrainDescription:
 	db   "Regain HP when a"

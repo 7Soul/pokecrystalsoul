@@ -996,6 +996,10 @@ EndOpponentProtectEndureDestinyBond:
 	ld [wBuffer1], a
 	farcall TraitPassStatusWithAttack
 
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitAfterMove
+
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitRaiseStatAfterDamage
@@ -3750,7 +3754,7 @@ Function_SetEnemyMonAndSendOutAnimation:
 	call GetEnemyMonFrontpic
 	xor a
 	ld [wNumHits], a
-	ld [wBattleAnimParam], a
+	ld [wKickCounter], a
 	call SetEnemyTurn
 	ld de, ANIM_SEND_OUT_MON
 	call Call_PlayBattleAnim
@@ -3758,7 +3762,7 @@ Function_SetEnemyMonAndSendOutAnimation:
 	call BattleCheckEnemyShininess
 	jr nc, .not_shiny
 	ld a, 1 ; shiny anim
-	ld [wBattleAnimParam], a
+	ld [wKickCounter], a
 	ld de, ANIM_SEND_OUT_MON
 	call Call_PlayBattleAnim
 .not_shiny
@@ -4272,13 +4276,13 @@ SendOutPlayerMon:
 	call SetPlayerTurn
 	xor a
 	ld [wNumHits], a
-	ld [wBattleAnimParam], a
+	ld [wKickCounter], a
 	ld de, ANIM_SEND_OUT_MON
 	call Call_PlayBattleAnim
 	call BattleCheckPlayerShininess
 	jr nc, .not_shiny
 	ld a, 1
-	ld [wBattleAnimParam], a
+	ld [wKickCounter], a
 	ld de, ANIM_SEND_OUT_MON
 	call Call_PlayBattleAnim
 
@@ -9572,7 +9576,7 @@ BattleStartMessage:
 	ld a, 1
 	ldh [hBattleTurn], a
 	ld a, 1
-	ld [wBattleAnimParam], a
+	ld [wKickCounter], a
 	ld de, ANIM_SEND_OUT_MON
 	call Call_PlayBattleAnim
 

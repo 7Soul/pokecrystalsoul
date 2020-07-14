@@ -2630,10 +2630,10 @@ CamperGroup:
 	db -1 ; end
 
 	; CAMPER (11)
-	db "Ted@", TRAINERTYPE_DVS
-	db $0F, $25, EKANS, 0
-	db $4F, $25, TAUROS, 0
-	db $4F, $05, TAUROS, 0
+	db "Ted@", TRAINERTYPE_NORMAL
+	db $0F, $25, EKANS
+	db $4F, $25, ((__ISO_8601_UTC__ + $40) % NUM_POKEMON) & $FF
+	db $4F, $25, ((__ISO_8601_UTC__ + $80) % NUM_POKEMON) & $FF
 	db -1 ; end
 
 	; CAMPER (12)

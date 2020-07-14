@@ -768,6 +768,15 @@ GetMoveStructEffect:
 	ld a, [hl]
 	ret
 
+GetMoveStructEffectOpp:
+	ld hl, wPlayerMoveStruct + MOVE_EFFECT
+	call GetTraitUser
+	jr nc, .got_effect
+	ld hl, wEnemyMoveStruct + MOVE_EFFECT
+.got_effect
+	ld a, [hl]
+	ret
+
 GetMoveStructChance:
 	ld hl, wPlayerMoveStruct + MOVE_CHANCE
 	call GetTraitUser
@@ -852,11 +861,11 @@ TraitOnEnter:
 	ld hl, BattleCommand_SpecialDefenseUp
 .raised_stat
 	call TraitUseBattleCommandSimple
-	ld hl, BattleCommand_StatUpMessage
-	call TraitUseBattleCommandSimple
+	; ld hl, BattleCommand_StatUpMessage
+	; call TraitUseBattleCommandSimple
 
-	ld hl, BattleCommand_StatUpFailText
-	call TraitUseBattleCommandSimple
+	; ld hl, BattleCommand_StatUpFailText
+	; call TraitUseBattleCommandSimple
 	pop bc
 	jr .loop
 
@@ -1170,6 +1179,27 @@ PassStatus:
 	ld [de], a
 	ld hl, BattleText_TraitPassedStatus
 	jp StdBattleTextBox
+
+TraitAfterMove:
+	ld a, TRAIT_COPY_SPD_BUFFS
+	call CheckSpecificTrait
+	ret nc
+
+	call GetMoveStructEffectOpp
+	cp EFFECT_SPEED_UP
+	jr z, .raise
+	cp EFFECT_SPEED_UP_2
+	ret nz
+.raise
+	call Switch_turn
+	ld hl, BattleCommand_SpeedUp
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatUpMessage
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatUpFailText
+	jp TraitUseBattleCommandSimpleSwitchTurn
 
 TraitRaiseStatOnStatDown:
 	ld a, [wFailedMessage]
@@ -3515,6 +3545,6 @@ OneShotTraits:
 	db TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	db -1
 
-; PRINTT "Trait Count left: "
-; PRINTV $FF - TRAIT_COUNT
-; PRINTT "\n"
+PRINTT "Trait constants left: "
+PRINTV $FF - TRAIT_COUNT
+PRINTT "\n"

@@ -619,7 +619,7 @@ StatsScreen_PlaceShinyIcon:
 	farcall CheckShininess
 	ret nc
 	hlcoord 7, 3
-	ld [hl], "⁂"
+	ld [hl], $39
 	ret
 
 StatsScreen_LoadGFX:
