@@ -229,6 +229,7 @@ TraitDescriptions::
 	dw MysticWaveDescription      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	dw Forewarn2Description       ; TRAIT_REDUCE_PSYCHIC_MORE
 	dw TwoSidedRageDescription    ; TRAIT_BOOST_PSYCHIC_STATUSED
+	dw MysticPowerDescription     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
 	dw HibernateDescription       ; TRAIT_REDUCE_ICE_MORE
 	dw SouthWindDescription       ; TRAIT_BOOST_ICE_HP
 	dw ArcticRageDescription      ; TRAIT_BOOST_ICE_STATUSED
@@ -1225,6 +1226,10 @@ Forewarn2Description:
 TwoSidedRageDescription:
 	db   "Boosts PSYCHIC"
 	next "under any status.@"
+	
+MysticPowerDescription:
+	db   "Lowers SP.ATK with"
+	next "PSYCHIC attacks.@"
 
 HibernateDescription:
 	db   "Resists ICE under"

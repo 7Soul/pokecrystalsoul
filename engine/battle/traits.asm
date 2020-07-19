@@ -2063,8 +2063,9 @@ TraitBoostPower:
 .move_second
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	cp 
-
+	cp VITAL_THROW
+	jp z, BoostDamage25
+	jp BoostDamage15
 .no_weather
 	ld hl, .TraitsThatBoostTypeStatused
 	call CheckTrait

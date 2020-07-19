@@ -229,6 +229,7 @@ TraitNames::
 	db "Mystic Wave@"      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db "Prediction@"       ; TRAIT_REDUCE_PSYCHIC_MORE
 	db "Two-Sided Rage@"   ; TRAIT_BOOST_PSYCHIC_STATUSED
+	db "Mystic Power@"     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
 	db "Hibernate@"        ; TRAIT_REDUCE_ICE_MORE
 	db "South Wind@"       ; TRAIT_BOOST_ICE_HP
 	db "Tyrant Rage@"      ; TRAIT_BOOST_DARK_STATUSED
