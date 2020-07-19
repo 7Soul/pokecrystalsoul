@@ -2293,6 +2293,7 @@ BattleAnim_DoubleEdge:
 	
 	anim_if_param_equal FLYING, .bravebird
 	anim_if_param_equal GRASS, .woodhammer
+	anim_if_param_equal FIRE, .flareblitz
 ; doubleedge
 	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $4, $10
 	anim_1gfx ANIM_GFX_HIT
@@ -2346,6 +2347,9 @@ BattleAnim_DoubleEdge:
 	anim_wait 2
 	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
 	anim_wait 32
+	anim_ret
+
+.flareblitz
 	anim_ret
 
 BattleAnim_Whirlwind:

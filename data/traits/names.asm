@@ -152,6 +152,7 @@ TraitNames::
 	db "Third Eye@"        ; TRAIT_SP_ATTACK_AFTER_CRIT
 	db "Moon Protection@"  ; TRAIT_SP_DEFENSE_AFTER_CRIT
 	db "Luck Curse@"       ; TRAIT_REDUCE_CRIT_MORE
+	db "Analytic@"         ; TRAIT_BOOST_MOVE_SECOND
 	db "Super Luck@"       ; TRAIT_CRITICAL_AFTER_CRIT
 	db "Magnetism@"        ; TRAIT_PASS_STATUS
 	db "Synchronize@"      ; TRAIT_PASS_STATUS_WITH_PHYSICAL

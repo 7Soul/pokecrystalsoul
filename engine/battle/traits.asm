@@ -126,6 +126,8 @@ CheckTraitCondition:
 	jp c, .check_below_threshold
 	cp TRAIT_REDUCE_CRIT_MORE + 1
 	jp c, .check_crit
+	cp TRAIT_BOOST_MOVE_SECOND + 1
+	jp c, .check_move_second
 	cp TRAIT_CRITICAL_AFTER_CRIT + 1
 	ld d, 1
 	jp c, .check_trait_activation_equal
@@ -306,6 +308,8 @@ CheckTraitCondition:
 	jr z, .success
 	cp EFFECT_BURN_HIT
 	jr z, .success
+	cp EFFECT_RECOIL_HIT_BURN
+	jr z, .success
 	cp EFFECT_TRI_ATTACK
 	jr z, .success
 	and a
@@ -425,6 +429,8 @@ CheckTraitCondition:
 	call GetMoveStructEffect
 	cp EFFECT_RECOIL_HIT
 	jp z, .success
+	cp EFFECT_RECOIL_HIT_BURN
+	jp z, .success
 	and a
 	ret
 
@@ -439,8 +445,19 @@ CheckTraitCondition:
 	ld a, [wCriticalHit]
 	cp 1
 	jp z, .success
+	jp .not_met
+
+.check_move_second:
+	call GetTraitUser
+	ld a, [wEnemyGoesFirst]
+	jr c, .player
 	and a
-	ret
+	jp z, .success ; player went first
+	jp .not_met
+.player
+	and a
+	jp nz, .success ; player didn't go first
+	jp .not_met
 
 .check_turns_equal
 	ld a, BATTLE_VARS_TURNS_TAKEN
@@ -448,18 +465,14 @@ CheckTraitCondition:
 	dec a
 	cp d
 	jp z, .success ; 
-	and a
-	ret
+	jp .not_met
 
 .check_turns_lower
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
 	cp d
-	jr nc, .no_turns_lower ; greater or equal
+	jp nc, .not_met ; greater or equal
 	jp .success
-.no_turns_lower
-	and a
-	ret
 
 .check_turns_greater
 	ld a, BATTLE_VARS_TURNS_TAKEN
@@ -1404,8 +1417,10 @@ TraitReduceSelfRecoil:
 	call CheckSpecificTrait
 	ld a, [wCurDamage]
 	ld b, a
+	ld [wBuffer2], a
 	ld a, [wCurDamage + 1]
 	ld c, a
+	ld [wBuffer3], a
 	jr nc, .not_met
 	; 50%
 	srl b
@@ -2024,6 +2039,9 @@ TraitBoostPower:
 	ld a, TRAIT_BOOST_RECOIL
 	call CheckSpecificTrait
 	jp c, BoostDamage20
+	ld a, TRAIT_BOOST_MOVE_SECOND
+	call CheckSpecificTrait
+	jp c, .move_second
 	ld a, TRAIT_BOOST_WEAK_MOVES
 	call CheckSpecificTrait
 	jp c, BoostDamage50
@@ -2042,6 +2060,10 @@ TraitBoostPower:
 	cp 60
 	jp nc, BoostDamage20
 	jp BoostDamage50
+.move_second
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	cp 
 
 .no_weather
 	ld hl, .TraitsThatBoostTypeStatused

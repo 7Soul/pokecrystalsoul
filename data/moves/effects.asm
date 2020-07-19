@@ -978,6 +978,31 @@ RecoilHit:
 	posthiteffects
 	endmove
 
+RecoilHitBurn:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	effectchance
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	defrost
+	recoil
+	checkfaint
+	buildopponentrage
+	burntarget
+	kingsrock
+	posthiteffects
+	endmove
+
 Mist:
 	checkobedience
 	usedmovetext

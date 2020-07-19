@@ -6198,10 +6198,10 @@ BattleCommand_Recoil:
 	call GetBattleVar
 	ld d, a
 ; get 1/4 damage or 1 HP, whichever is higher
-	ld a, [wCurDamage]
-	ld b, a
-	ld a, [wCurDamage + 1]
-	ld c, a
+	; ld a, [wCurDamage]
+	; ld b, a
+	; ld a, [wCurDamage + 1]
+	; ld c, a
 
 	push hl
 	ld a, BATTLE_VARS_TRAIT

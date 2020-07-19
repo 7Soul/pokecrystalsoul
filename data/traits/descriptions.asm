@@ -152,6 +152,7 @@ TraitDescriptions::
 	dw ThirdEyeDescription        ; TRAIT_SP_ATTACK_AFTER_CRIT
 	dw MoonProtectionDescription  ; TRAIT_SP_DEFENSE_AFTER_CRIT
 	dw LuckCurseDescription       ; TRAIT_REDUCE_CRIT_MORE
+	dw AnalyticDescription        ; TRAIT_BOOST_MOVE_SECOND
 	dw SuperLuckDescription       ; TRAIT_CRITICAL_AFTER_CRIT
 	dw MagnetismDescription       ; TRAIT_PASS_STATUS
 	dw SynchronizeDescription     ; TRAIT_PASS_STATUS_WITH_PHYSICAL
@@ -916,6 +917,10 @@ MoonProtectionDescription:
 LuckCurseDescription:
 	db   "Lowers foe's CRIT"
 	next "when hit by one.@"
+
+AnalyticDescription:
+	db   "Damage boost when"
+	next "you move second.@"
 
 SuperLuckDescription:
 	db   "Ups CRITICAL when"

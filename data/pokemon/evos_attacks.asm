@@ -375,9 +375,8 @@ EkansEvosAttacks:
 	db 17, SCREECH
 	db 20, ACID
 	db 24, ACUPRESSURE ; becomes Gather Sand
-	; db 28, VENOSHOCK
-	db 36, MUD_BOMB	
-	db 36, AGILITY	
+	db 28, VENOSHOCK
+	db 36, MUD_BOMB
 	db 41, HAZE
 	db 44, ACID_ARMOR
 	db 49, GUNK_SHOT
@@ -390,9 +389,8 @@ ArbokEvosAttacks:
 	db 20, ACID
 	db 21, CRUNCH
 	db 28, ACUPRESSURE ; becomes Gather Sand
-	; db 30, VENOSHOCK
-	db 39, MUD_BOMB	
-	db 36, AGILITY	
+	db 30, VENOSHOCK
+	db 39, MUD_BOMB
 	db 45, HAZE
 	db 49, ACID_ARMOR
 	db 54, GUNK_SHOT
@@ -1219,7 +1217,7 @@ PonytaEvosAttacks:
 	db 38, STAMPEDE
 	db 42, AGILITY
 	db 49, FIRE_BLAST
-	db 53, THRASH
+	db 53, DOUBLE_EDGE ; becomes Flare Blitz
 	db 0 ; no more level-up moves
 
 RapidashEvosAttacks:
@@ -1232,7 +1230,7 @@ RapidashEvosAttacks:
 	db 39, STAMPEDE
 	db 45, AGILITY
 	db 53, FIRE_BLAST
-	db 59, THRASH
+	db 59, DOUBLE_EDGE ; becomes Flare Blitz
 	db 0 ; no more level-up moves
 
 SlowpokeEvosAttacks:

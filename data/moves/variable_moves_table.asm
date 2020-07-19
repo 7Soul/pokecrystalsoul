@@ -9,7 +9,7 @@ VariableMoves::
 	db ACUPRESSURE ; Gather Sand
 	db FIRE_PLAY ; Tide Clash, Flutter Clap
 	db CROSS_CHOP ; Stone Edge
-	db DOUBLE_EDGE ; Brave Bird, Wood Hammer
+	db DOUBLE_EDGE ; Brave Bird, Wood Hammer, Flare Blitz
 	db QUICK_ATTACK ; Ice Shard, Accelerock, Aqua Jet
 	db SLASH ; Night Slash, Leaf Blade
 	db DRILL_PECK ; Seed Bomb
@@ -86,6 +86,7 @@ CrossChopVariables:
 DoubleEdgeVariables:
 	db BRAVE_BIRD, FARFETCH_D, HO_OH, -1
 	db WOOD_HAMMER, GEODUDE, GRAVELER, GOLEM, EXEGGUTOR, CUBONE, MAROWAK, SUDOWOODO, -1
+	db FLARE_BLITZ, CHARMANDER, CHARMELEON, CHARIZARD, PONYTA, RAPIDASH, -1
 	db -2
 
 QuickAttackVariables:
