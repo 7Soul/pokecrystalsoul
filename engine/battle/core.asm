@@ -1888,13 +1888,17 @@ HandleWeather:
 	ld hl, wEnemyMonType1
 .ok
 	ld a, [hli]
-	cp ROCK ; 7Soul - also had steel below
-	ret z ;
+	cp ROCK
+	ret z
+	cp STEEL
+	ret z
 	cp GROUND
-	ret z ;
+	ret z
 
 	ld a, [hl]
 	cp ROCK
+	ret z
+	cp STEEL
 	ret z
 	cp GROUND
 	ret z

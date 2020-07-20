@@ -216,7 +216,7 @@
 	const FIRE_PLAY    ; d0
 	const SPARK        ; d1
 	const FURY_CUTTER  ; d2
-	const ICICLE_WING  ; d3
+	const STEEL_WING  ; d3
 	const MEAN_LOOK    ; d4
 	const ATTRACT      ; d5
 	const SLEEP_TALK   ; d6
@@ -236,8 +236,8 @@
 	const PURSUIT      ; e4
 	const RAPID_SPIN   ; e5
 	const FELL_STINGER ; e6
-	const FROZEN_TAIL  ; e7
-	const FROZEN_CLAW  ; e8
+	const IRON_TAIL  ; e7
+	const METAL_CLAW  ; e8
 	const VITAL_THROW  ; e9
 	const MORNING_SUN  ; ea
 	const SYNTHESIS    ; eb

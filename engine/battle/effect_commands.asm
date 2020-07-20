@@ -4040,6 +4040,9 @@ BattleCommand_PoisonTarget:
 	ld b, POISON
 	farcall CheckIfTargetIsNthType ; Don't poison a Poison-type
 	ret z
+	ld b, STEEL
+	farcall CheckIfTargetIsNthType ; Don't poison a Steel-type
+	ret z
 ; fallthrough
 BattleCommand_PoisonTargetSimple: ; ignores target's type
 	call CheckSubstituteOpp

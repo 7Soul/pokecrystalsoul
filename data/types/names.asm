@@ -6,6 +6,7 @@ TypeNames:
 	dw Poison
 	dw Ground
 	dw Rock
+	dw Steel
 	dw Bug
 	dw Fire
 	dw Water
@@ -21,6 +22,7 @@ Flying:    db "FLYING@"
 Poison:    db "POISON@"
 Ground:    db "GROUND@"
 Rock:      db "ROCK@"
+Steel:     db "STEEL@"
 Bug:       db "BUG@"
 CurseType: db "???@"
 Fire:      db "FIRE@"

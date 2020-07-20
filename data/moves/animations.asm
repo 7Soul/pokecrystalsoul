@@ -211,7 +211,7 @@ BattleAnimations::
 	dba BattleAnim_FirePlay
 	dba BattleAnim_Spark
 	dba BattleAnim_FuryCutter
-	dba BattleAnim_IcicleWing
+	dba BattleAnim_SteelWing
 	dba BattleAnim_MeanLook
 	dba BattleAnim_Attract
 	dba BattleAnim_SleepTalk
@@ -231,8 +231,8 @@ BattleAnimations::
 	dba BattleAnim_Pursuit
 	dba BattleAnim_RapidSpin
 	dba BattleAnim_FellStinger
-	dba BattleAnim_FrozenTail
-	dba BattleAnim_FrozenClaw
+	dba BattleAnim_IronTail
+	dba BattleAnim_MetalClaw
 	dba BattleAnim_VitalThrow
 	dba BattleAnim_MorningSun
 	dba BattleAnim_Synthesis
@@ -4591,12 +4591,14 @@ BattleAnim_FuryCutter:
 	anim_jumpuntil .loop
 	anim_ret
 
-BattleAnim_IcicleWing:
-	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_ICE
+BattleAnim_SteelWing:
+	anim_1gfx ANIM_GFX_REFLECT
 	anim_obp0 $0
 	anim_sound 0, 0, SFX_RAGE
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
+	anim_call BattleAnim_Harden_branch_cbc43
 	anim_call BattleAnim_ShowMon_0_bank2
+	anim_1gfx ANIM_GFX_HIT
 	anim_resetobp0
 	anim_sound 0, 1, SFX_WING_ATTACK
 	anim_obj ANIM_OBJ_HIT_YFIX, 148, 56, $0
@@ -4609,8 +4611,6 @@ BattleAnim_IcicleWing:
 	anim_sound 0, 1, SFX_WING_ATTACK
 	anim_obj ANIM_OBJ_HIT_YFIX, 140, 56, $0
 	anim_obj ANIM_OBJ_HIT_YFIX, 124, 56, $0
-	anim_wait 8
-	anim_call BattleAnim_IcicleWing_branch_cbbdf
 	anim_wait 16
 	anim_ret
 
@@ -4956,25 +4956,25 @@ BattleAnim_FellStinger:
 	anim_wait 16
 	anim_ret
 
-BattleAnim_FrozenTail:
+BattleAnim_IronTail:
 	anim_if_param_equal WATER, .razorshell
 	anim_if_param_equal FIGHTING, .spiralkick
-	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_ICE
+
+	anim_1gfx ANIM_GFX_REFLECT
 	anim_obp0 $0
 	anim_sound 0, 0, SFX_RAGE
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
+	anim_call BattleAnim_Harden_branch_cbc43
 	anim_wait 4
+	anim_1gfx ANIM_GFX_HIT
 	anim_resetobp0
 	anim_bgeffect ANIM_BG_26, $0, $1, $0
 	anim_wait 16
 	anim_sound 0, 1, SFX_MEGA_KICK
 	anim_obj ANIM_OBJ_HIT_BIG_YFIX, 136, 48, $0
-	anim_wait 2
-	anim_call BattleAnim_FrozenTail_branch_cbbdf
-	anim_wait 8
+	anim_wait 16
 	anim_incbgeffect ANIM_BG_26
 	anim_call BattleAnim_ShowMon_0_bank2
-	anim_wait 16
 	anim_ret
 
 .razorshell
@@ -5028,19 +5028,19 @@ BattleAnim_FrozenTail:
 	anim_wait 16
 	anim_ret
 
-BattleAnim_FrozenClaw:
-	anim_2gfx ANIM_GFX_CUT, ANIM_GFX_ICE
+BattleAnim_MetalClaw:
+	anim_1gfx ANIM_GFX_REFLECT
 	anim_obp0 $0
 	anim_sound 0, 0, SFX_RAGE
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
+	anim_call BattleAnim_Harden_branch_cbc43
 	anim_call BattleAnim_ShowMon_0_bank2
+	anim_1gfx ANIM_GFX_CUT
 	anim_resetobp0
 	anim_sound 0, 1, SFX_SCRATCH
 	anim_obj ANIM_OBJ_CUT_DOWN_LEFT, 144, 48, $0
 	anim_obj ANIM_OBJ_CUT_DOWN_LEFT, 140, 44, $0
 	anim_obj ANIM_OBJ_CUT_DOWN_LEFT, 136, 40, $0
-	anim_wait 2
-	anim_call BattleAnim_FrozenClaw_branch_cbbdf
 	anim_wait 16
 	anim_ret
 
@@ -5464,9 +5464,6 @@ BattleAnim_TriAttack_branch_cbbcc:
 BattleAnim_IcePunch_branch_cbbdf:
 BattleAnim_PowderSnow_branch_cbbdf:
 BattleAnim_TriAttack_branch_cbbdf:
-BattleAnim_IcicleWing_branch_cbbdf:
-BattleAnim_FrozenTail_branch_cbbdf:
-BattleAnim_FrozenClaw_branch_cbbdf:
 	anim_sound 0, 1, SFX_SHINE
 	anim_obj ANIM_OBJ_ICE_FLICKER, 128, 42, $0
 	anim_wait 6

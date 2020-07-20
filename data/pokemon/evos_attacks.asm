@@ -1320,7 +1320,7 @@ DoduoEvosAttacks:
 	db 10, RAGE
 	db 12, FURY_ATTACK
 	db 17, PURSUIT
-	db 22, FROZEN_TAIL
+	db 22, IRON_TAIL
 	db 28, ACUPRESSURE
 	db 32, DOUBLE_KICK ; becomes Double Hit
 	db 37, AGILITY
@@ -1333,7 +1333,7 @@ DodrioEvosAttacks:
 	db 0 ; no more evolutions
 	db 12, FURY_ATTACK
 	db 17, PURSUIT
-	db 22, FROZEN_TAIL
+	db 22, IRON_TAIL
 	db 28, ACUPRESSURE
 	db 34, DOUBLE_KICK ; becomes Double Hit
 	db 39, AGILITY
@@ -1418,7 +1418,7 @@ ShellderEvosAttacks:
 	db 20, LEER
 	db 24, CLAMP
 	db 28, QUICK_ATTACK	; becomes Ice Shard
-	db 32, FROZEN_TAIL ; becomes Razor Shell
+	db 32, IRON_TAIL ; becomes Razor Shell
 	db 37, AURORA_BEAM
 	db 40, WHIRLPOOL
 	db 43, BARRIER ; Becomes Iron Defense
@@ -1432,7 +1432,7 @@ CloysterEvosAttacks:
 	db 1, LEER
 	db 1, CLAMP
 	db 1, QUICK_ATTACK	; becomes Ice Shard
-	db 33, FROZEN_TAIL ; becomes Razor Shell
+	db 33, IRON_TAIL ; becomes Razor Shell
 	db 38, AURORA_BEAM
 	db 42, WHIRLPOOL
 	db 46, BARRIER ; Becomes Iron Defense
@@ -1546,7 +1546,7 @@ KrabbyEvosAttacks:
 	db 23, STOMP
 	db 28, REVERSAL ; becomes Flail
 	db 31, HORN_DRILL ; becomes Guillotine
-	db 34, FROZEN_TAIL ; becomes Razor Shell
+	db 34, IRON_TAIL ; becomes Razor Shell
 	db 37, SLAM
 	db 41, CRABHAMMER
 	db 47, SHARPEN
@@ -1561,7 +1561,7 @@ KinglerEvosAttacks:
 	db 25, STOMP
 	db 30, REVERSAL ; becomes Flail
 	db 34, HORN_DRILL ; becomes Guillotine
-	db 39, FROZEN_TAIL ; becomes Razor Shell
+	db 39, IRON_TAIL ; becomes Razor Shell
 	db 43, SLAM
 	db 47, CRABHAMMER
 	db 52, SHARPEN
@@ -1666,7 +1666,7 @@ HitmonleeEvosAttacks:
 	db 18, BULK_UP
 	db 25, BRICK_BREAK
 	db 31, LOCK_ON
-	db 35, FROZEN_TAIL ; becomes Spiral Kick
+	db 35, IRON_TAIL ; becomes Spiral Kick
 	db 41, ENDURE
 	db 46, MEGA_KICK
 	db 51, REVERSAL
@@ -2057,7 +2057,7 @@ GyaradosEvosAttacks:
 	db 42, HYDRO_PUMP
 	db 45, RAIN_DANCE
 	db 50, HYPER_BEAM	
-	db 54, FROZEN_TAIL
+	db 54, IRON_TAIL
 	db 0 ; no more level-up moves
 
 LaprasEvosAttacks:
@@ -2264,7 +2264,7 @@ ArticunoEvosAttacks:
 	db 5, POWDER_SNOW
 	db 8, MIST
 	db 13, TWISTER
-	db 19, FROZEN_CLAW
+	db 19, METAL_CLAW
 	db 25, ANCIENTPOWER
 	db 31, AGILITY
 	db 36, ICE_BEAM
@@ -2483,7 +2483,7 @@ TotodileEvosAttacks:
 	db 8, RAGE
 	db 13, BITE
 	db 15, SCARY_FACE
-	db 20, FROZEN_CLAW
+	db 20, METAL_CLAW
 	db 22, REVERSAL ; becomes Flail
 	db 27, CRUNCH
 	db 34, SLASH
@@ -2503,7 +2503,7 @@ CroconawEvosAttacks:
 	db 8, RAGE
 	db 13, BITE
 	db 15, SCARY_FACE
-	db 21, FROZEN_CLAW
+	db 21, METAL_CLAW
 	db 24, REVERSAL ; becomes Flail
 	db 30, CRUNCH
 	db 39, SLASH
@@ -2518,7 +2518,7 @@ FeraligatrEvosAttacks:
 	db 0 ; no more evolutions
 	db 16, BITE
 	db 15, SCARY_FACE
-	db 21, FROZEN_CLAW
+	db 21, METAL_CLAW
 	db 24, REVERSAL ; becomes Flail
 	db 32, CRUNCH
 	db 45, SLASH
@@ -3291,7 +3291,7 @@ SteelixEvosAttacks:
 	db 23, HARDEN
 	db 28, DIG
 	db 30, RAGE
-	db 39, FROZEN_TAIL
+	db 39, IRON_TAIL
 	db 41, SANDSTORM
 	db 44, SLAM
 	db 52, CRUNCH
@@ -3356,7 +3356,7 @@ ScizorEvosAttacks:
 	db 12, PURSUIT
 	db 18, FALSE_SWIPE
 	db 24, AGILITY
-	db 30, FROZEN_CLAW
+	db 30, METAL_CLAW
 	db 36, SLASH
 	db 38, X_SCISSOR
 	db 42, SWORDS_DANCE
@@ -3410,7 +3410,7 @@ SneaselEvosAttacks:
 	db 33, FURY_ATTACK
 	db 41, AGILITY
 	db 49, SLASH
-	db 54, FROZEN_CLAW
+	db 54, METAL_CLAW
 	db 60, FELL_STINGER
 	db 0 ; no more level-up moves
 
@@ -3565,7 +3565,7 @@ DelibirdEvosAttacks:
 	db 15, POWDER_SNOW
 	db 19, AMNESIA
 	db 22, ENCORE
-	db 28, ICICLE_WING
+	db 28, STEEL_WING
 	db 35, REFLECT
 	db 41, REST	
 	db 44, ZEN_HEADBUTT
@@ -3595,16 +3595,16 @@ SkarmoryEvosAttacks:
 	db 1, LEER
 	db 1, PECK
 	db 6, SAND_ATTACK
-	db 9, FROZEN_CLAW
+	db 9, METAL_CLAW
 	db 12, WING_ATTACK
 	db 17, FURY_ATTACK
 	db 23, SWIFT
 	db 28, SPIKES
 	db 31, AGILITY
-	db 34, ICICLE_WING
+	db 34, STEEL_WING
 	db 39, SLASH
 	db 45, AIR_SLASH
-	db 54, FROZEN_TAIL
+	db 54, IRON_TAIL
 	db 0 ; no more level-up moves
 
 HoundourEvosAttacks:
@@ -3649,7 +3649,7 @@ KingdraEvosAttacks:
 	db 44, AQUA_TAIL
 	db 49, PRISM_LIGHT
 	db 55, ICE_BEAM
-	db 59, FROZEN_TAIL
+	db 59, IRON_TAIL
 	db 0 ; no more level-up moves
 
 PhanpyEvosAttacks:

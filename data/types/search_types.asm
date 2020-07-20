@@ -13,4 +13,5 @@ PokedexTypeSearchConversionTable:
 	db PSYCHIC
 	db BUG
 	db ROCK
+	db STEEL
 	db DARK

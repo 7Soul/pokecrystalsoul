@@ -53,14 +53,14 @@ WeedleEggMoves:
 	db PURSUIT
 	db FAINT_ATTACK
 	db AIR_SLASH
-	db ICICLE_WING
+	db STEEL_WING
 	db -1 ; end
 	
 PidgeyEggMoves:
 	db PURSUIT
 	db FAINT_ATTACK
 	db AIR_SLASH
-	db ICICLE_WING
+	db STEEL_WING
 	db FIRE_PLAY ; becomes Flutter Clap
 	db -1 ; end
 
@@ -96,7 +96,7 @@ SandshrewEggMoves:
 	db SAFEGUARD
 	db COUNTER
 	db RAPID_SPIN
-	db FROZEN_CLAW
+	db METAL_CLAW
 	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
 
@@ -313,7 +313,7 @@ MagnemiteEggMoves:
 FarfetchDEggMoves:
 	db GUST
 	db QUICK_ATTACK
-	db ICICLE_WING
+	db STEEL_WING
 	db MIRROR_MOVE
 	db REVERSAL
 	db SCREECH ; becomes Feather Dance
@@ -601,7 +601,7 @@ KabutoEggMoves:
 AerodactylEggMoves:
 	db WHIRLWIND
 	db PURSUIT
-	db ICICLE_WING
+	db STEEL_WING
 	db CURSE
 	db AIR_SLASH
 	db -1 ; end
@@ -735,7 +735,7 @@ NatuEggMoves:
 	db DRILL_PECK
 	db QUICK_ATTACK
 	db FAINT_ATTACK
-	db ICICLE_WING
+	db STEEL_WING
 	db -1 ; end
 
 MareepEggMoves:
@@ -848,7 +848,7 @@ DunsparceEggMoves:
 	db -1 ; end
 
 GligarEggMoves:
-	db FROZEN_CLAW
+	db METAL_CLAW
 	db WING_ATTACK
 	db COUNTER
 	db ROLLOUT
@@ -898,7 +898,7 @@ TeddiursaEggMoves:
 	db SEISMIC_TOSS
 	db FOCUS_ENERGY
 	db COUNTER
-	db FROZEN_CLAW
+	db METAL_CLAW
 	db -1 ; end
 
 SlugmaEggMoves:

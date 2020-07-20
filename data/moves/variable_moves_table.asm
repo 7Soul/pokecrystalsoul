@@ -24,7 +24,7 @@ VariableMoves::
 	db ICY_WIND ; Mud Shot, Mega Splash
 	db JUMP_KICK ; Sand Dive
 	db DIZZY_PUNCH ; Hurricane
-	db FROZEN_TAIL ; Razor Shell, Spiral Kick
+	db IRON_TAIL ; Razor Shell, Spiral Kick
 	db CONSTRICT ; Power Whip
 	db AGILITY ; Rock Polish
 	db LICK ; Shock Sting
@@ -54,7 +54,7 @@ VariablePointers:
 	varmove ICY_WIND,     IcyWindVariables
 	varmove JUMP_KICK,    JumpKickVariables
 	varmove DIZZY_PUNCH,  DizzyPunchVariables
-	varmove FROZEN_TAIL,  FrozenTailVariables
+	varmove IRON_TAIL,  FrozenTailVariables
 	varmove CONSTRICT,    ConstrictVariables
 	varmove AGILITY,      AgilityVariables
 	varmove LICK,         LickVariables

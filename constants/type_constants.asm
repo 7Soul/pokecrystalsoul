@@ -12,14 +12,15 @@
 	const POISON	; 3
 	const GROUND	; 4
 	const ROCK		; 5
-	const BUG		; 6
-	const FIRE		; 7
-	const WATER		; 8
-	const GRASS		; 9
-	const ELECTRIC	; a
-	const PSYCHIC	; b
-	const ICE		; c
-	const DARK		; d
+	const STEEL		; 6
+	const BUG		; 7
+	const FIRE		; 8
+	const WATER		; 9
+	const GRASS		; a
+	const ELECTRIC	; b
+	const PSYCHIC	; c
+	const ICE		; d
+	const DARK		; e
 TYPES_END EQU const_value
 
 TYPE_MASK EQU %00001111
