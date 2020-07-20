@@ -79,7 +79,7 @@ MoveEffectsPointers:
 	dw SkyAttack
 	dw ConfuseHit
 	dw PoisonMultiHit
-	dw NormalHit
+	dw SlowHit
 	dw Substitute
 	dw HyperBeam
 	dw Rage
@@ -172,3 +172,4 @@ MoveEffectsPointers:
 	dw JetStream
 	dw FirePlay
 	dw Acupressure
+	dw SlowHit

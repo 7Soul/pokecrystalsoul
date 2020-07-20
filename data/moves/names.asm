@@ -40,7 +40,7 @@ MoveNames::
 	db "Tail Whip@"
 	db "Poison Sting@"
 	db "Twineedle@"
-	db "Pin Missile@"
+	db "Gyro Ball@"
 	db "Leer@"
 	db "Bite@"
 	db "Growl@"

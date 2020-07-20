@@ -47,7 +47,7 @@
 	const TAIL_WHIP    ; 27
 	const POISON_STING ; 28
 	const TWINEEDLE    ; 29
-	const UNUSED_MOVE_1  ; 2a
+	const GYRO_BALL    ; 2a
 	const LEER         ; 2b
 	const BITE         ; 2c
 	const GROWL        ; 2d

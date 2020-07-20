@@ -42,7 +42,7 @@ BattleAnimations::
 	dba BattleAnim_TailWhip
 	dba BattleAnim_PoisonSting
 	dba BattleAnim_Twineedle
-	dba BattleAnim_UnusedMove1
+	dba BattleAnim_GyroBall
 	dba BattleAnim_Leer
 	dba BattleAnim_Bite
 	dba BattleAnim_Growl
@@ -2556,7 +2556,21 @@ BattleAnim_Twineedle:
 	anim_wait 16
 	anim_ret
 
-BattleAnim_UnusedMove1:
+BattleAnim_GyroBall:
+	anim_1gfx ANIM_GFX_REFLECT
+	anim_obp0 $0
+	anim_sound 0, 0, SFX_SPARK
+	anim_call BattleAnim_FollowPlayerHead_0_bank2
+	anim_call BattleAnim_Harden_branch_cbc43
+	anim_1gfx ANIM_GFX_HIT
+	anim_resetobp0
+	anim_bgeffect ANIM_BG_2E, $60, $1, $1
+	anim_bgeffect ANIM_BG_25, $0, $1, $0
+	anim_wait 4
+	anim_sound 0, 1, SFX_MEGA_PUNCH
+	anim_obj ANIM_OBJ_HIT_BIG, 136, 40, $0
+	anim_wait 8
+	anim_call BattleAnim_ShowMon_0_bank2
 	anim_ret
 
 BattleAnim_SpikeCannon:

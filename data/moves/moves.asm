@@ -53,7 +53,7 @@ Moves:
 	move TAIL_WHIP,    EFFECT_DEFENSE_DOWN,        0, NORMAL,   STATUS,             100, 0,         0
 	move POISON_STING, EFFECT_POISON_HIT,         15, POISON,   PHYSICAL,           100, STA_BAR,  30
 	move TWINEEDLE,    EFFECT_POISON_MULTI_HIT,   30, BUG,      PHYSICAL,           100, STA_BAR,  30
-	move UNUSED_MOVE_1,EFFECT_MULTI_HIT,          15, BUG,      PHYSICAL,            85, STA_BAR,   0
+	move GYRO_BALL,    EFFECT_SLOW_HIT,            1, STEEL,    PHYSICAL + CONTACT, 100, STA_BAR * 2 + 1,   0
 	move LEER,         EFFECT_DEFENSE_DOWN,        0, NORMAL,   STATUS,             100, 0,         0
 	move BITE,         EFFECT_FLINCH_HIT,         60, DARK,     PHYSICAL + CONTACT, 100, STA_BAR,  30
 	move GROWL,        EFFECT_ATTACK_DOWN,         0, NORMAL,   STATUS,             100, 0,         0

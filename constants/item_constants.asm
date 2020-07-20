@@ -256,7 +256,7 @@ ENDM
 	add_tm POWER_GEM    ; ec ; was REST
 	add_tm ATTRACT      ; ed
 	add_tm CRUNCH       ; ee ; was THIEF
-	add_tm FIRE_FLICK   ; ef ; was STEEL_WING
+	add_tm STEEL_WING   ; ef
 	add_tm FIRE_PUNCH   ; f0
 	add_tm FURY_CUTTER  ; f1
 	add_tm NIGHTMARE    ; f2 TM50

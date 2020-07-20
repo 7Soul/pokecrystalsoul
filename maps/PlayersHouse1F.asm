@@ -126,7 +126,7 @@ MeetMomScript:
 	giveitem MAX_REVIVE, 99
 	giveitem BERRY, 99
 
-	givepoke VAPOREON, 50
+	givepoke STEELIX, 50
 	givepoke PIDGEY, 50
 	; callasm CheatFillPokedex
 	callasm CheatGiveTMs

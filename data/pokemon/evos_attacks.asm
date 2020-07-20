@@ -3294,6 +3294,7 @@ SteelixEvosAttacks:
 	db 39, IRON_TAIL
 	db 41, SANDSTORM
 	db 44, SLAM
+	db 50, GYRO_BALL;;;
 	db 52, CRUNCH
 	db 55, CROSS_CHOP ; changes to Stone Edge
 	db 0 ; no more level-up moves

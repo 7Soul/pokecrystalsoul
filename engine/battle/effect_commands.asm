@@ -1136,15 +1136,15 @@ BattleCommand_DoTurn:
 ; 	ret
 
 .out_of_pp
-	ld c, 40
-	call DelayFrames
-	ld hl, MonIsExhausted
-	call StdBattleTextBox
-	call BattleCommand_SwitchTurn
-	call BattleCommand_RandomStatDown
-	call BattleCommand_StatDownMessage
-	call BattleCommand_SwitchTurn
-	ld b, 0
+	; ld c, 40
+	; call DelayFrames
+	; ld hl, MonIsExhausted
+	; call StdBattleTextBox
+	; call BattleCommand_SwitchTurn
+	; call BattleCommand_RandomStatDown
+	; call BattleCommand_StatDownMessage
+	; call BattleCommand_SwitchTurn
+	; ld b, 0
 	ret
 ; get move effect
 	ld a, BATTLE_VARS_MOVE_EFFECT
@@ -3886,10 +3886,6 @@ UpdateMoveData:
 	ld [wNamedObjectIndexBuffer], a
 	dec a
 	call GetMoveData
-
-	; ld a, BATTLE_VARS_TRAIT
-	; ld [wBuffer1], a
-	; farcall TraitChangeDamageType
 	ld a, [wCurSpecies]
 	ld e, a
 	farcall IsVariableMove
@@ -4188,6 +4184,8 @@ BattleCommand_Venoshock:
 	jp DoubleDamage
 	
 INCLUDE "engine/battle/move_effects/fire_flick.asm"
+
+INCLUDE "engine/battle/move_effects/gyro_ball.asm"
 
 BattleCommand_JetStream:
 ; jetstream

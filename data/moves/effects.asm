@@ -2392,3 +2392,24 @@ Acupressure:
 	statupmessage
 	statupfailtext
 	endmove
+
+SlowHit:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	slowhit
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	kingsrock
+	posthiteffects
+	endmove

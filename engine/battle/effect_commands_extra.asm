@@ -510,7 +510,7 @@ SpeedBoostDamage:
 .speed_boost
 	ld hl, wBattleMonSpeed
 	ld de, wEnemyMonSpeed
-	ld a, [hBattleTurn]
+	ldh a, [hBattleTurn]
 	and a
 	jr z, .got_speed
 	ld hl, wEnemyMonSpeed
@@ -565,3 +565,60 @@ SpeedBoostDamage:
 	db AIR_SLASH
 	db EXTREMESPEED
 	db -1
+
+Slow_Hit:
+	; Get the opponent's species
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wBattleMonSpeed
+	ld de, wEnemyMonSpeed
+    jr z, .go
+    ld hl, wEnemyMonSpeed
+	ld de, wBattleMonSpeed
+.go
+; user's speed in bc and opp's in hl
+    ld a, [hli]
+	ld b, a
+	ld a, [hl]
+	ld c, a
+	and a
+	ret z
+	ld a, [de]
+	ld h, a
+	inc de
+	ld a, [de]
+	ld l, a
+; b = opp, c = user
+	call TruncateHL_BC
+; opp's speed divided by user's
+	xor a
+	ldh [hDividend + 0], a
+	ldh [hDividend + 1], a
+	ld a, b
+	ldh [hDividend + 2], a
+	ld a, c
+	ldh [hDivisor], a
+    ld b, 4
+	call Divide
+	ld a, 25
+	ldh [hMultiplier], a
+	call Multiply
+
+	ldh a, [hProduct + 1]
+	and a
+	jr z, .notmax
+.max
+	ld a, 150
+	jr .got_damage
+.notmax
+	ldh a, [hProduct + 2]
+	inc a
+	cp 150
+	jr nc, .max
+	; Overwrite the current move power
+.got_damage
+	ld b, a
+	ld a, BATTLE_VARS_MOVE_POWER
+	call GetBattleVarAddr
+	ld [hl], b
+	ret

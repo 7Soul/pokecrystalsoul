@@ -193,6 +193,7 @@ ENDM
 	command fireplay				; ba
 	command recalcstats				; bc
 	command acupressure				; bd
+	command slowhit  				; be
 
 	enum_start $fe
 	command endturn                 ; fe
