@@ -41,7 +41,7 @@ MoveDescriptions::
 	dw TailWhipDescription
 	dw PoisonStingDescription
 	dw TwineedleDescription
-	dw PinMissileDescription
+	dw GyroBallDescription
 	dw LeerDescription
 	dw BiteDescription
 	dw GrowlDescription
@@ -139,7 +139,7 @@ MoveDescriptions::
 	dw GlareDescription
 	dw DreamEaterDescription
 	dw PoisonGasDescription
-	dw RockBlastDescription
+	dw UnusedMove2Description
 	dw LeechLifeDescription
 	dw StampedeDescription
 	dw SkyAttackDescription
@@ -259,6 +259,7 @@ MoveDescriptions::
 
 MoveFFDescription:
 Move00Description:
+UnusedMove2Description:
 	db "?@"
 
 PoundDescription:
@@ -276,9 +277,7 @@ CrossChopDescription:
 DoubleslapDescription:
 CometPunchDescription:
 FuryAttackDescription:
-PinMissileDescription:
 SpikeCannonDescription:
-RockBlastDescription:
 	db   "An attack that"
 	next "hits 2-5 times.@"
 
@@ -438,6 +437,10 @@ PoisonGasDescription:
 TwineedleDescription:
 	db   "Jabs the foe twice"
 	next "using stingers.@"
+
+GyroBallDescription:
+	db   "More power when"
+	next "user is slower.@"
 
 LeerDescription:
 	db   "Reduces the foe's"
@@ -1105,3 +1108,159 @@ PowerGemDescription:
 WillOWispDescription:
 	db   "Burns a foe that"
 	next "isn't fire type.@"
+
+VariableMoveDescriptions::
+	dw $0000 ; BoneRushDescription
+	dw $0000 ; PinMissileDescription
+	dw $0000 ; RockBlastDescription
+	dw $0000 ; IcicleSpearDescription
+	dw GatherSandDescription
+	dw $0000 ; TideClashDescription
+	dw FlutterClapDescription
+	dw $0000 ; StoneEdgeDescription
+	dw $0000 ; BraveBirdDescription
+	dw $0000 ; WoodHammerDescription
+	dw $0000 ; FlareBlitzDescription
+	dw ElectroBallDescription
+	dw $0000 ; IceShardDescription
+	dw $0000 ; AccelerockDescription
+	dw $0000 ; AquaJetDescription
+	dw $0000 ; BulletPunchDescription
+	dw $0000 ; NightSlashDescription
+	dw $0000 ; LeafBladeDescription
+	dw SeedBombDescription
+	dw $0000 ; AerialAceDescription
+	dw $0000 ; FeatherDanceDescription
+	dw $0000 ; FissureDescription
+	dw $0000 ; SheerColdDescription
+	dw $0000 ; GuillotineDescription
+	dw $0000 ; WithDrawDescription
+	dw $0000 ; IronDefenseDescription
+	dw $0000 ; BonemerangDescription
+	dw $0000 ; EnergyBallDescription
+	dw $0000 ; FlailDescription
+	dw $0000 ; MudShotDescription
+	dw $0000 ; MegaSplashDescription
+	dw $0000 ; SandDiveDescription
+	dw $0000 ; HurricaneDescription
+	dw $0000 ; RazorShellDescription
+	dw $0000 ; SpiralKickDescription
+	dw $0000 ; PowerWhipDescription
+	dw $0000 ; RockPolishDescription
+	dw $0000 ; ShockStingDescription
+	dw $0000 ; PsyshockDescription
+	dw $0000 ; RockTumbleDescription
+	dw $0000 ; BrutalVineDescription
+	dw $0000 ; DoubleHitDescription
+	dw $0000 ; WaterfallDescription
+	dw $0000 ; IronHeadDescription
+
+; BoneRushDescription:
+; PinMissileDescription:
+; RockBlastDescription:
+; IcicleSpearDescription:
+; 	db   "An attack that"
+; 	next "hits 2-5 times.@"
+
+GatherSandDescription:
+	db   "Ups DEF or SP.DEF"
+	next "two times.@"
+
+; TideClashDescription:
+FlutterClapDescription:
+	db   "Ups speed if foe"
+	next "has boosted stats.@"
+
+; StoneEdgeDescription:
+; 	db   "Has a high criti-"
+; 	next "cal hit ratio.@"
+
+; BraveBirdDescription:
+; WoodHammerDescription:
+; FlareBlitzDescription:
+; 	db   "A tackle that also"
+; 	next "hurts the user.@"
+
+ElectroBallDescription:
+	db   "More power when"
+	next "user is faster.@"
+
+; IceShardDescription:
+; AccelerockDescription:
+; AquaJetDescription:
+; BulletPunchDescription:
+; 	db   "Lets the user get"
+; 	next "in the first hit.@"
+
+; NightSlashDescription:
+; LeafBladeDescription:
+; 	db   "Has a high criti-"
+; 	next "cal hit ratio.@"
+
+SeedBombDescription:
+	db   "A barrage of hard-"
+	next "shelled seeds.@"
+	
+; AerialAceDescription:
+; 	db   "An attack that"
+; 	next "never misses.@"
+
+; FeatherDanceDescription:
+; 	db   "Sharply reduces"
+; 	next "the foe's DEFENSE.@"
+
+; FissureDescription:
+; SheerColdDescription:
+; GuillotineDescription:
+; 	db   "A OHKO with more"
+; 	next "ACC per level.@"
+
+; WithDrawDescription:
+; 	db   "Raises the user's"
+; 	next "DEFENSE.@"
+
+; IronDefenseDescription:
+; 	db   "Sharply increases"
+; 	next "user's DEFENSE.@"
+
+; BonemerangDescription:
+; 	db   "An attack that"
+; 	next "strikes twice.@"
+
+; EnergyBallDescription:
+; 	db   "An attack that may"
+; 	next "lower SPCL.DEF.@"
+
+; FlailDescription:
+; 	db   "Stronger if the"
+; 	next "user's HP is low.@"
+
+; MudShotDescription:
+; MegaSplashDescription:
+; 	db   "An attack that"
+; 	next "lowers SPEED.@"
+
+; SandDiveDescription:
+; 	db   "May miss, damaging"
+; 	next "the user.@"
+
+; HurricaneDescription:
+; 	db   "An attack that may"
+; 	next "confuse the foe.@"
+	
+; RazorShellDescription:
+; SpiralKickDescription:
+; 	db   "An attack that may"
+; 	next "reduce DEFENSE.@"
+
+PowerWhipDescription:
+RockPolishDescription:
+ShockStingDescription:
+PsyshockDescription:
+RockTumbleDescription:
+BrutalVineDescription:
+DoubleHitDescription:
+WaterfallDescription:
+IronHeadDescription:
+	db   ""
+	next ".@"

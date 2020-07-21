@@ -10,6 +10,7 @@ VariableMoves::
 	db FIRE_PLAY ; Tide Clash, Flutter Clap
 	db CROSS_CHOP ; Stone Edge
 	db DOUBLE_EDGE ; Brave Bird, Wood Hammer, Flare Blitz
+	db GUST ; Electro Ball
 	db QUICK_ATTACK ; Ice Shard, Accelerock, Aqua Jet
 	db MACH_PUNCH ; Bullet Punch
 	db SLASH ; Night Slash, Leaf Blade
@@ -41,6 +42,7 @@ VariablePointers:
 	varmove FIRE_PLAY,    FirePlayVariables
 	varmove CROSS_CHOP,   CrossChopVariables
 	varmove DOUBLE_EDGE,  DoubleEdgeVariables
+	varmove GUST,         GustVariables
 	varmove QUICK_ATTACK, QuickAttackVariables
 	varmove MACH_PUNCH,   MachPunchVariables
 	varmove SLASH,        SlashVariables
@@ -89,6 +91,10 @@ DoubleEdgeVariables:
 	db BRAVE_BIRD, FARFETCH_D, HO_OH, -1
 	db WOOD_HAMMER, GEODUDE, GRAVELER, GOLEM, EXEGGUTOR, CUBONE, MAROWAK, SUDOWOODO, -1
 	db FLARE_BLITZ, CHARMANDER, CHARMELEON, CHARIZARD, PONYTA, RAPIDASH, -1
+	db -2
+
+GustVariables:
+	db ELECTRO_BALL, STEELIX, PICHU, PIKACHU, RAICHU, MAGNEMITE, MAGNETON, ELEKID, ELECTABUZZ, VOLTORB, ELECTRODE, CHINCHOU, LANTURN, MAREEP, FLAAFFY, AMPHAROS, -1
 	db -2
 
 QuickAttackVariables:

@@ -567,7 +567,6 @@ SpeedBoostDamage:
 	db -1
 
 Slow_Hit:
-	; Get the opponent's species
 	ldh a, [hBattleTurn]
 	and a
 	ld hl, wBattleMonSpeed
@@ -591,6 +590,16 @@ Slow_Hit:
 ; b = opp, c = user
 	call TruncateHL_BC
 ; opp's speed divided by user's
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK
+	cp STEEL
+	jr z, .got_type
+; non steel (aka ELECTRIC) swaps b and c
+	ld a, b
+	ld b, c
+	ld c, a
+.got_type
 	xor a
 	ldh [hDividend + 0], a
 	ldh [hDividend + 1], a
@@ -617,6 +626,10 @@ Slow_Hit:
 	jr nc, .max
 	; Overwrite the current move power
 .got_damage
+	cp 40
+	jr nc, .min
+	ld a, 40
+.min
 	ld b, a
 	ld a, BATTLE_VARS_MOVE_POWER
 	call GetBattleVarAddr

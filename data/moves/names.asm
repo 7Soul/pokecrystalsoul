@@ -266,6 +266,7 @@ VariableMoveNames::
 	db "Brave Bird@"
 	db "Wood Hammer@"
 	db "Flare Blitz@"
+	db "Electro Ball@"
 	db "Ice Shard@"
 	db "Accelerock@"
 	db "Aqua Jet@"
