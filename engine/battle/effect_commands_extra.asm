@@ -622,3 +622,29 @@ Slow_Hit:
 	call GetBattleVarAddr
 	ld [hl], b
 	ret
+
+RageDamage:
+	ld a, [wCurDamage]
+	ld h, a
+	ld b, a
+	ld a, [wCurDamage + 1]
+	ld l, a
+	ld c, a
+	ldh a, [hBattleTurn]
+	and a
+	ld a, [wPlayerRageCounter]
+	jr z, .rage_loop
+	ld a, [wEnemyRageCounter]
+.rage_loop
+	and a
+	jr z, .done
+	dec a
+	add hl, bc
+	jr nc, .rage_loop
+	ld hl, $ffff
+.done
+	ld a, h
+	ld [wCurDamage], a
+	ld a, l
+	ld [wCurDamage + 1], a
+	ret

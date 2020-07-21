@@ -43,7 +43,6 @@ MoveEffectsPointers:
 	dw SuperFang
 	dw StaticDamage
 	dw TrapTarget
-	dw NormalHit
 	dw MultiHit
 	dw NormalHit
 	dw Mist
@@ -111,7 +110,6 @@ MoveEffectsPointers:
 	dw Nightmare
 	dw FlameWheel
 	dw Curse
-	dw NormalHit
 	dw Protect
 	dw Spikes
 	dw PrismLight
@@ -154,7 +152,6 @@ MoveEffectsPointers:
 	dw Solarbeam
 	dw Thunder
 	dw Teleport
-	dw BeatUp
 	dw Fly
 	dw DefenseCurl
 	dw DoBurn

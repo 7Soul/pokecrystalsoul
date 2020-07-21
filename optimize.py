@@ -377,7 +377,7 @@ patterns = {
 count = 0
 
 # Check all the .asm files
-for filename in iglob('engine/battle/**/*.asm', recursive=True):
+for filename in iglob('engine/battle/effect_commands.asm', recursive=True):
 	printed = False
 	# Read each file line by line
 	with open(filename, 'r') as f:

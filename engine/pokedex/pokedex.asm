@@ -652,188 +652,188 @@ Pokedex_UpdateOptionScreen:
 	ret
 
 Pokedex_InitSearchScreen:
-	xor a
-	ldh [hBGMapMode], a
-	call ClearSprites
-	call Pokedex_DrawSearchScreenBG
-	call Pokedex_InitArrowCursor
-	ld a, NORMAL + 1
-	ld [wDexSearchMonType1], a
-	xor a
-	ld [wDexSearchMonType2], a
-	call Pokedex_PlaceSearchScreenTypeStrings
-	xor a
-	ld [wDexSearchSlowpokeFrame], a
-	farcall DoDexSearchSlowpokeFrame
-	call WaitBGMap
-	ld a, SCGB_POKEDEX_SEARCH_OPTION
-	call Pokedex_GetSGBLayout
-	call Pokedex_IncrementDexPointer
+	; xor a
+	; ldh [hBGMapMode], a
+	; call ClearSprites
+	; call Pokedex_DrawSearchScreenBG
+	; call Pokedex_InitArrowCursor
+	; ld a, NORMAL + 1
+	; ld [wDexSearchMonType1], a
+	; xor a
+	; ld [wDexSearchMonType2], a
+	; call Pokedex_PlaceSearchScreenTypeStrings
+	; xor a
+	; ld [wDexSearchSlowpokeFrame], a
+	; farcall DoDexSearchSlowpokeFrame
+	; call WaitBGMap
+	; ld a, SCGB_POKEDEX_SEARCH_OPTION
+	; call Pokedex_GetSGBLayout
+	; call Pokedex_IncrementDexPointer
 	ret
 
 Pokedex_UpdateSearchScreen:
-	ld de, .ArrowCursorData
-	call Pokedex_MoveArrowCursor
-	call Pokedex_UpdateSearchMonType
-	call c, Pokedex_PlaceSearchScreenTypeStrings
-	ld hl, hJoyPressed
-	ld a, [hl]
-	and START | B_BUTTON
-	jr nz, .cancel
-	ld a, [hl]
-	and A_BUTTON
-	jr nz, .do_menu_action
-	ret
+; 	ld de, .ArrowCursorData
+; 	call Pokedex_MoveArrowCursor
+; 	call Pokedex_UpdateSearchMonType
+; 	call c, Pokedex_PlaceSearchScreenTypeStrings
+; 	ld hl, hJoyPressed
+; 	ld a, [hl]
+; 	and START | B_BUTTON
+; 	jr nz, .cancel
+; 	ld a, [hl]
+; 	and A_BUTTON
+; 	jr nz, .do_menu_action
+; 	ret
 
-.do_menu_action
-	ld a, [wDexArrowCursorPosIndex]
-	ld hl, .MenuActionJumptable
-	call Pokedex_LoadPointer
-	jp hl
+; .do_menu_action
+; 	ld a, [wDexArrowCursorPosIndex]
+; 	ld hl, .MenuActionJumptable
+; 	call Pokedex_LoadPointer
+; 	jp hl
 
-.cancel
-	call Pokedex_BlackOutBG
-	ld a, DEXSTATE_MAIN_SCR
-	ld [wJumptableIndex], a
-	ret
+; .cancel
+; 	call Pokedex_BlackOutBG
+; 	ld a, DEXSTATE_MAIN_SCR
+; 	ld [wJumptableIndex], a
+; 	ret
 
-.ArrowCursorData:
-	db D_UP | D_DOWN, 4
-	dwcoord 2, 4  ; TYPE 1
-	dwcoord 2, 6  ; TYPE 2
-	dwcoord 2, 13 ; BEGIN SEARCH
-	dwcoord 2, 15 ; CANCEL
+; .ArrowCursorData:
+; 	db D_UP | D_DOWN, 4
+; 	dwcoord 2, 4  ; TYPE 1
+; 	dwcoord 2, 6  ; TYPE 2
+; 	dwcoord 2, 13 ; BEGIN SEARCH
+; 	dwcoord 2, 15 ; CANCEL
 
-.MenuActionJumptable:
-	dw .MenuAction_MonSearchType
-	dw .MenuAction_MonSearchType
-	dw .MenuAction_BeginSearch
-	dw .MenuAction_Cancel
+; .MenuActionJumptable:
+; 	dw .MenuAction_MonSearchType
+; 	dw .MenuAction_MonSearchType
+; 	dw .MenuAction_BeginSearch
+; 	dw .MenuAction_Cancel
 
-.MenuAction_MonSearchType:
-	call Pokedex_NextSearchMonType
-	call Pokedex_PlaceSearchScreenTypeStrings
-	ret
+; .MenuAction_MonSearchType:
+; 	call Pokedex_NextSearchMonType
+; 	call Pokedex_PlaceSearchScreenTypeStrings
+; 	ret
 
-.MenuAction_BeginSearch:
-	call Pokedex_SearchForMons
-	farcall AnimateDexSearchSlowpoke
-	ld a, [wDexSearchResultCount]
-	and a
-	jr nz, .show_search_results
+; .MenuAction_BeginSearch:
+; 	call Pokedex_SearchForMons
+; 	farcall AnimateDexSearchSlowpoke
+; 	ld a, [wDexSearchResultCount]
+; 	and a
+; 	jr nz, .show_search_results
 
-; No mon with matching types was found.
-	call Pokedex_OrderMonsByMode
-	call Pokedex_DisplayTypeNotFoundMessage
-	xor a
-	ldh [hBGMapMode], a
-	call Pokedex_DrawSearchScreenBG
-	call Pokedex_InitArrowCursor
-	call Pokedex_PlaceSearchScreenTypeStrings
-	call WaitBGMap
-	ret
+; ; No mon with matching types was found.
+; 	call Pokedex_OrderMonsByMode
+; 	call Pokedex_DisplayTypeNotFoundMessage
+; 	xor a
+; 	ldh [hBGMapMode], a
+; 	call Pokedex_DrawSearchScreenBG
+; 	call Pokedex_InitArrowCursor
+; 	call Pokedex_PlaceSearchScreenTypeStrings
+; 	call WaitBGMap
+; 	ret
 
-.show_search_results
-	ld [wDexListingEnd], a
-	ld a, [wDexListingScrollOffset]
-	ld [wDexListingScrollOffsetBackup], a
-	ld a, [wDexListingCursor]
-	ld [wDexListingCursorBackup], a
-	ld a, [wPrevDexEntry]
-	ld [wPrevDexEntryBackup], a
-	xor a
-	ld [wDexListingScrollOffset], a
-	ld [wDexListingCursor], a
-	call Pokedex_BlackOutBG
-	ld a, DEXSTATE_SEARCH_RESULTS_SCR
-	ld [wJumptableIndex], a
-	ret
+; .show_search_results
+; 	ld [wDexListingEnd], a
+; 	ld a, [wDexListingScrollOffset]
+; 	ld [wDexListingScrollOffsetBackup], a
+; 	ld a, [wDexListingCursor]
+; 	ld [wDexListingCursorBackup], a
+; 	ld a, [wPrevDexEntry]
+; 	ld [wPrevDexEntryBackup], a
+; 	xor a
+; 	ld [wDexListingScrollOffset], a
+; 	ld [wDexListingCursor], a
+; 	call Pokedex_BlackOutBG
+; 	ld a, DEXSTATE_SEARCH_RESULTS_SCR
+; 	ld [wJumptableIndex], a
+; 	ret
 
-.MenuAction_Cancel:
-	call Pokedex_BlackOutBG
-	ld a, DEXSTATE_MAIN_SCR
-	ld [wJumptableIndex], a
+; .MenuAction_Cancel:
+; 	call Pokedex_BlackOutBG
+; 	ld a, DEXSTATE_MAIN_SCR
+; 	ld [wJumptableIndex], a
 	ret
 
 Pokedex_InitSearchResultsScreen:
-	xor a
-	ldh [hBGMapMode], a
-	xor a
-	hlcoord 0, 0, wAttrMap
-	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
-	call ByteFill
-	call Pokedex_SetBGMapMode4
-	call Pokedex_ResetBGMapMode
-	farcall DrawPokedexSearchResultsWindow
-	call Pokedex_PlaceSearchResultsTypeStrings
-	ld a, 4
-	ld [wDexListingHeight], a
-	call Pokedex_PrintListing
-	call Pokedex_SetBGMapMode3
-	call Pokedex_ResetBGMapMode
-	call Pokedex_DrawSearchResultsScreenBG
-	ld a, POKEDEX_SCX
-	ldh [hSCX], a
-	ld a, $4a
-	ldh [hWX], a
-	xor a
-	ldh [hWY], a
-	call WaitBGMap
-	call Pokedex_ResetBGMapMode
-	farcall DrawPokedexSearchResultsWindow
-	call Pokedex_PlaceSearchResultsTypeStrings
-	call Pokedex_UpdateSearchResultsCursorOAM
-	ld a, -1
-	ld [wCurPartySpecies], a
-	ld a, SCGB_POKEDEX
-	call Pokedex_GetSGBLayout
-	call Pokedex_IncrementDexPointer
+	; xor a
+	; ldh [hBGMapMode], a
+	; xor a
+	; hlcoord 0, 0, wAttrMap
+	; ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
+	; call ByteFill
+	; call Pokedex_SetBGMapMode4
+	; call Pokedex_ResetBGMapMode
+	; farcall DrawPokedexSearchResultsWindow
+	; call Pokedex_PlaceSearchResultsTypeStrings
+	; ld a, 4
+	; ld [wDexListingHeight], a
+	; call Pokedex_PrintListing
+	; call Pokedex_SetBGMapMode3
+	; call Pokedex_ResetBGMapMode
+	; call Pokedex_DrawSearchResultsScreenBG
+	; ld a, POKEDEX_SCX
+	; ldh [hSCX], a
+	; ld a, $4a
+	; ldh [hWX], a
+	; xor a
+	; ldh [hWY], a
+	; call WaitBGMap
+	; call Pokedex_ResetBGMapMode
+	; farcall DrawPokedexSearchResultsWindow
+	; call Pokedex_PlaceSearchResultsTypeStrings
+	; call Pokedex_UpdateSearchResultsCursorOAM
+	; ld a, -1
+	; ld [wCurPartySpecies], a
+	; ld a, SCGB_POKEDEX
+	; call Pokedex_GetSGBLayout
+	; call Pokedex_IncrementDexPointer
 	ret
 
 Pokedex_UpdateSearchResultsScreen:
-	ld hl, hJoyPressed
-	ld a, [hl]
-	and B_BUTTON
-	jr nz, .return_to_search_screen
-	ld a, [hl]
-	and A_BUTTON
-	jr nz, .go_to_dex_entry
-	call Pokedex_ListingHandleDPadInput
-	ret nc
-	call Pokedex_UpdateSearchResultsCursorOAM
-	xor a
-	ldh [hBGMapMode], a
-	call Pokedex_PrintListing
-	call Pokedex_SetBGMapMode3
-	call Pokedex_ResetBGMapMode
-	ret
+; 	ld hl, hJoyPressed
+; 	ld a, [hl]
+; 	and B_BUTTON
+; 	jr nz, .return_to_search_screen
+; 	ld a, [hl]
+; 	and A_BUTTON
+; 	jr nz, .go_to_dex_entry
+; 	call Pokedex_ListingHandleDPadInput
+; 	ret nc
+; 	call Pokedex_UpdateSearchResultsCursorOAM
+; 	xor a
+; 	ldh [hBGMapMode], a
+; 	call Pokedex_PrintListing
+; 	call Pokedex_SetBGMapMode3
+; 	call Pokedex_ResetBGMapMode
+; 	ret
 
-.go_to_dex_entry
-	call Pokedex_GetSelectedMon
-	call Pokedex_CheckSeen
-	ret z
-	ld a, DEXSTATE_DEX_ENTRY_SCR
-	ld [wJumptableIndex], a
-	ld a, DEXSTATE_SEARCH_RESULTS_SCR
-	ld [wPrevDexEntryJumptableIndex], a
-	ret
+; .go_to_dex_entry
+; 	call Pokedex_GetSelectedMon
+; 	call Pokedex_CheckSeen
+; 	ret z
+; 	ld a, DEXSTATE_DEX_ENTRY_SCR
+; 	ld [wJumptableIndex], a
+; 	ld a, DEXSTATE_SEARCH_RESULTS_SCR
+; 	ld [wPrevDexEntryJumptableIndex], a
+; 	ret
 
-.return_to_search_screen
-	ld a, [wDexListingScrollOffsetBackup]
-	ld [wDexListingScrollOffset], a
-	ld a, [wDexListingCursorBackup]
-	ld [wDexListingCursor], a
-	ld a, [wPrevDexEntryBackup]
-	ld [wPrevDexEntry], a
-	call Pokedex_BlackOutBG
-	call ClearSprites
-	call Pokedex_OrderMonsByMode
-	ld a, DEXSTATE_SEARCH_SCR
-	ld [wJumptableIndex], a
-	xor a
-	ldh [hSCX], a
-	ld a, $a7
-	ldh [hWX], a
+; .return_to_search_screen
+; 	ld a, [wDexListingScrollOffsetBackup]
+; 	ld [wDexListingScrollOffset], a
+; 	ld a, [wDexListingCursorBackup]
+; 	ld [wDexListingCursor], a
+; 	ld a, [wPrevDexEntryBackup]
+; 	ld [wPrevDexEntry], a
+; 	call Pokedex_BlackOutBG
+; 	call ClearSprites
+; 	call Pokedex_OrderMonsByMode
+; 	ld a, DEXSTATE_SEARCH_SCR
+; 	ld [wJumptableIndex], a
+; 	xor a
+; 	ldh [hSCX], a
+; 	ld a, $a7
+; 	ldh [hWX], a
 	ret
 
 Pokedex_InitUnownMode:

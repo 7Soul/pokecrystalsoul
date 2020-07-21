@@ -1,7 +1,7 @@
 BattleCommand_Stampede:
 ; stampede
 ; Get the opponent's species
-	ld a, [hBattleTurn]
+	ldh a, [hBattleTurn]
 	and a
 	ld a, [wBattleMonSpecies]
 	jr nz, .go
@@ -25,5 +25,4 @@ BattleCommand_Stampede:
 	cp d
 	ret nc ; check DEF (d) against ATK (a). If DEF is not lower (meaning the player is defensive), stop here
 	
-	call BattleCommand_ParalyzeTarget
-	ret
+	jp BattleCommand_ParalyzeTarget

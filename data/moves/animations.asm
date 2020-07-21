@@ -471,7 +471,6 @@ BattleAnim_SendOutMon:
 
 BattleAnim_ReturnMon:
 	anim_sound 0, 0, SFX_BALL_POOF
-BattleAnim_BatonPass_branch_c9486:
 	anim_bgeffect ANIM_BG_RETURN_MON, $0, $1, $0
 	anim_wait 8
 	anim_ret
@@ -4891,7 +4890,7 @@ BattleAnim_BatonPass:
 	anim_1gfx ANIM_GFX_MISC
 	anim_obj ANIM_OBJ_BATON_PASS, 44, 104, $20
 	anim_sound 0, 0, SFX_BATON_PASS
-	anim_call BattleAnim_BatonPass_branch_c9486
+	anim_bgeffect ANIM_BG_RETURN_MON, $0, $1, $0
 	anim_wait 64
 	anim_ret
 

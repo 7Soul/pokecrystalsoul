@@ -340,7 +340,6 @@ AI_Smart:
 	dbw EFFECT_RAZOR_WIND,       AI_Smart_RazorWind
 	dbw EFFECT_SUPER_FANG,       AI_Smart_SuperFang
 	dbw EFFECT_TRAP_TARGET,      AI_Smart_TrapTarget
-	dbw EFFECT_UNUSED_2B,        AI_Smart_Unused2B
 	dbw EFFECT_CONFUSE,          AI_Smart_Confuse
 	dbw EFFECT_SP_DEF_UP_2,      AI_Smart_SpDefenseUp2
 	dbw EFFECT_DEFENSE_UP_2,     AI_Smart_DefenseUp2
@@ -2263,6 +2262,7 @@ AI_Smart_Sandstorm:
 .SandstormImmuneTypes:
 	db ROCK
 	db GROUND
+	db STEEL
 	db -1 ; end
 
 AI_Smart_Endure:

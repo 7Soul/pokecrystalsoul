@@ -937,7 +937,7 @@ BattleCommand_CheckObedience:
 	; jr z, .RandomMove
 
 ; Use it.
-	ld a, [wCurMoveNum]
+	; ld a, [wCurMoveNum]
 	ld c, a
 	ld b, 0
 	ld hl, wBattleMonMoves
@@ -2720,8 +2720,6 @@ BattleCommand_CheckFaint:
 	cp EFFECT_POISON_MULTI_HIT
 	jr z, .multiple_hit_raise_sub
 	cp EFFECT_TRIPLE_KICK
-	jr z, .multiple_hit_raise_sub
-	cp EFFECT_BEAT_UP
 	jr nz, .finish
 
 .multiple_hit_raise_sub
@@ -2744,9 +2742,6 @@ BattleCommand_CheckFaint:
 BattleCommand_BuildOpponentRage:
 ; buildopponentrage
 
-	jp .start
-
-.start
 	ld a, [wAttackMissed]
 	and a
 	ret nz
@@ -2774,30 +2769,7 @@ BattleCommand_BuildOpponentRage:
 
 BattleCommand_RageDamage:
 ; ragedamage
-
-	ld a, [wCurDamage]
-	ld h, a
-	ld b, a
-	ld a, [wCurDamage + 1]
-	ld l, a
-	ld c, a
-	ldh a, [hBattleTurn]
-	and a
-	ld a, [wPlayerRageCounter]
-	jr z, .rage_loop
-	ld a, [wEnemyRageCounter]
-.rage_loop
-	and a
-	jr z, .done
-	dec a
-	add hl, bc
-	jr nc, .rage_loop
-	ld hl, $ffff
-.done
-	ld a, h
-	ld [wCurDamage], a
-	ld a, l
-	ld [wCurDamage + 1], a
+	farcall RageDamage
 	ret
 
 EndMoveEffect:
@@ -2811,52 +2783,52 @@ EndMoveEffect:
 	ld [hl], a
 	ret
 
-DittoMetalPowder:
-	ld a, MON_SPECIES
-	call BattlePartyAttr
-	ldh a, [hBattleTurn]
-	and a
-	ld a, [hl]
-	jr nz, .Ditto
-	ld a, [wTempEnemyMonSpecies]
+; DittoMetalPowder:
+; 	ld a, MON_SPECIES
+; 	call BattlePartyAttr
+; 	ldh a, [hBattleTurn]
+; 	and a
+; 	ld a, [hl]
+; 	jr nz, .Ditto
+; 	ld a, [wTempEnemyMonSpecies]
 
-.Ditto:
-	cp DITTO
-	ret nz
+; .Ditto:
+; 	cp DITTO
+; 	ret nz
 
-	push bc
-	call GetOpponentItem
-	ld a, [hl]
-	cp METAL_POWDER
-	pop bc
-	ret nz
+; 	push bc
+; 	call GetOpponentItem
+; 	ld a, [hl]
+; 	cp METAL_POWDER
+; 	pop bc
+; 	ret nz
 
-	ld a, c
-	srl a
-	add c
-	ld c, a
-	ret nc
+; 	ld a, c
+; 	srl a
+; 	add c
+; 	ld c, a
+; 	ret nc
 
-	srl b
-	ld a, b
-	and a
-	jr nz, .done
-	inc b
-.done
-	scf
-	rr c
+; 	srl b
+; 	ld a, b
+; 	and a
+; 	jr nz, .done
+; 	inc b
+; .done
+; 	scf
+; 	rr c
 	
-	ld a, HIGH(MAX_STAT_VALUE)
-	cp b
-	jr c, .cap
-	ld a, LOW(MAX_STAT_VALUE)
-	cp c
-	ret nc
+; 	ld a, HIGH(MAX_STAT_VALUE)
+; 	cp b
+; 	jr c, .cap
+; 	ld a, LOW(MAX_STAT_VALUE)
+; 	cp c
+; 	ret nc
 
-.cap
-	ld b, HIGH(MAX_STAT_VALUE)
-	ld c, LOW(MAX_STAT_VALUE)
-	ret
+; .cap
+; 	ld b, HIGH(MAX_STAT_VALUE)
+; 	ld c, LOW(MAX_STAT_VALUE)
+; 	ret
 
 BattleCommand_DamageStats:
 ; damagestats
@@ -2961,7 +2933,7 @@ PlayerAttackDamage:
 
 	ld a, [wBattleMonLevel]
 	ld e, a
-	call DittoMetalPowder
+	; call DittoMetalPowder
 
 	ld a, 1
 	and a
@@ -3105,13 +3077,11 @@ EnemyAttackDamage:
 
 	ld a, [wEnemyMonLevel]
 	ld e, a
-	call DittoMetalPowder
+	; call DittoMetalPowder
 
 	ld a, 1
 	and a
 	ret
-
-INCLUDE "engine/battle/move_effects/beat_up.asm"
 
 BattleCommand_ClearMissDamage:
 ; clearmissdamage
@@ -3219,7 +3189,7 @@ BattleCommand_DamageCalc:
 	ldh [hDividend], a
 	ld b, a
 	ld a, [hl]
-	rr a
+	rra
 	ldh [hDividend + 1], a
 	
 	ld a, [de]
@@ -3535,7 +3505,6 @@ BattleCommand_ConstantDamage:
 	ld a, 0
 	jr nz, .got_power
 	ld b, 1
-	jr .got_power
 
 .got_power
 	ld hl, wCurDamage
@@ -3570,17 +3539,17 @@ BattleCommand_ConstantDamage:
 
 	ldh a, [hProduct + 4]
 	srl b
-	rr a
+	rra
 	srl b
-	rr a
+	rra
 	ldh [hDivisor], a
 	ldh a, [hProduct + 2]
 	ld b, a
 	srl b
 	ldh a, [hProduct + 3]
-	rr a
+	rra
 	srl b
-	rr a
+	rra
 	ldh [hDividend + 3], a
 	ld a, b
 	ldh [hDividend + 2], a
@@ -3863,8 +3832,6 @@ DoSubstituteDamage:
 	cp EFFECT_POISON_MULTI_HIT
 	jr z, .ok
 	cp EFFECT_TRIPLE_KICK
-	jr z, .ok
-	cp EFFECT_BEAT_UP
 	jr z, .ok
 	xor a
 	ld [hl], a
@@ -4556,7 +4523,7 @@ BattleCommand_AccuracyUp2:
 BattleCommand_EvasionUp2:
 ; evasionup2
 	ld b, $10 | EVASION
-	jr BattleCommand_StatUp
+; fallthrough
 
 BattleCommand_StatUp:
 ; statup
@@ -5835,6 +5802,7 @@ CheckOpponentWentFirst:
 	ret
 
 BattleCommand_PostHitEffects:
+; posthiteffects
 	call HasEnemyFainted
 	jr z, .skip_sub_check
 	call CheckSubstituteOpp
@@ -6090,10 +6058,6 @@ BattleCommand_Charge:
 ; 'dug a hole!'
 	text_jump UnknownText_0x1c0d6c
 	db "@"
-
-BattleCommand3c:
-; unused
-	ret
 
 BattleCommand_TrapTarget:
 ; traptarget
@@ -6445,9 +6409,6 @@ BattleCommand_Paralyze:
 	call AnimateFailedMove
 	jp PrintDoesntAffect
 
-	
-
-
 INCLUDE "engine/battle/move_effects/substitute.asm"
 
 BattleCommand_RechargeNextTurn:
@@ -6746,7 +6707,6 @@ TryPrintButItFailed:
 	ld a, [wAlreadyFailed]
 	and a
 	ret nz
-
 	; fallthrough
 
 PrintButItFailed:
@@ -7121,7 +7081,7 @@ GetOpponentItem:
 	ld hl, wBattleMonItem
 .go
 	ld b, [hl]
-	jp GetItemHeldEffect
+; fallthrough
 
 GetItemHeldEffect:
 ; Return the effect of item b in bc.

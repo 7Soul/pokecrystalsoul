@@ -22,11 +22,9 @@ BattleCommand_BrickBreak:
 	ld hl, wPlayerScreens
 .got_screens2
 	bit SCREENS_LIGHT_SCREEN, [hl]
-	jr z, .no_lightscreen
+	ret z
 
 	res SCREENS_LIGHT_SCREEN, [hl]
 	ld hl, BrickBreakText2
-	call StdBattleTextBox
+	jp StdBattleTextBox
 	
-.no_lightscreen
-	ret

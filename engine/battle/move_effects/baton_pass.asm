@@ -1,47 +1,47 @@
 BattleCommand_BatonPass:
 ; batonpass
 
-; 	ldh a, [hBattleTurn]
-; 	and a
-; 	jp nz, .Enemy
+	ldh a, [hBattleTurn]
+	and a
+	jp nz, .Enemy
 
-; ; Need something to switch to
-; 	farcall CheckAnyOtherAlivePartyMons
-; 	jp z, FailedBatonPass
+; Need something to switch to
+	farcall CheckAnyOtherAlivePartyMons
+	jp z, FailedBatonPass
 
-; 	call UpdateBattleMonInParty
-; 	call AnimateCurrentMove
+	call UpdateBattleMonInParty
+	call AnimateCurrentMove
 
-; 	ld c, 50
-; 	call DelayFrames
+	ld c, 50
+	call DelayFrames
 
-; ; Transition into switchmon menu
-; 	call LoadStandardMenuHeader
-; 	farcall SetUpBattlePartyMenu_NoLoop
+; Transition into switchmon menu
+	call LoadStandardMenuHeader
+	farcall SetUpBattlePartyMenu_NoLoop
 
-; 	farcall ForcePickSwitchMonInBattle
+	farcall ForcePickSwitchMonInBattle
 
-; ; Return to battle scene
-; 	call ClearPalettes
-; 	farcall _LoadBattleFontsHPBar
-; 	call CloseWindow
-; 	call ClearSprites
-; 	hlcoord 1, 0
-; 	lb bc, 4, 10
-; 	call ClearBox
-; 	ld b, SCGB_BATTLE_COLORS
-; 	call GetSGBLayout
-; 	call SetPalettes
-; 	call BatonPass_LinkPlayerSwitch
+; Return to battle scene
+	call ClearPalettes
+	farcall _LoadBattleFontsHPBar
+	call CloseWindow
+	call ClearSprites
+	hlcoord 1, 0
+	lb bc, 4, 10
+	call ClearBox
+	ld b, SCGB_BATTLE_COLORS
+	call GetSGBLayout
+	call SetPalettes
+	call BatonPass_LinkPlayerSwitch
 
-; ; Mobile link battles handle entrances differently
-; 	farcall CheckMobileBattleError
-; 	jp c, EndMoveEffect
+; Mobile link battles handle entrances differently
+	farcall CheckMobileBattleError
+	jp c, EndMoveEffect
 
-; 	ld hl, PassedBattleMonEntrance
-; 	call CallBattleCore
+	ld hl, PassedBattleMonEntrance
+	call CallBattleCore
 
-; 	call ResetBatonPassStatus
+	call ResetBatonPassStatus
 	ret
 
 .Enemy:

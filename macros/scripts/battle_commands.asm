@@ -65,7 +65,6 @@ ENDM
 	command charge                  ; 39
 	command checkcharge             ; 3a
 	command traptarget              ; 3b
-	command effect0x3c              ; 3c
 	command rampage                 ; 3d
 	command checkrampage            ; 3e
 	command constantdamage          ; 3f
@@ -165,14 +164,12 @@ ENDM
 	command skipsuncharge           ; 9e
 	command thunderaccuracy         ; 9f
 	command teleport                ; a0
-	command beatup                  ; a1
 	command ragedamage              ; a2
 	command resettypematchup        ; a3
 	command allstatsup              ; a4
 	command bidefailtext            ; a5
 	command raisesubnoanim          ; a6
 	command lowersubnoanim          ; a7
-	command beatupfailtext          ; a8
 	command clearmissdamage         ; a9
 	command movedelay               ; aa
 	command moveanim                ; ab

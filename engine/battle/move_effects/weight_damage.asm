@@ -2,7 +2,7 @@ BattleCommand_WeightDamage:
 ; weightdamage
 
 	; Get the opponent's species
-	ld a, [hBattleTurn]
+	ldh a, [hBattleTurn]
 	and a
 	ld a, [wBattleMonSpecies]
 	jr nz, .go

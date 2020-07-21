@@ -1,7 +1,7 @@
 BattleCommand_FirePlay:
 ; fireplay
 ; Get the opponent's stat level
-	ld a, [hBattleTurn]
+	ldh a, [hBattleTurn]
 	and a	
 	; enemy turn
 	ld hl, wEnemyMonType1
@@ -24,9 +24,8 @@ BattleCommand_FirePlay:
 .loop
 	ld a, [bc]
 	cp BASE_STAT_LEVEL
-	jr nc, .boosted_or_zero ; found something?
-	jr .next ; the stat is lowered
-.boosted_or_zero
+	jr c, .next ; the stat is lowered
+; fallthrough
 	jr nz, .boosted ; found a boosted stat
 .next ; the stat is lower or normal
 	inc bc
@@ -35,20 +34,18 @@ BattleCommand_FirePlay:
 	ret
 
 .boosted
-	ld a, [wMoveType] ; test later
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK
 	cp FLYING
-	jr z, .flying
-
-	call BattleCommand_Recoil
-	ret
+	jp nz, BattleCommand_Recoil
 
 .flying
 	call BattleCommand_SpeedUp
-	call BattleCommand_StatUpMessage
-	ret
+	jp BattleCommand_StatUpMessage
 
 .evaded
 	ld c, 20
 	call DelayFrames
-	call BattleCommand_FailureText
-	ret
+	jp BattleCommand_FailureText
+	

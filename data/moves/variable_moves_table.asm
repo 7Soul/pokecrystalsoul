@@ -11,6 +11,7 @@ VariableMoves::
 	db CROSS_CHOP ; Stone Edge
 	db DOUBLE_EDGE ; Brave Bird, Wood Hammer, Flare Blitz
 	db QUICK_ATTACK ; Ice Shard, Accelerock, Aqua Jet
+	db MACH_PUNCH ; Bullet Punch
 	db SLASH ; Night Slash, Leaf Blade
 	db DRILL_PECK ; Seed Bomb
 	db FAINT_ATTACK ; Aerial Ace
@@ -31,7 +32,7 @@ VariableMoves::
 	db SEISMIC_TOSS ; Rock Tumble
 	db SKULL_BASH ; Brutal Vine
 	db DOUBLE_KICK ; Double Hit
-	db DARK_PULSE ; Waterfall
+	db DARK_PULSE ; Waterfall, Iron Head
 	db -1
 
 VariablePointers:
@@ -41,6 +42,7 @@ VariablePointers:
 	varmove CROSS_CHOP,   CrossChopVariables
 	varmove DOUBLE_EDGE,  DoubleEdgeVariables
 	varmove QUICK_ATTACK, QuickAttackVariables
+	varmove MACH_PUNCH,   MachPunchVariables
 	varmove SLASH,        SlashVariables
 	varmove DRILL_PECK,   DrillPeckVariables
 	varmove FAINT_ATTACK, FaintAttackVariables
@@ -95,6 +97,10 @@ QuickAttackVariables:
 	db AQUA_JET, SEEL, DEWGONG, -1
 	db -2
 
+MachPunchVariables:
+	db BULLET_PUNCH, MACHOP, MACHOKE, MACHAMP, HITMONCHAN, SCIZOR, -1
+	db -2
+
 SlashVariables:
 	db NIGHT_SLASH, MEOWTH, PERSIAN, FARFETCH_D, -1
 	db LEAF_BLADE, BELLSPROUT, WEEPINBELL, VICTREEBEL, -1
@@ -139,7 +145,7 @@ ReversalVariables:
 	db -2
 	
 IcyWindVariables:
-	db MUD_SHOT, SANDSHREW, SANDSLASH, POLIWAG, POLIWHIRL, POLIWRATH, KRABBY, KINGLER, SHELLDER, CLOYSTER, GOLDEEN, SEAKING, OMANYTE, OMASTAR, KABUTO, KABUTOPS, POLITOED, WOOPER, QUAGSIRE, -1 
+	db MUD_SHOT, SANDSHREW, SANDSLASH, POLIWAG, POLIWHIRL, POLIWRATH, ABRA, KADABRA, ALAKAZAM, KRABBY, KINGLER, SHELLDER, CLOYSTER, GOLDEEN, SEAKING, OMANYTE, OMASTAR, KABUTO, KABUTOPS, POLITOED, WOOPER, QUAGSIRE, -1 
 	db MEGA_SPLASH, MAGIKARP, GYARADOS, -1
 	db -2
 	
@@ -166,6 +172,7 @@ AgilityVariables:
 	
 LickVariables:
 	db SHOCK_STING, TENTACOOL, TENTACRUEL, SANDSHREW, SANDSLASH, -1
+	db PSYSHOCK, ABRA, KADABRA, ALAKAZAM, -1
 	db -2
 	
 SeismicTossVariables:
@@ -177,11 +184,12 @@ SkullBashVariables:
 	db -2
 	
 DoubleKickVariables:
-	db DOUBLE_HIT, KOFFING, WEEZING, DODUO, DODRIO, -1
+	db DOUBLE_HIT, KOFFING, WEEZING, DODUO, DODRIO, SCIZOR, -1
 	db -2
 	
 DarkPulseVariables:
 	db WATERFALL, SEEL, DEWGONG, GOLDEEN, SEAKING, HORSEA, SEADRA, EEVEE, VAPOREON, KINGDRA -1
+	db IRON_HEAD, SANDSHREW, SANDSLASH, DIGLETT, DUGTRIO, CUBONE, MAROWAK, AERODACTYL, SCIZOR, -1
 	db -2
 
  ; needs animations:

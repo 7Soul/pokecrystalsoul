@@ -429,33 +429,38 @@ SandshrewEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SCRATCH
 	db 1, DEFENSE_CURL
-	db 1, SAND_ATTACK
-	db 5, POISON_STING
-	db 13, RAPID_SPIN
-	db 16, ROLLOUT
-	db 20, SWIFT
-	db 23, SLASH
-	db 25, ACUPRESSURE ; becomes Gather Sand
+	db 5, SAND_ATTACK
+	db 7, POISON_STING
+	db 9, ROLLOUT
+	db 11, RAPID_SPIN
+	db 14, SWIFT
+	db 18, MAGNITUDE
+	db 22, ACUPRESSURE ; becomes Gather Sand
+	db 26, SLASH
 	db 30, DIG
-	db 34, SHARPEN
-	db 37, FURY_ATTACK
-	db 45, SANDSTORM
-	db 52, EARTHQUAKE
+	db 34, GYRO_BALL
+	db 38, SWORDS_DANCE
+	db 42, SANDSTORM
+	db 46, EARTHQUAKE
 	db 0 ; no more level-up moves
 
 SandslashEvosAttacks:
 	db 0 ; no more evolutions
-	db 5, POISON_STING
-	db 13, RAPID_SPIN
-	db 16, ROLLOUT
-	db 20, SWIFT
-	db 25, SLASH
-	db 28, ACUPRESSURE ; becomes Gather Sand
-	db 33, DIG
-	db 37, SHARPEN
-	db 41, FURY_ATTACK
-	db 49, SANDSTORM
-	db 58, EARTHQUAKE
+	db 1, SCRATCH
+	db 1, DEFENSE_CURL
+	db 5, SAND_ATTACK
+	db 7, POISON_STING
+	db 9, ROLLOUT
+	db 11, RAPID_SPIN
+	db 14, SWIFT
+	db 18, MAGNITUDE
+	db 22, ACUPRESSURE ; becomes Gather Sand
+	db 27, SLASH
+	db 32, DIG
+	db 36, GYRO_BALL
+	db 42, SWORDS_DANCE
+	db 46, SANDSTORM
+	db 51, EARTHQUAKE
 	db 0 ; no more level-up moves
 
 NidoranFEvosAttacks:
@@ -1018,30 +1023,48 @@ PoliwrathEvosAttacks:
 AbraEvosAttacks:
 	db EVOLVE_LEVEL, 16, KADABRA
 	db 0 ; no more evolutions
-	db 1, TELEPORT
+	db 1, LICK ; becomes Psyshock
+	db 5, KINESIS
+	db 8, PSYWAVE
+	db 14, CONFUSION
+	db 17, DISABLE
+	db 20, ICY_WIND ; becomes Mud Shot
+	db 23, PSYBEAM
+	db 27, RECOVER
+	db 31, FUTURE_SIGHT
+	db 37, PSYCHIC_M
+	db 41, REFLECT
 	db 0 ; no more level-up moves
 
 KadabraEvosAttacks:
 	db EVOLVE_LEVEL, 32, ALAKAZAM
 	db 0 ; no more evolutions
-	db 1, TELEPORT
-	db 16, CONFUSION
+	db 1, LICK ; becomes Psyshock
+	db 5, KINESIS
+	db 8, PSYWAVE
+	db 14, CONFUSION
 	db 18, DISABLE
-	db 21, PSYBEAM
-	db 26, RECOVER
-	db 31, FUTURE_SIGHT
-	db 38, PSYCHIC_M
+	db 22, ICY_WIND ; becomes Mud Shot
+	db 26, PSYBEAM
+	db 30, RECOVER
+	db 34, FUTURE_SIGHT
+	db 41, PSYCHIC_M
 	db 45, REFLECT
 	db 0 ; no more level-up moves
 
 AlakazamEvosAttacks:
 	db 0 ; no more evolutions
+	db 1, LICK ; becomes Psyshock
+	db 5, KINESIS
+	db 8, PSYWAVE
+	db 14, CONFUSION
 	db 18, DISABLE
-	db 21, PSYBEAM
-	db 26, RECOVER
-	db 31, FUTURE_SIGHT
-	db 38, PSYCHIC_M
-	db 45, REFLECT
+	db 22, ICY_WIND ; becomes Mud Shot
+	db 26, PSYBEAM
+	db 30, RECOVER
+	db 35, FUTURE_SIGHT
+	db 43, PSYCHIC_M
+	db 48, REFLECT
 	db 0 ; no more level-up moves
 
 MachopEvosAttacks:
@@ -3294,6 +3317,7 @@ SteelixEvosAttacks:
 	db 39, IRON_TAIL
 	db 41, SANDSTORM
 	db 44, SLAM
+	db 44, BATON_PASS
 	db 50, GYRO_BALL;;;
 	db 52, CRUNCH
 	db 55, CROSS_CHOP ; changes to Stone Edge
@@ -3352,16 +3376,19 @@ QwilfishEvosAttacks:
 ScizorEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, QUICK_ATTACK
+	db 1, MACH_PUNCH ; becomes Bullet Punch
 	db 1, LEER
-	db 6, FOCUS_ENERGY
-	db 12, PURSUIT
-	db 18, FALSE_SWIPE
-	db 24, AGILITY
-	db 30, METAL_CLAW
-	db 36, SLASH
-	db 38, X_SCISSOR
-	db 42, SWORDS_DANCE
-	db 48, DOUBLE_TEAM
+	db 5, FOCUS_ENERGY
+	db 9, PURSUIT
+	db 13, FALSE_SWIPE
+	db 17, AGILITY
+	db 21, METAL_CLAW
+	db 25, SLASH
+	db 29, BARRIER ; becomes Iron Defense
+	db 33, X_SCISSOR
+	db 37, DOUBLE_KICK
+	db 41, DARK_PULSE ; becomes Iron Head
+	db 45, SWORDS_DANCE
 	db 0 ; no more level-up moves
 
 ShuckleEvosAttacks: ; done
