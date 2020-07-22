@@ -1,0 +1,7 @@
+	
+	RGB 31, 12, 10 ; red
+	RGB 31, 26, 15 ; brown
+	; shiny
+	RGB $1F, $18, $07
+	RGB $1F, $1E, $1A
+	

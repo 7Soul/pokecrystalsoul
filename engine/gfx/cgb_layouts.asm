@@ -194,6 +194,10 @@ _CGB_FinishBattleScreenLayout:
 	jp z, .vaporeon_player
 	cp NOCTOWL
 	jp z, .noctowl_player
+	cp PIDGEOTTO
+	jp z, .pidgeotto_player
+	cp PIDGEOT
+	jp z, .pidgeot_player
 	jp .skip_extra_player
 
 .ivysaur_player
@@ -326,6 +330,14 @@ _CGB_FinishBattleScreenLayout:
 .noctowl_player
 	hlcoord 2, 6, wAttrMap
 	lb bc, 3, 6 ; h, w
+	jp .end_extra_player
+.pidgeotto_player
+	hlcoord 2, 10, wAttrMap
+	lb bc, 2, 2 ; h, w
+	jp .end_extra_player
+.pidgeot_player
+	hlcoord 2, 6, wAttrMap
+	lb bc, 2, 6 ; h, w
 	jp .end_extra_player
 
 .end_extra_player
@@ -652,6 +664,10 @@ _CGB_StatsScreenHPPals:
 	jp z, .hoothoot
 	cp NOCTOWL
 	jp z, .noctowl
+	cp PIDGEOTTO
+	jp z, .pidgeotto
+	cp PIDGEOT
+	jp z, .pidgeot
 	
 	jp .skip_extra
 .bulbasaur
@@ -862,6 +878,20 @@ _CGB_StatsScreenHPPals:
 	hlcoord 14, 6, wAttrMap
 	lb bc, 1, 3 ; h, w
 	jp .end_extra
+.pidgeotto
+	hlcoord 12, 1, wAttrMap
+	lb bc, 2, 2 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 12, 3, wAttrMap
+	lb bc, 1, 1 ; h, w
+	jp .end_extra
+.pidgeot
+	hlcoord 13, 0, wAttrMap
+	lb bc, 2, 5 ; h, w
+	call FillStatsBoxExtraPalette
+	hlcoord 13, 2, wAttrMap
+	lb bc, 1, 2 ; h, w
+	jp .end_extra
 
 .end_extra
 	call FillStatsBoxExtraPalette
@@ -1028,6 +1058,10 @@ SetExtraPalette:
 	jp z, .hoothoot
 	cp NOCTOWL
 	jp z, .noctowl
+	cp PIDGEOTTO
+	jp z, .pidgeotto
+	cp PIDGEOT
+	jp z, .pidgeot
 	ret
 .bulbasaur
 	hlcoord 2, 5, wAttrMap
@@ -1236,6 +1270,17 @@ SetExtraPalette:
 	call FillBoxExtraPalette
 	hlcoord 3, 7, wAttrMap
 	lb bc, 1, 3 ; h, w
+	jp .end_extra
+.pidgeotto
+	hlcoord 6, 2, wAttrMap
+	lb bc, 2, 2 ; h, w
+	call FillBoxExtraPalette
+	hlcoord 7, 4, wAttrMap
+	lb bc, 1, 1 ; h, w
+	jp .end_extra
+.pidgeot
+	hlcoord 2, 1, wAttrMap
+	lb bc, 2, 5 ; h, w
 	jp .end_extra
 .end_extra
 	call FillBoxExtraPalette

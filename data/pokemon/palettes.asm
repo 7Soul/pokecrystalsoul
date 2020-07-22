@@ -575,6 +575,8 @@ ExtraPalettesIndex:
 	db VAPOREON
 	db HOOTHOOT
 	db NOCTOWL
+	db PIDGEOTTO
+	db PIDGEOT
 	db -1
 
 ExtraPalletes:
@@ -619,3 +621,5 @@ ExtraPalletes:
 	INCLUDE "gfx/pokemon/vaporeon/extra.pal"
 	INCLUDE "gfx/pokemon/hoothoot/extra.pal"
 	INCLUDE "gfx/pokemon/noctowl/extra.pal"
+	INCLUDE "gfx/pokemon/pidgeotto/extra.pal"
+	INCLUDE "gfx/pokemon/pidgeot/extra.pal"
