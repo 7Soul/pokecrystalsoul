@@ -1108,7 +1108,7 @@ SendMonIntoBox:
 
 	ld hl, wEnemyMon
 	ld de, sBoxMon1
-	ld bc, 1 + 1 + NUM_MOVES ; species + item + moves
+	ld bc, 1 + 1 + 1 + NUM_MOVES ; species + item + trait + moves
 	call CopyBytes
 
 	ld hl, wPlayerID
