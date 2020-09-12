@@ -106,6 +106,7 @@ MoveEffectsPointers:
 	dw NormalHit
 	dw TripleKick
 	dw AtkDefUp
+	dw SpAtkSpDefUp
 	dw MeanLook
 	dw Nightmare
 	dw FlameWheel

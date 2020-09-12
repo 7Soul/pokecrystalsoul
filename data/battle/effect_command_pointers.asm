@@ -84,6 +84,7 @@ BattleCommandPointers:
 	dw BattleCommand_TripleKick
 	dw BattleCommand_KickCounter
 	dw BattleCommand_AtkDefUp
+	dw BattleCommand_SpAtkSpDefUp
 	dw BattleCommand_ArenaTrap
 	dw BattleCommand_Nightmare
 	dw BattleCommand_Defrost

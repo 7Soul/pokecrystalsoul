@@ -4472,6 +4472,8 @@ BattleCommand_SpeedUp:
 
 BattleCommand_SpecialAttackUp:
 ; specialattackup
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
 	ld b, SP_ATTACK
 	jr BattleCommand_StatUp
 
@@ -5078,6 +5080,19 @@ BattleCommand_AtkDefUp:
 ; Defense
 	call ResetMiss
 	call BattleCommand_DefenseUp
+	jp   BattleCommand_StatUpMessage
+	
+BattleCommand_SpAtkSpDefUp:
+; spatkspdefup
+
+; Attack
+	call ResetMiss
+	call BattleCommand_SpecialAttackUp
+	call BattleCommand_StatUpMessage
+
+; Defense
+	call ResetMiss
+	call BattleCommand_SpecialDefenseUp
 	jp   BattleCommand_StatUpMessage
 	
 BattleCommand_DefSpDefDown:
@@ -6152,66 +6167,12 @@ INCLUDE "engine/battle/move_effects/focus_energy.asm"
 
 BattleCommand_Recoil:
 ; recoil
-
-	ld hl, wBattleMonMaxHP
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .got_hp
-	ld hl, wEnemyMonMaxHP
-.got_hp
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-	ld d, a
-; get 1/4 damage or 1 HP, whichever is higher
-	; ld a, [wCurDamage]
-	; ld b, a
-	; ld a, [wCurDamage + 1]
-	; ld c, a
-
 	push hl
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitReduceSelfRecoil
 	pop hl
 	
-	ld a, [wBuffer2]
-	ld b, a
-	ld a, [wBuffer3]
-	ld c, a
-
-	srl b
-	rr c
-	srl b
-	rr c
-	ld a, b
-	or c
-	jr nz, .min_damage
-	inc c
-.min_damage
-	ld a, [hli]
-	ld [wBuffer2], a
-	ld a, [hl]
-	ld [wBuffer1], a
-	dec hl
-	dec hl
-	ld a, [hl]
-	ld [wBuffer3], a
-	sub c
-	ld [hld], a
-	ld [wBuffer5], a
-	ld a, [hl]
-	ld [wBuffer4], a
-	sbc b
-	ld [hl], a
-	ld [wBuffer6], a
-	jr nc, .dont_ko
-	xor a
-	ld [hli], a
-	ld [hl], a
-	ld hl, wBuffer5
-	ld [hli], a
-	ld [hl], a
-.dont_ko
 	hlcoord 10, 9
 	ldh a, [hBattleTurn]
 	and a

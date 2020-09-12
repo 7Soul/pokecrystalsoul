@@ -22,7 +22,7 @@ VariableMoves::
 	db BARRIER ; Iron Defense
 	db FEATHERGALE ; Bonemerang
 	db SHADOW_BALL ; Energy Ball
-	db REVERSAL ; Flail
+	db REVERSAL ; Flail, Thunder Blow
 	db ICY_WIND ; Mud Shot, Mega Splash
 	db JUMP_KICK ; Sand Dive
 	db DIZZY_PUNCH ; Hurricane
@@ -34,6 +34,7 @@ VariableMoves::
 	db SKULL_BASH ; Brutal Vine
 	db DOUBLE_KICK ; Double Hit
 	db DARK_PULSE ; Waterfall, Iron Head
+	db GROWTH ; Calm Mind
 	db -1
 
 VariablePointers:
@@ -58,7 +59,7 @@ VariablePointers:
 	varmove ICY_WIND,     IcyWindVariables
 	varmove JUMP_KICK,    JumpKickVariables
 	varmove DIZZY_PUNCH,  DizzyPunchVariables
-	varmove IRON_TAIL,  FrozenTailVariables
+	varmove IRON_TAIL,    FrozenTailVariables
 	varmove CONSTRICT,    ConstrictVariables
 	varmove AGILITY,      AgilityVariables
 	varmove LICK,         LickVariables
@@ -66,6 +67,7 @@ VariablePointers:
 	varmove SKULL_BASH,   SkullBashVariables
 	varmove DOUBLE_KICK,  DoubleKickVariables
 	varmove DARK_PULSE,   DarkPulseVariables
+	varmove GROWTH,       GrowthVariables
 
 DoubleSlapVariables:
 	db BONE_RUSH, CUBONE, MAROWAK, -1
@@ -148,6 +150,7 @@ ShadowBallVariables:
 	
 ReversalVariables:
 	db FLAIL, KRABBY, KINGLER, GOLDEEN, SEAKING, MAGIKARP, GYARADOS, TOTODILE, CROCONAW, FERALIGATR, CHINCHOU, LANTURN, DUNSPARCE, QWILFISH, SWINUB, PILOSWINE, CORSOLA, PHANPY, DONPHAN, -1
+	db THUNDER_BLOW, RAIKOU, -1
 	db -2
 	
 IcyWindVariables:
@@ -157,6 +160,7 @@ IcyWindVariables:
 	
 JumpKickVariables:
 	db SAND_DIVE, SPEAROW, FEAROW, -1
+	db FLAME_STOMP, ENTEI, -1
 	db -2
 	
 DizzyPunchVariables:
@@ -194,8 +198,13 @@ DoubleKickVariables:
 	db -2
 	
 DarkPulseVariables:
-	db WATERFALL, SEEL, DEWGONG, GOLDEEN, SEAKING, HORSEA, SEADRA, EEVEE, VAPOREON, KINGDRA -1
+	db WATERFALL, SEEL, DEWGONG, GOLDEEN, SEAKING, HORSEA, SEADRA, EEVEE, VAPOREON, KINGDRA, -1
 	db IRON_HEAD, SANDSHREW, SANDSLASH, DIGLETT, DUGTRIO, CUBONE, MAROWAK, AERODACTYL, SCIZOR, -1
+	db EXTRASENSORY, RAIKOU, ENTEI, SUICUNE, -1
+	db -2
+	
+GrowthVariables:
+	db CALM_MIND, RAIKOU, -1
 	db -2
 
  ; needs animations:

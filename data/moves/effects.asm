@@ -1523,6 +1523,14 @@ AtkDefUp:
 	atkdefup
 	endmove
 
+SpAtkSpDefUp:
+	checkobedience
+	usedmovetext
+	doturn
+	statupanim
+	spatkspdefup
+	endmove
+
 MeanLook:
 	checkobedience
 	usedmovetext

@@ -85,6 +85,7 @@ ENDM
 	command triplekick              ; 4e
 	command kickcounter             ; 4f
 	command atkdefup                ; 50
+	command spatkspdefup            ; 50
 	command arenatrap               ; 51
 	command nightmare               ; 52
 	command defrost                 ; 53

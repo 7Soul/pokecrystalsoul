@@ -1142,6 +1142,7 @@ VariableMoveDescriptions::
 	dw $0000 ; MudShotDescription
 	dw $0000 ; MegaSplashDescription
 	dw $0000 ; SandDiveDescription
+	dw $0000 ; FlameStompDescription
 	dw $0000 ; HurricaneDescription
 	dw $0000 ; RazorShellDescription
 	dw $0000 ; SpiralKickDescription
@@ -1154,6 +1155,9 @@ VariableMoveDescriptions::
 	dw $0000 ; DoubleHitDescription
 	dw $0000 ; WaterfallDescription
 	dw $0000 ; IronHeadDescription
+	dw $0000 ; ExtrasensoryDescription
+	dw CalmMindDescription ; CalmMindDescription
+	dw $0000 ; ThunderBlowDescription
 
 ; BoneRushDescription:
 ; PinMissileDescription:
@@ -1252,6 +1256,10 @@ SeedBombDescription:
 ; SpiralKickDescription:
 ; 	db   "An attack that may"
 ; 	next "reduce DEFENSE.@"
+	
+CalmMindDescription:
+	db   "Raises the user's"
+	next "Sp.Atk and Sp.Def.@"
 
 PowerWhipDescription:
 RockPolishDescription:

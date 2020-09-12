@@ -3887,29 +3887,38 @@ RaikouEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BITE
 	db 1, LEER
-	db 11, THUNDERSHOCK
-	db 15, CHARGE_BEAM
-	db 21, ROAR
-	db 31, QUICK_ATTACK
-	db 41, SPARK
-	db 51, REFLECT
-	db 61, CRUNCH
-	db 71, THUNDER
+	db 6, THUNDERSHOCK
+	db 10, ROAR
+	db 12, CHARGE_BEAM
+	db 16, MEAN_LOOK
+	db 21, QUICK_ATTACK
+	db 26, SPARK
+	db 31, REFLECT
+	db 37, CRUNCH
+	db 43, DARK_PULSE ; becomes Extrasensory
+	db 48, GROWTH ; becomes Calm Mind
+	db 53, RAIN_DANCE
+	db 55, THUNDER
+	db 66, REVERSAL ; becomes Thunder Blow
 	db 0 ; no more level-up moves
 
 EnteiEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BITE
 	db 1, LEER
-	db 11, EMBER
-	db 15, ROAR
-	db 22, FIRE_SPIN
-	db 30, STOMP
-	db 36, SWAGGER
-	db 42, MAGMA_STORM
-	db 48, FLAMETHROWER
-	db 59, SWAGGER
-	db 64, FIRE_BLAST
+	db 6, EMBER
+	db 10, ROAR
+	db 12, FIRE_SPIN
+	db 16, MEAN_LOOK
+	db 21, STOMP
+	db 26, JUMP_KICK ; becomes Flame Stomp
+	db 30, REFLECT
+	db 35, MAGMA_STORM
+	db 43, DARK_PULSE ; becomes Extrasensory
+	db 48, GROWTH ; becomes Calm Mind
+	db 52, SWAGGER
+	db 55, FIRE_BLAST
+	db 66, DOUBLE_EDGE ; Becomes Flare Blitz
 	db 0 ; no more level-up moves
 
 SuicuneEvosAttacks:

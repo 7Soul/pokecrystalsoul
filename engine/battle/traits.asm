@@ -1413,27 +1413,60 @@ TraitsThatReduceAccuracy:
 	db -1
 
 TraitReduceSelfRecoil:
+	ld hl, wBattleMonMaxHP
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_hp
+	ld hl, wEnemyMonMaxHP
+.got_hp
 	ld a, TRAIT_REDUCE_SELF_RECOIL
 	call CheckSpecificTrait
 	ld a, [wCurDamage]
 	ld b, a
-	ld [wBuffer2], a
 	ld a, [wCurDamage + 1]
 	ld c, a
-	ld [wBuffer3], a
 	jr nc, .not_met
 	; 50%
 	srl b
 	rr c	
-	jr nc, .end
+	jr nc, .not_met
 .min
 	inc c
-.end
-	ld a, b
-	ld [wBuffer2], a
-	ld a, c
-	ld [wBuffer3], a
+
 .not_met
+	srl b
+	rr c
+	srl b
+	rr c
+	ld a, b
+	or c
+	jr nz, .min_damage
+	inc c
+.min_damage
+	ld a, [hli]
+	ld [wBuffer2], a
+	ld a, [hl]
+	ld [wBuffer1], a
+	dec hl
+	dec hl
+	ld a, [hl]
+	ld [wBuffer3], a
+	sub c
+	ld [hld], a
+	ld [wBuffer5], a
+	ld a, [hl]
+	ld [wBuffer4], a
+	sbc b
+	ld [hl], a
+	ld [wBuffer6], a
+	jr nc, .end
+	xor a
+	ld [hli], a
+	ld [hl], a
+	ld hl, wBuffer5
+	ld [hli], a
+	ld [hl], a
+.end
 	ret
 
 TraitContact:

@@ -332,15 +332,19 @@ NUM_ATTACKS EQU const_value + -1
 	const MUD_SHOT        ; 1e
 	const MEGA_SPLASH     ; 1f
 	const SAND_DIVE       ; 20
-	const HURRICANE       ; 21
-	const RAZOR_SHELL     ; 22
-	const SPIRAL_KICK     ; 23
-	const POWER_WHIP      ; 24
-	const ROCK_POLISH     ; 25
-	const SHOCK_STING     ; 26
-	const PSYSHOCK        ; 27
-	const ROCK_TUMBLE     ; 28
-	const BRUTAL_VINE     ; 29
-	const DOUBLE_HIT      ; 2a
-	const WATERFALL       ; 2b
-	const IRON_HEAD       ; 2c
+	const FLAME_STOMP     ; 21
+	const HURRICANE       ; 22
+	const RAZOR_SHELL     ; 23
+	const SPIRAL_KICK     ; 24
+	const POWER_WHIP      ; 25
+	const ROCK_POLISH     ; 26
+	const SHOCK_STING     ; 27
+	const PSYSHOCK        ; 28
+	const ROCK_TUMBLE     ; 29
+	const BRUTAL_VINE     ; 2a
+	const DOUBLE_HIT      ; 2b
+	const WATERFALL       ; 2c
+	const IRON_HEAD       ; 2d
+	const EXTRASENSORY    ; 2e
+	const CALM_MIND       ; 2f
+	const THUNDER_BLOW    ; 30
