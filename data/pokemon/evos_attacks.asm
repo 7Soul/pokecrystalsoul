@@ -3895,8 +3895,9 @@ RaikouEvosAttacks:
 	db 26, SPARK
 	db 31, REFLECT
 	db 37, CRUNCH
-	db 43, DARK_PULSE ; becomes Extrasensory
-	db 48, GROWTH ; becomes Calm Mind
+	db 40, PSYBEAM ; becomes Thunder Fang
+	db 44, DARK_PULSE ; becomes Extrasensory
+	db 47, GROWTH ; becomes Calm Mind
 	db 53, RAIN_DANCE
 	db 55, THUNDER
 	db 66, REVERSAL ; becomes Thunder Blow
@@ -3914,6 +3915,7 @@ EnteiEvosAttacks:
 	db 26, JUMP_KICK ; becomes Flame Stomp
 	db 30, REFLECT
 	db 35, MAGMA_STORM
+	db 40, ABSORB ; becomes Fire Fang
 	db 43, DARK_PULSE ; becomes Extrasensory
 	db 48, GROWTH ; becomes Calm Mind
 	db 52, SWAGGER
@@ -3925,14 +3927,20 @@ SuicuneEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BITE
 	db 1, LEER
-	db 11, BUBBLEBEAM
-	db 21, RAIN_DANCE
-	db 31, GUST
-	db 41, AURORA_BEAM
-	db 51, MIST
-	db 61, MIRROR_COAT
-	db 70, HYDRO_PUMP
-	db 70, HORN_DRILL ; becomes Sheer Cold
+	db 6, WATER_GUN
+	db 10, ROAR
+	db 12, BUBBLEBEAM
+	db 13, RAIN_DANCE	
+	db 16, MEAN_LOOK
+	db 20, GUST
+	db 25, AURORA_BEAM
+	db 29, MIST
+	db 36, MIRROR_COAT
+	db 39, EMBER ; becomes Ice Fang
+	db 43, DARK_PULSE ; becomes Extrasensory
+	db 47, GROWTH ; becomes Calm Mind
+	db 54, HYDRO_PUMP
+	db 66, HORN_DRILL ; becomes Sheer Cold
 	db 0 ; no more level-up moves
 
 LarvitarEvosAttacks:
@@ -3976,16 +3984,20 @@ TyranitarEvosAttacks:
 
 LugiaEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, FLY
-	db 11, SAFEGUARD
-	db 22, GUST
-	db 33, RECOVER
-	db 44, HYDRO_PUMP
-	db 55, RAIN_DANCE
-	db 66, SWIFT
-	db 77, WHIRLWIND
-	db 88, ANCIENTPOWER
-	db 99, FUTURE_SIGHT
+	db 1, GUST
+	db 1, WHIRLWIND
+	db 10, RAIN_DANCE
+	db 12, SAFEGUARD
+	db 19, SWIFT
+	db 25, RECOVER
+	db 29, WILD_STORM
+	db 34, DARK_PULSE ; becomes Extrasensory
+	db 38, FLY
+	db 41, HYDRO_PUMP
+	db 44, ANCIENTPOWER
+	db 49, FUTURE_SIGHT
+	db 54, GROWTH ; becomes Calm Mind
+	db 58, SKY_ATTACK
 	db 0 ; no more level-up moves
 
 HoOhEvosAttacks:

@@ -5782,6 +5782,23 @@ BattleCommand_FakeOut:
 	ret
 
 BattleCommand_FlinchTarget:
+	ld a, [wCurVariableMove]
+	cp -1
+	jr z, .not_variable
+	call BattleCommand_EffectChance
+	ld a, [wCurVariableMove]
+	sub THUNDER_FANG
+	ld hl, .ptrs
+	rst JumpTable
+	jr .not_variable
+
+.ptrs
+	dw BattleCommand_BurnTarget ; burn
+	dw BattleCommand_FreezeTarget ; freeze
+	dw BattleCommand_ParalyzeTarget ; paralyze
+
+.not_variable
+	call BattleCommand_EffectChance
 	call CheckSubstituteOpp
 	ret nz
 

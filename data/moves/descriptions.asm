@@ -1139,6 +1139,7 @@ VariableMoveDescriptions::
 	dw $0000 ; BonemerangDescription
 	dw $0000 ; EnergyBallDescription
 	dw $0000 ; FlailDescription
+	dw $0000 ; ThunderBlowDescription
 	dw $0000 ; MudShotDescription
 	dw $0000 ; MegaSplashDescription
 	dw $0000 ; SandDiveDescription
@@ -1156,8 +1157,10 @@ VariableMoveDescriptions::
 	dw $0000 ; WaterfallDescription
 	dw $0000 ; IronHeadDescription
 	dw $0000 ; ExtrasensoryDescription
+	dw FireFangDescription ; FireFangDescription
+	dw IceFangDescription ; IceFangDescription
+	dw ThunderFangDescription ; ThunderFangDescription
 	dw CalmMindDescription ; CalmMindDescription
-	dw $0000 ; ThunderBlowDescription
 
 ; BoneRushDescription:
 ; PinMissileDescription:
@@ -1256,6 +1259,18 @@ SeedBombDescription:
 ; SpiralKickDescription:
 ; 	db   "An attack that may"
 ; 	next "reduce DEFENSE.@"
+
+FireFangDescription:
+	db   "May cause BRN or"
+	next "flinching.@"
+
+IceFangDescription:
+	db   "May cause FRZ or"
+	next "flinching.@"
+
+ThunderFangDescription:
+	db   "May cause PAR or"
+	next "flinching.@"
 	
 CalmMindDescription:
 	db   "Raises the user's"

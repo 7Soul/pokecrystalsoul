@@ -10,7 +10,7 @@ VariableMoves::
 	db FIRE_PLAY ; Tide Clash, Flutter Clap
 	db CROSS_CHOP ; Stone Edge
 	db DOUBLE_EDGE ; Brave Bird, Wood Hammer, Flare Blitz
-	db GUST ; Electro Ball
+	db PECK ; Electro Ball
 	db QUICK_ATTACK ; Ice Shard, Accelerock, Aqua Jet
 	db MACH_PUNCH ; Bullet Punch
 	db SLASH ; Night Slash, Leaf Blade
@@ -34,6 +34,9 @@ VariableMoves::
 	db SKULL_BASH ; Brutal Vine
 	db DOUBLE_KICK ; Double Hit
 	db DARK_PULSE ; Waterfall, Iron Head
+	db ABSORB ; Fire Fang
+	db EMBER ; Ice Fang
+	db PSYBEAM ; Thunder Fang
 	db GROWTH ; Calm Mind
 	db -1
 
@@ -43,7 +46,7 @@ VariablePointers:
 	varmove FIRE_PLAY,    FirePlayVariables
 	varmove CROSS_CHOP,   CrossChopVariables
 	varmove DOUBLE_EDGE,  DoubleEdgeVariables
-	varmove GUST,         GustVariables
+	varmove PECK,         PeckVariables
 	varmove QUICK_ATTACK, QuickAttackVariables
 	varmove MACH_PUNCH,   MachPunchVariables
 	varmove SLASH,        SlashVariables
@@ -67,6 +70,9 @@ VariablePointers:
 	varmove SKULL_BASH,   SkullBashVariables
 	varmove DOUBLE_KICK,  DoubleKickVariables
 	varmove DARK_PULSE,   DarkPulseVariables
+	varmove ABSORB,       AbsorbVariables
+	varmove EMBER,        EmberVariables
+	varmove PSYBEAM,      PsybeamVariables
 	varmove GROWTH,       GrowthVariables
 
 DoubleSlapVariables:
@@ -95,7 +101,7 @@ DoubleEdgeVariables:
 	db FLARE_BLITZ, CHARMANDER, CHARMELEON, CHARIZARD, PONYTA, RAPIDASH, -1
 	db -2
 
-GustVariables:
+PeckVariables:
 	db ELECTRO_BALL, STEELIX, PICHU, PIKACHU, RAICHU, MAGNEMITE, MAGNETON, ELEKID, ELECTABUZZ, VOLTORB, ELECTRODE, CHINCHOU, LANTURN, MAREEP, FLAAFFY, AMPHAROS, -1
 	db -2
 
@@ -198,15 +204,27 @@ DoubleKickVariables:
 	db -2
 	
 DarkPulseVariables:
-	db WATERFALL, SEEL, DEWGONG, GOLDEEN, SEAKING, HORSEA, SEADRA, EEVEE, VAPOREON, KINGDRA, -1
+	db WATERFALL, SEEL, DEWGONG, GOLDEEN, SEAKING, HORSEA, SEADRA, EEVEE, KINGDRA, -1 ; VAPOREON, 
 	db IRON_HEAD, SANDSHREW, SANDSLASH, DIGLETT, DUGTRIO, CUBONE, MAROWAK, AERODACTYL, SCIZOR, -1
-	db EXTRASENSORY, RAIKOU, ENTEI, SUICUNE, -1
+	db EXTRASENSORY, RAIKOU, ENTEI, SUICUNE, LUGIA, -1
+	db -2
+
+AbsorbVariables:
+	db FIRE_FANG, EEVEE, FLAREON, ENTEI, -1
+	db -2
+
+EmberVariables:
+	db ICE_FANG, EEVEE, VAPOREON, SUICUNE, -1
+	db -2
+
+PsybeamVariables:
+	db THUNDER_FANG, EEVEE, JOLTEON, RAIKOU, -1
 	db -2
 	
 GrowthVariables:
 	db CALM_MIND, RAIKOU, -1
 	db -2
-
+	
  ; needs animations:
  ; heal bell -> aromatherapy
  ; add lava plume -> scald
