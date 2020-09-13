@@ -849,6 +849,10 @@ TraitRaiseStatAfterDamage:
 	db -1
 
 TraitOnEnter:
+	ld a, TRAIT_SWAP_DEFENSE_BUFFS
+	call CheckSpecificTrait
+	jp c, SwapDefenseBuffs
+
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	ld hl, .TraitsThatBoostBasedOnPartyType
@@ -914,6 +918,22 @@ TraitOnEnter:
 	db PSYCHIC
 	db ICE
 	db DARK
+
+SwapDefenseBuffs:
+	ld hl, wEnemyDefLevel
+	ld de, wEnemySDefLevel
+	call GetTraitUser
+	jr c, .got_opp_def
+	ld hl, wPlayerDefLevel
+	ld de, wPlayerSDefLevel
+.got_opp_def
+	ld a, [hl]
+	ld b, a
+	ld a, [de]
+	ld [hl], a
+	ld a, b
+	ld [de], a
+	ret
 
 TraitRaiseStat:
 	ld a, $FF
@@ -3554,6 +3574,7 @@ ResetActivated:
 
 OneShotTraits:
 ; List of traits that can only go off once while the pokemon is out
+	db TRAIT_SWAP_DEFENSE_BUFFS
 	db TRAIT_EVASION_ON_SPEED_DIFF
 	db TRAIT_ATK_ON_ATK_DIFF
 	db TRAIT_RAISE_ATTACK_STAT_LOWERED

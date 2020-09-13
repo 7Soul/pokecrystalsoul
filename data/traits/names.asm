@@ -25,6 +25,7 @@ TraitNames::
 	db "Unknown Energy@"   ; TRAIT_RANDOM_STAT_OPP_FAINT
 	db "Sturdy@"           ; TRAIT_STURDY
 	db "No Guard@"         ; TRAIT_PERFECT_ACCURACY
+	db "Tipsy Gas@"        ; TRAIT_SWAP_DEFENSE_BUFFS
 	db "Piercing Attack@"  ; TRAIT_BOOST_POWER_RAISED_DEF
 	db "Iron Fist@"        ; TRAIT_BOOST_PUNCHING
 	db "Iron Jaws@"        ; TRAIT_BOOST_BITING

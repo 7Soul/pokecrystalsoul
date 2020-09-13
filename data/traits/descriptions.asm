@@ -25,6 +25,7 @@ TraitDescriptions::
 	dw UnknownEnergyDescription   ; TRAIT_RANDOM_STAT_OPP_FAINT
 	dw SturdyDescription          ; TRAIT_STURDY
 	dw NoGuardDescription         ; TRAIT_PERFECT_ACCURACY
+	dw TipsyGasDescription        ; TRAIT_SWAP_DEFENSE_BUFFS
 	dw PiercingAttackDescription  ; TRAIT_BOOST_POWER_RAISED_DEF
 	dw IronFistDescription        ; TRAIT_BOOST_PUNCHING
 	dw IronJawsDescription        ; TRAIT_BOOST_BITING
@@ -339,6 +340,10 @@ SturdyDescription:
 NoGuardDescription:
 	db   "Both sides gain"
 	next "max ACCURACY.@"
+
+TipsyGasDescription:
+	db   "Swaps foe's buffs"
+	next "to DEF and SP.DEF.@"
 
 PiercingAttackDescription:
 	db   "Pierces foe's DEF"
