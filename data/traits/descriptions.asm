@@ -25,6 +25,7 @@ TraitDescriptions::
 	dw UnknownEnergyDescription   ; TRAIT_RANDOM_STAT_OPP_FAINT
 	dw SturdyDescription          ; TRAIT_STURDY
 	dw NoGuardDescription         ; TRAIT_PERFECT_ACCURACY
+	dw PiercingAttackDescription  ; TRAIT_BOOST_POWER_RAISED_DEF
 	dw IronFistDescription        ; TRAIT_BOOST_PUNCHING
 	dw IronJawsDescription        ; TRAIT_BOOST_BITING
 	dw IronClawsDescription       ; TRAIT_BOOST_CUTTING
@@ -338,6 +339,10 @@ SturdyDescription:
 NoGuardDescription:
 	db   "Both sides gain"
 	next "max ACCURACY.@"
+
+PiercingAttackDescription:
+	db   "Pierces foe's DEF"
+	next "bonuses partially.@"
 
 IronFistDescription:
 	db   "Powers Punching"

@@ -2081,6 +2081,9 @@ TraitBoostPower:
 	ld a, TRAIT_BOOST_POWER_BRN_SELF
 	call CheckSpecificTrait
 	jp c, BoostDamage50BurnSelf
+	ld a, TRAIT_BOOST_POWER_RAISED_DEF
+	call CheckSpecificTrait
+	jp c, BoostDamageBasedOnFoesDefUp
 
 	ld a, [wBattleWeather]
 	and a
@@ -3084,6 +3087,32 @@ TraitBoostBerryHeal:
 	add a
 	ld [wBuffer2], a
 	ret
+
+BoostDamageBasedOnFoesDefUp:
+	ld hl, wEnemyDefLevel
+	call GetTraitUser
+	jr c, .got_opp_def
+	ld hl, wPlayerDefLevel
+.got_opp_def
+	ld a, [hl]
+	sub 7
+	ret c
+	ret z
+	ld hl, .boost
+	dec a
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld a, [hl]
+	jp ApplyDamageMod
+
+.boost
+	db $BA ; 10%
+	db $65 ; 20%
+	db $DA ; 30%
+	db $75 ; 40%
+	db $32 ; 50%
+	db $74 ; 75% ; bonus!
 
 BoostDamage50:
 	ld a, $32 ; ~1.5
