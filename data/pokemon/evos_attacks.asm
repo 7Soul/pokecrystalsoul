@@ -606,7 +606,8 @@ VulpixEvosAttacks:
 	db 15, FIRE_SPIN
 	db 20, WILL_O_WISP
 	db 25, SAFEGUARD
-	db 31, FLAMETHROWER
+	db 29, DARK_PULSE ; becomes Extrasensory
+	db 33, FLAMETHROWER
 	db 39, FIRE_BLAST
 	db 44, SILVER_WIND
 	db 51, INFERNO
@@ -621,7 +622,8 @@ NinetalesEvosAttacks:
 	db 17, FIRE_SPIN
 	db 24, WILL_O_WISP
 	db 29, SAFEGUARD
-	db 36, FLAMETHROWER
+	db 32, DARK_PULSE ; becomes Extrasensory
+	db 37, FLAMETHROWER
 	db 45, FIRE_BLAST
 	db 54, SILVER_WIND
 	db 59, INFERNO
@@ -949,26 +951,30 @@ GrowlitheEvosAttacks:
 	db 7, LEER
 	db 14, TAKE_DOWN
 	db 17, FLAME_WHEEL
-	db 21, AGILITY
-	db 25, INFERNO
+	db 19, REVERSAL
+	db 23, ABSORB ; becomes Fire Fang
 	db 28, CRUNCH
-	db 31, THRASH
+	db 30, AGILITY
+	db 32, THRASH
 	db 38, FLAMETHROWER
 	db 45, BODY_SLAM
-	db 49, SACRED_FIRE
+	db 49, DOUBLE_EDGE ; becomes Flare Blitz
 	db 55, EXTREMESPEED
+	db 63, SACRED_FIRE ;
 	db 0 ; no more level-up moves
 
 ArcanineEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BITE
-	db 24, AGILITY
-	db 28, INFERNO
+	db 5, EMBER
+	db 22, FLAME_WHEEL
+	db 27, REVERSAL
 	db 32, CRUNCH
+	db 34, AGILITY
 	db 36, THRASH
 	db 44, FLAMETHROWER
 	db 52, BODY_SLAM
-	db 57, SACRED_FIRE
+	db 57, DOUBLE_EDGE ; becomes Flare Blitz
 	db 62, EXTREMESPEED
 	db 0 ; no more level-up moves
 
@@ -1032,6 +1038,7 @@ AbraEvosAttacks:
 	db 23, PSYBEAM
 	db 27, RECOVER
 	db 31, FUTURE_SIGHT
+	db 33, GROWTH ; becomes Calm Mind
 	db 37, PSYCHIC_M
 	db 41, REFLECT
 	db 0 ; no more level-up moves
@@ -1048,6 +1055,7 @@ KadabraEvosAttacks:
 	db 26, PSYBEAM
 	db 30, RECOVER
 	db 34, FUTURE_SIGHT
+	db 36, GROWTH ; becomes Calm Mind
 	db 41, PSYCHIC_M
 	db 45, REFLECT
 	db 0 ; no more level-up moves
@@ -1063,6 +1071,7 @@ AlakazamEvosAttacks:
 	db 26, PSYBEAM
 	db 30, RECOVER
 	db 35, FUTURE_SIGHT
+	db 41, GROWTH ; becomes Calm Mind
 	db 43, PSYCHIC_M
 	db 48, REFLECT
 	db 0 ; no more level-up moves
@@ -1331,7 +1340,7 @@ FarfetchDEvosAttacks:
 	db 37, SLASH ; becomes Night Slash
 	db 44, FALSE_SWIPE
 	db 49, AIR_SLASH
-	db 55, DOUBLE_EDGE ; changes to brave bird
+	db 55, DOUBLE_EDGE ; becomes Brave Bird
 	db 0 ; no more level-up moves
 
 DoduoEvosAttacks:
@@ -1634,6 +1643,7 @@ ExeggcuteEvosAttacks:
 	db 35, EGG_BOMB
 	db 41, LEAF_STORM
 	db 43, SOLARBEAM
+	db 47, DARK_PULSE ; becomes Extrasensory
 	db 49, PSYBEAM
 	db 55, SYNTHESIS
 	db 0 ; no more level-up moves
@@ -2134,11 +2144,11 @@ VaporeonEvosAttacks:
 	db 13, QUICK_ATTACK
 	db 18, JET_STREAM
 	db 21, AURORA_BEAM
-	db 30, BITE
+	db 24, BITE
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 42, HAZE
 	db 47, ACID_ARMOR
-	db 54, HYDRO_PUMP
+	db 51, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 JolteonEvosAttacks:
@@ -2149,7 +2159,8 @@ JolteonEvosAttacks:
 	db 1, THUNDERSHOCK
 	db 13, QUICK_ATTACK
 	db 19, SHARPEN
-	db 23, QUICK_ATTACK
+	db 20, PSYBEAM ; becomes Thunder Fang
+	db 24, BITE
 	db 30, DOUBLE_KICK
 	db 36, DOUBLESLAP ; becomes Pin Missile
 	db 42, THUNDER_WAVE
@@ -2165,6 +2176,7 @@ FlareonEvosAttacks:
 	db 1, EMBER
 	db 13, QUICK_ATTACK
 	db 17, FIRE_SPIN
+	db 20, ABSORB ; becomes Fire Fang
 	db 24, BITE
 	db 28, SMOG
 	db 33, SWIFT
@@ -2381,33 +2393,37 @@ MewtwoEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, CONFUSION
 	db 1, DISABLE
-	db 11, BARRIER
-	db 22, SWIFT
+	db 9, BARRIER
+	db 11, PSYWAVE
+	db 13, SWIFT
+	db 20, MIST
+	db 28, FUTURE_SIGHT
 	db 33, PSYCH_UP
-	db 44, FUTURE_SIGHT
-	db 55, MIST
-	db 66, PSYCHIC_M
-	db 77, AMNESIA
-	db 88, RECOVER
-	db 99, SAFEGUARD
+	db 45, PECK ; becomes Aura Sphere
+	db 47, AMNESIA
+	db 50, PSYCHIC_M
+	db 52, RECOVER
+	db 55, SAFEGUARD
 	db 0 ; no more level-up moves
 
 MewEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, POUND
 	db 1, TRANSFORM
-	db 10, MEGA_PUNCH
-	db 20, METRONOME
-	db 30, PSYCHIC_M
-	db 40, BARRIER
-	db 50, ANCIENTPOWER
-	db 60, NASTY_PLOT
-	db 70, BATON_PASS
+	db 5, MEGA_PUNCH
+	db 10, METRONOME
+	db 25, PSYCHIC_M
+	db 30, BARRIER
+	db 35, AMNESIA
+	db 40, BATON_PASS
+	db 45, ANCIENTPOWER
+	db 50, NASTY_PLOT
+	db 55, PECK ; becomes Aura Sphere
 	db 0 ; no more level-up moves
 
 ChikoritaEvosAttacks:
 	db EVOLVE_LEVEL, 16, BAYLEEF
-	db 0 ; no more evolutions
+	db 0 ; no more evolutions 
 	db 1, TACKLE
 	db 1, GROWL
 	db 6, RAZOR_LEAF
@@ -2600,6 +2616,7 @@ HoothootEvosAttacks:
 	db 14, HYPNOSIS
 	db 16, ZEN_HEADBUTT
 	db 22, REFLECT
+	db 25, DARK_PULSE ; becomes Extrasensory
 	db 28, TAKE_DOWN
 	db 31, AIR_SLASH
 	db 34, CONFUSION
@@ -2615,6 +2632,7 @@ NoctowlEvosAttacks:
 	db 16, ZEN_HEADBUTT
 	db 22, FAINT_ATTACK
 	db 25, REFLECT
+	db 29, DARK_PULSE ; becomes Extrasensory
 	db 33, TAKE_DOWN
 	db 36, AIR_SLASH
 	db 41, CONFUSION
@@ -3644,6 +3662,7 @@ HoundourEvosAttacks:
 	db 12, ROAR
 	db 15, BITE
 	db 24, FAINT_ATTACK
+	db 28, ABSORB ; becomes Fire Fang
 	db 30, PURSUIT
 	db 35, SHADOW_BALL
 	db 41, FLAMETHROWER
@@ -3657,6 +3676,7 @@ HoundoomEvosAttacks:
 	db 1, ROAR
 	db 1, BITE
 	db 1, FAINT_ATTACK
+	db 30, ABSORB ; becomes Fire Fang
 	db 32, PURSUIT
 	db 38, SHADOW_BALL
 	db 45, FLAMETHROWER
@@ -3738,6 +3758,7 @@ StantlerEvosAttacks:
 	db 15, STOMP
 	db 20, STAMPEDE
 	db 24, SAND_ATTACK
+	db 27, GROWTH ; becomes Calm Mind
 	db 29, ZEN_HEADBUTT
 	db 34, TAKE_DOWN
 	db 37, CONFUSE_RAY
@@ -3993,40 +4014,46 @@ LugiaEvosAttacks:
 	db 29, WILD_STORM
 	db 34, DARK_PULSE ; becomes Extrasensory
 	db 38, FLY
-	db 41, HYDRO_PUMP
-	db 44, ANCIENTPOWER
-	db 49, FUTURE_SIGHT
-	db 54, GROWTH ; becomes Calm Mind
-	db 58, SKY_ATTACK
+	db 44, ICY_WIND ; becomes Mega Splash
+	db 49, ANCIENTPOWER
+	db 54, FUTURE_SIGHT
+	db 58, GROWTH ; becomes Calm Mind
+	db 60, SKY_ATTACK
 	db 0 ; no more level-up moves
 
 HoOhEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, SACRED_FIRE
-	db 11, SAFEGUARD
-	db 15, DOUBLE_EDGE ; changes to brave bird
-	db 22, GUST
-	db 29, SUNNY_DAY
-	db 33, RECOVER
-	db 37, FIRE_BLAST
-	db 43, MAGMA_STORM
-	db 57, ANCIENTPOWER
-	db 66, SWIFT
-	db 72, WHIRLWIND
-	db 79, FUTURE_SIGHT
+	db 1, GUST
+	db 1, WHIRLWIND
+	db 10, SUNNY_DAY
+	db 12, SAFEGUARD
+	db 19, SWIFT
+	db 25, RECOVER
+	db 29, DOUBLE_EDGE ; becomes Brave Bird
+	db 34, DARK_PULSE ; becomes Extrasensory
+	db 38, FLY
+	db 44, SACRED_FIRE
+	db 49, ANCIENTPOWER
+	db 54, FUTURE_SIGHT
+	db 58, GROWTH ; becomes Calm Mind
+	db 60, SKY_ATTACK
 	db 0 ; no more level-up moves
 
 CelebiEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, LEECH_SEED
 	db 1, CONFUSION
-	db 1, HEAL_BELL
+	db 5, HEAL_BELL
 	db 10, SAFEGUARD
+	db 13, DOUBLESLAP
+	db 15, DOUBLE_TEAM
+	db 16, SIGNAL_BEAM
 	db 19, MAGICAL_LEAF
 	db 22, RECOVER
 	db 28, ANCIENTPOWER
 	db 33, FUTURE_SIGHT
 	db 40, BATON_PASS
-	db 56, LEAF_STORM
-	db 62, SHADOW_BALL ; becomes Energy Ball
+	db 45, LEAF_STORM
+	db 51, GROWTH ; becomes Calm Mind
+	db 58, SHADOW_BALL ; becomes Energy Ball
 	db 0 ; no more level-up moves

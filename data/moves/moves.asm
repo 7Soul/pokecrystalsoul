@@ -6,7 +6,7 @@ move: MACRO
 	db \3 ; power
 	db \4 | \5 ; type
 	db \6 percent ; accuracy
-	db \7 ; pp
+	db \7 ; stamina cost
 	db \8 percent ; effect chance
 ENDM
 
@@ -279,7 +279,8 @@ VarMoves::
 	move DOUBLE_EDGE,  EFFECT_RECOIL_HIT,        120, FLYING,   PHYSICAL + CONTACT, 100, STA_BAR * 2 + 1,   0 ; BRAVE_BIRD
 	move DOUBLE_EDGE,  EFFECT_RECOIL_HIT,        120, GRASS,    PHYSICAL + CONTACT, 100, STA_BAR * 2 + 1,   0 ; WOOD_HAMMER
 	move DOUBLE_EDGE,  EFFECT_RECOIL_HIT_BURN,   120, FIRE,     PHYSICAL + CONTACT, 100, STA_BAR * 2 + 1,  10 ; FLARE_BLITZ
-	move GUST,         EFFECT_SLOW_HIT,            1, ELECTRIC, SPECIAL,            100, STA_BAR * 2, 0 ; ELECTRO_BALL
+	move PECK,         EFFECT_SLOW_HIT,            1, ELECTRIC, SPECIAL,            100, STA_BAR * 2, 0 ; ELECTRO_BALL
+	move PECK,         EFFECT_ALWAYS_HIT,         80, FIGHTING, SPECIAL,            100, STA_BAR + 1, 0 ; AURA_SPHERE
 	move QUICK_ATTACK, EFFECT_PRIORITY_HIT,       40, ICE,      PHYSICAL,           100, STA_BAR,   0 ; ICE_SHARD
 	move QUICK_ATTACK, EFFECT_PRIORITY_HIT,       40, ROCK,     PHYSICAL + CONTACT, 100, STA_BAR,   0 ; ACCELEROCK
 	move QUICK_ATTACK, EFFECT_PRIORITY_HIT,       40, WATER,    SPECIAL,            100, STA_BAR,   0 ; AQUA_JET

@@ -1122,6 +1122,7 @@ VariableMoveDescriptions::
 	dw $0000 ; WoodHammerDescription
 	dw $0000 ; FlareBlitzDescription
 	dw ElectroBallDescription
+	dw AuraSphereDescription
 	dw $0000 ; IceShardDescription
 	dw $0000 ; AccelerockDescription
 	dw $0000 ; AquaJetDescription
@@ -1191,6 +1192,10 @@ FlutterClapDescription:
 ElectroBallDescription:
 	db   "More power when"
 	next "user is faster.@"
+
+AuraSphereDescription:
+	db   "An attack that"
+	next "never misses.@"
 
 ; IceShardDescription:
 ; AccelerockDescription:

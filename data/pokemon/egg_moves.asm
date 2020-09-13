@@ -31,6 +31,7 @@ CharmanderEggMoves:
 	db BITE
 	db THRASH
 	db FIRE_FLICK
+	db ABSORB ; becomes Fire Fang
 	db -1 ; end
 
 SquirtleEggMoves:
@@ -89,6 +90,9 @@ EkansEggMoves:
 	db SLAM
 	db SPITE
 	db CRUNCH
+	db ABSORB ; becomes Fire Fang
+	db EMBER ; becomes Ice Fang
+	db PSYBEAM ; becomes Thunder Fang
 	db -1 ; end
 
 SandshrewEggMoves:
@@ -453,6 +457,9 @@ RhyhornEggMoves:
 	db PURSUIT
 	db COUNTER
 	db MAGNITUDE
+	db ABSORB ; becomes Fire Fang
+	db EMBER ; becomes Ice Fang
+	db PSYBEAM ; becomes Thunder Fang
 	db -1 ; end
 
 ChanseyEggMoves:
@@ -604,6 +611,9 @@ AerodactylEggMoves:
 	db STEEL_WING
 	db CURSE
 	db AIR_SLASH
+	db ABSORB ; becomes Fire Fang
+	db EMBER ; becomes Ice Fang
+	db PSYBEAM ; becomes Thunder Fang
 	db -1 ; end
 
 SnorlaxEggMoves:
@@ -860,6 +870,9 @@ SnubbullEggMoves:
 	db REFLECT
 	db HEAL_BELL
 	db LEER
+	db ABSORB ; becomes Fire Fang
+	db EMBER ; becomes Ice Fang
+	db PSYBEAM ; becomes Thunder Fang
 	db -1 ; end
 
 QwilfishEggMoves:
