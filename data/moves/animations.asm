@@ -1708,6 +1708,7 @@ BattleAnim_DoubleTeam:
 	anim_ret
 
 BattleAnim_Recover:
+	anim_if_param_equal FLYING, .roost
 	anim_1gfx ANIM_GFX_BUBBLE
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
 	anim_sound 0, 0, SFX_FULL_HEAL
@@ -1723,6 +1724,7 @@ BattleAnim_Recover:
 	anim_wait 64
 	anim_incbgeffect ANIM_BG_18
 	anim_call BattleAnim_ShowMon_0_bank2
+.roost ; TODO
 	anim_ret
 
 BattleAnim_Absorb:

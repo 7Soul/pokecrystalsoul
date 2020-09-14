@@ -1417,16 +1417,13 @@ BattleCommand_Stab:
 	ld e, [hl] ; de has player types
 
 .go
-	push hl
-	ld hl, wPlayerTypeMod
-	ld a, [hl]
-	pop hl
+	ld a, [wPlayerTypeMod]
 	cp 0
 	jr nz, .has_mod
 	
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-	ld e, a ; move id in e
+	; ld a, BATTLE_VARS_MOVE_ANIM
+	; call GetBattleVar
+	; ld e, a ; move id in e
 	ld a, BATTLE_VARS_MOVE_TYPE
 	call GetBattleVar
 	and TYPE_MASK ; move type in a
@@ -1642,8 +1639,7 @@ CheckTypeMatchup:
 	ld c, a
 
 .get_mod
-	ld de, wPlayerTypeMod
-	ld a, [de]	
+	ld a, [wPlayerTypeMod]
 	cp 0
 	jr nz, .has_mod
 ; bc contains own mon types
@@ -1652,20 +1648,21 @@ CheckTypeMatchup:
 	call GetBattleVar
 	ld e, a ; move id in e
 	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVarAddr
+	call GetBattleVar
 	and TYPE_MASK ; move type in a
 	ld d, a
-	ld [wCurType], a
-	ld [wMoveType], a
 	pop hl
 
 .has_mod
 	ld d, a ; move type
+	ld [wCurType], a
+	ld [wMoveType], a
 	
 .no_mod
 	ld b, [hl] ; opp mon type 1
 	inc hl
 	ld c, [hl] ; opp mon type 2
+	farcall CheckRoost
 	ld a, 10 ; 1.0
 	ld [wTypeMatchup], a
 	ld hl, TypeMatchups

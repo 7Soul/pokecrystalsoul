@@ -661,3 +661,17 @@ RageDamage:
 	ld a, l
 	ld [wCurDamage + 1], a
 	ret
+
+CheckRoost: ; bc has foe's type
+	ld a, BATTLE_VARS_LAST_MOVE_OPP
+	call GetBattleVar
+	cp RECOVER
+	ret nz
+	
+	ld a, c ; foe's second type
+	cp FLYING
+	ret nz
+	; copies first type to second type
+	ld a, b
+	ld c, a
+	ret

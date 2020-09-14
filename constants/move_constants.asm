@@ -352,4 +352,5 @@ NUM_ATTACKS EQU const_value + -1
 	const ICE_FANG        ; 32
 	const THUNDER_FANG    ; 33
 	const CALM_MIND       ; 34
+	const ROOST           ; 35
 	

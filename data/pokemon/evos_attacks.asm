@@ -266,7 +266,8 @@ PidgeyEvosAttacks:
 	db 23, SCREECH ; becomes Feather Dance
 	db 29, AGILITY
 	db 33, WING_ATTACK
-	db 36, DOUBLE_TEAM ; unevolved move
+	db 35, DOUBLE_TEAM ; unevolved move
+	db 37, RECOVER ; becomes Roost
 	db 40, MIRROR_MOVE
 	db 46, SWAGGER
 	db 46, FLY ;;;;;
@@ -284,6 +285,7 @@ PidgeottoEvosAttacks:
 	db 24, SCREECH ; becomes Feather Dance
 	db 31, AGILITY
 	db 35, WING_ATTACK
+	db 39, RECOVER ; becomes Roost
 	db 43, MIRROR_MOVE
 	db 49, SWAGGER
 	db 54, DIZZY_PUNCH ; becomes Hurricane
@@ -295,7 +297,8 @@ PidgeotEvosAttacks:
 	db 24, SCREECH ; becomes Feather Dance
 	db 31, AGILITY
 	db 35, WING_ATTACK
-	db 44, MIRROR_MOVE
+	db 42, RECOVER ; becomes Roost
+	db 45, MIRROR_MOVE
 	db 51, SWAGGER
 	db 57, DIZZY_PUNCH ; becomes Hurricane
 	db 0 ; no more level-up moves
@@ -345,7 +348,7 @@ SpearowEvosAttacks:
 	db 17, FAINT_ATTACK ; becomes Aerial Ace
 	db 21, MIRROR_MOVE
 	db 25, AGILITY
-	db 33, RECOVER
+	db 33, RECOVER ; becomes Roost
 	db 37, DRILL_PECK
 	db 48, JUMP_KICK ; becomes Sand Dive
 	db 0 ; no more level-up moves
@@ -359,7 +362,7 @@ FearowEvosAttacks:
 	db 20, FAINT_ATTACK ; becomes Aerial Ace
 	db 23, FIRE_PLAY ; becomes Flutter Clap
 	db 27, MIRROR_MOVE
-	db 37, RECOVER
+	db 37, RECOVER ; becomes Roost
 	db 41, DRILL_PECK
 	db 48, AGILITY
 	db 0 ; no more level-up moves
@@ -2306,6 +2309,7 @@ ArticunoEvosAttacks:
 	db 40, REFLECT
 	db 45, CONFUSE_RAY
 	db 51, BLIZZARD
+	db 55, RECOVER ; becomes Roost
 	db 60, SKY_ATTACK
 	db 65, HORN_DRILL ; becomes Sheer Cold
 	db 0 ; no more level-up moves
@@ -2323,6 +2327,7 @@ ZapdosEvosAttacks:
 	db 40, LIGHT_SCREEN
 	db 50, DRILL_PECK	
 	db 53, THUNDER
+	db 55, RECOVER ; becomes Roost
 	db 60, SKY_ATTACK
 	db 0 ; no more level-up moves
 
@@ -2339,6 +2344,7 @@ MoltresEvosAttacks:
 	db 41, SAFEGUARD
 	db 41, AIR_SLASH
 	db 52, SACRED_FIRE
+	db 55, RECOVER ; becomes Roost
 	db 59, SKY_ATTACK
 	db 0 ; no more level-up moves
 
@@ -2620,8 +2626,8 @@ HoothootEvosAttacks:
 	db 28, TAKE_DOWN
 	db 31, AIR_SLASH
 	db 34, CONFUSION
-	db 45, MOONLIGHT
-	db 48, DREAM_EATER
+	db 38, RECOVER ; becomes Roost
+	db 45, DREAM_EATER
 	db 0 ; no more level-up moves
 
 NoctowlEvosAttacks:
@@ -2636,8 +2642,8 @@ NoctowlEvosAttacks:
 	db 33, TAKE_DOWN
 	db 36, AIR_SLASH
 	db 41, CONFUSION
-	db 49, MOONLIGHT
-	db 55, DREAM_EATER
+	db 45, RECOVER ; becomes Roost
+	db 50, DREAM_EATER
 	db 0 ; no more level-up moves
 
 LedybaEvosAttacks:
@@ -3298,6 +3304,7 @@ DunsparceEvosAttacks:
 	db 16, MUD_BOMB
 	db 19, ANCIENTPOWER
 	db 25, BODY_SLAM
+	db 26, RECOVER ; becomes Roost
 	db 30, SCREECH
 	db 33, DIG
 	db 38, TAKE_DOWN

@@ -307,3 +307,4 @@ VariableMoveNames::
 	db "Ice Fang@"
 	db "Thunder Fang@"
 	db "Calm Mind@"
+	db "Roost@"

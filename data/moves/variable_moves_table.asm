@@ -38,6 +38,7 @@ VariableMoves::
 	db EMBER ; Ice Fang
 	db PSYBEAM ; Thunder Fang
 	db GROWTH ; Calm Mind
+	db RECOVER ; Roost
 	db -1
 
 VariablePointers:
@@ -74,6 +75,7 @@ VariablePointers:
 	varmove EMBER,        EmberVariables
 	varmove PSYBEAM,      PsybeamVariables
 	varmove GROWTH,       GrowthVariables
+	varmove ROOST,        RoostVariables
 
 DoubleSlapVariables:
 	db BONE_RUSH, CUBONE, MAROWAK, -1
@@ -224,6 +226,10 @@ PsybeamVariables:
 	
 GrowthVariables:
 	db CALM_MIND, ABRA, KADABRA, ALAKAZAM, STANTLER, RAIKOU, ENTEI, SUICUNE, LUGIA, HO_OH, CELEBI, -1
+	db -2
+	
+RoostVariables:
+	db ROOST, PIDGEY, PIDGEOTTO, PIDGEOT, ARTICUNO, ZAPDOS, MOLTRES, DUNSPARCE, -1
 	db -2
 	
  ; needs animations:

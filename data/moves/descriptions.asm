@@ -1162,6 +1162,7 @@ VariableMoveDescriptions::
 	dw IceFangDescription ; IceFangDescription
 	dw ThunderFangDescription ; ThunderFangDescription
 	dw CalmMindDescription ; CalmMindDescription
+	dw $0000 ; RoostDescription
 
 ; BoneRushDescription:
 ; PinMissileDescription:

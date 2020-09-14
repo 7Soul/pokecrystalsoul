@@ -320,3 +320,4 @@ VarMoves::
 	move EMBER,        EFFECT_FLINCH_HIT,         65, ICE,      PHYSICAL,           100, STA_BAR,      10 ; ICE_FANG
 	move PSYBEAM,      EFFECT_FLINCH_HIT,         65, ELECTRIC, PHYSICAL,           100, STA_BAR,      10 ; THUNDER_FANG
 	move GROWTH,       EFFECT_SP_ATK_SP_DEF_UP,    0, PSYCHIC,  STATUS,             100, STA_BAR,       0 ; CALM_MIND
+	move RECOVER,      EFFECT_HEAL,                0, FLYING,   STATUS,             100, STA_BAR * 2,   0 ; ROOST
