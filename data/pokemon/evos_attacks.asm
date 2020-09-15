@@ -3305,11 +3305,12 @@ DunsparceEvosAttacks:
 	db 19, ANCIENTPOWER
 	db 25, BODY_SLAM
 	db 26, RECOVER ; becomes Roost
-	db 30, SCREECH
+	db 29, SCREECH
 	db 33, DIG
-	db 38, TAKE_DOWN
-	db 46, REVERSAL ; becomes Flail
-	db 52, ROCK_SLIDE
+	db 35, ROCK_SLIDE
+	db 39, TAKE_DOWN
+	db 43, REVERSAL ; becomes Flail
+	db 49, DOUBLE_EDGE
 	db 0 ; no more level-up moves
 
 GligarEvosAttacks:

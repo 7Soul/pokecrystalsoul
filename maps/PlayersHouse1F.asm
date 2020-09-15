@@ -128,7 +128,7 @@ MeetMomScript:
 
 	givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
-	givepoke MEW, 100
+	; givepoke MEW, 100
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	callasm CheatGiveJohtoBadges

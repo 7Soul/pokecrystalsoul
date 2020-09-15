@@ -119,7 +119,7 @@ BattleBGEffects:
 	dw BattleBGEffect_25
 	dw BattleBGEffect_26
 	dw BattleBGEffect_27
-	dw BattleBGEffect_28
+	dw BattleBGEffect_28 ; deform
 	dw BattleBGEffect_Psychic
 	dw BattleBGEffect_2a
 	dw BattleBGEffect_2b
@@ -1700,7 +1700,7 @@ BattleBGEffect_2c:
 	call BattleAnim_ResetLCDStatCustom
 	ret
 
-BattleBGEffect_28:
+BattleBGEffect_28: ; deform
 	call BattleBGEffects_AnonJumptable
 .anon_dw
 	dw .zero

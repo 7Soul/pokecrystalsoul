@@ -28,6 +28,8 @@ BattleCommand_Transform:
 	call GetBattleVarAddr
 	set SUBSTATUS_TRANSFORMED, [hl]
 	call ResetActorDisable
+	; hl points to opponent's data
+	; de points to self data
 	ld hl, wBattleMonSpecies
 	ld de, wEnemyMonSpecies
 	ldh a, [hBattleTurn]
@@ -42,6 +44,8 @@ BattleCommand_Transform:
 	ld a, [hli]
 	ld [de], a
 	inc hl
+	inc hl
+	inc de
 	inc de
 	inc de
 	ld bc, NUM_MOVES
@@ -51,49 +55,42 @@ BattleCommand_Transform:
 	jr z, .mimic_enemy_backup
 	ld a, [de]
 	ld [wEnemyBackupDVs], a
-	inc de
-	ld a, [de]
-	ld [wEnemyBackupDVs + 1], a
-	dec de
 .mimic_enemy_backup
 ; copy DVs
 	ld a, [hli]
 	ld [de], a
+	inc hl
 	inc de
-	ld a, [hli]
-	ld [de], a
 	inc de
+	; HL DE point to PP start
 ; move pointer to stats
 	ld bc, wBattleMonStats - wBattleMonPP
 	add hl, bc
-	push hl
+	push hl ; HL points to foe's Stats
 	ld h, d
 	ld l, e
 	add hl, bc
 	ld d, h
-	ld e, l
-	pop hl
+	ld e, l ; DE points to self Stats
+	pop hl 
 	ld bc, wBattleMonStructEnd - wBattleMonStats
 	call CopyBytes
 ; init the power points
-	ld bc, wBattleMonMoves - wBattleMonStructEnd
-	add hl, bc
+	ld bc, wBattleMonPP - wBattleMonStructEnd
+	add hl, bc ; HL points to foe's PP
+	; swap HL and DE
 	push de
 	ld d, h
 	ld e, l
 	pop hl
+	; DE points to foe's PP
 	ld bc, wBattleMonPP - wBattleMonStructEnd
 	add hl, bc
+	; HL points to user's PP
 	ld b, NUM_MOVES
 .pp_loop
 	ld a, [de]
 	inc de
-	and a
-	jr z, .done_move
-	cp SKETCH
-	ld a, 1
-	jr z, .done_move
-	ld a, 5
 .done_move
 	ld [hli], a
 	dec b
@@ -135,5 +132,6 @@ BattleCommand_Transform:
 	pop af
 	ld a, SUBSTITUTE
 	call nz, LoadAnim
-	ld hl, TransformedText
-	jp StdBattleTextBox
+	ret
+	; ld hl, TransformedText
+	; jp StdBattleTextBox

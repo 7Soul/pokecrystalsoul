@@ -4312,6 +4312,7 @@ SendOutPlayerMon:
 
 OnEnterTraits:
 	; on enter traits
+	callfar DoTransform
 	ld a, BATTLE_VARS_TRAIT
 	call GetBattleVar
 	cp TRAIT_RAIN_ON_ENTER
@@ -5659,8 +5660,24 @@ MoveSelectionScreen:
 	ld a, [wCurBattleMon]
 	ld [wCurPartyMon], a
 	predef CopyMonToTempMon
-
 	call SetPlayerTurn
+; copies move and pp to tempmon if the pokemon is transformed
+	ld a, BATTLE_VARS_SUBSTATUS5
+	call GetBattleVarAddr
+	bit SUBSTATUS_TRANSFORMED, [hl]
+	jr z, .not_transformed
+
+	ld hl, wBattleMonMoves
+	ld de, wTempMonMoves
+	ld bc, NUM_MOVES
+	call CopyBytes
+
+	ld hl, wBattleMonPP
+	ld de, wTempMonPP
+	ld bc, NUM_MOVES
+	call CopyBytes
+
+.not_transformed
 	call IsMobileBattle
 	jr nz, .not_mobile
 	farcall MobileMoveSelectionScreen

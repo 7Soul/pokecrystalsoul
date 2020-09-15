@@ -1057,7 +1057,6 @@ Heal:
 
 Transform:
 	checkobedience
-	usedmovetext
 	doturn
 	transform
 	endmove

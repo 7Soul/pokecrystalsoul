@@ -210,9 +210,9 @@ ENDM
 anim_bgeffect: MACRO
 	db anim_bgeffect_command
 	db \1 ; effect
-	db \2 ; unknown
-	db \3 ; unknown
-	db \4 ; unknown
+	db \2 ; Field01 JT_INDEX
+	db \3 ; Field02 BATTLE_TURN
+	db \4 ; Field03 03
 ENDM
 
 	enum anim_bgp_command ; $f1

@@ -399,7 +399,7 @@ ENDM
 
 battle_bg_effect: MACRO
 \1Function:: db
-\1Field01::  ds 1
-\1Field02::  ds 1
-\1Field03::  ds 1
+\1Field01::  ds 1 ; JT_INDEX
+\1Field02::  ds 1 ; BATTLE_TURN
+\1Field03::  ds 1 ; 03
 ENDM

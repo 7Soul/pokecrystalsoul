@@ -675,3 +675,19 @@ CheckRoost: ; bc has foe's type
 	ld a, b
 	ld c, a
 	ret
+
+DoTransform:
+	ld a, [wCurSpecies]
+	cp DITTO
+	ret nz
+	ld a, TRANSFORM
+	ld [wCurEnemyMove], a
+	ld [wCurPlayerMove], a
+	callfar UpdateMoveData
+	xor a
+	ld [wAttackMissed], a
+	ld [wAlreadyDisobeyed], a
+	ld a, EFFECTIVE
+	ld [wTypeModifier], a
+	callfar DoMove
+	ret
