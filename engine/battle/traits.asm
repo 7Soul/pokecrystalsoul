@@ -230,9 +230,13 @@ CheckTraitCondition:
 	ld b, a
 	ld c, GROUND
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_BUG_MORE ; traits that require move type to be ROCK
+	cp TRAIT_REDUCE_STEEL_MORE ; traits that require move type to be ROCK
 	ld b, a
 	ld c, ROCK
+	jp c, .check_move_type
+	cp TRAIT_REDUCE_BUG_MORE ; traits that require move type to be ROCK
+	ld b, a
+	ld c, STEEL
 	jp c, .check_move_type
 	cp TRAIT_REDUCE_FIRE_MORE ; traits that require move type to be BUG
 	ld b, a
@@ -1511,7 +1515,7 @@ TraitContact:
 	ld b, GROUND
 	farcall CheckIfTargetIsNthType
 	ret z
-	jr .do_damage
+	jp DoOneSixteenthDamage
 .rock
 	ld b, WATER
 	farcall CheckIfTargetIsNthType
@@ -1519,15 +1523,7 @@ TraitContact:
 	ld b, ROCK
 	farcall CheckIfTargetIsNthType
 	ret z
-
-.do_damage
-	ld hl, GetSixteenthMaxHP
-	ld a, BANK(GetMaxHP)
-	rst FarCall
-	ld hl, SubtractHPFromTarget
-	ld a, BANK(GetMaxHP)
-	rst FarCall
-	ret
+	jp DoOneSixteenthDamage
 
 .not_prickly
 	ld b, 12 percent
@@ -1578,6 +1574,36 @@ TraitContact:
 	db TRAIT_CONTACT_DAMAGE_ROCK
 	db TRAIT_CONTACT_DAMAGE_GROUND
 	db -1
+
+; TraitHail:
+; ; check if either side has hail
+; 	ld a, BATTLE_VARS_TRAIT
+; 	ld [wBuffer1], a
+; 	ld a, TRAIT_HAIL
+; 	call CheckSpecificTrait
+; 	jr c, .hail
+
+; 	ld a, BATTLE_VARS_TRAIT_OPP
+; 	ld [wBuffer1], a
+; 	ld a, TRAIT_HAIL
+; 	call CheckSpecificTrait
+; 	ret nc
+
+; .hail
+; 	ld b, ICE
+; 	farcall CheckIfTargetIsNthType
+; 	jr nz, .not_hail_foe
+; 	call DoOneSixteenthDamage
+	
+; .not_hail_foe
+; 	call Switch_turn
+; 	ld b, ICE
+; 	farcall CheckIfTargetIsNthType
+; 	jr nz, .not_hail_switch_turn
+; 	call DoOneSixteenthDamage
+
+; .not_hail
+; 	jp Switch_turn
 
 TraitCull:
 	ld a, TRAIT_CULL_OPP_LOW_HP
@@ -1996,6 +2022,7 @@ TraitReducePower:
 	db TRAIT_REDUCE_POISON_MORE
 	db TRAIT_REDUCE_GROUND_MORE
 	db TRAIT_REDUCE_ROCK_MORE
+	db TRAIT_REDUCE_STEEL_MORE
 	db TRAIT_REDUCE_BUG_MORE
 	db TRAIT_REDUCE_FIRE_MORE
 	db TRAIT_REDUCE_WATER_MORE
@@ -3199,6 +3226,15 @@ CallHealAmount: ; takes `GetEighthMaxHP` or others in `hl`
 	ld [wBuffer6], a
 	jp EffectTraitForceRecoverHP
 	
+DoOneSixteenthDamage:
+	ld hl, GetSixteenthMaxHP
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ld hl, SubtractHPFromTarget
+	ld a, BANK(GetMaxHP)
+	rst FarCall
+	ret
+
 EffectTraitForceRecoverHP:
 	call Switch_turn ; RestoreHP restores opponent's hp
 	ld hl, RestoreHP

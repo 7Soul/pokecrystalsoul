@@ -206,6 +206,7 @@ TraitDescriptions::
 	dw IronCoatDescription        ; TRAIT_BOOST_ROCK_DEFENSE
 	dw GoldCoatDescription        ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	dw RollingRockRageDescription ; TRAIT_BOOST_ROCK_STATUSED
+	dw MegaShellDescription       ; TRAIT_REDUCE_STEEL_MORE
 	dw AshCoatDescription         ; TRAIT_REDUCE_BUG_MORE
 	dw SwarmDescription           ; TRAIT_BOOST_BUG_HP
 	dw BuzzingRageDescription     ; TRAIT_BOOST_BUG_STATUSED
@@ -298,8 +299,8 @@ LifeDrainDescription:
 	next "foe faints.@"
 
 KeepGoingDescription:
-	db   "Regain PP when a"
-	next "foe faints.@"
+	db   "Regain STA when"
+	next "a foe faints.@"
 
 BoomDescription:
 	db   "Damages foe when"
@@ -1136,6 +1137,10 @@ GoldCoatDescription:
 RollingRockRageDescription:
 	db   "Boosts ROCK under"
 	next "any status.@"
+
+MegaShellDescription:
+	db   "Resists STEEL un-"
+	next "der half HP.@"
 
 AshCoatDescription:
 	db   "Resists BUG under"

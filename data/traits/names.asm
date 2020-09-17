@@ -206,6 +206,7 @@ TraitNames::
 	db "Iron Coat@"        ; TRAIT_BOOST_ROCK_DEFENSE
 	db "Golden Coat@"      ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	db "Rolling Rock Rage@"; TRAIT_BOOST_ROCK_STATUSED
+	db "Mega Shell@"       ; TRAIT_REDUCE_STEEL_MORE
 	db "Ash Coat@"         ; TRAIT_REDUCE_BUG_MORE
 	db "Swarm@"            ; TRAIT_BOOST_BUG_HP
 	db "Buzzing Rage@"     ; TRAIT_BOOST_BUG_STATUSED
