@@ -148,12 +148,12 @@ CheckTraitCondition:
 	cp TRAIT_BOOST_WEAK_MOVES + 1
 	ld d, 60
 	jp c, .check_move_power
-	ld e, $FF ; reset e so no type equals it
 	push af
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVar
 	and TYPE_MASK
 	ld d, a
+	ld e, $FF ; reset e so no type equals it
 	pop af
 	cp TRAIT_REDUCE_PSN_AND_POISON
 	ld b, a
@@ -210,21 +210,22 @@ CheckTraitCondition:
 	ld c, BUG
 	ld e, DARK
 	jp c, .check_move_type
+	ld e, $FF
 	cp TRAIT_REDUCE_FIGHTING_MORE ; traits below this that require move type to be NORMAL
 	ld b, a
 	ld c, NORMAL
 	jp c, .check_move_type
 	cp TRAIT_REDUCE_FLYING_MORE ; traits that require move type to be FIGHTING
 	ld b, a
-	ld c, POISON
+	ld c, FIGHTING
 	jp c, .check_move_type
 	cp TRAIT_REDUCE_POISON_MORE ; traits that require move type to be POISON
 	ld b, a
-	ld c, FIGHTING
+	ld c, FLYING
 	jp c, .check_move_type
 	cp TRAIT_REDUCE_GROUND_MORE ; traits that require move type to be FLYING
 	ld b, a
-	ld c, FLYING
+	ld c, POISON
 	jp c, .check_move_type
 	cp TRAIT_REDUCE_ROCK_MORE ; traits that require move type to be GROUND
 	ld b, a
@@ -834,13 +835,19 @@ TraitTurnTriggers:
 	ret
 
 TraitRaiseStatAfterDamage:
-	ld a, [wBuffer1]
-	call GetBattleVar
-	ld de, 1
 	ld hl, .TraitsThatRaiseStatAfterDamage
-	call IsInArray
+	call CheckTrait
 	ret nc
-	jp TraitRaiseStat
+	ld a, [wBuffer3]
+	cp 7
+	jr nc, .highest_stat
+	call TraitRaiseStat
+	call Switch_turn
+	ret
+.highest_stat
+	call TraitRaiseStat.highest_stat
+	call Switch_turn
+	ret
 
 .TraitsThatRaiseStatAfterDamage:
 	db TRAIT_ATTACK_AFTER_CRIT
@@ -849,7 +856,10 @@ TraitRaiseStatAfterDamage:
 	db TRAIT_SP_ATTACK_AFTER_CRIT
 	db TRAIT_SP_DEFENSE_AFTER_CRIT
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
-	db TRAIT_SPEED_BUG_DARK_HIT
+	db TRAIT_SPEED_BUG_DARK_HIT ; 6
+	db TRAIT_REDUCE_POISON_UP_MAIN_STAT ; 7
+	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
+	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db -1
 
 TraitOnEnter:
@@ -1007,13 +1017,21 @@ TraitRaiseStat:
 	call TraitUseBattleCommandSimple
 
 	ld a, [wBuffer3]
-	cp 0 ; index 0 also raises acc
-	jr z, .also_raise_acc
+	cp $FF
+	jr z, .no_raise
+	ld a, [wBuffer1]
+	call GetBattleVar
+	ld hl, TraitsThatAlsoRaiseAccuracy
+	ld de, 1
+	call IsInArray
+	jr c, .also_raise_acc
 	ret
 .no_raise
 	pop af
 	ret
 .also_raise_acc
+	ld a, $FF
+	ld [wBuffer3], a
 	ld b, ACCURACY
 	jr .end
 .evasion
@@ -1028,6 +1046,13 @@ TraitRaiseStat:
 .all_stats
 	push af
 	ld b, 8
+	jr .end
+.highest_stat
+	call Switch_turn
+	ld a, $FF
+	ld [wBuffer3], a
+	call GetHighestStat
+	ld b, c
 	jr .end
 
 .JumptableStatTraits:
@@ -1065,7 +1090,6 @@ TraitsThatRaiseDefense:
 	db TRAIT_DEFENSE_STATUSED
 	db TRAIT_DEFENSE_AFTER_CRIT
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
-	db TRAIT_REDUCE_WATER_UP_DEFENSE
 	db -1
 
 TraitsThatRaiseSpeed:
@@ -1105,6 +1129,46 @@ TraitsThatRaiseEvasion:
 	db TRAIT_EVASION_BELOW_THIRD
 	db TRAIT_EVASION_STATUSED
 	db -1
+
+TraitsThatRaiseHighestStat:
+	db TRAIT_REDUCE_POISON_UP_MAIN_STAT
+	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
+	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
+	db -1
+
+TraitsThatAlsoRaiseAccuracy:
+	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
+	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
+	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
+	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	db -1
+
+GetHighestStat:
+    ld hl, wBattleMonSpclDef - 2 ; current stat
+	ld de, wBattleMonSpclDef ; highest stat
+    ld b, 4 ; how many loops
+	ld c, 4 ; by default the highes stat is the last one
+
+.loop
+	push bc
+	push hl
+	push de
+	ld c, 2
+	call CompareBytes
+	pop de
+	pop hl
+	pop bc
+
+	dec b
+    jr nc, .lower ; If stat < highest, skip
+    ; It's important that equality falls through, to guarantee initialization
+	ld e, l
+	ld c, b ; Store index
+.lower
+	dec hl
+	dec hl
+    jr nz, .loop
+	ret
 
 TraitLowerStatAfterDamage:
 	ld a, BATTLE_VARS_TRAIT
@@ -1952,13 +2016,13 @@ TraitReducePower:
 
 	ld a, [wBuffer1]
 	call GetBattleVar
-	cp TRAIT_REDUCE_POISON_UP_DEFENSE
+	cp TRAIT_REDUCE_POISON_UP_MAIN_STAT
 	jr z, .skip_trigger1
 	
-	cp TRAIT_REDUCE_WATER_UP_DEFENSE
+	cp TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	jr z, .skip_trigger2
 
-	cp TRAIT_REDUCE_GRASS_UP_ATTACK
+	cp TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	jr z, .skip_trigger3
 
 	ld a, TRAIT_REDUCE_DAMAGE_TURN_ZERO
@@ -1998,18 +2062,21 @@ TraitReducePower:
 
 .skip_trigger1
 	ld c, POISON
-	call CheckTraitCondition.check_move_type
-	jp c, ReduceDamage10
+	ld a, d
+	cp c
+	jp z, ReduceDamage10
 	ret
 .skip_trigger2
 	ld c, WATER
-	call CheckTraitCondition.check_move_type
-	jp c, ReduceDamage10
+	ld a, d
+	cp c
+	jp z, ReduceDamage10
 	ret
 .skip_trigger3
 	ld c, GRASS
-	call CheckTraitCondition.check_move_type
-	jp c, ReduceDamage10
+	ld a, d
+	cp c
+	jp z, ReduceDamage10
 	ret
 
 .TraitsThatReduceDamage:
@@ -2050,9 +2117,9 @@ TraitReducePower:
 	db TRAIT_REDUCE_PSN_AND_BUG
 	db TRAIT_REDUCE_FRZ_AND_ICE
 	db TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
-	db TRAIT_REDUCE_WATER_UP_DEFENSE
-	db TRAIT_REDUCE_POISON_UP_ATTACK
-	db TRAIT_REDUCE_GRASS_UP_ATTACK
+	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
+	db TRAIT_REDUCE_POISON_UP_MAIN_STAT
+	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db -1
 
 PowerBoostingTraits:
@@ -3690,9 +3757,9 @@ OneShotTraits:
 	db TRAIT_DEFENSE_ICE_FIRE_HIT
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_FIRE_HIT
-	db TRAIT_REDUCE_WATER_UP_DEFENSE
-	db TRAIT_REDUCE_POISON_UP_ATTACK
-	db TRAIT_REDUCE_GRASS_UP_ATTACK
+	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
+	db TRAIT_REDUCE_POISON_UP_MAIN_STAT
+	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db TRAIT_EVASION_WHEN_CONFUSED
 	db TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	db -1

@@ -198,7 +198,7 @@ TraitNames::
 	db "Fire Legend@"      ; TRAIT_FLYING_BRN
 	db "Flying Legend@"    ; TRAIT_BOOST_FLYING_DURING_WEATHER
 	db "Immunity@"         ; TRAIT_REDUCE_POISON_MORE
-	db "Dilute@"           ; TRAIT_REDUCE_POISON_UP_ATTACK
+	db "Dilute@"           ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
 	db "Acidize@"          ; TRAIT_BOOST_POISON_STATUSED
 	db "Dissipate@"        ; TRAIT_REDUCE_GROUND_MORE
 	db "Tremor Rate@"      ; TRAIT_BOOST_GROUND_STATUSED
@@ -219,13 +219,13 @@ TraitNames::
 	db "Hard Water@"       ; TRAIT_BOOST_WATER_DEFENSE
 	db "Torrent@"          ; TRAIT_BOOST_WATER_HP
 	db "Deep Sea Rage@"    ; TRAIT_BOOST_WATER_STATUSED
-	db "Hardening Sand@"   ; TRAIT_REDUCE_WATER_UP_DEFENSE
+	db "Hardening Sand@"   ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	db "Ice Water@"        ; TRAIT_FRZ_SPD_WITH_WATER
 	db "Mystic Water@"     ; TRAIT_LOWER_SP_ATTACK_WATER
 	db "Arid Shield@"      ; TRAIT_REDUCE_GRASS_MORE
 	db "Overgrow@"         ; TRAIT_BOOST_GRASS_HP
 	db "Forest Rage@"      ; TRAIT_BOOST_GRASS_STATUSED
-	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_ATTACK
+	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db "Polen Hazard@"     ; TRAIT_PRZ_PSN_WITH_GRASS
 	db "Ionize Air@"       ; TRAIT_REDUCE_ELECTRIC_MORE
 	db "Zap Rush@"         ; TRAIT_BOOST_ELECTRIC_SPEED

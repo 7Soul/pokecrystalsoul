@@ -198,7 +198,7 @@ TraitDescriptions::
 	dw FireLegendDescription      ; TRAIT_FLYING_BRN
 	dw FlyingLegendDescription    ; TRAIT_BOOST_FLYING_DURING_WEATHER
 	dw ImmunityDescription        ; TRAIT_REDUCE_POISON_MORE
-	dw DiluteDescription          ; TRAIT_REDUCE_POISON_UP_ATTACK
+	dw DiluteDescription          ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
 	dw AcidizeDescription         ; TRAIT_BOOST_POISON_STATUSED
 	dw ShockAbsorb2Description    ; TRAIT_REDUCE_GROUND_MORE
 	dw TremorRageDescription      ; TRAIT_BOOST_GROUND_STATUSED
@@ -219,13 +219,13 @@ TraitDescriptions::
 	dw HardWaterDescription       ; TRAIT_BOOST_WATER_DEFENSE
 	dw TorrentDescription         ; TRAIT_BOOST_WATER_HP
 	dw DeepSeaRageDescription     ; TRAIT_BOOST_WATER_STATUSED
-	dw HardeningSandDescription   ; TRAIT_REDUCE_WATER_UP_DEFENSE
+	dw HardeningSandDescription   ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	dw IceWaterDescription        ; TRAIT_FRZ_SPD_WITH_WATER
 	dw MysticWaterDescription     ; TRAIT_LOWER_SP_ATTACK_WATER
 	dw AridShieldDescription      ; TRAIT_REDUCE_GRASS_MORE
 	dw OvergrowDescription        ; TRAIT_BOOST_GRASS_HP
 	dw ForestRageDescription      ; TRAIT_BOOST_GRASS_STATUSED
-	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_ATTACK
+	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	dw PolenHazardDescription     ; TRAIT_PRZ_PSN_WITH_GRASS
 	dw IonizeAirDescription       ; TRAIT_REDUCE_ELECTRIC_MORE
 	dw ZapRushDescription         ; TRAIT_BOOST_ELECTRIC_SPEED
@@ -1108,8 +1108,8 @@ ImmunityDescription:
 	next "under half HP.@"
 	
 DiluteDescription:
-	db   "Resists POISON and"
-	next "ups ATK when hit.@"
+	db   "Ups best stat when"
+	next "hit by POISON.@"
 	
 AcidizeDescription:
 	db   "Boosts POISON un-"
@@ -1192,8 +1192,8 @@ DeepSeaRageDescription:
 	next "der any status.@"
 
 HardeningSandDescription:
-	db   "Resists WATER and"
-	next "ups DEF when hit.@"
+	db   "Ups best stat when"
+	next "hit by WATER.@"
 
 IceWaterDescription:
 	db   "May FRZ/SPD down"
@@ -1216,8 +1216,8 @@ ForestRageDescription:
 	next "der any status.@"
 
 SapSipperDescription:
-	db   "Resists GRASS and"
-	next "ups ATK when hit.@"
+	db   "Ups best stat when"
+	next "hit by GRASS.@"
 
 PolenHazardDescription:
 	db   "May PSN or PRZ"
