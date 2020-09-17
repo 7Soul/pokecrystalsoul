@@ -198,6 +198,7 @@ TraitNames::
 	db "Fire Legend@"      ; TRAIT_FLYING_BRN
 	db "Flying Legend@"    ; TRAIT_BOOST_FLYING_DURING_WEATHER
 	db "Immunity@"         ; TRAIT_REDUCE_POISON_MORE
+	db "Dilute@"           ; TRAIT_REDUCE_POISON_UP_ATTACK
 	db "Acidize@"          ; TRAIT_BOOST_POISON_STATUSED
 	db "Dissipate@"        ; TRAIT_REDUCE_GROUND_MORE
 	db "Tremor Rate@"      ; TRAIT_BOOST_GROUND_STATUSED

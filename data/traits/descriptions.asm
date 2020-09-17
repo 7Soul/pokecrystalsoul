@@ -198,6 +198,7 @@ TraitDescriptions::
 	dw FireLegendDescription      ; TRAIT_FLYING_BRN
 	dw FlyingLegendDescription    ; TRAIT_BOOST_FLYING_DURING_WEATHER
 	dw ImmunityDescription        ; TRAIT_REDUCE_POISON_MORE
+	dw DiluteDescription          ; TRAIT_REDUCE_POISON_UP_ATTACK
 	dw AcidizeDescription         ; TRAIT_BOOST_POISON_STATUSED
 	dw ShockAbsorb2Description    ; TRAIT_REDUCE_GROUND_MORE
 	dw TremorRageDescription      ; TRAIT_BOOST_GROUND_STATUSED
@@ -1105,6 +1106,10 @@ FlyingLegendDescription:
 ImmunityDescription:
 	db   "Resists POISON"
 	next "under half HP.@"
+	
+DiluteDescription:
+	db   "Resists POISON and"
+	next "ups ATK when hit.@"
 	
 AcidizeDescription:
 	db   "Boosts POISON un-"

@@ -1952,11 +1952,14 @@ TraitReducePower:
 
 	ld a, [wBuffer1]
 	call GetBattleVar
-	cp TRAIT_REDUCE_WATER_UP_DEFENSE
+	cp TRAIT_REDUCE_POISON_UP_DEFENSE
 	jr z, .skip_trigger1
+	
+	cp TRAIT_REDUCE_WATER_UP_DEFENSE
+	jr z, .skip_trigger2
 
 	cp TRAIT_REDUCE_GRASS_UP_ATTACK
-	jr z, .skip_trigger2
+	jr z, .skip_trigger3
 
 	ld a, TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	call CheckSpecificTrait
@@ -1994,11 +1997,16 @@ TraitReducePower:
 	jp ReduceDamage30
 
 .skip_trigger1
-	ld c, WATER
+	ld c, POISON
 	call CheckTraitCondition.check_move_type
 	jp c, ReduceDamage10
 	ret
 .skip_trigger2
+	ld c, WATER
+	call CheckTraitCondition.check_move_type
+	jp c, ReduceDamage10
+	ret
+.skip_trigger3
 	ld c, GRASS
 	call CheckTraitCondition.check_move_type
 	jp c, ReduceDamage10
@@ -2043,6 +2051,7 @@ TraitReducePower:
 	db TRAIT_REDUCE_FRZ_AND_ICE
 	db TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
+	db TRAIT_REDUCE_POISON_UP_ATTACK
 	db TRAIT_REDUCE_GRASS_UP_ATTACK
 	db -1
 
@@ -3682,6 +3691,7 @@ OneShotTraits:
 	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_FIRE_HIT
 	db TRAIT_REDUCE_WATER_UP_DEFENSE
+	db TRAIT_REDUCE_POISON_UP_ATTACK
 	db TRAIT_REDUCE_GRASS_UP_ATTACK
 	db TRAIT_EVASION_WHEN_CONFUSED
 	db TRAIT_RANDOM_STAT_WHEN_FLINCHED
