@@ -3213,7 +3213,25 @@ BattleCommand_DamageCalc:
 	pop hl
 	
 .not_bubble
+; 	ld hl, wPlayerDamageTaken + 1
+; 	ldh a, [hBattleTurn]
+; 	and a
+; 	jr z, .battlemonhp
+; 	ld hl, wEnemyDamageTaken + 1
+; .got_damage_taken
+; 	ld a, [hld]
+; 	and a
+; 	jr z, .not_avalanche
+; 	ld a, [hl]
+; 	and a
+; 	jr z, .not_avalanche
 
+; 	ld a, [wCurVariableMove]
+; 	cp AVALANCHE
+; 	jr nz, .not_avalanche
+; 	sla d
+
+; .not_avalanche
 	xor a
 	ld hl, hDividend
 	ld [hli], a
@@ -5082,12 +5100,26 @@ BattleCommand_AtkDefUp:
 BattleCommand_SpAtkSpDefUp:
 ; spatkspdefup
 
-; Attack
+; Sp.Attack
 	call ResetMiss
 	call BattleCommand_SpecialAttackUp
 	call BattleCommand_StatUpMessage
 
+; Sp.Defense
+	call ResetMiss
+	call BattleCommand_SpecialDefenseUp
+	jp   BattleCommand_StatUpMessage
+	
+	
+BattleCommand_DefSpDefUp:
+; spatkspdefup
+
 ; Defense
+	call ResetMiss
+	call BattleCommand_DefenseUp
+	call BattleCommand_StatUpMessage
+
+; Sp.Defense
 	call ResetMiss
 	call BattleCommand_SpecialDefenseUp
 	jp   BattleCommand_StatUpMessage

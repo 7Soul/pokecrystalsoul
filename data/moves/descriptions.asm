@@ -1162,7 +1162,10 @@ VariableMoveDescriptions::
 	dw IceFangDescription ; IceFangDescription
 	dw ThunderFangDescription ; ThunderFangDescription
 	dw CalmMindDescription ; CalmMindDescription
+	dw CosmicPowerDescription ; CosmicPowerDescription
 	dw $0000 ; RoostDescription
+	dw AvalancheDescription ; AvalancheDescription
+	dw RevengeDescription ; RevengeDescription
 
 ; BoneRushDescription:
 ; PinMissileDescription:
@@ -1280,7 +1283,16 @@ ThunderFangDescription:
 	
 CalmMindDescription:
 	db   "Raises the user's"
-	next "Sp.Atk and Sp.Def.@"
+	next "SP.ATK and SP.DEF.@"
+	
+CosmicPowerDescription:
+	db   "Raises the user's"
+	next "DEF and SP.DEF.@"
+
+AvalancheDescription:
+RevengeDescription:
+	db   "Double in power if"
+	next "you took damage.@"
 
 PowerWhipDescription:
 RockPolishDescription:

@@ -578,10 +578,11 @@ ClefairyEvosAttacks:
 	db 22, WAKEUP_SLAP
 	db 26, DEFENSE_CURL
 	db 29, METRONOME
-	db 35, FIRE_FLICK
-	db 41, MOONLIGHT
+	db 34, FIRE_FLICK
+	db 38, MOONLIGHT
+	db 42, GROWTH ; becomes Cosmic Power
 	db 45, LIGHT_SCREEN
-	db 50, BODY_SLAM
+	db 49, BODY_SLAM
 	db 0 ; no more level-up moves
 
 ClefableEvosAttacks:
@@ -593,7 +594,8 @@ ClefableEvosAttacks:
 	db 29, DEFENSE_CURL
 	db 32, METRONOME
 	db 39, FIRE_FLICK
-	db 46, MOONLIGHT
+	db 43, MOONLIGHT
+	db 46, GROWTH ; becomes Cosmic Power
 	db 50, LIGHT_SCREEN
 	db 58, BODY_SLAM
 	db 0 ; no more level-up moves
@@ -1088,6 +1090,7 @@ MachopEvosAttacks:
 	db 8, FOCUS_ENERGY	
 	db 15, SEISMIC_TOSS
 	db 19, VITAL_THROW
+	db 22, CONFUSION ; becomes Revenge
 	db 26, SUBMISSION
 	db 30, BULK_UP
 	db 36, CROSS_CHOP
@@ -1102,6 +1105,7 @@ MachokeEvosAttacks:
 	db 8, FOCUS_ENERGY	
 	db 15, SEISMIC_TOSS
 	db 19, VITAL_THROW
+	db 22, CONFUSION ; becomes Revenge
 	db 26, SUBMISSION
 	db 31, BULK_UP
 	db 38, CROSS_CHOP
@@ -1926,9 +1930,10 @@ StaryuEvosAttacks:
 	db 25, SWIFT
 	db 31, BUBBLEBEAM
 	db 37, MINIMIZE
-	db 43, LIGHT_SCREEN
-	db 46, POWER_GEM
-	db 50, HYDRO_PUMP
+	db 42, LIGHT_SCREEN
+	db 45, POWER_GEM
+	db 49, GROWTH ; becomes Cosmic Power
+	db 51, HYDRO_PUMP
 	db 54, PRISM_LIGHT
 	db 0 ; no more level-up moves
 
@@ -1944,7 +1949,8 @@ StarmieEvosAttacks:
 	db 41, MINIMIZE
 	db 47, LIGHT_SCREEN
 	db 50, POWER_GEM
-	db 54, HYDRO_PUMP
+	db 53, GROWTH ; becomes Cosmic Power
+	db 55, HYDRO_PUMP
 	db 59, PRISM_LIGHT
 	db 0 ; no more level-up moves
 
@@ -1993,9 +1999,10 @@ JynxEvosAttacks:
 	db 25, ICE_PUNCH
 	db 31, PSYWAVE
 	db 33, WAKEUP_SLAP
-	db 39, MEAN_LOOK
-	db 44, BODY_SLAM
-	db 51, PERISH_SONG
+	db 36, MEAN_LOOK
+	db 41, CONFUSION ; becomes Avalanche
+	db 45, BODY_SLAM
+	db 53, PERISH_SONG
 	db 57, BLIZZARD
 	db 0 ; no more level-up moves
 
@@ -2039,6 +2046,7 @@ PinsirEvosAttacks:
 	db 4, WRAP
 	db 8, SEISMIC_TOSS
 	db 11, HARDEN
+	db 15, CONFUSION ; becomes Revenge
 	db 22, DOUBLESLAP
 	db 26, BRICK_BREAK
 	db 29, X_SCISSOR	
@@ -2106,6 +2114,7 @@ LaprasEvosAttacks:
 	db 15, BODY_SLAM
 	db 22, CONFUSE_RAY
 	db 29, PERISH_SONG
+	db 32, CONFUSION ; becomes Avalanche
 	db 36, ICE_BEAM
 	db 43, RAIN_DANCE
 	db 50, SAFEGUARD
@@ -2399,16 +2408,16 @@ MewtwoEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, CONFUSION
 	db 1, DISABLE
-	db 9, BARRIER
-	db 11, PSYWAVE
-	db 13, SWIFT
+	db 5, BARRIER
+	db 10, PSYWAVE
+	db 15, SWIFT
 	db 20, MIST
-	db 28, FUTURE_SIGHT
-	db 33, PSYCH_UP
-	db 45, PECK ; becomes Aura Sphere
-	db 47, AMNESIA
-	db 50, PSYCHIC_M
-	db 52, RECOVER
+	db 25, FUTURE_SIGHT
+	db 30, PSYCH_UP
+	db 35, PECK ; becomes Aura Sphere
+	db 40, AMNESIA
+	db 45, PSYCHIC_M
+	db 50, RECOVER
 	db 55, SAFEGUARD
 	db 0 ; no more level-up moves
 
@@ -2418,6 +2427,7 @@ MewEvosAttacks:
 	db 1, TRANSFORM
 	db 5, MEGA_PUNCH
 	db 10, METRONOME
+	db 20, GROWTH ; becomes Cosmic Power
 	db 25, PSYCHIC_M
 	db 30, BARRIER
 	db 35, AMNESIA
@@ -2789,8 +2799,9 @@ CleffaEvosAttacks:
 	db 21, WAKEUP_SLAP
 	db 25, DEFENSE_CURL
 	db 27, METRONOME
-	db 33, FIRE_FLICK
-	db 39, MOONLIGHT
+	db 30, FIRE_FLICK
+	db 35, MOONLIGHT
+	db 39, GROWTH ; becomes Cosmic Power
 	db 42, LIGHT_SCREEN
 	db 47, BODY_SLAM
 	db 0 ; no more level-up moves
@@ -3389,7 +3400,7 @@ QwilfishEvosAttacks:
 	db 15, WATER_GUN
 	db 19, ROLLOUT
 	db 25, DOUBLESLAP ; becomes Pin Missile
-	db 29, REVERSAL ; becomes Flail
+	db 29, CONFUSION ; becomes Revenge
 	db 33, JET_STREAM
 	db 38, TAKE_DOWN
 	db 44, TOXIC
@@ -3538,7 +3549,8 @@ SwinubEvosAttacks:
 	db 12, SAND_ATTACK
 	db 19, ENDURE	
 	db 24, POWER_GEM
-	db 28, TAKE_DOWN
+	db 26, TAKE_DOWN
+	db 29, CONFUSION ; becomes Avalanche
 	db 35, MIST
 	db 37, EARTHQUAKE
 	db 40, REVERSAL ; becomes Flail
@@ -3552,12 +3564,14 @@ PiloswineEvosAttacks:
 	db 12, SAND_ATTACK
 	db 19, ENDURE	
 	db 24, POWER_GEM
-	db 30, TAKE_DOWN
+	db 28, TAKE_DOWN
+	db 31, CONFUSION ; becomes Avalanche
 	db 37, MIST
 	db 41, EARTHQUAKE
 	db 44, REVERSAL ; becomes Flail
 	db 50, BLIZZARD
 	db 56, AMNESIA
+	db 61, THRASH
 	db 0 ; no more level-up moves
 
 CorsolaEvosAttacks:
@@ -3836,8 +3850,9 @@ SmoochumEvosAttacks:
 	db 29, PSYWAVE
 	db 30, WAKEUP_SLAP
 	db 36, MEAN_LOOK
-	db 39, BODY_SLAM
-	db 46, PERISH_SONG
+	db 38, CONFUSION ; becomes Avalanche
+	db 41, BODY_SLAM
+	db 45, PERISH_SONG
 	db 51, BLIZZARD
 	db 0 ; no more level-up moves
 

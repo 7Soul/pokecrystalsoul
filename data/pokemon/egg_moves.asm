@@ -293,6 +293,7 @@ PonytaEggMoves:
 	db LOW_KICK
 	db QUICK_ATTACK
 	db MORNING_SUN
+	db GROWTH ; becomes Calm Mind
 	db -1 ; end
 
 SlowpokeEggMoves:
@@ -321,6 +322,8 @@ FarfetchDEggMoves:
 	db MIRROR_MOVE
 	db REVERSAL
 	db SCREECH ; becomes Feather Dance
+	db CONFUSION ; becomes Revenge
+	db RECOVER ; becomes Roost
 	db -1 ; end
 
 DoduoEggMoves:
@@ -331,6 +334,7 @@ DoduoEggMoves:
 	db FAINT_ATTACK
 	db REVERSAL
 	db DOUBLE_KICK
+	db RECOVER ; becomes Roost
 	db -1 ; end
 
 SeelEggMoves:
@@ -364,6 +368,7 @@ ShellderEggMoves:
 	db MUD_BOMB
 	db DOUBLESLAP ; becomes Rock Blast
 	db ICY_WIND ; becomes Mud Shot
+	db CONFUSION ; becomes Avalanche
 	db -1 ; end
 
 GastlyEggMoves:
@@ -522,6 +527,7 @@ MrMimeEggMoves:
 	db NASTY_PLOT
 	db ICY_WIND
 	db WAKEUP_SLAP
+	db GROWTH ; becomes Calm Mind
 	db -1 ; end
 
 ScytherEggMoves:
@@ -548,6 +554,7 @@ TaurosEggMoves:
 	db ENDURE
 	db VINE_WHIP
 	db HYPER_BEAM
+	db CONFUSION ; becomes Revenge
 	db -1 ; end
 
 MagikarpEggMoves:
@@ -556,6 +563,7 @@ MagikarpEggMoves:
 	db SURF
 	db SLAM
 	db REST
+	db CONFUSION ; becomes Avalanche
 	db -1 ; end
 
 LaprasEggMoves:
@@ -614,6 +622,7 @@ AerodactylEggMoves:
 	db ABSORB ; becomes Fire Fang
 	db EMBER ; becomes Ice Fang
 	db PSYBEAM ; becomes Thunder Fang
+	db RECOVER ; becomes Roost
 	db -1 ; end
 
 SnorlaxEggMoves:
@@ -720,6 +729,7 @@ CleffaEggMoves:
 	db BELLY_DRUM
 	db MIMIC
 	db METRONOME
+	db GROWTH ; becomes Calm Mind
 	db -1 ; end
 
 IgglybuffEggMoves:
@@ -746,6 +756,8 @@ NatuEggMoves:
 	db QUICK_ATTACK
 	db FAINT_ATTACK
 	db STEEL_WING
+	db RECOVER ; becomes Roost
+	db GROWTH ; becomes Cosmic Power
 	db -1 ; end
 
 MareepEggMoves:
@@ -790,6 +802,7 @@ AipomEggMoves:
 	db SLAM
 	db DOUBLESLAP
 	db PETAL_DANCE
+	db CONFUSION ; becomes Revenge
 	db -1 ; end
 
 SunkernEggMoves:
@@ -821,6 +834,7 @@ MurkrowEggMoves:
 	db WING_ATTACK
 	db SKY_ATTACK
 	db SCREECH ; becomes Feather Dance
+	db RECOVER ; becomes Roost
 	db -1 ; end
 
 MisdreavusEggMoves:
@@ -848,6 +862,7 @@ PinecoEggMoves:
 	db REVERSAL
 	db SWIFT
 	db ENDURE
+	db CONFUSION ; becomes Revenge
 	db -1 ; end
 
 DunsparceEggMoves:
@@ -894,6 +909,7 @@ HeracrossEggMoves:
 	db HARDEN
 	db SEISMIC_TOSS
 	db THUNDERPUNCH
+	db CONFUSION ; becomes Revenge
 	db -1 ; end
 
 SneaselEggMoves:
@@ -903,6 +919,7 @@ SneaselEggMoves:
 	db BITE
 	db ICE_PUNCH
 	db QUICK_ATTACK ; becomes Ice Shard
+	db CONFUSION ; becomes Avalanche
 	db -1 ; end
 
 TeddiursaEggMoves:
@@ -963,6 +980,7 @@ MantineEggMoves:
 	db SLAM
 	db SKY_ATTACK
 	db FIRE_PLAY
+	db RECOVER ; becomes Roost
 	db -1 ; end
 
 SkarmoryEggMoves:
@@ -972,6 +990,7 @@ SkarmoryEggMoves:
 	db SKY_ATTACK
 	db WILD_STORM
 	db CURSE
+	db RECOVER ; becomes Roost
 	db -1 ; end
 
 HoundourEggMoves:
@@ -1007,6 +1026,7 @@ TyrogueEggMoves:
 	db FIRE_PUNCH
 	db ICE_PUNCH
 	db THUNDERPUNCH
+	db CONFUSION ; becomes Revenge
 	db -1 ; end
 
 SmoochumEggMoves:

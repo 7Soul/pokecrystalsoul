@@ -823,6 +823,15 @@ CompareMovePriority:
 ; Compare the priority of the player and enemy's moves.
 ; Return carry if the player goes first, or z if they match.
 
+	ld a, [wCurPartyMon]
+	inc a
+	ld hl, wPartySpecies - 1
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	ld [wBattleMonSpecies], a
+
 	ld a, [wCurPlayerMove]
 	call GetMovePriority
 	ld b, a
@@ -854,12 +863,12 @@ GetMovePriority:
 	jr nz, .loop
 
 	ld a, BASE_PRIORITY
-	jr .check_trait
+	; jr .check_trait
 
 .done
 	ld a, [hl]
 
-.check_trait
+; .check_trait
 	; ld [wBuffer2], a
 	; ld a, BATTLE_VARS_TRAIT
 	; ld [wBuffer1], a
@@ -870,9 +879,19 @@ GetMovePriority:
 INCLUDE "data/moves/effects_priorities.asm"
 
 GetMoveEffect:
-	ld a, b
+	ld e, b
+	farcall IsVariableMove
+	jr nc, .not_variable3
+	farcall GetVariableMoveType
+	jr nc, .not_variable3
+	ld a, e
+	ld hl, VarMoves + MOVE_EFFECT
+	jr .got_move_pointer
+.not_variable3
+	ld a, e
 	dec a
 	ld hl, Moves + MOVE_EFFECT
+.got_move_pointer
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 	ld a, BANK(Moves)

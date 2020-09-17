@@ -107,6 +107,7 @@ MoveEffectsPointers:
 	dw TripleKick
 	dw AtkDefUp
 	dw SpAtkSpDefUp
+	dw DefSpDefUp
 	dw MeanLook
 	dw Nightmare
 	dw FlameWheel
@@ -170,4 +171,4 @@ MoveEffectsPointers:
 	dw JetStream
 	dw FirePlay
 	dw Acupressure
-	dw SlowHit
+	dw LowPriorityHit

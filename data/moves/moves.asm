@@ -320,4 +320,7 @@ VarMoves::
 	move EMBER,        EFFECT_FLINCH_HIT,         65, ICE,      PHYSICAL,           100, STA_BAR,      10 ; ICE_FANG
 	move PSYBEAM,      EFFECT_FLINCH_HIT,         65, ELECTRIC, PHYSICAL,           100, STA_BAR,      10 ; THUNDER_FANG
 	move GROWTH,       EFFECT_SP_ATK_SP_DEF_UP,    0, PSYCHIC,  STATUS,             100, STA_BAR,       0 ; CALM_MIND
+	move GROWTH,       EFFECT_DEF_SP_DEF_UP,       0, NORMAL,   STATUS,             100, STA_BAR,       0 ; COSMIC_POWER
 	move RECOVER,      EFFECT_HEAL,                0, FLYING,   STATUS,             100, STA_BAR * 2,   0 ; ROOST
+	move CONFUSION,    EFFECT_LOW_PRIORITY,       60, ICE,      PHYSICAL,           100, STA_BAR * 2,   0 ; AVALANCHE
+	move CONFUSION,    EFFECT_LOW_PRIORITY,       60, FIGHTING, PHYSICAL,           100, STA_BAR * 2,   0 ; REVENGE

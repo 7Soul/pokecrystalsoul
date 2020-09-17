@@ -307,4 +307,7 @@ VariableMoveNames::
 	db "Ice Fang@"
 	db "Thunder Fang@"
 	db "Calm Mind@"
+	db "Cosmic Power@"
 	db "Roost@"
+	db "Avalanche@"
+	db "Revenge@"

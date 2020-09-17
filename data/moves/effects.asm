@@ -3,6 +3,7 @@ INCLUDE "data/moves/effects_pointers.asm"
 MoveEffects: ; used only for BANK(MoveEffects)
 
 NormalHit:
+LowPriorityHit:
 	checkobedience
 	usedmovetext
 	doturn
@@ -1528,6 +1529,14 @@ SpAtkSpDefUp:
 	doturn
 	statupanim
 	spatkspdefup
+	endmove
+
+DefSpDefUp:
+	checkobedience
+	usedmovetext
+	doturn
+	statupanim
+	defspdefup
 	endmove
 
 MeanLook:

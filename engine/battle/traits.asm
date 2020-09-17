@@ -954,7 +954,7 @@ TraitRaiseStat:
 	ld [wBuffer3], a
 	ld a, TRAIT_ALL_STATS_AFTER_7_TURNS
 	call CheckSpecificTrait
-	jr c, .all_stats
+	jp c, .all_stats
 	ld a, TRAIT_RANDOM_STAT_AFTER_5_TURNS
 	call CheckSpecificTrait
 	jr c, .random_stat
@@ -1048,6 +1048,7 @@ TraitRaiseStat:
 	ld b, 8
 	jr .end
 .highest_stat
+	push af
 	call Switch_turn
 	ld a, $FF
 	ld [wBuffer3], a
@@ -3767,3 +3768,5 @@ OneShotTraits:
 PRINTT "Trait constants left: "
 PRINTV $FF - TRAIT_COUNT
 PRINTT "\n"
+
+PRINTV EFFECT_LOW_PRIORITY
