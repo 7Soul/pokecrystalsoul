@@ -3768,5 +3768,3 @@ OneShotTraits:
 PRINTT "Trait constants left: "
 PRINTV $FF - TRAIT_COUNT
 PRINTT "\n"
-
-PRINTV EFFECT_LOW_PRIORITY

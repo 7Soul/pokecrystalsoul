@@ -3169,9 +3169,7 @@ BattleCommand_DamageCalc:
 	call GetBattleVar
 	cp BUBBLE
 	jr nz, .not_bubble
-	push hl
 	push de
-	push bc
 	ld de, wBattleMonHP
 	ld hl, wBattleMonMaxHP
 	ldh a, [hBattleTurn]
@@ -3181,57 +3179,38 @@ BattleCommand_DamageCalc:
 	ld hl, wEnemyMonMaxHP
 	
 .battlemonhp
-	ld a, [hli]
-	srl a
-	ldh [hDividend], a
-	ld b, a
-	ld a, [hl]
-	rra
-	ldh [hDividend + 1], a
-	
-	ld a, [de]
-	ld b, a
-	ldh a, [hDividend] ; half max hp (second half) (hp over 255)
-	cp b
-	jr nc, .dont_double
-	inc de
-	ld a, [de]
-	ld b, a
-	ldh a, [hDividend + 1] ; half max hp (first half)
-	cp b
-	jr nc, .dont_double ; if half max hp is under curret hp. That means hp is over 50%
+	farcall GetHealthPercentageWithAddr
+	ld a, d
+	cp 50
+	pop de
+	jr nc, .not_bubble
 
-	pop bc
-	pop de
-	pop hl	
 	sla d
-	jr .not_bubble
-	
-.dont_double
-	pop bc
-	pop de
-	pop hl
 	
 .not_bubble
-; 	ld hl, wPlayerDamageTaken + 1
-; 	ldh a, [hBattleTurn]
-; 	and a
-; 	jr z, .battlemonhp
-; 	ld hl, wEnemyDamageTaken + 1
-; .got_damage_taken
-; 	ld a, [hld]
-; 	and a
-; 	jr z, .not_avalanche
-; 	ld a, [hl]
-; 	and a
-; 	jr z, .not_avalanche
+	ld hl, wEnemyDamageTaken + 1
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_damage_taken
+	ld hl, wPlayerDamageTaken + 1
+.got_damage_taken
+	ld a, [hld]
+	and a
+	jr nz, .took_damage
+	ld a, [hl]
+	and a
+	jr z, .not_avalanche
+.took_damage
+	ld a, [wCurVariableMove]
+	cp AVALANCHE
+	jr z, .took_damage_double_power
+	cp REVENGE
+	jr nz, .not_avalanche
 
-; 	ld a, [wCurVariableMove]
-; 	cp AVALANCHE
-; 	jr nz, .not_avalanche
-; 	sla d
+.took_damage_double_power
+	sla d
 
-; .not_avalanche
+.not_avalanche
 	xor a
 	ld hl, hDividend
 	ld [hli], a
