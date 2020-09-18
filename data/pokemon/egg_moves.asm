@@ -122,6 +122,7 @@ NidoranMEggMoves:
 	db AMNESIA
 	db COUNTER
 	db VENOSHOCK
+	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 VulpixEggMoves:
@@ -294,6 +295,7 @@ PonytaEggMoves:
 	db QUICK_ATTACK
 	db MORNING_SUN
 	db GROWTH ; becomes Calm Mind
+	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 SlowpokeEggMoves:
@@ -347,6 +349,7 @@ SeelEggMoves:
 	db HORN_DRILL
 	db JET_STREAM
 	db FIRE_PLAY
+	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 GrimerEggMoves:
@@ -465,6 +468,7 @@ RhyhornEggMoves:
 	db ABSORB ; becomes Fire Fang
 	db EMBER ; becomes Ice Fang
 	db PSYBEAM ; becomes Thunder Fang
+	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 ChanseyEggMoves:
@@ -508,6 +512,7 @@ GoldeenEggMoves:
 	db BODY_SLAM
 	db HYDRO_PUMP
 	db ICY_WIND ; becomes Mud Shot
+	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 StaryuEggMoves:
@@ -555,6 +560,7 @@ TaurosEggMoves:
 	db VINE_WHIP
 	db HYPER_BEAM
 	db CONFUSION ; becomes Revenge
+	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 MagikarpEggMoves:
@@ -573,6 +579,7 @@ LaprasEggMoves:
 	db HARMONY
 	db HORN_DRILL
 	db WHIRLPOOL
+	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 EeveeEggMoves:
@@ -704,6 +711,7 @@ SpinarakEggMoves:
 	db BATON_PASS
 	db PURSUIT
 	db SPARK
+	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 ChinchouEggMoves:
@@ -910,6 +918,7 @@ HeracrossEggMoves:
 	db SEISMIC_TOSS
 	db THUNDERPUNCH
 	db CONFUSION ; becomes Revenge
+	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 SneaselEggMoves:

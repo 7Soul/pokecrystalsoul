@@ -1905,6 +1905,8 @@ BattleAnim_Wrap:
 	anim_ret
 
 BattleAnim_Confusion:
+	anim_if_param_equal ICE, .avalanche
+	anim_if_param_equal FIGHTING, .revenge
 	anim_1gfx ANIM_GFX_HIT
 	anim_call BattleAnim_FollowPlayerHead_1_bank2
 	anim_sound 0, 1, SFX_PSYCHIC
@@ -1912,6 +1914,8 @@ BattleAnim_Confusion:
 	anim_wait 128
 	anim_incbgeffect ANIM_BG_NIGHT_SHADE
 	anim_call BattleAnim_ShowMon_1_bank2
+.avalanche ; TODO
+.revenge ; TODO
 	anim_ret
 
 BattleAnim_Constrict:
@@ -2829,6 +2833,7 @@ BattleAnim_Kinesis:
 BattleAnim_Peck:
 	anim_if_param_equal ELECTRIC, .electroball
 	anim_if_param_equal FIGHTING, .aurasphere
+	anim_if_param_equal STEEL, .smart_strike
 	anim_1gfx ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_PECK
 	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 128, 48, $0
@@ -2838,6 +2843,7 @@ BattleAnim_Peck:
 	anim_wait 16
 .electroball ; TODO
 .aurasphere ; TODO
+.smart_strike ; TODO
 	anim_ret
 
 BattleAnim_DrillPeck:
@@ -3098,6 +3104,7 @@ BattleAnim_Psybeam:
 	anim_ret
 
 BattleAnim_DreamEater:
+	anim_if_param_equal STEEL, .guardclaw
 	anim_1gfx ANIM_GFX_BUBBLE
 	anim_bgp $1b
 	anim_obp0 $27
@@ -3105,6 +3112,7 @@ BattleAnim_DreamEater:
 	anim_call BattleAnim_DreamEater_branch_cbab3
 	anim_wait 128
 	anim_wait 48
+.guardclaw ; TODO
 	anim_ret
 
 BattleAnim_LeechLife:

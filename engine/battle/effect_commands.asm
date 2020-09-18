@@ -3186,6 +3186,11 @@ BattleCommand_DamageCalc:
 	jr nc, .not_bubble
 
 	sla d
+	ld a, d
+	cp 100
+	jr c, .not_bubble
+	sub 20
+	ld d, a
 	
 .not_bubble
 	ld hl, wEnemyDamageTaken + 1

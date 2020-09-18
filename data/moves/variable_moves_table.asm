@@ -10,7 +10,7 @@ VariableMoves::
 	db FIRE_PLAY ; Tide Clash, Flutter Clap
 	db CROSS_CHOP ; Stone Edge
 	db DOUBLE_EDGE ; Brave Bird, Wood Hammer, Flare Blitz
-	db PECK ; Electro Ball, Aura Sphere
+	db PECK ; Electro Ball, Aura Sphere, Smart Strike
 	db QUICK_ATTACK ; Ice Shard, Accelerock, Aqua Jet
 	db MACH_PUNCH ; Bullet Punch
 	db SLASH ; Night Slash, Leaf Blade
@@ -40,6 +40,7 @@ VariableMoves::
 	db GROWTH ; Calm Mind
 	db RECOVER ; Roost
 	db CONFUSION ; Avalanche, Revenge
+	db BUBBLE ; Guard Claw
 	db -1
 
 VariablePointers:
@@ -78,6 +79,7 @@ VariablePointers:
 	varmove GROWTH,       GrowthVariables
 	varmove RECOVER,      RecoverVariables
 	varmove CONFUSION,    ConfusionVariables
+	varmove BUBBLE,       BubbleVariables
 
 DoubleSlapVariables:
 	db BONE_RUSH, CUBONE, MAROWAK, -1
@@ -108,6 +110,7 @@ DoubleEdgeVariables:
 PeckVariables:
 	db ELECTRO_BALL, STEELIX, PICHU, PIKACHU, RAICHU, MAGNEMITE, MAGNETON, ELEKID, ELECTABUZZ, VOLTORB, ELECTRODE, CHINCHOU, LANTURN, MAREEP, FLAAFFY, AMPHAROS, -1
 	db AURA_SPHERE, MEWTWO, MEW, -1
+	db SMART_STRIKE, PONYTA, RAPIDASH, NIDORAN_M, NIDORINO, NIDOKING, GOLDEEN, SEAKING, TAUROS, LAPRAS, SEEL, DEWGONG, RHYHORN, RHYDON, SPINARAK, ARIADOS, HERACROSS, -1
 	db -2
 
 QuickAttackVariables:
@@ -238,6 +241,10 @@ RecoverVariables:
 ConfusionVariables:
 	db AVALANCHE, MAGIKARP, GYARADOS, SHELLDER, CLOYSTER, SMOOCHUM, JYNX, LAPRAS, SWINUB, PILOSWINE, SNEASEL, -1
 	db REVENGE, MACHOP, MACHOKE, MACHAMP, HITMONCHAN, HITMONLEE, PINSIR, QWILFISH, HITMONTOP, FARFETCH_D, TAUROS, HERACROSS, AIPOM, PINECO, FORRETRESS, -1
+	db -2
+
+BubbleVariables:
+	db GUARD_CLAW, WEEDLE, KAKUNA, BEEDRILL, SCYTHER, SCIZOR, KRABBY, KINGLER, -1
 	db -2
 	
  ; needs animations:

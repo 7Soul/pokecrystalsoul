@@ -116,7 +116,7 @@ EvolutionMoves::
 	db NO_MOVE ; Graveler
 	db NO_MOVE ; Golem
 	db NO_MOVE ; Ponyta
-	db NO_MOVE ; Rapidash
+	db PECK ; Rapidash , becomes Smart Strike
 	db NO_MOVE ; Slowpoke
 	db HARDEN ; Slowbro
 	db NO_MOVE ; Magnemite
