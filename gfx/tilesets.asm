@@ -99,12 +99,6 @@ INCLUDE "data/tilesets/lab_collision.asm"
 TilesetMartGFX:
 INCBIN "gfx/tilesets/mart.2bpp.lz"
 
-TilesetMartMeta:
-INCBIN "data/tilesets/mart_metatiles.bin"
-
-TilesetMartColl:
-INCLUDE "data/tilesets/mart_collision.asm"
-
 TilesetGameCornerGFX:
 INCBIN "gfx/tilesets/game_corner.2bpp.lz"
 
@@ -185,6 +179,12 @@ SECTION "Tileset Data 5", ROMX
 
 ; TilesetPokeComCenterColl:
 ; INCLUDE "data/tilesets/pokecom_center_collision.asm"
+
+TilesetMartMeta:
+INCBIN "data/tilesets/mart_metatiles.bin"
+
+TilesetMartColl:
+INCLUDE "data/tilesets/mart_collision.asm"
 
 TilesetBattleTowerGFX:
 INCBIN "gfx/tilesets/battle_tower.2bpp.lz"

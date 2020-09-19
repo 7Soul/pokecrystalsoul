@@ -3379,13 +3379,15 @@ CallFarSpecificTrait:
 
 GetHealthPercentage:
 	ld hl, wBattleMonHP
-	ld de, wBattleMonMaxHP
 	call GetTraitUser
 	jr c, .got_stats
 	ld hl, wEnemyMonHP
-	ld de, wEnemyMonMaxHP
 .got_stats
 GetHealthPercentageWithAddr:
+	ld d, h
+	ld e, l
+	inc de
+	inc de
 	push bc
 ; save old calculation results
 	ldh a, [hMultiplicand + 1]

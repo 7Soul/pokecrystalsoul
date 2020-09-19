@@ -2284,9 +2284,7 @@ BattleCommand_MoveAnimNoSub:
 .got_rollout_count
 	ld [wNumHits], a
 
-	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVar
-	and TYPE_MASK ; move type in a
+	ld a, [wCurVariableMove]
 	ld [wBattleAnimParam], a
 
 	ld a, BATTLE_VARS_MOVE_EFFECT
@@ -3170,27 +3168,39 @@ BattleCommand_DamageCalc:
 	cp BUBBLE
 	jr nz, .not_bubble
 	push de
+	ld hl, wEnemyMonHP
 	ld de, wBattleMonHP
-	ld hl, wBattleMonMaxHP
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .battlemonhp
+	ld hl, wBattleMonHP
 	ld de, wEnemyMonHP
-	ld hl, wEnemyMonMaxHP
 	
 .battlemonhp
+	ld a, [wCurVariableMove]
+	cp GUARD_CLAW
+	jr nz, .got_hp_pointers
+	ld h, d
+	ld l, e
+.got_hp_pointers
 	farcall GetHealthPercentageWithAddr
 	ld a, d
 	cp 50
 	pop de
-	jr nc, .not_bubble
+	jr nc, .not_bubble ; not under 50% hp
 
-	sla d
-	ld a, d
-	cp 100
-	jr c, .not_bubble
-	sub 20
+	ld a, [wCurVariableMove]
+	ld hl, .new_bubble_power
+	add l
+	ld l, a
+	ld a, [hl]
 	ld d, a
+	jr .not_bubble
+
+.new_bubble_power:
+	db 40
+	db 90
+	db 130
 	
 .not_bubble
 	ld hl, wEnemyDamageTaken + 1

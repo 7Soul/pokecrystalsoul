@@ -511,8 +511,11 @@ ZoomFlightDescription:
 	db   "An attack that may"
 	next "confuse the foe.@"
 
-BubblebeamDescription:
 BubbleDescription:
+	db   "Stronger when foe"
+	next "is weak.@"
+
+BubblebeamDescription:
 ConstrictDescription:
 	db   "An attack that may"
 	next "lower SPEED.@"
@@ -1123,12 +1126,14 @@ VariableMoveDescriptions::
 	dw $0000 ; FlareBlitzDescription
 	dw ElectroBallDescription
 	dw AuraSphereDescription
+	dw SmartStrikeDescription
 	dw $0000 ; IceShardDescription
 	dw $0000 ; AccelerockDescription
 	dw $0000 ; AquaJetDescription
 	dw $0000 ; BulletPunchDescription
 	dw $0000 ; NightSlashDescription
 	dw $0000 ; LeafBladeDescription
+	dw $0000 ; AirCutterDescription
 	dw SeedBombDescription
 	dw $0000 ; AerialAceDescription
 	dw $0000 ; FeatherDanceDescription
@@ -1158,14 +1163,18 @@ VariableMoveDescriptions::
 	dw $0000 ; WaterfallDescription
 	dw $0000 ; IronHeadDescription
 	dw $0000 ; ExtrasensoryDescription
-	dw FireFangDescription ; FireFangDescription
-	dw IceFangDescription ; IceFangDescription
-	dw ThunderFangDescription ; ThunderFangDescription
-	dw CalmMindDescription ; CalmMindDescription
-	dw CosmicPowerDescription ; CosmicPowerDescription
+	dw FireFangDescription
+	dw IceFangDescription
+	dw ThunderFangDescription
+	dw CalmMindDescription
+	dw CosmicPowerDescription
 	dw $0000 ; RoostDescription
-	dw AvalancheDescription ; AvalancheDescription
-	dw RevengeDescription ; RevengeDescription
+	dw AvalancheDescription
+	dw RevengeDescription
+	dw GuardClawDescription
+	dw $0000 ; BrineDescription
+	dw PoisonFangDescription
+	dw $0000 ; WaterPulseDescription
 
 ; BoneRushDescription:
 ; PinMissileDescription:
@@ -1198,6 +1207,7 @@ ElectroBallDescription:
 	next "user is faster.@"
 
 AuraSphereDescription:
+SmartStrikeDescription:
 	db   "An attack that"
 	next "never misses.@"
 
@@ -1293,6 +1303,14 @@ AvalancheDescription:
 RevengeDescription:
 	db   "Double in power if"
 	next "you took damage.@"
+
+GuardClawDescription:
+	db   "Better at low HP,"
+	next "may raise DEF.@"
+
+PoisonFangDescription:
+	db   "A poison move with"
+	next "increasing damage.@"
 
 PowerWhipDescription:
 RockPolishDescription:

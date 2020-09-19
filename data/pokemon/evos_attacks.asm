@@ -121,13 +121,14 @@ SquirtleEvosAttacks:
 	db 10, HARDEN
 	db 13, WATER_GUN
 	db 19, BITE
-	db 22, RAPID_SPIN
+	db 21, RAPID_SPIN
+	db 24, SIGNAL_BEAM ; becomes Water Pulse
 	db 26, PROTECT
 	db 31, AQUA_TAIL
 	db 37, SKULL_BASH
 	db 40, RAIN_DANCE
-	db 45, VITAL_THROW
-	db 50, HYDRO_PUMP
+	db 43, VITAL_THROW
+	db 46, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 WartortleEvosAttacks:
@@ -139,23 +140,25 @@ WartortleEvosAttacks:
 	db 13, WATER_GUN
 	db 19, BITE
 	db 21, RAPID_SPIN
+	db 26, SIGNAL_BEAM ; becomes Water Pulse
 	db 28, PROTECT
-	db 32, AQUA_TAIL
-	db 40, SKULL_BASH
-	db 43, RAIN_DANCE
-	db 49, VITAL_THROW
-	db 56, HYDRO_PUMP
+	db 33, AQUA_TAIL
+	db 41, SKULL_BASH
+	db 44, RAIN_DANCE
+	db 47, VITAL_THROW
+	db 53, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 BlastoiseEvosAttacks:
 	db 0 ; no more evolutions
 	db 19, BITE
 	db 21, RAPID_SPIN
+	db 24, SIGNAL_BEAM ; becomes Water Pulse
 	db 28, PROTECT
 	db 32, AQUA_TAIL
-	db 43, SKULL_BASH
-	db 46, RAIN_DANCE
-	db 54, VITAL_THROW
+	db 44, SKULL_BASH
+	db 47, RAIN_DANCE
+	db 53, VITAL_THROW
 	db 60, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -383,6 +386,7 @@ EkansEvosAttacks:
 	db 41, HAZE
 	db 44, ACID_ARMOR
 	db 49, GUNK_SHOT
+	db 55, CHARGE_BEAM ; becomes Poison Fang
 	db 0 ; no more level-up moves
 
 ArbokEvosAttacks:
@@ -473,14 +477,16 @@ NidoranFEvosAttacks:
 	db 1, SCRATCH
 	db 6, POISON_STING
 	db 10, DOUBLE_KICK
-	db 18, TAIL_WHIP
+	db 13, TAIL_WHIP
+	db 17, BITE
 	db 20, HYPER_FANG
 	db 24, ROCK_SMASH
 	db 30, PSYCH_UP
 	db 34, MUD_BOMB
 	db 39, MAGNITUDE
-	db 45, HEAL_BELL
+	db 45, CHARGE_BEAM ; becomes Poison Fang
 	db 49, CLOSE_COMBAT
+	db 54, HEAL_BELL
 	db 0 ; no more level-up moves
 
 NidorinaEvosAttacks:
@@ -489,30 +495,31 @@ NidorinaEvosAttacks:
 	db 1, LEAF_SHIELD
 	db 6, POISON_STING
 	db 10, DOUBLE_KICK
-	db 18, TAIL_WHIP
-	db 20, HYPER_FANG
-	db 24, ROCK_SMASH
-	db 30, PSYCH_UP
-	db 34, MUD_BOMB
-	db 39, MAGNITUDE
-	db 45, HEAL_BELL
-	db 49, CLOSE_COMBAT
+	db 13, TAIL_WHIP
+	db 18, BITE
+	db 22, HYPER_FANG
+	db 26, ROCK_SMASH
+	db 33, PSYCH_UP
+	db 37, MUD_BOMB
+	db 43, MAGNITUDE
+	db 49, CHARGE_BEAM ; becomes Poison Fang
+	db 54, CLOSE_COMBAT
 	db 0 ; no more level-up moves
 
 NidoqueenEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, LEAF_SHIELD
-	db 1, SCRATCH
 	db 6, POISON_STING
 	db 10, DOUBLE_KICK
-	db 18, TAIL_WHIP
-	db 20, HYPER_FANG
-	db 24, ROCK_SMASH
-	db 30, PSYCH_UP
-	db 34, MUD_BOMB
-	db 39, MAGNITUDE
-	db 45, HEAL_BELL
-	db 49, CLOSE_COMBAT
+	db 13, TAIL_WHIP
+	db 19, BITE
+	db 23, HYPER_FANG
+	db 27, ROCK_SMASH
+	db 35, PSYCH_UP
+	db 40, MUD_BOMB
+	db 45, MAGNITUDE
+	db 51, CHARGE_BEAM ; becomes Poison Fang
+	db 56, CLOSE_COMBAT
 	db 0 ; no more level-up moves
 
 NidoranMEvosAttacks:
@@ -674,37 +681,41 @@ WigglytuffEvosAttacks:
 ZubatEvosAttacks:
 	db EVOLVE_LEVEL, 22, GOLBAT
 	db 0 ; no more evolutions
-	db 1, LEECH_LIFE
+	db 1, ABSORB
 	db 1, SCREECH
 	db 6, SUPERSONIC
 	db 10, BITE
 	db 15, WING_ATTACK	
-	db 19, CONFUSE_RAY
+	db 17, CONFUSE_RAY
+	db 19, SLASH ; becomes Air Cutter
 	db 23, SWIFT
-	db 30, MEAN_LOOK
+	db 25, CHARGE_BEAM ; becomes Poison Fang
+	db 29, MEAN_LOOK
+	db 31, LEECH_LIFE
+	db 35, HAZE
 	db 37, VENOSHOCK
-	db 41, CRUNCH
-	db 45, HYPER_SONAR
-	db 49, HAZE
-	db 52, AIR_SLASH
+	db 41, AIR_SLASH
+	db 43, HYPER_SONAR
 	db 0 ; no more level-up moves
 
 GolbatEvosAttacks:
 	db EVOLVE_HAPPINESS, TR_ANYTIME, CROBAT
 	db 0 ; no more evolutions	
-	db 1, LEECH_LIFE
+	db 1, ABSORB
 	db 1, SCREECH
 	db 6, SUPERSONIC
 	db 10, BITE
-	db 16, WING_ATTACK	
-	db 21, CONFUSE_RAY
+	db 15, WING_ATTACK	
+	db 17, CONFUSE_RAY
+	db 19, SLASH ; becomes Air Cutter
 	db 25, SWIFT
-	db 33, MEAN_LOOK
-	db 40, VENOSHOCK
-	db 45, CRUNCH
-	db 49, HYPER_SONAR
-	db 55, HAZE
-	db 59, AIR_SLASH
+	db 27, CHARGE_BEAM ; becomes Poison Fang
+	db 32, MEAN_LOOK
+	db 34, LEECH_LIFE
+	db 39, HAZE
+	db 43, VENOSHOCK
+	db 46, AIR_SLASH
+	db 51, HYPER_SONAR
 	db 0 ; no more level-up moves
 
 OddishEvosAttacks:
@@ -802,7 +813,8 @@ VenonatEvosAttacks:
 	db 29, SLEEP_POWDER
 	db 35, SIGNAL_BEAM
 	db 37, ZEN_HEADBUTT
-	db 43, PSYCHIC_M
+	db 41, CHARGE_BEAM ; becomes Poison Fang
+	db 44, PSYCHIC_M
 	db 49, BUG_BUZZ
 	db 0 ; no more level-up moves
 
@@ -812,11 +824,12 @@ VenomothEvosAttacks:
 	db 23, STUN_SPORE
 	db 26, PSYBEAM
 	db 26, GUST
-	db 30, SLEEP_POWDER
+	db 31, SLEEP_POWDER
 	db 37, SIGNAL_BEAM
-	db 40, ZEN_HEADBUTT
-	db 46, PSYCHIC_M
-	db 55, BUG_BUZZ
+	db 41, ZEN_HEADBUTT
+	db 45, CHARGE_BEAM ; becomes Poison Fang
+	db 49, PSYCHIC_M
+	db 54, BUG_BUZZ
 	db 0 ; no more level-up moves
 
 DiglettEvosAttacks:
@@ -888,7 +901,8 @@ PsyduckEvosAttacks:
 	db 5, TAIL_WHIP
 	db 7, WATER_GUN
 	db 10, CONFUSION
-	db 13, FURY_ATTACK	
+	db 13, FURY_ATTACK
+	db 16, SIGNAL_BEAM ; becomes Water Pulse
 	db 19, DISABLE
 	db 22, SCREECH
 	db 25, ZEN_HEADBUTT
@@ -904,15 +918,16 @@ GolduckEvosAttacks:
 	db 5, TAIL_WHIP
 	db 7, WATER_GUN
 	db 10, CONFUSION
-	db 13, FURY_ATTACK	
+	db 13, FURY_ATTACK
+	db 16, SIGNAL_BEAM ; becomes Water Pulse
 	db 19, DISABLE
 	db 22, SCREECH
 	db 25, ZEN_HEADBUTT
 	db 30, AQUA_TAIL
 	db 33, PSYCH_UP
-	db 40, AMNESIA
-	db 43, HYDRO_PUMP
-	db 47, PSYBEAM
+	db 42, AMNESIA
+	db 45, HYDRO_PUMP
+	db 51, PSYBEAM
 	db 0 ; no more level-up moves
 
 MankeyEvosAttacks:
@@ -1174,28 +1189,31 @@ TentacoolEvosAttacks:
 	db 1, POISON_STING
 	db 5, SUPERSONIC
 	db 8, ACID
-	db 12, CONSTRICT
-	db 18, WRAP
+	db 10, CONSTRICT
+	db 14, WRAP
+	db 17, SIGNAL_BEAM ; becomes Water Pulse
 	db 22, BUBBLEBEAM
 	db 28, BARRIER
 	db 31, SPARK ; becomes Shock Sting
 	db 34, SCREECH
 	db 37, SLUDGE
 	db 42, VENOSHOCK
+	db 46, HYDRO_PUMP
 	db 48, MINIMIZE
 	db 0 ; no more level-up moves
 
 TentacruelEvosAttacks:
 	db 0 ; no more evolutions
-	db 12, CONSTRICT
 	db 18, WRAP
+	db 17, SIGNAL_BEAM ; becomes Water Pulse
 	db 22, BUBBLEBEAM
 	db 28, BARRIER
 	db 33, SPARK ; becomes Shock Sting
 	db 38, SCREECH
 	db 41, SLUDGE
 	db 46, VENOSHOCK
-	db 52, MINIMIZE
+	db 51, HYDRO_PUMP
+	db 54, MINIMIZE
 	db 0 ; no more level-up moves
 
 GeodudeEvosAttacks:
@@ -1283,7 +1301,7 @@ SlowpokeEvosAttacks:
 	db 14, CONFUSION
 	db 19, DISABLE
 	db 23, HEADBUTT
-	db 28, AQUA_TAIL
+	db 28, SIGNAL_BEAM ; becomes Water Pulse
 	db 32, ZEN_HEADBUTT
 	db 41, AMNESIA
 	db 45, PSYCHIC_M
@@ -1296,7 +1314,7 @@ SlowbroEvosAttacks:
 	db 14, CONFUSION
 	db 19, DISABLE
 	db 23, HEADBUTT
-	db 28, AQUA_TAIL
+	db 29, SIGNAL_BEAM ; becomes Water Pulse
 	db 33, ZEN_HEADBUTT
 	db 44, AMNESIA
 	db 49, PSYCHIC_M
@@ -1393,10 +1411,11 @@ SeelEvosAttacks:
 	db 21, REST
 	db 27, DARK_PULSE ; becomes Waterfall
 	db 32, TAKE_DOWN
-	db 37, ICE_BEAM
+	db 37, BUBBLE ; becomes Brine
+	; dive
 	db 43, AQUA_TAIL
-	db 48, SAFEGUARD
-	db 51, BLIZZARD
+	db 47, ICE_BEAM
+	db 49, SAFEGUARD
 	db 0 ; no more level-up moves
 
 DewgongEvosAttacks:
@@ -1406,10 +1425,10 @@ DewgongEvosAttacks:
 	db 27, DARK_PULSE ; becomes Waterfall
 	db 32, TAKE_DOWN
 	db 33, HORN_DRILL ; becomes Sheer Cold
-	db 38, ICE_BEAM
+	db 39, BUBBLE ; becomes Brine
 	db 47, AQUA_TAIL
-	db 51, SAFEGUARD
-	db 54, BLIZZARD
+	db 53, ICE_BEAM
+	db 56, SAFEGUARD
 	db 0 ; no more level-up moves
 
 GrimerEvosAttacks:
@@ -1588,6 +1607,7 @@ KrabbyEvosAttacks:
 	db 34, IRON_TAIL ; becomes Razor Shell
 	db 37, SLAM
 	db 41, CRABHAMMER
+	db 44, BUBBLE ; becomes Brine
 	db 47, SHARPEN
 	db 0 ; no more level-up moves
 
@@ -1603,6 +1623,7 @@ KinglerEvosAttacks:
 	db 39, IRON_TAIL ; becomes Razor Shell
 	db 43, SLAM
 	db 47, CRABHAMMER
+	db 50, BUBBLE ; becomes Brine
 	db 52, SHARPEN
 	db 0 ; no more level-up moves
 
@@ -1868,8 +1889,9 @@ HorseaEvosAttacks:
 	db 21, OCTAZOOKA
 	db 26, FOCUS_ENERGY
 	db 29, TWISTER
-	db 33, AGILITY
-	db 35, DARK_PULSE ; becomes Waterfall
+	db 33, BUBBLE ; becomes Brine
+	db 35, AGILITY
+	db 39, DARK_PULSE ; becomes Waterfall
 	db 43, HYDRO_PUMP
 	db 48, EXTREMESPEED
 	db 0 ; no more level-up moves
@@ -1883,8 +1905,9 @@ SeadraEvosAttacks:
 	db 23, OCTAZOOKA
 	db 29, FOCUS_ENERGY
 	db 33, TWISTER
-	db 37, AGILITY
-	db 40, DARK_PULSE ; becomes Waterfall
+	db 36, BUBBLE ; becomes Brine
+	db 38, AGILITY
+	db 43, DARK_PULSE ; becomes Waterfall
 	db 48, HYDRO_PUMP
 	db 53, SPARK
 	db 60, EXTREMESPEED
@@ -1895,28 +1918,30 @@ GoldeenEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, PECK
 	db 1, TAIL_WHIP
-	db 7, FIRE_PLAY ; becomes Tide Clash
+	db 8, FIRE_PLAY ; becomes Tide Clash
 	db 10, SUPERSONIC
-	db 15, HORN_ATTACK
+	db 13, HORN_ATTACK
+	db 16, SIGNAL_BEAM ; becomes Water Pulse
 	db 24, REVERSAL ; becomes Flail
 	db 29, FURY_ATTACK	
-	db 33, AQUA_TAIL
-	db 38, TWISTER
+	db 33, AGILITY
+	db 38, WATERFALL
+	db 40, TWISTER
 	db 43, HORN_DRILL
-	db 52, AGILITY
+	db 46, MEGAHORN
 	db 0 ; no more level-up moves
 
 SeakingEvosAttacks:
 	db 0 ; no more evolutions
-	db 10, SUPERSONIC
-	db 15, HORN_ATTACK
+	db 13, HORN_ATTACK
+	db 16, SIGNAL_BEAM ; becomes Water Pulse
 	db 24, REVERSAL ; becomes Flail
-	db 29, FURY_ATTACK
-	db 33, AQUA_TAIL
-	db 41, TWISTER
-	db 49, HORN_DRILL
-	db 54, MEGAHORN
-	db 61, AGILITY
+	db 29, FURY_ATTACK	
+	db 33, AGILITY
+	db 40, WATERFALL
+	db 43, TWISTER
+	db 47, HORN_DRILL
+	db 52, MEGAHORN
 	db 0 ; no more level-up moves
 
 StaryuEvosAttacks:
@@ -1926,12 +1951,15 @@ StaryuEvosAttacks:
 	db 1, HARDEN
 	db 7, WATER_GUN
 	db 13, RAPID_SPIN
-	db 19, RECOVER
-	db 25, SWIFT
-	db 31, BUBBLEBEAM
-	db 37, MINIMIZE
-	db 42, LIGHT_SCREEN
-	db 45, POWER_GEM
+	db 16, SWIFT
+	db 18, BUBBLEBEAM
+	db 20, RECOVER
+	db 24, GYRO_BALL
+	db 28, BUBBLE ; becomes Brine
+	db 31, MINIMIZE
+	db 35, POWER_GEM
+	db 42, PSYCHIC_M
+	db 45, LIGHT_SCREEN
 	db 49, GROWTH ; becomes Cosmic Power
 	db 51, HYDRO_PUMP
 	db 54, PRISM_LIGHT
@@ -1941,23 +1969,27 @@ StarmieEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, HARDEN
-	db 10, WATER_GUN
-	db 17, RAPID_SPIN
-	db 23, RECOVER
-	db 29, SWIFT
-	db 35, BUBBLEBEAM
-	db 41, MINIMIZE
-	db 47, LIGHT_SCREEN
-	db 50, POWER_GEM
+	db 7, WATER_GUN
+	db 13, RAPID_SPIN
+	db 16, SWIFT
+	db 18, BUBBLEBEAM
+	db 21, RECOVER
+	db 25, GYRO_BALL
+	db 30, BUBBLE ; becomes Brine
+	db 33, MINIMIZE
+	db 38, POWER_GEM
+	db 45, PSYCHIC_M
+	db 49, LIGHT_SCREEN
 	db 53, GROWTH ; becomes Cosmic Power
-	db 55, HYDRO_PUMP
-	db 59, PRISM_LIGHT
+	db 56, HYDRO_PUMP
+	db 60, PRISM_LIGHT
 	db 0 ; no more level-up moves
 
 MrMimeEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BARRIER
 	db 1, POUND
+	db 1, MIMIC
 	db 6, CONFUSION
 	db 9, MEDITATE
 	db 11, SUBSTITUTE
@@ -2109,16 +2141,18 @@ LaprasEvosAttacks:
 	db 1, WATER_GUN
 	db 1, GROWL
 	db 1, SING
-	db 8, MIST
+	db 5, MIST
+	db 7, CONFUSE_RAY
 	db 10, QUICK_ATTACK ; becomes Ice Shard
-	db 15, BODY_SLAM
-	db 22, CONFUSE_RAY
-	db 29, PERISH_SONG
-	db 32, CONFUSION ; becomes Avalanche
-	db 36, ICE_BEAM
-	db 43, RAIN_DANCE
-	db 50, SAFEGUARD
-	db 57, HYDRO_PUMP
+	db 15, SIGNAL_BEAM ; becomes Water Pulse
+	db 18, BODY_SLAM
+	db 22, RAIN_DANCE
+	db 27, PERISH_SONG
+	db 32, ICE_BEAM
+	db 37, BUBBLE ; becomes Brine
+	db 43, SAFEGUARD
+	db 47, HYDRO_PUMP
+	db 50, HORN_DRILL ; becomes Sheer Cold
 	db 0 ; no more level-up moves
 
 DittoEvosAttacks:
@@ -2152,10 +2186,10 @@ VaporeonEvosAttacks:
 	db 1, TACKLE
 	db 1, TAIL_WHIP
 	db 1, SAND_ATTACK
-	db 1, WATER_GUN
+	db 6, WATER_GUN
 	db 13, QUICK_ATTACK
-	db 18, JET_STREAM
-	db 21, AURORA_BEAM
+	db 17, JET_STREAM
+	db 20, AURORA_BEAM
 	db 24, BITE
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 42, HAZE
@@ -2228,8 +2262,8 @@ OmanyteEvosAttacks:
 	db 28, JET_STREAM
 	db 32, PROTECT
 	db 37, ANCIENTPOWER
-	db 46, DOUBLESLAP ; becomes Rock Blast
-	db 52, HYDRO_PUMP
+	db 44, DOUBLESLAP ; becomes Rock Blast
+	db 49, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 OmastarEvosAttacks:
@@ -2388,6 +2422,7 @@ DragonairEvosAttacks:
 	db 36, AQUA_TAIL
 	db 47, SAFEGUARD
 	db 52, THRASH
+	db 52, HYDRO_PUMP
 	db 59, HYPER_BEAM
 	db 0 ; no more level-up moves
 
@@ -2397,11 +2432,13 @@ DragoniteEvosAttacks:
 	db 25, AGILITY
 	db 31, CHARGE_BEAM
 	db 36, AQUA_TAIL
-	db 39, WING_ATTACK
+	db 40, WING_ATTACK
 	db 47, SAFEGUARD
-	db 52, HYDRO_PUMP
 	db 55, THRASH
+	db 62, SLASH ; becomes Air Cutter
 	db 62, HYPER_BEAM
+	db 62, RECOVER ; becomes Roost
+	db 62, DIZZY_PUNCH ; becomes Hurricane
 	db 0 ; no more level-up moves
 
 MewtwoEvosAttacks:
@@ -2723,18 +2760,20 @@ AriadosEvosAttacks:
 
 CrobatEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, LEECH_LIFE
-	db 6, SUPERSONIC
-	db 12, BITE
-	db 19, CONFUSE_RAY
+	db 1, ABSORB
+	db 5, SUPERSONIC
+	db 8, BITE
+	db 13, WING_ATTACK
+	db 17, CONFUSE_RAY
+	db 19, SLASH ; becomes Air Cutter
 	db 24, SWIFT
-	db 29, WING_ATTACK	
-	db 37, MEAN_LOOK
-	db 40, VENOSHOCK
+	db 27, CHARGE_BEAM ; becomes Poison Fang
+	db 32, MEAN_LOOK
+	db 35, LEECH_LIFE
+	db 43, VENOSHOCK
 	db 45, CRUNCH
-	db 49, MIRROR_MOVE
-	db 53, EXTREMESPEED
-	db 59, HYPER_SONAR
+	db 48, AIR_SLASH
+	db 51, EXTREMESPEED
 	db 0 ; no more level-up moves
 
 ChinchouEvosAttacks:
@@ -3403,6 +3442,7 @@ QwilfishEvosAttacks:
 	db 29, CONFUSION ; becomes Revenge
 	db 33, JET_STREAM
 	db 38, TAKE_DOWN
+	db 41, BUBBLE ; becomes Brine
 	db 44, TOXIC
 	db 49, VENOSHOCK
 	db 54, AQUA_TAIL
@@ -3578,11 +3618,12 @@ CorsolaEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, HARDEN
-	db 5, BUBBLE
+	db 5, FIRE_PLAY ; becomes Tide Clash
 	db 8, RECOVER
 	db 10, SPIKE_CANNON
-	db 17, BUBBLEBEAM
+	db 16, BUBBLEBEAM
 	db 20, ANCIENTPOWER
+	db 25, BUBBLE ; becomes Brine
 	db 29, ACID_ARMOR
 	db 31, DOUBLESLAP ; becomes Rock Blast
 	db 35, ENDURE
@@ -3615,6 +3656,7 @@ OctilleryEvosAttacks:
 	db 14, AURORA_BEAM
 	db 18, BUBBLEBEAM
 	db 22, FOCUS_ENERGY
+	db 24, OCTAZOOKA
 	db 30, JET_STREAM
 	db 34, SIGNAL_BEAM
 	db 36, ICE_BEAM
@@ -4032,7 +4074,8 @@ LugiaEvosAttacks:
 	db 1, WHIRLWIND
 	db 10, RAIN_DANCE
 	db 12, SAFEGUARD
-	db 19, SWIFT
+	db 17, BUBBLE ; becomes Brine
+	db 21, SWIFT
 	db 25, RECOVER
 	db 29, WILD_STORM
 	db 34, DARK_PULSE ; becomes Extrasensory

@@ -53,8 +53,6 @@ CaterpieEggMoves:
 WeedleEggMoves:
 	db PURSUIT
 	db FAINT_ATTACK
-	db AIR_SLASH
-	db STEEL_WING
 	db -1 ; end
 	
 PidgeyEggMoves:
@@ -67,16 +65,13 @@ PidgeyEggMoves:
 
 RattataEggMoves:
 	db SCREECH
-	db BITE
 	db FLAME_WHEEL
 	db FURY_ATTACK
 	db MAKESHIFT
 	db COUNTER
-	db REVERSAL
 	db -1 ; end
 
 SpearowEggMoves:
-	db FAINT_ATTACK
 	db FALSE_SWIPE
 	db SCARY_FACE
 	db QUICK_ATTACK
@@ -99,7 +94,6 @@ SandshrewEggMoves:
 	db REVERSAL
 	db SAFEGUARD
 	db COUNTER
-	db RAPID_SPIN
 	db METAL_CLAW
 	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
@@ -186,9 +180,7 @@ DiglettEggMoves:
 
 MeowthEggMoves:
 	db SPITE
-	db LICK
 	db CHARM
-	db HYPNOSIS
 	db AMNESIA
 	db DOUBLE_KICK
 	db MIMIC
@@ -219,7 +211,6 @@ GrowlitheEggMoves:
 	db SAFEGUARD
 	db FIRE_SPIN
 	db ROCK_SMASH
-	db DOUBLE_EDGE
 	db MORNING_SUN
 	db -1 ; end
 
@@ -230,7 +221,6 @@ PoliwagEggMoves:
 	db HARMONY
 	db AURORA_BEAM
 	db ENCORE
-	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
 
 AbraEggMoves:
@@ -329,13 +319,11 @@ FarfetchDEggMoves:
 	db -1 ; end
 
 DoduoEggMoves:
-	db QUICK_ATTACK
 	db SUPERSONIC
 	db HAZE
 	db FEATHERGALE
 	db FAINT_ATTACK
 	db REVERSAL
-	db DOUBLE_KICK
 	db RECOVER ; becomes Roost
 	db -1 ; end
 
@@ -343,7 +331,6 @@ SeelEggMoves:
 	db LICK
 	db PERISH_SONG
 	db DISABLE
-	db PECK
 	db SLAM
 	db ENCORE
 	db HORN_DRILL
@@ -365,7 +352,6 @@ GrimerEggMoves:
 ShellderEggMoves:
 	db BUBBLEBEAM
 	db TAKE_DOWN
-	db BARRIER
 	db RAPID_SPIN
 	db SCREECH
 	db MUD_BOMB
@@ -377,7 +363,6 @@ ShellderEggMoves:
 GastlyEggMoves:
 	db PSYWAVE
 	db PERISH_SONG
-	db HAZE
 	db WILL_O_WISP
 	db DISABLE
 	db ICE_PUNCH
@@ -404,7 +389,6 @@ DrowzeeEggMoves:
 KrabbyEggMoves:
 	db HAZE
 	db AMNESIA
-	db REVERSAL
 	db AGILITY
 	db ENDURE
 	db STAMPEDE
@@ -433,7 +417,6 @@ CuboneEggMoves:
 	db ANCIENTPOWER
 	db BELLY_DRUM
 	db SCREECH
-	db SKULL_BASH
 	db PERISH_SONG
 	db SWORDS_DANCE
 	db -1 ; end
@@ -475,7 +458,6 @@ ChanseyEggMoves:
 	db METRONOME
 	db HEAL_BELL
 	db SEISMIC_TOSS
-	db WAKEUP_SLAP
 	db FIRE_FLICK
 	db -1 ; end
 
@@ -512,7 +494,6 @@ GoldeenEggMoves:
 	db BODY_SLAM
 	db HYDRO_PUMP
 	db ICY_WIND ; becomes Mud Shot
-	db PECK ; becomes Smart Strike
 	db -1 ; end
 
 StaryuEggMoves:
@@ -527,7 +508,6 @@ StaryuEggMoves:
 MrMimeEggMoves:
 	db FUTURE_SIGHT
 	db HYPNOSIS
-	db MIMIC
 	db CHARM
 	db NASTY_PLOT
 	db ICY_WIND
@@ -575,10 +555,9 @@ MagikarpEggMoves:
 LaprasEggMoves:
 	db AURORA_BEAM
 	db CURSE
-	db HORN_DRILL
 	db HARMONY
-	db HORN_DRILL
 	db WHIRLPOOL
+	db CONFUSION ; becomes Avalanche
 	db PECK ; becomes Smart Strike
 	db -1 ; end
 
@@ -617,7 +596,6 @@ KabutoEggMoves:
 	db REVERSAL
 	db X_SCISSOR
 	db GIGA_DRAIN
-	db ICY_WIND ; becomes Mud Shot
 	db -1 ; end
 
 AerodactylEggMoves:
@@ -633,7 +611,6 @@ AerodactylEggMoves:
 	db -1 ; end
 
 SnorlaxEggMoves:
-	db LICK
 	db CHARM
 	db HORN_DRILL
 	db DOUBLE_EDGE
@@ -715,7 +692,6 @@ SpinarakEggMoves:
 	db -1 ; end
 
 ChinchouEggMoves:
-	db REVERSAL
 	db SUPERSONIC
 	db SCREECH
 	db AGILITY
@@ -736,8 +712,7 @@ CleffaEggMoves:
 	db AMNESIA
 	db BELLY_DRUM
 	db MIMIC
-	db METRONOME
-	db GROWTH ; becomes Calm Mind
+	db FIRE_PUNCH
 	db -1 ; end
 
 IgglybuffEggMoves:
@@ -849,11 +824,14 @@ MisdreavusEggMoves:
 	db SCREECH
 	db CURSE
 	db HARMONY
+	db CONFUSION ; becomes Avalanche
+	db FIRE_FLICK
 	db -1 ; end
 
 WobbuffetEggMoves:
 	db CONFUSION
-	db CONFUSION
+	db CURSE
+	db MIRROR_MOVE
 	db -1 ; end
 
 GirafarigEggMoves:
@@ -910,10 +888,10 @@ ShuckleEggMoves:
 	db MINIMIZE
 	db ACID
 	db HARMONY
+	db BUBBLE ; becomes Brine
 	db -1 ; end
 
 HeracrossEggMoves:
-	db FELL_STINGER
 	db HARDEN
 	db SEISMIC_TOSS
 	db THUNDERPUNCH
@@ -927,7 +905,6 @@ SneaselEggMoves:
 	db REFLECT
 	db BITE
 	db ICE_PUNCH
-	db QUICK_ATTACK ; becomes Ice Shard
 	db CONFUSION ; becomes Avalanche
 	db -1 ; end
 
@@ -962,10 +939,10 @@ CorsolaEggMoves:
 	db PRISM_LIGHT
 	db AMNESIA
 	db HARMONY
+	db SIGNAL_BEAM ; becomes Water Pulse
 	db -1 ; end
 
 RemoraidEggMoves:
-	db OCTAZOOKA
 	db SUPERSONIC
 	db HAZE
 	db SCREECH
@@ -988,7 +965,6 @@ MantineEggMoves:
 	db HAZE
 	db SLAM
 	db SKY_ATTACK
-	db FIRE_PLAY
 	db RECOVER ; becomes Roost
 	db -1 ; end
 
@@ -1041,7 +1017,6 @@ TyrogueEggMoves:
 SmoochumEggMoves:
 	db DIZZY_PUNCH
 	db MEDITATE
-	db ICE_PUNCH
 	db NASTY_PLOT
 	db BARRIER
 	db -1 ; end

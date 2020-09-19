@@ -697,9 +697,9 @@ BattleAnim_KarateChop:
 	anim_ret
 
 BattleAnim_Doubleslap:
-	anim_if_param_equal GROUND, .bonerush
-	anim_if_param_equal BUG, .pinmissile
-	anim_if_param_equal ROCK, .rockblast
+	anim_if_param_equal BONE_RUSH, .bonerush
+	anim_if_param_equal PIN_MISSILE, .pinmissile
+	anim_if_param_equal ROCK_BLAST, .rockblast
 	anim_1gfx ANIM_GFX_HIT
 	anim_if_kickcounter_equal $1, BattleAnim_Doubleslap_branch_c961b
 	anim_sound 0, 1, SFX_DOUBLESLAP
@@ -813,7 +813,7 @@ BattleAnim_Stomp:
 	anim_ret
 
 BattleAnim_DoubleKick:
-	anim_if_param_equal NORMAL, .doublehit
+	anim_if_param_equal DOUBLE_HIT, .doublehit
 	anim_1gfx ANIM_GFX_HIT
 	anim_if_kickcounter_equal $1, .doublekick_branch
 	anim_sound 0, 1, SFX_DOUBLE_KICK
@@ -852,8 +852,8 @@ BattleAnim_DoubleKick:
 	anim_ret
 
 BattleAnim_JumpKick:
-	anim_if_param_equal GROUND, .sanddive
-	anim_if_param_equal FIRE, .flamestomp
+	anim_if_param_equal SAND_DIVE, .sanddive
+	anim_if_param_equal FLAME_STOMP, .flamestomp
 	anim_if_kickcounter_equal $1, BattleAnim_JumpKick_branch1
 	anim_1gfx ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_JUMP_KICK
@@ -975,7 +975,7 @@ BattleAnim_SuperFang:
 	anim_ret
 
 BattleAnim_Ember:
-	anim_if_param_equal ICE, .icefang
+	anim_if_param_equal ICE_FANG, .icefang
 	anim_1gfx ANIM_GFX_FIRE
 	anim_sound 6, 2, SFX_EMBER
 	anim_obj ANIM_OBJ_EMBER, 64, 84, $12
@@ -1151,6 +1151,8 @@ BattleAnim_Blizzard:
 	anim_ret
 
 BattleAnim_Bubble:
+	anim_if_param_equal GUARD_CLAW, .guardclaw
+	anim_if_param_equal BRINE, .brine
 	anim_1gfx ANIM_GFX_BUBBLE
 	anim_sound 32, 2, SFX_WATER_GUN
 	anim_obj ANIM_OBJ_BUBBLE, 64, 92, $c1
@@ -1161,7 +1163,8 @@ BattleAnim_Bubble:
 	anim_sound 32, 2, SFX_WATER_GUN
 	anim_obj ANIM_OBJ_BUBBLE, 64, 92, $d1
 	anim_wait 128
-	; anim_wait 32
+.guardclaw ; TODO
+.brine ; TODO
 	anim_ret
 
 BattleAnim_Bubblebeam:
@@ -1386,6 +1389,7 @@ BattleAnim_Thunder:
 	anim_ret
 
 BattleAnim_ChargeBeam:
+	anim_if_param_equal POISON_FANG, .poisonfang
 	anim_2gfx ANIM_GFX_BEAM,ANIM_GFX_LIGHTNING
 	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $6, $20
 	anim_call BattleAnim_EnergyBeam_branch
@@ -1399,6 +1403,7 @@ BattleAnim_ChargeBeam:
 	anim_sound 0, 1, SFX_THUNDERSHOCK
 	anim_obj ANIM_OBJ_2D, 136, 68, $0
 	anim_wait 24
+.poisonfang ; TODO
 	anim_ret
 
 BattleAnim_Gust:
@@ -1604,8 +1609,9 @@ BattleAnim_Cut:
 	anim_ret
 
 BattleAnim_Slash:
-	anim_if_param_equal DARK, .night_slash
-	anim_if_param_equal GRASS, .leaf_blade
+	anim_if_param_equal NIGHT_SLASH, .night_slash
+	anim_if_param_equal LEAF_BLADE, .leaf_blade
+	anim_if_param_equal AIR_CUTTER, .aircutter
 .night_slash
 	anim_bgeffect ANIM_BG_BLACK_HUES, $0, $8, $0
 	anim_wait 8
@@ -1635,6 +1641,7 @@ BattleAnim_Slash:
 	anim_obj ANIM_OBJ_CUT_LONG_LEFT, 152, 40, $0
 	anim_obj ANIM_OBJ_CUT_LONG_LEFT, 148, 36, $0
 	anim_wait 28
+.aircutter ; TODO
 	anim_ret
 
 BattleAnim_Clamp:
@@ -1708,7 +1715,7 @@ BattleAnim_DoubleTeam:
 	anim_ret
 
 BattleAnim_Recover:
-	anim_if_param_equal FLYING, .roost
+	anim_if_param_equal ROOST, .roost
 	anim_1gfx ANIM_GFX_BUBBLE
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
 	anim_sound 0, 0, SFX_FULL_HEAL
@@ -1728,7 +1735,7 @@ BattleAnim_Recover:
 	anim_ret
 
 BattleAnim_Absorb:
-	anim_if_param_equal FIRE, .firefang
+	anim_if_param_equal FIRE_FANG, .firefang
 	anim_1gfx ANIM_GFX_CHARGE
 	anim_obj ANIM_OBJ_CIRCLE, 44, 88, $0
 .loop
@@ -1905,8 +1912,8 @@ BattleAnim_Wrap:
 	anim_ret
 
 BattleAnim_Confusion:
-	anim_if_param_equal ICE, .avalanche
-	anim_if_param_equal FIGHTING, .revenge
+	anim_if_param_equal AVALANCHE, .avalanche
+	anim_if_param_equal REVENGE, .revenge
 	anim_1gfx ANIM_GFX_HIT
 	anim_call BattleAnim_FollowPlayerHead_1_bank2
 	anim_sound 0, 1, SFX_PSYCHIC
@@ -1919,7 +1926,7 @@ BattleAnim_Confusion:
 	anim_ret
 
 BattleAnim_Constrict:
-	anim_if_param_equal GRASS, .powerwhip
+	anim_if_param_equal POWER_WHIP, .powerwhip
 	anim_1gfx ANIM_GFX_ROPE
 	anim_sound 0, 1, SFX_BIND
 	anim_obj ANIM_OBJ_49, 132, 64, $0
@@ -2012,7 +2019,7 @@ BattleAnim_Supersonic:
 	anim_ret
 
 BattleAnim_Screech:
-	anim_if_param_equal FLYING, .featherdance
+	anim_if_param_equal FEATHERDANCE, .featherdance
 	anim_1gfx ANIM_GFX_PSYCHIC
 	anim_bgeffect ANIM_BG_1F, $8, $1, $20
 	anim_sound 6, 2, SFX_SCREECH
@@ -2062,10 +2069,12 @@ BattleAnim_ConfuseRay:
 
 BattleAnim_SignalBeam:
 BattleAnim_Leer:
+	anim_if_param_equal WATER_PULSE, .waterpulse
 	anim_1gfx ANIM_GFX_BEAM
 	anim_bgeffect ANIM_BG_06, $0, $2, $0
 	anim_call BattleAnim_Leer_branch_cbadc
 	anim_wait 16
+.waterpulse ; TODO
 	anim_ret
 
 BattleAnim_Reflect:
@@ -2118,7 +2127,7 @@ BattleAnim_Amnesia:
 	anim_ret
 
 BattleAnim_DizzyPunch:
-	anim_if_param_equal FLYING, .hurricane
+	anim_if_param_equal HURRICANE, .hurricane
 	anim_2gfx ANIM_GFX_STATUS, ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_MEGA_PUNCH
 	anim_obj ANIM_OBJ_HIT_BIG_YFIX, 136, 40, $0
@@ -2302,9 +2311,9 @@ BattleAnim_TakeDown:
 BattleAnim_DoubleEdge:
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
 	
-	anim_if_param_equal FLYING, .bravebird
-	anim_if_param_equal GRASS, .woodhammer
-	anim_if_param_equal FIRE, .flareblitz
+	anim_if_param_equal BRAVE_BIRD, .bravebird
+	anim_if_param_equal WOOD_HAMMER, .woodhammer
+	anim_if_param_equal FLARE_BLITZ, .flareblitz
 ; doubleedge
 	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $4, $10
 	anim_1gfx ANIM_GFX_HIT
@@ -2469,9 +2478,9 @@ BattleAnim_FuryAttack:
 	anim_ret
 
 BattleAnim_HornDrill:
-	anim_if_param_equal GROUND, .fissure
-	anim_if_param_equal ICE, .sheercold
-	anim_if_param_equal DARK, .guillotine
+	anim_if_param_equal FISSURE, .fissure
+	anim_if_param_equal SHEER_COLD, .sheercold
+	anim_if_param_equal GUILLOTINE, .guillotine
 
 	anim_2gfx ANIM_GFX_HORN, ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $8, $40
@@ -2709,7 +2718,7 @@ BattleAnim_Stampede:
 BattleAnim_Feathergale:
 	anim_2gfx ANIM_GFX_MISC, ANIM_GFX_HIT
 	anim_sound 6, 2, SFX_HYDRO_PUMP
-	anim_if_param_equal GROUND, .bonemerang
+	anim_if_param_equal BONEMERANG, .bonemerang
 	anim_obj ANIM_OBJ_FEATHERGALE, 88, 56, $1c
 	anim_jump .end
 .bonemerang	
@@ -2745,7 +2754,7 @@ BattleAnim_Crabhammer:
 	anim_ret
 
 BattleAnim_SkullBash:
-	anim_if_param_equal GRASS, .brutalvine
+	anim_if_param_equal BRUTAL_VINE, .brutalvine
 	anim_if_kickcounter_equal $1, BattleAnim_SkullBash_branch_c9fb5
 	anim_1gfx ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_1F, $14, $2, $0
@@ -2831,9 +2840,9 @@ BattleAnim_Kinesis:
 	anim_ret
 
 BattleAnim_Peck:
-	anim_if_param_equal ELECTRIC, .electroball
-	anim_if_param_equal FIGHTING, .aurasphere
-	anim_if_param_equal STEEL, .smart_strike
+	anim_if_param_equal ELECTRO_BALL, .electroball
+	anim_if_param_equal AURA_SPHERE, .aurasphere
+	anim_if_param_equal SMART_STRIKE, .smart_strike
 	anim_1gfx ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_PECK
 	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 128, 48, $0
@@ -2847,7 +2856,7 @@ BattleAnim_Peck:
 	anim_ret
 
 BattleAnim_DrillPeck:
-	anim_if_param_equal GRASS, .seedbomb
+	anim_if_param_equal SEED_BOMB, .seedbomb
 	anim_1gfx ANIM_GFX_HIT
 .loop
 	anim_sound 0, 1, SFX_PECK
@@ -2896,7 +2905,7 @@ BattleAnim_DrillPeck:
 	anim_ret
 
 BattleAnim_Acupressure:
-	anim_if_param_equal GROUND, .gathersand
+	anim_if_param_equal GATHER_SAND, .gathersand
 	anim_2gfx ANIM_GFX_MISC, ANIM_GFX_NOISE
 	anim_sound 0, 0, SFX_MENU
 	anim_obj ANIM_OBJ_ACUPRESSURE, 50, 92, $12
@@ -3033,7 +3042,8 @@ BattleAnim_NightShade:
 	anim_ret
 
 BattleAnim_Lick:
-	anim_if_param_equal ELECTRIC, .shocksting
+	anim_if_param_equal SHOCK_STING, .shocksting
+	anim_if_param_equal PSYSHOCK, .psyshock
 	anim_1gfx ANIM_GFX_WATER
 	anim_sound 0, 1, SFX_LICK
 	anim_obj ANIM_OBJ_LICK, 136, 56, $0
@@ -3059,6 +3069,7 @@ BattleAnim_Lick:
 	anim_clearobjs
 	anim_loop 4, .loop
 	anim_wait 8
+.psyshock ; TODO
 	anim_ret
 
 BattleAnim_TriAttack:
@@ -3090,7 +3101,7 @@ BattleAnim_RockTomb:
 	anim_ret
 
 BattleAnim_Psybeam:
-	anim_if_param_equal ELECTRIC, .thunderfang
+	anim_if_param_equal THUNDER_FANG, .thunderfang
 	anim_1gfx ANIM_GFX_PSYCHIC
 	anim_bgeffect ANIM_BG_06, $0, $2, $0
 	anim_bgeffect ANIM_BG_08, $0, $4, $0
@@ -3104,7 +3115,6 @@ BattleAnim_Psybeam:
 	anim_ret
 
 BattleAnim_DreamEater:
-	anim_if_param_equal STEEL, .guardclaw
 	anim_1gfx ANIM_GFX_BUBBLE
 	anim_bgp $1b
 	anim_obp0 $27
@@ -3112,7 +3122,6 @@ BattleAnim_DreamEater:
 	anim_call BattleAnim_DreamEater_branch_cbab3
 	anim_wait 128
 	anim_wait 48
-.guardclaw ; TODO
 	anim_ret
 
 BattleAnim_LeechLife:
@@ -3125,7 +3134,7 @@ BattleAnim_LeechLife:
 
 BattleAnim_Harden:
 	anim_1gfx ANIM_GFX_REFLECT
-	anim_if_param_equal WATER, .withdraw
+	anim_if_param_equal WITHDRAW, .withdraw
 	anim_obp0 $0
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
 	anim_call BattleAnim_Harden_branch_cbc43
@@ -3189,7 +3198,8 @@ BattleAnim_Thrash:
 	anim_ret
 
 BattleAnim_Growth:
-	anim_if_param_equal PSYCHIC, .calmmind
+	anim_if_param_equal CALM_MIND, .calmmind
+	anim_if_param_equal COSMIC_POWER, .cosmicpower
 	anim_bgeffect ANIM_BG_WHITE_HUES, $0, $8, $0
 	anim_1gfx ANIM_GFX_CHARGE
 	anim_sound 0, 0, SFX_SWORDS_DANCE
@@ -3202,7 +3212,8 @@ BattleAnim_Growth:
 	anim_obj ANIM_OBJ_GROWTH, 48, 108, $30
 	anim_obj ANIM_OBJ_GROWTH, 48, 108, $38
 	anim_wait 64
-.calmmind
+.calmmind ; TODO
+.cosmicpower ; TODO
 	anim_ret
 
 BattleAnim_Conversion2:
@@ -3293,9 +3304,9 @@ BattleAnim_AquaTail:
 BattleAnim_QuickAttack:
 	anim_2gfx ANIM_GFX_SPEED, ANIM_GFX_HIT
 	anim_sound 0, 0, SFX_MENU
-	anim_if_param_equal ICE, .ice_spear
-	anim_if_param_equal ROCK, .accelerock
-	anim_if_param_equal WATER, .aqua_jet
+	anim_if_param_equal ICICLE_SPEAR, .iciclespear
+	anim_if_param_equal ACCELEROCK_MOVE, .accelerock
+	anim_if_param_equal AQUA_JET, .aqua_jet
 	anim_bgeffect ANIM_BG_HIDE_MON, $0, $1, $0
 	anim_obj ANIM_OBJ_SPEED_LINE, 24, 88, $2
 	anim_obj ANIM_OBJ_SPEED_LINE, 32, 88, $1
@@ -3305,7 +3316,7 @@ BattleAnim_QuickAttack:
 	anim_obj ANIM_OBJ_SPEED_LINE, 64, 88, $82
 	anim_wait 12
 	anim_jump .end
-.ice_spear
+.iciclespear
 	anim_2gfx ANIM_GFX_ICE, ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_SHINE
 	anim_obj ANIM_OBJ_ICE_SHARD, 116, 62, $20
@@ -3393,7 +3404,7 @@ BattleAnim_DefenseCurl:
 	anim_ret
 
 BattleAnim_SeismicToss:
-	anim_if_param_equal ROCK, .rocktumble
+	anim_if_param_equal ROCK_TUMBLE, .rocktumble
 	anim_2gfx ANIM_GFX_GLOBE, ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_20, $10, $1, $20
 	anim_sound 0, 0, SFX_STRENGTH
@@ -3441,7 +3452,7 @@ BattleAnim_Rage:
 	anim_ret
 
 BattleAnim_Agility:
-	anim_if_param_equal ROCK, .rockpolish
+	anim_if_param_equal ROCK_POLISH, .rockpolish
 	anim_1gfx ANIM_GFX_WIND
 	anim_obp0 $fc
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
@@ -3490,7 +3501,7 @@ BattleAnim_Makeshift:
 	anim_ret
 
 BattleAnim_Barrier:
-	anim_if_param_equal ROCK, .irondefense
+	anim_if_param_equal IRON_DEFENSE, .irondefense
 	anim_1gfx ANIM_GFX_REFLECT
 	anim_enemyfeetobj
 	anim_bgeffect ANIM_BG_06, $0, $2, $0
@@ -3521,9 +3532,9 @@ BattleAnim_Barrier:
 	anim_ret
 
 BattleAnim_DarkPulse: ; DARK PULSE
-	anim_if_param_equal WATER, .waterfall
-	anim_if_param_equal IRON, .ironhead
-	anim_if_param_equal PSYCHIC, .extrasensory
+	anim_if_param_equal WATERFALL, .waterfall
+	anim_if_param_equal IRON_HEAD, .ironhead
+	anim_if_param_equal EXTRASENSORY, .extrasensory
 	anim_1gfx ANIM_GFX_PSYCHIC
 	anim_bgeffect ANIM_BG_BLACK_HUES, $0, $8, $0
 .loop
@@ -3961,8 +3972,8 @@ BattleAnim_CottonSpore:
 	anim_ret
 
 BattleAnim_Reversal:
-	anim_if_param_equal NORMAL, .flail
-	anim_if_param_equal ELECTRIC, .thunderblow
+	anim_if_param_equal FLAIL, .flail
+	anim_if_param_equal THUNDER_BLOW, .thunderblow
 	anim_2gfx ANIM_GFX_SHINE, ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_07, $0, $0, $0
 	anim_sound 0, 1, SFX_MEGA_PUNCH
@@ -4069,7 +4080,7 @@ BattleAnim_ScaryFace:
 	anim_ret
 
 BattleAnim_FaintAttack:
-	anim_if_param_equal FLYING, .aerialace
+	anim_if_param_equal AERIAL_ACE, .aerialace
 	anim_1gfx ANIM_GFX_HIT
 	anim_sound 0, 0, SFX_CURSE
 	anim_call BattleAnim_FollowEnemyFeet_0_bank2
@@ -4278,8 +4289,8 @@ BattleAnim_PerishSong:
 	anim_ret
 
 BattleAnim_IcyWind:
-	anim_if_param_equal GROUND, .mudshot
-	anim_if_param_equal WATER, .megasplash
+	anim_if_param_equal MUD_SHOT, .mudshot
+	anim_if_param_equal MEGA_SPLASH, .megasplash
 	anim_1gfx ANIM_GFX_SPEED
 	anim_bgeffect ANIM_BG_06, $0, $2, $0
 	anim_bgeffect ANIM_BG_ALTERNATE_HUES, $0, $2, $0
@@ -4579,8 +4590,8 @@ BattleAnim_FirePlay:
 	anim_wait 8
 	anim_call BattleAnim_ShowMon_0_bank2
 
-	anim_if_param_equal FLYING, .fly
-	anim_if_param_equal WATER, .water
+	anim_if_param_equal FLUTTER_CLAP, .fly
+	anim_if_param_equal TIDE_CLASH, .water
 
 	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_FIRE
 	anim_call BattleAnim_FirePunch_branch_cbbcc
@@ -5000,8 +5011,8 @@ BattleAnim_FellStinger:
 	anim_ret
 
 BattleAnim_IronTail:
-	anim_if_param_equal WATER, .razorshell
-	anim_if_param_equal FIGHTING, .spiralkick
+	anim_if_param_equal RAZOR_SHELL, .razorshell
+	anim_if_param_equal SPIRAL_KICK, .spiralkick
 
 	anim_1gfx ANIM_GFX_REFLECT
 	anim_obp0 $0
@@ -5214,7 +5225,7 @@ BattleAnim_HiddenPower:
 	anim_ret
 
 BattleAnim_CrossChop:
-	anim_if_param_equal ROCK, .stone_edge
+	anim_if_param_equal STONE_EDGE, .stone_edge
 	anim_1gfx ANIM_GFX_CUT
 	anim_sound 0, 1, SFX_CUT
 	anim_obj ANIM_OBJ_A0, 152, 40, $0
@@ -5796,7 +5807,7 @@ BattleAnim_Ancientpower:
 	anim_ret
 
 BattleAnim_ShadowBall:
-	anim_if_param_equal GRASS, .energyball
+	anim_if_param_equal ENERGY_BALL, .energyball
 	anim_2gfx ANIM_GFX_EGG, ANIM_GFX_SMOKE
 	anim_bgeffect ANIM_BG_NIGHT_SHADE, $0, $0, $8
 	anim_bgp $1b
