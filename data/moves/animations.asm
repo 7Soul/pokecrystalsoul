@@ -853,7 +853,6 @@ BattleAnim_DoubleKick:
 
 BattleAnim_JumpKick:
 	anim_if_param_equal SAND_DIVE, .sanddive
-	anim_if_param_equal FLAME_STOMP, .flamestomp
 	anim_if_kickcounter_equal $1, BattleAnim_JumpKick_branch1
 	anim_1gfx ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_JUMP_KICK
@@ -891,7 +890,6 @@ BattleAnim_JumpKick:
 	anim_wait 12
 	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
 	anim_wait 12
-.flamestomp ; TODO
 	anim_ret
 
 BattleAnim_JumpKick_branch1:
@@ -3973,7 +3971,6 @@ BattleAnim_CottonSpore:
 
 BattleAnim_Reversal:
 	anim_if_param_equal FLAIL, .flail
-	anim_if_param_equal THUNDER_BLOW, .thunderblow
 	anim_2gfx ANIM_GFX_SHINE, ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_07, $0, $0, $0
 	anim_sound 0, 1, SFX_MEGA_PUNCH
@@ -4010,7 +4007,6 @@ BattleAnim_Reversal:
 	anim_wait 8
 	anim_incbgeffect ANIM_BG_2C
 	anim_call BattleAnim_ShowMon_0_bank2
-.thunderblow ; TODO
 	anim_ret
 
 BattleAnim_Spite:

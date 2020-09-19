@@ -22,7 +22,7 @@ VariableMoves::
 	db BARRIER ; Iron Defense
 	db FEATHERGALE ; Bonemerang
 	db SHADOW_BALL ; Energy Ball
-	db REVERSAL ; Flail, Thunder Blow
+	db REVERSAL ; Flail,
 	db ICY_WIND ; Mud Shot, Mega Splash
 	db JUMP_KICK ; Sand Dive
 	db DIZZY_PUNCH ; Hurricane
@@ -169,7 +169,6 @@ ShadowBallVariables:
 	
 ReversalVariables:
 	db FLAIL, KRABBY, KINGLER, GOLDEEN, SEAKING, MAGIKARP, GYARADOS, TOTODILE, CROCONAW, FERALIGATR, CHINCHOU, LANTURN, DUNSPARCE, SWINUB, PILOSWINE, CORSOLA, PHANPY, DONPHAN, -1
-	db THUNDER_BLOW, RAIKOU, -1
 	db -2
 	
 IcyWindVariables:
@@ -179,7 +178,6 @@ IcyWindVariables:
 	
 JumpKickVariables:
 	db SAND_DIVE, SPEAROW, FEAROW, -1
-	db FLAME_STOMP, ENTEI, -1
 	db -2
 	
 DizzyPunchVariables:

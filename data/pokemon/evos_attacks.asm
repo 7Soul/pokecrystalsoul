@@ -3986,7 +3986,6 @@ RaikouEvosAttacks:
 	db 47, GROWTH ; becomes Calm Mind
 	db 53, RAIN_DANCE
 	db 55, THUNDER
-	db 66, REVERSAL ; becomes Thunder Blow
 	db 0 ; no more level-up moves
 
 EnteiEvosAttacks:
@@ -3998,7 +3997,6 @@ EnteiEvosAttacks:
 	db 12, FIRE_SPIN
 	db 16, MEAN_LOOK
 	db 21, STOMP
-	db 26, JUMP_KICK ; becomes Flame Stomp
 	db 30, REFLECT
 	db 35, MAGMA_STORM
 	db 40, ABSORB ; becomes Fire Fang

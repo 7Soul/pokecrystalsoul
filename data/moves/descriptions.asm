@@ -1145,11 +1145,9 @@ VariableMoveDescriptions::
 	dw $0000 ; BonemerangDescription
 	dw $0000 ; EnergyBallDescription
 	dw $0000 ; FlailDescription
-	dw $0000 ; ThunderBlowDescription
 	dw $0000 ; MudShotDescription
 	dw $0000 ; MegaSplashDescription
 	dw $0000 ; SandDiveDescription
-	dw $0000 ; FlameStompDescription
 	dw $0000 ; HurricaneDescription
 	dw $0000 ; RazorShellDescription
 	dw $0000 ; SpiralKickDescription
