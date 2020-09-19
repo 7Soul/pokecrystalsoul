@@ -1264,6 +1264,11 @@ BattleAnimFunction_0F:
 Functioncd725:
 	call BattleAnim_IncAnonJumptableIndex
 Functioncd728:
+	ld hl, BATTLEANIMSTRUCT_PARAM
+	add hl, bc
+	ld a, [hl]
+	cp $1
+	jr z, .skip
 	ld hl, BATTLEANIMSTRUCT_YCOORD
 	add hl, bc
 	ld a, [hl]
@@ -1282,28 +1287,45 @@ Functioncd728:
 	ld [hl], a
 	ret
 
+.skip
+	call BattleAnim_IncAnonJumptableIndex
+	ld a, BATTLEANIMFRAMESET_28
+	call ReinitBattleAnimFrameset
+	jr .skip2
+
 .asm_cd747
 	call BattleAnim_IncAnonJumptableIndex
 	ld a, BATTLEANIMFRAMESET_28
 	call ReinitBattleAnimFrameset
-	ld hl, BATTLEANIMSTRUCT_YOFFSET
-	add hl, bc
-	ld [hl], $0
 	ld hl, BATTLEANIMSTRUCT_YCOORD
 	add hl, bc
 	ld [hl], $30
+.skip2
+	ld hl, BATTLEANIMSTRUCT_YOFFSET
+	add hl, bc
+	ld [hl], $0
 	ld hl, BATTLEANIMSTRUCT_FLAGS
 	add hl, bc
 	ld a, [hl]
 	and $1
 	ld [hl], a
 Functioncd763:
+	ld hl, BATTLEANIMSTRUCT_PARAM
+	add hl, bc
+	ld a, [hl]
+	
+	cp $1
+	jr nz, .slow
+	ld hl, BATTLEANIMSTRUCT_YCOORD
+	add hl, bc
+	inc [hl]
+.slow
 	ld hl, BATTLEANIMSTRUCT_YOFFSET
 	add hl, bc
+	inc [hl]
 	ld a, [hl]
 	cp $18
 	jr nc, .asm_cd76e
-	inc [hl]
 	ret
 
 .asm_cd76e

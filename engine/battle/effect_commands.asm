@@ -6571,6 +6571,8 @@ BattleCommand_Heal:
 	ld hl, GetMaxHP
 	call CallBattleCore
 .finish
+	ld a, [wCurVariableMove]
+	ld [wBattleAnimParam], a
 	call AnimateCurrentMove
 .finish2
 	call BattleCommand_SwitchTurn

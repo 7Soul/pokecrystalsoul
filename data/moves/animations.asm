@@ -992,7 +992,14 @@ BattleAnim_Ember:
 	anim_obj ANIM_OBJ_EMBER, 132, 68, $30
 	anim_obj ANIM_OBJ_EMBER, 144, 68, $30
 	anim_wait 8
-.icefang ; TODO
+	anim_ret
+.icefang
+	anim_call BattleAnim_Bite_branch
+	anim_wait 1
+	anim_clearobjs
+	anim_1gfx ANIM_GFX_ICE
+	anim_call BattleAnim_IcePunch_branch_cbbdf
+	anim_wait 16
 	anim_ret
 
 BattleAnim_FirePunch:
@@ -1161,8 +1168,48 @@ BattleAnim_Bubble:
 	anim_sound 32, 2, SFX_WATER_GUN
 	anim_obj ANIM_OBJ_BUBBLE, 64, 92, $d1
 	anim_wait 128
-.guardclaw ; TODO
-.brine ; TODO
+	anim_ret
+.guardclaw
+	anim_1gfx ANIM_GFX_REFLECT
+	anim_obp0 $0
+	anim_sound 0, 0, SFX_RAGE
+	anim_call BattleAnim_FollowEnemyFeet_0_bank2
+	anim_call BattleAnim_Harden_branch_cbc43
+	anim_call BattleAnim_ShowMon_0_bank2
+	anim_1gfx ANIM_GFX_CUT
+	anim_resetobp0
+	anim_sound 0, 1, SFX_VICEGRIP
+	anim_obj ANIM_OBJ_CUT_DOWN_LEFT, 152, 40, $0
+	anim_obj ANIM_OBJ_CUT_UP, 120, 72, $0
+	anim_wait 32
+	anim_ret
+.brine
+	anim_bgeffect ANIM_BG_30, $0, $0, $0
+	anim_1gfx ANIM_GFX_WATER
+	anim_call BattleAnim_FollowPlayerHead_1_bank2
+	anim_sound 16, 2, SFX_WATER_GUN
+.brine_loop
+	anim_obj ANIM_OBJ_WATER_GUN, 128, 16, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_WATER_GUN, 128-16, 16-8, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_WATER_GUN, 128+16, 16+8, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_WATER_GUN, 128-8, 16+8, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_WATER_GUN, 128+8, 16, $1
+	anim_wait 8
+	anim_loop 2, .brine_loop
+	anim_wait 16
+	anim_bgeffect ANIM_BG_31, $1c, $0, $0
+	anim_wait 8
+	anim_bgeffect ANIM_BG_31, $8, $0, $0
+	anim_wait 8
+	anim_bgeffect ANIM_BG_31, $30, $0, $0
+	anim_wait 32
+	anim_call BattleAnim_ShowMon_1_bank2
+	anim_bgeffect ANIM_BG_32, $0, $0, $0
+	anim_wait 16
 	anim_ret
 
 BattleAnim_Bubblebeam:
@@ -1656,16 +1703,7 @@ BattleAnim_Clamp:
 	anim_ret
 
 BattleAnim_Bite:
-	anim_2gfx ANIM_GFX_CUT, ANIM_GFX_HIT
-	anim_obj ANIM_OBJ_BITE, 136, 56, $98
-	anim_obj ANIM_OBJ_BITE, 136, 56, $18
-	anim_wait 8
-	anim_sound 0, 1, SFX_BITE
-	anim_obj ANIM_OBJ_HIT_YFIX, 144, 48, $18
-	anim_wait 16
-	anim_sound 0, 1, SFX_BITE
-	anim_obj ANIM_OBJ_HIT_YFIX, 128, 64, $18
-	anim_wait 8
+	anim_call BattleAnim_Bite_branch
 	anim_ret
 
 BattleAnim_Teleport:
@@ -1729,7 +1767,26 @@ BattleAnim_Recover:
 	anim_wait 64
 	anim_incbgeffect ANIM_BG_18
 	anim_call BattleAnim_ShowMon_0_bank2
-.roost ; TODO
+	anim_ret
+.roost
+	anim_call BattleAnim_FollowEnemyFeet_0_bank2
+	anim_bgeffect ANIM_BG_WITHDRAW, $0, $1, $50
+	anim_wait 16
+	anim_1gfx ANIM_GFX_FEATHER
+	anim_obj ANIM_OBJ_FEATHER, 40, 88, $0
+	anim_sound 3, 0, SFX_SANDSTORM
+	anim_wait 4
+	anim_obj ANIM_OBJ_FEATHER, 40-8, 88+8, $10
+	anim_sound 3, 0, SFX_SANDSTORM
+	anim_wait 4
+	anim_obj ANIM_OBJ_FEATHER, 40+16, 88+8, $20
+	anim_sound 3, 0, SFX_SANDSTORM
+	anim_wait 4
+	anim_obj ANIM_OBJ_FEATHER, 40, 88-12, $30
+	anim_sound 3, 0, SFX_SANDSTORM
+	anim_wait 96
+	anim_incbgeffect ANIM_BG_WITHDRAW
+	anim_call BattleAnim_ShowMon_0_bank2
 	anim_ret
 
 BattleAnim_Absorb:
@@ -1748,7 +1805,13 @@ BattleAnim_Absorb:
 	anim_wait 6
 	anim_loop 5, .loop
 	anim_wait 32
-.firefang ; TODO
+.firefang
+	anim_call BattleAnim_Bite_branch
+	anim_wait 1
+	anim_clearobjs
+	anim_1gfx ANIM_GFX_FIRE
+	anim_call BattleAnim_FirePunch_branch_cbbcc
+	anim_wait 16
 	anim_ret
 
 BattleAnim_MegaDrain:
@@ -3109,7 +3172,15 @@ BattleAnim_Psybeam:
 	anim_wait 4
 	anim_loop 10, .loop
 	anim_wait 48
-.thunderfang ; TODO
+.thunderfang
+	anim_call BattleAnim_Bite_branch
+	anim_wait 1
+	anim_clearobjs
+	anim_1gfx ANIM_GFX_LIGHTNING
+	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $8, $2
+	anim_sound 0, 1, SFX_THUNDER
+	anim_obj ANIM_OBJ_2F, 152, 68, $0
+	anim_wait 64
 	anim_ret
 
 BattleAnim_DreamEater:
@@ -3149,7 +3220,6 @@ BattleAnim_Harden:
 	anim_wait 1
 	anim_incbgeffect ANIM_BG_WITHDRAW
 	anim_call BattleAnim_ShowMon_0_bank2
-	anim_ret
 	anim_ret
 
 BattleAnim_Psywave:
@@ -5151,9 +5221,13 @@ BattleAnim_Synthesis:
 	anim_ret
 
 BattleAnim_Crunch:
-	anim_2gfx ANIM_GFX_CUT, ANIM_GFX_HIT
 	anim_bgp $1b
 	anim_obp0 $c0
+	anim_call BattleAnim_Bite_branch
+	anim_ret
+
+BattleAnim_Bite_branch:
+	anim_2gfx ANIM_GFX_CUT, ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_1F, $20, $2, $0
 	anim_obj ANIM_OBJ_BITE, 136, 56, $a8
 	anim_obj ANIM_OBJ_BITE, 136, 56, $28
@@ -5565,9 +5639,9 @@ BattleAnim_MetalClaw_branch_cbc43:
 	anim_bgeffect ANIM_BG_17, $0, $1, $40
 	anim_wait 8
 	anim_obj ANIM_OBJ_HARDEN, 48, 84, $0
-	anim_wait 32
+	anim_wait 16
 	anim_obj ANIM_OBJ_HARDEN, 48, 84, $0
-	anim_wait 64
+	anim_wait 32
 	anim_incbgeffect ANIM_BG_17
 	anim_ret
 
