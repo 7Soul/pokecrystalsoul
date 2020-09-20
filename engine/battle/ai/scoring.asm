@@ -410,6 +410,7 @@ AI_Smart:
 	dbw EFFECT_STAMPEDE,         AI_Smart_Stampede
 	dbw EFFECT_POISON,           AI_Smart_Poison
 	dbw EFFECT_POISON_HIT,       AI_Smart_Poison
+	dbw EFFECT_TOXIC_HIT,       AI_Smart_Poison
 	db -1 ; end
 
 AI_Smart_Sleep:

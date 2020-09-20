@@ -3,6 +3,7 @@ MoveEffectsPointers:
 	dw NormalHit
 	dw DoSleep
 	dw PoisonHit
+	dw ToxicHit
 	dw LeechHit
 	dw BurnHit
 	dw FreezeHit

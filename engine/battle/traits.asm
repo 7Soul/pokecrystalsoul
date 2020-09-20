@@ -337,6 +337,8 @@ CheckTraitCondition:
 	jr z, .success
 	cp EFFECT_POISON_HIT
 	jr z, .success
+	cp EFFECT_TOXIC_HIT
+	jr z, .success
 	cp EFFECT_POISON_MULTI_HIT
 	jr z, .success
 	and a

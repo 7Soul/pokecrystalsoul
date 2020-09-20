@@ -2194,7 +2194,9 @@ VaporeonEvosAttacks:
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 42, HAZE
 	db 47, ACID_ARMOR
-	db 47, RECOVER
+
+	db 47, PECK
+
 	db 51, HYDRO_PUMP
 	db 0 ; no more level-up moves
 

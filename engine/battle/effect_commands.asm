@@ -4055,6 +4055,10 @@ BattleCommand_Poison:
 	and $7f
 	jp z, .failed
 
+	ld a, [wEffectFailed]
+	and a
+	ret nz
+
 	ld a, BATTLE_VARS_STATUS_OPP
 	call GetBattleVar
 	ld b, a
@@ -4105,6 +4109,7 @@ BattleCommand_Poison:
 	ld a, [wAttackMissed]
 	and a
 	jr nz, .failed
+
 	call .check_toxic
 	jr z, .toxic
 
@@ -4149,6 +4154,11 @@ BattleCommand_Poison:
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
 	cp EFFECT_TOXIC
+	ret z
+	ld a, [wCurVariableMove]
+	cp POISON_FANG
+	ld a, POISON_FANG + 1
+	ld [wBattleAnimParam], a
 	ret
 
 BattleCommand_Venoshock:

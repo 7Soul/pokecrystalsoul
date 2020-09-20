@@ -2477,7 +2477,10 @@ BGEffect_RapidCyclePals:
 	ld [hl], a
 	call BattleBGEffect_GetFirstDMGPal
 	jr c, .okay_2_cgb
+	push af
 	call BGEffects_LoadBGPal0_OBPal1
+	pop af
+	call BGEffects_LoadBGPal5_OBPal1
 	ret
 
 .okay_2_cgb
@@ -2489,6 +2492,8 @@ BGEffect_RapidCyclePals:
 .two_cgb
 	ld a, $e4
 	call BGEffects_LoadBGPal0_OBPal1
+	ld a, $e4
+	call BGEffects_LoadBGPal5_OBPal1
 	call EndBattleBGEffect
 	ret
 
@@ -2508,7 +2513,10 @@ BGEffect_RapidCyclePals:
 	ld [hl], a
 	call BattleBGEffect_GetFirstDMGPal
 	jr c, .okay_4_cgb
+	push af
 	call BGEffects_LoadBGPal1_OBPal0
+	pop af
+	call BGEffects_LoadBGPal6_OBPal0
 	ret
 
 .okay_4_cgb
@@ -2520,6 +2528,8 @@ BGEffect_RapidCyclePals:
 .four_cgb
 	ld a, $e4
 	call BGEffects_LoadBGPal1_OBPal0
+	ld a, $e4
+	call BGEffects_LoadBGPal6_OBPal0
 	call EndBattleBGEffect
 	ret
 
@@ -2550,6 +2560,33 @@ BGEffects_LoadBGPal0_OBPal1:
 	ldh [hCGBPalUpdate], a
 	ret
 
+BGEffects_LoadBGPal5_OBPal1:
+	ld h, a
+	ldh a, [rSVBK]
+	push af
+	ld a, BANK(wBGPals1)
+	ldh [rSVBK], a
+	ld a, h
+	push bc
+	push af
+	ld hl, wBGPals2 palette 5
+	ld de, wBGPals1 palette 5
+	ld b, a
+	ld c, $1
+	call CopyPals
+	ld hl, wOBPals2 palette 1
+	ld de, wOBPals1 palette 1
+	pop af
+	ld b, a
+	ld c, $1
+	call CopyPals
+	pop bc
+	pop af
+	ldh [rSVBK], a
+	ld a, $1
+	ldh [hCGBPalUpdate], a
+	ret
+
 BGEffects_LoadBGPal1_OBPal0:
 	ld h, a
 	ldh a, [rSVBK]
@@ -2561,6 +2598,33 @@ BGEffects_LoadBGPal1_OBPal0:
 	push af
 	ld hl, wBGPals2 palette 1
 	ld de, wBGPals1 palette 1
+	ld b, a
+	ld c, $1
+	call CopyPals
+	ld hl, wOBPals2
+	ld de, wOBPals1
+	pop af
+	ld b, a
+	ld c, $1
+	call CopyPals
+	pop bc
+	pop af
+	ldh [rSVBK], a
+	ld a, $1
+	ldh [hCGBPalUpdate], a
+	ret
+
+BGEffects_LoadBGPal6_OBPal0:
+	ld h, a
+	ldh a, [rSVBK]
+	push af
+	ld a, BANK(wBGPals1)
+	ldh [rSVBK], a
+	ld a, h
+	push bc
+	push af
+	ld hl, wBGPals2 palette 6
+	ld de, wBGPals1 palette 6
 	ld b, a
 	ld c, $1
 	call CopyPals

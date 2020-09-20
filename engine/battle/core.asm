@@ -1019,9 +1019,9 @@ EndOpponentProtectEndureDestinyBond:
 	ld [wBuffer1], a
 	farcall TraitAfterMove
 
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitRaiseStatAfterDamage
+	; ld a, BATTLE_VARS_TRAIT ; not needed?
+	; ld [wBuffer1], a
+	; farcall TraitRaiseStatAfterDamage
 
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
@@ -1171,6 +1171,7 @@ ResidualDamage:
 
 	ld a, BATTLE_VARS_STATUS
 	call GetBattleVar
+
 	and 1 << PSN | 1 << BRN
 	jr z, .did_psn_brn
 

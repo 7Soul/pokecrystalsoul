@@ -55,6 +55,28 @@ PoisonHit:
 	posthiteffects
 	endmove
 
+ToxicHit:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	effectchance
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	poison
+	posthiteffects
+	endmove
+
 LeechHit:
 	checkobedience
 	usedmovetext
