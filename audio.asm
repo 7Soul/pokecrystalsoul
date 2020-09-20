@@ -136,12 +136,9 @@ INCLUDE "audio/music/clair.asm"
 INCLUDE "audio/music/mobileadapter.asm"
 
 
-SECTION "Extra Songs 2", ROMX
-
-INCLUDE "audio/music/postcredits.asm"
-
 SECTION "New Songs", ROMX
 
+INCLUDE "audio/music/postcredits.asm"
 INCLUDE "audio/music/alolawild.asm"
 
 

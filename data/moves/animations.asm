@@ -1521,7 +1521,7 @@ BattleAnim_RockThrow:
 	anim_1gfx ANIM_GFX_ROCKS
 	anim_bgeffect ANIM_BG_SHAKE_SCREEN_H, $60, $1, $0
 	anim_sound 0, 1, SFX_STRENGTH
-	anim_obj ANIM_OBJ_SMALL_ROCK, 128, 64, $40
+	anim_obj ANIM_OBJ_SMALL_ROCK, 128, 64, $10
 	anim_wait 2
 	anim_sound 0, 1, SFX_STRENGTH
 	anim_obj ANIM_OBJ_BIG_ROCK, 120, 68, $30
@@ -3223,7 +3223,19 @@ BattleAnim_Lick:
 	anim_clearobjs
 	anim_loop 4, .loop
 	anim_wait 8
-.psyshock ; TODO
+	anim_ret
+
+.psyshock
+	anim_2gfx ANIM_GFX_LIGHTNING, ANIM_GFX_PSYCHIC
+	anim_bgeffect ANIM_BG_ALTERNATE_HUES, $0, $2, $0
+	anim_bgeffect ANIM_BG_SHAKE_SCREEN_H, $3c, $1, $20
+	anim_obj ANIM_OBJ_SHOCKS_AROUND_CENTER, 48, 88, $0
+.loop2
+	anim_sound 6, 2, SFX_PSYCHIC
+	anim_obj ANIM_OBJ_WAVE, 64, 88, $2
+	anim_wait 8
+	anim_loop 6, .loop2
+	anim_wait 32
 	anim_ret
 
 BattleAnim_TriAttack:
@@ -3372,9 +3384,44 @@ BattleAnim_Growth:
 	anim_obj ANIM_OBJ_GROWTH, 48, 108, $28
 	anim_obj ANIM_OBJ_GROWTH, 48, 108, $30
 	anim_obj ANIM_OBJ_GROWTH, 48, 108, $38
-	anim_wait 64
-.calmmind ; TODO
-.cosmicpower ; TODO
+	anim_wait 48
+	anim_ret
+
+.calmmind
+	anim_1gfx ANIM_GFX_BUBBLE
+	anim_bgeffect ANIM_BG_HIDE_MON, $0, $0, $1
+	anim_bgp $E7
+	anim_obp1 $E7
+	anim_wait 32
+	anim_sound 0, 0, SFX_SWORDS_DANCE
+	anim_obj ANIM_OBJ_RECOVER, 44, 88, $30
+	anim_obj ANIM_OBJ_RECOVER, 44, 88, $31
+	anim_obj ANIM_OBJ_RECOVER, 44, 88, $32
+	anim_obj ANIM_OBJ_RECOVER, 44, 88, $33
+	anim_obj ANIM_OBJ_RECOVER, 44, 88, $34
+	anim_obj ANIM_OBJ_RECOVER, 44, 88, $35
+	anim_obj ANIM_OBJ_RECOVER, 44, 88, $36
+	anim_obj ANIM_OBJ_RECOVER, 44, 88, $37
+	anim_wait 80
+	anim_bgeffect ANIM_BG_SHOW_MON, $0, $0, $0
+	anim_wait 16
+	anim_ret
+
+.cosmicpower
+	anim_bgp $E7
+	anim_obp1 $E7
+	anim_wait 24
+	anim_1gfx ANIM_GFX_SPEED
+	anim_sound 0, 0, SFX_SWORDS_DANCE
+	anim_obj ANIM_OBJ_COSMIC_POWER, 48, 108 - 48, $0
+	anim_obj ANIM_OBJ_COSMIC_POWER, 48, 108 - 48, $20
+	anim_obj ANIM_OBJ_COSMIC_POWER, 48, 108 - 48, $8
+	anim_obj ANIM_OBJ_COSMIC_POWER, 48, 108 - 48, $28
+	anim_obj ANIM_OBJ_COSMIC_POWER, 48, 108 - 48, $10
+	anim_obj ANIM_OBJ_COSMIC_POWER, 48, 108 - 48, $30
+	anim_obj ANIM_OBJ_COSMIC_POWER, 48, 108 - 48, $18
+	anim_obj ANIM_OBJ_COSMIC_POWER, 48, 108 - 48, $38
+	anim_wait 48
 	anim_ret
 
 BattleAnim_Conversion2:
@@ -3734,8 +3781,54 @@ BattleAnim_DarkPulse: ; DARK PULSE
 	anim_wait 6
 	anim_obj ANIM_OBJ_SPLASH, 136, 24+12, $0
 	anim_wait 16
-.ironhead ; TODO
-.extrasensory ; TODO
+
+.ironhead
+	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_ROCKS
+	anim_bgeffect ANIM_BG_SHAKE_SCREEN_H, $14, $2, $0
+	anim_wait 32
+	anim_call BattleAnim_FollowEnemyFeet_0_bank2
+	anim_bgeffect ANIM_BG_TACKLE, $0, $1, $0
+	anim_wait 4
+	anim_sound 0, 1, SFX_HEADBUTT
+	anim_obj ANIM_OBJ_HIT_YFIX, 128, 56, $0
+	anim_wait 4
+	anim_sound 0, 1, SFX_SPARK
+	anim_obj ANIM_OBJ_ROCK_SMASH, 128, 64, $28
+	anim_sound 0, 1, SFX_SPARK
+	anim_obj ANIM_OBJ_ROCK_SMASH, 128, 64, $10
+	anim_sound 0, 1, SFX_SPARK
+	anim_obj ANIM_OBJ_ROCK_SMASH, 128, 64, $9c
+	anim_wait 6
+	anim_sound 0, 1, SFX_SPARK
+	anim_obj ANIM_OBJ_ROCK_SMASH, 128, 64, $1c
+	anim_sound 0, 1, SFX_SPARK
+	anim_obj ANIM_OBJ_ROCK_SMASH, 128, 64, $dc
+	anim_wait 32
+	anim_call BattleAnim_ShowMon_0_bank2
+	anim_ret
+
+.extrasensory
+	anim_1gfx ANIM_GFX_HIT
+	anim_call BattleAnim_FollowPlayerHead_1_bank2
+	anim_sound 0, 1, SFX_PSYCHIC
+	anim_bgeffect ANIM_BG_WAVE_DEFORM_USER, $0, $0, $0
+	anim_wait 6
+	anim_incbgeffect ANIM_BG_WAVE_DEFORM_USER
+	anim_sound 0, 1, SFX_SPARK
+	anim_wait 10
+	anim_sound 0, 1, SFX_PSYCHIC
+	anim_bgeffect ANIM_BG_WAVE_DEFORM_USER, $0, $0, $0
+	anim_wait 6
+	anim_incbgeffect ANIM_BG_WAVE_DEFORM_USER
+	anim_sound 0, 1, SFX_SPARK
+	anim_wait 24
+	anim_sound 0, 1, SFX_PSYCHIC
+	anim_bgeffect ANIM_BG_WAVE_DEFORM_USER, $0, $0, $0
+	anim_wait 24
+	anim_incbgeffect ANIM_BG_WAVE_DEFORM_USER
+	anim_sound 0, 1, SFX_SPARK
+	anim_wait 32
+	anim_call BattleAnim_ShowMon_1_bank2
 	anim_ret
 
 BattleAnim_PsychicM:
@@ -3932,13 +4025,13 @@ BattleAnim_BugBuzz:
 	anim_bgeffect ANIM_BG_CYCLE_OBPALS_GRAY_YELLOW, $0, $2, $0
 .loop
 	anim_sound 0, 0, SFX_SHINE
-	anim_obj ANIM_OBJ_AE, 64, 72, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 72, $4
 	anim_wait 8
-	anim_obj ANIM_OBJ_AE, 64, 88, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 88, $4
 	anim_wait 8
-	anim_obj ANIM_OBJ_AE, 64, 80, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 80, $4
 	anim_wait 8
-	anim_obj ANIM_OBJ_AE, 64, 96, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 96, $4
 	anim_wait 8
 	anim_loop 3, .loop
 	anim_wait 32
@@ -4077,11 +4170,11 @@ BattleAnim_EerieImpulse:
 	anim_setobj $1, $3
 	anim_wait 8
 	anim_clearobjs
-	anim_obj ANIM_OBJ_AE, 64, 88, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 88, $4
 	anim_wait 2
-	anim_obj ANIM_OBJ_AE, 64, 80, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 80, $4
 	anim_wait 2
-	anim_obj ANIM_OBJ_AE, 64, 96, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 96, $4
 	anim_wait 16
 	anim_ret
 
@@ -4395,19 +4488,19 @@ BattleAnim_PrismLight:
 .loop
 	anim_sound 0, 0, SFX_METRONOME
 	anim_obj ANIM_OBJ_GLIMMER, 112, 20, $0
-	anim_obj ANIM_OBJ_AE, 64, 72, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 72, $4
 	anim_wait 5
 	anim_obj ANIM_OBJ_GLIMMER, 144, 60, $0
-	anim_obj ANIM_OBJ_AE, 64, 88, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 88, $4
 	anim_wait 5
 	anim_obj ANIM_OBJ_GLIMMER, 112, 60, $0
-	anim_obj ANIM_OBJ_AE, 64, 80, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 80, $4
 	anim_wait 5
 	anim_obj ANIM_OBJ_GLIMMER, 144, 20, $0
-	anim_obj ANIM_OBJ_AE, 64, 96, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 96, $4
 	anim_wait 5
 	anim_obj ANIM_OBJ_GLIMMER, 128, 40, $0
-	anim_obj ANIM_OBJ_AE, 64, 88, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 88, $4
 	anim_wait 5
 	anim_loop 2, .loop
 	anim_wait 32
@@ -4457,11 +4550,11 @@ BattleAnim_IcyWind:
 	anim_sound 0, 0, SFX_PSYCHIC
 .loop
 	anim_wait 8
-	anim_obj ANIM_OBJ_AE, 64, 88, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 88, $4
 	anim_wait 8
-	anim_obj ANIM_OBJ_AE, 64, 80, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 80, $4
 	anim_wait 8
-	anim_obj ANIM_OBJ_AE, 64, 96, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 96, $4
 	anim_wait 8
 	anim_loop 2, .loop
 	anim_wait 16
@@ -5449,13 +5542,13 @@ BattleAnim_MirrorCoat:
 .loop
 	anim_sound 0, 0, SFX_SHINE
 	anim_obj ANIM_OBJ_SCREEN, 72, 80, $0
-	anim_obj ANIM_OBJ_AE, 64, 72, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 72, $4
 	anim_wait 8
-	anim_obj ANIM_OBJ_AE, 64, 88, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 88, $4
 	anim_wait 8
-	anim_obj ANIM_OBJ_AE, 64, 80, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 80, $4
 	anim_wait 8
-	anim_obj ANIM_OBJ_AE, 64, 96, $4
+	anim_obj ANIM_OBJ_MIRROR_COAT, 64, 96, $4
 	anim_wait 8
 	anim_loop 3, .loop
 	anim_wait 32

@@ -352,6 +352,19 @@ BattleBGEffect_HideMon:
 	push bc
 	call BGEffect_CheckBattleTurn
 	jr nz, .player_side
+	
+	; 3rd parameter not zero gets enemy HUD to hide as well
+	ld hl, BG_EFFECT_STRUCT_03
+	add hl, bc
+	ld a, [hl]
+	hlcoord 12, 0
+	lb bc, 7, 7
+	and a
+	jr z, .got_pointer
+
+	hlcoord 0, 0
+	lb bc, 4, 11
+	call ClearBox
 	hlcoord 12, 0
 	lb bc, 7, 7
 	jr .got_pointer

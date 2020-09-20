@@ -2365,9 +2365,7 @@ BattleCommand_StatUpDownAnim:
 	ld [wNumHits], a
 	xor a
 	ld [wKickCounter], a
-	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVar
-	and TYPE_MASK ; move type in a
+	ld a, [wCurVariableMove]
 	ld [wBattleAnimParam], a
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
@@ -5821,6 +5819,9 @@ BattleCommand_FlinchTarget:
 	call BattleCommand_EffectChance
 	ld a, [wCurVariableMove]
 	sub THUNDER_FANG
+	jr c, .not_variable
+	cp 3
+	jr nc, .not_variable
 	ld hl, .ptrs
 	rst JumpTable
 	jr .not_variable
