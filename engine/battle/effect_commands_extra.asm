@@ -691,3 +691,183 @@ DoTransform:
 	ld [wTypeModifier], a
 	callfar DoMove
 	ret
+
+BattleCommandExtra_Critical:
+; critical
+
+; Determine whether this attack's hit will be critical.
+
+	xor a
+	ld [wCriticalHit], a
+
+	ld a, BATTLE_VARS_MOVE_POWER
+	call GetBattleVar
+	and a
+	ret z
+
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wEnemyMonItem
+	ld a, [wEnemyMonSpecies]
+	jr nz, .Item
+	ld hl, wBattleMonItem
+	ld a, [wBattleMonSpecies]
+
+.Item:
+	ld c, 0
+
+	cp CHANSEY
+	jr nz, .Farfetchd
+	ld a, [hl]
+	cp LUCKY_PUNCH
+	jp nz, .FocusEnergy
+
+; +2 critical level
+	ld c, 2
+	jp .Traits
+
+.Farfetchd:
+	cp FARFETCH_D
+	jr nz, .Steel_Wing_Check
+	ld a, [hl]
+	cp LEEK
+	jp nz, .FocusEnergy
+
+; +2 critical level
+	ld c, 2
+	jp .Traits
+
+.Steel_Wing_Check:
+	; push hl
+	ld d, a ; save mon to d	
+	ld hl, UnevolvedList
+	
+.load_held_item
+	ldh a, [hBattleTurn]
+	and a
+	ld a, [wEnemyMonItem]
+	ld e, a
+	jr nz, .find_mon
+	ld a, [wBattleMonItem]
+	ld e, a
+	
+.find_mon
+	ld a, [hli]
+	cp d
+	jr z, .found_mon
+	cp -1
+	jp z, .FocusEnergy
+	inc hl
+	jr .find_mon
+
+.found_mon
+	ld a, [hli] ; item from table
+	cp e
+	jr z, .found_item	
+	jp .load_held_item
+	
+.found_item	
+	ld de, wBattleMonType1 ;put pokemon type in de
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .ok
+	ld de, wEnemyMonType1
+.ok
+	ld hl, wPlayerTypeMod
+	ld a, [hl]
+	and a
+	jr nz, .has_mod
+	
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar
+	and TYPE_MASK
+.has_mod
+	ld b, a
+	ld a, [de]
+	cp b
+	jr z, .sametype
+	inc de
+	ld a, [de]
+	cp b
+	jr z, .sametype
+	jr .FocusEnergy
+.sametype
+	ld a, BATTLE_VARS_MOVE_POWER ; Check if power is below 60
+	call GetBattleVar
+	cp 61
+	jr nc, .FocusEnergy
+	cp 2
+	jr c, .FocusEnergy
+
+; +2 critical level
+	ld c, 2
+	jp .Traits
+
+.FocusEnergy:
+	ld a, BATTLE_VARS_SUBSTATUS4
+	call GetBattleVar
+	bit SUBSTATUS_FOCUS_ENERGY, a
+	jr z, .CheckCritical
+
+; +1 critical level
+	inc c
+
+.CheckCritical:
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	ld de, 1
+	ld hl, CriticalHitMoves
+	push bc
+	call IsInArray
+	pop bc
+	jr nc, .ScopeLens
+
+; +2 critical level
+	inc c
+	inc c
+
+.ScopeLens:
+	push bc
+	callfar GetUserItem
+	ld a, b
+	cp HELD_CRITICAL_UP ; Increased critical chance. Only Scope Lens has this.
+	pop bc
+	jr nz, .Traits
+
+; +1 critical level
+	inc c
+
+.Traits:
+	push bc
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitBoostCritical
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitLowerCritical
+	pop bc
+; buffer 0 does nothing, 1 raises crit by 1, 2 lowers crit by 1
+	ld a, [wBuffer2]
+	and a
+	jr z, .Tally
+	inc c
+	dec a
+	jr z, .Tally
+	dec c
+	dec c
+
+.Tally:
+	ld hl, CriticalHitChances
+	ld b, 0
+	add hl, bc
+	call BattleRandom
+	cp [hl]
+	ret nc
+	ld a, 1
+	ld [wCriticalHit], a
+	ret
+	
+INCLUDE "data/moves/critical_hit_moves.asm"
+
+INCLUDE "data/battle/critical_hit_chances.asm"

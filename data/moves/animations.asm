@@ -2082,8 +2082,29 @@ BattleAnim_Confusion:
 	anim_obj ANIM_OBJ_SMALL_ICE_ROCK, 136, 68, $40
 	anim_wait 96
 	anim_ret
-	
-.revenge ; TODO
+
+.revenge
+	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_BEAM
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 128+6, 48-6, $0
+	anim_sound 0, 1, SFX_MEGA_PUNCH
+	anim_wait 4
+	anim_obj ANIM_OBJ_HIT_YFIX, 128, 48, $0
+	anim_sound 0, 1, SFX_MEGA_PUNCH
+	anim_wait 2
+	anim_obj ANIM_OBJ_BEAM_IMPACT, 130+12, 54-8, $0
+	anim_wait 4
+	anim_clearobjs
+	anim_obj ANIM_OBJ_BEAM_IMPACT_FLIP, 122-2, 50+4, $0
+	anim_wait 4
+	anim_clearobjs
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 128+4, 48+8, $0
+	anim_sound 0, 1, SFX_MEGA_PUNCH
+	anim_wait 2
+	anim_obj ANIM_OBJ_BEAM_IMPACT, 130+14, 54+8, $0
+	anim_wait 4
+	anim_clearobjs
+	anim_obj ANIM_OBJ_BEAM_IMPACT_FLIP, 122-6, 50-4, $0
+	anim_wait 4
 	anim_ret
 
 BattleAnim_Constrict:
@@ -3868,6 +3889,7 @@ BattleAnim_DarkPulse: ; DARK PULSE
 	anim_wait 6
 	anim_obj ANIM_OBJ_SPLASH, 136, 24+12, $0
 	anim_wait 16
+	anim_ret
 
 .ironhead
 	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_ROCKS
@@ -4912,39 +4934,96 @@ BattleAnim_Swagger:
 	anim_ret
 
 BattleAnim_FirePlay:
-	anim_1gfx ANIM_GFX_SPEED
+	anim_if_param_equal FLUTTER_CLAP, .flutterclap
+
+	anim_2gfx ANIM_GFX_SPEED, ANIM_GFX_NOISE
 	anim_sound 0, 0, SFX_MENU
 	anim_obj ANIM_OBJ_SPEED_LINE, 24, 88, $2
 	anim_obj ANIM_OBJ_SPEED_LINE, 40, 88, $0
 	anim_obj ANIM_OBJ_SPEED_LINE, 48, 88, $80
 	anim_obj ANIM_OBJ_SPEED_LINE, 64, 88, $82
-
 	anim_wait 8
 	anim_call BattleAnim_FollowPlayerHead_0_bank2
 	anim_bgeffect ANIM_BG_BODY_SLAM, $0, $1, $0
-	anim_wait 4
-	anim_1gfx ANIM_GFX_NOISE
-	anim_sound 0, 1, SFX_CUT
-	anim_obj ANIM_OBJ_4B, 120, 56, $0
-	anim_wait 8
+	anim_wait 12
 	anim_call BattleAnim_ShowMon_0_bank2
+	anim_clearobjs
 
-	anim_if_param_equal FLUTTER_CLAP, .flutterclap
 	anim_if_param_equal TIDE_CLASH, .tideclash
 
+	anim_sound 0, 1, SFX_CUT
+	anim_obj ANIM_OBJ_4B, 120, 56, $0
 	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_FIRE
 	anim_call BattleAnim_FirePunch_branch_cbbcc
-	anim_jump .flutterclap
+	anim_ret
+	
 .tideclash
 	anim_1gfx ANIM_GFX_HIT
 	anim_wait 8
 	anim_sound 0, 1, SFX_WATER_GUN
-	anim_obj ANIM_OBJ_HIT_BLUE, 126, 48, $0
+	anim_obj ANIM_OBJ_HIT_BLUE, 122, 48, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT_BLUE, 122+14, 48-8, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT_BLUE, 122+28, 48-16, $0
 	anim_wait 8
-	anim_obj ANIM_OBJ_HIT_BLUE, 142, 40, $0
-.flutterclap ; TODO
+	anim_sound 0, 1, SFX_WATER_GUN
+	anim_obj ANIM_OBJ_HIT_BLUE, 122-8, 48, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT_BLUE, 122+12-8, 48-12, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT_BLUE, 122+24-8, 48-24, $0
 	anim_wait 8
+	anim_sound 0, 1, SFX_WATER_GUN
+	anim_obj ANIM_OBJ_HIT_BLUE, 122+4, 48+8, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT_BLUE, 122+16+4, 48+8-6, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT_BLUE, 122+32+4, 48+8-12, $0
+	anim_wait 8
+	anim_ret
+
+.flutterclap
+	anim_1gfx ANIM_GFX_HIT
+	anim_call BattleAnim_FollowPlayerHead_0_bank2
+	anim_bgeffect ANIM_BG_BOUNCE_DOWN, $0, $1, $0
+	anim_wait 12
+	anim_incbgeffect ANIM_BG_BOUNCE_DOWN
+	anim_wait 1
 	anim_call BattleAnim_ShowMon_0_bank2
+	anim_clearobjs
+	anim_wait 1
+
+	anim_obj ANIM_OBJ_HIT_YFIX, 148, 56, $0
+	anim_obj ANIM_OBJ_HIT_YFIX, 116, 56, $0
+	anim_sound 0, 1, SFX_CUT
+	anim_wait 8
+	anim_call BattleAnim_FollowPlayerHead_0_bank2
+	anim_bgeffect ANIM_BG_BOUNCE_DOWN, $0, $1, $0
+	anim_wait 12
+	anim_incbgeffect ANIM_BG_BOUNCE_DOWN
+	anim_wait 1
+	anim_call BattleAnim_ShowMon_0_bank2
+	anim_clearobjs
+	anim_wait 1
+
+	anim_obj ANIM_OBJ_HIT_YFIX, 144, 56, $0
+	anim_obj ANIM_OBJ_HIT_YFIX, 120, 56, $0
+	anim_sound 0, 1, SFX_CUT
+	anim_wait 8
+	anim_call BattleAnim_FollowPlayerHead_0_bank2
+	anim_bgeffect ANIM_BG_BOUNCE_DOWN, $0, $1, $0
+	anim_wait 12
+	anim_incbgeffect ANIM_BG_BOUNCE_DOWN
+	anim_wait 1
+	anim_call BattleAnim_ShowMon_0_bank2
+	anim_clearobjs
+	anim_wait 1
+	
+	anim_obj ANIM_OBJ_HIT_YFIX, 140, 56, $0
+	anim_obj ANIM_OBJ_HIT_YFIX, 124, 56, $0
+	anim_sound 0, 1, SFX_CUT
+	anim_wait 4
 	anim_ret
 
 BattleAnim_Spark:
