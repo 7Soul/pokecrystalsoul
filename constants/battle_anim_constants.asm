@@ -250,6 +250,8 @@ NUM_ANIM_OBJECTS EQU 10
 	const ANIM_OBJ_AURA_SPHERE
 	const ANIM_OBJ_MIRROR_COAT2
 	const ANIM_OBJ_COSMIC_POWER
+	const ANIM_OBJ_BIG_ICE_ROCK
+	const ANIM_OBJ_SMALL_ICE_ROCK
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def

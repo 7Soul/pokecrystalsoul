@@ -234,7 +234,7 @@ BattleAnimFunction_03:
 	ret
 
 BattleAnimFunction_01:
-; Moves object diagonally at a ~30° angle towards opponent and destroys object when it reaches XCoord $84
+; Moves object diagonally at a ~30° angle towards opponent and stops when it reaches XCoord $84. Obj Param changes the speed
 	call BattleAnim_AnonJumptable
 .anon_dw
 	dw .zero
@@ -256,7 +256,7 @@ BattleAnimFunction_01:
 	ret
 
 BattleAnimFunction_02:
-; Same as BattleAnimFunction_01, without the ability to use anim_incobj to destroy object sooner
+; Same as BattleAnimFunction_01 but objs are cleared when they reach XCoord $84
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	ld a, [hl]

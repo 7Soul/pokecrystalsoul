@@ -1426,7 +1426,7 @@ BattleAnim_SetOBPals:
 	ld de, wOBPals1 palette PAL_BATTLE_OB_GRAY
 	ldh a, [rOBP0]
 	ld b, a
-	ld c, 2
+	ld c, 6
 	call CopyPals
 	pop af
 	ldh [rSVBK], a
