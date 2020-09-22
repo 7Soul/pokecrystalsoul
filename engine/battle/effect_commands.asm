@@ -5706,6 +5706,10 @@ BattleCommand_PostHitEffects:
 	ld [wBuffer1], a
 	farcall TraitPostHitBattleCommand
 
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitContactUser
+
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitContact

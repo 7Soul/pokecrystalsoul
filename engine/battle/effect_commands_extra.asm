@@ -130,6 +130,7 @@ CheckIfTargetIsNthTypeGotValue:
 	cp b
 	ret z
 	ld a, [de]
+	dec de
 	cp b
 	ret	
 

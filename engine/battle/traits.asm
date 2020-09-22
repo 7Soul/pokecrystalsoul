@@ -1560,39 +1560,68 @@ TraitReduceSelfRecoil:
 .end
 	ret
 
+TraitContactUser:
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVar
+	and CONTACT
+	ret z
+
+	ld hl, .TraitsThatDealDamageOnContact
+	call CheckTrait
+	ret nc
+
+	ld de, wBattleMonType1
+	ld hl, wEnemyMonType1
+	call GetTraitUserAddr
+	ld d, h
+	ld e, l
+
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	and a
+	jr z, .rock
+	dec a
+	jr z, .ground
+
+	ld b, FIRE
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	ld b, WATER
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	jr .apply_damage
+.ground
+	ld b, FLYING
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	ld b, GROUND
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	jr .apply_damage
+.rock
+	ld b, WATER
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	ld b, ROCK
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	
+.apply_damage
+	call Switch_turn
+	jp DoOneSixteenthDamage
+
+.TraitsThatDealDamageOnContact:
+	db TRAIT_CONTACT_DAMAGE_ROCK
+	db TRAIT_CONTACT_DAMAGE_GROUND
+	db TRAIT_CONTACT_DAMAGE_FIRE
+	db -1
+
 TraitContact:
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVar
 	and CONTACT
 	ret z
 
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-
-	ld hl, .TraitsThatDealDamageOnContact
-	call CheckTrait
-	jr nc, .not_prickly
-
-	and a
-	jr z, .rock
-
-	ld b, FLYING
-	farcall CheckIfTargetIsNthType
-	ret z
-	ld b, GROUND
-	farcall CheckIfTargetIsNthType
-	ret z
-	jp DoOneSixteenthDamage
-.rock
-	ld b, WATER
-	farcall CheckIfTargetIsNthType
-	ret z
-	ld b, ROCK
-	farcall CheckIfTargetIsNthType
-	ret z
-	jp DoOneSixteenthDamage
-
-.not_prickly
 	ld b, 12 percent
 	call Chance
 	ret nc
@@ -1635,11 +1664,6 @@ TraitContact:
 	db TRAIT_CONTACT_CONFUSED
 	db TRAIT_CONTACT_IN_LOVE
 	db TRAIT_CONTACT_SPORE
-	db -1
-
-.TraitsThatDealDamageOnContact:
-	db TRAIT_CONTACT_DAMAGE_ROCK
-	db TRAIT_CONTACT_DAMAGE_GROUND
 	db -1
 
 ; TraitHail:

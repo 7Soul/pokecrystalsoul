@@ -189,7 +189,7 @@ BattleAnimations::
 	dba BattleAnim_SweetKiss
 	dba BattleAnim_BellyDrum
 	dba BattleAnim_SludgeBomb
-	dba BattleAnim_MudSlap
+	dba BattleAnim_MudBomb
 	dba BattleAnim_Octazooka
 	dba BattleAnim_Spikes
 	dba BattleAnim_ZapCannon
@@ -4542,10 +4542,10 @@ BattleAnim_SludgeBomb:
 	anim_wait 64
 	anim_ret
 
-BattleAnim_MudSlap: ; mudbomb
+BattleAnim_MudBomb:
 	anim_1gfx ANIM_GFX_SAND
 	anim_obp0 $fc
-	anim_call BattleAnim_MudSlap_branch_cbc5b
+	anim_call BattleAnim_MudBomb_branch_cbc5b
 	anim_ret
 
 BattleAnim_Octazooka:
@@ -5997,7 +5997,7 @@ BattleAnim_MetalClaw_branch_cbc43:
 	anim_incbgeffect ANIM_BG_USER_FADE_TO_LIGHT2
 	anim_ret
 
-BattleAnim_MudSlap_branch_cbc5b:
+BattleAnim_MudBomb_branch_cbc5b:
 BattleAnim_SandAttack_branch_cbc5b:
 .loop
 	anim_sound 6, 2, SFX_MENU
