@@ -50,6 +50,7 @@ TraitNames::
 	db "Magic Trick@"      ; TRAIT_UPGRADE_BERRY
 	db "Nutrition@"        ; TRAIT_BOOST_BERRY
 	db "Harvest@"          ; TRAIT_CLONE_BERRY
+	db "Color Pick@"       ; TRAIT_RESIST_RANDOM_TYPE
 	db "Band Together@"    ; TRAIT_PARTY_NORMAL_BOOST_DEFENSE
 	db "Practice Pals@"    ; TRAIT_PARTY_FIGHTING_BOOST_DEFENSE
 	db "Flock@"            ; TRAIT_PARTY_FLYING_BOOST_DEFENSE

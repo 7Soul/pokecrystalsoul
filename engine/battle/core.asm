@@ -3815,9 +3815,6 @@ Function_SetEnemyMonAndSendOutAnimation:
 	ld a, $1
 	ldh [hBGMapMode], a
 
-	call OnEnterTraits	
-	farcall BattleCommand_RecalcStats
-	
 	ld hl, wEnemyMonItem
 	ld a, [hl]
 	cp -1
@@ -3830,6 +3827,8 @@ Function_SetEnemyMonAndSendOutAnimation:
 	call StdBattleTextBox
 .skip_item
 	call BattleMenu_EnemyTrait
+	call OnEnterTraits
+	farcall BattleCommand_RecalcStats
 	ret
 
 NewEnemyMonStatus:
@@ -4343,6 +4342,8 @@ OnEnterTraits:
 	jr z, .start_sun
 	cp TRAIT_SANDSTORM_ON_ENTER
 	jr z, .start_sand
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
 	farcall TraitOnEnter
 	ret
 .start_rain
@@ -4371,7 +4372,8 @@ BattleMenu_EnemyTrait:
 	ld [wNamedObjectIndexBuffer], a
 	call GetTraitName
 	ld hl, BattleText_EnemyTrait
-	jp StdBattleTextBox
+	call StdBattleTextBox
+	jp SetEnemyTurn
 
 NewBattleMonStatus:
 	xor a

@@ -50,6 +50,7 @@ TraitDescriptions::
 	dw MagicTrickDescription      ; TRAIT_UPGRADE_BERRY
 	dw NutritionDescription       ; TRAIT_BOOST_BERRY
 	dw HarvestDescription         ; TRAIT_CLONE_BERRY
+	dw ColorPickDescription       ; TRAIT_RESIST_RANDOM_TYPE
 	dw BandTogetherDescription    ; TRAIT_PARTY_NORMAL_BOOST_DEFENSE
 	dw PracticePalsDescription    ; TRAIT_PARTY_FIGHTING_BOOST_DEFENSE
 	dw FlockDescription           ; TRAIT_PARTY_FLYING_BOOST_DEFENSE
@@ -440,6 +441,10 @@ NutritionDescription:
 HarvestDescription:
 	db   "May regrow a berry"
 	next "after eating one.@"
+
+ColorPickDescription:
+	db   "Greatly resist a"
+	next "random type.@"
 
 BandTogetherDescription:
 	db   "Team's NORMAL type"

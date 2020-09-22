@@ -869,6 +869,10 @@ TraitOnEnter:
 	call CheckSpecificTrait
 	jp c, SwapDefenseBuffs
 
+	ld a, TRAIT_RESIST_RANDOM_TYPE
+	call CheckSpecificTrait
+	jp c, TriggerResistRandomType
+
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	ld hl, .TraitsThatBoostBasedOnPartyType
@@ -950,6 +954,42 @@ SwapDefenseBuffs:
 	ld a, b
 	ld [de], a
 	ret
+
+TriggerResistRandomType:
+.loop
+	call BattleRandom
+	and $f
+	cp $f
+	jr nc, .loop
+	ld b, a
+	ld [wNamedObjectIndexBuffer], a
+
+	call GetTraitUser
+	ld hl, wTraitActivated
+	jr c, .player
+	swap b
+.player
+	ld a, b
+	add [hl]
+	ld [hl], a ; save type
+	predef GetTypeName
+	ld hl, wStringBuffer1
+	ld de, wStringBuffer2
+	ld bc, wStringBuffer2 - wStringBuffer1
+	call CopyBytes
+	call GetTraitUserName
+	ld hl, BattleText_TraitColorPick
+	jp StdBattleTextBox
+
+GetTraitUserName:
+	call GetTraitUser
+	ld hl, wBattleMonNick
+	jr c, .player
+	ld hl, wEnemyMonNick
+.player
+	ld de, wStringBuffer1
+	ld bc, MON_NAME_LENGTH
+	jp CopyBytes
 
 TraitRaiseStat:
 	ld a, $FF
@@ -2028,6 +2068,25 @@ HealAllStatuses:
 	ret
 
 TraitReducePower:
+	ld a, TRAIT_RESIST_RANDOM_TYPE
+	call CheckSpecificTrait
+	jp nc, .not_color_pick
+	
+	call GetTraitUser
+	ld hl, wTraitActivated
+	ld a, [hl]
+	jr c, .player_user
+	swap a
+.player_user
+	and %1111
+	ld c, a
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVarAddr
+	and TYPE_MASK
+	cp c
+	jp z, ReduceDamage50
+
+.not_color_pick
 	ld a, [wCriticalHit]
 	cp 1
 	jr nz, .not_crit

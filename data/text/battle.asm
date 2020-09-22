@@ -1234,3 +1234,12 @@ BattleText_TraitPassedStatus::
 	text "Passed status to"
 	line "foe."
 	prompt
+
+BattleText_TraitColorPick::
+	text "@"
+	text_from_ram wStringBuffer1
+	text " picked"
+	line "@"
+	text_from_ram wStringBuffer2
+	text " type!"
+	prompt
