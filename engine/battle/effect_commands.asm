@@ -4885,30 +4885,15 @@ INCLUDE "data/battle/stat_multipliers.asm"
 BattleCommand_AllStatsUp:
 ; allstatsup
 
-; Attack
 	call ResetMiss
 	call BattleCommand_AttackUp
-	call BattleCommand_StatUpMessage
-
-; Defense
-	call ResetMiss
 	call BattleCommand_DefenseUp
-	call BattleCommand_StatUpMessage
-
-; Speed
-	call ResetMiss
 	call BattleCommand_SpeedUp
-	call BattleCommand_StatUpMessage
-
-; Special Attack
-	call ResetMiss
 	call BattleCommand_SpecialAttackUp
-	call BattleCommand_StatUpMessage
-
-; Special Defense
-	call ResetMiss
 	call BattleCommand_SpecialDefenseUp
-	jp   BattleCommand_StatUpMessage
+	; ret
+	ld hl, BattleText_AllStatsUp
+	jp StdBattleTextBox
 	
 BattleCommand_AtkDefUp:
 ; atkdefup

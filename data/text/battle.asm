@@ -1243,3 +1243,14 @@ BattleText_TraitColorPick::
 	text_from_ram wStringBuffer2
 	text " type!"
 	prompt
+
+BattleText_AllStatsUp::
+	text "<USER>'s"
+	line "stats went up!"
+	prompt
+
+BattleText_NegatedDamage::
+	text "<USER> "
+	line "greatly resisted"
+	cont "the attack!"
+	prompt

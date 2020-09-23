@@ -51,6 +51,7 @@ TraitDescriptions::
 	dw NutritionDescription       ; TRAIT_BOOST_BERRY
 	dw HarvestDescription         ; TRAIT_CLONE_BERRY
 	dw ColorPickDescription       ; TRAIT_RESIST_RANDOM_TYPE
+	dw CheerUpDescription         ; TRAIT_ALL_STATS_BOTH_SIDES
 	dw BandTogetherDescription    ; TRAIT_PARTY_NORMAL_BOOST_DEFENSE
 	dw PracticePalsDescription    ; TRAIT_PARTY_FIGHTING_BOOST_DEFENSE
 	dw FlockDescription           ; TRAIT_PARTY_FLYING_BOOST_DEFENSE
@@ -121,7 +122,6 @@ TraitDescriptions::
 	dw ViciousFormDescription     ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
 	dw HiddenPotentialDescription ; TRAIT_CRITICAL_NOT_STAB
 	dw RiptideDescription         ; TRAIT_BOOST_NOT_STAB_WATER_ICE
-	dw BladedWingsDescription     ; TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	dw DarkWatersDescription      ; TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
 	dw PismalityDescription       ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription         ; TRAIT_REDUCE_NOT_STAB
@@ -184,62 +184,57 @@ TraitDescriptions::
 	dw IceSheddingDescription     ; TRAIT_REDUCE_FRZ_AND_ICE
 	dw MindBlockDescription       ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
 	dw MorningDewDescription      ; TRAIT_REDUCE_WATER_FIRE_HIT
+	dw MaleableDescription        ; TRAIT_REDUCE_ROCK_GROUND_HIT
+	dw HitBlockerDescription      ; TRAIT_REDUCE_FIGHTING_ICE_HIT
+	dw CleanseDescription         ; TRAIT_REDUCE_POISON_PSYCHIC_HIT
+	dw DiamondShellDescription    ; TRAIT_REDUCE_FLYING_STEEL_HIT
+	dw LightBarrierDescription    ; TRAIT_REDUCE_ELECTRIC_DARK_HIT
+	dw AridShieldDescription      ; TRAIT_REDUCE_WATER_GRASS_HIT
 	dw ThickFatDescription        ; TRAIT_DEFENSE_ICE_FIRE_HIT
 	dw RattledDescription         ; TRAIT_SPEED_BUG_DARK_HIT
 	dw StoneSkinDescription       ; TRAIT_REDUCE_NORMAL
 	dw BoneArmorDescription       ; TRAIT_REDUCE_NORMAL_MORE
 	dw FadeDescription            ; TRAIT_REDUCE_NORMAL_ACC
 	dw WildRageDescription        ; TRAIT_BOOST_NORMAL_STATUSED
-	dw HitBreaker2Description     ; TRAIT_REDUCE_FIGHTING_MORE
 	dw FlailingRageDescription    ; TRAIT_BOOST_FIGHTING_STATUSED
-	dw Carapace2Description       ; TRAIT_REDUCE_FLYING_MORE
 	dw FlightRushDescription      ; TRAIT_BOOST_FLYING_SPEED
 	dw AirRageDescription         ; TRAIT_BOOST_FLYING_STATUSED
 	dw IceLegendeDescription      ; TRAIT_FLYING_FRZ
 	dw ThunderLegendDescription   ; TRAIT_FLYING_PRZ
 	dw FireLegendDescription      ; TRAIT_FLYING_BRN
 	dw FlyingLegendDescription    ; TRAIT_BOOST_FLYING_DURING_WEATHER
-	dw ImmunityDescription        ; TRAIT_REDUCE_POISON_MORE
 	dw DiluteDescription          ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
 	dw AcidizeDescription         ; TRAIT_BOOST_POISON_STATUSED
-	dw ShockAbsorb2Description    ; TRAIT_REDUCE_GROUND_MORE
 	dw TremorRageDescription      ; TRAIT_BOOST_GROUND_STATUSED
 	dw BalloonDescription         ; TRAIT_RESIST_GROUND_LATER
-	dw ShapeMoldDescription       ; TRAIT_REDUCE_ROCK_MORE
 	dw IronCoatDescription        ; TRAIT_BOOST_ROCK_DEFENSE
 	dw GoldCoatDescription        ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	dw RollingRockRageDescription ; TRAIT_BOOST_ROCK_STATUSED
 	dw MegaShellDescription       ; TRAIT_REDUCE_STEEL_MORE
-	dw AshCoatDescription         ; TRAIT_REDUCE_BUG_MORE
+	dw BladedWingsDescription     ; TRAIT_BOOST_STEEL_SPEED
 	dw SwarmDescription           ; TRAIT_BOOST_BUG_HP
 	dw BuzzingRageDescription     ; TRAIT_BOOST_BUG_STATUSED
-	dw FireproofDescription       ; TRAIT_REDUCE_FIRE_MORE
 	dw BlazeDescription           ; TRAIT_BOOST_FIRE_HP
 	dw MoltenRageDescription      ; TRAIT_BOOST_FIRE_STATUSED
 	dw MysticFireDescription      ; TRAIT_LOWER_SP_ATTACK_FIRE
-	dw WaterRepelDescription      ; TRAIT_REDUCE_WATER_MORE
 	dw HardWaterDescription       ; TRAIT_BOOST_WATER_DEFENSE
 	dw TorrentDescription         ; TRAIT_BOOST_WATER_HP
 	dw DeepSeaRageDescription     ; TRAIT_BOOST_WATER_STATUSED
 	dw HardeningSandDescription   ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	dw IceWaterDescription        ; TRAIT_FRZ_SPD_WITH_WATER
 	dw MysticWaterDescription     ; TRAIT_LOWER_SP_ATTACK_WATER
-	dw AridShieldDescription      ; TRAIT_REDUCE_GRASS_MORE
 	dw OvergrowDescription        ; TRAIT_BOOST_GRASS_HP
 	dw ForestRageDescription      ; TRAIT_BOOST_GRASS_STATUSED
 	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	dw PolenHazardDescription     ; TRAIT_PRZ_PSN_WITH_GRASS
-	dw IonizeAirDescription       ; TRAIT_REDUCE_ELECTRIC_MORE
 	dw ZapRushDescription         ; TRAIT_BOOST_ELECTRIC_SPEED
 	dw ZapRageDescription         ; TRAIT_BOOST_ELECTRIC_STATUSED
 	dw MysticWaveDescription      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
-	dw Forewarn2Description       ; TRAIT_REDUCE_PSYCHIC_MORE
 	dw TwoSidedRageDescription    ; TRAIT_BOOST_PSYCHIC_STATUSED
 	dw MysticPowerDescription     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
-	dw HibernateDescription       ; TRAIT_REDUCE_ICE_MORE
 	dw SouthWindDescription       ; TRAIT_BOOST_ICE_HP
 	dw ArcticRageDescription      ; TRAIT_BOOST_ICE_STATUSED
-	dw LightBarrierDescription    ; TRAIT_REDUCE_DARK_MORE
+	dw WatchfulDescription        ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
 	dw TyrantRageDescription      ; TRAIT_BOOST_DARK_STATUSED
 	dw TintedLensDescription      ; TRAIT_BOOST_NOT_EFFECTIVE
 	dw InkBombDescription         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
@@ -445,6 +440,10 @@ HarvestDescription:
 ColorPickDescription:
 	db   "Greatly resist a"
 	next "random type.@"
+
+CheerUpDescription:
+	db   "Raises all stats"
+	next "for both sides.@"
 
 BandTogetherDescription:
 	db   "Team's NORMAL type"
@@ -798,10 +797,6 @@ RiptideDescription:
 	db   "Powers Non-STAB vs"
 	next "WATER and ICE.@"
 
-BladedWingsDescription:
-	db   "Powers Non-STAB vs"
-	next "GRASS and BUG.@"
-
 DarkWatersDescription:
 	db   "Powers Non-STAB vs"
 	next "FIRE and PSYCHIC.@"
@@ -1047,8 +1042,32 @@ MindBlockDescription:
 	next "CHIC are weakened.@"
 
 MorningDewDescription:
-	db   "1st hit from WATER"
-	next "or FIRE is halved.@"
+	db   "WATER and FIRE may"
+	next "be negated.@"
+
+MaleableDescription:
+	db   "ROCK and GROUND"
+	next "may be negated.@"
+
+HitBlockerDescription:
+	db   "FIGHTING and ICE"
+	next "may be negated.@"
+
+CleanseDescription:
+	db   "POISON and PSYCHIC"
+	next "may be negated.@"
+
+DiamondShellDescription:
+	db   "FLYING and STEEL"
+	next "may be negated.@"
+
+LightBarrierDescription:
+	db   "ELECTRIC and DARK"
+	next "may be negated.@"
+
+AridShieldDescription:
+	db   "WATER and GRASS"
+	next "may be negated.@"
 
 ThickFatDescription:
 	db   "Ups DEF when hit"
@@ -1074,17 +1093,9 @@ WildRageDescription:
 	db   "Boosts NORMAL un-"
 	next "der any status.@"
 
-HitBreaker2Description:
-	db   "Resists FIGHTING"
-	next "under half HP.@"
-
 FlailingRageDescription:
 	db   "Boosts FIGHTING"
 	next "under any status.@"
-
-Carapace2Description:
-	db   "Resists FLYING"
-	next "under half HP.@"
 
 FlightRushDescription:
 	db   "SPEED disparity"
@@ -1110,10 +1121,6 @@ FlyingLegendDescription:
 	db   "Boosts FLYING du-"
 	next "ring any weather.@"
 
-ImmunityDescription:
-	db   "Resists POISON"
-	next "under half HP.@"
-	
 DiluteDescription:
 	db   "Ups best stat when"
 	next "hit by POISON.@"
@@ -1122,10 +1129,6 @@ AcidizeDescription:
 	db   "Boosts POISON un-"
 	next "der any status.@"
 
-ShockAbsorb2Description:
-	db   "Resists GROUND"
-	next "under half HP.@"
-	
 TremorRageDescription:
 	db   "Boosts GROUND un-"
 	next "der any status.@"
@@ -1134,10 +1137,6 @@ BalloonDescription:
 	db   "Resist GROUND past"
 	next "1st turn.@"
 
-ShapeMoldDescription:
-	db   "Resists ROCK under"
-	next "half HP.@"
-	
 IronCoatDescription:
 	db   "DEFENSE disparity"
 	next "boosts ROCK.@"
@@ -1149,14 +1148,14 @@ GoldCoatDescription:
 RollingRockRageDescription:
 	db   "Boosts ROCK under"
 	next "any status.@"
-
+	
 MegaShellDescription:
-	db   "Resists STEEL un-"
-	next "der half HP.@"
-
-AshCoatDescription:
-	db   "Resists BUG under"
+	db   "Resist STEEL under"
 	next "half HP.@"
+
+BladedWingsDescription:
+	db   "SPEED disparity"
+	next "boosts STEEL.@"
 	
 SwarmDescription:
 	db   "Missing HEALTH"
@@ -1166,10 +1165,6 @@ BuzzingRageDescription:
 	db   "Boosts BUG under"
 	next "any status.@"
 
-FireproofDescription:
-	db   "Resists FIRE under"
-	next "half HP.@"
-	
 BlazeDescription:
 	db   "Missing HEALTH"
 	next "boosts FIRE.@"
@@ -1182,10 +1177,6 @@ MysticFireDescription:
 	db   "Lowers SP.ATK with"
 	next "FIRE attacks.@"
 
-WaterRepelDescription:
-	db   "Resists WATER"
-	next "under half HP.@"
-	
 HardWaterDescription:
 	db   "DEFENSE disparity"
 	next "boosts WATER.@"
@@ -1210,10 +1201,6 @@ MysticWaterDescription:
 	db   "Lowers SP.ATK with"
 	next "WATER attacks.@"
 
-AridShieldDescription:
-	db   "Resists GRASS"
-	next "under half HP.@"
-	
 OvergrowDescription:
 	db   "Missing HEALTH"
 	next "boosts GRASS.@"
@@ -1229,11 +1216,7 @@ SapSipperDescription:
 PolenHazardDescription:
 	db   "May PSN or PRZ"
 	next "with GRASS moves.@"
-
-IonizeAirDescription:
-	db   "Resists ELECTRIC"
-	next "under half HP.@"
-		
+	
 ZapRushDescription:
 	db   "SPEED disparity"
 	next "boosts ELECTRIC.@"
@@ -1246,10 +1229,6 @@ MysticWaveDescription:
 	db   "Lowers SP.ATK with"
 	next "ELECTRIC attacks.@"
 
-Forewarn2Description:
-	db   "Resists PSYCHIC"
-	next "under half HP.@"
-	
 TwoSidedRageDescription:
 	db   "Boosts PSYCHIC"
 	next "under any status.@"
@@ -1258,10 +1237,6 @@ MysticPowerDescription:
 	db   "Lowers SP.ATK with"
 	next "PSYCHIC attacks.@"
 
-HibernateDescription:
-	db   "Resists ICE under"
-	next "half HP.@"
-	
 SouthWindDescription:
 	db   "Missing HEALTH"
 	next "boosts ICE.@"
@@ -1270,10 +1245,10 @@ ArcticRageDescription:
 	db   "Boosts ICE under"
 	next "any status.@"
 
-LightBarrierDescription:
-	db   "Resists DARK under"
-	next "half HP.@"
-	
+WatchfulDescription:
+	db   "Ups best stat when"
+	next "hit by DARK.@"
+
 TyrantRageDescription:
 	db   "Boosts DARK under"
 	next "any status.@"

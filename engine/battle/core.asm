@@ -3827,7 +3827,7 @@ Function_SetEnemyMonAndSendOutAnimation:
 	call StdBattleTextBox
 .skip_item
 	call BattleMenu_EnemyTrait
-	call OnEnterTraits
+	; call OnEnterTraits
 	farcall BattleCommand_RecalcStats
 	ret
 
@@ -4345,6 +4345,10 @@ OnEnterTraits:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitOnEnter
+
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	farcall TraitOnEnter
 	ret
 .start_rain
 	ld a, RAIN_DANCE
@@ -4695,57 +4699,57 @@ ItemRecoveryAnim:
 	ret
 
 UseHeldStatusHealingItem:
-	callfar GetOpponentItem
-	ld hl, HeldStatusHealingEffects
-.loop
-	ld a, [hli]
-	cp $ff
-	ret z
-	inc hl
-	cp b
-	jr nz, .loop
-	dec hl
-	ld b, [hl]
-	ld a, BATTLE_VARS_STATUS_OPP
-	call GetBattleVarAddr
-	and b
-	ret z
-	xor a
-	ld [hl], a
-	push bc
-	call UpdateOpponentInParty
-	pop bc
-	ld a, BATTLE_VARS_SUBSTATUS5_OPP
-	call GetBattleVarAddr
-	and [hl]
-	res SUBSTATUS_TOXIC, [hl]
-	ld a, BATTLE_VARS_SUBSTATUS1_OPP
-	call GetBattleVarAddr
-	and [hl]
-	res SUBSTATUS_NIGHTMARE, [hl]
-	ld a, b
-	cp ALL_STATUS
-	jr nz, .skip_confuse
-	ld a, BATTLE_VARS_SUBSTATUS3_OPP
-	call GetBattleVarAddr
-	res SUBSTATUS_CONFUSED, [hl]
+; 	callfar GetOpponentItem
+; 	ld hl, HeldStatusHealingEffects
+; .loop
+; 	ld a, [hli]
+; 	cp $ff
+; 	ret z
+; 	inc hl
+; 	cp b
+; 	jr nz, .loop
+; 	dec hl
+; 	ld b, [hl]
+; 	ld a, BATTLE_VARS_STATUS_OPP
+; 	call GetBattleVarAddr
+; 	and b
+; 	ret z
+; 	xor a
+; 	ld [hl], a
+; 	push bc
+; 	call UpdateOpponentInParty
+; 	pop bc
+; 	ld a, BATTLE_VARS_SUBSTATUS5_OPP
+; 	call GetBattleVarAddr
+; 	and [hl]
+; 	res SUBSTATUS_TOXIC, [hl]
+; 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
+; 	call GetBattleVarAddr
+; 	and [hl]
+; 	res SUBSTATUS_NIGHTMARE, [hl]
+; 	ld a, b
+; 	cp ALL_STATUS
+; 	jr nz, .skip_confuse
+; 	ld a, BATTLE_VARS_SUBSTATUS3_OPP
+; 	call GetBattleVarAddr
+; 	res SUBSTATUS_CONFUSED, [hl]
 
-.skip_confuse
-	ld hl, CalcEnemyStats
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .got_pointer
-	ld hl, CalcPlayerStats
+; .skip_confuse
+; 	ld hl, CalcEnemyStats
+; 	ldh a, [hBattleTurn]
+; 	and a
+; 	jr z, .got_pointer
+; 	ld hl, CalcPlayerStats
 
-.got_pointer
-	call SwitchTurnCore
-	ld a, BANK(CalcEnemyStats)
-	rst FarCall
-	call SwitchTurnCore
-	call ItemRecoveryAnim
-	call UseOpponentItem
-	ld a, $1
-	and a
+; .got_pointer
+; 	call SwitchTurnCore
+; 	ld a, BANK(CalcEnemyStats)
+; 	rst FarCall
+; 	call SwitchTurnCore
+; 	call ItemRecoveryAnim
+; 	call UseOpponentItem
+; 	ld a, $1
+; 	and a
 	ret
 
 INCLUDE "data/battle/held_heal_status.asm"

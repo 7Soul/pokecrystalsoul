@@ -200,6 +200,36 @@ CheckTraitCondition:
 	ld c, WATER
 	ld e, FIRE
 	jp c, .check_move_type
+	cp TRAIT_REDUCE_ROCK_GROUND_HIT + 1; 
+	ld b, a
+	ld c, ROCK
+	ld e, GROUND
+	jp c, .check_move_type
+	cp TRAIT_REDUCE_FIGHTING_ICE_HIT + 1; 
+	ld b, a
+	ld c, FIGHTING
+	ld e, ICE
+	jp c, .check_move_type
+	cp TRAIT_REDUCE_POISON_PSYCHIC_HIT + 1; 
+	ld b, a
+	ld c, POISON
+	ld e, PSYCHIC
+	jp c, .check_move_type
+	cp TRAIT_REDUCE_FLYING_STEEL_HIT + 1; 
+	ld b, a
+	ld c, FLYING
+	ld e, STEEL
+	jp c, .check_move_type
+	cp TRAIT_REDUCE_ELECTRIC_DARK_HIT + 1; 
+	ld b, a
+	ld c, ELECTRIC
+	ld e, DARK
+	jp c, .check_move_type
+	cp TRAIT_REDUCE_WATER_GRASS_HIT + 1; 
+	ld b, a
+	ld c, WATER
+	ld e, GRASS
+	jp c, .check_move_type
 	cp TRAIT_DEFENSE_ICE_FIRE_HIT + 1; 
 	ld b, a
 	ld c, FIRE
@@ -211,23 +241,23 @@ CheckTraitCondition:
 	ld e, DARK
 	jp c, .check_move_type
 	ld e, $FF
-	cp TRAIT_REDUCE_FIGHTING_MORE ; traits below this that require move type to be NORMAL
+	cp TRAIT_BOOST_FIGHTING_STATUSED ; traits below this that require move type to be NORMAL
 	ld b, a
 	ld c, NORMAL
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_FLYING_MORE ; traits that require move type to be FIGHTING
+	cp TRAIT_BOOST_FLYING_SPEED ; traits that require move type to be FIGHTING
 	ld b, a
 	ld c, FIGHTING
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_POISON_MORE ; traits that require move type to be POISON
+	cp TRAIT_REDUCE_POISON_UP_MAIN_STAT ; traits that require move type to be FLYING
 	ld b, a
 	ld c, FLYING
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_GROUND_MORE ; traits that require move type to be FLYING
+	cp TRAIT_BOOST_GROUND_STATUSED ; traits that require move type to be POISON
 	ld b, a
 	ld c, POISON
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_ROCK_MORE ; traits that require move type to be GROUND
+	cp TRAIT_BOOST_ROCK_DEFENSE ; traits that require move type to be GROUND
 	ld b, a
 	ld c, GROUND
 	jp c, .check_move_type
@@ -235,35 +265,35 @@ CheckTraitCondition:
 	ld b, a
 	ld c, ROCK
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_BUG_MORE ; traits that require move type to be ROCK
+	cp TRAIT_BOOST_BUG_HP ; traits that require move type to be STEEL
 	ld b, a
 	ld c, STEEL
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_FIRE_MORE ; traits that require move type to be BUG
+	cp TRAIT_BOOST_FIRE_HP ; traits that require move type to be BUG
 	ld b, a
 	ld c, BUG
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_WATER_MORE ; traits that require move type to be FIRE
+	cp TRAIT_BOOST_WATER_DEFENSE ; traits that require move type to be FIRE
 	ld b, a
 	ld c, FIRE
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_GRASS_MORE ; traits that require move type to be WATER
+	cp TRAIT_BOOST_GRASS_HP ; traits that require move type to be WATER
 	ld b, a
 	ld c, WATER
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_ELECTRIC_MORE ; traits that require move type to be GRASS
+	cp TRAIT_BOOST_ELECTRIC_SPEED ; traits that require move type to be GRASS
 	ld b, a
 	ld c, GRASS
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_PSYCHIC_MORE ; traits that require move type to be ELECTRIC
+	cp TRAIT_BOOST_PSYCHIC_STATUSED ; traits that require move type to be ELECTRIC
 	ld b, a
 	ld c, ELECTRIC
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_ICE_MORE ; traits that require move type to be PSYCHIC
+	cp TRAIT_BOOST_ICE_HP ; traits that require move type to be PSYCHIC
 	ld b, a
 	ld c, PSYCHIC
 	jp c, .check_move_type
-	cp TRAIT_REDUCE_DARK_MORE ; traits that require move type to be ICE
+	cp TRAIT_REDUCE_DARK_UP_MAIN_STAT ; traits that require move type to be ICE
 	ld b, a
 	ld c, ICE
 	jp c, .check_move_type
@@ -873,6 +903,10 @@ TraitOnEnter:
 	call CheckSpecificTrait
 	jp c, TriggerResistRandomType
 
+	ld a, TRAIT_ALL_STATS_BOTH_SIDES
+	call CheckSpecificTrait
+	jp c, TraitCheerUp
+
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	ld hl, .TraitsThatBoostBasedOnPartyType
@@ -905,6 +939,12 @@ TraitOnEnter:
 	; call TraitUseBattleCommandSimple
 	pop bc
 	jr .loop
+
+; .OnEnterJumptable:
+; 	db TRAIT_SWAP_DEFENSE_BUFFS, SwapDefenseBuffs
+; 	db TRAIT_RESIST_RANDOM_TYPE, TriggerResistRandomType
+; 	db TRAIT_ALL_STATS_BOTH_SIDES, TriggerCheerUp
+; 	db -1
 
 .TraitsThatBoostBasedOnPartyType:
 	db TRAIT_PARTY_NORMAL_BOOST_DEFENSE
@@ -990,6 +1030,18 @@ GetTraitUserName:
 	ld de, wStringBuffer1
 	ld bc, MON_NAME_LENGTH
 	jp CopyBytes
+
+TraitCheerUp:
+	ld c, 2
+.loop
+	push bc
+	ld hl, BattleCommand_AllStatsUp
+	call TraitUseBattleCommandSimple
+	call Switch_turn
+	pop bc
+	dec c
+	jr nz, .loop
+	ret
 
 TraitRaiseStat:
 	ld a, $FF
@@ -2115,9 +2167,9 @@ TraitReducePower:
 	call CheckSpecificTrait
 	jp c, ReduceDamage50
 
-	ld a, TRAIT_REDUCE_WATER_FIRE_HIT
-	call CheckSpecificTrait
-	jp c, ReduceDamage50
+	ld hl, .TraitsThatMightNegateDamage
+	call CheckTrait
+	jp c, MayNegateDamage
 
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
@@ -2178,20 +2230,7 @@ TraitReducePower:
 
 .TraitsThatReduceDamageMore: ; under 50% hp
 	db TRAIT_REDUCE_NORMAL_MORE
-	db TRAIT_REDUCE_FIGHTING_MORE
-	db TRAIT_REDUCE_FLYING_MORE
-	db TRAIT_REDUCE_POISON_MORE
-	db TRAIT_REDUCE_GROUND_MORE
-	db TRAIT_REDUCE_ROCK_MORE
 	db TRAIT_REDUCE_STEEL_MORE
-	db TRAIT_REDUCE_BUG_MORE
-	db TRAIT_REDUCE_FIRE_MORE
-	db TRAIT_REDUCE_WATER_MORE
-	db TRAIT_REDUCE_GRASS_MORE
-	db TRAIT_REDUCE_ELECTRIC_MORE
-	db TRAIT_REDUCE_PSYCHIC_MORE
-	db TRAIT_REDUCE_ICE_MORE
-	db TRAIT_REDUCE_DARK_MORE
 	db -1
 
 .TraitsThatReduceDamageLess: ; 10%
@@ -2207,6 +2246,25 @@ TraitReducePower:
 	db TRAIT_REDUCE_POISON_UP_MAIN_STAT
 	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db -1
+
+.TraitsThatMightNegateDamage:
+	db TRAIT_REDUCE_WATER_FIRE_HIT
+	db TRAIT_REDUCE_ROCK_GROUND_HIT
+	db TRAIT_REDUCE_FIGHTING_ICE_HIT
+	db TRAIT_REDUCE_POISON_PSYCHIC_HIT
+	db TRAIT_REDUCE_FLYING_STEEL_HIT
+	db TRAIT_REDUCE_ELECTRIC_DARK_HIT
+	db TRAIT_REDUCE_WATER_GRASS_HIT
+	db -1
+
+MayNegateDamage:
+	; Enemy mon wont negate damage
+	call GetTraitUser
+	ret nc
+	call BattleRandom
+	cp 90 percent
+	jp c, ReduceDamage15
+	jp ReduceDamage90
 
 PowerBoostingTraits:
 	ld a, BATTLE_VARS_TRAIT
@@ -2473,10 +2531,6 @@ TraitBoostNonStab: ; after damage calc, once stab is checked
 	ld c, ICE
 	jr z, .types
 	dec a
-	ld b, GRASS
-	ld c, BUG
-	jr z, .types
-	dec a
 	ld b, FIRE
 	ld c, PSYCHIC
 .types
@@ -2503,7 +2557,6 @@ TraitBoostNonStab: ; after damage calc, once stab is checked
 .TraitsThatBoostNonStab:
 	db TRAIT_BOOST_NOT_STAB
 	db TRAIT_BOOST_NOT_STAB_WATER_ICE
-	db TRAIT_BOOST_NOT_STAB_GRASS_BUG
 	db TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
 	db -1
 
@@ -3343,6 +3396,12 @@ BoostDamage20:
 
 BoostDamage15:
 	ld a, $76 ; ~1.16
+	jp ApplyDamageMod
+
+ReduceDamage90:
+	ld a, $9A ; ~0.9 ; 90% reduction
+	ld hl, BattleText_NegatedDamage
+	call StdBattleTextBox
 	jp ApplyDamageMod
 
 ReduceDamage50:
