@@ -319,6 +319,7 @@ CheckTraitCondition:
 	jr nc, .not_one_shot
 	call ActivateTrait
 .not_one_shot
+	; call PrintTraitText
 	scf
 	ld a, [wBuffer3]
 	ret
@@ -1662,45 +1663,47 @@ TraitContactUser:
 	call CheckTrait
 	ret nc
 
-	ld de, wBattleMonType1
-	ld hl, wEnemyMonType1
-	call GetTraitUserAddr
-	ld d, h
-	ld e, l
+; 	ld de, wBattleMonType1
+; 	ld hl, wEnemyMonType1
+; 	call GetTraitUserAddr
+; 	ld d, h
+; 	ld e, l
 
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-	and a
-	jr z, .rock
-	dec a
-	jr z, .ground
+; 	ld a, BATTLE_VARS_MOVE_ANIM
+; 	call GetBattleVar
+; 	and a
+; 	jr z, .rock
+; 	dec a
+; 	jr z, .ground
 
-	ld b, FIRE
-	farcall CheckIfTargetIsNthTypeGotValue
-	ret z
-	ld b, WATER
-	farcall CheckIfTargetIsNthTypeGotValue
-	ret z
-	jr .apply_damage
-.ground
-	ld b, FLYING
-	farcall CheckIfTargetIsNthTypeGotValue
-	ret z
-	ld b, GROUND
-	farcall CheckIfTargetIsNthTypeGotValue
-	ret z
-	jr .apply_damage
-.rock
-	ld b, WATER
-	farcall CheckIfTargetIsNthTypeGotValue
-	ret z
-	ld b, ROCK
-	farcall CheckIfTargetIsNthTypeGotValue
-	ret z
+; 	ld b, FIRE
+; 	farcall CheckIfTargetIsNthTypeGotValue
+; 	ret z
+; 	ld b, WATER
+; 	farcall CheckIfTargetIsNthTypeGotValue
+; 	ret z
+; 	jr .apply_damage
+; .ground
+; 	ld b, FLYING
+; 	farcall CheckIfTargetIsNthTypeGotValue
+; 	ret z
+; 	ld b, GROUND
+; 	farcall CheckIfTargetIsNthTypeGotValue
+; 	ret z
+; 	jr .apply_damage
+; .rock
+; 	ld b, WATER
+; 	farcall CheckIfTargetIsNthTypeGotValue
+; 	ret z
+; 	ld b, ROCK
+; 	farcall CheckIfTargetIsNthTypeGotValue
+; 	ret z
 	
 .apply_damage
+	call PrintTraitText
 	call Switch_turn
-	jp DoOneSixteenthDamage
+	call DoOneSixteenthDamage
+	jp Switch_turn
 
 .TraitsThatDealDamageOnContact:
 	db TRAIT_CONTACT_DAMAGE_ROCK
@@ -1714,7 +1717,7 @@ TraitContact:
 	and CONTACT
 	ret z
 
-	ld b, 12 percent
+	ld b, 99 percent
 	call Chance
 	ret nc
 
@@ -1732,6 +1735,7 @@ TraitContact:
 	call CheckTrait
 	ret nc
 .finish
+	call PrintTraitText
 	call Switch_turn
 	ld a, [wBuffer3]
 	ld hl, .StatusCommands
@@ -1923,7 +1927,7 @@ TraitPostHitBattleCommand:
 	dw BattleCommand_BurnTarget
 	dw BattleCommand_ParalyzeOrPoisonTarget
 	dw BattleCommand_FreezeOrSlowTarget
-	dw BattleCommand_PoisonTarget
+	; dw BattleCommand_PoisonTarget
 
 .StatusChances:
 	db 8 percent, 12 percent
@@ -1939,7 +1943,7 @@ TraitPostHitBattleCommand:
 	db TRAIT_FLYING_BRN
 	db TRAIT_PRZ_PSN_WITH_GRASS
 	db TRAIT_FRZ_SPD_WITH_WATER
-	db TRAIT_PSN_DRAIN ; 5
+	; db TRAIT_PSN_DRAIN ; 5
 	db -1
 
 TraitStartWeather:
@@ -2854,13 +2858,24 @@ TraitBoostDrain:
 	ldh [hDividend + 1], a
 	ret
 
+TraitWhenDrainedOther:
+	call Switch_turn
 TraitWhenDrained:
 	ld a, TRAIT_PSN_DRAIN
 	call CheckSpecificTrait
+	jr nc, .not_poison
+
+	call DoOneSixteenthDamage
+	ld hl, BattleCommand_PoisonTargetSimple
+	jp TraitUseBattleCommandSimpleSwitchTurn
+
+.not_poison
+	ld a, TRAIT_BRN_DRAIN
+	call CheckSpecificTrait
 	ret nc
 
-	call Switch_turn
-	ld hl, BattleCommand_PoisonTargetSimple
+	call DoOneSixteenthDamage
+	ld hl, BattleCommand_BurnTargetSimple
 	jp TraitUseBattleCommandSimpleSwitchTurn
 
 TraitBoostEffectChance:
@@ -3225,6 +3240,8 @@ TraitChangeDamageType:
 	db -1
 
 TraitCloneBerry:
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
 	ld a, [wBuffer3]
 	ld l, a
 	ld a, [wBuffer4]
@@ -3830,6 +3847,82 @@ ResetActivated:
 	ld [hl], a
 	; res 0, [hl] ; player trait
 	ret
+
+PrintTraitText:
+	ld a, [wBuffer1]
+	call GetBattleVar
+	ld de, 3
+	ld hl, .TraitTextPointers
+	call IsInArray
+	ret nc
+	inc hl
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+
+	ldh a, [hBattleTurn]
+	push af
+	ld a, [wBuffer1]
+	call GetBattleVar
+	push af
+	call GetTraitUser
+	jr nc, .not_player
+	xor a
+	jr .got_turn
+.not_player
+	ld a, 1
+.got_turn
+	ldh [hBattleTurn], a
+	pop af
+	push hl
+	ld de, 1
+	ld hl, .TraitsAffectsOpponent
+	call IsInArray
+	jr nc, .no_switch
+	call Switch_turn
+.no_switch
+	pop hl
+	push bc
+	call StdBattleTextBox
+	pop bc
+	ld a, b
+	cp -1
+	jr z, .end
+	pop af
+	ldh [hBattleTurn], a
+	ret
+.end
+	pop af
+	ret
+
+.TraitTextPointers:
+	dbw TRAIT_CONTACT_BRN, TraitText_FlameBody
+	dbw TRAIT_CONTACT_PSN, TraitText_PoisonPoint
+	dbw TRAIT_CONTACT_PRZ, TraitText_Static
+	dbw TRAIT_CONTACT_FLINCH, TraitText_StunBody
+	dbw TRAIT_CONTACT_CONFUSED, TraitText_HighTempo
+	dbw TRAIT_CONTACT_IN_LOVE, TraitText_CuteCharm
+	dbw TRAIT_CONTACT_SPORE, TraitText_EffectSpore
+	dbw TRAIT_CONTACT_DAMAGE_ROCK, TraitText_IronBarbs
+	dbw TRAIT_CONTACT_DAMAGE_GROUND, TraitText_SandBruiser
+	dbw TRAIT_CONTACT_DAMAGE_FIRE, TraitText_BurningMane
+	dbw TRAIT_PSN_DRAIN, TraitText_LiquidOoze
+	dbw TRAIT_BRN_DRAIN, TraitText_MagmaFlow
+
+.TraitsAffectsOpponent:
+	db TRAIT_CONTACT_BRN
+	db TRAIT_CONTACT_PSN
+	db TRAIT_CONTACT_PRZ
+	db TRAIT_CONTACT_FLINCH
+	db TRAIT_CONTACT_CONFUSED
+	db TRAIT_CONTACT_IN_LOVE
+	db TRAIT_CONTACT_SPORE
+	db TRAIT_CONTACT_DAMAGE_ROCK
+	db TRAIT_CONTACT_DAMAGE_GROUND
+	db TRAIT_CONTACT_DAMAGE_FIRE
+	db TRAIT_PSN_DRAIN
+	db TRAIT_BRN_DRAIN
+	db -1
 
 OneShotTraits:
 ; List of traits that can only go off once while the pokemon is out

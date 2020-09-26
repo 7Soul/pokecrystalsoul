@@ -1245,6 +1245,11 @@ ResidualDamage:
 	call RestoreHP
 	ld hl, LeechSeedSapsText
 	call StdBattleTextBox
+	
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	farcall TraitWhenDrained
+
 .not_seeded
 
 	call HasUserFainted
@@ -4675,8 +4680,6 @@ UseOpponentItem:
 	pop bc
 	ld a, b
 	ld [wBuffer2], a
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
 	farcall TraitCloneBerry
 	ret
 

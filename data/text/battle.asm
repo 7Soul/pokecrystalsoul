@@ -1254,3 +1254,75 @@ BattleText_NegatedDamage::
 	line "greatly resisted"
 	cont "the attack!"
 	prompt
+
+TraitText_FlameBody::
+	text "<USER> is"
+	line "burned by foe's"
+	cont "foe's Flame Body."
+	prompt
+
+TraitText_PoisonPoint::
+	text "<USER> is"
+	line "poisoned by foe's"
+	cont "Poison Point."
+	prompt
+
+TraitText_Static::
+	text "<USER> is"
+	line "paralized by the"
+	cont "foe's Static."
+	prompt
+
+TraitText_StunBody::
+	text "<USER> is"
+	line "flinched by the"
+	cont "foe's Stun Body."
+	prompt
+
+TraitText_HighTempo::
+	text "<USER> is"
+	line "confused by the"
+	cont "foe's High Tempo."
+	prompt
+
+TraitText_CuteCharm::
+	text "<USER> is"
+	line "infatuated by the"
+	cont "foe's Cute Charm."
+	prompt
+
+TraitText_EffectSpore::
+	text "<USER> is"
+	line "hit by the foe's"
+	cont "Effect Spore."
+	prompt
+
+TraitText_IronBarbs::
+	text "<USER> is"
+	line "damaged by the"
+	cont "foe's Iron Barbs."
+	prompt
+
+TraitText_SandBruiser::
+	text "<USER> is"
+	line "damaged by foe's"
+	cont "Sand Bruiser."
+	prompt
+
+TraitText_BurningMane::
+	text "<USER> is"
+	line "damaged by foe's"
+	cont "Burning Mane."
+	prompt
+
+TraitText_LiquidOoze::
+	text "<USER> is"
+	line "poisoned by foe's"
+	cont "Liquid Ooze."
+	prompt
+
+TraitText_MagmaFlow::
+	text "<USER> is"
+	line "burned by foe's"
+	cont "Magma Flow."
+	prompt

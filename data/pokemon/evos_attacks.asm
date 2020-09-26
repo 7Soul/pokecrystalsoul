@@ -2192,8 +2192,10 @@ VaporeonEvosAttacks:
 	db 20, AURORA_BEAM
 	db 24, BITE
 	db 35, DARK_PULSE ; becomes Waterfall
-	db 42, HAZE
+	db 42, TACKLE
 	db 47, ACID_ARMOR
+	db 47, ABSORB
+	db 47, LEECH_SEED
 	db 51, HYDRO_PUMP
 	db 0 ; no more level-up moves
 

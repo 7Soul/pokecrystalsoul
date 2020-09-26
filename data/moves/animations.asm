@@ -1864,6 +1864,8 @@ BattleAnim_Absorb:
 	anim_wait 6
 	anim_loop 5, .loop
 	anim_wait 32
+	anim_ret
+	
 .firefang
 	anim_call BattleAnim_Bite_branch
 	anim_wait 1
