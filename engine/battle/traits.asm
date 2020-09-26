@@ -1717,7 +1717,7 @@ TraitContact:
 	and CONTACT
 	ret z
 
-	ld b, 99 percent
+	ld b, 12 percent
 	call Chance
 	ret nc
 
@@ -1725,11 +1725,29 @@ TraitContact:
 	call CheckSpecificTrait
 	jr nc, .not_hot_coals
 
+	call Switch_turn
+	ld a, BATTLE_VARS_MOVE
+	call GetBattleVarAddr
 	ld a, SPIKES
-	ld [wBuffer2], a
+	ld [hl], a
+	callfar UpdateMoveData
 	ld a, 7
 	ld [wBuffer3], a
+	call Switch_turn
+
+	ld hl, wPlayerScreens
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_turn
+	ld hl, wEnemyScreens
+.got_turn
+	bit SCREENS_COALS, [hl]
+	ret nz
+	bit SCREENS_SPIKES, [hl]
+	ret nz
+
 	jr .finish
+
 .not_hot_coals
 	ld hl, .TraitsThatRequireContact
 	call CheckTrait
@@ -1739,8 +1757,7 @@ TraitContact:
 	call Switch_turn
 	ld a, [wBuffer3]
 	ld hl, .StatusCommands
-	call TraitUseBattleCommand
-	jp Switch_turn
+	jp TraitUseBattleCommand
 
 .StatusCommands:
 	dw BattleCommand_BurnTarget
@@ -1750,7 +1767,7 @@ TraitContact:
 	dw BattleCommand_ConfuseTarget
 	dw BattleCommand_Attract
 	dw BattleCommand_ParalyseOrSleep
-	dw DoExactMove
+	dw BattleCommand_Spikes
 
 .TraitsThatRequireContact:
 	db TRAIT_CONTACT_BRN
@@ -3851,11 +3868,13 @@ ResetActivated:
 PrintTraitText:
 	ld a, [wBuffer1]
 	call GetBattleVar
-	ld de, 3
-	ld hl, .TraitTextPointers
-	call IsInArray
-	ret nc
-	inc hl
+	ld c, a
+	ld [wNamedObjectIndexBuffer], a
+	call GetTraitName	
+	ld hl, .TraitTexts
+	ld b, 0
+	add hl, bc
+	add hl, bc
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -3890,24 +3909,37 @@ PrintTraitText:
 	jr z, .end
 	pop af
 	ldh [hBattleTurn], a
+
 	ret
 .end
 	pop af
 	ret
 
-.TraitTextPointers:
-	dbw TRAIT_CONTACT_BRN, TraitText_FlameBody
-	dbw TRAIT_CONTACT_PSN, TraitText_PoisonPoint
-	dbw TRAIT_CONTACT_PRZ, TraitText_Static
-	dbw TRAIT_CONTACT_FLINCH, TraitText_StunBody
-	dbw TRAIT_CONTACT_CONFUSED, TraitText_HighTempo
-	dbw TRAIT_CONTACT_IN_LOVE, TraitText_CuteCharm
-	dbw TRAIT_CONTACT_SPORE, TraitText_EffectSpore
-	dbw TRAIT_CONTACT_DAMAGE_ROCK, TraitText_IronBarbs
-	dbw TRAIT_CONTACT_DAMAGE_GROUND, TraitText_SandBruiser
-	dbw TRAIT_CONTACT_DAMAGE_FIRE, TraitText_BurningMane
-	dbw TRAIT_PSN_DRAIN, TraitText_LiquidOoze
-	dbw TRAIT_BRN_DRAIN, TraitText_MagmaFlow
+.TraitTexts:
+    dw TraitText_FlameBody
+    dw TraitText_PoisonPoint
+    dw TraitText_Static
+    dw TraitText_StunBody
+    dw TraitText_HighTempo
+    dw TraitText_CuteCharm
+    dw TraitText_EffectSpore
+    dw TraitText_IronBarbs
+    dw TraitText_SandBruiser
+    dw TraitText_BurningMane
+    dw TraitText_HotCoals
+    dw TraitText_LightningFast
+    dw TraitText_UnleashPower
+    dw TraitText_Tailwind
+    dw TraitText_LifeDrain
+    dw TraitText_KeepGoing
+    dw TraitText_Boom
+    dw TraitText_Eruption
+    dw TraitText_GasExplosion
+    dw TraitText_NorthStar
+    dw TraitText_DeathlyHex
+    dw TraitText_Moxie
+    dw TraitText_LiquidOoze
+    dw TraitText_MagmaFlow
 
 .TraitsAffectsOpponent:
 	db TRAIT_CONTACT_BRN
@@ -3922,6 +3954,7 @@ PrintTraitText:
 	db TRAIT_CONTACT_DAMAGE_FIRE
 	db TRAIT_PSN_DRAIN
 	db TRAIT_BRN_DRAIN
+	db TRAIT_HOT_COALS
 	db -1
 
 OneShotTraits:

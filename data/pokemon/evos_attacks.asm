@@ -399,6 +399,7 @@ ArbokEvosAttacks:
 	db 30, VENOSHOCK
 	db 39, MUD_BOMB
 	db 45, HAZE
+	db 45, BITE ;;; 
 	db 49, ACID_ARMOR
 	db 54, GUNK_SHOT
 	db 0 ; no more level-up moves
@@ -1131,6 +1132,10 @@ MachokeEvosAttacks:
 
 MachampEvosAttacks:
 	db 0 ; no more evolutions
+	db 8, FOCUS_ENERGY	
+	db 15, SEISMIC_TOSS
+	db 19, VITAL_THROW
+	db 22, CONFUSION ; becomes Revenge
 	db 26, SUBMISSION
 	db 32, BULK_UP
 	db 38, CROSS_CHOP

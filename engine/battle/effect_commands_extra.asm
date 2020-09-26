@@ -124,7 +124,7 @@ CheckIfTargetIsNthType: ; takes type in `b`
 	jr z, .ok
 	ld de, wBattleMonType1
 .ok
-CheckIfTargetIsNthTypeGotValue:
+CheckIfTargetIsNthTypeGotValue: ; already has target type in `DE`
 	ld a, [de]
 	inc de
 	cp b

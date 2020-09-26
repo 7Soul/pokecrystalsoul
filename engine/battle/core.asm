@@ -4440,7 +4440,6 @@ SpikesDamage:
 	bit SCREENS_COALS, [hl]
 	jr z, .cancel
 	
-	
 	ld b, FIRE
 	farcall CheckIfTargetIsNthTypeGotValue
 	jr z, .cancel
@@ -4449,15 +4448,13 @@ SpikesDamage:
 	farcall CheckIfTargetIsNthTypeGotValue
 	jr z, .cancel
 
-	push bc
-
 	ld hl, BattleText_UserHurtBySpikes ; "hurt by SPIKES!"
 	call StdBattleTextBox
 
 	call GetEighthMaxHP
 	call SubtractHPFromTarget
 
-	pop hl
+	pop hl ; pops BC (UpdateEnemyHUD/UpdatePlayerHUD)
 	call .hl
 
 	jp WaitBGMap

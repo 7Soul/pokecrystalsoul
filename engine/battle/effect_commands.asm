@@ -62,6 +62,12 @@ DoMove:
 
 ; Start at the first command.
 	ld hl, wBattleScriptBuffer
+	ld a, [wBuffer6]
+	cp 1
+	jr nz, .normal_move
+	inc hl ; skip checkobedience
+	inc hl ; skip usedmovetext
+.normal_move
 	ld a, l
 	ld [wBattleScriptBufferAddress], a
 	ld a, h
@@ -130,11 +136,14 @@ DoMove:
 ; .DoMoveEffectCommand:
 	; jp hl
 
+DoExactMoveSimple:
+	ld a, 1
+	ld [wBuffer6], a
 DoExactMove:
 	ld a, [wBuffer2]
 	ld [wCurEnemyMove], a
 	ld [wCurPlayerMove], a
-	callfar UpdateMoveData
+	call UpdateMoveData
 	xor a
 	ld [wAttackMissed], a
 	ld [wAlreadyDisobeyed], a
