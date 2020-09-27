@@ -3770,6 +3770,14 @@ ClearEnemyMonBox:
 
 Function_BattleTextEnemySentOut:
 	callfar Battle_GetTrainerName
+	ld a, [wEnemyMonTrait]
+	ld [wNamedObjectIndexBuffer], a
+	call GetTraitName
+	ld h, d
+	ld l, e
+	ld de, wStringBuffer2
+	ld bc, wStringBuffer2 - wStringBuffer1
+	call CopyBytes
 	ld hl, BattleText_EnemySentOut
 	call StdBattleTextBox
 	jp WaitBGMap
@@ -3831,7 +3839,7 @@ Function_SetEnemyMonAndSendOutAnimation:
 	ld hl, TrainerHoldingText
 	call StdBattleTextBox
 .skip_item
-	call BattleMenu_EnemyTrait
+	; call BattleMenu_EnemyTrait
 	; call OnEnterTraits
 	farcall BattleCommand_RecalcStats
 	ret
@@ -4350,10 +4358,11 @@ OnEnterTraits:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitOnEnter
-
-	ld a, BATTLE_VARS_TRAIT_OPP
+	call SwitchTurnCore
+	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitOnEnter
+	call SwitchTurnCore
 	ret
 .start_rain
 	ld a, RAIN_DANCE
@@ -4375,14 +4384,14 @@ OnEnterTraits:
 	callfar DoMove
 	ret
 
-BattleMenu_EnemyTrait:
-	call SetPlayerTurn
-	ld a, [wEnemyMonTrait]
-	ld [wNamedObjectIndexBuffer], a
-	call GetTraitName
-	ld hl, BattleText_EnemyTrait
-	call StdBattleTextBox
-	jp SetEnemyTurn
+; BattleMenu_EnemyTrait:
+; 	call SetPlayerTurn
+; 	ld a, [wEnemyMonTrait]
+; 	ld [wNamedObjectIndexBuffer], a
+; 	call GetTraitName
+; 	ld hl, BattleText_EnemyTrait
+; 	call StdBattleTextBox
+; 	jp SetEnemyTurn
 
 NewBattleMonStatus:
 	xor a

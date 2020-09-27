@@ -267,6 +267,9 @@ BattleText_EnemySentOut:
 	line "sent out"
 	cont "@"
 	text_from_ram wEnemyMonNick
+	text " with"
+	cont "@"
+	text_from_ram wStringBuffer2
 	text "!"
 	done
 

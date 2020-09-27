@@ -9,6 +9,7 @@ TraitText_EffectSpore::
 TraitText_LiquidOoze::
 TraitText_MagmaFlow::
 TraitText_HotCoals::
+TraitText_Tailwind::
 	text "<TARGET>'s"
 	line "@"
     text_from_ram wStringBuffer1
@@ -16,86 +17,88 @@ TraitText_HotCoals::
 	prompt
 
 TraitText_IronBarbs::
-	text "<USER> is"
+	text "<TARGET> is"
 	line "damaged by the"
 	cont "foe's Iron Barbs!"
 	prompt
 
 TraitText_SandBruiser::
-	text "<USER> is"
+	text "<TARGET> is"
 	line "damaged by foe's"
 	cont "Sand Bruiser!"
 	prompt
 
 TraitText_BurningMane::
-	text "<USER> is"
+	text "<TARGET> is"
 	line "damaged by foe's"
 	cont "Burning Mane!"
 	prompt
 
 TraitText_LightningFast::
-	text "<USER> is"
+    text "<TARGET>'s"
+	line "@"
+    text_from_ram wStringBuffer1
+	text "!"
+	para "<TARGET> is"
 	line "faster!"
 	prompt
 
 TraitText_UnleashPower::
-	text "<USER> is"
+    text "<TARGET>'s"
+	line "@"
+    text_from_ram wStringBuffer1
+	text "!"
+	para "<TARGET> is"
 	line "stronger!"
 	prompt
 
-TraitText_Tailwind::
-	text "<USER>'s"
-	line "uses Tailwind to"
-	cont "speed up!"
-	prompt
-
 TraitText_LifeDrain::
-	text "<USER>'s"
+	text "<TARGET>'s"
 	line "Life Drain! Heal"
 	cont "when a foe faints!"
 	prompt
 
 TraitText_KeepGoing::
-	text "<USER>'s"
+	text "<TARGET>'s"
 	line "Keep Going! Get"
 	cont "stamina after a"
 	line "knock-out!"
 	prompt
 
 TraitText_Boom::
-	text "<USER>"
+	text "<TARGET>"
 	line "goes Boom!"
 	prompt
 
 TraitText_Eruption::
-	text "<USER>'s"
+	text "<TARGET>'s"
 	line "Eruption! Burns"
     cont "foe as it faints!"
 	prompt
 
 TraitText_GasExplosion::
-	text "<USER>'s"
+	text "<TARGET>'s"
 	line "Gas Explosion!"
     cont "Poisons foe as it"
     line "faints!"
 	prompt
 
 TraitText_NorthStar::
-	text "<USER>'s"
+	text "<TARGET>'s"
 	line "North Star!"
     cont "Freezes foe as it"
     line "faints!"
 	prompt
 
 TraitText_DeathlyHex::
-	text "<USER>'s"
+	text "<TARGET>'s"
 	line "Deathly Hex!"
     cont "Curses foe as it"
     line "faints!"
 	prompt
 
 TraitText_Moxie::
-	text "<USER>'s"
+	text "<TARGET>'s"
 	line "@"
     text_from_ram wStringBuffer1
     text "!"

@@ -896,6 +896,8 @@ TraitRaiseStatAfterDamage:
 	db -1
 
 TraitOnEnter:
+	call TraitRaiseStatOnEnter
+	
 	ld a, TRAIT_SWAP_DEFENSE_BUFFS
 	call CheckSpecificTrait
 	jp c, SwapDefenseBuffs
@@ -1044,6 +1046,19 @@ TraitCheerUp:
 	jr nz, .loop
 	ret
 
+TraitRaiseStatOnEnter:
+	ld a, $FF
+	ld [wBuffer3], a
+	ld a, TRAIT_EVASION_ON_SPEED_DIFF
+	call CheckSpecificTrait
+	ld b, EVASION
+	jr c, TraitRaiseStat.end2
+	ld a, TRAIT_ATK_ON_ATK_DIFF
+	call CheckSpecificTrait
+	ld b, ATTACK
+	jr c, TraitRaiseStat.end2
+	ret
+
 TraitRaiseStat:
 	ld a, $FF
 	ld [wBuffer3], a
@@ -1055,13 +1070,12 @@ TraitRaiseStat:
 	jr c, .random_stat
 	ld a, TRAIT_EVASION_WHEN_CONFUSED
 	call CheckSpecificTrait
-	jr c, .evasion
+	ld b, EVASION
+	jr c, .end2
 	ld a, TRAIT_RANDOM_STAT_WHEN_FLINCHED
 	call CheckSpecificTrait
 	jr c, .random_stat
-	ld a, TRAIT_EVASION_ON_SPEED_DIFF
-	call CheckSpecificTrait
-	jr c, .evasion
+	
 	xor a
 .loop
 	push af
@@ -1122,16 +1136,11 @@ TraitRaiseStat:
 	jr c, .also_raise_acc
 	ret
 .no_raise
-	pop af
 	ret
 .also_raise_acc
 	ld a, $FF
 	ld [wBuffer3], a
 	ld b, ACCURACY
-	jr .end
-.evasion
-	push af
-	ld b, EVASION
 	jr .end
 .random_stat
 	push af
@@ -1177,7 +1186,6 @@ TraitsThatRaiseAttack:
 	db TRAIT_ATTACK_BELOW_THIRD
 	db TRAIT_ATTACK_STATUSED
 	db TRAIT_ATTACK_AFTER_CRIT
-	db TRAIT_ATK_ON_ATK_DIFF
 	db -1
 
 TraitsThatRaiseDefense:
@@ -1384,12 +1392,17 @@ TraitAfterMove:
 
 	call GetMoveStructEffectOpp
 	cp EFFECT_SPEED_UP
+	ld hl, BattleCommand_SpeedUp
 	jr z, .raise
 	cp EFFECT_SPEED_UP_2
+	ld hl, BattleCommand_SpeedUp2
 	ret nz
+	
 .raise
+	push hl
+	call PrintTraitText
 	call Switch_turn
-	ld hl, BattleCommand_SpeedUp
+	pop hl
 	call TraitUseBattleCommandSimple
 
 	ld hl, BattleCommand_StatUpMessage
@@ -1663,47 +1676,43 @@ TraitContactUser:
 	call CheckTrait
 	ret nc
 
-; 	ld de, wBattleMonType1
-; 	ld hl, wEnemyMonType1
-; 	call GetTraitUserAddr
-; 	ld d, h
-; 	ld e, l
+	ld de, wBattleMonType1
+	ld hl, wEnemyMonType1
+	call GetTraitUserAddr
+	ld d, h
+	ld e, l
 
-; 	ld a, BATTLE_VARS_MOVE_ANIM
-; 	call GetBattleVar
-; 	and a
-; 	jr z, .rock
-; 	dec a
-; 	jr z, .ground
+	ld a, [wBuffer3]
+	and a
+	jr z, .rock
+	dec a
+	jr z, .ground
 
-; 	ld b, FIRE
-; 	farcall CheckIfTargetIsNthTypeGotValue
-; 	ret z
-; 	ld b, WATER
-; 	farcall CheckIfTargetIsNthTypeGotValue
-; 	ret z
-; 	jr .apply_damage
-; .ground
-; 	ld b, FLYING
-; 	farcall CheckIfTargetIsNthTypeGotValue
-; 	ret z
-; 	ld b, GROUND
-; 	farcall CheckIfTargetIsNthTypeGotValue
-; 	ret z
-; 	jr .apply_damage
-; .rock
-; 	ld b, WATER
-; 	farcall CheckIfTargetIsNthTypeGotValue
-; 	ret z
-; 	ld b, ROCK
-; 	farcall CheckIfTargetIsNthTypeGotValue
-; 	ret z
-	
+	ld b, FIRE
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	ld b, WATER
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	jr .apply_damage
+.ground
+	ld b, FLYING
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	ld b, GROUND
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	jr .apply_damage
+.rock
+	ld b, WATER
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
+	ld b, ROCK
+	farcall CheckIfTargetIsNthTypeGotValue
+	ret z
 .apply_damage
 	call PrintTraitText
-	call Switch_turn
-	call DoOneSixteenthDamage
-	jp Switch_turn
+	jp DoOneSixteenthDamage
 
 .TraitsThatDealDamageOnContact:
 	db TRAIT_CONTACT_DAMAGE_ROCK
@@ -3814,35 +3823,35 @@ ActivateTrait:
 	call GetTraitName
 	call GetTraitUser
 	jr c, .player_user
-	ldh a, [hBattleTurn]
-	and a
-	jr nz, .okturn1
-	call Switch_turn
-	ld hl, BattleText_TraitActivatedEnemy
-	call StdBattleTextBox
-	call Switch_turn
-	jr .end1
-.okturn1
-	ld hl, BattleText_TraitActivatedEnemy
-	call StdBattleTextBox
-.end1
+; 	ldh a, [hBattleTurn]
+; 	and a
+; 	jr nz, .okturn1
+; 	call Switch_turn
+; 	ld hl, BattleText_TraitActivatedEnemy
+; 	call StdBattleTextBox
+; 	call Switch_turn
+; 	jr .end1
+; .okturn1
+; 	ld hl, BattleText_TraitActivatedEnemy
+; 	call StdBattleTextBox
+; .end1
+	call PrintTraitText
 	ld hl, wTraitActivated
 	set 4, [hl] ; enemy trait
 	ld a, [hl]
 	ret
 .player_user
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .okturn
-	call Switch_turn
-	ld hl, BattleText_TraitActivatedPlayer
-	call StdBattleTextBox
-	call Switch_turn
-	jr .end
-.okturn
-	ld hl, BattleText_TraitActivatedPlayer
-	call StdBattleTextBox
-.end
+; 	ldh a, [hBattleTurn]
+; 	and a
+; 	jr z, .okturn
+; 	call Switch_turn
+; 	call PrintTraitText
+; 	call Switch_turn
+; 	jr .end
+; .okturn
+; 	call PrintTraitText
+; .end	
+	call PrintTraitText
 	ld hl, wTraitActivated
 	set 0, [hl] ; player trait
 	ld a, [hl]
@@ -3895,9 +3904,9 @@ PrintTraitText:
 	pop af
 	push hl
 	ld de, 1
-	ld hl, .TraitsAffectsOpponent
+	ld hl, .TraitsAffectsOpponent ; traits that affect the opposite mon that is currently taking its effect
 	call IsInArray
-	jr nc, .no_switch
+	jr c, .no_switch
 	call Switch_turn
 .no_switch
 	pop hl
@@ -3942,13 +3951,6 @@ PrintTraitText:
     dw TraitText_MagmaFlow
 
 .TraitsAffectsOpponent:
-	db TRAIT_CONTACT_BRN
-	db TRAIT_CONTACT_PSN
-	db TRAIT_CONTACT_PRZ
-	db TRAIT_CONTACT_FLINCH
-	db TRAIT_CONTACT_CONFUSED
-	db TRAIT_CONTACT_IN_LOVE
-	db TRAIT_CONTACT_SPORE
 	db TRAIT_CONTACT_DAMAGE_ROCK
 	db TRAIT_CONTACT_DAMAGE_GROUND
 	db TRAIT_CONTACT_DAMAGE_FIRE
