@@ -38,43 +38,43 @@ endr
 	ld d, h
 	ld hl, BATTLEANIMSTRUCT_INDEX
 	add hl, bc
-	ld a, [wNumActiveBattleAnims]
-	ld [hli], a ; Index
+	ld a, [wLastAnimObjectIndex]
+	ld [hli], a ; BATTLEANIMSTRUCT_INDEX
 	ld a, [de]
 	inc de
-	ld [hli], a ; 01
+	ld [hli], a ; BATTLEANIMSTRUCT_OAMFLAGS
 	ld a, [de]
 	inc de
-	ld [hli], a ; 02
+	ld [hli], a ; BATTLEANIMSTRUCT_YFIX
 	ld a, [de]
 	inc de
-	ld [hli], a ; Frameset ID
+	ld [hli], a ; BATTLEANIMSTRUCT_FRAMESET_ID
 	ld a, [de]
 	inc de
-	ld [hli], a ; Function
+	ld [hli], a ; BATTLEANIMSTRUCT_FUNCTION
 	ld a, [de]
 	inc de
-	ld [hli], a ; 05
+	ld [hli], a ; BATTLEANIMSTRUCT_PALETTE
 	ld a, [de]
 	call GetBattleAnimTileOffset
-	ld [hli], a ; Tile ID
-	ld a, [wBattleAnimTemp1]
-	ld [hli], a ; X Coord
-	ld a, [wBattleAnimTemp2]
-	ld [hli], a ; Y Coord
+	ld [hli], a ; BATTLEANIMSTRUCT_TILEID
+	ld a, [wBattleObjectTempXCoord]
+	ld [hli], a ; BATTLEANIMSTRUCT_XCOORD
+	ld a, [wBattleObjectTempYCoord]
+	ld [hli], a ; BATTLEANIMSTRUCT_YCOORD
 	xor a
-	ld [hli], a ; X Offset
-	ld [hli], a ; Y Offset
-	ld a, [wBattleAnimTemp3]
-	ld [hli], a ; 0b
+	ld [hli], a ; BATTLEANIMSTRUCT_XOFFSET
+	ld [hli], a ; BATTLEANIMSTRUCT_YOFFSET
+	ld a, [wBattleObjectTempParam]
+	ld [hli], a ; BATTLEANIMSTRUCT_PARAM
 	xor a
-	ld [hli], a ; 0c
+	ld [hli], a ; BATTLEANIMSTRUCT_DURATION
 	dec a
-	ld [hli], a ; 0d
+	ld [hli], a ; BATTLEANIMSTRUCT_FRAME
 	xor a
-	ld [hli], a ; 0e
-	ld [hli], a ; 0f
-	ld [hl], a  ; 10
+	ld [hli], a ; BATTLEANIMSTRUCT_JUMPTABLE_INDEX
+	ld [hli], a ; BATTLEANIMSTRUCT_VAR1
+	ld [hl], a  ; BATTLEANIMSTRUCT_VAR2
 	ret
 
 BattleAnimOAMUpdate:
@@ -190,7 +190,7 @@ BattleAnimOAMUpdate:
 	ret
 
 InitBattleAnimBuffer:
-	ld hl, BATTLEANIMSTRUCT_FLAGS
+	ld hl, BATTLEANIMSTRUCT_OAMFLAGS
 	add hl, bc
 	ld a, [hl]
 	and %10000000
@@ -220,7 +220,7 @@ InitBattleAnimBuffer:
 	ldh a, [hBattleTurn]
 	and a
 	ret z
-	ld hl, BATTLEANIMSTRUCT_FLAGS
+	ld hl, BATTLEANIMSTRUCT_OAMFLAGS
 	add hl, bc
 	ld a, [hl]
 	ld [wBattleAnimTempOAMFlags], a
