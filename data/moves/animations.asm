@@ -3727,7 +3727,7 @@ BattleAnim_SeismicToss:
 	anim_bgeffect ANIM_BG_SHAKE_SCREEN_V, $10, $1, $20
 	anim_sound 0, 0, SFX_STRENGTH
 	anim_obj ANIM_OBJ_SEISMIC_TOSS, 64, 104, $1
-	anim_wait 32
+	anim_wait 128
 	anim_incobj  1
 	anim_wait 20
 	anim_sound 0, 1, SFX_MEGA_PUNCH

@@ -68,7 +68,8 @@ DoBattleAnimFrame:
 	dw BattleAnimFunction_33 ; BATTLEANIMFUNC_33
 	dw BattleAnimFunction_34 ; BATTLEANIMFUNC_34
 	dw BattleAnimFunction_35 ; BATTLEANIMFUNC_35
-	dw BattleAnimFunction_36 ; BATTLEANIMFUNC_36
+	dw BattleAnimFunction_StrengthSeismicToss ; BATTLEANIMFUNC_36
+	dw BattleAnimFunction_36b ; BATTLEANIMFUNC_36
 	dw BattleAnimFunction_37 ; BATTLEANIMFUNC_37
 	dw BattleAnimFunction_38 ; BATTLEANIMFUNC_38
 	dw BattleAnimFunction_39 ; BATTLEANIMFUNC_39
@@ -2606,7 +2607,7 @@ Functioncde72:
 	jr nz, .asm_cde83
 	ld hl, BATTLEANIMSTRUCT_FLAGS
 	add hl, bc
-	set 6, [hl]
+	set OAM_Y_FLIP, [hl]
 .asm_cde83
 	add BATTLEANIMFRAMESET_6A
 	call ReinitBattleAnimFrameset
@@ -3416,12 +3417,87 @@ BattleAnimFunction_33b:
 	dec [hl]
 	ret
 
-BattleAnimFunction_36: ; rock_blast / rockblast
+BattleAnimFunction_StrengthSeismicToss:
+; Moves object up for $e0 frames, then shakes it vertically and throws it at the target. Uses anim_incobj to move to final phase
+; Obj Param: Defined but not used
 	call BattleAnim_AnonJumptable
 .anon_dw
+	dw Functionce306
+	dw Functionce330
 	dw Functionce34c
 
+Functionce306:
+	ld hl, BATTLEANIMSTRUCT_YOFFSET
+	add hl, bc
+	ld a, [hl]
+	cp $e0
+	jr nz, .asm_ce319
+	call BattleAnim_IncAnonJumptableIndex
+	ld hl, BATTLEANIMSTRUCT_VAR1
+	add hl, bc
+	ld [hl], $2
+	ret
+
+.asm_ce319
+	ld d, a
+	ld hl, BATTLEANIMSTRUCT_VAR1
+	add hl, bc
+	ld e, [hl]
+	ld hl, -$80
+	add hl, de
+	ld e, l
+	ld d, h
+	ld hl, BATTLEANIMSTRUCT_YOFFSET
+	add hl, bc
+	ld [hl], d
+	ld hl, BATTLEANIMSTRUCT_VAR1
+	add hl, bc
+	ld [hl], e
+	ret
+
+Functionce330:
+	ld hl, BATTLEANIMSTRUCT_VAR2
+	add hl, bc
+	ld a, [hl]
+	and a
+	jr z, .asm_ce33a
+	dec [hl]
+	ret
+
+.asm_ce33a
+	ld [hl], $4
+	ld hl, BATTLEANIMSTRUCT_VAR1
+	add hl, bc
+	ld a, [hl]
+	xor $ff
+	inc a
+	ld [hl], a
+	ld hl, BATTLEANIMSTRUCT_YOFFSET
+	add hl, bc
+	add [hl]
+	ld [hl], a
+	ret
+
 Functionce34c:
+	ld hl, BATTLEANIMSTRUCT_XCOORD
+	add hl, bc
+	ld a, [hl]
+	cp $84
+	jr nc, .done
+	ld a, $4
+	call BattleAnim_MoveObjDiagonallyTowardsOpponent
+	ret
+
+.done
+	call DeinitBattleAnimation
+	ret
+
+BattleAnimFunction_36b: ; rock_blast / rockblast
+	call BattleAnim_AnonJumptable
+.anon_dw
+	dw Functionce34c2
+
+Functionce34c2:
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	ld a, [hl]
