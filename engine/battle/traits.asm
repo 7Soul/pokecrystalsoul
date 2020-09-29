@@ -1581,8 +1581,31 @@ TraitBoostAccuracy:
 	ret nc
 
 	and a
-	jr nz, .max ; perfect acc for trait 1
+	jr z, .max ; PERFECT_ACCURACY
+	dec a
+	jr z, .turn_zero ; ACCURACY_TURN_ZERO
 
+	call CheckTraitCondition.check_not_stab
+	lb de, 20, 19
+	jr nc, .stab
+	lb de, 8, 7
+.stab
+	ld a, [wBuffer2]
+	ldh [hMultiplicand + 2], a
+	ld a, d
+	ldh [hMultiplier], a
+	call Multiply
+	ld b, 4
+	ld a, e
+	ldh [hDivisor], a
+	call Divide
+	ldh a, [hQuotient + 2]
+	and a
+	jr nz, .max
+	ldh a, [hQuotient + 3]
+	jr .end
+
+.turn_zero
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
 	and a
@@ -1601,8 +1624,9 @@ TraitBoostAccuracy:
 	ret
 
 TraitsThatBoostAccuracy:
-	db TRAIT_BOOST_ACCURACY_TURN_ZERO
-	db TRAIT_PERFECT_ACCURACY ; 1
+	db TRAIT_PERFECT_ACCURACY         ; 0
+	db TRAIT_BOOST_ACCURACY_TURN_ZERO ; 1
+	db TRAIT_MOVE_ACC_NON_STAB_MORE   ; 2
 	db -1
 
 TraitReduceAccuracy:

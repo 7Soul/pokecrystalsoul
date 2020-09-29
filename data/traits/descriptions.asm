@@ -27,6 +27,7 @@ TraitDescriptions::
 	dw UnknownEnergyDescription   ; TRAIT_RANDOM_STAT_OPP_FAINT
 	dw SturdyDescription          ; TRAIT_STURDY
 	dw NoGuardDescription         ; TRAIT_PERFECT_ACCURACY
+	dw CompoundEyesDescription    ; TRAIT_MOVE_ACC_NON_STAB_MORE
 	dw TipsyGasDescription        ; TRAIT_SWAP_DEFENSE_BUFFS
 	dw PiercingAttackDescription  ; TRAIT_BOOST_POWER_RAISED_DEF
 	dw IronFistDescription        ; TRAIT_BOOST_PUNCHING
@@ -347,6 +348,10 @@ SturdyDescription:
 NoGuardDescription:
 	db   "Both sides gain"
 	next "max ACCURACY.@"
+
+CompoundEyesDescription:
+	db   "Move gain ACC,"
+	next "more if non-STAB.@"
 
 TipsyGasDescription:
 	db   "Swaps foe's buffs"
