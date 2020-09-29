@@ -10,6 +10,7 @@ TraitText_LiquidOoze::
 TraitText_MagmaFlow::
 TraitText_HotCoals::
 TraitText_Tailwind::
+TraitText_MindGames::
 	text "<TARGET>'s"
 	line "@"
     text_from_ram wStringBuffer1

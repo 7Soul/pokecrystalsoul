@@ -14,6 +14,7 @@ TraitNames::
 	db "Lightning Fast@"   ; TRAIT_EVASION_ON_SPEED_DIFF
 	db "Unleash Power@"    ; TRAIT_ATK_ON_ATK_DIFF
 	db "Tailwind@"         ; TRAIT_COPY_SPD_BUFFS
+	db "Mind Games@"       ; TRAIT_MOVE_DISABLE
 	db "Life Drain@"       ; TRAIT_HEAL_HP_FAINT
 	db "Keep Going@"       ; TRAIT_HEAL_PP_FAINT
 	db "Boom@"             ; TRAIT_DAMAGE_FAINT

@@ -596,11 +596,11 @@ BattleAnimCmd_Obj:
 	call GetBattleAnimByte
 	ld [wBattleAnimTemp0], a
 	call GetBattleAnimByte
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	call GetBattleAnimByte
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	call GetBattleAnimByte
-	ld [wBattleAnimTemp3], a
+	ld [wBattleObjectTempParam], a
 	call QueueBattleAnimation
 	ret
 
@@ -608,11 +608,11 @@ BattleAnimCmd_BGEffect:
 	call GetBattleAnimByte
 	ld [wBattleAnimTemp0], a
 	call GetBattleAnimByte
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	call GetBattleAnimByte
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	call GetBattleAnimByte
-	ld [wBattleAnimTemp3], a
+	ld [wBattleObjectTempParam], a
 	call _QueueBGEffect
 	ret
 

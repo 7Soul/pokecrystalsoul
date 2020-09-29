@@ -50,11 +50,11 @@ QueueBGEffect:
 	add hl, bc
 	ld a, [wBattleAnimTemp0]
 	ld [hli], a
-	ld a, [wBattleAnimTemp1]
+	ld a, [wBattleObjectTempXCoord]
 	ld [hli], a
-	ld a, [wBattleAnimTemp2]
+	ld a, [wBattleObjectTempYCoord]
 	ld [hli], a
-	ld a, [wBattleAnimTemp3]
+	ld a, [wBattleObjectTempParam]
 	ld [hl], a
 	ret
 
@@ -403,9 +403,9 @@ BattleBGEffect_ShowMon:
 	ld de, .PlayerData
 .got_pointer
 	ld a, e
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	ld a, d
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	call BattleBGEffect_RunPicResizeScript
 	ret
 
@@ -429,7 +429,7 @@ BattleBGEffect_FeetFollow:
 .zero
 	call BGEffect_CheckFlyDigStatus
 	jr z, .not_flying_digging
-	ld hl, wNumActiveBattleAnims
+	ld hl, wLastAnimObjectIndex
 	inc [hl]
 	call EndBattleBGEffect
 	ret
@@ -449,11 +449,11 @@ BattleBGEffect_FeetFollow:
 	ld [wBattleAnimTemp0], a
 	ld a, 6 * 8
 .okay
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	ld a, 8 * 8
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	xor a
-	ld [wBattleAnimTemp3], a
+	ld [wBattleObjectTempParam], a
 	call _QueueBattleAnimation
 	pop bc
 	ret
@@ -496,7 +496,7 @@ BattleBGEffect_HeadFollow:
 .zero
 	call BGEffect_CheckFlyDigStatus
 	jr z, .not_flying_digging
-	ld hl, wNumActiveBattleAnims
+	ld hl, wLastAnimObjectIndex
 	inc [hl]
 	call EndBattleBGEffect
 	ret
@@ -516,11 +516,11 @@ BattleBGEffect_HeadFollow:
 	ld [wBattleAnimTemp0], a
 	ld a, 6 * 8
 .okay
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	ld a, 8 * 8
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	xor a
-	ld [wBattleAnimTemp3], a
+	ld [wBattleObjectTempParam], a
 	call _QueueBattleAnimation
 	pop bc
 	ret
@@ -664,9 +664,9 @@ BattleBGEffect_EnterMon:
 	ld de, .PlayerData
 .okay
 	ld a, e
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	ld a, d
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	call BattleBGEffect_RunPicResizeScript
 	ret
 
@@ -691,9 +691,9 @@ BattleBGEffect_ReturnMon:
 	ld de, .PlayerData
 .okay
 	ld a, e
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	ld a, d
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	call BattleBGEffect_RunPicResizeScript
 	ret
 
@@ -731,9 +731,9 @@ BattleBGEffect_RunPicResizeScript:
 	ld e, [hl]
 	ld d, $0
 	inc [hl]
-	ld a, [wBattleAnimTemp1]
+	ld a, [wBattleObjectTempXCoord]
 	ld l, a
-	ld a, [wBattleAnimTemp2]
+	ld a, [wBattleObjectTempYCoord]
 	ld h, a
 	add hl, de
 	add hl, de
@@ -2756,11 +2756,11 @@ Functionc8f2e:
 	xor a
 	ld [wBattleAnimTemp0], a
 	ld a, e
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	ld a, d
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	ld a, $80
-	ld [wBattleAnimTemp3], a
+	ld [wBattleObjectTempParam], a
 	ld bc, wLYOverridesBackup
 .loop
 	ldh a, [hLYOverrideStart]
@@ -2769,18 +2769,18 @@ Functionc8f2e:
 	ldh a, [hLYOverrideEnd]
 	cp c
 	jr c, .next
-	ld a, [wBattleAnimTemp2]
+	ld a, [wBattleObjectTempYCoord]
 	ld d, a
 	ld a, [wBattleAnimTemp0]
 	call BattleBGEffects_Sine
 	ld [bc], a
 .next
 	inc bc
-	ld a, [wBattleAnimTemp1]
+	ld a, [wBattleObjectTempXCoord]
 	ld hl, wBattleAnimTemp0
 	add [hl]
 	ld [hl], a
-	ld hl, wBattleAnimTemp3
+	ld hl, wBattleObjectTempParam
 	dec [hl]
 	jr nz, .loop
 	pop bc
@@ -2791,24 +2791,24 @@ InitSurfWaves:
 	xor a
 	ld [wBattleAnimTemp0], a
 	ld a, e
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	ld a, d
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	ld a, $40
-	ld [wBattleAnimTemp3], a
+	ld [wBattleObjectTempParam], a
 	ld bc, wSurfWaveBGEffect
 .loop
-	ld a, [wBattleAnimTemp2]
+	ld a, [wBattleObjectTempYCoord]
 	ld d, a
 	ld a, [wBattleAnimTemp0]
 	call BattleBGEffects_Sine
 	ld [bc], a
 	inc bc
-	ld a, [wBattleAnimTemp1]
+	ld a, [wBattleObjectTempXCoord]
 	ld hl, wBattleAnimTemp0
 	add [hl]
 	ld [hl], a
-	ld hl, wBattleAnimTemp3
+	ld hl, wBattleObjectTempParam
 	dec [hl]
 	jr nz, .loop
 	pop bc
@@ -2816,26 +2816,26 @@ InitSurfWaves:
 
 Functionc8f9a:
 	push bc
-	ld [wBattleAnimTemp3], a
+	ld [wBattleObjectTempParam], a
 	ld a, e
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	ld a, d
-	ld [wBattleAnimTemp2], a
+	ld [wBattleObjectTempYCoord], a
 	call .GetLYOverrideBackupAddrOffset
 	ld hl, wLYOverridesBackup
 	add hl, de
 	ld c, l
 	ld b, h
 .loop
-	ld a, [wBattleAnimTemp3]
+	ld a, [wBattleObjectTempParam]
 	and a
 	jr z, .done
 	dec a
-	ld [wBattleAnimTemp3], a
+	ld [wBattleObjectTempParam], a
 	push af
-	ld a, [wBattleAnimTemp2]
+	ld a, [wBattleObjectTempYCoord]
 	ld d, a
-	ld a, [wBattleAnimTemp1]
+	ld a, [wBattleObjectTempXCoord]
 	push hl
 	call BattleBGEffects_Sine
 	ld e, a
@@ -2853,9 +2853,9 @@ Functionc8f9a:
 	ld [hl], e
 	dec hl
 .skip2
-	ld a, [wBattleAnimTemp1]
+	ld a, [wBattleObjectTempXCoord]
 	add $4
-	ld [wBattleAnimTemp1], a
+	ld [wBattleObjectTempXCoord], a
 	pop af
 	jr .loop
 

@@ -1386,6 +1386,31 @@ PassStatus:
 	jp StdBattleTextBox
 
 TraitAfterMove:
+	ld a, TRAIT_MOVE_DISABLE
+	call CheckSpecificTrait
+	jr nc, .not_disable
+
+	call BattleRandom
+	cp 10 percent
+	jr nc, .not_disable
+
+	ld hl, wEnemyDisableCount
+	ld de, wPlayerDisableCount
+	call GetTraitUserAddr
+	and [hl]
+	jr nz, .not_disable
+
+	call PrintTraitText
+	call Switch_turn
+	ld a, BATTLE_VARS_MOVE
+	call GetBattleVarAddr
+	ld a, DISABLE
+	ld [hl], a
+	callfar UpdateMoveData
+	ld hl, BattleCommand_Disable
+	jp TraitUseBattleCommandSimpleSwitchTurn
+	
+.not_disable
 	ld a, TRAIT_COPY_SPD_BUFFS
 	call CheckSpecificTrait
 	ret nc
@@ -1397,7 +1422,7 @@ TraitAfterMove:
 	cp EFFECT_SPEED_UP_2
 	ld hl, BattleCommand_SpeedUp2
 	ret nz
-	
+
 .raise
 	push hl
 	call PrintTraitText
@@ -3939,6 +3964,7 @@ PrintTraitText:
     dw TraitText_LightningFast
     dw TraitText_UnleashPower
     dw TraitText_Tailwind
+    dw TraitText_MindGames
     dw TraitText_LifeDrain
     dw TraitText_KeepGoing
     dw TraitText_Boom

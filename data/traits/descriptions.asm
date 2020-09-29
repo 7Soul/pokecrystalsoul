@@ -14,6 +14,7 @@ TraitDescriptions::
 	dw LightningFastDescription   ; TRAIT_EVASION_ON_SPEED_DIFF
 	dw UnleashPowerDescription    ; TRAIT_ATK_ON_ATK_DIFF
 	dw TailwindDescription        ; TRAIT_COPY_SPD_BUFFS
+	dw MindGamesDescription       ; TRAIT_MOVE_DISABLE
 	dw LifeDrainDescription       ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription       ; TRAIT_HEAL_PP_FAINT
 	dw BoomDescription            ; TRAIT_DAMAGE_FAINT
@@ -293,6 +294,10 @@ UnleashPowerDescription:
 TailwindDescription:
 	db   "Matches foe's in-"
 	next "creases in SPD.@"
+
+MindGamesDescription:
+	db   "May disable a move"
+	next "used on you.@"
 
 LifeDrainDescription:
 	db   "Regain HP when a"

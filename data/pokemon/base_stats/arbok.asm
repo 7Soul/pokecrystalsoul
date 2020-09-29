@@ -10,7 +10,7 @@
 	db GENDER_F50 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/arbok/front.dimensions"
-	db TRAIT_COPY_SPD_BUFFS, TRAIT_COPY_SPD_BUFFS, TRAIT_COPY_SPD_BUFFS, TRAIT_COPY_SPD_BUFFS
+	db TRAIT_MOVE_DISABLE, TRAIT_MOVE_DISABLE, TRAIT_MOVE_DISABLE, TRAIT_MOVE_DISABLE
 	db GROWTH_MEDIUM_FAST ; growth rate
 	dn EGG_GROUND, EGG_DRAGON ; egg groups
 

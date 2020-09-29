@@ -15,7 +15,7 @@ QueueBattleAnimation:
 .done
 	ld c, l
 	ld b, h
-	ld hl, wNumActiveBattleAnims
+	ld hl, wLastAnimObjectIndex
 	inc [hl]
 	call InitBattleAnimation
 	ret

@@ -5882,7 +5882,7 @@ MoveSelectionScreen:
 .use_move
 	pop af
 	ret nz
-
+	
 	; ld hl, wBattleMonPP
 	; ld a, [wMenuCursorY]
 	; ld c, a
@@ -5897,6 +5897,7 @@ MoveSelectionScreen:
 	; sub b
 	; jr c, .no_pp_left
 
+	ld c, a
 	ld a, [wPlayerDisableCount]
 	swap a
 	and $f
