@@ -108,6 +108,7 @@ TraitDescriptions::
 	dw ObliviousDescription       ; TRAIT_IN_LOVE_IMMUNE
 	dw InsomniaDescription        ; TRAIT_SLEEP_IMMUNE
 	dw InnerFlameDescription      ; TRAIT_FRZ_IMMUNE
+	dw PerfectFreezeDescription   ; TRAIT_BOOST_FREEZE_STATUS
 	dw HyperCutterDescription     ; TRAIT_PREVENT_ATTACK_DOWN
 	dw BigPecksDescription        ; TRAIT_PREVENT_DEFENSE_DOWN
 	dw TurbochargerDescription    ; TRAIT_PREVENT_SPEED_DOWN
@@ -742,6 +743,10 @@ InsomniaDescription:
 InnerFlameDescription:
 	db   "Immunity to be-"
 	next "ing FROZEN.@"
+
+PerfectFreezeDescription:
+	db   "Ups FRZ chance un-"
+	next "der a status.@"
 
 HyperCutterDescription:
 	db   "Prevents ATK from"

@@ -89,7 +89,7 @@ CheckTraitCondition:
 	jp c, .check_move_attract
 	cp TRAIT_SLEEP_IMMUNE + 1 ; all sleep traits
 	jp c, .check_move_sleep
-	cp TRAIT_FRZ_IMMUNE + 1 ; all freeze traits
+	cp TRAIT_BOOST_FREEZE_STATUS + 1 ; all freeze traits
 	jp c, .check_move_frz
 	cp TRAIT_BOOST_EFFECT_NO_DAMAGE + 1 ; all traits for status moves 
 	jp c, .check_move_status
@@ -351,7 +351,7 @@ CheckTraitCondition:
 	and a
 	ret
 
-.check_move_prz	
+.check_move_prz
 	call GetMoveStructEffect
 	cp EFFECT_PARALYZE
 	jr z, .success
@@ -479,13 +479,13 @@ CheckTraitCondition:
 	and a
 	ret
 
-.check_crit:
+.check_crit
 	ld a, [wCriticalHit]
 	cp 1
 	jp z, .success
 	jp .not_met
 
-.check_move_second:
+.check_move_second
 	call GetTraitUser
 	ld a, [wEnemyGoesFirst]
 	jr c, .player
@@ -576,7 +576,7 @@ CheckTraitCondition:
 	and a
 	ret
 
-.check_move_type:
+.check_move_type
 	ld a, d
 	cp c
 	jp z, .success
@@ -586,7 +586,7 @@ CheckTraitCondition:
 	ld a, b ; restore trait into 'a'	
 	ret
 
-.check_move_power: ; checks if power >= d
+.check_move_power ; checks if power >= d
 	ld a, BATTLE_VARS_MOVE_POWER
 	call GetBattleVar
 	cp d
@@ -2933,20 +2933,34 @@ TraitBoostEffectChance:
 	ld hl, .TraitsThatBoostEffectChance
 	call CheckTrait
 	ret nc
+
+	ld a, [wBuffer3]
+	ld c, a
+	ld b, 0
+	ld hl, .checks
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call _hl_
+	ret nc
+
 	ld a, [wBuffer2]
-	add 12 ; 5%
+	add 5 percent + 1
 	ld b, a
 	jr c, .max ; max value if this would go over 255
 	ld a, [wBuffer3]
-	cp 5
-	jr c, .end ; indexes 0 to 4
+	cp 6
+	jr c, .end ; indexes 0 to 5
 	ld a, b
-	add 12 ; 5% more
+	add 5 percent + 1
 	ld b, a
 	jr c, .max ; max value if this would go over 255
 .end
 	ld a, b
 	ld [wBuffer2], a
+	ret
 .max
 	ld b, $FF
 	jr .end
@@ -2957,9 +2971,18 @@ TraitBoostEffectChance:
 	db TRAIT_BOOST_EFFECT_PRZ ; 2
 	db TRAIT_BOOST_EFFECT_FLINCH ; 3
 	db TRAIT_BOOST_EFFECT_CONFUSED ; 4
-	db TRAIT_BOOST_EFFECT_NO_DAMAGE ; 5
-	db TRAIT_BOOST_EFFECT_WITH_DAMAGE ; 6
+	db TRAIT_BOOST_FREEZE_STATUS ; 5
+	db TRAIT_BOOST_EFFECT_NO_DAMAGE ; 6
+	db TRAIT_BOOST_EFFECT_WITH_DAMAGE ; 7
 	db -1
+
+.checks:
+	dw CheckTraitCondition.check_move_brn
+	dw CheckTraitCondition.check_move_psn
+	dw CheckTraitCondition.check_move_prz
+	dw CheckTraitCondition.check_move_flinch
+	dw CheckTraitCondition.check_move_confused
+	dw CheckTraitCondition.check_move_frz
 
 TraitReduceEffectChance:
 	ld hl, .TraitsThatReduceEffectChance

@@ -108,6 +108,7 @@ TraitNames::
 	db "Oblivious@"        ; TRAIT_IN_LOVE_IMMUNE
 	db "Insomnia@"         ; TRAIT_SLEEP_IMMUNE
 	db "Inner Flame@"      ; TRAIT_FRZ_IMMUNE
+	db "Perfect Freeze@"   ; TRAIT_BOOST_FREEZE_STATUS
 	db "Hyper Cutter@"     ; TRAIT_PREVENT_ATTACK_DOWN
 	db "Big Pecks@"        ; TRAIT_PREVENT_DEFENSE_DOWN
 	db "Turbocharger@"     ; TRAIT_PREVENT_SPEED_DOWN
