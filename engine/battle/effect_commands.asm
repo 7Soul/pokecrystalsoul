@@ -4900,7 +4900,7 @@ BattleCommand_AllStatsUp:
 	call BattleCommand_SpeedUp
 	call BattleCommand_SpecialAttackUp
 	call BattleCommand_SpecialDefenseUp
-	; ret
+
 	ld hl, BattleText_AllStatsUp
 	jp StdBattleTextBox
 	
@@ -5711,6 +5711,14 @@ BattleCommand_PostHitEffects:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitPP
+	ret
+
+BattleCommand_PostBuffEffects:
+; postbuffeffects
+	ld a, [wAttackMissed]
+	and a
+	ret nz
+	farcall TraitAfterRaiseStat
 	ret
 
 BattleCommand_HeldFlinch:

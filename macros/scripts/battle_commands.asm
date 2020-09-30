@@ -193,6 +193,7 @@ ENDM
 	command recalcstats				; bc
 	command acupressure				; bd
 	command slowhit  				; be
+	command postbuffeffects         ;
 
 	enum_start $fe
 	command endturn                 ; fe

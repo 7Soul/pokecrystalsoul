@@ -15,6 +15,7 @@ TraitDescriptions::
 	dw UnleashPowerDescription    ; TRAIT_ATK_ON_ATK_DIFF
 	dw TailwindDescription        ; TRAIT_COPY_SPD_BUFFS
 	dw MindGamesDescription       ; TRAIT_MOVE_DISABLE
+	dw ThreatenDescription        ; TRAIT_STEAL_BUFF
 	dw LifeDrainDescription       ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription       ; TRAIT_HEAL_PP_FAINT
 	dw BoomDescription            ; TRAIT_DAMAGE_FAINT
@@ -300,6 +301,10 @@ TailwindDescription:
 MindGamesDescription:
 	db   "May disable a move"
 	next "used on you.@"
+
+ThreatenDescription:
+	db   "May steal a foe's"
+	next "raised stat.@"
 
 LifeDrainDescription:
 	db   "Regain HP when a"

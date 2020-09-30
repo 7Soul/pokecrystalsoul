@@ -425,21 +425,21 @@ CheckTraitCondition:
 
 .check_move_physical
 	call Get_move_category
-	cp 0
+	cp PHYSICAL
 	jp z, .success
 	and a
 	ret
 	
 .check_move_special
 	call Get_move_category
-	cp 1
+	cp SPECIAL
 	jp z, .success
 	and a
 	ret
 
 .check_move_status
 	call Get_move_category
-	cp 2
+	cp STATUS
 	jp z, .success
 	and a
 	ret
@@ -750,11 +750,11 @@ CheckTraitCondition:
 	ret
 
 .check_did_no_dmg_for_three_turns:
-	call Get_move_category
-	cp 2
-	jp nc, IncreaseTraitCount ; if the attack not a status, did damage
 	ld a, [wAttackMissed]
 	jp nz, IncreaseTraitCount ; if the attack didn't miss, did damage
+	call Get_move_category
+	cp STATUS
+	jp nc, IncreaseTraitCount ; if the attack not a status, did damage
 	and a
 	ret
 
@@ -794,11 +794,7 @@ CheckTraitCondition:
 Get_move_category: ; 0 = physical, 1 = special, 2 = status
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
-	and $ff ^ TYPE_MASK
 	and STATUS
-	rlc a
-	rlc a
-	dec a
 	ret
 
 GetMoveStructDamage:
@@ -1021,7 +1017,7 @@ TriggerResistRandomType:
 	ld bc, wStringBuffer2 - wStringBuffer1
 	call CopyBytes
 	call GetTraitUserName
-	ld hl, BattleText_TraitColorPick
+	ld hl, TraitText_ColorPick
 	jp StdBattleTextBox
 
 GetTraitUserName:
@@ -1360,7 +1356,7 @@ TraitPassStatusWithAttack:
 	ret nc
 
 	call Get_move_category
-	and a
+	cp PHYSICAL
 	ret nz
 
 	call BattleRandom
@@ -1382,26 +1378,70 @@ PassStatus:
 
 	ld a, [hl] ; user's status
 	ld [de], a
-	ld hl, BattleText_TraitPassedStatus
+	ld hl, TraitText_TraitPassedStatus
 	jp StdBattleTextBox
 
+TraitAfterRaiseStat:
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	ld a, TRAIT_STEAL_BUFF
+	call CheckSpecificTrait
+	ret nc
+
+	ld hl, wEnemyStatLevels
+	ld de, wPlayerStatLevels
+	call GetTraitUserAddr
+	ld a, [wLoweredStat]
+	and $f
+	ld b, a
+	jr z, .got_stat
+.loop
+	inc de
+ 	inc hl
+	dec b
+	jr nz, .loop
+.got_stat
+	call BattleRandom
+	cp 10 percent
+	ret nc
+	ld b, 1
+	ld a, [wLoweredStat]
+	and $f0
+	jr z, .got_amount
+	inc b
+.got_amount
+	ld a, [de]
+	cp MAX_STAT_LEVEL ; trait fails if user's stat is already maxed
+	ret z
+	add b
+	ld [de], a
+	ld a, [hl]
+	and a ; don't lower opp stat if it's already the minimum
+	jr z, .done
+	sub b
+	ld [hl], a
+.done
+	call PrintTraitText
+	ret
+
 TraitAfterMove:
+; Disable a foe's move
 	ld a, TRAIT_MOVE_DISABLE
 	call CheckSpecificTrait
 	jr nc, .not_disable
 
 	call BattleRandom
 	cp 10 percent
-	jr nc, .not_disable
-
+	ret nc
+; Check if there's already a move disabled
 	ld hl, wEnemyDisableCount
 	ld de, wPlayerDisableCount
 	call GetTraitUserAddr
 	and [hl]
-	jr nz, .not_disable
-
+	ret nc
 	call PrintTraitText
 	call Switch_turn
+; Use Disable
 	ld a, BATTLE_VARS_MOVE
 	call GetBattleVarAddr
 	ld a, DISABLE
@@ -1411,6 +1451,7 @@ TraitAfterMove:
 	jp TraitUseBattleCommandSimpleSwitchTurn
 	
 .not_disable
+; Copy foe's speed buff right after it was used
 	ld a, TRAIT_COPY_SPD_BUFFS
 	call CheckSpecificTrait
 	ret nc
@@ -2244,8 +2285,18 @@ TraitReducePower:
 
 	ld a, TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	call CheckSpecificTrait
-	jp c, ReduceDamage50
+	jr nc, .not_grand_entrance
+	call BattleRandom
+	cp 30 percent
+	jp nc, ReduceDamage25
 
+	call PrintTraitText
+	xor a
+	ld [wCurDamage], a
+	ld [wCurDamage + 1], a
+	ret
+
+.not_grand_entrance
 	ld hl, .TraitsThatMightNegateDamage
 	call CheckTrait
 	jp c, MayNegateDamage
@@ -3515,7 +3566,7 @@ BoostDamage15:
 
 ReduceDamage90:
 	ld a, $9A ; ~0.9 ; 90% reduction
-	ld hl, BattleText_NegatedDamage
+	ld hl, TraitText_NegatedDamage
 	call StdBattleTextBox
 	jp ApplyDamageMod
 
@@ -3688,7 +3739,7 @@ GetHealthPercentageWithAddr:
 	pop bc
 	ret
 
-; takes player addr in hl, enemy addr in de, returns user addr in hl
+; takes target mon addr in HL, opp addr in DE, returns user addr in HL and opp addr in DE
 GetTraitUserAddr:
 	ldh a, [hBattleTurn]
 	and a	
@@ -3702,8 +3753,10 @@ GetTraitUserAddr:
 	cp BATTLE_VARS_TRAIT
 	ret z ; player's turn & checking player's trait
 .end_de
+	push hl
 	ld h, d
 	ld l, e
+	pop de
 	ret
 
 ; sets carry flag if the player is the user
@@ -4012,6 +4065,7 @@ PrintTraitText:
     dw TraitText_UnleashPower
     dw TraitText_Tailwind
     dw TraitText_MindGames
+    dw TraitText_Threaten
     dw TraitText_LifeDrain
     dw TraitText_KeepGoing
     dw TraitText_Boom
@@ -4020,8 +4074,145 @@ PrintTraitText:
     dw TraitText_NorthStar
     dw TraitText_DeathlyHex
     dw TraitText_Moxie
+    dw TraitText_GelidEmbrace
+    dw TraitText_UnknownEnergy
+    dw TraitText_Sturdy
+    dw TraitText_NoGuard
+    dw TraitText_CompoundEyes
+    dw TraitText_TipsyGas
+    dw TraitText_PiercingAttack
+    dw TraitText_IronFist
+    dw TraitText_IronJaws
+    dw TraitText_IronClaws
+    dw TraitText_FocusBeam
+    dw TraitText_PowerDrill
+    dw TraitText_RockHead
+    dw TraitText_Sniper
+    dw TraitText_ShellArmor
     dw TraitText_LiquidOoze
     dw TraitText_MagmaFlow
+    dw TraitText_DrainSurge
+    dw TraitText_SkillLink
+    dw TraitText_ChainClip
+    dw TraitText_LimitBreaker
+    dw TraitText_GigaImpact
+    dw TraitText_SlowStart
+    dw TraitText_Pendulum
+    dw TraitText_HotPotato
+    dw TraitText_Fireworks
+    dw TraitText_Pickup
+    dw TraitText_MagicTrick
+    dw TraitText_Nutrition
+    dw TraitText_Harvest
+    dw TraitText_ColorPick
+    dw TraitText_CheerUp
+    dw TraitText_BandTogether
+    dw TraitText_PracticePals
+    dw TraitText_Flock
+    dw TraitText_Contaminate
+    dw TraitText_Mound
+    dw TraitText_StackUp
+    dw TraitText_BugColony
+    dw TraitText_Engulf
+    dw TraitText_TagSplash
+    dw TraitText_CottonGuard
+    dw TraitText_MagnetZone
+    dw TraitText_PowerTap
+    dw TraitText_SnowFort
+    dw TraitText_ShadowCloak
+    dw TraitText_RainDish
+    dw TraitText_Monsoon
+    dw TraitText_Drizzle
+    dw TraitText_VerdantBody
+    dw TraitText_BlueSky
+    dw TraitText_Drought
+    dw TraitText_Rebuild
+    dw TraitText_Tempest
+    dw TraitText_DustDevil
+    dw TraitText_HealingAroma
+    dw TraitText_FierceFighter
+    dw TraitText_ShellPolish
+    dw TraitText_ShadowRun
+    dw TraitText_Competitive
+    dw TraitText_SlimeCoat
+    dw TraitText_ShedSkin
+    dw TraitText_Reckless
+    dw TraitText_SwiftSwimmer
+    dw TraitText_StormySkies
+    dw TraitText_WaterDance
+    dw TraitText_Hydration
+    dw TraitText_BurnUp
+    dw TraitText_SunDance
+    dw TraitText_LeafGuard
+    dw TraitText_SandCutter
+    dw TraitText_SandVeil
+    dw TraitText_SandFilter
+    dw TraitText_WaterVeil
+    dw TraitText_HeatUp
+    dw TraitText_Antivenom
+    dw TraitText_PureToxin
+    dw TraitText_Limber
+    dw TraitText_Conduit
+    dw TraitText_InnerFocus
+    dw TraitText_Presence
+    dw TraitText_OwnTempo
+    dw TraitText_Metronome
+    dw TraitText_Oblivious
+    dw TraitText_Insomnia
+    dw TraitText_InnerFlame
+    dw TraitText_PerfectFreeze
+    dw TraitText_HyperCutter
+    dw TraitText_BigPecks
+    dw TraitText_Turbocharger
+    dw TraitText_AbsoluteFocus
+    dw TraitText_LingeringMemory
+    dw TraitText_KeenEye
+    dw TraitText_MagicBounce
+    dw TraitText_WonderSkin
+    dw TraitText_SereneGrace
+    dw TraitText_SilverAura
+    dw TraitText_GoldAura
+    dw TraitText_SheerForce
+    dw TraitText_ShieldDust
+    dw TraitText_ViciousForm
+    dw TraitText_HiddenPotential
+    dw TraitText_Riptide
+    dw TraitText_DarkWaters
+    dw TraitText_Prismality
+    dw TraitText_Mastery
+    dw TraitText_Ignite
+    dw TraitText_KeenFocus
+    dw TraitText_GrandEntrance
+    dw TraitText_FreeShot
+    dw TraitText_Intimidate
+    dw TraitText_StrangeSignal
+    dw TraitText_SlowDigestion
+    dw TraitText_LifeDew
+    dw TraitText_Preparation
+    dw TraitText_WallOff
+    dw TraitText_Stretching
+    dw TraitText_Setup
+    dw TraitText_Patience
+    dw TraitText_Headache
+    dw TraitText_HealtySpirit
+    dw TraitText_SecretGift
+    dw TraitText_BounceBack
+    dw TraitText_Poise
+    dw TraitText_Solidify
+    dw TraitText_Scamper
+    dw TraitText_Berserk
+    dw TraitText_GoldGuard
+    dw TraitText_TakeAim
+    dw TraitText_DangerSense
+    dw TraitText_AllOut
+    dw TraitText_Anger
+    dw TraitText_Curl
+    dw TraitText_Scatter
+    dw TraitText_ThirdEye
+    dw TraitText_MoonProtection
+    dw TraitText_LuckCurse
+    dw TraitText_Analytic
+    dw TraitText_SuperLuck
 
 .TraitsAffectsOpponent:
 	db TRAIT_CONTACT_DAMAGE_ROCK

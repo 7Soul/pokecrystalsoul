@@ -225,6 +225,7 @@ AttackUp:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 DefenseUp:
@@ -237,6 +238,7 @@ DefenseUp:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 SpeedUp:
@@ -249,6 +251,7 @@ SpeedUp:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 SpecialAttackUp:
@@ -261,6 +264,7 @@ SpecialAttackUp:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 SpecialDefenseUp:
@@ -273,6 +277,7 @@ SpecialDefenseUp:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 AccuracyUp:
@@ -285,6 +290,7 @@ AccuracyUp:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 EvasionUp:
@@ -298,6 +304,7 @@ EvasionUp:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 AttackUp2:
@@ -310,6 +317,7 @@ AttackUp2:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 DefenseUp2:
@@ -322,6 +330,7 @@ DefenseUp2:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 SpeedUp2:
@@ -334,6 +343,7 @@ SpeedUp2:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 SpecialAttackUp2:
@@ -346,6 +356,7 @@ SpecialAttackUp2:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 SpecialDefenseUp2:
@@ -358,6 +369,7 @@ SpecialDefenseUp2:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 AccuracyUp2:
@@ -370,6 +382,7 @@ AccuracyUp2:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 EvasionUp2:
@@ -382,6 +395,7 @@ EvasionUp2:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 AttackDown:
@@ -748,6 +762,7 @@ DefenseUpHit:
 	defenseup
 	statupmessage
 	posthiteffects
+	postbuffeffects
 	endmove
 
 AttackUpHit:
@@ -771,6 +786,7 @@ AttackUpHit:
 	attackup
 	statupmessage
 	posthiteffects
+	postbuffeffects
 	endmove
 
 AllUpHit:
@@ -816,6 +832,7 @@ AccuracyUpHit:
 	accuracyup
 	statupmessage
 	posthiteffects
+	postbuffeffects
 	endmove
 
 Conversion:
@@ -1543,6 +1560,7 @@ AtkDefUp:
 	doturn
 	statupanim
 	atkdefup
+	postbuffeffects
 	endmove
 
 SpAtkSpDefUp:
@@ -1551,6 +1569,7 @@ SpAtkSpDefUp:
 	doturn
 	statupanim
 	spatkspdefup
+	postbuffeffects
 	endmove
 
 DefSpDefUp:
@@ -1559,6 +1578,7 @@ DefSpDefUp:
 	doturn
 	statupanim
 	defspdefup
+	postbuffeffects
 	endmove
 
 MeanLook:
@@ -1952,6 +1972,7 @@ SkullBash:
 	defenseup
 	statupmessage
 	posthiteffects
+	postbuffeffects
 	endmove
 
 Twister:
@@ -2126,6 +2147,7 @@ DefenseCurl:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 WeightDamage:
@@ -2224,6 +2246,7 @@ SpecialAttackUpHit:
 	specialattackup
 	statupmessage
 	posthiteffects
+	postbuffeffects
 	endmove
 	
 FellStinger:
@@ -2402,6 +2425,7 @@ Acupressure:
 	raisesub
 	statupmessage
 	statupfailtext
+	postbuffeffects
 	endmove
 
 SlowHit:

@@ -192,3 +192,4 @@ BattleCommandPointers:
 	dw BattleCommand_RecalcStats
 	dw BattleCommand_Acupressure
 	dw BattleCommand_SlowHit
+	dw BattleCommand_PostBuffEffects
