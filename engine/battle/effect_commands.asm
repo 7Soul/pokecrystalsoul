@@ -5721,6 +5721,14 @@ BattleCommand_PostBuffEffects:
 	farcall TraitAfterRaiseStat
 	ret
 
+BattleCommand_PostDebuffEffects:
+; postdebuffeffects
+	ld a, [wAttackMissed]
+	and a
+	ret nz
+	; farcall TraitAfterLowerStat
+	ret
+
 BattleCommand_HeldFlinch:
 ; kingsrock
 

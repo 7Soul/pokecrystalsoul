@@ -62,6 +62,7 @@ TraitDescriptions::
 	dw ContaminateDescription     ; TRAIT_PARTY_POISON_BOOST_DEFENSE
 	dw MoundDescription           ; TRAIT_PARTY_GROUND_BOOST_DEFENSE
 	dw PileUpDescription          ; TRAIT_PARTY_ROCK_BOOST_DEFENSE
+	dw GearLockDescription        ; TRAIT_PARTY_STEEL_BOOST_DEFENSE
 	dw BugColonyDescription       ; TRAIT_PARTY_BUG_BOOST_DEFENSE
 	dw EngulfDescription          ; TRAIT_PARTY_FIRE_BOOST_DEFENSE
 	dw TagSplashDescription       ; TRAIT_PARTY_WATER_BOOST_DEFENSE
@@ -467,72 +468,64 @@ CheerUpDescription:
 	next "for both sides.@"
 
 BandTogetherDescription:
-	db   "Team's NORMAL type"
-	next "resist up.@"
+	db   "Team NORMAL type"
+	next "ups best stat.@"
 
 PracticePalsDescription:
-	db   "Team's FIGHTING"
-	next "resist up.@"
+	db   "Team FIGHTING ty-"
+	next "pe ups best stat.@"
 
 FlockDescription:
-	db   "Team's FLYING type"
-	next "resist up.@"
+	db   "Team FLYING type"
+	next "ups best stat.@"
   
 ContaminateDescription:
-	db   "Team's POISON type"
-	next "resist up.@"
+	db   "Team POISON type"
+	next "ups best stat.@"
 
 MoundDescription:
-	db   "Team's GROUND type"
-	next "resist up.@"
+	db   "Team GROUND type"
+	next "ups best stat.@"
 
 PileUpDescription:
-	db   "Team's ROCK type"
-	next "resist up.@"
+	db   "Team ROCK type"
+	next "ups best stat.@"
+
+GearLockDescription:
+	db   "Team STEEL type"
+	next "ups best stat.@"
 
 BugColonyDescription:
-	db   "Team's BUG type"
-	next "resist up.@"
+	db   "Team BUG type"
+	next "ups best stat.@"
 
 EngulfDescription:
-	db   "Team's FIRE type"
-	next "resist up.@"
+	db   "Team FIRE type"
+	next "ups best stat.@"
 
 TagSplashDescription:
-	db   "Team's WATER type"
-	next "resist up.@"
+	db   "Team WATER type"
+	next "ups best stat.@"
 
 CottonGuardDescription:
-	db   "Team's GRASS type"
-	next "resist up.@"
+	db   "Team GRASS type"
+	next "ups best stat.@"
 
 MagnetZoneDescription:
-	db   "Team's ELECTRIC"
-	next "type resist up.@"
+	db   "Team ELECTRIC ty-"
+	next "pe ups best stat.@"
 
 PowerTapDescription:
-	db   "Team's PSYCHIC"
-	next "type resist up.@"
+	db   "Team PSYCHIC ty-"
+	next "pe ups best stat.@"
 
 SnowFortDescription:
-	db   "Team's ICE type"
-	next "resist up.@"
+	db   "Team ICE type"
+	next "ups best stat.@"
 
 ShadowCloakDescription:
-	db   "Team's DARK type"
-	next "resist up.@"
-
-; UpVoltageDescription:
-; 	db   "All ELECTRIC <PKMN>"
-; 	next "give you power.@"
-	
-; ShadowCloakDescription:
-; 	db   "All DARK <PKMN>"
-; 	next "give you power.@"
-	
-; SecondSkinDescription:
-; 	db   "All FIRE <PKMN>"
-; 	next "give you power.@"
+	db   "Team DARK type"
+	next "ups best stat.@"
 
 RainDishDescription:
 	db   "Heal HP when rain"

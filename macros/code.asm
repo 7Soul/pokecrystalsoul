@@ -4,6 +4,10 @@ lb: MACRO ; r, hi, lo
 	ld \1, ((\2) & $ff) << 8 | ((\3) & $ff)
 ENDM
 
+dwlb: MACRO ; r, hi, lo
+	dw ((\1) & $ff) << 8 | ((\2) & $ff)
+ENDM
+
 ln: MACRO ; r, hi, lo
 	ld \1, ((\2) & $f) << 4 | ((\3) & $f)
 ENDM

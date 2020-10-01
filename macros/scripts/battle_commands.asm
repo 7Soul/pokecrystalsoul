@@ -194,6 +194,7 @@ ENDM
 	command acupressure				; bd
 	command slowhit  				; be
 	command postbuffeffects         ;
+	command postdebuffeffects       ;
 
 	enum_start $fe
 	command endturn                 ; fe

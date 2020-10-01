@@ -193,3 +193,4 @@ BattleCommandPointers:
 	dw BattleCommand_Acupressure
 	dw BattleCommand_SlowHit
 	dw BattleCommand_PostBuffEffects
+	dw BattleCommand_PostDebuffEffects

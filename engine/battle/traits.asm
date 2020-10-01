@@ -912,32 +912,87 @@ TraitOnEnter:
 	call CheckTrait
 	ret nc
 
-	ld a, [wBuffer3]
 	ld d, a
 	call CheckTraitCondition.check_party_for_type
 	call CheckTraitCount
-	inc a
-	ld c, a
-.loop
-	dec c
+	and a
 	ret z
-	push bc
-	ld a, c
-	and 1
-	jr z, .sp_def
-	ld hl, BattleCommand_DefenseUp
-	jr .raised_stat
-.sp_def
-	ld hl, BattleCommand_SpecialDefenseUp
-.raised_stat
-	call TraitUseBattleCommandSimple
-	; ld hl, BattleCommand_StatUpMessage
-	; call TraitUseBattleCommandSimple
 
-	; ld hl, BattleCommand_StatUpFailText
-	; call TraitUseBattleCommandSimple
+	ld hl, .multipliers
+	ld b, 0
+	ld c, a
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+
+	push de
+	call GetHighestStat ; in c
+	ld hl, wBattleMonStats
+	ld de, wEnemyMonStats
+	call GetTraitUserAddr
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ldh [hMultiplicand + 1], a
+	ld a, [hl]
+	ldh [hMultiplicand + 2], a
+	pop de
+	push bc
+	ld a, d
+	ldh [hMultiplier], a
+	call Multiply
+	ld b, 4
+	ld a, e
+	ldh [hDivisor], a
+	call Divide
+
+	ld hl, wBattleMonStats
+	ld de, wEnemyMonStats
+	call GetTraitUserAddr
+
+	ldh a, [hQuotient + 2]
+	ld b, a
+	ldh a, [hQuotient + 3]
+	or b
+	jr nz, .check_maxed_out
+
+	ld a, 1
+	ldh [hQuotient + 3], a
+	jr .not_maxed_out
+
+.check_maxed_out
+	ldh a, [hQuotient + 3]
+	cp LOW(MAX_STAT_VALUE)
+	ld a, b
+	sbc HIGH(MAX_STAT_VALUE)
+	jr c, .not_maxed_out
+
+	ld a, LOW(MAX_STAT_VALUE)
+	ldh [hQuotient + 3], a
+	ld a, HIGH(MAX_STAT_VALUE)
+	ldh [hQuotient + 2], a
+
+.not_maxed_out
 	pop bc
-	jr .loop
+	add hl, bc
+	add hl, bc
+	ldh a, [hQuotient + 2]
+	ld [hli], a
+	ldh a, [hQuotient + 3]
+	ld [hl], a
+	ret
+
+.multipliers:
+	dwlb 1,  1  ; 1.00
+	dwlb 20, 19 ; 1.05
+	dwlb 11, 10 ; 1.10
+	dwlb 15, 13 ; 1.15
+	dwlb 6,  5  ; 1.20
+	dwlb 5,  4  ; 1.25
+	dwlb 13, 10 ; 1.30
 
 ; .OnEnterJumptable:
 ; 	db TRAIT_SWAP_DEFENSE_BUFFS, SwapDefenseBuffs
@@ -952,6 +1007,7 @@ TraitOnEnter:
 	db TRAIT_PARTY_POISON_BOOST_DEFENSE
 	db TRAIT_PARTY_GROUND_BOOST_DEFENSE
 	db TRAIT_PARTY_ROCK_BOOST_DEFENSE
+	db TRAIT_PARTY_STEEL_BOOST_DEFENSE
 	db TRAIT_PARTY_BUG_BOOST_DEFENSE
 	db TRAIT_PARTY_FIRE_BOOST_DEFENSE
 	db TRAIT_PARTY_WATER_BOOST_DEFENSE
@@ -969,6 +1025,7 @@ TraitOnEnter:
 	db POISON
 	db GROUND
 	db ROCK
+	db STEEL
 	db BUG
 	db FIRE
 	db WATER
@@ -4285,6 +4342,7 @@ OneShotTraits:
 	db TRAIT_PARTY_POISON_BOOST_DEFENSE
 	db TRAIT_PARTY_GROUND_BOOST_DEFENSE
 	db TRAIT_PARTY_ROCK_BOOST_DEFENSE
+	db TRAIT_PARTY_STEEL_BOOST_DEFENSE
 	db TRAIT_PARTY_BUG_BOOST_DEFENSE
 	db TRAIT_PARTY_FIRE_BOOST_DEFENSE
 	db TRAIT_PARTY_WATER_BOOST_DEFENSE

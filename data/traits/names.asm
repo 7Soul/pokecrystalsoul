@@ -62,6 +62,7 @@ TraitNames::
 	db "Contaminate@"      ; TRAIT_PARTY_POISON_BOOST_DEFENSE
 	db "Mound@"            ; TRAIT_PARTY_GROUND_BOOST_DEFENSE
 	db "Stack Up@"         ; TRAIT_PARTY_ROCK_BOOST_DEFENSE
+	db "Gear Lock@"        ; TRAIT_PARTY_STEEL_BOOST_DEFENSE
 	db "Bug Colony@"       ; TRAIT_PARTY_BUG_BOOST_DEFENSE
 	db "Engulf@"           ; TRAIT_PARTY_FIRE_BOOST_DEFENSE
 	db "Tag Splash@"       ; TRAIT_PARTY_WATER_BOOST_DEFENSE

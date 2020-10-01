@@ -409,6 +409,7 @@ AttackDown:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 DefenseDown:
@@ -422,6 +423,7 @@ DefenseDown:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 SpeedDown:
@@ -435,6 +437,7 @@ SpeedDown:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 SpecialAttackDown:
@@ -448,6 +451,7 @@ SpecialAttackDown:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 SpecialDefenseDown:
@@ -461,6 +465,7 @@ SpecialDefenseDown:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 AccuracyDown:
@@ -474,6 +479,7 @@ AccuracyDown:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 EvasionDown:
@@ -487,6 +493,7 @@ EvasionDown:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 AttackDown2:
@@ -500,6 +507,7 @@ AttackDown2:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 DefenseDown2:
@@ -513,6 +521,7 @@ DefenseDown2:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 SpeedDown2:
@@ -526,6 +535,7 @@ SpeedDown2:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 SpecialAttackDown2:
@@ -539,6 +549,7 @@ SpecialAttackDown2:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 SpecialDefenseDown2:
@@ -552,6 +563,7 @@ SpecialDefenseDown2:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 AccuracyDown2:
@@ -565,6 +577,7 @@ AccuracyDown2:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 EvasionDown2:
@@ -578,6 +591,7 @@ EvasionDown2:
 	raisesub
 	statdownmessage
 	statdownfailtext
+	postdebuffeffects
 	endmove
 
 AttackDownHit:
@@ -601,6 +615,7 @@ AttackDownHit:
 	attackdown
 	statdownmessage
 	posthiteffects
+	postdebuffeffects
 	endmove
 
 DefenseDownHit:
@@ -624,6 +639,7 @@ DefenseDownHit:
 	defensedown
 	statdownmessage
 	posthiteffects
+	postdebuffeffects
 	endmove
 
 SpeedDownHit:
@@ -647,6 +663,7 @@ SpeedDownHit:
 	speeddown
 	statdownmessage
 	posthiteffects
+	postdebuffeffects
 	endmove
 
 SpecialAttackDownHit:
@@ -670,6 +687,7 @@ SpecialAttackDownHit:
 	specialattackdown
 	statdownmessage
 	posthiteffects
+	postdebuffeffects
 	endmove
 
 SpecialDefenseDownHit:
@@ -693,6 +711,7 @@ SpecialDefenseDownHit:
 	specialdefensedown
 	statdownmessage
 	posthiteffects
+	postdebuffeffects
 	endmove
 
 AccuracyDownHit:
@@ -716,6 +735,7 @@ AccuracyDownHit:
 	accuracydown
 	statdownmessage
 	posthiteffects
+	postdebuffeffects
 	endmove
 
 EvasionDownHit:
@@ -739,6 +759,7 @@ EvasionDownHit:
 	evasiondown
 	statdownmessage
 	posthiteffects
+	postdebuffeffects
 	endmove
 
 DefenseUpHit:
