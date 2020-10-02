@@ -396,17 +396,12 @@ ArbokEvosAttacks:
 	db 20, ACID
 	db 21, CRUNCH
 	db 28, ACUPRESSURE ; becomes Gather Sand
-
-	db 28, ACID_ARMOR
-	db 28, GROWTH 
-	db 28, AGILITY
-
-	; db 30, VENOSHOCK
-	; db 39, MUD_BOMB
-	; db 45, HAZE
-	; db 45, BITE ;;; 
-	; db 49, ACID_ARMOR
-	; db 54, GUNK_SHOT
+	db 30, VENOSHOCK
+	db 39, MUD_BOMB
+	db 45, HAZE
+	db 45, BITE ;;; 
+	db 49, ACID_ARMOR
+	db 54, GUNK_SHOT
 	db 0 ; no more level-up moves
 
 PikachuEvosAttacks:
@@ -2203,9 +2198,9 @@ VaporeonEvosAttacks:
 	db 24, BITE
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 42, HAZE
-	db 47, ACID_ARMOR
-	db 47, EMBER
-	db 47, THUNDERSHOCK
+	db 47, GUST
+	; db 47, EMBER
+	db 47, HYDRO_PUMP
 	db 51, HYDRO_PUMP
 	db 0 ; no more level-up moves
 

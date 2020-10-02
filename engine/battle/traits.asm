@@ -2021,8 +2021,7 @@ TraitSturdy:
 	ld a, TRAIT_STURDY
 	call CheckSpecificTrait
 	ret nc
-	
-.got_move
+
 	call GetTraitUser
 	jr c, .player
 
@@ -2058,8 +2057,7 @@ TraitSturdy:
 	ld hl, BattleCommand_FalseSwipe
 	call TraitUseBattleCommandSimple
 	
-	call ActivateTrait
-	call ResetActivated
+	call PrintTraitText
 	
 	xor a
 	ld [wBuffer2], a
@@ -3246,12 +3244,13 @@ TraitFaintMon:
 	ld hl, TraitsThatTriggerOnFaintMon
 	call CheckTrait
 	jr nc, .not_1
-
+	call PrintTraitText
 	call Switch_turn
 	ld a, [wBuffer3]
 	and a
 	jr z, .do_damage
 	ld hl, .StatusCommands
+	dec a
 	call TraitUseBattleCommand
 	call Switch_turn
 .not_1
@@ -3266,6 +3265,9 @@ TraitFaintMon:
 	dec a
 	jr z, .heal_pp_faint
 	dec a
+	push af
+	call PrintTraitText
+	pop af
 	ld hl, .StatusCommands2
 	call TraitUseBattleCommand
 	ld hl, BattleCommand_StatUpMessage
@@ -3274,12 +3276,13 @@ TraitFaintMon:
 	jp TraitUseBattleCommandSimple
 
 .heal_pp_faint
+	call PrintTraitText
 	call SetUserTurn
 	jp EffectTraitForceRecoverPP
 	
 .heal_hp_faint
+	call PrintTraitText
 	call SetUserTurn
-	call Switch_turn
 	ld hl, GetEighthMaxHP
 	ld a, BANK(GetMaxHP)
 	rst FarCall
@@ -3291,7 +3294,6 @@ TraitFaintMon:
 	ld de, SELFDESTRUCT
 	farcall FarPlayBattleAnimation
 	call Switch_turn
-	call ActivateTrait
 	ld hl, GetQuarterMaxHP
 	ld a, BANK(GetMaxHP)
 	rst FarCall
@@ -3328,41 +3330,28 @@ TraitsThatTriggerOnFaintOppMon:
 	db -1
 
 EffectTraitForceRecoverPP:
-	ld a, $FF
-	ld [wd002], a
-	callfar RestorePP
-
-	ld a, [wCurPartyMon]
-	ld hl, wPartyMon1Moves
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld de, wBattleMonMoves
-	ld b, NUM_MOVES
-.loop
-	ld a, [de]
-	and a
-	ret z
-	cp [hl]
-	jr nz, .next
+	ld hl, wPartyMon1Stamina
+	ld de, wBattleMonStamina
+	call GetTraitUser
+	ld a, [wCurBattleMon]
+	jr c, .player
+	ld a, [wCurOTMon]
+	ld hl, wOTPartyMon1Stamina
+	ld de, wEnemyMonStamina
+.player
 	push hl
-	push de
-	push bc
-rept NUM_MOVES + 2 ; wBattleMonPP - wBattleMonMoves
-	inc de
-endr
-	ld bc, MON_PP - MON_MOVES
-	add hl, bc
+	ld [wCurPartyMon], a
+	ld e, 2
+	callfar RestoreStamina
+	pop hl
 	ld a, [hl]
 	ld [de], a
-	pop bc
-	pop de
-	pop hl
-
-.next
-	inc hl
-	inc de
-	dec b
-	jr nz, .loop
+	call GetTraitUser
+	jr c, .player2
+	farcall UpdateEnemyHUD
+	ret
+.player2
+	farcall UpdatePlayerHUD
 	ret
 
 TraitRegenHP:
@@ -4017,7 +4006,7 @@ ActivateTrait:
 ; 	ld hl, BattleText_TraitActivatedEnemy
 ; 	call StdBattleTextBox
 ; .end1
-	call PrintTraitText
+	; call PrintTraitText
 	ld hl, wTraitActivated
 	set 4, [hl] ; enemy trait
 	ld a, [hl]
@@ -4033,7 +4022,7 @@ ActivateTrait:
 ; .okturn
 ; 	call PrintTraitText
 ; .end	
-	call PrintTraitText
+	; call PrintTraitText
 	ld hl, wTraitActivated
 	set 0, [hl] ; player trait
 	ld a, [hl]

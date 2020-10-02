@@ -9,7 +9,6 @@ TraitText_HotCoals::
 TraitText_Tailwind::
 TraitText_MindGames::
 TraitText_LifeDrain::
-TraitText_KeepGoing::
 TraitText_Moxie::
 TraitText_GelidEmbrace::
 TraitText_UnknownEnergy::
@@ -229,6 +228,13 @@ TraitText_DeathlyHex::
 	line "Deathly Hex!"
     cont "Curses foe as it"
     line "faints!"
+	prompt
+
+TraitText_KeepGoing::
+	text "<TARGET>"
+	line "keeps going!"
+	para "Regains some Sta-"
+	line "mina.@"
 	prompt
 
 TraitText_GrandEntrance::

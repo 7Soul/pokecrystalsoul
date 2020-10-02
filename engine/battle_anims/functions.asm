@@ -1672,45 +1672,47 @@ Functioncd913:
 BattleAnimFunction_Gust:
 	call BattleAnim_AnonJumptable
 .anon_dw
-	dw Functioncd961
-	dw Functioncd96a
-	dw Functioncd96e
-	dw Functioncd96a
-	dw Functioncd97b
+	dw .zero
+	dw .one
+	dw .two
+	dw .one
+	dw .three
 
-Functioncd961:
+.zero
 	call BattleAnim_IncAnonJumptableIndex
 	ld hl, BATTLEANIMSTRUCT_PARAM
 	add hl, bc
 	ld [hl], $0
-Functioncd96a:
-	call Functioncd99a
+.one
+	call .GustWobble
 	ret
 
-Functioncd96e:
+.two
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	ld a, [hl]
 	cp $88
-	jr c, asm_cd988
+	jr c, .move
 	call BattleAnim_IncAnonJumptableIndex
 	ret
 
-Functioncd97b:
+.three
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	ld a, [hl]
 	cp $b8
-	jr c, asm_cd988
+	jr c, .move
 	call DeinitBattleAnimation
 	ret
 
-asm_cd988:
-	call Functioncd99a
+.move
+	call .GustWobble
+	; Move horizontally every frame
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	inc [hl]
 	ld a, [hl]
+	; Move in the vertically every other frame
 	and $1
 	ret nz
 	ld hl, BATTLEANIMSTRUCT_YCOORD
@@ -1718,8 +1720,9 @@ asm_cd988:
 	dec [hl]
 	ret
 
-Functioncd99a:
-	call Functioncd9f4
+.GustWobble:
+	; Circular movement where width is retrieved from a list, and height is 1/16 of that
+	call .GetGustRadius
 	ld hl, BATTLEANIMSTRUCT_VAR1
 	add hl, bc
 	ld a, [hl]
@@ -1778,17 +1781,17 @@ Functioncd99a:
 	ld [hl], a
 	ret
 
-Functioncd9f4:
+.GetGustRadius:
 	ld hl, BATTLEANIMSTRUCT_VAR2
 	add hl, bc
 	ld e, [hl]
 	ld d, 0
-	ld hl, Unknown_cda01
+	ld hl, .GustOffsets
 	add hl, de
 	ld d, [hl]
 	ret
 
-Unknown_cda01:
+.GustOffsets:
 	db 8, 6, 5, 4, 5, 6, 8, 12, 16
 
 BattleAnimFunction_Absorb:
@@ -2064,28 +2067,30 @@ Functioncdb65:
 
 BattleAnimFunction_Egg:
 ; Used in Egg Bomb and Softboiled
+; Obj Param: Defines jumptable starting index
 	call BattleAnim_AnonJumptable
 .anon_dw
-	dw Functioncdb9f
-	dw Functioncdbb3
-	dw Functioncdbcf
-	dw Functioncdbeb
-	dw Functioncdc74
-	dw Functioncdc1a
-	dw Functioncdbc1
-	dw Functioncdc1e
-	dw Functioncdc27
-	dw Functioncdc39
-	dw Functioncdc74
-	dw Functioncdc48
-	dw Functioncdc57
-	dw Functioncdc74
+	dw .zero
+	dw .one ; Egg Bomb starts here
+	dw .two
+	dw .three
+	dw .four ; ret
+	dw .five 
+	dw .six ; Softboiled egg 1 starts here
+	dw .seven
+	dw .eight
+	dw .nine
+	dw .four ; ret
+	dw .ten ; Softboiled egg 2 starts here
+	dw .eleven 
+	dw .four ; ret
 
-Functioncdb9f:
+.zero
+; Object starts here then jumps to jumptable index defined by the Obj Param
 	ld hl, BATTLEANIMSTRUCT_VAR1
 	add hl, bc
 	ld [hl], $28
-	inc hl
+	inc hl ; BATTLEANIMSTRUCT_VAR2
 	ld [hl], $10
 	ld hl, BATTLEANIMSTRUCT_PARAM
 	add hl, bc
@@ -2095,18 +2100,18 @@ Functioncdb9f:
 	ld [hl], a
 	ret
 
-Functioncdbb3:
+.one
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	ld a, [hl]
 	cp $40
-	jr nc, .asm_cdbbd
+	jr nc, .egg_bomb_arc
 	inc [hl]
-.asm_cdbbd
-	call Functioncdc75
+.egg_bomb_arc
+	call .EggVerticalWaveMotion
 	ret
 
-Functioncdbc1:
+.six
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	ld a, [hl]
@@ -2114,42 +2119,43 @@ Functioncdbc1:
 	jr nc, .asm_cdbcb
 	inc [hl]
 .asm_cdbcb
-	call Functioncdc75
+	call .EggVerticalWaveMotion
 	ret
 
-Functioncdbcf:
+.two
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	ld a, [hl]
 	cp $88
-	jr nc, .asm_cdbe6
+	jr nc, .egg_bomb_done
 	and $f
-	jr nz, asm_cdbfa
+	jr nz, .egg_bomb_step
+	; wait in place (jumps to .three)
 	ld hl, BATTLEANIMSTRUCT_VAR2
 	add hl, bc
 	ld [hl], $10
 	call BattleAnim_IncAnonJumptableIndex
 	ret
 
-.asm_cdbe6
+.egg_bomb_done
 	call BattleAnim_IncAnonJumptableIndex
 	inc [hl]
 	ret
 
-Functioncdbeb:
+.three ; wait
 	ld hl, BATTLEANIMSTRUCT_VAR2
 	add hl, bc
 	ld a, [hl]
 	and a
-	jr z, .asm_cdbf5
+	jr z, .done_waiting
 	dec [hl]
 	ret
 
-.asm_cdbf5
+.done_waiting
 	ld hl, BATTLEANIMSTRUCT_JUMPTABLE_INDEX
 	add hl, bc
 	dec [hl]
-asm_cdbfa:
+.egg_bomb_step
 	ld hl, BATTLEANIMSTRUCT_XCOORD
 	add hl, bc
 	inc [hl]
@@ -2171,17 +2177,17 @@ asm_cdbfa:
 	ld [hl], e
 	ret
 
-Functioncdc1a:
+.five
 	call DeinitBattleAnimation
 	ret
 
-Functioncdc1e:
-	ld a, BATTLEANIMFRAMESET_4E
+.seven
+	ld a, BATTLEANIMFRAMESET_4E ; Egg wobbling
 	call ReinitBattleAnimFrameset
 	call BattleAnim_IncAnonJumptableIndex
 	ret
 
-Functioncdc27:
+.eight
 	ld hl, BATTLEANIMSTRUCT_VAR1
 	add hl, bc
 	ld a, [hl]
@@ -2194,8 +2200,8 @@ Functioncdc27:
 	ld [hl], a
 	ret
 
-Functioncdc39:
-	ld a, BATTLEANIMFRAMESET_50
+.nine
+	ld a, BATTLEANIMFRAMESET_50 ; Cracked egg bottom
 	call ReinitBattleAnimFrameset
 	ld hl, BATTLEANIMSTRUCT_YOFFSET
 	add hl, bc
@@ -2203,8 +2209,8 @@ Functioncdc39:
 	call BattleAnim_IncAnonJumptableIndex
 	ret
 
-Functioncdc48:
-	ld a, BATTLEANIMFRAMESET_4F
+.ten
+	ld a, BATTLEANIMFRAMESET_4F ; Cracked egg top
 	call ReinitBattleAnimFrameset
 	call BattleAnim_IncAnonJumptableIndex
 	ld hl, BATTLEANIMSTRUCT_VAR1
@@ -2212,7 +2218,7 @@ Functioncdc48:
 	ld [hl], $40
 	ret
 
-Functioncdc57:
+.eleven
 	ld hl, BATTLEANIMSTRUCT_VAR1
 	add hl, bc
 	ld a, [hl]
@@ -2231,14 +2237,14 @@ Functioncdc57:
 
 .asm_cdc71
 	call BattleAnim_IncAnonJumptableIndex
-Functioncdc74:
+.four
 	ret
 
-Functioncdc75:
+.EggVerticalWaveMotion:
 	ld hl, BATTLEANIMSTRUCT_VAR1
 	add hl, bc
 	ld a, [hli]
-	ld d, [hl]
+	ld d, [hl] ; BATTLEANIMSTRUCT_VAR2
 	call BattleAnim_Sine
 	ld hl, BATTLEANIMSTRUCT_YOFFSET
 	add hl, bc
@@ -2247,7 +2253,7 @@ Functioncdc75:
 	add hl, bc
 	inc [hl]
 	ld a, [hl]
-	and $3f
+	and $3f ; cp 64
 	ret nz
 	ld hl, BATTLEANIMSTRUCT_VAR1
 	add hl, bc

@@ -23,6 +23,9 @@ DoBattleTransition:
 	ld [hl], $1
 
 .loop
+	ld a, [wOptions]
+	bit BATTLE_SCENE, a
+	jr nz, .done
 	ld a, [wJumptableIndex]
 	bit 5, a ; BATTLETRANSITION_END?
 	jr nz, .done

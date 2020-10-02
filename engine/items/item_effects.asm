@@ -1482,6 +1482,7 @@ BattlemonRestoreHealth:
 BattlemonRestoreStamina:
 	call IsItemUsedOnBattleMon
 	ret nc
+BattlemonRestoreStamina2:
 	ld a, MON_STAMINA
 	call GetPartyParamLocation
 	ld a, [hl]
@@ -2615,7 +2616,7 @@ RestorePP:
 
 	ld c, 1	
 	inc a ; compare to 255
-	jr z, .restore_some
+	jr c, .restore_some
 
 	ld c, 10
 
