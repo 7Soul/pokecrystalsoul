@@ -132,6 +132,9 @@ BattleCommand_Transform:
 	pop af
 	ld a, SUBSTITUTE
 	call nz, LoadAnim
+
+	farcall TraitTransform
+
 	ret
 	; ld hl, TransformedText
 	; jp StdBattleTextBox

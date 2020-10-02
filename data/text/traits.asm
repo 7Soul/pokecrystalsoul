@@ -8,6 +8,7 @@ TraitText_EffectSpore::
 TraitText_HotCoals::
 TraitText_Tailwind::
 TraitText_MindGames::
+TraitText_Revitalize::
 TraitText_LifeDrain::
 TraitText_Moxie::
 TraitText_GelidEmbrace::

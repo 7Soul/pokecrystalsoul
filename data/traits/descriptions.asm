@@ -17,6 +17,7 @@ TraitDescriptions::
 	dw MindGamesDescription       ; TRAIT_MOVE_DISABLE
 	dw ThreatenDescription        ; TRAIT_STEAL_BUFF
 	dw CurseReversalDescription   ; TRAIT_REVERSE_DEBUFF
+	dw RevitalizeDescription      ; TRAIT_SPEED_TRANSFORM
 	dw LifeDrainDescription       ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription       ; TRAIT_HEAL_PP_FAINT
 	dw BoomDescription            ; TRAIT_DAMAGE_FAINT
@@ -311,6 +312,10 @@ ThreatenDescription:
 CurseReversalDescription:
 	db   "May reverse a stat"
 	next "lowering effect.@"
+
+RevitalizeDescription:
+	db   "Transforming will"
+	next "sharply raise SPD.@"
 
 LifeDrainDescription:
 	db   "Regain HP when a"

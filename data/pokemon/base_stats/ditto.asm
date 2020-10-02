@@ -10,7 +10,7 @@
 	db GENDER_UNKNOWN ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/ditto/front.dimensions"
-	db 0, 0, 0, 0
+	db TRAIT_SPEED_TRANSFORM, TRAIT_SPEED_TRANSFORM, TRAIT_SPEED_TRANSFORM, TRAIT_SPEED_TRANSFORM
 	db GROWTH_MEDIUM_FAST ; growth rate
 	dn EGG_DITTO, EGG_DITTO ; egg groups
 

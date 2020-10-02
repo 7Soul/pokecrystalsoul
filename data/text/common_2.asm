@@ -655,33 +655,33 @@ Text_AreYouABoyOrAreYouAGirl::
 	line "Or are you a Girl?"
 	done
 
-UnknownText_0x1c0cc6::
+Text_BattleEffectActivate::
 	text "<USER>'s"
 	line "@"
 	text_from_ram wStringBuffer2
 	db "@@"
 
-UnknownText_0x1c0cd0::
+_BattleStatWentWayUpText::
 	interpret_data
 	text "<SCROLL>went way up!"
 	prompt
 
-UnknownText_0x1c0ce0::
+_BattleStatWentUpText::
 	text " went up!"
 	prompt
 
-UnknownText_0x1c0ceb::
+Text_BattleFoeEffectActivate::
 	text "<TARGET>'s"
 	line "@"
 	text_from_ram wStringBuffer2
 	db "@@"
 
-UnknownText_0x1c0cf5::
+_BattleStatSharplyFellText::
 	interpret_data
-	text "<SCROLL>sharply fell!"
+	cont "<SCROLL>sharply fell!"
 	prompt
 
-UnknownText_0x1c0d06::
+_BattleStatFellText::
 	text " fell!"
 	prompt
 

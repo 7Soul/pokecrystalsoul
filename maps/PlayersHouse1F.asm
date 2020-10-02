@@ -126,6 +126,7 @@ MeetMomScript:
 	giveitem MAX_REVIVE, 99
 	giveitem BERRY, 99
 
+	givepoke DITTO, 50
 	givepoke VAPOREON, 50
 	givepoke PIDGEY, 50
 	; givepoke MEW, 100

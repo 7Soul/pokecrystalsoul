@@ -3632,6 +3632,23 @@ BoostDamageBasedOnFoesDefUp:
 	db $32 ; 50%
 	db $74 ; 75% ; bonus!
 
+TraitTransform:
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+	ld a, TRAIT_SPEED_TRANSFORM
+	call CheckSpecificTrait
+	ret nc
+	
+	call PrintTraitText
+	ld hl, BattleCommand_SpeedUp2
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatUpMessage
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatUpFailText
+	jp TraitUseBattleCommandSimpleSwitchTurn
+
 BoostDamage50:
 	ld a, $32 ; ~1.5
 	jp ApplyDamageMod

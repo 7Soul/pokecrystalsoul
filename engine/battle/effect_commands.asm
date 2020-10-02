@@ -4734,7 +4734,7 @@ BattleCommand_StatUpMessage:
 	jp BattleTextBox
 
 .stat
-	text_jump UnknownText_0x1c0cc6
+	text_jump Text_BattleEffectActivate
 	start_asm
 	ld hl, .up
 	ld a, [wLoweredStat]
@@ -4744,11 +4744,11 @@ BattleCommand_StatUpMessage:
 	ret
 
 .wayup
-	text_jump UnknownText_0x1c0cd0
+	text_jump _BattleStatWentWayUpText
 	db "@"
 
 .up
-	text_jump UnknownText_0x1c0ce0
+	text_jump _BattleStatWentUpText
 	db "@"
 
 BattleCommand_StatDownMessage:
@@ -4764,7 +4764,7 @@ BattleCommand_StatDownMessage:
 	jp BattleTextBox
 
 .stat
-	text_jump UnknownText_0x1c0ceb
+	text_jump Text_BattleFoeEffectActivate
 	start_asm
 	ld hl, .fell
 	ld a, [wLoweredStat]
@@ -4774,10 +4774,10 @@ BattleCommand_StatDownMessage:
 	ret
 
 .sharplyfell
-	text_jump UnknownText_0x1c0cf5
+	text_jump _BattleStatSharplyFellText
 	db "@"
 .fell
-	text_jump UnknownText_0x1c0d06
+	text_jump _BattleStatFellText
 	db "@"
 
 TryLowerStat:
