@@ -1481,6 +1481,50 @@ TraitAfterRaiseStat:
 	call PrintTraitText
 	ret
 
+TraitAfterLowerStat:
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+	ld a, TRAIT_REVERSE_DEBUFF
+	call CheckSpecificTrait
+	ret nc
+
+	call BattleRandom
+	cp 20 percent
+	ret nc
+
+	ld hl, wPlayerStatLevels
+	ld de, wEnemyStatLevels
+	call GetTraitUserAddr
+	ld a, [wLoweredStat]
+	and $f
+	ld b, a
+	jr z, .got_stat
+.loop
+	inc de
+ 	inc hl
+	dec b
+	jr nz, .loop
+.got_stat
+	inc b
+	call GetStatName
+	ld b, 1
+	ld a, [wLoweredStat]
+	and $f0
+	jr z, .got_amount
+	inc b
+.got_amount
+	ld a, [hl]
+	add b
+	add b
+	cp MAX_STAT_LEVEL
+	jr c, .end
+.max
+	ld a, MAX_STAT_LEVEL
+.end
+	ld [hl], a
+	call PrintTraitText
+	ret
+
 TraitAfterMove:
 ; Disable a foe's move
 	ld a, TRAIT_MOVE_DISABLE
@@ -4112,6 +4156,7 @@ PrintTraitText:
     dw TraitText_Tailwind
     dw TraitText_MindGames
     dw TraitText_Threaten
+    dw TraitText_CurseReversal
     dw TraitText_LifeDrain
     dw TraitText_KeepGoing
     dw TraitText_Boom

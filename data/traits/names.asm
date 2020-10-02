@@ -16,6 +16,7 @@ TraitNames::
 	db "Tailwind@"         ; TRAIT_COPY_SPD_BUFFS
 	db "Mind Games@"       ; TRAIT_MOVE_DISABLE
 	db "Threaten@"         ; TRAIT_STEAL_BUFF
+	db "Curse Reversal@"   ; TRAIT_REVERSE_DEBUFF
 	db "Life Drain@"       ; TRAIT_HEAL_HP_FAINT
 	db "Keep Going@"       ; TRAIT_HEAL_PP_FAINT
 	db "Boom@"             ; TRAIT_DAMAGE_FAINT

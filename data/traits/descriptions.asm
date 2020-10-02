@@ -16,6 +16,7 @@ TraitDescriptions::
 	dw TailwindDescription        ; TRAIT_COPY_SPD_BUFFS
 	dw MindGamesDescription       ; TRAIT_MOVE_DISABLE
 	dw ThreatenDescription        ; TRAIT_STEAL_BUFF
+	dw CurseReversalDescription   ; TRAIT_REVERSE_DEBUFF
 	dw LifeDrainDescription       ; TRAIT_HEAL_HP_FAINT
 	dw KeepGoingDescription       ; TRAIT_HEAL_PP_FAINT
 	dw BoomDescription            ; TRAIT_DAMAGE_FAINT
@@ -306,6 +307,10 @@ MindGamesDescription:
 ThreatenDescription:
 	db   "May steal a foe's"
 	next "raised stat.@"
+
+CurseReversalDescription:
+	db   "May reverse a stat"
+	next "lowering effect.@"
 
 LifeDrainDescription:
 	db   "Regain HP when a"

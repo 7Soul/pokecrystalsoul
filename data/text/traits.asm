@@ -198,6 +198,17 @@ TraitText_Threaten::
 	line "stat!"
 	prompt
 
+TraitText_CurseReversal::
+	text "<TARGET>'s"
+	line "@"
+    text_from_ram wStringBuffer1
+	text "!"
+	para "@"
+	text_from_ram wStringBuffer2
+	text " raised"
+	line "instead!"
+	prompt
+
 TraitText_Boom::
 	text "<TARGET>"
 	line "goes Boom!"

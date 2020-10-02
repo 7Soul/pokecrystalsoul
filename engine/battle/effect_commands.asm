@@ -5726,7 +5726,7 @@ BattleCommand_PostDebuffEffects:
 	ld a, [wAttackMissed]
 	and a
 	ret nz
-	; farcall TraitAfterLowerStat
+	farcall TraitAfterLowerStat
 	ret
 
 BattleCommand_HeldFlinch:
