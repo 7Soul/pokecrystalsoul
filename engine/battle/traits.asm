@@ -1728,10 +1728,10 @@ TraitBoostAccuracy:
 	jr z, .turn_zero ; ACCURACY_TURN_ZERO
 
 	call CheckTraitCondition.check_not_stab
-	lb de, 20, 19
-	jr nc, .stab
-	lb de, 8, 7
-.stab
+	lb de, 20, 19 ; 1.05
+	jr nc, .multiply_by_de
+	lb de, 15, 13 ; 1.15
+.multiply_by_de
 	ld a, [wBuffer2]
 	ldh [hMultiplicand + 2], a
 	ld a, d
@@ -1751,14 +1751,15 @@ TraitBoostAccuracy:
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
 	and a
-	ld a, [wBuffer2]
-	ld b, a
-	jr z, .high_boost
-	srl a
-.high_boost
-	srl a
-	add b
-	jr nc, .end
+	lb de, 15, 13 ; 1.15
+	jr z, .multiply_by_de
+	dec a
+	lb de, 11, 10 ; 1.10
+	jr z, .multiply_by_de
+	dec a
+	lb de, 20, 19 ; 1.05
+	jr z, .multiply_by_de
+	ret
 .max
 	ld a, $FF
 .end
@@ -2605,27 +2606,17 @@ TraitBoostPower:
 	ld hl, .TraitsThatBoostDamage
 	call CheckTrait
 	jp c, BoostDamage20
-	ld c, 5
-.loop
+
 	ld hl, .JumpTableTraitsBoostMoveClass
-	ld a, c
-	dec a
-	push bc
-	ld b, 0
-	ld c, a
-	add hl, bc
-	ld a, [hl]
-	call CheckSpecificTrait
-	jr c, .met
-	pop bc
-	dec c
-	ret z
-	jr .loop
-.met
-	pop bc
-	ld a, c
-	dec a
-	ld hl, JumptableMoveClass
+	call CheckTrait
+	ret nc
+	ld a, [wCurVariableMove]
+	cp $FF
+	ld a, [wBuffer3]
+	jr z, .not_variable
+	add 5
+.not_variable
+	ld hl, .JumptableMoveClass
 	call GetToJumptable
 	ld a, [hl]
 	ld a, BATTLE_VARS_MOVE_ANIM
@@ -2636,7 +2627,7 @@ TraitBoostPower:
 	call CheckTraitCount
 	and a
 	jr nz, .skip_spd_down
-	call IncreaseTraitCount	
+	call IncreaseTraitCount
 	call Switch_turn
 	ld hl, BattleCommand_SpeedDown
 	call TraitUseBattleCommandSimple
@@ -2698,14 +2689,19 @@ TraitBoostPower:
 	db TRAIT_BOOST_BEAM
 	db TRAIT_BOOST_PERFURATE
 
-JumptableMoveClass:
-	dw PunchingMoves
-	dw BitingMoves
-	dw CuttingMoves
-	dw BeamMoves
-	dw PerfurateMoves
+.JumptableMoveClass:
+	dw .PunchingMoves
+	dw .BitingMoves
+	dw .CuttingMoves
+	dw .BeamMoves
+	dw .PerfurateMoves
+	dw .PunchingMovesVariable
+	dw .BitingMovesVariable
+	dw .CuttingMovesVariable
+	dw .BeamMovesVariable
+	dw .PerfurateMovesVariable
 
-PunchingMoves:
+.PunchingMoves:
 	db MEGA_PUNCH
 	db COMET_PUNCH
 	db DIZZY_PUNCH
@@ -2715,14 +2711,25 @@ PunchingMoves:
 	db MACH_PUNCH
 	db -1
 
-BitingMoves:
+.PunchingMovesVariable:
+	db BULLET_PUNCH
+	db -1
+
+.BitingMoves:
 	db BITE
 	db CRUNCH
 	db SUPER_FANG
 	db HYPER_FANG
 	db -1
 
-CuttingMoves:
+.BitingMovesVariable:
+	db FIRE_FANG
+	db ICE_FANG
+	db THUNDER_FANG
+	db POISON_FANG
+	db -1
+
+.CuttingMoves:
 	db SLASH
 	db SCRATCH
 	db FURY_CUTTER
@@ -2731,7 +2738,14 @@ CuttingMoves:
 	db RAZOR_LEAF
 	db -1
 
-BeamMoves:
+.CuttingMovesVariable:
+	db NIGHT_SLASH
+	db LEAF_BLADE
+	db AIR_CUTTER
+	db RAZOR_SHELL
+	db -1
+
+.BeamMoves:
 	db AURORA_BEAM
 	db SOLARBEAM
 	db HYPER_BEAM
@@ -2739,13 +2753,20 @@ BeamMoves:
 	db PSYBEAM
 	db -1
 
-PerfurateMoves:
+.BeamMovesVariable:
+	db -1
+
+.PerfurateMoves:
 	db PECK
 	db HORN_DRILL
 	db DRILL_PECK
 	db MEGAHORN
 	db FELL_STINGER
 	db HORN_ATTACK
+	db -1
+
+.PerfurateMovesVariable:
+	db SPIRAL_KICK
 	db -1
 
 TraitBoostNonStab: ; after damage calc, once stab is checked

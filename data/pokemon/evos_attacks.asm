@@ -2198,9 +2198,7 @@ VaporeonEvosAttacks:
 	db 24, BITE
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 42, HAZE
-	db 47, GUST
-	; db 47, EMBER
-	db 47, HYDRO_PUMP
+	db 46, ACID_ARMOR
 	db 51, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -2209,7 +2207,7 @@ JolteonEvosAttacks:
 	db 1, TACKLE
 	db 1, TAIL_WHIP
 	db 1, SAND_ATTACK
-	db 1, THUNDERSHOCK
+	db 6, THUNDERSHOCK
 	db 13, QUICK_ATTACK
 	db 19, SHARPEN
 	db 20, PSYBEAM ; becomes Thunder Fang
@@ -2226,7 +2224,7 @@ FlareonEvosAttacks:
 	db 1, TACKLE
 	db 1, TAIL_WHIP
 	db 1, SAND_ATTACK
-	db 1, EMBER
+	db 6, EMBER
 	db 13, QUICK_ATTACK
 	db 17, FIRE_SPIN
 	db 20, ABSORB ; becomes Fire Fang
@@ -3213,8 +3211,8 @@ EspeonEvosAttacks:
 	db 1, TACKLE
 	db 1, TAIL_WHIP
 	db 1, SAND_ATTACK
-	db 1, CONFUSION
-	db 16, QUICK_ATTACK
+	db 6, CONFUSION
+	db 13, QUICK_ATTACK
 	db 30, SWIFT
 	db 36, PSYBEAM
 	db 42, PSYCH_UP
@@ -3227,8 +3225,8 @@ UmbreonEvosAttacks:
 	db 1, TACKLE
 	db 1, TAIL_WHIP
 	db 1, SAND_ATTACK
-	db 1, PURSUIT
-	db 16, QUICK_ATTACK
+	db 6, PURSUIT
+	db 13, QUICK_ATTACK
 	db 30, CONFUSE_RAY
 	db 36, FAINT_ATTACK
 	db 42, MEAN_LOOK

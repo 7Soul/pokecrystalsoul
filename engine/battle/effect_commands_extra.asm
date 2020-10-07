@@ -872,3 +872,155 @@ BattleCommandExtra_Critical:
 INCLUDE "data/moves/critical_hit_moves.asm"
 
 INCLUDE "data/battle/critical_hit_chances.asm"
+
+
+MoveInfoBox:
+	xor a
+	ldh [hBGMapMode], a
+
+	hlcoord 0, 7
+	ld b, 2
+	ld c, 8
+	call TextBox
+	hlcoord 0, 9
+	ld b, 2
+	ld c, 9
+	call TextBox
+	call MobileTextBorder
+	
+	hlcoord 0, 9
+	ld a, $bd
+	ld [hl], a
+	hlcoord 9, 9
+	ld a, $be
+	ld [hl], a
+	hlcoord 1, 9
+	ld a, $7f
+	ld c, 7
+.line_loop
+	ld [hli], a
+	dec c
+	jr nz, .line_loop
+	
+	hlcoord 0, 12
+	ld a, $c2 ; mid left
+	ld [hl], a
+	hlcoord 10, 12
+	ld a, $c0 ; mid up
+	ld [hl], a
+	
+	ld a, [wPlayerDisableCount]
+	and a
+	jr z, .not_disabled
+
+	swap a
+	and $f
+	ld b, a
+	ld a, [wMenuCursorY]
+	cp b
+	jr nz, .not_disabled
+
+	hlcoord 1, 11
+	ld de, .Disabled
+	call PlaceString
+	jp .done
+
+.not_disabled
+	ld hl, wMenuCursorY
+	dec [hl]
+	call SetPlayerTurn
+	ld hl, wBattleMonMoves
+	ld a, [wMenuCursorY]
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	ld [wCurPlayerMove], a
+
+	ld a, [wCurBattleMon]
+	ld [wCurPartyMon], a
+	ld a, WILDMON
+	ld [wMonType], a
+	callfar GetMaxPPOfMove
+
+	ld hl, wMenuCursorY
+	ld c, [hl]
+	inc [hl]
+
+	callfar UpdateMoveData
+	ld de, .bp_string
+	hlcoord 1, 8
+	call PlaceString
+
+	ld a, [wPlayerMoveStruct + MOVE_POWER]
+	hlcoord 4, 8
+	cp 2
+	jr c, .no_power
+	ld [wDeciramBuffer], a
+	ld de, wDeciramBuffer
+	lb bc, 1, 3
+	call PrintNum
+	jr .place_acc
+.no_power
+	ld de, .String_na
+	call PlaceString
+
+.place_acc
+	ld de, .acc_string
+	hlcoord 2, 9
+	call PlaceString
+
+	ld a, [wPlayerMoveStruct + MOVE_ACC]
+	ld [hMultiplicand], a
+	ld a, 100
+	ld [hMultiplier], a
+	call Multiply
+	ld a, [hProduct]
+	; don't increase a for 0% moves
+	and a
+	jr z, .no_inc
+	inc a
+.no_inc
+	hlcoord 6, 9
+	cp 2
+	jr c, .no_acc
+	ld [wDeciramBuffer], a
+	ld de, wDeciramBuffer
+	lb bc, 1, 3
+	call PrintNum
+	jr .category
+.no_acc
+	ld de, .String_na
+	call PlaceString
+	
+.category
+	ld a, [wPlayerMoveStruct + MOVE_ANIM]
+	ld b, a
+	farcall GetMoveCategoryName
+	hlcoord 1, 10
+	ld de, wStringBuffer1
+	call PlaceString
+
+	ld h, b
+	ld l, c
+	ld [hl], "/"
+
+	ld a, [wPlayerMoveStruct + MOVE_ANIM]
+	ld b, a
+	hlcoord 2, 11
+	predef PrintMoveType
+
+.done
+	ret
+
+.Disabled:
+	db "Disabled!@"
+
+.bp_string:
+	db "BP@"
+
+.acc_string:
+	db "Acc@"
+
+.String_na:
+	db "---@"

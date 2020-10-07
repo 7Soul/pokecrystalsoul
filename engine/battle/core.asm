@@ -5833,7 +5833,7 @@ MoveSelectionScreen:
 	jr .interpret_joypad
 
 .battle_player_moves
-	call MoveInfoBox
+	farcall MoveInfoBox
 	ld a, [wMoveSwapBuffer]
 	and a
 	jr z, .interpret_joypad
@@ -6043,89 +6043,6 @@ MoveSelectionScreen:
 	ld [wMoveSwapBuffer], a
 	jp MoveSelectionScreen
 
-MoveInfoBox:
-	xor a
-	ldh [hBGMapMode], a
-
-	hlcoord 0, 9
-	ld b, 2
-	ld c, 9
-	call TextBox
-	call MobileTextBorder
-	
-	hlcoord 0, 12
-	ld a, $c2 ; mid left
-	ld [hli], a
-	; hlcoord 4, 12
-	; ld a, $c1 ; mid down
-	; ld [hli], a
-	hlcoord 10, 12
-	ld a, $c0 ; mid up
-	ld [hli], a
-	; hlcoord 4, 17
-	; ld a, $c0 ; mid up
-	; ld [hli], a
-	
-	ld a, [wPlayerDisableCount]
-	and a
-	jr z, .not_disabled
-
-	swap a
-	and $f
-	ld b, a
-	ld a, [wMenuCursorY]
-	cp b
-	jr nz, .not_disabled
-
-	hlcoord 1, 11
-	ld de, .Disabled
-	call PlaceString
-	jr .done
-
-.not_disabled
-	ld hl, wMenuCursorY
-	dec [hl]
-	call SetPlayerTurn
-	ld hl, wBattleMonMoves
-	ld a, [wMenuCursorY]
-	ld c, a
-	ld b, 0
-	add hl, bc
-	ld a, [hl]
-	ld [wCurPlayerMove], a
-
-	ld a, [wCurBattleMon]
-	ld [wCurPartyMon], a
-	ld a, WILDMON
-	ld [wMonType], a
-	callfar GetMaxPPOfMove
-
-	ld hl, wMenuCursorY
-	ld c, [hl]
-	inc [hl]
-
-	callfar UpdateMoveData
-	ld a, [wPlayerMoveStruct + MOVE_ANIM]
-	ld b, a
-	farcall GetMoveCategoryName
-	hlcoord 1, 10
-	ld de, wStringBuffer1
-	call PlaceString
-
-	ld h, b
-	ld l, c
-	ld [hl], "/"
-
-	ld a, [wPlayerMoveStruct + MOVE_ANIM]
-	ld b, a
-	hlcoord 2, 11
-	predef PrintMoveType
-
-.done
-	ret
-
-.Disabled:
-	db "Disabled!@"
 
 ; CheckPlayerHasUsableMoves:
 ; 	ld a, STRUGGLE

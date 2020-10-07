@@ -181,7 +181,7 @@ JumpKickVariables:
 	db -2
 	
 DizzyPunchVariables:
-	db HURRICANE, PIDGEY, PIDGEOTTO, PIDGEOT, -1
+	db HURRICANE, PIDGEY, PIDGEOTTO, PIDGEOT, VAPOREON, -1
 	db -2
 	
 FrozenTailVariables:
