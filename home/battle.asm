@@ -313,7 +313,7 @@ RegenPartyStamina::
 	ld b, a
 	ld a, [hli]
 	cp -1
-	jr z, .done
+	ret z
 	cp EGG
 	jr z, .next
 
@@ -344,13 +344,18 @@ RegenPartyStamina::
 
 .got_stamina_location
 	ld c, STA_HALF
-	ld a, [hl]
-	and STA_MASK
-	and a ; 0 stamina?
-	jr nz, .got_stamina
+; 	ld a, [hl]
+; 	and STA_MASK
+; 	and a ; 0 stamina?
+; 	jr nz, .got_stamina
+; 	sla c
+; .got_stamina
+	ld a, [wTypeModifier]
+	and $7f
+	cp SUPER_EFFECTIVE
+	jr nz, .not_super
 	sla c
-	sla c
-.got_stamina
+.not_super
 	ld a, [wBuffer2]
 	cp b
 	jr z, .same_battlemon
@@ -386,10 +391,7 @@ RegenPartyStamina::
 	inc a
 	ld [wCurPartyMon], a
 	pop bc
-	jr .loop
-.done
-	pop bc
-	ret
+	jp .loop
 
 ; Copies current battlemon stamina to partymon stamina. 	
 ; Takes current stamina (including exhaustion bits) in `hl` and PARTYMON or OTPARTYMON in `[wBuffer1]`

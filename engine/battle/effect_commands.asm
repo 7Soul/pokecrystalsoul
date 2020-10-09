@@ -710,13 +710,13 @@ BattleCommand_CheckObedience:
 	and a
 	ret nz
 
-	ld a, [wBattleMonStamina]
-	and STA_EX_MASK
-	cp $30
-	ld b, $80
-	ld c, $40 ; half of b (means 25% chance down the line)
-	ld d, $c0 ; b + c
-	jp z, .rand1
+	; ld a, [wBattleMonStamina]
+	; and STA_EX_MASK
+	; cp $30
+	; ld b, $80
+	; ld c, $40 ; half of b (means 25% chance down the line)
+	; ld d, $c0 ; b + c
+	; jp z, .rand1
 
 	; If the monster's id doesn't match the player's,
 	; some conditions need to be met.
@@ -1590,7 +1590,7 @@ INCLUDE "data/types/type_matchups.asm"
 BattleCommand_DamageVariation:
 ; damagevariation
 
-; Modify the damage spread between 85% and 100%.
+; Modify the damage spread between 95% and 100%.
 
 ; Because of the method of division the probability distribution
 ; is not consistent. This makes the highest damage multipliers
@@ -1615,7 +1615,7 @@ BattleCommand_DamageVariation:
 	ld a, [hl]
 	ldh [hMultiplicand + 2], a
 
-; Multiply by 85-100%...
+; Multiply by 95-100%...
 .loop
 	call BattleRandom
 	rrca
@@ -1631,7 +1631,7 @@ BattleCommand_DamageVariation:
 	ld b, $4
 	call Divide
 
-; ...to get .85-1.00x damage.
+; ...to get .95-1.00x damage.
 	ldh a, [hQuotient + 2]
 	ld hl, wCurDamage
 	ld [hli], a
@@ -5167,6 +5167,37 @@ CalcStats:
 	ld b, 4
 	call Divide
 
+	push de
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wBattleMonStamina
+	jr z, .got_stamina
+	ld hl, wEnemyMonStamina
+.got_stamina
+	ld a, [hl]
+	and STA_MASK
+	bit STA_EX, [hl]
+	ld hl, .stamina_bonuses
+	jr z, .not_exhausted
+	ld hl, .stamina_bonuses_exhausted
+.not_exhausted
+	ld b, 0
+	ld c, a
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld e, a
+	ld d, [hl]
+	
+	ld a, d
+	ldh [hMultiplier], a
+	call Multiply
+	ld b, 4
+	ld a, e
+	ldh [hDivisor], a
+	call Divide
+	pop de
+
 	ldh a, [hQuotient + 2]
 	ld b, a
 	ldh a, [hQuotient + 3]
@@ -5200,8 +5231,42 @@ CalcStats:
 	pop hl
 	pop af
 	dec a
-	jr nz, .loop
+	jp nz, .loop
 	ret
+
+.stamina_bonuses:
+	dwlb  9, 10 ;  0 - 0.90
+	dwlb  9, 10 ;  1 - 0.90
+	dwlb 18, 19 ;  2 - 0.95
+	dwlb 18, 19 ;  3 - 0.95
+	dwlb 18, 19 ;  4 - 0.95
+	dwlb  1,  1 ;  5 - 1.00
+	dwlb  1,  1 ;  6 - 1.00
+	dwlb  1,  1 ;  7 - 1.00
+	dwlb  1,  1 ;  8 - 1.00
+	dwlb  1,  1 ;  9 - 1.00
+	dwlb 20, 19 ; 10 - 1.05
+	dwlb 20, 19 ; 11 - 1.05
+	dwlb 20, 19 ; 12 - 1.05
+	dwlb 11, 10 ; 13 - 1.10
+	dwlb 11, 10 ; 14 - 1.10
+
+.stamina_bonuses_exhausted:
+	dwlb  9, 10 ;  0 - 0.90
+	dwlb  9, 10 ;  1 - 0.90
+	dwlb  9, 10 ;  2 - 0.90
+	dwlb  9, 10 ;  3 - 0.90
+	dwlb 18, 19 ;  4 - 0.95
+	dwlb 18, 19 ;  5 - 0.95
+	dwlb 18, 19 ;  6 - 0.95
+	dwlb 18, 19 ;  7 - 0.95
+	dwlb  1,  1 ;  8 - 1.00
+	dwlb  1,  1 ;  9 - 1.00
+	dwlb  1,  1 ; 10 - 1.00
+	dwlb  1,  1 ; 11 - 1.00
+	dwlb 20, 19 ; 12 - 1.05
+	dwlb 20, 19 ; 13 - 1.05
+	dwlb 20, 19 ; 14 - 1.05
 
 INCLUDE "engine/battle/move_effects/stampede.asm"
 

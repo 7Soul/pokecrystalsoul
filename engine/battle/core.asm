@@ -1044,50 +1044,25 @@ EndOpponentProtectEndureDestinyBond:
 	and a ; 0 stamina?
 	jr nz, .has_stamina
 ; Increase exhaustion counter
-	ld a, [hl]
-	and STA_EX_MASK
-	swap a
-	cp %11
-	jr z, .max_ex
-	inc a
-	push af
+	bit STA_EX, [hl]
+	jr z, .already_exhausted
+	set STA_EX, [hl]
+	push hl
 	push bc
 	ld c, 20
 	call DelayFrames
 	ld hl, MonIsExhausted
 	call StdBattleTextBox
 	pop bc
-	pop af
-.max_ex
-	ld c, a
-	swap a
-	or b
-	ld [hl], a
+	pop hl
+.already_exhausted
+	ld a, [hl]
 	ld [wBuffer2], a
 	ld a, [wBattleMode]
 	dec a
 	jr z, .wild
 	call UpdatePartyStamina
 .wild
-	call SwitchTurnCore
-	xor a
-	ld [wAttackMissed], a
-	ld a, [wBuffer2]
-	and STA_EX_MASK
-	swap a
-	; rra
-	dec a
-	jr z, .one_ex
-	dec a
-	jr nz, .end_ex2
-	callfar BattleCommand_RandomStatDown2
-	jr .end_ex
-.one_ex
-	callfar BattleCommand_RandomStatDown
-.end_ex
-	callfar BattleCommand_StatDownMessage
-.end_ex2
-	call SwitchTurnCore
 .has_stamina
 ; Regen stamina between turns
 	ldh a, [hBattleTurn]
@@ -1120,6 +1095,16 @@ EndOpponentProtectEndureDestinyBond:
 	call RegenPartyStamina
 .done_wild
 	call UpdateEnemyHUD
+	; Update stats after stamina actions
+	ld hl, CalcPlayerStats
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_pointer
+	ld hl, CalcEnemyStats
+
+.got_pointer
+	ld a, BANK(CalcEnemyStats)
+	rst FarCall
 	ret
 
 ResidualDamage:
@@ -4383,15 +4368,6 @@ OnEnterTraits:
 	ld [wTypeModifier], a
 	callfar DoMove
 	ret
-
-; BattleMenu_EnemyTrait:
-; 	call SetPlayerTurn
-; 	ld a, [wEnemyMonTrait]
-; 	ld [wNamedObjectIndexBuffer], a
-; 	call GetTraitName
-; 	ld hl, BattleText_EnemyTrait
-; 	call StdBattleTextBox
-; 	jp SetEnemyTurn
 
 NewBattleMonStatus:
 	xor a
