@@ -1,7 +1,7 @@
 MoveDescriptions::
 ; entries correspond to move ids (see constants/move_constants.asm)
 	dw PoundDescription
-	dw KarateChopDescription
+	dw GnawDescription
 	dw DoubleslapDescription
 	dw CometPunchDescription
 	dw MegaPunchDescription
@@ -266,7 +266,10 @@ PoundDescription:
 	db   "Pounds with fore-"
 	next "legs or tail.@"
 
-KarateChopDescription:
+GnawDescription:
+	db   "Drains foe, more"
+	next "when exhausted.@"
+
 RazorLeafDescription:
 CrabhammerDescription:
 SlashDescription:

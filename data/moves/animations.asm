@@ -2,7 +2,7 @@ BattleAnimations::
 ; entries correspond to constants/move_constants.asm
 	dba BattleAnim_0
 	dba BattleAnim_Pound
-	dba BattleAnim_Unused1
+	dba BattleAnim_Gnaw
 	dba BattleAnim_Doubleslap
 	dba BattleAnim_CometPunch
 	dba BattleAnim_MegaPunch
@@ -677,23 +677,38 @@ BattleAnim_Pound:
 	anim_wait 16
 	anim_ret
 
-BattleAnim_Unused1:
-	anim_1gfx ANIM_GFX_HIT
-	anim_sound 0, 1, SFX_KARATE_CHOP
-	anim_obj ANIM_OBJ_PALM, 136, 40, $0
-	anim_wait 6
-	anim_obj ANIM_OBJ_HIT_YFIX, 136, 40, $0
-	anim_wait 6
-	anim_sound 0, 1, SFX_KARATE_CHOP
-	anim_obj ANIM_OBJ_PALM, 136, 44, $0
-	anim_wait 6
-	anim_obj ANIM_OBJ_HIT_YFIX, 136, 44, $0
-	anim_wait 6
-	anim_sound 0, 1, SFX_KARATE_CHOP
-	anim_obj ANIM_OBJ_PALM, 136, 48, $0
-	anim_wait 6
-	anim_obj ANIM_OBJ_HIT_YFIX, 136, 48, $0
+BattleAnim_Gnaw:
+	anim_2gfx ANIM_GFX_PLANT, ANIM_GFX_HIT
+	anim_call BattleAnim_FollowEnemyFeet_1_bank2
+	anim_bgeffect ANIM_BG_VIBRATE_MON, $0, $0, $0
+	anim_sound 0, 1, SFX_BITE
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 128+6, 56-8, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_GNAW, 128+4, 56-4, $85
+	anim_wait 3
+	anim_obj ANIM_OBJ_GNAW, 128+8, 56-4, $28
+	anim_wait 3
+	anim_obj ANIM_OBJ_GNAW, 128, 56+4, $e8
+	anim_wait 3
+	anim_sound 0, 1, SFX_BITE
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 128, 56+4, $0
+	anim_obj ANIM_OBJ_GNAW, 128-8, 56, $4
+	anim_wait 3
+	anim_obj ANIM_OBJ_GNAW, 128-4, 56-8, $5c
+	anim_wait 3
+	anim_obj ANIM_OBJ_GNAW, 128+4, 56-4, $9d
+	anim_wait 3
+	anim_sound 0, 1, SFX_BITE
+	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 128-4, 56-4, $0
+	anim_obj ANIM_OBJ_GNAW, 128+8, 56-4, $28
+	anim_wait 3
+	anim_obj ANIM_OBJ_GNAW, 128, 56+4, $e8
+	anim_wait 3
+	anim_obj ANIM_OBJ_GNAW, 128-8, 56, $10
+	anim_wait 3
+	anim_obj ANIM_OBJ_GNAW, 128-4, 56-8, $52
 	anim_wait 16
+	anim_call BattleAnim_ShowMon_1_bank2
 	anim_ret
 
 BattleAnim_Doubleslap:

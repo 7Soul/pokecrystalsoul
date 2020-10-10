@@ -252,6 +252,7 @@ NUM_ANIM_OBJECTS EQU 10 ; see wActiveAnimObjects
 	const ANIM_OBJ_COSMIC_POWER
 	const ANIM_OBJ_BIG_ICE_ROCK
 	const ANIM_OBJ_SMALL_ICE_ROCK
+	const ANIM_OBJ_GNAW
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def
@@ -538,6 +539,8 @@ NUM_ANIM_OBJECTS EQU 10 ; see wActiveAnimObjects
 	const BATTLEANIMFRAMESET_C0
 	const BATTLEANIMFRAMESET_C1
 	const BATTLEANIMFRAMESET_C2
+	const BATTLEANIMFRAMESET_C3
+	const BATTLEANIMFRAMESET_C4
 
 ; BattleAnimOAMData indexes (see data/battle_anims/oam.asm)
 	const_def
@@ -771,6 +774,8 @@ NUM_ANIM_OBJECTS EQU 10 ; see wActiveAnimObjects
 	const BATTLEANIMOAMSET_E9
 	const BATTLEANIMOAMSET_EA
 	const BATTLEANIMOAMSET_EB
+	const BATTLEANIMOAMSET_EC
+	const BATTLEANIMOAMSET_ED
 
 ; BattleBGEffects indexes (see engine/battle_anims/bg_effects.asm)
 	const_def 1

@@ -24,7 +24,7 @@ DoBattleAnimFrame:
 	dw BattleAnimFunction_MoveFromUserToTargetSpinAround    ; BATTLEANIMFUNC_USER_TO_TARGET_SPIN
 	dw BattleAnimFunction_Shake                             ; BATTLEANIMFUNC_SHAKE
 	dw BattleAnimFunction_FireBlast                         ; BATTLEANIMFUNC_FIRE_BLAST
-	dw BattleAnimFunction_RazorLeaf                         ; BATTLEANIMFUNC_0b
+	dw BattleAnimFunction_RazorLeaf                         ; BATTLEANIMFUNC_RAZOR_LEAF
 	dw BattleAnimFunction_Bubble                            ; BATTLEANIMFUNC_BUBBLE
 	dw BattleAnimFunction_Surf                              ; BATTLEANIMFUNC_SURF
 	dw BattleAnimFunction_Sing                              ; BATTLEANIMFUNC_SING
@@ -1015,9 +1015,9 @@ BattleAnimFunction_RockSmash:
 	and $40
 	rlca
 	rlca
-	add BATTLEANIMFRAMESET_19
 	ld hl, BATTLEANIMSTRUCT_FRAMESET_ID
 	add hl, bc
+	add [hl]
 	ld [hl], a
 	call BattleAnim_IncAnonJumptableIndex
 	ld hl, BATTLEANIMSTRUCT_VAR1

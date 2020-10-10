@@ -318,6 +318,8 @@ SapHealth:
 .at_least_one
 	ld a, b
 	ldh [hDividend + 1], a
+	ldh a, [hBattleTurn]
+	push af
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
@@ -326,7 +328,9 @@ SapHealth:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitWhenDrainedOther
-
+	pop af
+	ldh [hBattleTurn], a
+	
 	ld hl, wBattleMonHP
 	ld de, wBattleMonMaxHP
 	ldh a, [hBattleTurn]

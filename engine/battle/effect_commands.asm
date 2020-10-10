@@ -388,7 +388,7 @@ CantMove:
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
 	ld a, [hl]
-	and $ff ^ (1 << SUBSTATUS_UNKNOWN_4 | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_CHARGED)
+	and $ff ^ (1 << SUBSTATUS_BIDE | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_CHARGED)
 	ld [hl], a
 
 	call ResetFuryCutterCount
@@ -1019,7 +1019,7 @@ BattleCommand_DoTurn:
 	ret z
 
 	ld a, [de]
-	and 1 << SUBSTATUS_IN_LOOP | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_UNKNOWN_4
+	and 1 << SUBSTATUS_IN_LOOP | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_BIDE
 	ret nz
 
 	push de
@@ -2443,16 +2443,6 @@ FailText_CheckOpponentProtect:
 .not_protected
 	jp StdBattleTextBox
 
-BattleCommand_BideFailText:
-	ld a, [wAttackMissed]
-	and a
-	ret z
-
-	ld a, [wTypeModifier]
-	and $7f
-	jp z, PrintDoesntAffect
-	jp PrintButItFailed
-
 BattleCommand_CriticalText:
 ; criticaltext
 ; Prints the message for critical hits or one-hit KOs.
@@ -2994,7 +2984,7 @@ BattleCommand_DamageCalc:
 	ld c, 1
 .not_dividing_by_zero
 
-	ld a, BATTLE_VARS_MOVE_ANIM
+	ld a, BATTLE_VARS_MOVE
 	call GetBattleVar
 	cp BUBBLE
 	jr nz, .not_bubble
@@ -3018,7 +3008,7 @@ BattleCommand_DamageCalc:
 	ld a, d
 	cp 50
 	pop de
-	jr nc, .not_bubble ; not under 50% hp
+	jr nc, .got_power_changes ; not under 50% hp
 
 	ld a, [wCurVariableMove]
 	ld hl, .new_bubble_power
@@ -3026,7 +3016,7 @@ BattleCommand_DamageCalc:
 	ld l, a
 	ld a, [hl]
 	ld d, a
-	jr .not_bubble
+	jp .got_power_changes
 
 .new_bubble_power:
 	db 40
@@ -3055,8 +3045,28 @@ BattleCommand_DamageCalc:
 
 .took_damage_double_power
 	sla d
+	jp .got_power_changes
 
 .not_avalanche
+	ld a, [wCurVariableMove]
+	cp -1
+	jr nz, .not_gnaw
+	ld a, BATTLE_VARS_MOVE
+	call GetBattleVar
+	cp GNAW
+	jr nz, .not_gnaw
+	ld hl, wBattleMonStamina
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .got_stamina
+	ld hl, wEnemyMonStamina
+.got_stamina
+	bit STA_EX, [hl]
+	jr z, .not_gnaw
+	ld d, 60
+	
+.not_gnaw
+.got_power_changes
 	xor a
 	ld hl, hDividend
 	ld [hli], a

@@ -167,8 +167,8 @@ CaterpieEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, STRING_SHOT
-	db 5, DOUBLESLAP ; becomes Pin Missile
-	db 9, LEECH_LIFE
+	db 6, GNAW
+	db 10, DOUBLESLAP ; becomes Pin Missile
 	db 14, NASTY_PLOT
 	db 19, PURSUIT
 	db 22, TWINEEDLE
@@ -181,10 +181,9 @@ CaterpieEvosAttacks:
 MetapodEvosAttacks:
 	db EVOLVE_LEVEL, 10, BUTTERFREE
 	db 0 ; no more evolutions
-	db 1, HARDEN
-	db 5, DOUBLESLAP ; becomes Pin Missile
 	db 6, HARDEN
-	db 9, LEECH_LIFE
+	db 8, GNAW
+	db 11, DOUBLESLAP ; becomes Pin Missile
 	db 14, NASTY_PLOT
 	db 20, PURSUIT
 	db 23, TWINEEDLE

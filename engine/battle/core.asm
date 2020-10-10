@@ -628,7 +628,7 @@ ParsePlayerAction:
 	and a
 	jr nz, .reset_bide
 	ld a, [wPlayerSubStatus3]
-	and 1 << SUBSTATUS_UNKNOWN_4
+	and 1 << SUBSTATUS_BIDE
 	jr nz, .locked_in
 	xor a
 	ld [wMoveSelectionMenuType], a
@@ -680,8 +680,8 @@ ParsePlayerAction:
 	jr .continue_protect
 
 .reset_bide
-	ld hl, wPlayerSubStatus3
-	res SUBSTATUS_UNKNOWN_4, [hl]
+	; ld hl, wPlayerSubStatus3
+	; res SUBSTATUS_BIDE, [hl]
 
 .locked_in
 	xor a
@@ -6092,7 +6092,7 @@ ParseEnemyAction:
 	bit SUBSTATUS_ROLLOUT, a
 	jp nz, .skip_load
 	ld a, [wEnemySubStatus3]
-	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_UNKNOWN_4
+	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_BIDE
 	jp nz, .skip_load
 
 	ld hl, wEnemySubStatus5
@@ -6238,7 +6238,7 @@ CheckEnemyLockedIn:
 
 	ld hl, wEnemySubStatus3
 	ld a, [hl]
-	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_UNKNOWN_4
+	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_BIDE
 	ret nz
 
 	ld hl, wEnemySubStatus1

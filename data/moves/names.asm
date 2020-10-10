@@ -1,6 +1,6 @@
 MoveNames::
 	db "Pound@"
-	db "Unused1@"
+	db "Gnaw@"
 	db "Doubleslap@"
 	db "Comet Punch@"
 	db "Mega Punch@"

@@ -52,6 +52,7 @@ CaterpieEggMoves:
 
 WeedleEggMoves:
 	db PURSUIT
+	db GNAW
 	db FAINT_ATTACK
 	db -1 ; end
 	
@@ -65,6 +66,7 @@ PidgeyEggMoves:
 
 RattataEggMoves:
 	db SCREECH
+	db GNAW
 	db FLAME_WHEEL
 	db FURY_ATTACK
 	db MAKESHIFT
@@ -120,6 +122,7 @@ NidoranMEggMoves:
 	db -1 ; end
 
 VulpixEggMoves:
+	db GNAW
 	db FAINT_ATTACK
 	db HYPNOSIS
 	db REVERSAL
@@ -364,6 +367,7 @@ GastlyEggMoves:
 	db PSYWAVE
 	db PERISH_SONG
 	db WILL_O_WISP
+	db GNAW
 	db DISABLE
 	db ICE_PUNCH
 	db -1 ; end
@@ -564,6 +568,7 @@ LaprasEggMoves:
 EeveeEggMoves:
 	db REVERSAL
 	db CHARM
+	db GNAW
 	db ENDURE
 	db MIMIC
 	db HYPER_FANG
@@ -703,6 +708,7 @@ PichuEggMoves:
 	db DIZZY_PUNCH
 	db REVERSAL
 	db ENCORE
+	db GNAW
 	db DOUBLESLAP
 	db THUNDERPUNCH
 	db -1 ; end

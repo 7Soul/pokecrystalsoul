@@ -231,6 +231,8 @@ BattleAnimOAMData:
 	dbbw $04,  6, .OAMData_31_f ; BATTLEANIMOAMSET_E9
 	dbbw $04,  6, .OAMData_31 ; BATTLEANIMOAMSET_EA ; unused
 	dbbw $00,  4, .OAMData_03_mirrored ; BATTLEANIMOAMSET_EB
+	dbbw $00,  1, .OAMData_ec ; BATTLEANIMOAMSET_EC
+	dbbw $04,  1, .OAMData_ec ; BATTLEANIMOAMSET_ED
 	
 
 .OAMData_11:
@@ -1128,3 +1130,7 @@ BattleAnimOAMData:
 	dsprite  -2, 0,   0, 0, $01, X_FLIP
 	dsprite  -1, 0,   1, 0, $02, X_FLIP
 	dsprite  -1, 0,   0, 0, $03, X_FLIP
+
+.OAMData_ec:
+	dsprite   0, 0,   0, 0, $00, $0
+	
