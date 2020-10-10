@@ -139,7 +139,7 @@ MoveDescriptions::
 	dw GlareDescription
 	dw DreamEaterDescription
 	dw PoisonGasDescription
-	dw UnusedMove2Description
+	dw AssuranceDescription
 	dw LeechLifeDescription
 	dw StampedeDescription
 	dw SkyAttackDescription
@@ -259,7 +259,6 @@ MoveDescriptions::
 
 MoveFFDescription:
 Move00Description:
-UnusedMove2Description:
 	db "?@"
 
 PoundDescription:
@@ -436,6 +435,10 @@ PoisonpowderDescription:
 PoisonGasDescription:
 	db   "A move that may"
 	next "poison the foe.@"
+	
+AssuranceDescription:
+	db   "Double in power if"
+	next "foe took damage.@"
 
 TwineedleDescription:
 	db   "Jabs the foe twice"
@@ -1303,7 +1306,7 @@ CosmicPowerDescription:
 AvalancheDescription:
 RevengeDescription:
 	db   "Double in power if"
-	next "you took damage.@"
+	next "foe took damage.@"
 
 GuardClawDescription:
 	db   "Better at low HP,"

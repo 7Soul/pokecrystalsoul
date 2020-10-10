@@ -481,7 +481,7 @@ wPlayerSubStatus3:: ; c66a
 ; 3 flinched
 ; 2 in loop
 ; 1 rampage
-; 0 bide
+; 0 
 	db
 wPlayerSubStatus4:: ; c66b
 ; bit

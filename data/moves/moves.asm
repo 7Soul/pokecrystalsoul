@@ -151,7 +151,7 @@ Moves:
 	move GLARE,        EFFECT_PARALYZE,            0, NORMAL,   STATUS,              75, STA_HALF,  0
 	move DREAM_EATER,  EFFECT_DREAM_EATER,       100, PSYCHIC,  SPECIAL,            100, STA_BAR + 1,   0
 	move POISON_GAS,   EFFECT_POISON,              0, POISON,   STATUS,              55, 0,         0
-	move UNUSED_MOVE_2,EFFECT_MULTI_HIT,          25, ROCK,     PHYSICAL,            85, STA_BAR,   0
+	move ASSURANCE,    EFFECT_NORMAL_HIT,         60, DARK,     PHYSICAL + CONTACT, 100, STA_BAR,   0
 	move LEECH_LIFE,   EFFECT_LEECH_HIT,          40, BUG,      PHYSICAL + CONTACT, 100, STA_BAR,   0
 	move STAMPEDE,     EFFECT_STAMPEDE,			  80, GROUND,   PHYSICAL + CONTACT,  75, STA_BAR, 100
 	move SKY_ATTACK,   EFFECT_SKY_ATTACK,        140, FLYING,   PHYSICAL + CONTACT,  90, STA_BAR * 3,   0

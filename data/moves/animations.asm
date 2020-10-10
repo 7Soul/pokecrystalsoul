@@ -140,7 +140,7 @@ BattleAnimations::
 	dba BattleAnim_Glare
 	dba BattleAnim_DreamEater
 	dba BattleAnim_PoisonGas
-	dba BattleAnim_UnusedMove2
+	dba BattleAnim_Assurance
 	dba BattleAnim_LeechLife
 	dba BattleAnim_Stampede
 	dba BattleAnim_SkyAttack
@@ -2889,8 +2889,19 @@ BattleAnim_PetalDance:
 	anim_wait 16
 	anim_ret
 
-BattleAnim_UnusedMove2:
-	anim_ret	
+BattleAnim_Assurance:
+	anim_1gfx ANIM_GFX_HIT
+	anim_bgeffect ANIM_BG_FADE_MON_TO_BLACK_REPEATING, $0, $0, $40
+	anim_sound 0, 1, SFX_SPARK
+	anim_wait 32
+	anim_sound 0, 1, SFX_DOUBLESLAP
+	anim_obj ANIM_OBJ_PALM, 126, 48, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_HIT_YFIX, 126+4, 48+4, $0
+	anim_wait 12
+	anim_incbgeffect ANIM_BG_FADE_MON_TO_BLACK_REPEATING
+	anim_wait 4
+	anim_ret
 
 BattleAnim_HyperSonar:
 	anim_1gfx ANIM_GFX_NOISE

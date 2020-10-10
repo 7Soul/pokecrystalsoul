@@ -448,6 +448,14 @@ EnemyTriesToFlee:
 	ret
 
 DetermineMoveOrder:
+	xor a
+	ld hl, wPlayerDamageTaken
+	ld [hli], a
+	ld [hl], a
+	ld hl, wEnemyDamageTaken
+	ld [hli], a
+	ld [hl], a
+
 	ld a, [wLinkMode]
 	and a
 	jr z, .use_move
@@ -626,9 +634,6 @@ ParsePlayerAction:
 	cp BATTLEPLAYERACTION_SWITCH
 	jr z, .reset_rage
 	and a
-	jr nz, .reset_bide
-	ld a, [wPlayerSubStatus3]
-	and 1 << SUBSTATUS_BIDE
 	jr nz, .locked_in
 	xor a
 	ld [wMoveSelectionMenuType], a
@@ -678,10 +683,6 @@ ParsePlayerAction:
 	xor a
 	ld [wPlayerProtectCount], a
 	jr .continue_protect
-
-.reset_bide
-	; ld hl, wPlayerSubStatus3
-	; res SUBSTATUS_BIDE, [hl]
 
 .locked_in
 	xor a
@@ -2012,6 +2013,7 @@ SubtractHPFromUser:
 	jp UpdateHPBarBattleHuds
 
 SubtractHP:
+	call UpdateDamageTakenCore
 	ld hl, wBattleMonHP
 	ldh a, [hBattleTurn]
 	and a
@@ -2040,6 +2042,33 @@ SubtractHP:
 	ld [hl], a
 	ld [wBuffer5], a
 	ld [wBuffer6], a
+	ret
+
+UpdateDamageTakenCore: ; damage in `BC`
+	push bc
+	ld de, wPlayerDamageTaken + 1
+	ldh a, [hBattleTurn]
+	and a
+	jr nz, .got_damage_taken
+	ld de, wEnemyDamageTaken + 1
+
+.got_damage_taken
+	ld a, [de]
+	add b
+	ld [de], a
+	dec de
+	ld a, c
+	ld b, a
+	ld a, [de]
+	adc b
+	ld [de], a	
+	jr nc, .end
+	ld a, $ff
+	ld [de], a
+	inc de
+	ld [de], a
+.end
+	pop bc
 	ret
 
 GetSixteenthMaxHP:
@@ -6092,7 +6121,7 @@ ParseEnemyAction:
 	bit SUBSTATUS_ROLLOUT, a
 	jp nz, .skip_load
 	ld a, [wEnemySubStatus3]
-	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_BIDE
+	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE
 	jp nz, .skip_load
 
 	ld hl, wEnemySubStatus5
@@ -6238,7 +6267,7 @@ CheckEnemyLockedIn:
 
 	ld hl, wEnemySubStatus3
 	ld a, [hl]
-	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_BIDE
+	and 1 << SUBSTATUS_CHARGED | 1 << SUBSTATUS_RAMPAGE
 	ret nz
 
 	ld hl, wEnemySubStatus1

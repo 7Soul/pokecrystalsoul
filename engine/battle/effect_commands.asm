@@ -388,7 +388,7 @@ CantMove:
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
 	ld a, [hl]
-	and $ff ^ (1 << SUBSTATUS_BIDE | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_CHARGED)
+	and $ff ^ (1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_CHARGED)
 	ld [hl], a
 
 	call ResetFuryCutterCount
@@ -1019,7 +1019,7 @@ BattleCommand_DoTurn:
 	ret z
 
 	ld a, [de]
-	and 1 << SUBSTATUS_IN_LOOP | 1 << SUBSTATUS_RAMPAGE | 1 << SUBSTATUS_BIDE
+	and 1 << SUBSTATUS_IN_LOOP | 1 << SUBSTATUS_RAMPAGE
 	ret nz
 
 	push de
@@ -2984,10 +2984,24 @@ BattleCommand_DamageCalc:
 	ld c, 1
 .not_dividing_by_zero
 
-	ld a, BATTLE_VARS_MOVE
-	call GetBattleVar
+	call GetMoveID
+	jr c, .variable_id
+	cp GNAW
+	jp z, .gnaw
+	cp ASSURANCE
+	jp z, .assurance
 	cp BUBBLE
-	jr nz, .not_bubble
+	jp z, .bubble
+	jp .got_power_changes
+	
+.variable_id
+	cp AVALANCHE
+	jp z, .avalanche_revenge
+	cp REVENGE
+	jp z, .avalanche_revenge
+	jp .got_power_changes
+
+.bubble
 	push de
 	ld hl, wEnemyMonHP
 	ld de, wBattleMonHP
@@ -2999,7 +3013,7 @@ BattleCommand_DamageCalc:
 	
 .battlemonhp
 	ld a, [wCurVariableMove]
-	cp GUARD_CLAW
+	cp GUARD_CLAW ; swaps target
 	jr nz, .got_hp_pointers
 	ld h, d
 	ld l, e
@@ -3023,38 +3037,26 @@ BattleCommand_DamageCalc:
 	db 90
 	db 130
 	
-.not_bubble
+.assurance
+.avalanche_revenge
 	ld hl, wEnemyDamageTaken + 1
 	ldh a, [hBattleTurn]
 	and a
-	jr z, .got_damage_taken
+	jr z, .got_damage_taken_pointer
 	ld hl, wPlayerDamageTaken + 1
-.got_damage_taken
+.got_damage_taken_pointer
 	ld a, [hld]
 	and a
 	jr nz, .took_damage
 	ld a, [hl]
 	and a
-	jr z, .not_avalanche
-.took_damage
-	ld a, [wCurVariableMove]
-	cp AVALANCHE
-	jr z, .took_damage_double_power
-	cp REVENGE
-	jr nz, .not_avalanche
+	jr z, .got_power_changes
 
-.took_damage_double_power
+.took_damage
 	sla d
 	jp .got_power_changes
 
-.not_avalanche
-	ld a, [wCurVariableMove]
-	cp -1
-	jr nz, .not_gnaw
-	ld a, BATTLE_VARS_MOVE
-	call GetBattleVar
-	cp GNAW
-	jr nz, .not_gnaw
+.gnaw
 	ld hl, wBattleMonStamina
 	ldh a, [hBattleTurn]
 	and a
@@ -3062,10 +3064,9 @@ BattleCommand_DamageCalc:
 	ld hl, wEnemyMonStamina
 .got_stamina
 	bit STA_EX, [hl]
-	jr z, .not_gnaw
+	jr z, .got_power_changes
 	ld d, 60
 	
-.not_gnaw
 .got_power_changes
 	xor a
 	ld hl, hDividend

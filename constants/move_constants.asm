@@ -145,7 +145,7 @@
 	const GLARE        ; 89
 	const DREAM_EATER  ; 8a
 	const POISON_GAS   ; 8b
-	const UNUSED_MOVE_2   ; 8c
+	const ASSURANCE   ; 8c
 	const LEECH_LIFE   ; 8d
 	const STAMPEDE     ; 8e
 	const SKY_ATTACK   ; 8f

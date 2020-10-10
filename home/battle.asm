@@ -453,3 +453,13 @@ ItemStaminaRegen::
 .no_regen
 	pop hl
 	ret
+
+GetMoveID::
+	ld a, [wCurVariableMove]
+	cp -1
+	scf
+	ret nz
+	ld a, BATTLE_VARS_MOVE
+	call GetBattleVar
+	and a
+	ret

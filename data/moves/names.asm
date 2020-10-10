@@ -138,7 +138,7 @@ MoveNames::
 	db "Glare@"
 	db "Dream Eater@"
 	db "Poison Gas@"
-	db "Rock Blast@"
+	db "Assurance@"
 	db "Leech Life@"
 	db "Stampede@"
 	db "Sky Attack@"

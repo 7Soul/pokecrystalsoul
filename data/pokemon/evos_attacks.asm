@@ -246,11 +246,12 @@ BeedrillEvosAttacks:
 	db 1, FURY_ATTACK
 	db 9, TWINEEDLE
 	db 11, FURY_ATTACK
-	db 15, FOCUS_ENERGY
-	db 19, RAGE
+	db 14, RAGE
+	db 20, FOCUS_ENERGY
 	db 23, VENOSHOCK
-	db 28, ZOOM_FLIGHT
-	db 30, PURSUIT
+	db 26, ASSURANCE
+	db 29, ZOOM_FLIGHT
+	db 32, PURSUIT
 	db 35, DOUBLESLAP ; becomes Pin Missile
 	db 41, AGILITY
 	db 44, FELL_STINGER
@@ -314,8 +315,8 @@ RattataEvosAttacks:
 	db 10, BITE
 	db 13, PURSUIT
 	db 16, HYPER_FANG	
-	db 21, LEAF_SHIELD	
-	db 23, DIG
+	db 21, LEAF_SHIELD
+	db 23, ASSURANCE
 	db 27, CRUNCH
 	db 30, FOCUS_ENERGY
 	db 36, SUPER_FANG
@@ -330,7 +331,7 @@ RaticateEvosAttacks:
 	db 16, HYPER_FANG
 	db 19, SCARY_FACE
 	db 23, LEAF_SHIELD	
-	db 26, DIG
+	db 26, ASSURANCE
 	db 31, CRUNCH
 	db 34, FOCUS_ENERGY
 	db 40, SUPER_FANG
@@ -350,6 +351,7 @@ SpearowEvosAttacks:
 	db 17, FAINT_ATTACK ; becomes Aerial Ace
 	db 21, MIRROR_MOVE
 	db 25, AGILITY
+	db 29, ASSURANCE
 	db 33, RECOVER ; becomes Roost
 	db 37, DRILL_PECK
 	db 48, JUMP_KICK ; becomes Sand Dive
@@ -364,6 +366,7 @@ FearowEvosAttacks:
 	db 20, FAINT_ATTACK ; becomes Aerial Ace
 	db 23, FIRE_PLAY ; becomes Flutter Clap
 	db 27, MIRROR_MOVE
+	db 33, ASSURANCE
 	db 37, RECOVER ; becomes Roost
 	db 41, DRILL_PECK
 	db 48, AGILITY
@@ -870,12 +873,13 @@ MeowthEvosAttacks:
 	db 1, GROWL
 	db 6, LICK
 	db 10, BITE
+	db 14, FURY_ATTACK
 	db 17, POWER_GEM
 	db 26, FAINT_ATTACK
 	db 33, SLASH ; becomes Night Slash
 	db 35, SCREECH
 	db 38, NASTY_PLOT
-	db 41, FURY_ATTACK
+	db 41, ASSURANCE
 	db 45, SWIFT
 	db 49, TAKE_DOWN
 	db 0 ; no more level-up moves
@@ -889,7 +893,7 @@ PersianEvosAttacks:
 	db 35, SLASH
 	db 38, SCREECH
 	db 41, NASTY_PLOT
-	db 45, FURY_ATTACK
+	db 45, ASSURANCE
 	db 49, SWIFT
 	db 55, TAKE_DOWN
 	db 0 ; no more level-up moves
@@ -1777,6 +1781,7 @@ KoffingEvosAttacks:
 	db 1, TACKLE
 	db 5, EMBER
 	db 9, SMOG
+	db 12, ASSURANCE
 	db 17, SELFDESTRUCT
 	db 25, SMOKESCREEN
 	db 28, WILL_O_WISP
@@ -1790,9 +1795,10 @@ KoffingEvosAttacks:
 WeezingEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SMOG
-	db 1, SELFDESTRUCT
-	db 27, SMOKESCREEN
-	db 31, WILL_O_WISP
+	db 12, ASSURANCE
+	db 17, SELFDESTRUCT
+	db 25, SMOKESCREEN
+	db 28, WILL_O_WISP
 	db 33, DOUBLE_KICK ; becomes Double Hit
 	db 36, HAZE
 	db 39, ROLLOUT
@@ -2198,6 +2204,7 @@ VaporeonEvosAttacks:
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 36, HAZE
 	db 46, ACID_ARMOR
+	db 46, ASSURANCE
 	db 51, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -3226,6 +3233,7 @@ UmbreonEvosAttacks:
 	db 1, SAND_ATTACK
 	db 6, PURSUIT
 	db 13, QUICK_ATTACK
+	db 25, ASSURANCE
 	db 30, CONFUSE_RAY
 	db 36, FAINT_ATTACK
 	db 42, MEAN_LOOK
@@ -3239,9 +3247,10 @@ MurkrowEvosAttacks:
 	db 1, PECK
 	db 1, CONFUSE_RAY
 	db 11, PURSUIT
-	db 16, HAZE
-	db 20, FEATHERGALE
-	db 24, NIGHT_SHADE
+	db 14, HAZE
+	db 16, FEATHERGALE
+	db 21, NIGHT_SHADE
+	db 25, ASSURANCE
 	db 31, FAINT_ATTACK
 	db 33, WHIRLWIND
 	db 41, MEAN_LOOK
