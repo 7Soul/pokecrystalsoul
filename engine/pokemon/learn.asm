@@ -1,16 +1,4 @@
 LearnMove:
-	ld a, [wPutativeTMHMMove]
-	ld e, a
-	predef IsVariableMove
-	jr nc, .not_variable
-	farcall GetVariableMoveType
-	jr nc, .not_variable
-	predef GetVariableMoveName
-	ld de, wStringBuffer2
-	ld bc, wStringBuffer3 - wStringBuffer2
-	call CopyBytes
-
-.not_variable
 	call LoadTileMapToTempTileMap
 	ld a, [wCurPartyMon] ; id in player's pokemon list
 	ld hl, wPartyMonNicknames
@@ -61,17 +49,25 @@ LearnMove:
 	ld [wDisabledMove], a
 	ld [wPlayerDisableCount], a
 .not_disabled
-	call GetMoveName
 
-	ld a, [wCurSpecies]
+	ld a, [wNamedObjectIndexBuffer]
+	push af
 	ld e, a
-	predef IsVariableMove
+	farcall IsVariableMove
 	jr nc, .not_variable2
 	farcall GetVariableMoveType
-	jr nc, .not_variable2
-	predef GetVariableMoveName
+	jr c, .variable
+	
 .not_variable2
-
+	ld a, $ff
+	ld [wCurVariableMove], a
+	pop af
+	ld [wNamedObjectIndexBuffer], a
+	jr .got_move_id
+.variable
+	pop af
+.got_move_id
+	call GetMoveName
 	ld hl, Text_1_2_and_Poof ; 1, 2 and…
 	call PrintText
 	pop de
@@ -150,8 +146,6 @@ LearnMove:
 	ld b, 1
 	ret
 	
-INCLUDE "data/moves/variable_moves_names.asm"
-
 ForgetMove:
 	push hl
 	ld hl, Text_TryingToLearn
@@ -236,32 +230,32 @@ ForgetMove:
 
 Text_LearnedMove:
 ; <MON> learned <MOVE>!
-	text_jump UnknownText_0x1c5660
+	text_jump _LearnedMoveText
 	db "@"
 
 Text_ForgetWhich:
 ; Which move should be forgotten?
-	text_jump UnknownText_0x1c5678
+	text_jump _MoveAskForgetText
 	db "@"
 
 Text_StopLearning:
 ; Stop learning <MOVE>?
-	text_jump UnknownText_0x1c5699
+	text_jump _StopLearningMoveText
 	db "@"
 
 Text_DidNotLearn:
 ; <MON> did not learn <MOVE>.
-	text_jump UnknownText_0x1c56af
+	text_jump _DidNotLearnMoveText
 	db "@"
 
 Text_TryingToLearn:
 ; <MON> is trying to learn <MOVE>. But <MON> can't learn more than
 ; four moves. Delete an older move to make room for <MOVE>?
-	text_jump UnknownText_0x1c56c9
+	text_jump _AskForgetMoveText
 	db "@"
 
 Text_1_2_and_Poof:
-	text_jump UnknownText_0x1c5740 ; 1, 2 and…
+	text_jump Text_MoveForgetCount ; 1, 2 and…
 	start_asm
 	push de
 	ld de, SFX_SWITCH_POKEMON
@@ -272,10 +266,10 @@ Text_1_2_and_Poof:
 
 .PoofForgot:
 ; Poof! <MON> forgot <MOVE>. And…
-	text_jump UnknownText_0x1c574e
+	text_jump _MoveForgotText
 	db "@"
 
 Text_CantForgetHM:
 ; HM moves can't be forgotten now.
-	text_jump UnknownText_0x1c5772
+	text_jump _MoveCantForgetHMText
 	db "@"

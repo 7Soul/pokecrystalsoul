@@ -718,7 +718,7 @@ ListMoves:
 	jr nc, .not_variable
 	farcall GetVariableMoveType
 	jr nc, .not_variable
-	farcall GetVariableMoveName
+	call GetMoveName
 	pop af
 	pop bc
 	pop de
@@ -775,6 +775,3 @@ ListMoves:
 
 .UnknownMove:
 	db "???@"
-
-; name in status screen and battle menu
-INCLUDE "data/moves/variable_moves_names.asm"

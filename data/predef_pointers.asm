@@ -90,6 +90,5 @@ PredefPointers::
 	add_predef IncreaseBadgeEvent
 	add_predef IsVariableMove
 	add_predef GetVariableMoveType
-	add_predef GetVariableMoveName
 	add_predef PrintTraitDesc
 	

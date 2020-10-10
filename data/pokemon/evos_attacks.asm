@@ -939,7 +939,7 @@ MankeyEvosAttacks:
 	db 1, FOCUS_ENERGY
 	db 4, LOW_KICK
 	db 6, FURY_ATTACK
-	db 10, KARATE_CHOP
+	db 10, SLASH ; becomes Karate Chop
 	db 13, PURSUIT
 	db 18, SEISMIC_TOSS
 	db 21, SWAGGER
@@ -1100,7 +1100,7 @@ AlakazamEvosAttacks:
 MachopEvosAttacks:
 	db EVOLVE_LEVEL, 28, MACHOKE
 	db 0 ; no more evolutions
-	db 1, KARATE_CHOP
+	db 1, SLASH ; becomes Karate Chop
 	db 1, LEER
 	db 6, LOW_KICK
 	db 8, FOCUS_ENERGY	
@@ -1611,7 +1611,7 @@ KrabbyEvosAttacks:
 	db 31, HORN_DRILL ; becomes Guillotine
 	db 34, IRON_TAIL ; becomes Razor Shell
 	db 37, SLAM
-	db 41, CRABHAMMER
+	db 41, SLASH ; becomes Crabhammer
 	db 44, BUBBLE ; becomes Brine
 	db 47, SHARPEN
 	db 0 ; no more level-up moves
@@ -1627,7 +1627,7 @@ KinglerEvosAttacks:
 	db 34, HORN_DRILL ; becomes Guillotine
 	db 39, IRON_TAIL ; becomes Razor Shell
 	db 43, SLAM
-	db 47, CRABHAMMER
+	db 47, SLASH ; becomes Crabhammer
 	db 50, BUBBLE ; becomes Brine
 	db 52, SHARPEN
 	db 0 ; no more level-up moves
@@ -2197,7 +2197,7 @@ VaporeonEvosAttacks:
 	db 20, AURORA_BEAM
 	db 24, BITE
 	db 35, DARK_PULSE ; becomes Waterfall
-	db 42, HAZE
+	db 36, HAZE
 	db 46, ACID_ARMOR
 	db 51, HYDRO_PUMP
 	db 0 ; no more level-up moves

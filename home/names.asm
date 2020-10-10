@@ -8,6 +8,7 @@ NamesPointers::
 	dbw 0, wOTPartyMonOT    ; ENEMY_OT_NAME
 	dba TrainerClassNames   ; TRAINER_NAME
 	dbw 4, MoveDescriptions ; MOVE_DESC_NAME_BROKEN (wrong bank)
+	dba VariableMoveNames   ; MOVE_NAME_VAR
 
 GetName::
 ; Return name wCurSpecies from name list wNamedObjectTypeBuffer in wStringBuffer1.
@@ -252,12 +253,17 @@ INCLUDE "home/hm_moves.asm"
 
 GetMoveName::
 	push hl
-
-	ld a, MOVE_NAME
-	ld [wNamedObjectTypeBuffer], a
-
+	ld a, [wCurVariableMove]
+	inc a
+	ld [wCurSpecies], a ; move id
+	and a
+	ld a, MOVE_NAME_VAR
+	jr nz, .variable
 	ld a, [wNamedObjectIndexBuffer] ; move id
 	ld [wCurSpecies], a
+	ld a, MOVE_NAME
+.variable
+	ld [wNamedObjectTypeBuffer], a
 
 	call GetName
 	ld de, wStringBuffer1
@@ -278,29 +284,5 @@ GetTraitName::
 	call GetName
 	ld de, wStringBuffer1
 	pop hl
-
 	ret
-
-GetVariableMoveName::
-; takes move id in 'e' and puts string in wStringBuffer1
-	ld a, BANK(VariableMoveNames)
-	rst Bankswitch
-	ld hl, VariableMoveNames
-	ld a, e
-	and a
-	jr z, .got_text
-.skip
-	ld a, [hli]
-	cp "@"
-	jr nz, .skip
-	dec e
-	jr z, .got_text
-	jr .skip
-
-.got_text
-	push hl
-	ld de, wStringBuffer1
-	ld bc, wStringBuffer2 - wStringBuffer1
-	call CopyBytes
-	pop hl
-	ret
+	

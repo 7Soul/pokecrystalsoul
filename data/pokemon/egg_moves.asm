@@ -1023,7 +1023,7 @@ SmoochumEggMoves:
 
 ElekidEggMoves:
 	db DIZZY_PUNCH
-	db KARATE_CHOP
+	db SLASH ; becomes Karate Chop
 	db BARRIER
 	db ROLLING_KICK
 	db MEDITATE
@@ -1033,7 +1033,7 @@ ElekidEggMoves:
 
 MagbyEggMoves:
 	db DIZZY_PUNCH
-	db KARATE_CHOP
+	db SLASH ; becomes Karate Chop
 	db MEGA_PUNCH
 	db BARRIER
 	db SCREECH

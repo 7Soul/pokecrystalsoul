@@ -185,7 +185,6 @@ SECTION "bank10", ROMX
 
 INCLUDE "engine/pokedex/pokedex.asm"
 INCLUDE "data/moves/moves.asm"
-INCLUDE "engine/pokemon/evolve.asm"
 
 
 SECTION "Traits Core", ROMX
@@ -199,6 +198,7 @@ INCLUDE "engine/battle/ai/move.asm"
 INCLUDE "engine/pokedex/pokedex_2.asm"
 INCLUDE "engine/pokemon/mail.asm"
 INCLUDE "data/pokemon/evolution_moves.asm"
+INCLUDE "engine/pokemon/evolve.asm"
 
 SECTION "Crystal Features 1", ROMX
 

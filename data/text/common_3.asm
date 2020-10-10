@@ -449,13 +449,13 @@ UnknownText_0x1c4ae5::
 	line "excite anyone."
 	done
 
-UnknownText_0x1c4b92::
+_CongratulationsYourPokemonText::
 	text "Congratulations!"
 	line "Your @"
 	text_from_ram wStringBuffer2
 	db "@@"
 
-UnknownText_0x1c4baf::
+_EvolvedIntoText::
 	text_start
 
 	para "evolved into"
@@ -464,14 +464,14 @@ UnknownText_0x1c4baf::
 	text "!"
 	done
 
-UnknownText_0x1c4bc5::
+_StoppedEvolvingText::
 	text "Huh? @"
 	text_from_ram wStringBuffer2
 	text_start
 	line "stopped evolving!"
 	prompt
 
-UnknownText_0x1c4be3::
+_EvolvingText::
 	text "What? @"
 	text_from_ram wStringBuffer2
 	text_start
@@ -936,7 +936,7 @@ UnknownText_0x1c564a::
 	line "data?"
 	done
 
-UnknownText_0x1c5660::
+_LearnedMoveText::
 	text_from_ram wMonOrItemNameBuffer
 	text " learned"
 	line "@"
@@ -946,19 +946,19 @@ UnknownText_0x1c5660::
 	text_waitbutton
 	db "@@"
 
-UnknownText_0x1c5678::
+_MoveAskForgetText::
 	text "Which move should"
 	next "be forgotten?"
 	done
 
-UnknownText_0x1c5699::
+_StopLearningMoveText::
 	text "Stop learning"
 	line "@"
 	text_from_ram wStringBuffer2
 	text "?"
 	done
 
-UnknownText_0x1c56af::
+_DidNotLearnMoveText::
 	text_from_ram wMonOrItemNameBuffer
 	text_start
 	line "did not learn"
@@ -967,7 +967,7 @@ UnknownText_0x1c56af::
 	text "."
 	prompt
 
-UnknownText_0x1c56c9::
+_AskForgetMoveText::
 	text_from_ram wMonOrItemNameBuffer
 	text " is"
 	line "trying to learn"
@@ -988,12 +988,12 @@ UnknownText_0x1c56c9::
 	text "?"
 	done
 
-UnknownText_0x1c5740::
+Text_MoveForgetCount::
 	text "1, 2 and…@"
 	interpret_data
 	db "@@"
 
-UnknownText_0x1c574e::
+_MoveForgotText::
 	text " Poof!@"
 	interpret_data
 	text_start
@@ -1008,7 +1008,7 @@ UnknownText_0x1c574e::
 	para "And…"
 	prompt
 
-UnknownText_0x1c5772::
+_MoveCantForgetHMText::
 	text "HM moves can't be"
 	line "forgotten now."
 	prompt

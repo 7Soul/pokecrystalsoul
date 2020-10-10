@@ -7,7 +7,7 @@
 	const_def
 	const NO_MOVE      ; 00
 	const POUND        ; 01
-	const KARATE_CHOP  ; 02
+	const UNUSED_MOVE_1  ; 02
 	const DOUBLESLAP   ; 03
 	const COMET_PUNCH  ; 04
 	const MEGA_PUNCH   ; 05
@@ -157,7 +157,7 @@
 	const PSYWAVE      ; 95
 	const AIR_SLASH    ; 96
 	const ACID_ARMOR   ; 97
-	const CRABHAMMER   ; 98
+	const UNUSED_MOVE_3   ; 98
 	const EXPLOSION    ; 99
 	const JET_STREAM   ; 9a
 	const FEATHERGALE  ; 9b
@@ -321,42 +321,44 @@ NUM_ATTACKS EQU const_value + -1
 	const NIGHT_SLASH     ; 12
 	const LEAF_BLADE      ; 13
 	const AIR_CUTTER      ; 14
-	const SEED_BOMB       ; 15
-	const AERIAL_ACE      ; 16
-	const FEATHERDANCE    ; 17
-	const FISSURE         ; 18
-	const SHEER_COLD      ; 19
-	const GUILLOTINE      ; 1a
-	const WITHDRAW        ; 1b
-	const IRON_DEFENSE    ; 1c
-	const BONEMERANG      ; 1d
-	const ENERGY_BALL     ; 1e
-	const FLAIL           ; 1f
-	const MUD_SHOT        ; 20
-	const MEGA_SPLASH     ; 21
-	const SAND_DIVE       ; 22
-	const HURRICANE       ; 23
-	const RAZOR_SHELL     ; 24
-	const SPIRAL_KICK     ; 25
-	const POWER_WHIP      ; 26
-	const ROCK_POLISH     ; 27
-	const SHOCK_STING     ; 28
-	const PSYSHOCK        ; 29
-	const ROCK_TUMBLE     ; 2a
-	const BRUTAL_VINE     ; 2b
-	const DOUBLE_HIT      ; 2c
-	const WATERFALL       ; 2d
-	const IRON_HEAD       ; 2e
-	const EXTRASENSORY    ; 2f
-	const FIRE_FANG       ; 30
-	const ICE_FANG        ; 31
-	const THUNDER_FANG    ; 32
-	const CALM_MIND       ; 33
-	const COSMIC_POWER    ; 34
-	const ROOST           ; 35
-	const AVALANCHE       ; 36
-	const REVENGE         ; 37
-	const GUARD_CLAW      ; 38
-	const BRINE           ; 39
-	const POISON_FANG     ; 3a
-	const WATER_PULSE     ; 3b
+	const CRABHAMMER      ; 15
+	const KARATE_CHOP     ; 16
+	const SEED_BOMB       ; 17
+	const AERIAL_ACE      ; 18
+	const FEATHERDANCE    ; 19
+	const FISSURE         ; 1a
+	const SHEER_COLD      ; 1b
+	const GUILLOTINE      ; 1c
+	const WITHDRAW        ; 1d
+	const IRON_DEFENSE    ; 1e
+	const BONEMERANG      ; 1f
+	const ENERGY_BALL     ; 20
+	const FLAIL           ; 21
+	const MUD_SHOT        ; 22
+	const MEGA_SPLASH     ; 23
+	const SAND_DIVE       ; 24
+	const HURRICANE       ; 25
+	const RAZOR_SHELL     ; 26
+	const SPIRAL_KICK     ; 27
+	const POWER_WHIP      ; 28
+	const ROCK_POLISH     ; 29
+	const SHOCK_STING     ; 2a
+	const PSYSHOCK        ; 2b
+	const ROCK_TUMBLE     ; 2c
+	const BRUTAL_VINE     ; 2d
+	const DOUBLE_HIT      ; 2e
+	const WATERFALL       ; 2f
+	const IRON_HEAD       ; 30
+	const EXTRASENSORY    ; 31
+	const FIRE_FANG       ; 32
+	const ICE_FANG        ; 33
+	const THUNDER_FANG    ; 34
+	const CALM_MIND       ; 35
+	const COSMIC_POWER    ; 36
+	const ROOST           ; 37
+	const AVALANCHE       ; 38
+	const REVENGE         ; 39
+	const GUARD_CLAW      ; 3a
+	const BRINE           ; 3b
+	const POISON_FANG     ; 3c
+	const WATER_PULSE     ; 3d

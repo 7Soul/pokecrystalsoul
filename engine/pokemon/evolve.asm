@@ -48,9 +48,8 @@ EvolveAfterBattle_MasterLoop:
 	ld hl, EvosAttacksPointers
 	add hl, bc
 	add hl, bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
+	ld a, BANK(EvosAttacksPointers)
+	call GetFarHalfword
 
 	push hl
 	xor a
@@ -392,53 +391,27 @@ IsMonHoldingEverstone:
 	call AddNTimes
 	ld a, [hl]
 	cp EVERSTONE
-; 	jr z, .is_everstone
-; 	cp TOUGH_HORN
-; 	jr z, .is_everstone
-; 	cp STEEL_WING
-; 	jr z, .is_everstone
-; 	cp CINDERS
-; 	jr z, .is_everstone
-; 	cp BATTERY
-; 	jr z, .is_everstone
-; 	cp DARK_MIRROR
-; 	jr z, .is_everstone
-; 	cp DUMBELL
-; 	jr z, .is_everstone
-; 	cp GRASSWHISTLE
-; 	jr z, .is_everstone
-; 	cp ACCELEROCK
-; 	jr z, .is_everstone
-; 	cp SHINY_CORAL
-; 	jr z, .is_everstone
-; 	cp CUTE_RIBBON
-; 	jr z, .is_everstone
-; 	cp FROZEN_DEW
-; 	jr z, .is_everstone
-; 	cp EYE_GLYPH
-; 	jr z, .is_everstone
-; .is_everstone
 	pop hl
 	ret
 
 Text_CongratulationsYourPokemon:
 	; Congratulations! Your @ @
-	text_jump UnknownText_0x1c4b92
+	text_jump _CongratulationsYourPokemonText
 	db "@"
 
 Text_EvolvedIntoPKMN:
 	; evolved into @ !
-	text_jump UnknownText_0x1c4baf
+	text_jump _EvolvedIntoText
 	db "@"
 
 Text_StoppedEvolving:
 	; Huh? @ stopped evolving!
-	text_jump UnknownText_0x1c4bc5
+	text_jump _StoppedEvolvingText
 	db "@"
 
 Text_WhatEvolving:
 	; What? @ is evolving!
-	text_jump UnknownText_0x1c4be3
+	text_jump _EvolvingText
 	db "@"
 
 LearnLevelMoves:
@@ -450,24 +423,29 @@ LearnLevelMoves:
 	ld hl, EvosAttacksPointers
 	add hl, bc
 	add hl, bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
+	ld a, BANK(EvosAttacksPointers)
+	call GetFarHalfword
 
 .skip_evos
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	and a
 	jr nz, .skip_evos
 
 .find_move
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	and a
 	jr z, .done
 
 	ld b, a
 	ld a, [wCurPartyLevel]
 	cp b
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	jr nz, .find_move
 
 	push hl
@@ -494,6 +472,11 @@ LearnLevelMoves:
 	ld a, d
 	ld [wPutativeTMHMMove], a
 	ld [wNamedObjectIndexBuffer], a
+	ld e, a
+	predef IsVariableMove
+	jr nc, .not_variable
+	farcall GetVariableMoveType
+.not_variable
 	call GetMoveName
 	call CopyName1
 	predef LearnMove
@@ -608,6 +591,7 @@ FillMoves:
 	push hl
 	push de
 	push bc
+
 	ld hl, EvosAttacksPointers
 	ld b, 0
 	ld a, [wCurPartySpecies]
@@ -616,11 +600,12 @@ FillMoves:
 	rl b
 	ld c, a
 	add hl, bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
+	ld a, BANK(EvosAttacksPointers)
+	call GetFarHalfword
 .GoToAttacks:
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	and a
 	jr nz, .GoToAttacks
 	jr .GetLevel
@@ -630,7 +615,9 @@ FillMoves:
 .GetMove:
 	inc hl
 .GetLevel:
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	and a
 	jp z, .done
 	ld b, a
@@ -649,8 +636,11 @@ FillMoves:
 	ld c, NUM_MOVES
 .CheckRepeat:
 	ld a, [de]
+	ld b, a
 	inc de
-	cp [hl]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	cp b
 	jr z, .NextMove
 	dec c
 	jr nz, .CheckRepeat
@@ -669,7 +659,15 @@ FillMoves:
 	push hl
 	ld h, d
 	ld l, e
-	call ShiftMoves
+	; call ShiftMoves
+	ld c, NUM_MOVES - 1
+.loop_1
+	inc de
+	ld a, [de]
+	ld [hli], a
+	dec c
+	jr nz, .loop_1
+
 	ld a, [wEvolutionOldSpecies]
 	and a
 	jr z, .ShiftedMove
@@ -678,21 +676,32 @@ FillMoves:
 	add hl, bc
 	ld d, h
 	ld e, l
-	call ShiftMoves
+	; call ShiftMoves
+
+	ld c, NUM_MOVES - 1
+.loop_2
+	inc de
+	ld a, [de]
+	ld [hli], a
+	dec c
+	jr nz, .loop_2
+
 	pop de
 
 .ShiftedMove:
 	pop hl
 
 .LearnMove:
-	ld a, [hl]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
 	ld [de], a
 	ld a, [wEvolutionOldSpecies]
 	and a
 	jr z, .NextMove
 	
 	push hl	
-	ld a, [hl]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
 	ld hl, MON_PP - MON_MOVES
 	add hl, de
 	push hl
@@ -722,6 +731,7 @@ FillMoves:
 	pop bc
 	pop de
 	pop hl
+
 
 	ld a, [wLuckyWild]
 	cp 0
@@ -771,9 +781,8 @@ GetPreEvolution:
 	ld b, 0
 	add hl, bc
 	add hl, bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
+	ld a, BANK(EvosAttacksPointers)
+	call GetFarHalfword
 .loop2 ; For each evolution...
 	ld a, [hli]
 	and a

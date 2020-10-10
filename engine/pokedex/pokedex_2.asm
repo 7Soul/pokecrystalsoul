@@ -872,15 +872,22 @@ Pokedex_GetMoves:
 ; levelOneMove
 	ld a, [wNamedObjectIndexBuffer]
 	ld [wCurSpecies], a
+	push af
 	ld e, a
 	farcall IsVariableMove
 	jr nc, .not_variable
 	farcall GetVariableMoveType
-	jr nc, .not_variable
-	farcall GetVariableMoveName
-	ld de, wStringBuffer1
-	jr .unknown_move
+	jr c, .variable
+	
 .not_variable
+	ld a, $ff
+	ld [wCurVariableMove], a
+	pop af
+	ld [wNamedObjectIndexBuffer], a
+	jr .got_move_id
+.variable
+	pop af
+.got_move_id
 	call GetMoveName
 .unknown_move
 	pop hl

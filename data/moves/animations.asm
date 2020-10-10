@@ -2,7 +2,7 @@ BattleAnimations::
 ; entries correspond to constants/move_constants.asm
 	dba BattleAnim_0
 	dba BattleAnim_Pound
-	dba BattleAnim_KarateChop
+	dba BattleAnim_Unused1
 	dba BattleAnim_Doubleslap
 	dba BattleAnim_CometPunch
 	dba BattleAnim_MegaPunch
@@ -152,7 +152,7 @@ BattleAnimations::
 	dba BattleAnim_Psywave
 	dba BattleAnim_AirSlash
 	dba BattleAnim_AcidArmor
-	dba BattleAnim_Crabhammer
+	dba BattleAnim_Unused3
 	dba BattleAnim_Explosion
 	dba BattleAnim_JetStream
 	dba BattleAnim_Feathergale
@@ -677,7 +677,7 @@ BattleAnim_Pound:
 	anim_wait 16
 	anim_ret
 
-BattleAnim_KarateChop:
+BattleAnim_Unused1:
 	anim_1gfx ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_KARATE_CHOP
 	anim_obj ANIM_OBJ_PALM, 136, 40, $0
@@ -1693,6 +1693,8 @@ BattleAnim_Slash:
 	anim_if_param_equal NIGHT_SLASH, .night_slash
 	anim_if_param_equal LEAF_BLADE, .leaf_blade
 	anim_if_param_equal AIR_CUTTER, .aircutter
+	anim_if_param_equal CRABHAMMER, .crabhammer
+	anim_if_param_equal KARATE_CHOP, .karatechop
 
 .night_slash
 	anim_bgeffect ANIM_BG_BLACK_HUES, $0, $8, $0
@@ -1727,7 +1729,7 @@ BattleAnim_Slash:
 
 .aircutter
 	anim_2gfx ANIM_GFX_WHIP, ANIM_GFX_CUT
-.loop
+.loop_aircutter
 	anim_sound 3, 0, SFX_RAZOR_WIND
 	anim_obj ANIM_OBJ_SONICBOOM_JP, 64, 88, $6
 	anim_wait 8
@@ -1737,7 +1739,7 @@ BattleAnim_Slash:
 	anim_sound 3, 0, SFX_RAZOR_WIND
 	anim_obj ANIM_OBJ_SONICBOOM_JP, 64, 88+4, $6
 	anim_wait 8
-	anim_loop 2, .loop
+	anim_loop 2, .loop_aircutter
 	anim_wait 6
 	anim_clearobjs
 	anim_sound 0, 1, SFX_CUT
@@ -1746,6 +1748,37 @@ BattleAnim_Slash:
 	anim_sound 0, 1, SFX_CUT
 	anim_wait 8
 	anim_sound 0, 1, SFX_CUT
+	anim_ret
+
+.crabhammer
+	anim_1gfx ANIM_GFX_HIT
+	anim_bgeffect ANIM_BG_SHAKE_SCREEN_X, $40, $2, $0
+	anim_wait 48
+	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $8, $3
+.loop_crabhammer
+	anim_sound 0, 1, SFX_MEGA_PUNCH
+	anim_obj ANIM_OBJ_HIT_BIG_YFIX, 136, 56, $0
+	anim_wait 12
+	anim_loop 3, .loop_crabhammer
+	anim_ret
+
+.karatechop
+	anim_1gfx ANIM_GFX_HIT
+	anim_sound 0, 1, SFX_KARATE_CHOP
+	anim_obj ANIM_OBJ_PALM, 136, 40, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_HIT_YFIX, 136, 40, $0
+	anim_wait 6
+	anim_sound 0, 1, SFX_KARATE_CHOP
+	anim_obj ANIM_OBJ_PALM, 136, 44, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_HIT_YFIX, 136, 44, $0
+	anim_wait 6
+	anim_sound 0, 1, SFX_KARATE_CHOP
+	anim_obj ANIM_OBJ_PALM, 136, 48, $0
+	anim_wait 6
+	anim_obj ANIM_OBJ_HIT_YFIX, 136, 48, $0
+	anim_wait 16
 	anim_ret
 
 BattleAnim_Clamp:
@@ -2943,7 +2976,7 @@ BattleAnim_Swift:
 	anim_wait 64
 	anim_ret
 
-BattleAnim_Crabhammer:
+BattleAnim_Unused3:
 	anim_1gfx ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_SHAKE_SCREEN_X, $40, $2, $0
 	anim_wait 48

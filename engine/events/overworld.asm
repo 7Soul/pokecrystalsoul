@@ -1473,9 +1473,9 @@ HasRockSmash:
 	ld d, ROCK_THROW
 	call CheckPartyMove
 	jr nc, .yes
-	ld d, CRABHAMMER
-	call CheckPartyMove
-	jr nc, .yes
+	; ld d, CRABHAMMER
+	; call CheckPartyMove
+	; jr nc, .yes
 .no
 	ld a, 1
 	jr .done

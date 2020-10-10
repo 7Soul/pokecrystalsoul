@@ -9,7 +9,7 @@ RainDanceMoves:
 	db TWISTER
 	db CLAMP
 	db BUBBLE
-	db CRABHAMMER
+	; db CRABHAMMER
 	db OCTAZOOKA
 	db WHIRLPOOL
 	db -1 ; end

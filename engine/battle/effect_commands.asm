@@ -3694,24 +3694,24 @@ UpdateMoveData:
 	dec a
 	call GetMoveData
 	ld a, [wCurSpecies]
+	push af
 	ld e, a
 	farcall IsVariableMove
 	jr nc, .not_variable
 	farcall GetVariableMoveType
-	jr nc, .not_variable
-	
-	farcall GetVariableMoveName
-	ld hl, wStringBuffer1
-	ld de, wStringBuffer2
-	ld bc, wStringBuffer2 - wStringBuffer1
-	jp CopyBytes
+	jr c, .variable
 
 .not_variable
-	ld a, BATTLE_VARS_MOVE
-	call GetBattleVar
+	ld a, $ff
+	ld [wCurVariableMove], a
+	pop af
 	ld [wCurSpecies], a
 	ld [wNamedObjectIndexBuffer], a
 	dec a
+	jr .got_move_id
+.variable
+	pop af
+.got_move_id
 	call GetMoveName
 	jp CopyName1
 

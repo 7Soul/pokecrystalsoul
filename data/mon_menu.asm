@@ -48,7 +48,6 @@ FieldNamesIds:
 	db ROCK_SMASH
 	db ROCK_SLIDE
 	db ROCK_THROW
-	db CRABHAMMER
 	db -1
 
 FieldNamesString:
