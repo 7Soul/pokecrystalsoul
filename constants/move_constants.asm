@@ -362,3 +362,4 @@ NUM_ATTACKS EQU const_value + -1
 	const BRINE           ; 3b
 	const POISON_FANG     ; 3c
 	const WATER_PULSE     ; 3d
+	const CLEAR_SMOG      ; 3e

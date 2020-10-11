@@ -1179,6 +1179,7 @@ VariableMoveDescriptions::
 	dw $0000 ; BrineDescription
 	dw PoisonFangDescription
 	dw $0000 ; WaterPulseDescription
+	dw ClearSmogDescription
 
 ; BoneRushDescription:
 ; PinMissileDescription:
@@ -1315,6 +1316,10 @@ GuardClawDescription:
 PoisonFangDescription:
 	db   "A poison move with"
 	next "increasing damage.@"
+
+ClearSmogDescription:
+	db   "Eliminates foe's"
+	next "stat changes.@"
 
 PowerWhipDescription:
 RockPolishDescription:

@@ -913,7 +913,7 @@ PsyduckEvosAttacks:
 	db 28, AQUA_TAIL
 	db 33, PSYCH_UP
 	db 37, AMNESIA
-	db 40, HYDRO_PUMP
+	db 41, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 GolduckEvosAttacks:
@@ -930,7 +930,7 @@ GolduckEvosAttacks:
 	db 30, AQUA_TAIL
 	db 33, PSYCH_UP
 	db 42, AMNESIA
-	db 45, HYDRO_PUMP
+	db 46, HYDRO_PUMP
 	db 51, PSYBEAM
 	db 0 ; no more level-up moves
 
@@ -1775,36 +1775,36 @@ LickitungEvosAttacks:
 	db 0 ; no more level-up moves
 
 KoffingEvosAttacks:
-	db EVOLVE_LEVEL, 35, WEEZING
+	db EVOLVE_LEVEL, 32, WEEZING
 	db 0 ; no more evolutions
 	db 1, MUD_BOMB
 	db 1, TACKLE
-	db 5, EMBER
-	db 9, SMOG
+	db 5, SMOG
+	db 9, ACID
 	db 12, ASSURANCE
-	db 17, SELFDESTRUCT
+	db 15, HAZE ; becomes Clear Smog
+	db 19, SELFDESTRUCT
 	db 25, SMOKESCREEN
-	db 28, WILL_O_WISP
-	db 33, HAZE
-	db 35, ROLLOUT
-	db 41, EXPLOSION
-	db 45, SUNNY_DAY
-	db 49, FIRE_FLICK
+	db 29, GYRO_BALL
+	db 34, SLUDGE_BOMB
+	db 37, EXPLOSION
+	db 41, WILL_O_WISP
+	db 44, FIRE_FLICK
+	db 49, MIRROR_COAT
 	db 0 ; no more level-up moves
 
 WeezingEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, SMOG
-	db 12, ASSURANCE
-	db 17, SELFDESTRUCT
+	db 15, HAZE ; becomes Clear Smog
+	db 19, SELFDESTRUCT
 	db 25, SMOKESCREEN
-	db 28, WILL_O_WISP
+	db 29, GYRO_BALL
 	db 33, DOUBLE_KICK ; becomes Double Hit
-	db 36, HAZE
-	db 39, ROLLOUT
-	db 45, EXPLOSION
-	db 50, SUNNY_DAY
-	db 54, FIRE_FLICK
+	db 36, SLUDGE_BOMB
+	db 40, EXPLOSION
+	db 44, WILL_O_WISP
+	db 48, FIRE_FLICK
+	db 54, MIRROR_COAT
 	db 0 ; no more level-up moves
 
 RhyhornEvosAttacks:
@@ -2073,8 +2073,9 @@ MagmarEvosAttacks:
 	db 15, FIRE_SPIN
 	db 19, FIRE_PUNCH
 	db 25, SMOKESCREEN
-	db 29, MAGMA_STORM
-	db 34, SUNNY_DAY
+	db 28, MAGMA_STORM
+	db 31, HAZE ; becomes Clear Smog
+	db 35, SUNNY_DAY
 	db 39, DIZZY_PUNCH	
 	db 45, CONFUSE_RAY
 	db 49, FLAMETHROWER
@@ -2204,7 +2205,6 @@ VaporeonEvosAttacks:
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 36, HAZE
 	db 46, ACID_ARMOR
-	db 46, ASSURANCE
 	db 51, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -3569,6 +3569,7 @@ SlugmaEvosAttacks:
 	db 8, FIRE_PLAY ; becomes Kindle Clash
 	db 10, ROCK_THROW
 	db 13, HARDEN
+	db 19, HAZE ; becomes Clear Smog
 	db 22, ANCIENTPOWER
 	db 29, ROCK_SLIDE
 	db 36, AMNESIA
@@ -3583,6 +3584,7 @@ MagcargoEvosAttacks:
 	db 8, FIRE_PLAY ; becomes Kindle Clash
 	db 10, ROCK_THROW
 	db 13, HARDEN
+	db 19, HAZE ; becomes Clear Smog
 	db 22, ANCIENTPOWER
 	db 30, ROCK_SLIDE
 	db 37, AMNESIA
@@ -3939,6 +3941,7 @@ MagbyEvosAttacks:
 	db 15, FIRE_SPIN
 	db 19, FIRE_PUNCH
 	db 25, SMOKESCREEN	
+	db 28, HAZE ; becomes Clear Smog
 	db 30, SUNNY_DAY
 	db 33, FAINT_ATTACK ; unevolved move
 	db 37, DIZZY_PUNCH

@@ -195,9 +195,7 @@ PsyduckEggMoves:
 	db ICE_BEAM
 	db PSYBEAM
 	db LIGHT_SCREEN
-	db FUTURE_SIGHT
-	db PSYCHIC_M
-	db CROSS_CHOP
+	db HAZE ; becomes Clear Smog
 	db SLEEP_TALK
 	db -1 ; end
 
@@ -648,6 +646,7 @@ CyndaquilEggMoves:
 	db THRASH
 	db SUBMISSION
 	db DOUBLE_KICK
+	db HAZE ; becomes Clear Smog
 	db -1 ; end
 
 TotodileEggMoves:
@@ -656,7 +655,7 @@ TotodileEggMoves:
 	db ICE_PUNCH
 	db SEISMIC_TOSS
 	db FAINT_ATTACK
-	db FIRE_PLAY
+	db FIRE_PLAY ; becomes Tide Clash
 	db -1 ; end
 
 SentretEggMoves:

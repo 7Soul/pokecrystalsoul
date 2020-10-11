@@ -6385,13 +6385,26 @@ INCLUDE "engine/battle/move_effects/conversion.asm"
 
 BattleCommand_ResetStats:
 ; resetstats
-
+	call GetMoveID
+	jr nc, .haze
+	cp CLEAR_SMOG
+	jr nz, .haze
+	ld hl, wEnemyStatLevels
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player_turn
+	ld hl, wPlayerStatLevels
+.player_turn
+	ld a, 7 ; neutral
+	call .Fill
+	jr .done
+.haze
 	ld a, 7 ; neutral
 	ld hl, wPlayerStatLevels
 	call .Fill
 	ld hl, wEnemyStatLevels
 	call .Fill
-
+.done
 	ldh a, [hBattleTurn]
 	push af
 

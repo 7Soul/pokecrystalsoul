@@ -43,6 +43,7 @@ VariableMoves::
 	db BUBBLE ; Guard Claw
 	db CHARGE_BEAM ; Poison Fang
 	db SIGNAL_BEAM ; Water Pulse
+	db HAZE ; Clear Smog
 	db -1
 
 VariablePointers:
@@ -84,6 +85,7 @@ VariablePointers:
 	varmove BUBBLE,       BubbleVariables
 	varmove CHARGE_BEAM,  ChargeBeamVariables
 	varmove SIGNAL_BEAM,  SignalBeamVariables
+	varmove HAZE,         HazeVariables
 
 DoubleSlapVariables:
 	db BONE_RUSH, CUBONE, MAROWAK, -1
@@ -259,6 +261,10 @@ ChargeBeamVariables:
 
 SignalBeamVariables:
 	db WATER_PULSE, SQUIRTLE, WARTORTLE, BLASTOISE, PSYDUCK, GOLDUCK, TENTACOOL, TENTACRUEL, SLOWPOKE, SLOWBRO, GOLDEEN, SEAKING, LAPRAS, VAPOREON, SLOWKING, CORSOLA, -1
+	db -2
+
+HazeVariables:
+	db CLEAR_SMOG, PSYDUCK, GOLDUCK, MAGMAR, KOFFING, WEEZING, MAGBY, SLUGMA, MAGCARGO, -1
 	db -2
 	
  ; needs animations:

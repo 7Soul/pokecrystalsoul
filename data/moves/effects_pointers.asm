@@ -27,6 +27,7 @@ MoveEffectsPointers:
 	dw AccuracyDown
 	dw EvasionDown
 	dw ResetStats
+	dw ResetStatsHit
 	dw WildStorm
 	dw Rampage
 	dw ForceSwitch

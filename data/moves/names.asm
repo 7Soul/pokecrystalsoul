@@ -317,3 +317,4 @@ VariableMoveNames::
 	db "Brine@"
 	db "Poison Fang@"
 	db "Water Pulse@"
+	db "Clear Smog@"

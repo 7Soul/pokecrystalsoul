@@ -870,6 +870,28 @@ ResetStats:
 	resetstats
 	endmove
 
+ResetStatsHit:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	effectchance
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	resetstats
+	posthiteffects
+	endmove
+
 WildStorm:
 	checkobedience
 	usedmovetext

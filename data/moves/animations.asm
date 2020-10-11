@@ -2658,6 +2658,7 @@ BattleAnim_Hypnosis:
 	anim_ret
 
 BattleAnim_Haze:
+	anim_if_param_equal CLEAR_SMOG, .clearsmog
 	anim_1gfx ANIM_GFX_HAZE
 	anim_sound 0, 1, SFX_SURF
 .loop
@@ -2666,6 +2667,28 @@ BattleAnim_Haze:
 	anim_wait 12
 	anim_loop 5, .loop
 	anim_wait 96
+	anim_ret
+
+.clearsmog
+	anim_obp0 $54
+	anim_2gfx ANIM_GFX_HAZE,ANIM_GFX_SHINE
+	anim_sound 16, 2, SFX_BUBBLEBEAM
+.loop2
+	anim_obj ANIM_OBJ_POISON_GAS, 44, 80, $2
+	anim_wait 8
+	anim_loop 9, .loop2
+	anim_wait 128-16
+	anim_clearobjs
+	anim_wait 1
+	anim_sound 0, 0, SFX_METRONOME
+	anim_obj ANIM_OBJ_GLIMMER, 124, 32, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_GLIMMER, 124+24, 32+16, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_GLIMMER, 124-16, 32+24, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_GLIMMER, 124+8, 32+16, $0
+	anim_wait 8
 	anim_ret
 
 BattleAnim_Mist:
