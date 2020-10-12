@@ -2491,3 +2491,25 @@ SlowHit:
 	kingsrock
 	posthiteffects
 	endmove
+
+SwitchHit:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	kingsrock
+	posthiteffects
+	switchout
+	endmove

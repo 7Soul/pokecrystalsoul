@@ -258,7 +258,7 @@ ENDM
 	add_tm CRUNCH       ; ee ; was THIEF
 	add_tm STEEL_WING   ; ef
 	add_tm FIRE_PUNCH   ; f0
-	add_tm FURY_CUTTER  ; f1
+	add_tm U_TURN       ; f1
 	add_tm NIGHTMARE    ; f2 TM50
 	add_tm ROCK_TOMB    ; f3
 	add_tm JET_STREAM   ; f4

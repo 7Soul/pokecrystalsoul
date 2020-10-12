@@ -33,26 +33,26 @@ AzaleaGymBugsyScript:
 	checkcode VAR_BADGES
 	scall AzaleaGymActivateRockets
 .FightDone:
-	checkevent EVENT_GOT_TM49_FURY_CUTTER
-	iftrue .GotFuryCutter
+	checkevent EVENT_GOT_TM49_UTURN
+	iftrue .GotUTurn
 	setevent EVENT_BEAT_TWINS_AMY_AND_MAY
 	setevent EVENT_BEAT_BUG_CATCHER_BENNY
 	setevent EVENT_BEAT_BUG_CATCHER_AL
 	setevent EVENT_BEAT_BUG_CATCHER_JOSH
 	writetext BugsyText_HiveBadgeSpeech
 	buttonsound
-	verbosegiveitem TM_FURY_CUTTER
-	iffalse .NoRoomForFuryCutter
-	setevent EVENT_GOT_TM49_FURY_CUTTER
-	writetext BugsyText_FuryCutterSpeech
+	verbosegiveitem TM_U_TURN
+	iffalse .NoRoomForUTurn
+	setevent EVENT_GOT_TM49_UTURN
+	writetext BugsyText_UTurnSpeech
 	waitbutton
 	closetext
 	end
 
-.GotFuryCutter:
+.GotUTurn:
 	writetext BugsyText_BugMonsAreDeep
 	waitbutton
-.NoRoomForFuryCutter:
+.NoRoomForUTurn:
 	closetext
 	end
 
@@ -203,7 +203,7 @@ BugsyText_HiveBadgeSpeech:
 	line "you to have this."
 	done
 
-BugsyText_FuryCutterSpeech:
+BugsyText_UTurnSpeech:
 	text "TM49 contains"
 	line "FURY CUTTER."
 

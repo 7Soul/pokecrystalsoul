@@ -44,6 +44,7 @@ VariableMoves::
 	db CHARGE_BEAM ; Poison Fang
 	db SIGNAL_BEAM ; Water Pulse
 	db HAZE ; Clear Smog
+	db U_TURN ; Volt Tackle
 	db -1
 
 VariablePointers:
@@ -86,6 +87,7 @@ VariablePointers:
 	varmove CHARGE_BEAM,  ChargeBeamVariables
 	varmove SIGNAL_BEAM,  SignalBeamVariables
 	varmove HAZE,         HazeVariables
+	varmove U_TURN,       UTurnVariables
 
 DoubleSlapVariables:
 	db BONE_RUSH, CUBONE, MAROWAK, -1
@@ -265,6 +267,10 @@ SignalBeamVariables:
 
 HazeVariables:
 	db CLEAR_SMOG, PSYDUCK, GOLDUCK, MAGMAR, KOFFING, WEEZING, MAGBY, SLUGMA, MAGCARGO, -1
+	db -2
+
+UTurnVariables:
+	db VOLT_SWITCH, PIKACHU, RAICHU, PICHU, -1
 	db -2
 	
  ; needs animations:

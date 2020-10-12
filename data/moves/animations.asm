@@ -152,7 +152,7 @@ BattleAnimations::
 	dba BattleAnim_Psywave
 	dba BattleAnim_AirSlash
 	dba BattleAnim_AcidArmor
-	dba BattleAnim_Unused3
+	dba BattleAnim_UTurn
 	dba BattleAnim_Explosion
 	dba BattleAnim_JetStream
 	dba BattleAnim_Feathergale
@@ -3025,16 +3025,31 @@ BattleAnim_Swift:
 	anim_wait 64
 	anim_ret
 
-BattleAnim_Unused3:
-	anim_1gfx ANIM_GFX_HIT
-	anim_bgeffect ANIM_BG_SHAKE_SCREEN_X, $40, $2, $0
-	anim_wait 48
-	anim_bgeffect ANIM_BG_FLASH_INVERTED, $0, $8, $3
-.loop
-	anim_sound 0, 1, SFX_MEGA_PUNCH
-	anim_obj ANIM_OBJ_HIT_BIG_YFIX, 136, 56, $0
-	anim_wait 12
-	anim_loop 3, .loop
+BattleAnim_UTurn:
+	anim_2gfx ANIM_GFX_SPEED, ANIM_GFX_HIT
+	anim_bgeffect ANIM_BG_HIDE_MON, $0, $1, $0
+	anim_obj ANIM_OBJ_SPEED_LINE, 24, 88, $2
+	anim_obj ANIM_OBJ_SPEED_LINE, 32, 88, $1
+	anim_obj ANIM_OBJ_SPEED_LINE, 40, 88, $0
+	anim_obj ANIM_OBJ_SPEED_LINE, 48, 88, $80
+	anim_obj ANIM_OBJ_SPEED_LINE, 56, 88, $81
+	anim_obj ANIM_OBJ_SPEED_LINE, 64, 88, $82
+	anim_wait 8
+	
+	anim_obj ANIM_OBJ_HIT, 74, 81, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT, 74+16, 81-8, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT, 74+32, 81-16, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT, 74+48, 81-24, $0
+	anim_wait 3
+	anim_obj ANIM_OBJ_HIT, 74+64, 81-32, $0
+	anim_wait 3
+
+	
+	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
+	
 	anim_ret
 
 BattleAnim_SkullBash:

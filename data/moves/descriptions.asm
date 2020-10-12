@@ -151,7 +151,7 @@ MoveDescriptions::
 	dw PsywaveDescription
 	dw AirSlashDescription
 	dw AcidArmorDescription
-	dw CrabhammerDescription
+	dw UTurnDescription
 	dw ExplosionDescription
 	dw JetStreamDescription
 	dw FeathergaleDescription
@@ -269,8 +269,11 @@ GnawDescription:
 	db   "Drains foe, more"
 	next "when exhausted.@"
 
+UTurnDescription:
+	db   "Switches out af-"
+	next "ter attacking.@"
+
 RazorLeafDescription:
-CrabhammerDescription:
 SlashDescription:
 CrossChopDescription:
 	db   "Has a high criti-"
@@ -1180,6 +1183,7 @@ VariableMoveDescriptions::
 	dw PoisonFangDescription
 	dw $0000 ; WaterPulseDescription
 	dw ClearSmogDescription
+	dw $0000 ; VoltSwitchDescription
 
 ; BoneRushDescription:
 ; PinMissileDescription:

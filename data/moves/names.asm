@@ -150,7 +150,7 @@ MoveNames::
 	db "Psywave@"
 	db "Air Slash@"
 	db "Acid Armor@"
-	db "Unused2@"
+	db "U-Turn@"
 	db "Explosion@"
 	db "Jet Stream@"
 	db "Feathergale@"
@@ -318,3 +318,4 @@ VariableMoveNames::
 	db "Poison Fang@"
 	db "Water Pulse@"
 	db "Clear Smog@"
+	db "Volt Switch@"

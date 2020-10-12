@@ -174,3 +174,4 @@ MoveEffectsPointers:
 	dw FirePlay
 	dw Acupressure
 	dw LowPriorityHit
+	dw SwitchHit

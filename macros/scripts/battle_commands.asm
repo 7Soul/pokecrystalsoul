@@ -194,6 +194,7 @@ ENDM
 	command slowhit  				; be
 	command postbuffeffects         ;
 	command postdebuffeffects       ;
+	command switchout               ;
 
 	enum_start $fe
 	command endturn                 ; fe

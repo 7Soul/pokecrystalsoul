@@ -157,7 +157,7 @@
 	const PSYWAVE      ; 95
 	const AIR_SLASH    ; 96
 	const ACID_ARMOR   ; 97
-	const UNUSED_MOVE_3   ; 98
+	const U_TURN       ; 98
 	const EXPLOSION    ; 99
 	const JET_STREAM   ; 9a
 	const FEATHERGALE  ; 9b
@@ -363,3 +363,4 @@ NUM_ATTACKS EQU const_value + -1
 	const POISON_FANG     ; 3c
 	const WATER_PULSE     ; 3d
 	const CLEAR_SMOG      ; 3e
+	const VOLT_SWITCH     ; 3f
