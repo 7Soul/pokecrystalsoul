@@ -3,6 +3,8 @@ varmove: MACRO
 	dw \2 ; pointer
 ENDM
 
+TYPE_VARIABLE equ 40
+
 VariableMoves::
 	db NO_MOVE
 	db DOUBLESLAP ; Bone Rush, Pin Missile, Rock Blast, Icicle Spear
@@ -10,9 +12,10 @@ VariableMoves::
 	db FIRE_PLAY ; Tide Clash, Flutter Clap
 	db CROSS_CHOP ; Stone Edge
 	db DOUBLE_EDGE ; Brave Bird, Wood Hammer, Flare Blitz
-	db PECK ; Electro Ball, Aura Sphere, Smart Strike
+	db PECK ; Electro Ball, Aura Sphere
 	db QUICK_ATTACK ; Ice Shard, Accelerock, Aqua Jet
-	db MACH_PUNCH ; Bullet Punch
+	db MACH_PUNCH ; Smart Strike
+	db BITE ; Bullet Punch
 	db SLASH ; Night Slash, Leaf Blade
 	db DRILL_PECK ; Seed Bomb
 	db FAINT_ATTACK ; Aerial Ace
@@ -44,7 +47,11 @@ VariableMoves::
 	db CHARGE_BEAM ; Poison Fang
 	db SIGNAL_BEAM ; Water Pulse
 	db HAZE ; Clear Smog
-	db U_TURN ; Volt Tackle
+	; Type variables under here
+	db U_TURN ; 40 Volt Tackle
+	db FIRE_SPIN ; 41 ; Aqua Ring
+	db PSYCH_UP ; 42 ; Aqua Ring
+	db HEAL_BELL ; 43 ; Aromatherapy
 	db -1
 
 VariablePointers:
@@ -56,6 +63,7 @@ VariablePointers:
 	varmove PECK,         PeckVariables
 	varmove QUICK_ATTACK, QuickAttackVariables
 	varmove MACH_PUNCH,   MachPunchVariables
+	varmove BITE,         BiteVariables
 	varmove SLASH,        SlashVariables
 	varmove DRILL_PECK,   DrillPeckVariables
 	varmove FAINT_ATTACK, FaintAttackVariables
@@ -69,7 +77,7 @@ VariablePointers:
 	varmove ICY_WIND,     IcyWindVariables
 	varmove JUMP_KICK,    JumpKickVariables
 	varmove DIZZY_PUNCH,  DizzyPunchVariables
-	varmove IRON_TAIL,    FrozenTailVariables
+	varmove IRON_TAIL,    IronTailVariables
 	varmove CONSTRICT,    ConstrictVariables
 	varmove AGILITY,      AgilityVariables
 	varmove LICK,         LickVariables
@@ -87,7 +95,11 @@ VariablePointers:
 	varmove CHARGE_BEAM,  ChargeBeamVariables
 	varmove SIGNAL_BEAM,  SignalBeamVariables
 	varmove HAZE,         HazeVariables
+	; Type variables under here
 	varmove U_TURN,       UTurnVariables
+	varmove FIRE_SPIN,    FireSpinVariables
+	varmove PSYCH_UP,     PsychUpVariables
+	varmove HEAL_BELL,    HealBellVariables
 
 DoubleSlapVariables:
 	db BONE_RUSH, CUBONE, MAROWAK, -1
@@ -102,7 +114,7 @@ AcupressureVariables:
 
 FirePlayVariables:
 	db TIDE_CLASH, GOLDEEN, SEAKING, POLIWAG, POLIWHIRL, POLIWRATH, POLITOED, MANTINE, CORSOLA, -1
-	db FLUTTER_CLAP, PIDGEY, PIDGEOTTO, PIDGEOT, SPEAROW, FEAROW, FARFETCH_D, ZAPDOS, YANMA, DELIBIRD, -1
+	db FLUTTER_CLAP, PIDGEY, PIDGEOTTO, PIDGEOT, SPEAROW, FEAROW, FARFETCH_D, ZAPDOS, TOGEPI, TOGETIC, YANMA, DELIBIRD, -1
 	db -2
 
 CrossChopVariables:
@@ -110,29 +122,32 @@ CrossChopVariables:
 	db -2
 
 DoubleEdgeVariables:
-	db BRAVE_BIRD, FARFETCH_D, HO_OH, -1
+	db BRAVE_BIRD, PIDGEY, PIDGEOTTO, PIDGEOT, ZUBAT, GOLBAT, FARFETCH_D, HO_OH, -1
 	db WOOD_HAMMER, GEODUDE, GRAVELER, GOLEM, EXEGGUTOR, CUBONE, MAROWAK, SUDOWOODO, -1
-	db FLARE_BLITZ, CHARMANDER, CHARMELEON, CHARIZARD, GROWLITHE, ARCANINE, PONYTA, RAPIDASH, -1
+	db FLARE_BLITZ, CHARMANDER, CHARMELEON, CHARIZARD, VULPIX, NINETALES, GROWLITHE, ARCANINE, PONYTA, RAPIDASH, -1
 	db -2
 
 PeckVariables:
 	db ELECTRO_BALL, STEELIX, PICHU, PIKACHU, RAICHU, MAGNEMITE, MAGNETON, ELEKID, ELECTABUZZ, VOLTORB, ELECTRODE, CHINCHOU, LANTURN, MAREEP, FLAAFFY, AMPHAROS, -1
-	db AURA_SPHERE, MEWTWO, MEW, -1
-	db SMART_STRIKE, PONYTA, RAPIDASH, NIDORAN_M, NIDORINO, NIDOKING, TAUROS, LAPRAS, SEEL, DEWGONG, RHYHORN, RHYDON, SPINARAK, ARIADOS, HERACROSS, -1
+	db AURA_SPHERE, SQUIRTLE, WARTORTLE, BLASTOISE, MEWTWO, MEW, -1
 	db -2
 
 QuickAttackVariables:
 	db ICE_SHARD, SEEL, DEWGONG, LAPRAS, SHELLDER, CLOYSTER, SNEASEL, -1
-	db ACCELEROCK_MOVE, AERODACTYL, -1
+	db ACCELEROCK_MOVE, ONIX, STEELIX, AERODACTYL, -1
 	db AQUA_JET, SEEL, DEWGONG, -1
 	db -2
 
 MachPunchVariables:
-	db BULLET_PUNCH, MACHOP, MACHOKE, MACHAMP, HITMONCHAN, SCIZOR, -1
+	db SMART_STRIKE, PONYTA, RAPIDASH, NIDORAN_M, NIDORINO, NIDOKING, SANDSHREW, SANDSLASH, TAUROS, LAPRAS, SEEL, DEWGONG, RHYHORN, RHYDON, SPINARAK, ARIADOS, HERACROSS, -1
+	db -2
+
+BiteVariables:
+	db BULLET_PUNCH, MACHOP, MACHOKE, MACHAMP, GEODUDE, GRAVELER, GOLEM, HITMONCHAN, SCIZOR, -1
 	db -2
 
 SlashVariables:
-	db NIGHT_SLASH, MEOWTH, PERSIAN, FARFETCH_D, -1
+	db NIGHT_SLASH, WEEDLE, KAKUNA, BEEDRILL, MEOWTH, PERSIAN, FARFETCH_D, -1
 	db LEAF_BLADE, BELLSPROUT, WEEPINBELL, VICTREEBEL, -1
 	db AIR_CUTTER, ZUBAT, GOLBAT, FARFETCH_D, DRATINI, DRAGONAIR, DRAGONITE, -1
 	db CRABHAMMER, KRABBY, KINGLER, VAPOREON, -1
@@ -152,7 +167,7 @@ ScreechVariables:
 	db -2
 	
 HornDrillVariables:
-	db FISSURE, DIGLETT, DUGTRIO, -1
+	db FISSURE, DIGLETT, DUGTRIO, SNORLAX, -1
 	db SHEER_COLD, SEEL, DEWGONG, LAPRAS, ARTICUNO, SUICUNE, -1
 	db GUILLOTINE, KRABBY, KINGLER, PINSIR, GLIGAR, -1
 	db -2
@@ -187,12 +202,12 @@ JumpKickVariables:
 	db -2
 	
 DizzyPunchVariables:
-	db HURRICANE, PIDGEY, PIDGEOTTO, PIDGEOT, VAPOREON, -1
+	db HURRICANE, PIDGEY, PIDGEOTTO, PIDGEOT, HOOTHOOT, NOCTOWL, -1
 	db -2
 	
-FrozenTailVariables:
+IronTailVariables:
 	db RAZOR_SHELL, SHELLDER, CLOYSTER, KRABBY, KINGLER, -1
-	db SPIRAL_KICK, HITMONLEE, -1
+	db SPIRAL_KICK, HITMONLEE, LEDYBA, LEDIAN, -1
 	db -2
 	
 ConstrictVariables:
@@ -232,6 +247,7 @@ AbsorbVariables:
 
 EmberVariables:
 	db ICE_FANG, EKANS, ARBOK, RHYHORN, RHYDON, AERODACTYL, SNUBBULL, GRANBULL, SUICUNE, -1
+	db BRINE, SEEL, DEWGONG, KRABBY, KINGLER, HORSEA, SEADRA, STARYU, STARMIE, LAPRAS, CHINCHOU, LANTURN, QWILFISH, KINGDRA, CORSOLA, SHUCKLE, LUGIA, -1
 	db -2
 
 PsybeamVariables:
@@ -254,7 +270,6 @@ ConfusionVariables:
 
 BubbleVariables:
 	db GUARD_CLAW, WEEDLE, KAKUNA, BEEDRILL, SCYTHER, SCIZOR, KRABBY, KINGLER, -1
-	db BRINE, SEEL, DEWGONG, KRABBY, KINGLER, HORSEA, SEADRA, STARYU, STARMIE, LAPRAS, QWILFISH, KINGDRA, CORSOLA, SHUCKLE, LUGIA, -1
 	db -2
 
 ChargeBeamVariables:
@@ -262,7 +277,7 @@ ChargeBeamVariables:
 	db -2
 
 SignalBeamVariables:
-	db WATER_PULSE, SQUIRTLE, WARTORTLE, BLASTOISE, PSYDUCK, GOLDUCK, TENTACOOL, TENTACRUEL, SLOWPOKE, SLOWBRO, GOLDEEN, SEAKING, LAPRAS, VAPOREON, SLOWKING, CORSOLA, -1
+	db WATER_PULSE, SQUIRTLE, WARTORTLE, BLASTOISE, PSYDUCK, GOLDUCK, POLIWAG, POLIWHIRL, POLIWRATH, HORSEA, SEADRA, KINGDRA, TENTACOOL, TENTACRUEL, SLOWPOKE, SLOWBRO, GOLDEEN, SEAKING, LAPRAS, VAPOREON, SLOWKING, CORSOLA, -1
 	db -2
 
 HazeVariables:
@@ -270,10 +285,26 @@ HazeVariables:
 	db -2
 
 UTurnVariables:
-	db VOLT_SWITCH, PIKACHU, RAICHU, PICHU, -1
+	db VOLT_SWITCH, ELECTRIC, -1
+	db -2
+
+FireSpinVariables:
+	db AQUA_RING, WATER, -1
+	db AQUA_RING, ICE, -1
+	db INGRAIN, GRASS, -1
+	db -2
+
+PsychUpVariables:
+	db CYCLE_FOE, FIGHTING, -1
+	db CYCLE_FOE, ROCK, -1
+	db -2
+
+HealBellVariables:
+	db AROMATHERAPY, GRASS, -1
 	db -2
 	
  ; needs animations:
  ; heal bell -> aromatherapy
  ; add lava plume -> scald
  ; strenght / drill peck / seed bomb / x-scissor
+ ; add poison jab and cross poison

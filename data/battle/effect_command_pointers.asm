@@ -194,3 +194,4 @@ BattleCommandPointers:
 	dw BattleCommand_PostBuffEffects
 	dw BattleCommand_PostDebuffEffects
 	dw BattleCommand_SwitchOut
+	dw BattleCommand_SetFiveTurns

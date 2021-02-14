@@ -401,7 +401,6 @@ ArbokEvosAttacks:
 	db 30, VENOSHOCK
 	db 39, MUD_BOMB
 	db 45, HAZE
-	db 45, BITE ;;; 
 	db 49, ACID_ARMOR
 	db 54, GUNK_SHOT
 	db 0 ; no more level-up moves
@@ -780,11 +779,12 @@ ParasEvosAttacks:
 	db 16, TWINEEDLE
 	db 19, LEECH_LIFE
 	db 22, SPORE
+	db 24, FALSE_SWIPE
 	db 28, FELL_STINGER
 	db 31, SLASH
 	db 37, GROWTH
 	db 43, GIGA_DRAIN
-	db 54, X_SCISSOR
+	db 49, X_SCISSOR
 	db 0 ; no more level-up moves
 
 ParasectEvosAttacks:
@@ -794,12 +794,13 @@ ParasectEvosAttacks:
 	db 7, STUN_SPORE
 	db 16, TWINEEDLE
 	db 19, LEECH_LIFE
-	db 28, SPORE
+	db 26, SPORE
+	db 29, FALSE_SWIPE
 	db 32, FELL_STINGER
 	db 37, SLASH
-	db 46, GROWTH
-	db 55, GIGA_DRAIN	
-	db 60, X_SCISSOR
+	db 43, GROWTH
+	db 48, GIGA_DRAIN	
+	db 53, X_SCISSOR
 	db 0 ; no more level-up moves
 
 VenonatEvosAttacks:
@@ -950,6 +951,7 @@ MankeyEvosAttacks:
 	db 26, BRICK_BREAK
 	db 32, CLOSE_COMBAT
 	db 37, BULK_UP
+	db 40, SCREECH
 	db 50, THRASH
 	db 0 ; no more level-up moves
 
@@ -963,6 +965,7 @@ PrimeapeEvosAttacks:
 	db 27, RAGE
 	db 34, CLOSE_COMBAT
 	db 39, BULK_UP
+	db 45, SCREECH
 	db 55, THRASH
 	db 0 ; no more level-up moves
 
@@ -1161,6 +1164,7 @@ BellsproutEvosAttacks:
 	db 33, ACID_ARMOR
 	db 35, RAZOR_LEAF
 	db 41, REVERSAL
+	db 44, FIRE_SPIN ; becomes Ingrain
 	db 46, SLASH ; becomes Leaf Blade
 	db 0 ; no more level-up moves
 
@@ -1175,7 +1179,8 @@ WeepinbellEvosAttacks:
 	db 35, ACID_ARMOR
 	db 38, RAZOR_LEAF
 	db 45, REVERSAL
-	db 50, SLASH ; becomes Leaf Blade
+	db 48, FIRE_SPIN ; becomes Ingrain
+	db 51, SLASH ; becomes Leaf Blade
 	db 0 ; no more level-up moves
 
 VictreebelEvosAttacks:
@@ -1188,7 +1193,8 @@ VictreebelEvosAttacks:
 	db 36, ACID_ARMOR
 	db 40, RAZOR_LEAF
 	db 47, REVERSAL
-	db 55, SLASH ; becomes Leaf Blade
+	db 52, FIRE_SPIN ; becomes Ingrain
+	db 56, SLASH ; becomes Leaf Blade
 	db 0 ; no more level-up moves
 
 TentacoolEvosAttacks:
@@ -1417,9 +1423,10 @@ SeelEvosAttacks:
 	db 15, QUICK_ATTACK ; becomes Ice Shard
 	db 18, AURORA_BEAM
 	db 21, REST
+	db 23, FIRE_SPIN ; becomes Aqua Ring
 	db 27, DARK_PULSE ; becomes Waterfall
 	db 32, TAKE_DOWN
-	db 37, BUBBLE ; becomes Brine
+	db 37, EMBER ; becomes Brine
 	; dive
 	db 43, AQUA_TAIL
 	db 47, ICE_BEAM
@@ -1428,12 +1435,11 @@ SeelEvosAttacks:
 
 DewgongEvosAttacks:
 	db 0 ; no more evolutions
-	db 18, AURORA_BEAM
-	db 21, REST
+	db 23, FIRE_SPIN ; becomes Aqua Ring
 	db 27, DARK_PULSE ; becomes Waterfall
 	db 32, TAKE_DOWN
 	db 33, HORN_DRILL ; becomes Sheer Cold
-	db 39, BUBBLE ; becomes Brine
+	db 39, EMBER ; becomes Brine
 	db 47, AQUA_TAIL
 	db 53, ICE_BEAM
 	db 56, SAFEGUARD
@@ -1615,7 +1621,7 @@ KrabbyEvosAttacks:
 	db 34, IRON_TAIL ; becomes Razor Shell
 	db 37, SLAM
 	db 41, SLASH ; becomes Crabhammer
-	db 44, BUBBLE ; becomes Brine
+	db 44, EMBER ; becomes Brine
 	db 47, SHARPEN
 	db 0 ; no more level-up moves
 
@@ -1631,7 +1637,7 @@ KinglerEvosAttacks:
 	db 39, IRON_TAIL ; becomes Razor Shell
 	db 43, SLAM
 	db 47, SLASH ; becomes Crabhammer
-	db 50, BUBBLE ; becomes Brine
+	db 50, EMBER ; becomes Brine
 	db 52, SHARPEN
 	db 0 ; no more level-up moves
 
@@ -1863,7 +1869,8 @@ TangelaEvosAttacks:
 	db 10, ABSORB
 	db 13, POISONPOWDER
 	db 19, VINE_WHIP
-	db 25, WRAP
+	db 22, WRAP
+	db 24, FIRE_SPIN ; becomes Ingrain
 	db 31, MEGA_DRAIN
 	db 34, STUN_SPORE
 	db 40, SLAM
@@ -1899,7 +1906,7 @@ HorseaEvosAttacks:
 	db 21, OCTAZOOKA
 	db 26, FOCUS_ENERGY
 	db 29, TWISTER
-	db 33, BUBBLE ; becomes Brine
+	db 33, EMBER ; becomes Brine
 	db 35, AGILITY
 	db 39, DARK_PULSE ; becomes Waterfall
 	db 43, HYDRO_PUMP
@@ -1915,7 +1922,7 @@ SeadraEvosAttacks:
 	db 23, OCTAZOOKA
 	db 29, FOCUS_ENERGY
 	db 33, TWISTER
-	db 36, BUBBLE ; becomes Brine
+	db 36, EMBER ; becomes Brine
 	db 38, AGILITY
 	db 43, DARK_PULSE ; becomes Waterfall
 	db 48, HYDRO_PUMP
@@ -1933,6 +1940,7 @@ GoldeenEvosAttacks:
 	db 13, HORN_ATTACK
 	db 16, SIGNAL_BEAM ; becomes Water Pulse
 	db 24, REVERSAL ; becomes Flail
+	db 27, FIRE_SPIN ; becomes Aqua Ring
 	db 29, FURY_ATTACK	
 	db 33, AGILITY
 	db 38, WATERFALL
@@ -1943,9 +1951,9 @@ GoldeenEvosAttacks:
 
 SeakingEvosAttacks:
 	db 0 ; no more evolutions
-	db 13, HORN_ATTACK
 	db 16, SIGNAL_BEAM ; becomes Water Pulse
 	db 24, REVERSAL ; becomes Flail
+	db 27, FIRE_SPIN ; becomes Aqua Ring
 	db 29, FURY_ATTACK	
 	db 33, AGILITY
 	db 40, WATERFALL
@@ -1965,7 +1973,7 @@ StaryuEvosAttacks:
 	db 18, BUBBLEBEAM
 	db 20, RECOVER
 	db 24, GYRO_BALL
-	db 28, BUBBLE ; becomes Brine
+	db 28, EMBER ; becomes Brine
 	db 31, MINIMIZE
 	db 35, POWER_GEM
 	db 42, PSYCHIC_M
@@ -1985,7 +1993,7 @@ StarmieEvosAttacks:
 	db 18, BUBBLEBEAM
 	db 21, RECOVER
 	db 25, GYRO_BALL
-	db 30, BUBBLE ; becomes Brine
+	db 30, EMBER ; becomes Brine
 	db 33, MINIMIZE
 	db 38, POWER_GEM
 	db 45, PSYCHIC_M
@@ -2160,7 +2168,7 @@ LaprasEvosAttacks:
 	db 22, RAIN_DANCE
 	db 27, PERISH_SONG
 	db 32, ICE_BEAM
-	db 37, BUBBLE ; becomes Brine
+	db 37, EMBER ; becomes Brine
 	db 43, SAFEGUARD
 	db 47, HYDRO_PUMP
 	db 50, HORN_DRILL ; becomes Sheer Cold
@@ -2184,12 +2192,13 @@ EeveeEvosAttacks:
 	db 8, SAND_ATTACK
 	db 13, QUICK_ATTACK
 	db 17, SWIFT
-	db 25, TAKE_DOWN	
-	db 30, BITE
+	db 24, TAKE_DOWN	
+	db 28, BITE
 	db 33, BATON_PASS
 	db 36, FOCUS_ENERGY
 	db 40, DOUBLE_EDGE
-	db 49, CRUNCH
+	db 47, CRUNCH
+	db 51, SWORDS_DANCE
 	db 0 ; no more level-up moves
 
 VaporeonEvosAttacks:
@@ -2679,11 +2688,10 @@ HoothootEvosAttacks:
 	db 10, CONFUSION
 	db 14, HYPNOSIS
 	db 16, ZEN_HEADBUTT
-	db 22, REFLECT
-	db 25, DARK_PULSE ; becomes Extrasensory
-	db 28, TAKE_DOWN
+	db 21, DARK_PULSE ; becomes Extrasensory
+	db 26, TAKE_DOWN
 	db 31, AIR_SLASH
-	db 34, CONFUSION
+	db 34, REFLECT
 	db 38, RECOVER ; becomes Roost
 	db 45, DREAM_EATER
 	db 0 ; no more level-up moves
@@ -2695,12 +2703,11 @@ NoctowlEvosAttacks:
 	db 16, HYPNOSIS
 	db 16, ZEN_HEADBUTT
 	db 22, FAINT_ATTACK
-	db 25, REFLECT
-	db 29, DARK_PULSE ; becomes Extrasensory
-	db 33, TAKE_DOWN
-	db 36, AIR_SLASH
-	db 41, CONFUSION
-	db 45, RECOVER ; becomes Roost
+	db 23, DARK_PULSE ; becomes Extrasensory
+	db 30, TAKE_DOWN
+	db 35, AIR_SLASH
+	db 38, REFLECT
+	db 44, RECOVER ; becomes Roost
 	db 50, DREAM_EATER
 	db 0 ; no more level-up moves
 
@@ -2715,7 +2722,7 @@ LedybaEvosAttacks:
 	db 12, SAFEGUARD
 	db 12, REFLECT
 	db 16, MACH_PUNCH
-	db 21, SILVER_WIND	
+	db 21, SILVER_WIND
 	db 26, BATON_PASS
 	db 28, ZOOM_FLIGHT
 	db 31, AGILITY
@@ -2753,6 +2760,7 @@ SpinarakEvosAttacks:
 	db 37, MEAN_LOOK
 	db 45, AGILITY
 	db 53, PSYCHIC_M
+	; add cross poison, poison jab
 	db 0 ; no more level-up moves
 
 AriadosEvosAttacks:
@@ -2767,6 +2775,7 @@ AriadosEvosAttacks:
 	db 40, MEAN_LOOK
 	db 48, AGILITY
 	db 56, PSYCHIC_M
+	; add cross poison, poison jab
 	db 0 ; no more level-up moves
 
 CrobatEvosAttacks:
@@ -2801,8 +2810,10 @@ ChinchouEvosAttacks:
 	db 31, REVERSAL ; becomes Flail
 	db 34, SIGNAL_BEAM
 	db 39, TAKE_DOWN
-	db 43, AQUA_TAIL
-	db 47, HYDRO_PUMP
+	db 41, FIRE_SPIN ; becomes Aqua Ring
+	db 44, AQUA_TAIL
+	db 47, PECK ; becomes Electro Ball
+	db 49, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 LanturnEvosAttacks:
@@ -2815,8 +2826,10 @@ LanturnEvosAttacks:
 	db 33, REVERSAL ; becomes Flail
 	db 37, SIGNAL_BEAM
 	db 44, TAKE_DOWN
-	db 48, AQUA_TAIL
-	db 54, HYDRO_PUMP
+	db 46, FIRE_SPIN ; becomes Aqua Ring
+	db 49, AQUA_TAIL
+	db 52, PECK ; becomes Electro Ball
+	db 55, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 PichuEvosAttacks:
@@ -3014,6 +3027,7 @@ MarillEvosAttacks:
 	db 32, RAIN_DANCE
 	db 38, DOUBLE_EDGE
 	db 41, CLOSE_COMBAT
+	db 44, FIRE_SPIN ; becomes Aqua Ring
 	db 48, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -3028,6 +3042,7 @@ AzumarillEvosAttacks:
 	db 35, RAIN_DANCE
 	db 40, DOUBLE_EDGE
 	db 44, CLOSE_COMBAT
+	db 48, FIRE_SPIN ; becomes Aqua Ring
 	db 53, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -3141,7 +3156,8 @@ SunkernEvosAttacks:
 	db 6, CONSTRICT
 	db 9, MEGA_DRAIN
 	db 12, LEECH_SEED
-	db 15, RAZOR_LEAF	
+	db 15, RAZOR_LEAF
+	db 18, FIRE_SPIN ; becomes Ingrain
 	db 21, SPORE
 	db 27, PETAL_DANCE
 	db 33, SOLARBEAM
@@ -3157,7 +3173,8 @@ SunfloraEvosAttacks:
 	db 6, CONSTRICT
 	db 10, MEGA_DRAIN
 	db 13, LEECH_SEED
-	db 16, RAZOR_LEAF	
+	db 16, RAZOR_LEAF
+	db 20, FIRE_SPIN ; becomes Ingrain
 	db 25, SPORE
 	db 31, PETAL_DANCE
 	db 37, SOLARBEAM
@@ -3173,11 +3190,14 @@ YanmaEvosAttacks:
 	db 14, DOUBLE_TEAM
 	db 19, SONICBOOM
 	db 25, PROTECT
-	db 31, SUPERSONIC
-	db 37, WING_ATTACK
-	db 40, ZOOM_FLIGHT
-	db 43, SCREECH
-	db 53, BUG_BUZZ
+	db 28, SUPERSONIC
+	db 31, ANCIENTPOWER
+	db 37, HYPNOSIS
+	db 39, WING_ATTACK
+	db 41, ZOOM_FLIGHT
+	db 44, SCREECH
+	db 49, U_TURN
+	db 55, BUG_BUZZ
 	db 0 ; no more level-up moves
 
 WooperEvosAttacks:
@@ -3191,7 +3211,7 @@ WooperEvosAttacks:
 	db 21, AMNESIA
 	db 23, JET_STREAM
 	db 26, DISABLE
-	db 31, EARTHQUAKE
+	db 33, EARTHQUAKE
 	db 41, RAIN_DANCE
 	db 51, MIST
 	db 51, HAZE
@@ -3199,6 +3219,7 @@ WooperEvosAttacks:
 
 QuagsireEvosAttacks:
 	db 0 ; no more evolutions
+	db 1, WATER_GUN
 	db 1, TAIL_WHIP
 	db 9, ICY_WIND ; becomes Mud Shot
 	db 14, SLAM
@@ -3206,10 +3227,11 @@ QuagsireEvosAttacks:
 	db 22, AMNESIA
 	db 25, JET_STREAM
 	db 28, DISABLE
-	db 34, EARTHQUAKE
-	db 44, RAIN_DANCE
-	db 56, MIST
-	db 56, HAZE
+	db 36, EARTHQUAKE
+	db 39, RAIN_DANCE
+	db 43, MIST
+	db 43, HAZE
+	db 46, AQUA_TAIL
 	db 0 ; no more level-up moves
 
 EspeonEvosAttacks:
@@ -3287,7 +3309,7 @@ MisdreavusEvosAttacks:
 	db 19, MEAN_LOOK
 	db 27, PSYBEAM
 	db 36, PAIN_SPLIT
-	db 41, DARK_PULSE
+	db 41, SHADOW_BALL
 	db 47, POWER_GEM
 	db 55, AURORA_BEAM
 	db 0 ; no more level-up moves
@@ -3455,7 +3477,7 @@ QwilfishEvosAttacks:
 	db 29, CONFUSION ; becomes Revenge
 	db 33, JET_STREAM
 	db 38, TAKE_DOWN
-	db 41, BUBBLE ; becomes Brine
+	db 41, EMBER ; becomes Brine
 	db 44, TOXIC
 	db 49, VENOSHOCK
 	db 54, AQUA_TAIL
@@ -3465,7 +3487,7 @@ QwilfishEvosAttacks:
 ScizorEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, QUICK_ATTACK
-	db 1, MACH_PUNCH ; becomes Bullet Punch
+	db 1, BITE ; becomes Bullet Punch
 	db 1, LEER
 	db 5, FOCUS_ENERGY
 	db 9, PURSUIT
@@ -3636,9 +3658,10 @@ CorsolaEvosAttacks:
 	db 5, FIRE_PLAY ; becomes Tide Clash
 	db 8, RECOVER
 	db 10, SPIKE_CANNON
-	db 16, BUBBLEBEAM
+	db 14, FIRE_SPIN ; becomes Aqua Ring
+	db 17, BUBBLEBEAM
 	db 20, ANCIENTPOWER
-	db 25, BUBBLE ; becomes Brine
+	db 25, EMBER ; becomes Brine
 	db 29, ACID_ARMOR
 	db 31, DOUBLESLAP ; becomes Rock Blast
 	db 35, ENDURE
@@ -3711,6 +3734,7 @@ MantineEvosAttacks:
 	db 32, AGILITY
 	db 36, SIGNAL_BEAM
 	db 41, AIR_SLASH
+	db 44, FIRE_SPIN ; becomes Aqua Ring
 	db 49, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -4088,7 +4112,7 @@ LugiaEvosAttacks:
 	db 1, WHIRLWIND
 	db 10, RAIN_DANCE
 	db 12, SAFEGUARD
-	db 17, BUBBLE ; becomes Brine
+	db 17, EMBER ; becomes Brine
 	db 21, SWIFT
 	db 25, RECOVER
 	db 29, WILD_STORM

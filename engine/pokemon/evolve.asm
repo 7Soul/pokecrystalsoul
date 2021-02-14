@@ -494,6 +494,43 @@ FillEggMove:
 	push bc
 	call GetPreEvolution
 	call GetPreEvolution
+; Random common egg move based on mon type
+	call Random
+	cp 25 percent
+	jr nc, .not_common_egg
+
+	ld a, [wCurPartySpecies]
+	dec a
+	ld hl, BaseData + BASE_TYPES
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+; get either type 1 or type 2
+	call Random
+	cp 50 percent
+	jr nc, .got_type
+	inc hl
+.got_type
+	ld a, BANK(BaseData)
+	call GetFarByte
+	ld c, a ; type in c
+	ld hl, CommonEggMovesByType
+.loop_egg_by_types
+	ld a, BANK("Egg Moves")
+	call GetFarByte
+	inc hl
+	cp -2
+	jr z, .not_common_egg
+	cp c
+	jr z, .got_moves_pointer
+.next_type
+	ld a, BANK("Egg Moves")
+	call GetFarByte
+	inc hl
+	cp -1
+	jr nz, .next_type
+	jr .loop_egg_by_types
+
+.not_common_egg ; get egg move of specific pokemon
 	ld hl, EggMovePointers
 	ld a, [wCurPartySpecies]
 	dec a
@@ -503,31 +540,39 @@ FillEggMove:
 	add hl, bc
 	ld a, BANK(EggMovePointers)
 	call GetFarHalfword
+	
+	; FillEggMove.count_moves_loop
+.got_moves_pointer
 	push hl
-	ld c, 0
 	dec hl
+	ld c, 0
 .count_moves_loop
 	inc c
 	inc hl
+; limit move index by mon level
+; can learn the next index every 5 levels
+	ld a, [wCurPartyLevel]
+	call SimpleDivide
+	cp 5
+	jr nc, .reached_end
+
 	ld a, BANK("Egg Moves")
 	call GetFarByte
 	cp -1	
 	jr nz, .count_moves_loop
+
+; .level_threshholds:
+; 	db 8, 12, 24, 28, 
 	
 .reached_end
 	pop hl
 ; higher chance of giving moves from 1st and 2nd slot in the egg moves list
-; 50% chance of being move 1 or 2
-; 50% chance of any move (including 1 and 2)
+; 50% chance of being the first half moves (rounded down)
+; 50% chance of any move
 	call Random
-	cp $7F
+	cp 50 percent
 	jr c, .high_moves
-	
-; get move 1 or 2
-	ld a, 2
-	call RandomRange
-	jr .get_position
-	
+	srl c ; halves current list count 
 ; get move between 1 and max
 .high_moves
 	ld a, c
@@ -542,6 +587,7 @@ FillEggMove:
 ; get move from hl
 	ld a, BANK("Egg Moves")
 	call GetFarByte
+.got_move_id
 	ld b, a ; this is our move
 	ld c, NUM_MOVES
 .loop ; finds first slot that isn't empty (or last slot)
@@ -691,7 +737,7 @@ FillMoves:
 .ShiftedMove:
 	pop hl
 
-.LearnMove:
+.LearnMove: ; FillMoves.LearnMove
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte
 	ld [de], a
@@ -727,30 +773,40 @@ FillMoves:
 	pop hl
 	jp .NextMove
 
-.done
+.done ; FillMoves.done
 	pop bc
 	pop de
 	pop hl
-
-
+; if first mon is the same as the wild one, adds 10% egg move chance
+	ld a, [wCurPartySpecies]
+	ld b, a
+	ld a, [wPartyMon1Species]
+	cp b
+	ld b, 10 percent
+	jr z, .equal_mons
+	ld b, 0
+.equal_mons
+; 7% chance to have egg move in a lucky battle
 	ld a, [wLuckyWild]
-	cp 0
+	and a
 	jr z, .notLucky
-; 10% chance to have egg move in a lucky battle
-	ld a, 100
-	call RandomRange
-	cp 10
-	jr nc, .notLucky
-	call FillEggMove
-	jr .noEggMove
-.notLucky
-; 2.7% chance to have egg move in a normal battle
+	ld a, 7 percent
+	add b
+	ld b, a
 	call Random
-	cp 7
-	jr nc, .noEggMove
-	call FillEggMove
-.noEggMove
-	ret
+	cp b
+	ret nc
+	jp FillEggMove
+
+.notLucky
+; 3% chance to have egg move in a normal battle
+	ld a, 3 percent 
+	add b
+	ld b, a
+	call Random
+	cp b
+	ret nc
+	jp FillEggMove
 
 ShiftMoves:
 	ld c, NUM_MOVES - 1
@@ -784,7 +840,9 @@ GetPreEvolution:
 	ld a, BANK(EvosAttacksPointers)
 	call GetFarHalfword
 .loop2 ; For each evolution...
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	and a
 	jr z, .no_evolve ; If we jump, this Pokemon does not evolve into wCurPartySpecies.
 	cp EVOLVE_STAT ; This evolution type has the extra parameter of stat comparison.
@@ -792,9 +850,12 @@ GetPreEvolution:
 	inc hl
 
 .not_tyrogue
-	inc hl
+	inc hl ; skip level
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	ld b, a
 	ld a, [wCurPartySpecies]
-	cp [hl]
+	cp b
 	jr z, .found_preevo
 	inc hl
 	ld a, [hl]

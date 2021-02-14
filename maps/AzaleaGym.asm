@@ -41,7 +41,7 @@ AzaleaGymBugsyScript:
 	setevent EVENT_BEAT_BUG_CATCHER_JOSH
 	writetext BugsyText_HiveBadgeSpeech
 	buttonsound
-	verbosegiveitem TM_U_TURN
+	verbosegiveitem TM_BUG_BUZZ
 	iffalse .NoRoomForUTurn
 	setevent EVENT_GOT_TM49_UTURN
 	writetext BugsyText_UTurnSpeech

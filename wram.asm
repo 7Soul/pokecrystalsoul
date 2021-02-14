@@ -506,6 +506,8 @@ wPlayerSubStatus5:: ; c66c
 ; 0 toxic
 	db
 
+wAquaRing:: db
+
 wEnemySubStatus1:: ; c66d
 ; see wPlayerSubStatus1
 	db
@@ -561,7 +563,6 @@ wPlayerDefense:: dw
 wPlayerSpeed:: dw
 wPlayerSpAtk:: dw
 wPlayerSpDef:: dw
-	ds 1
 
 wEnemyStats:: ; c6c1
 wEnemyAttack:: dw

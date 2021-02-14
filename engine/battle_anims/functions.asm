@@ -45,7 +45,8 @@ DoBattleAnimFrame:
 	dw BattleAnimFunction_Egg                               ; BATTLEANIMFUNC_EGG
 	dw BattleAnimFunction_MoveUp                            ; BATTLEANIMFUNC_MOVE_UP
 	dw BattleAnimFunction_Wrap                              ; BATTLEANIMFUNC_WRAP
-	dw BattleAnimFunction_LeechSeed                         ; BATTLEANIMFUNC_20
+	dw BattleAnimFunction_LeechSeed                         ; BATTLEANIMFUNC_LEECH_SEED
+	dw BattleAnimFunction_Ingrain                           ; BATTLEANIMFUNC_INGRAIN
 	dw BattleAnimFunction_Sound                             ; BATTLEANIMFUNC_SOUND
 	dw BattleAnimFunction_ConfuseRay                        ; BATTLEANIMFUNC_CONFUSE_RAY
 	dw BattleAnimFunction_Dizzy                             ; BATTLEANIMFUNC_DIZZY
@@ -1892,6 +1893,19 @@ BattleAnimFunction_LeechSeed:
 	call ReinitBattleAnimFrameset
 .three:
 	ret
+
+BattleAnimFunction_Ingrain:
+	call BattleAnim_AnonJumptable
+.anon_dw
+	dw .zero
+	dw BattleAnimFunction_LeechSeed.sprout
+	dw .two
+.zero:
+	call BattleAnim_IncAnonJumptableIndex
+	ret
+.two:
+	ret
+
 
 BattleAnim_StepThrownToTarget:
 ; Inches object towards the opponent's side in a parabola arc defined by the lower and upper nybble of Obj Param

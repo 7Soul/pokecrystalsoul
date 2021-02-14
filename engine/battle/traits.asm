@@ -3405,10 +3405,12 @@ EffectTraitForceRecoverPP:
 	ld de, wEnemyMonStamina
 .player
 	push hl
+	push de
 	ld [wCurPartyMon], a
 	ld e, 2
 	callfar RestoreStamina
 	pop hl
+	pop de
 	ld a, [hl]
 	ld [de], a
 	call GetTraitUser
@@ -4436,3 +4438,216 @@ OneShotTraits:
 PRINTT "Trait constants left: "
 PRINTV $FF - TRAIT_COUNT
 PRINTT "\n"
+
+SetFiveTurns:
+	call GetMoveID
+	jr c, .variable_id
+
+.variable_id
+	cp AQUA_RING
+	ld hl, wAquaRing
+	ld c, 0 ; doesn't set bit 4
+	jr z, .got_wram
+
+	cp INGRAIN
+	ld hl, wAquaRing
+	ld c, 1 ; sets bit 4
+	jr z, .got_wram
+
+.got_wram
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player
+	ld a, [hl]
+	and %1111
+	ld b, a
+	ld a, 5
+	push af
+	ld a, c
+	and a
+	jr z, .enemy_not_ingrain
+	set 4, [hl] ; swap later
+.enemy_not_ingrain
+	pop af
+	swap a
+	jr .end
+.player
+	ld a, [hl]
+	and %11110000
+	ld b, a
+	ld a, 5
+	push af
+	ld a, c
+	and a
+	jr z, .player_not_ingrain
+	set 4, [hl]
+.player_not_ingrain
+	pop af
+.end
+	or b
+	ld [hl], a
+
+CountDownAllStatus:
+	ld hl, Statuses
+	ld b, 0
+	ld c, 0
+.loop
+	push hl
+	push bc
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call CountDownStatus
+	pop bc
+	pop hl
+	ld a, c
+	and a
+	ret z
+	dec c
+	jr nz, .loop
+	ret
+
+CountDownStatus:
+	ld a, [hl]
+	and a
+	ret z
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player
+	ld a, [hl]
+	and %1111
+	ld b, a
+	ld a, [hl]
+	and %01110000
+	jr z, .end
+	swap a
+	dec a
+	swap a
+	jr .end
+.player
+	ld a, [hl]
+	and %11110000
+	ld b, a
+	ld a, [hl]
+	and %0111
+	jr z, .end
+	dec a
+.end
+	or b
+	ld [hl], a
+	ret
+
+ResetAllStatus:
+	ld hl, Statuses
+	ld b, 0
+	ld c, 0
+.loop
+	push hl
+	push bc
+	add hl, bc
+	add hl, bc
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call ResetStatus
+	pop bc
+	pop hl
+	ld a, c
+	and a
+	ret z
+	dec c
+	jr nz, .loop
+	ret
+
+Statuses:
+	dw wAquaRing
+
+ResetStatus:
+; Sets the upper or lower nybble of a status byte
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player
+	ld a, [hl]
+	and %1111
+	ld b, a
+	xor a
+	swap a
+	jr .end
+.player
+	ld a, [hl]
+	and %11110000
+	ld b, a
+	xor a
+.end
+	or b
+	ld [hl], a
+	ret
+
+AquaRing:
+	ld hl, wAquaRing
+	ldh a, [hBattleTurn]
+	and a
+	ld a, [hl]
+	jr z, .player_aqua_ring
+	and %01110000
+	jr nz, .do_heal
+	swap a
+	jr .clear_ingrain
+	
+.player_aqua_ring
+	and %0111
+	jr nz, .do_heal
+	jr .clear_ingrain
+	
+.do_heal
+	call EffectForceRecoverPP
+	ld hl, GetSixteenthMaxHP
+	jp CallHealAmount
+	; call CallHealAmount
+	; call GetMoveName
+	; ld hl, BattleText_TargetRecoveredWithItem
+	; jp StdBattleTextBox
+
+.clear_ingrain
+	and %1000
+	; bit 4, [hl]
+	ret z
+	ld a, BATTLE_VARS_SUBSTATUS5
+	call GetBattleVarAddr
+	bit SUBSTATUS_CANT_RUN, [hl]
+	ret nz
+	set SUBSTATUS_CANT_RUN, [hl]
+	ld hl, CantEscapeNowText
+	jp StdBattleTextBox
+	ret
+
+EffectForceRecoverPP:
+	ld hl, wPartyMon1Stamina
+	ld de, wBattleMonStamina
+	ldh a, [hBattleTurn]
+	and a
+	ld a, [wCurBattleMon]
+	jr z, .player
+	ld a, [wCurOTMon]
+	ld hl, wOTPartyMon1Stamina
+	ld de, wEnemyMonStamina
+.player
+	push hl
+	push de
+	ld [wCurPartyMon], a
+	ld e, 1
+	callfar RestoreStamina
+	pop hl
+	pop de
+	ld a, [hl]
+	ld [de], a
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .player2
+	farcall UpdateEnemyHUD
+	ret
+.player2
+	farcall UpdatePlayerHUD
+	ret

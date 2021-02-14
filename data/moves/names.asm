@@ -319,3 +319,6 @@ VariableMoveNames::
 	db "Water Pulse@"
 	db "Clear Smog@"
 	db "Volt Switch@"
+	db "Aqua Ring@"
+	db "Ingrain@"
+	db "Cycle Foe@"

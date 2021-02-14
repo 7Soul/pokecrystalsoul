@@ -97,7 +97,7 @@
 	const SFX_HYPER_BEAM                  ; 5d
 	const SFX_SHINE                       ; 5e
 	const SFX_UNKNOWN_5F                  ; 5f
-	const SFX_UNKNOWN_60                  ; 60
+	const SFX_UNKNOWN_60                  ; 60 ; wave
 	const SFX_UNKNOWN_61                  ; 61
 	const SFX_SWITCH_POCKETS              ; 62
 	const SFX_UNKNOWN_63                  ; 63

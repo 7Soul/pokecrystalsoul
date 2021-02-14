@@ -989,6 +989,7 @@ BattleAnim_SuperFang:
 
 BattleAnim_Ember:
 	anim_if_param_equal ICE_FANG, .icefang
+	anim_if_param_equal BRINE, .brine
 	anim_1gfx ANIM_GFX_FIRE
 	anim_sound 6, 2, SFX_EMBER
 	anim_obj ANIM_OBJ_EMBER, 64, 84, $12
@@ -1016,6 +1017,34 @@ BattleAnim_Ember:
 	anim_call BattleAnim_IcePunch_branch_cbbdf
 	anim_wait 16
 	anim_ret
+.brine
+	anim_bgeffect ANIM_BG_START_WATER, $0, $0, $0
+	anim_1gfx ANIM_GFX_WATER
+	anim_call BattleAnim_FollowPlayerHead_1_bank2
+	anim_sound 16, 2, SFX_WATER_GUN
+.brine_loop
+	anim_obj ANIM_OBJ_WATER_GUN, 128, 16, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_WATER_GUN, 128-16, 16-8, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_WATER_GUN, 128+16, 16+8, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_WATER_GUN, 128-8, 16+8, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_WATER_GUN, 128+8, 16, $1
+	anim_wait 8
+	anim_loop 2, .brine_loop
+	anim_wait 16
+	anim_bgeffect ANIM_BG_WATER, $1c, $0, $0
+	anim_wait 8
+	anim_bgeffect ANIM_BG_WATER, $8, $0, $0
+	anim_wait 8
+	anim_bgeffect ANIM_BG_WATER, $30, $0, $0
+	anim_wait 32
+	anim_call BattleAnim_ShowMon_1_bank2
+	anim_bgeffect ANIM_BG_RESET_LCD, $0, $0, $0
+	anim_wait 16
+	anim_ret
 
 BattleAnim_FirePunch:
 	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_FIRE
@@ -1025,8 +1054,10 @@ BattleAnim_FirePunch:
 	anim_ret
 
 BattleAnim_FireSpin:
+	anim_if_param_equal AQUA_RING, .aquaring
+	anim_if_param_equal INGRAIN, .ingrain
 	anim_1gfx ANIM_GFX_FIRE
-.loop
+.loop_firespin
 	anim_sound 6, 2, SFX_EMBER
 	anim_obj ANIM_OBJ_FIRE_SPIN, 64, 88, $4
 	anim_wait 2
@@ -1039,7 +1070,32 @@ BattleAnim_FireSpin:
 	anim_sound 6, 2, SFX_EMBER
 	anim_obj ANIM_OBJ_FIRE_SPIN, 64, 96, $4
 	anim_wait 2
-	anim_loop 2, .loop
+	anim_loop 2, .loop_firespin
+	anim_wait 96
+	anim_ret
+
+.aquaring ; todo
+	anim_1gfx ANIM_GFX_CHARGE
+	anim_sound 0, 1, SFX_UNKNOWN_60
+	anim_obj ANIM_OBJ_AQUA_RING, 48, 88, $0
+	anim_obj ANIM_OBJ_AQUA_RING, 48, 88, $8
+	anim_obj ANIM_OBJ_AQUA_RING, 48, 88, $10
+	anim_obj ANIM_OBJ_AQUA_RING, 48, 88, $18
+	anim_obj ANIM_OBJ_AQUA_RING, 48, 88, $20
+	anim_obj ANIM_OBJ_AQUA_RING, 48, 88, $28
+	anim_obj ANIM_OBJ_AQUA_RING, 48, 88, $30
+	anim_obj ANIM_OBJ_AQUA_RING, 48, 88, $38
+	anim_wait 128
+	anim_ret
+
+.ingrain ; todo
+	anim_1gfx ANIM_GFX_PLANT
+	anim_sound 16, 2, SFX_VINE_WHIP
+	anim_obj ANIM_OBJ_INGRAIN, 48, 104, $20
+	anim_wait 8
+	anim_obj ANIM_OBJ_INGRAIN, 48-24, 104, $20
+	anim_wait 8
+	anim_obj ANIM_OBJ_INGRAIN, 48+24, 104, $20
 	anim_wait 96
 	anim_ret
 
@@ -1172,7 +1228,6 @@ BattleAnim_Blizzard:
 
 BattleAnim_Bubble:
 	anim_if_param_equal GUARD_CLAW, .guardclaw
-	anim_if_param_equal BRINE, .brine
 	anim_1gfx ANIM_GFX_BUBBLE
 	anim_sound 32, 2, SFX_WATER_GUN
 	anim_obj ANIM_OBJ_BUBBLE, 64, 92, $c1
@@ -1197,34 +1252,6 @@ BattleAnim_Bubble:
 	anim_obj ANIM_OBJ_CUT_DOWN_LEFT, 152, 40, $0
 	anim_obj ANIM_OBJ_CUT_UP_RIGHT, 120, 72, $0
 	anim_wait 32
-	anim_ret
-.brine
-	anim_bgeffect ANIM_BG_START_WATER, $0, $0, $0
-	anim_1gfx ANIM_GFX_WATER
-	anim_call BattleAnim_FollowPlayerHead_1_bank2
-	anim_sound 16, 2, SFX_WATER_GUN
-.brine_loop
-	anim_obj ANIM_OBJ_WATER_GUN, 128, 16, $1
-	anim_wait 8
-	anim_obj ANIM_OBJ_WATER_GUN, 128-16, 16-8, $1
-	anim_wait 8
-	anim_obj ANIM_OBJ_WATER_GUN, 128+16, 16+8, $1
-	anim_wait 8
-	anim_obj ANIM_OBJ_WATER_GUN, 128-8, 16+8, $1
-	anim_wait 8
-	anim_obj ANIM_OBJ_WATER_GUN, 128+8, 16, $1
-	anim_wait 8
-	anim_loop 2, .brine_loop
-	anim_wait 16
-	anim_bgeffect ANIM_BG_WATER, $1c, $0, $0
-	anim_wait 8
-	anim_bgeffect ANIM_BG_WATER, $8, $0, $0
-	anim_wait 8
-	anim_bgeffect ANIM_BG_WATER, $30, $0, $0
-	anim_wait 32
-	anim_call BattleAnim_ShowMon_1_bank2
-	anim_bgeffect ANIM_BG_RESET_LCD, $0, $0, $0
-	anim_wait 16
 	anim_ret
 
 BattleAnim_Bubblebeam:
@@ -3026,6 +3053,7 @@ BattleAnim_Swift:
 	anim_ret
 
 BattleAnim_UTurn:
+	anim_if_param_equal BRUTAL_VINE, .voltswitch
 	anim_2gfx ANIM_GFX_SPEED, ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_HIDE_MON, $0, $1, $0
 	anim_obj ANIM_OBJ_SPEED_LINE, 24, 88, $2
@@ -3047,9 +3075,8 @@ BattleAnim_UTurn:
 	anim_obj ANIM_OBJ_HIT, 74+64, 81-32, $0
 	anim_wait 3
 
-	
 	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
-	
+.voltswitch
 	anim_ret
 
 BattleAnim_SkullBash:
@@ -3141,7 +3168,6 @@ BattleAnim_Kinesis:
 BattleAnim_Peck:
 	anim_if_param_equal ELECTRO_BALL, .electroball
 	anim_if_param_equal AURA_SPHERE, .aurasphere
-	anim_if_param_equal SMART_STRIKE, .smart_strike
 	anim_1gfx ANIM_GFX_HIT
 	anim_sound 0, 1, SFX_PECK
 	anim_obj ANIM_OBJ_HIT_SMALL_YFIX, 128, 48, $0
@@ -3186,34 +3212,6 @@ BattleAnim_Peck:
 	anim_loop 8, .loop
 	anim_wait 32
 	anim_incbgeffect ANIM_BG_CYCLE_MON_LIGHT_DARK_REPEATING
-	anim_ret
-.smart_strike
-	anim_1gfx ANIM_GFX_MISC
-	anim_sound 0, 1, SFX_MIND_READER
-.loop2
-	anim_obj ANIM_OBJ_LOCK_ON, 132, 48, $3
-	anim_obj ANIM_OBJ_LOCK_ON, 132, 48, $12
-	anim_obj ANIM_OBJ_LOCK_ON, 132, 48, $20
-	anim_obj ANIM_OBJ_LOCK_ON, 132, 48, $31
-	anim_wait 16
-	anim_loop 2, .loop2
-
-	anim_wait 40
-	anim_clearsprites
-
-	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_OBJECTS
-	anim_call BattleAnim_FollowPlayerHead_0_bank2
-	anim_bgeffect ANIM_BG_BODY_SLAM, $0, $1, $0
-	anim_wait 3
-	anim_sound 0, 1, SFX_TACKLE
-	anim_obj ANIM_OBJ_HIT_YFIX, 136, 48, $0
-	anim_wait 1
-	anim_obj ANIM_OBJ_ENCORE_STAR, 136, 56-8, $34
-	anim_wait 1
-	anim_obj ANIM_OBJ_ENCORE_STAR, 136-4, 52-8, $2c
-	anim_wait 8
-	anim_call BattleAnim_ShowMon_0_bank2
-	anim_wait 16
 	anim_ret
 
 BattleAnim_DrillPeck:
@@ -4512,6 +4510,7 @@ BattleAnim_Protect:
 	anim_ret
 
 BattleAnim_MachPunch:
+	anim_if_param_equal SMART_STRIKE, .smart_strike
 	anim_2gfx ANIM_GFX_SPEED, ANIM_GFX_HIT
 	anim_bgeffect ANIM_BG_HIDE_MON, $0, $1, $0
 	anim_sound 0, 0, SFX_MENU
@@ -4528,6 +4527,34 @@ BattleAnim_MachPunch:
 	anim_obj ANIM_OBJ_HIT_YFIX, 136, 56, $0
 	anim_wait 8
 	anim_bgeffect ANIM_BG_SHOW_MON, $0, $1, $0
+	anim_wait 16
+	anim_ret
+.smart_strike
+	anim_1gfx ANIM_GFX_MISC
+	anim_sound 0, 1, SFX_MIND_READER
+.loop2
+	anim_obj ANIM_OBJ_LOCK_ON, 132, 48, $3
+	anim_obj ANIM_OBJ_LOCK_ON, 132, 48, $12
+	anim_obj ANIM_OBJ_LOCK_ON, 132, 48, $20
+	anim_obj ANIM_OBJ_LOCK_ON, 132, 48, $31
+	anim_wait 16
+	anim_loop 2, .loop2
+
+	anim_wait 40
+	anim_clearsprites
+
+	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_OBJECTS
+	anim_call BattleAnim_FollowPlayerHead_0_bank2
+	anim_bgeffect ANIM_BG_BODY_SLAM, $0, $1, $0
+	anim_wait 3
+	anim_sound 0, 1, SFX_TACKLE
+	anim_obj ANIM_OBJ_HIT_YFIX, 136, 48, $0
+	anim_wait 1
+	anim_obj ANIM_OBJ_ENCORE_STAR, 136, 56-8, $34
+	anim_wait 1
+	anim_obj ANIM_OBJ_ENCORE_STAR, 136-4, 52-8, $2c
+	anim_wait 8
+	anim_call BattleAnim_ShowMon_0_bank2
 	anim_wait 16
 	anim_ret
 

@@ -2513,3 +2513,10 @@ SwitchHit:
 	posthiteffects
 	switchout
 	endmove
+
+RegenSlow:
+	checkobedience
+	usedmovetext
+	doturn
+	setfiveturns
+	endmove

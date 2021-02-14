@@ -104,6 +104,7 @@ NUM_ANIM_OBJECTS EQU 10 ; see wActiveAnimObjects
 	const ANIM_OBJ_BIND1
 	const ANIM_OBJ_BIND2
 	const ANIM_OBJ_LEECH_SEED
+	const ANIM_OBJ_INGRAIN
 	const ANIM_OBJ_SOUND
 	const ANIM_OBJ_WAVE
 	const ANIM_OBJ_CONFUSE_RAY
@@ -253,6 +254,7 @@ NUM_ANIM_OBJECTS EQU 10 ; see wActiveAnimObjects
 	const ANIM_OBJ_BIG_ICE_ROCK
 	const ANIM_OBJ_SMALL_ICE_ROCK
 	const ANIM_OBJ_GNAW
+	const ANIM_OBJ_AQUA_RING
 
 ; DoBattleAnimFrame arguments (see engine/battle_anims/functions.asm)
 	const_def
@@ -289,6 +291,7 @@ NUM_ANIM_OBJECTS EQU 10 ; see wActiveAnimObjects
 	const BATTLEANIMFUNC_MOVE_UP
 	const BATTLEANIMFUNC_WRAP
 	const BATTLEANIMFUNC_LEECH_SEED
+	const BATTLEANIMFUNC_INGRAIN
 	const BATTLEANIMFUNC_SOUND
 	const BATTLEANIMFUNC_CONFUSE_RAY
 	const BATTLEANIMFUNC_DIZZY

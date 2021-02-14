@@ -175,3 +175,4 @@ MoveEffectsPointers:
 	dw Acupressure
 	dw LowPriorityHit
 	dw SwitchHit
+	dw RegenSlow

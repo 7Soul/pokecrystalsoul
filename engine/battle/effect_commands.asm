@@ -190,6 +190,7 @@ CheckPlayerTurn:
 	jp EndTurn
 
 .no_recharge
+	farcall CountDownAllStatus
 
 	ld hl, wBattleMonStatus
 	ld a, [hl]
@@ -423,6 +424,7 @@ CheckEnemyTurn:
 	jp EndTurn
 
 .no_recharge
+	farcall CountDownAllStatus
 
 	ld hl, wEnemyMonStatus
 	ld a, [hl]
@@ -2995,6 +2997,8 @@ BattleCommand_DamageCalc:
 	jp .got_power_changes
 	
 .variable_id
+	cp BRINE
+	jp z, .bubble
 	cp AVALANCHE
 	jp z, .avalanche_revenge
 	cp REVENGE
@@ -5759,6 +5763,26 @@ CheckOpponentWentFirst:
 	ldh a, [hBattleTurn] ; 0 if it's the player's turn
 	xor b ; 1 if opponent went first
 	pop bc
+	ret
+
+BattleCommand_SetFiveTurns:
+; Starts a 5 turn counter based on move id
+	farcall SetFiveTurns
+	ld a, [wCurVariableMove]
+	ld [wBattleAnimParam], a
+	call AnimateCurrentMove
+; Check for Ingrain
+	call BattleCommand_SwitchTurn
+	call GetMoveID
+	ret nc
+	ld a, [wCurVariableMove]
+	cp INGRAIN
+	ret nz
+	ld a, BATTLE_VARS_SUBSTATUS5
+	call GetBattleVarAddr
+	set SUBSTATUS_CANT_RUN, [hl]
+	ld hl, CantEscapeNowText
+	jp StdBattleTextBox
 	ret
 
 BattleCommand_PostHitEffects:

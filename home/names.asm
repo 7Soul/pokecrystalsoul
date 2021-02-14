@@ -264,11 +264,22 @@ GetMoveName::
 	ld a, MOVE_NAME
 .variable
 	ld [wNamedObjectTypeBuffer], a
-
 	call GetName
 	ld de, wStringBuffer1
 	pop hl
+	ret
 
+GetMoveNameSimple::
+	push hl
+	ld a, MOVE_NAME
+	ld [wNamedObjectTypeBuffer], a
+
+	ld a, [wNamedObjectIndexBuffer] ; move id
+	ld [wCurSpecies], a
+	
+	call GetName
+	ld de, wStringBuffer1
+	pop hl
 	ret
 
 GetTraitName::

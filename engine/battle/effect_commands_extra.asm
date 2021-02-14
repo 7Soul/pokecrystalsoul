@@ -15,7 +15,7 @@ IsVariableMove::
 	jr .moves_loop
 .found_move
 	ld a, d
-	ld [wCurType], a
+	ld [wFailedToFlee], a
 	scf
 	ret
 .not_var
@@ -61,12 +61,15 @@ GetVariableMoveType::
 	ld e, a
 
 .got_species ; got species we're looking at
+	ld a, [wFailedToFlee]
+	cp TYPE_VARIABLE
+	jp nc, .by_type ; list position is 41 or higher
 	ld a, [hli]
 	cp -1
 	jr z, .loop_variable_types_by_name ; move isn't variable to this species
 	cp e 
 	jr z, .found_mon_name
-	jr .got_species 
+	jr .got_species
 
 .found_mon_name ; in table
 	ld a, [wCurVariableMove]
@@ -81,6 +84,33 @@ GetVariableMoveType::
 	ld a, [wCurSpecies]
 	ld e, a
 	and a
+	ret
+
+.by_type
+	push hl
+	; get pokemon's base types
+	ld a, e
+	dec a
+	ld hl, BaseData + BASE_TYPES
+	ld bc, BASE_DATA_SIZE
+	call AddNTimes
+	ld a, BANK(BaseData)
+	call GetFarByte
+	ld b, a
+	inc hl
+	ld a, BANK(BaseData)
+	call GetFarByte
+	ld c, a
+	pop hl
+	ld a, [hli] ; grab type from variable move table
+	cp -1
+	jr z, .loop_variable_types_by_name
+	cp b
+	jp z, .found_mon_name
+	cp c
+	jp z, .found_mon_name
+	inc hl
+	jp .loop_variable_types_by_name
 	ret
 
 INCLUDE "data/moves/variable_moves_table.asm"

@@ -1143,6 +1143,8 @@ VariableMoveDescriptions::
 	dw $0000 ; NightSlashDescription
 	dw $0000 ; LeafBladeDescription
 	dw $0000 ; AirCutterDescription
+	dw $0000 ; CrabhammerDescription
+	dw $0000 ; KarateChopDescription
 	dw SeedBombDescription
 	dw $0000 ; AerialAceDescription
 	dw $0000 ; FeatherDanceDescription
@@ -1184,6 +1186,9 @@ VariableMoveDescriptions::
 	dw $0000 ; WaterPulseDescription
 	dw ClearSmogDescription
 	dw $0000 ; VoltSwitchDescription
+	dw AquaRingDescription
+	dw IngrainDescription
+	dw $0000 ; CycleFoeDescription
 
 ; BoneRushDescription:
 ; PinMissileDescription:
@@ -1324,6 +1329,11 @@ PoisonFangDescription:
 ClearSmogDescription:
 	db   "Eliminates foe's"
 	next "stat changes.@"
+
+AquaRingDescription:
+IngrainDescription:
+	db   "Heal HP and Sta-"
+	next "mina for 5 turns.@"
 
 PowerWhipDescription:
 RockPolishDescription:

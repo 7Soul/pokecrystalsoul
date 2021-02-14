@@ -145,7 +145,7 @@
 	const GLARE        ; 89
 	const DREAM_EATER  ; 8a
 	const POISON_GAS   ; 8b
-	const ASSURANCE   ; 8c
+	const ASSURANCE    ; 8c
 	const LEECH_LIFE   ; 8d
 	const STAMPEDE     ; 8e
 	const SKY_ATTACK   ; 8f
@@ -216,7 +216,7 @@
 	const FIRE_PLAY    ; d0
 	const SPARK        ; d1
 	const FURY_CUTTER  ; d2
-	const STEEL_WING  ; d3
+	const STEEL_WING   ; d3
 	const MEAN_LOOK    ; d4
 	const ATTRACT      ; d5
 	const SLEEP_TALK   ; d6
@@ -236,8 +236,8 @@
 	const PURSUIT      ; e4
 	const RAPID_SPIN   ; e5
 	const FELL_STINGER ; e6
-	const IRON_TAIL  ; e7
-	const METAL_CLAW  ; e8
+	const IRON_TAIL    ; e7
+	const METAL_CLAW   ; e8
 	const VITAL_THROW  ; e9
 	const MORNING_SUN  ; ea
 	const SYNTHESIS    ; eb
@@ -364,3 +364,7 @@ NUM_ATTACKS EQU const_value + -1
 	const WATER_PULSE     ; 3d
 	const CLEAR_SMOG      ; 3e
 	const VOLT_SWITCH     ; 3f
+	const AQUA_RING       ; 40
+	const INGRAIN         ; 41
+	const CYCLE_FOE       ; 42
+	const AROMATHERAPY    ; 43

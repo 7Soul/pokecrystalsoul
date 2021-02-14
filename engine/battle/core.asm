@@ -1395,7 +1395,10 @@ HandleWrap:
 	ld a, [de]
 	ld [wNamedObjectIndexBuffer], a
 	ld [wFXAnimID], a
-	call GetMoveName
+	ld [wBattleAnimParam], a
+	call SwitchTurnCore
+	call GetMoveNameSimple
+	call SwitchTurnCore
 	dec [hl]
 	jr z, .release_from_bounds
 
@@ -1446,6 +1449,8 @@ HandleLeftovers:
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitRegenHP
+
+	farcall AquaRing
 
 	callfar GetUserItem
 	ld a, [hl]
@@ -3887,6 +3892,8 @@ endr
 	res SUBSTATUS_CANT_RUN, [hl]
 	ld hl, wTraitActivated
 	res 4, [hl]
+	call SetEnemyTurn
+	farcall ResetAllStatus
 	ret
 
 ResetEnemyStatLevels:
@@ -4426,6 +4433,8 @@ endr
 	res SUBSTATUS_CANT_RUN, [hl]
 	ld hl, wTraitActivated
 	res 0, [hl]
+	call SetPlayerTurn
+	farcall ResetAllStatus
 	ret
 
 BreakAttraction:

@@ -1,6 +1,6 @@
 DefaultOptions:
 ; wOptions: med text speed
-	db TEXT_DELAY_FAST + 1 << BATTLE_SCENE
+	db TEXT_DELAY_FAST ; + 1 << BATTLE_SCENE ; disables battle anims
 ; wSaveFileExists: no
 	db FALSE
 ; wTextBoxFrame: frame 1
