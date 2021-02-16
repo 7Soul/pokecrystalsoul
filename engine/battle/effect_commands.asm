@@ -4911,10 +4911,15 @@ BattleCommand_AllStatsUp:
 
 	call ResetMiss
 	call BattleCommand_AttackUp
+	call BattleCommand_StatUpFailText
 	call BattleCommand_DefenseUp
+	call BattleCommand_StatUpFailText
 	call BattleCommand_SpeedUp
+	call BattleCommand_StatUpFailText
 	call BattleCommand_SpecialAttackUp
+	call BattleCommand_StatUpFailText
 	call BattleCommand_SpecialDefenseUp
+	call BattleCommand_StatUpFailText
 
 	ld hl, BattleText_AllStatsUp
 	jp StdBattleTextBox
@@ -4925,11 +4930,13 @@ BattleCommand_AtkDefUp:
 ; Attack
 	call ResetMiss
 	call BattleCommand_AttackUp
+	call BattleCommand_StatUpFailText
 	call BattleCommand_StatUpMessage
 
 ; Defense
 	call ResetMiss
 	call BattleCommand_DefenseUp
+	call BattleCommand_StatUpFailText
 	jp   BattleCommand_StatUpMessage
 	
 BattleCommand_SpAtkSpDefUp:
@@ -4938,11 +4945,13 @@ BattleCommand_SpAtkSpDefUp:
 ; Sp.Attack
 	call ResetMiss
 	call BattleCommand_SpecialAttackUp
+	call BattleCommand_StatUpFailText
 	call BattleCommand_StatUpMessage
 
 ; Sp.Defense
 	call ResetMiss
 	call BattleCommand_SpecialDefenseUp
+	call BattleCommand_StatUpFailText
 	jp   BattleCommand_StatUpMessage
 	
 	
@@ -4952,11 +4961,13 @@ BattleCommand_DefSpDefUp:
 ; Defense
 	call ResetMiss
 	call BattleCommand_DefenseUp
+	call BattleCommand_StatUpFailText
 	call BattleCommand_StatUpMessage
 
 ; Sp.Defense
 	call ResetMiss
 	call BattleCommand_SpecialDefenseUp
+	call BattleCommand_StatUpFailText
 	jp   BattleCommand_StatUpMessage
 	
 BattleCommand_DefSpDefDown:
@@ -4965,11 +4976,13 @@ BattleCommand_DefSpDefDown:
 ; Defense
 	call ResetMiss
 	call BattleCommand_DefenseDown
+	call BattleCommand_StatDownFailText
 	call BattleCommand_StatDownMessage
 
 ; Special Defense
 	call ResetMiss
 	call BattleCommand_SpecialDefenseDown
+	call BattleCommand_StatDownFailText
 	jp   BattleCommand_StatDownMessage
 	
 ResetMiss:
