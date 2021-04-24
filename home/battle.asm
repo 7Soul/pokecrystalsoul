@@ -343,18 +343,19 @@ RegenPartyStamina::
 	ld de, wEnemyMonStamina
 
 .got_stamina_location
-	ld c, STA_HALF
+	ld c, STA_HALF ; amount to regen
 ; 	ld a, [hl]
 ; 	and STA_MASK
 ; 	and a ; 0 stamina?
 ; 	jr nz, .got_stamina
 ; 	sla c
 ; .got_stamina
+; doubles gain if the last move was super effective
 	ld a, [wTypeModifier]
 	and $7f
 	cp SUPER_EFFECTIVE
 	jr nz, .not_super
-	sla c
+	sla c 
 .not_super
 	ld a, [wBuffer2]
 	cp b
@@ -370,13 +371,14 @@ RegenPartyStamina::
 	jr c, .max
 	ld a, STA_MAX
 .max
-	ld b, a
+	ld b, a ; saves stamina amount (not counting exhaustion) in b
+; add exhaustion into stamina amount
 	ld a, [hl]
 	and STA_EX_MASK
 	or b
 	ld [hl], a
 	pop bc
-	ld c, a
+	ld c, a ; save total stamina value in c
 	ld a, [wBuffer2]
 	cp b
 	jr nz, .not_battlemon

@@ -2632,8 +2632,8 @@ CamperGroup:
 	; CAMPER (11)
 	db "Ted@", TRAINERTYPE_NORMAL
 	db $0F, $25, EKANS
-	db $4F, $25, ((__ISO_8601_UTC__ + $40) % NUM_POKEMON) & $FF
-	db $4F, $25, ((__ISO_8601_UTC__ + $80) % NUM_POKEMON) & $FF
+	db $4F, $25, (((__ISO_8601_UTC__ + $40) % NUM_POKEMON) & $FF) - 4
+	db $4F, $25, (((__ISO_8601_UTC__ + $80) % NUM_POKEMON) & $FF) - 4
 	db -1 ; end
 
 	; CAMPER (12)

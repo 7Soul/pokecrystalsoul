@@ -2508,7 +2508,8 @@ ChikoritaEvosAttacks:
 	db 31, LIGHT_SCREEN
 	db 34, BODY_SLAM
 	db 39, SAFEGUARD
-	db 43, SOLARBEAM
+	db 42, HEAL_BELL ; becomes Aromatherapy
+	db 44, SOLARBEAM
 	db 50, LEAF_STORM
 	db 0 ; no more level-up moves
 
@@ -2520,9 +2521,10 @@ BayleefEvosAttacks:
 	db 18, REFLECT
 	db 22, MAGICAL_LEAF
 	db 26, HIDDEN_POWER
-	db 36, LIGHT_SCREEN
-	db 40, BODY_SLAM
-	db 46, SAFEGUARD
+	db 34, LIGHT_SCREEN
+	db 39, BODY_SLAM
+	db 44, SAFEGUARD
+	db 48, HEAL_BELL ; becomes Aromatherapy
 	db 50, SOLARBEAM
 	db 53, LEAF_STORM
 	db 0 ; no more level-up moves
@@ -2536,6 +2538,7 @@ MeganiumEvosAttacks:
 	db 39, LIGHT_SCREEN
 	db 46, BODY_SLAM
 	db 51, SAFEGUARD
+	db 53, HEAL_BELL ; becomes Aromatherapy
 	db 54, SOLARBEAM
 	db 63, LEAF_STORM
 	db 0 ; no more level-up moves

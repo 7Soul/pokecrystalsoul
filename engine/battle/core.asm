@@ -1038,16 +1038,22 @@ EndOpponentProtectEndureDestinyBond:
 	ld a, OTPARTYMON
 	ld [wBuffer1], a
 	ld hl, wEnemyMonStamina
-.got_stamina
+.got_stamina ; EndOpponentProtectEndureDestinyBond.got_stamina
 	ld a, [hl]
 	and STA_MASK
-	ld b, a
+	ld b, a ; save flat stamina in b
 	and a ; 0 stamina?
 	jr nz, .has_stamina
 ; Increase exhaustion counter
-	bit STA_EX, [hl]
+	ld a, [hl]
+	swap a
+	and STA_EX_MAX ; grab first 2 bits
+	cp STA_EX_MAX ; maxed exhaustion?
 	jr z, .already_exhausted
-	set STA_EX, [hl]
+	inc a
+	swap a
+	or b
+	ld [hl], a
 	push hl
 	push bc
 	ld c, 20
@@ -4939,10 +4945,8 @@ DrawPlayerHUD:
 	lb bc, 5, 11
 	call ClearBox
 
-	farcall DrawPlayerHUDBorder
+	; farcall DrawPlayerHUDBorder
 
-	hlcoord 18, 9
-	ld [hl], $73 ; vertical bar
 	call PrintPlayerHUD
 
 	; HP bar
@@ -4965,9 +4969,8 @@ DrawPlayerHUD:
 	; ld b, a
 	; call FillInExpBar
 
-	hlcoord 11, 11
+	hlcoord 10, 11
 	ld a, [wTempMonStamina]
-	and STA_MASK
 	ld b, a
 	call FillInStaminaBar
 	pop de
@@ -5141,9 +5144,8 @@ DrawEnemyHUD:
 	ld [wTempMonLevel], a
 	call PrintLevel
 .skip_level
-	hlcoord 3, 3
+	hlcoord 2, 3
 	ld a, [wEnemyMonStamina]
-	and STA_MASK
 	ld b, a
 	call FillInStaminaBar
 
@@ -8314,15 +8316,27 @@ FillInExpBar:
 	add hl, de
 	jp PlaceExpBar
 
-FillInStaminaBar:
+FillInStaminaBar: ; takes stamina in b
 	push hl
+	push bc
 	call CalcStaminaBar
+	pop bc
 	pop hl
 	ld de, 0
 	add hl, de
 	jp PlaceStaminaBar
 
 PlaceStaminaBar:
+	; draw exhaustion icon
+	ld a, b
+	swap a
+	and STA_EX_MAX ; grab first 2 bits
+	add $72
+	ld [hli], a
+	ld a, b
+	and STA_MASK
+	ld b, a
+
 .loop
 	ld a, b
 	and a
@@ -8331,7 +8345,7 @@ PlaceStaminaBar:
 	jr c, .half
 	ld b, a
 
-	ld a, $72 ; full bar
+	ld a, $77 ; full bar
 	ld [hli], a
 
 	ld a, b
@@ -8340,7 +8354,7 @@ PlaceStaminaBar:
 	jr .loop
 	
 .half
-	ld a, $71 ; half bar
+	ld a, $76 ; half bar
 	ld [hli], a
 
 .finish
@@ -8483,11 +8497,11 @@ PlaceExpBar:
 	jr .skip
 
 .loop2
-	ld a, $62 ; empty bar
+	ld a, $7f ; empty bar
 
 .skip
 	ld [hld], a
-	ld a, $62 ; empty bar
+	ld a, $7f ; empty bar
 	dec c
 	jr nz, .loop2
 

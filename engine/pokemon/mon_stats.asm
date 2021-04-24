@@ -381,7 +381,7 @@ PlaceCostBar:
 	jr c, .half
 	ld b, a
 
-	ld a, $72 ; full bar
+	ld a, $77 ; full bar
 	ld [hli], a
 
 	ld a, b
@@ -390,7 +390,7 @@ PlaceCostBar:
 	jr .loop
 	
 .half
-	ld a, $71 ; half bar
+	ld a, $76 ; half bar
 	ld [hli], a
 
 .finish

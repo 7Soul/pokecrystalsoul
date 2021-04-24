@@ -500,7 +500,7 @@ FillEggMove:
 	jr nc, .not_common_egg
 
 	ld a, [wCurPartySpecies]
-	dec a
+	; dec a
 	ld hl, BaseData + BASE_TYPES
 	ld bc, BASE_DATA_SIZE
 	call AddNTimes
@@ -561,9 +561,6 @@ FillEggMove:
 	cp -1	
 	jr nz, .count_moves_loop
 
-; .level_threshholds:
-; 	db 8, 12, 24, 28, 
-	
 .reached_end
 	pop hl
 ; higher chance of giving moves from 1st and 2nd slot in the egg moves list
@@ -607,23 +604,27 @@ FillEggMove:
 	cp $FF
 	jp z, .no_moves
 	ld [de], a
-; set pp
-	ld a, [wCurVariableMove]
-	cp -1
-	jr z, .not_variable
-	ld hl, VarMoves + MOVE_PP
-	jr .got_move_data
+; set pp (gets set after FillMoves)
+; 	ld a, [wCurVariableMove]
+; 	cp -1
+; 	jr z, .not_variable
+; 	ld hl, VarMoves + MOVE_PP
+; 	jr .got_move_data
 
-.not_variable
-	ld a, b
-	dec a
-	ld hl, Moves + MOVE_PP
-.got_move_data
-	ld bc, MOVE_LENGTH
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-	pop hl
+; .not_variable
+; 	ld a, b
+; 	dec a
+; 	ld hl, Moves + MOVE_PP
+; .got_move_data
+; 	ld bc, MOVE_LENGTH
+; 	call AddNTimes
+; 	ld a, BANK(Moves)
+; 	call GetFarByte
+	; mon's moves is in [de], we move 21 bytes forward to the PP bytes
+	; ld h, 0
+	; ld l, 21
+	; add hl, de
+	; ld [hl], a
 .no_moves
 	pop bc
 	pop de

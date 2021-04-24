@@ -36,9 +36,9 @@ DrawBattleHPBar::
 	ld [hli], a
 	dec d
 	jr nz, .template
-	ld a, $6b ; bar end
-	add b
-	ld [hl], a
+	; ld a, $6b ; bar end
+	; add b
+	; ld [hl], a
 	pop hl
 
 ; Safety check # pixels

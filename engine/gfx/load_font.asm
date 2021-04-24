@@ -28,9 +28,9 @@ _LoadFontsExtra2::
 _LoadFontsBattleExtra::
 	ld de, FontBattleExtra
 	ld hl, vTiles2 tile $60
-	lb bc, BANK(FontBattleExtra), 16
+	lb bc, BANK(FontBattleExtra), 22
 	call Get2bpp_2
-	ld hl, vTiles2 tile $71
+	ld hl, vTiles2 tile $76
 	ld de, FontBattleExtra + 22 tiles
 	lb bc, BANK(FontBattleExtra), 2
 	call Get2bpp_2
@@ -56,23 +56,23 @@ LoadFrame:
 LoadBattleFontsHPBar:
 	ld de, FontBattleExtra
 	ld hl, vTiles2 tile $60
-	lb bc, BANK(FontBattleExtra), 16
+	lb bc, BANK(FontBattleExtra), 22
 	call Get2bpp_2
-	ld hl, vTiles2 tile $71
+	ld hl, vTiles2 tile $76
 	ld de, FontBattleExtra + 22 tiles
 	lb bc, BANK(FontBattleExtra), 2
 	call Get2bpp_2
 	call LoadFrame
 
 LoadHPBar:
-	ld de, EnemyHPBarBorderGFX
-	ld hl, vTiles2 tile $6c
-	lb bc, BANK(EnemyHPBarBorderGFX), 4
-	call Get1bpp_2
-	ld de, HPExpBarBorderGFX
-	ld hl, vTiles2 tile $73
-	lb bc, BANK(HPExpBarBorderGFX), 6
-	call Get1bpp_2
+	; ld de, EnemyHPBarBorderGFX
+	; ld hl, vTiles2 tile $6c
+	; lb bc, BANK(EnemyHPBarBorderGFX), 4
+	; call Get1bpp_2
+	; ld de, HPExpBarBorderGFX
+	; ld hl, vTiles2 tile $73
+	; lb bc, BANK(HPExpBarBorderGFX), 6
+	; call Get1bpp_2
 	ld de, ExpBarGFX
 	ld hl, vTiles2 tile $55
 	lb bc, BANK(ExpBarGFX), 11
@@ -89,14 +89,14 @@ StatsScreen_LoadFont:
 	ld hl, vTiles2 tile $6c
 	lb bc, BANK(EnemyHPBarBorderGFX), 4
 	call Get1bpp_2
-	ld de, HPExpBarBorderGFX
-	ld hl, vTiles2 tile $78
-	lb bc, BANK(HPExpBarBorderGFX), 1
-	call Get1bpp_2
-	ld de, HPExpBarBorderGFX + 3 * LEN_1BPP_TILE
-	ld hl, vTiles2 tile $76
-	lb bc, BANK(HPExpBarBorderGFX), 2
-	call Get1bpp_2
+	; ld de, HPExpBarBorderGFX
+	; ld hl, vTiles2 tile $78
+	; lb bc, BANK(HPExpBarBorderGFX), 1
+	; call Get1bpp_2
+	; ld de, HPExpBarBorderGFX + 3 * LEN_1BPP_TILE
+	; ld hl, vTiles2 tile $76
+	; lb bc, BANK(HPExpBarBorderGFX), 2
+	; call Get1bpp_2
 	ld de, ExpBarGFX
 	ld hl, vTiles2 tile $55
 	lb bc, BANK(ExpBarGFX), 8

@@ -103,20 +103,28 @@ StageBallTilesData:
 	ret
 
 DrawPlayerHUDBorder:
-	ld hl, .tiles
-	ld de, wTrainerHUDTiles
-	ld bc, .tiles_end - .tiles
-	call CopyBytes
-	hlcoord 18, 10
-	ld de, -1 ; start on right
-	jp PlaceHUDBorderTiles
+	; ld b, $72
+	; ld a, [wBattleMonStamina]
+	; swap a
+	; and STA_EX_MAX
+	; add a
+	; hlcoord 18, 9
+	; ld [de], a
+	ret
 
-.tiles
-	db $73 ; right side
-	db $77 ; bottom right
-	db $6f ; bottom left
-	db $76 ; bottom side
-.tiles_end
+; 	ld hl, .tiles
+; 	ld de, wTrainerHUDTiles
+; 	ld bc, .tiles_end - .tiles
+; 	call CopyBytes
+; 	hlcoord 18, 10
+; 	ld de, -1 ; start on right
+; 	jp PlaceHUDBorderTiles
+
+; .tiles
+; 	db $6D ; right side
+; 	db $6E ; bottom right
+; 	db $6F ; bottom left
+; .tiles_end
 
 ; DrawPlayerPartyIconHUDBorder:
 ; 	ld hl, .tiles
@@ -199,7 +207,7 @@ DrawEnemyHUDBorder:
 
 .nuzlocke
 	hlcoord 1, 1
-	ld [hl], $75
+	ld [hl], $71
 	ret
 
 .tiles

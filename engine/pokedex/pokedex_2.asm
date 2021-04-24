@@ -1267,7 +1267,7 @@ endr
 .maxed
 	ret
 
-EvolutionLinesList:
+EvolutionLinesList::
 	db BULBASAUR
 	db CHARMANDER
 	db SQUIRTLE

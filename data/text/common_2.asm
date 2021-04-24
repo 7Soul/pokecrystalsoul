@@ -678,7 +678,7 @@ Text_BattleFoeEffectActivate::
 
 _BattleStatSharplyFellText::
 	interpret_data
-	cont "<SCROLL>sharply fell!"
+	text "<SCROLL>sharply fell!"
 	prompt
 
 _BattleStatFellText::

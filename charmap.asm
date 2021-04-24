@@ -38,7 +38,7 @@
 
 ; Actual characters (from gfx/font/font_battle_extra.png)
 
-	charmap "<LV>",      $6e
+	charmap "<LV>",      $70
 
 	charmap "<DO>",      $70 ; hiragana small do, unused
 	charmap "◀",         $6f

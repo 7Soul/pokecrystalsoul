@@ -3067,7 +3067,10 @@ BattleCommand_DamageCalc:
 	jr z, .got_stamina
 	ld hl, wEnemyMonStamina
 .got_stamina
-	bit STA_EX, [hl]
+	ld a, [hl]
+	swap a
+	and STA_EX_MAX
+	and a ; 0 exhaustion?
 	jr z, .got_power_changes
 	ld d, 60
 	
@@ -5203,14 +5206,11 @@ CalcStats:
 	ld hl, wEnemyMonStamina
 .got_stamina
 	ld a, [hl]
-	and STA_MASK
-	bit STA_EX, [hl]
-	ld hl, .stamina_bonuses
-	jr z, .not_exhausted
-	ld hl, .stamina_bonuses_exhausted
-.not_exhausted
-	ld b, 0
+	swap a
+	and STA_EX_MAX
+	ld hl, .exhaustion_penalty
 	ld c, a
+	ld b, 0
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -5262,39 +5262,45 @@ CalcStats:
 	jp nz, .loop
 	ret
 
-.stamina_bonuses:
-	dwlb  9, 10 ;  0 - 0.90
-	dwlb  9, 10 ;  1 - 0.90
-	dwlb 18, 19 ;  2 - 0.95
-	dwlb 18, 19 ;  3 - 0.95
-	dwlb 18, 19 ;  4 - 0.95
-	dwlb  1,  1 ;  5 - 1.00
-	dwlb  1,  1 ;  6 - 1.00
-	dwlb  1,  1 ;  7 - 1.00
-	dwlb  1,  1 ;  8 - 1.00
-	dwlb  1,  1 ;  9 - 1.00
-	dwlb 20, 19 ; 10 - 1.05
-	dwlb 20, 19 ; 11 - 1.05
-	dwlb 20, 19 ; 12 - 1.05
-	dwlb 11, 10 ; 13 - 1.10
-	dwlb 11, 10 ; 14 - 1.10
+.exhaustion_penalty:
+	dwlb 1,  1 ;  0 - 1.00
+	dwlb 9, 10 ;  1 - 0.90
+	dwlb 8, 10 ;  2 - 0.80
+	dwlb 7, 10 ;  3 - 0.70
 
-.stamina_bonuses_exhausted:
-	dwlb  9, 10 ;  0 - 0.90
-	dwlb  9, 10 ;  1 - 0.90
-	dwlb  9, 10 ;  2 - 0.90
-	dwlb  9, 10 ;  3 - 0.90
-	dwlb 18, 19 ;  4 - 0.95
-	dwlb 18, 19 ;  5 - 0.95
-	dwlb 18, 19 ;  6 - 0.95
-	dwlb 18, 19 ;  7 - 0.95
-	dwlb  1,  1 ;  8 - 1.00
-	dwlb  1,  1 ;  9 - 1.00
-	dwlb  1,  1 ; 10 - 1.00
-	dwlb  1,  1 ; 11 - 1.00
-	dwlb 20, 19 ; 12 - 1.05
-	dwlb 20, 19 ; 13 - 1.05
-	dwlb 20, 19 ; 14 - 1.05
+; .stamina_bonuses:
+; 	dwlb  9, 10 ;  0 - 0.90
+; 	dwlb  9, 10 ;  1 - 0.90
+; 	dwlb 18, 19 ;  2 - 0.95
+; 	dwlb 18, 19 ;  3 - 0.95
+; 	dwlb 18, 19 ;  4 - 0.95
+; 	dwlb  1,  1 ;  5 - 1.00
+; 	dwlb  1,  1 ;  6 - 1.00
+; 	dwlb  1,  1 ;  7 - 1.00
+; 	dwlb  1,  1 ;  8 - 1.00
+; 	dwlb  1,  1 ;  9 - 1.00
+; 	dwlb 20, 19 ; 10 - 1.05
+; 	dwlb 20, 19 ; 11 - 1.05
+; 	dwlb 20, 19 ; 12 - 1.05
+; 	dwlb 11, 10 ; 13 - 1.10
+; 	dwlb 11, 10 ; 14 - 1.10
+
+; .stamina_bonuses_exhausted:
+; 	dwlb  9, 10 ;  0 - 0.90
+; 	dwlb  9, 10 ;  1 - 0.90
+; 	dwlb  9, 10 ;  2 - 0.90
+; 	dwlb  9, 10 ;  3 - 0.90
+; 	dwlb 18, 19 ;  4 - 0.95
+; 	dwlb 18, 19 ;  5 - 0.95
+; 	dwlb 18, 19 ;  6 - 0.95
+; 	dwlb 18, 19 ;  7 - 0.95
+; 	dwlb  1,  1 ;  8 - 1.00
+; 	dwlb  1,  1 ;  9 - 1.00
+; 	dwlb  1,  1 ; 10 - 1.00
+; 	dwlb  1,  1 ; 11 - 1.00
+; 	dwlb 20, 19 ; 12 - 1.05
+; 	dwlb 20, 19 ; 13 - 1.05
+; 	dwlb 20, 19 ; 14 - 1.05
 
 INCLUDE "engine/battle/move_effects/stampede.asm"
 

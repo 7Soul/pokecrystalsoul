@@ -308,3 +308,4 @@ HealBellVariables:
  ; add lava plume -> scald
  ; strenght / drill peck / seed bomb / x-scissor
  ; add poison jab and cross poison
+ 
