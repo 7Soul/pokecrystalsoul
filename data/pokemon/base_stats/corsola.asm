@@ -4,14 +4,12 @@
 	;   hp  atk   def   spd  sat  sdf
 
 	db WATER, ROCK ; type
-	db 60 ; catch rate
-	db 113 ; base exp
+	db GROWTH_FAST << 5 | BASE_EXP_MEDIUM << 2 | CATCH_RATE_HARD
 	db NO_ITEM, NO_ITEM ; items
 	db GENDER_F75 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/corsola/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_FAST ; growth rate
 	dn EGG_WATER_1, EGG_WATER_3 ; egg groups
 
 	; tm/hm learnset

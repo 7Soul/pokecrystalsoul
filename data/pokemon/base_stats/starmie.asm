@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db WATER, PSYCHIC ; type
-	db 60 ; catch rate
-	db 207 ; base exp
+	db GROWTH_SLOW << 5 | BASE_EXP_ULTRA_HIGH << 2 | CATCH_RATE_HARD
 	db STARDUST, STAR_PIECE ; items
 	db GENDER_UNKNOWN ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/starmie/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_SLOW ; growth rate
 	dn EGG_WATER_3, EGG_WATER_3 ; egg groups
 
 	; tm/hm learnset

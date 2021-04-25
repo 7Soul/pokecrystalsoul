@@ -330,17 +330,20 @@ DisplayDexEntry:
 	call PlaceString
 	jr .skip_rate_notCaught
 
-.print_rate_caught
-	hlcoord 15, 7
-	ld de, wBaseCatchRate
+.print_rate_caught ; DisplayDexEntry.print_rate_caught
+	ld de, wBaseSpData
 	ld a, [de]
-	cp 250
-	jr nc, .dontadd
-	add 5
-.dontadd
-	ld [de], a
-	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
-	call PrintNum
+	and CATCH_RATE_MASK
+	ld hl, .catch_rates_display
+	ld c, 6
+	call SimpleMultiply
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld d, h
+	ld e, l
+	hlcoord 15, 7
+	call PlaceString
 
 .skip_rate_notCaught
 ; exp text
@@ -360,18 +363,16 @@ DisplayDexEntry:
 	call PlaceString
 	jr .skip_exp_notCaught
 
-.print_exp_caught
+.print_exp_caught ; DisplayDexEntry.print_exp_caught
 	hlcoord 15, 8
-	ld de, wBaseExp
+	ld de, wBaseSpData
 	ld a, [de]
-	cp 128
-	jr nc, .dont_increase
-	add 6
-	
-	cp 80
-	jr nc, .dont_increase
-	add 9
-.dont_increase
+	and BASE_EXP_MASK
+	rra
+	rra
+	inc a
+	ld c, 28
+	call SimpleMultiply
 	ld [de], a
 	lb bc, 1, PRINTNUM_RIGHTALIGN | 3
 	call PrintNum
@@ -589,7 +590,20 @@ DisplayDexEntry:
 .item2_percent:
 	db "3@"
 	
+.catch_rates_display:
+	db "Rare @" ; very hard
+	db "Low  @"
+	db "Med  @"
+	db "High @" ; easy
 
+.base_exp_display:
+	db "ULow @"
+	db "VLow @"
+	db "Low  @"
+	db "Med @"
+	db "High @"
+	db "VHigh@"
+	db "UHigh@"
 
 Pokedex_GetMoves:
 	ldh a, [rSVBK]

@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db BUG, POISON ; type
-	db 255 ; catch rate
-	db 54 ; base exp
+	db GROWTH_FAST << 5 | BASE_EXP_VERY_LOW << 2 | CATCH_RATE_EASY
 	db NO_ITEM, TOUGH_HORN ; items
 	db GENDER_F50 ; gender ratio
 	db 15 ; step cycles to hatch
 	INCBIN "gfx/pokemon/spinarak/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_FAST ; growth rate
 	dn EGG_BUG, EGG_BUG ; egg groups
 
 	; tm/hm learnset

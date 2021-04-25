@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db BUG, ROCK ; type
-	db 190 ; catch rate
-	db 80 ; base exp
+	db GROWTH_MEDIUM_SLOW << 5 | BASE_EXP_LOW << 2 | CATCH_RATE_MEDIUM
 	db BERRY, BERRY ; items
 	db GENDER_F50 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/shuckle/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_MEDIUM_SLOW ; growth rate
 	dn EGG_BUG, EGG_BUG ; egg groups
 
 	; tm/hm learnset

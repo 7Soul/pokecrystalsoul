@@ -735,7 +735,7 @@ Link_PrepPartyData_Gen1:
 	ld hl, BaseData + BASE_TYPES
 	ld bc, BASE_DATA_SIZE
 	call AddNTimes
-	ld bc, BASE_CATCH_RATE - BASE_TYPES
+	ld bc, BASE_SP_DATA - BASE_TYPES
 	ld a, BANK(BaseData)
 	call FarCopyBytes
 	pop bc

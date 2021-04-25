@@ -3578,7 +3578,7 @@ IsThePlayerMonTypesEffectiveAgainstOTMon:
 	ld bc, BASE_DATA_SIZE
 	call AddNTimes
 	ld de, wEnemyMonType
-	ld bc, BASE_CATCH_RATE - BASE_TYPES
+	ld bc, BASE_SP_DATA - BASE_TYPES
 	ld a, BANK(BaseData)
 	call FarCopyBytes
 	ld a, [wBattleMonType1]
@@ -6844,11 +6844,19 @@ LoadEnemyMon:
 	dec b
 	jr nz, .loop
 
-	ld a, [wBaseCatchRate]
+	ld a, [wBaseSpData]
+	and CATCH_RATE_MASK
+	inc a
+	ld c, 85
+	call SimpleMultiply
 	ld [de], a
 	inc de
 
-	ld a, [wBaseExp]
+	ld a, [wBaseSpData]
+	and BASE_EXP_MASK
+	inc a
+	ld c, 28
+	call SimpleMultiply
 	ld [de], a
 
 	ld a, [wTempEnemyMonSpecies]
@@ -7478,24 +7486,22 @@ GiveExperiencePoints:
 	ldh [hMultiplicand + 0], a
 	ldh [hMultiplicand + 1], a
 	ld a, [wEnemyMonBaseExp]
-	cp 128
-	jr nc, .dont_increase
-	add 6
-	cp 80
-	jr nc, .dont_increase
-	add 9
-.dont_increase
+	and BASE_EXP_MASK
+	rra
+	rra
+	inc a
+	ld c, 28
+	call SimpleMultiply
+	ld b, a
+; boosts base exp by 25% if it's a gym leader
 	call IsGymLeader
 	jr nc, .not_gym_leader
-; boosts base exp by 25% if it's a gym leader
-	ld a, [wEnemyMonBaseExp]
-	ld b, a
 	sla a
 	sla a
 	add b
 	jr nc, .not_gym_leader ; no overflow
 	ld a, $FF
-.not_gym_leader
+.not_gym_leader ; GiveExperiencePoints.not_gym_leader
 	ldh [hMultiplicand + 2], a
 	ld a, [wEnemyMonLevel]
 	ldh [hMultiplier], a

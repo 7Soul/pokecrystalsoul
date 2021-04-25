@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db POISON, POISON ; type
-	db 235 ; catch rate
-	db 60 ; base exp
+	db GROWTH_MEDIUM_SLOW << 5 | BASE_EXP_VERY_LOW << 2 | CATCH_RATE_EASY
 	db NO_ITEM, ACCELEROCK ; items
 	db GENDER_F0 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/nidoran_m/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_MEDIUM_SLOW ; growth rate
 	dn EGG_MONSTER, EGG_GROUND ; egg groups
 
 	; tm/hm learnset

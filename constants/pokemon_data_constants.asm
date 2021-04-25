@@ -10,18 +10,17 @@ BASE_SDF         EQUS "(wBaseSpecialDefense - wCurBaseData)"
 BASE_TYPES       EQUS "(wBaseType - wCurBaseData)"
 BASE_TYPE_1      EQUS "(wBaseType1 - wCurBaseData)"
 BASE_TYPE_2      EQUS "(wBaseType2 - wCurBaseData)"
-BASE_CATCH_RATE  EQUS "(wBaseCatchRate - wCurBaseData)"
-BASE_EXP         EQUS "(wBaseExp - wCurBaseData)"
+BASE_SP_DATA     EQUS "(wBaseSpData - wCurBaseData)"
+; BASE_CATCH_RATE  EQUS "(wBaseCatchRate - wCurBaseData)"
+; BASE_EXP         EQUS "(wBaseExp - wCurBaseData)"
 BASE_ITEMS       EQUS "(wBaseItems - wCurBaseData)"
 BASE_ITEM_1      EQUS "(wBaseItem1 - wCurBaseData)"
 BASE_ITEM_2      EQUS "(wBaseItem2 - wCurBaseData)"
 BASE_GENDER      EQUS "(wBaseGender - wCurBaseData)"
-; BASE_UNKNOWN_1   EQUS "(wBaseUnknown1 - wCurBaseData)"
 BASE_EGG_STEPS   EQUS "(wBaseEggSteps - wCurBaseData)"
-; BASE_UNKNOWN_2   EQUS "(wBaseUnknown2 - wCurBaseData)"
 BASE_PIC_SIZE    EQUS "(wBasePicSize - wCurBaseData)"
 BASE_TRAITS      EQUS "(wBaseTraits - wCurBaseData)"
-BASE_GROWTH_RATE EQUS "(wBaseGrowthRate - wCurBaseData)"
+; BASE_GROWTH_RATE EQUS "(wBaseGrowthRate - wCurBaseData)"
 BASE_EGG_GROUPS  EQUS "(wBaseEggGroups - wCurBaseData)"
 BASE_TMHM        EQUS "(wBaseTMHM - wCurBaseData)"
 BASE_DATA_SIZE   EQUS "(wCurBaseDataEnd - wCurBaseData)"
@@ -35,6 +34,26 @@ GENDER_F75     EQU 75 percent
 GENDER_F100    EQU 100 percent - 1
 GENDER_UNKNOWN EQU -1
 
+	enum_start 3, -1
+	enum CATCH_RATE_EASY      ; 3
+	enum CATCH_RATE_MEDIUM    ; 2
+	enum CATCH_RATE_HARD      ; 1
+	enum CATCH_RATE_VERY_HARD ; 0
+
+CATCH_RATE_MASK  EQU %00000011
+
+	const_def
+	const BASE_EXP_ULTRA_LOW ; 28
+	const BASE_EXP_VERY_LOW ; 56
+	const BASE_EXP_LOW ; 84
+	const BASE_EXP_MEDIUM ; 112
+	const BASE_EXP_HIGH ; 140
+	const BASE_EXP_VERY_HIGH ; 168
+	const BASE_EXP_ULTRA_HIGH ; 196
+	const BASE_EXP_EXTREME ; 224
+
+BASE_EXP_MASK    EQU %00011100
+
 ; wBaseGrowthRate values
 ; GrowthRates indexes (see data/growth_rates.asm)
 	const_def
@@ -44,6 +63,8 @@ GENDER_UNKNOWN EQU -1
 	const GROWTH_MEDIUM_SLOW
 	const GROWTH_FAST
 	const GROWTH_SLOW
+
+GROWTH_RATE_MASK EQU %11100000
 
 ; wBaseEggGroups values
 	const_def 1

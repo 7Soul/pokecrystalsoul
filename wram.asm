@@ -2176,8 +2176,9 @@ wBaseSpecialDefense:: db ; d23c
 wBaseType:: ; d23d
 wBaseType1:: db ; d23d
 wBaseType2:: db ; d23e
-wBaseCatchRate:: db ; d23f
-wBaseExp:: db ; d240
+wBaseSpData:: db ; d23f
+; wBaseCatchRate:: db ; d23f
+; wBaseExp:: db ; d240
 wBaseItems:: ; d241
 wBaseItem1:: db ; d241
 wBaseItem2:: db ; d242
@@ -2185,7 +2186,7 @@ wBaseGender:: db ; d243
 wBaseEggSteps:: db ; d245
 wBasePicSize:: db ; d247
 wBaseTraits:: ds 4 ; d247
-wBaseGrowthRate:: db ; d24c
+; wBaseGrowthRate:: db ; d24c
 wBaseEggGroups:: db ; d24d
 wBaseTMHM:: flag_array NUM_TM_HM_TUTOR ; d24e
 wCurBaseDataEnd::

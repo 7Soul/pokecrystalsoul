@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db GROUND, ROCK ; type
-	db 120 ; catch rate
-	db 135 ; base exp
+	db GROWTH_SLOW << 5 | BASE_EXP_HIGH << 2 | CATCH_RATE_MEDIUM
 	db NO_ITEM, ACCELEROCK ; items
 	db GENDER_F50 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/rhyhorn/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_SLOW ; growth rate
 	dn EGG_MONSTER, EGG_GROUND ; egg groups
 
 	; tm/hm learnset

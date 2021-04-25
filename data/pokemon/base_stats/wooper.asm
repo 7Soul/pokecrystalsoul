@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db WATER, GROUND ; type
-	db 255 ; catch rate
-	db 52 ; base exp
+	db GROWTH_MEDIUM_FAST << 5 | BASE_EXP_VERY_LOW << 2 | CATCH_RATE_EASY
 	db NO_ITEM, SHINY_CORAL ; items
 	db GENDER_F50 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/wooper/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_MEDIUM_FAST ; growth rate
 	dn EGG_WATER_1, EGG_GROUND ; egg groups
 
 	; tm/hm learnset

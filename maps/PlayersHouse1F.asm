@@ -127,7 +127,7 @@ MeetMomScript:
 	giveitem BERRY, 99
 
 	givepoke VAPOREON, 50
-	givepoke PIDGEY, 50
+	; givepoke PIDGEY, 50
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	callasm CheatGiveJohtoBadges

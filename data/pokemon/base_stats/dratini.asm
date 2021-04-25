@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db WATER, WATER ; type
-	db 45 ; catch rate
-	db 67 ; base exp
+	db GROWTH_SLOW << 5 | BASE_EXP_LOW << 2 | CATCH_RATE_MEDIUM
 	db NO_ITEM, SHINY_CORAL ; items
 	db GENDER_F50 ; gender ratio
 	db 40 ; step cycles to hatch
 	INCBIN "gfx/pokemon/dratini/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_SLOW ; growth rate
 	dn EGG_WATER_1, EGG_DRAGON ; egg groups
 
 	; tm/hm learnset

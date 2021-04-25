@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db GRASS, FLYING ; type
-	db 255 ; catch rate
-	db 74 ; base exp
+	db GROWTH_MEDIUM_SLOW << 5 | BASE_EXP_LOW << 2 | CATCH_RATE_EASY
 	db NO_ITEM, GRASSWHISTLE ; items
 	db GENDER_F50 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/hoppip/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_MEDIUM_SLOW ; growth rate
 	dn EGG_FAIRY, EGG_PLANT ; egg groups
 
 	; tm/hm learnset

@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db NORMAL, NORMAL ; type
-	db 30 ; catch rate
-	db 255 ; base exp
+	db GROWTH_FAST << 5 | BASE_EXP_EXTREME << 2 | CATCH_RATE_VERY_HARD
 	db NO_ITEM, LUCKY_EGG ; items
 	db GENDER_F100 ; gender ratio
 	db 40 ; step cycles to hatch
 	INCBIN "gfx/pokemon/chansey/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_FAST ; growth rate
 	dn EGG_FAIRY, EGG_FAIRY ; egg groups
 
 	; tm/hm learnset

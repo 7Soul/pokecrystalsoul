@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db ICE, PSYCHIC ; type
-	db 45 ; catch rate
-	db 87 ; base exp
+	db GROWTH_MEDIUM_FAST << 5 | BASE_EXP_LOW << 2 | CATCH_RATE_EASY
 	db FROZEN_DEW, EYE_GLYPH ; items
 	db GENDER_F100 ; gender ratio
 	db 25 ; step cycles to hatch
 	INCBIN "gfx/pokemon/smoochum/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_MEDIUM_FAST ; growth rate
 	dn EGG_NONE, EGG_NONE ; egg groups
 
 	; tm/hm learnset

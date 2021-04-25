@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db NORMAL, NORMAL ; type
-	db 190 ; catch rate
-	db 74 ; base exp
+	db GROWTH_FAST << 5 | BASE_EXP_LOW << 2 | CATCH_RATE_EASY
 	db NO_ITEM, NO_ITEM ; items
 	db GENDER_F12_5 ; gender ratio
 	db 10 ; step cycles to hatch
 	INCBIN "gfx/pokemon/togepi/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_FAST ; growth rate
 	dn EGG_NONE, EGG_NONE ; egg groups
 
 	; tm/hm learnset

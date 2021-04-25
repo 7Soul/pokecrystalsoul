@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db POISON, POISON ; type
-	db 255 ; catch rate
-	db 62 ; base exp
+	db GROWTH_MEDIUM_FAST << 5 | BASE_EXP_LOW << 2 | CATCH_RATE_EASY
 	db NO_ITEM, DARK_MIRROR ; items
 	db GENDER_F50 ; gender ratio
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/ekans/front.dimensions"
 	db TRAIT_CONTACT_BRN, TRAIT_CONTACT_BRN, TRAIT_CONTACT_BRN, TRAIT_CONTACT_BRN
-	db GROWTH_MEDIUM_FAST ; growth rate
 	dn EGG_GROUND, EGG_DRAGON ; egg groups
 
 	; tm/hm learnset

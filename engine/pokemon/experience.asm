@@ -45,7 +45,10 @@ CalcExpAtLevel:
 	ret
 
 .UseExpFormula
-	ld a, [wBaseGrowthRate]
+	ld a, [wBaseSpData]
+	and GROWTH_RATE_MASK
+	swap a
+	rra
 	add a
 	add a
 	ld c, a

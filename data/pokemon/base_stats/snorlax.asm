@@ -4,14 +4,12 @@
 	;   hp  atk  def  spd  sat  sdf
 
 	db NORMAL, NORMAL ; type
-	db 25 ; catch rate
-	db 154 ; base exp
+	db GROWTH_SLOW << 5 | BASE_EXP_HIGH << 2 | CATCH_RATE_VERY_HARD
 	db LEFTOVERS, LEFTOVERS ; items
 	db GENDER_F12_5 ; gender ratio
 	db 40 ; step cycles to hatch
 	INCBIN "gfx/pokemon/snorlax/front.dimensions"
 	db 0, 0, 0, 0
-	db GROWTH_SLOW ; growth rate
 	dn EGG_MONSTER, EGG_MONSTER ; egg groups
 
 	; tm/hm learnset
