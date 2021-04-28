@@ -5,7 +5,7 @@ CheckShininess:
 ; Return carry if shiny.
 	ld h, b
 	ld l, c
-	bit 5, [hl]
+	bit DV_SHINY_BIT, [hl]
 	jr z, .not_shiny
 .shiny
 	ld a, 1

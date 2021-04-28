@@ -2265,7 +2265,7 @@ BattleBGEffect_WobblePlayer:
 	ret
 
 BattleBGEffect_Rollout:
-	call Functionc8d0b
+	call BattleBGEffects_GetShakeAmount
 	jr c, .xor_a
 	bit 7, a
 	jr z, .okay
@@ -2282,7 +2282,7 @@ BattleBGEffect_Rollout:
 	ret
 
 BattleBGEffect_ShakeScreenX:
-	call Functionc8d0b
+	call BattleBGEffects_GetShakeAmount
 	jr nc, .skip
 	xor a
 .skip
@@ -2290,14 +2290,14 @@ BattleBGEffect_ShakeScreenX:
 	ret
 
 BattleBGEffect_ShakeScreenY:
-	call Functionc8d0b
+	call BattleBGEffects_GetShakeAmount
 	jr nc, .skip
 	xor a
 .skip
 	ldh [hSCY], a
 	ret
 
-Functionc8d0b:
+BattleBGEffects_GetShakeAmount:
 	ld hl, BG_EFFECT_STRUCT_JT_INDEX
 	add hl, bc
 	ld a, [hl]

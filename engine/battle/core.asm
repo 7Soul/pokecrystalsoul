@@ -6542,7 +6542,7 @@ LoadEnemyMon:
 
 .set_shiny
 	ld hl, wEnemyMonDVs
-	set 5, [hl] ; set shiny bit
+	set DV_SHINY_BIT, [hl] ; set shiny bit
 
 .TryGender
 	call Random
@@ -6573,11 +6573,11 @@ LoadEnemyMon:
 	jr c, .Male
 
 .Female
-	set 6, [hl] ; set gender bit
+	set DV_GENDER_BIT, [hl] ; set gender bit
 	jr .end_dvs
 
 .Male
-	res 6, [hl] ; unset gender bit
+	res DV_GENDER_BIT, [hl] ; unset gender bit
 	jr .end_dvs
 
 .end_dvs

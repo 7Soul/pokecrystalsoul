@@ -1163,6 +1163,7 @@ VariableMoveDescriptions::
 	dw $0000 ; RazorShellDescription
 	dw $0000 ; SpiralKickDescription
 	dw $0000 ; PowerWhipDescription
+	dw SnoreDescription ; TailSmackDescription
 	dw $0000 ; RockPolishDescription
 	dw $0000 ; ShockStingDescription
 	dw $0000 ; PsyshockDescription
@@ -1189,7 +1190,8 @@ VariableMoveDescriptions::
 	dw AquaRingDescription
 	dw IngrainDescription
 	dw $0000 ; CycleFoeDescription
-
+	dw HealBellDescription ; AromatherapyDescription
+	
 ; BoneRushDescription:
 ; PinMissileDescription:
 ; RockBlastDescription:
@@ -1316,7 +1318,7 @@ CosmicPowerDescription:
 AvalancheDescription:
 RevengeDescription:
 	db   "Double in power if"
-	next "foe took damage.@"
+	next "you took damage.@"
 
 GuardClawDescription:
 	db   "Better at low HP,"
@@ -1334,6 +1336,10 @@ AquaRingDescription:
 IngrainDescription:
 	db   "Heal HP and Sta-"
 	next "mina for 5 turns.@"
+
+TailSmackDescription:
+	db   "An attack useable"
+	next "only while asleep.@"
 
 PowerWhipDescription:
 RockPolishDescription:

@@ -1962,6 +1962,9 @@ wWhichHPBar::
 ; 0: Enemy
 ; 1: Player
 ; 2: Party Menu
+wDelayAttune::
+; 0: no
+; 1: yes
 	db
 wPokemonWithdrawDepositParameter::
 ; 0: Take from PC

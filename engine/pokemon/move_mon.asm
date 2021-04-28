@@ -253,7 +253,7 @@ endr
 	ld h, d
 	ld l, e
 	ld [hl], a
-	
+
 .TryShiny
 	call Random
 	cp 5 percent ; 4.7%
@@ -269,7 +269,7 @@ endr
 .set_shiny
 	ld h, d
 	ld l, e
-	set 5, [hl] ; set shiny bit
+	set DV_SHINY_BIT, [hl] ; set shiny bit
 
 .TryGender
 	call Random
@@ -363,6 +363,9 @@ endr
 	ld [de], a
 	inc de
 
+	ld a, [wCurPartySpecies]
+	ld [wCurSpecies], a
+
 	; Initialize HP.
 	ld bc, MON_STAT_EXP - 1
 	add hl, bc
@@ -445,7 +448,7 @@ endr
 	pop hl
 	jr .registerunowndex
 
-.generatestats
+.generatestats ; GeneratePartyMonStats.generatestats
 	pop hl
 	ld bc, MON_STAT_EXP - 1
 	add hl, bc
@@ -1542,7 +1545,7 @@ CalcMonStats:
 	inc de
 	ldh a, [hMultiplicand + 2]
 	ld [de], a
-	inc de	
+	inc de
 	ld a, c
 	cp STAT_SDEF ; last stat
 	jr nz, .loop
@@ -1603,7 +1606,7 @@ CalcMonStatC:
 .load_species
 	ld a, [wCurSpecies]
 	ld c, a
-	
+
 .find_mon
 	ld a, [hli]
 	cp c
@@ -1614,7 +1617,7 @@ CalcMonStatC:
 	inc hl
 	jr .find_mon
 
-.found_mon
+.found_mon ; CalcMonStatC.found_mon
 	ld a, [hli] ; get level from table
 	ld c, a
 	ld a, [wCurPartyLevel]
@@ -1625,16 +1628,18 @@ CalcMonStatC:
 
 ; get first or second form
 	ld a, [hl]
-	and a
-	ld a, 20
+	and %11
+	and a ; cp UNEVOLVED_STAGE1OF2
+	ld a, 20 ; first for of 2-line
 	jr z, .got_form
 	ld a, [hl]
-	cp $fd
+    and %11
+	cp UNEVOLVED_STAGE1OF3 ; baby or first of 3-line
 	jr z, .baby_form
-	ld a, 30
+	ld a, 30 ; second form or 3-line
 	jr .got_form
 .baby_form
-	ld a, 16
+	ld a, 16 ; first form of a 3-line
 .got_form
 	push de
 	ld d, a
@@ -1651,6 +1656,27 @@ CalcMonStatC:
 	call SimpleDivide
 	inc b
 
+	ld a, [hl]
+	and %111100
+	rra
+	rra
+	ld c, a
+	ld a, [wBuffer1]
+	cp c
+	jr nz, .not_highest_stat
+    ; reduces the division done later by 4
+	dec d
+	dec d
+	dec d
+	dec d
+    cp STAT_HP
+    jr nz, .not_highest_stat
+    ld a, b
+	ld c, a
+	ld a, 2
+	call SimpleMultiply
+    ld b, a
+.not_highest_stat
 	ld a, [wBuffer1]
 	cp STAT_HP
 	jr z, .bonus_hp
@@ -1689,7 +1715,7 @@ CalcMonStatC:
 	pop hl
 	ld a, [hl]
 	ld e, a
-	
+
 .try_stat_exp
 	pop hl ; STAT_EXP
 	push hl
@@ -1761,7 +1787,7 @@ CalcMonStatC:
 	jr nz, .not_hp
 	; ld a, $78 ; ~0.86
 	; call ApplyDamageMod
-	
+
 	ld a, [wCurPartyLevel]
 	ld b, a
 	ldh a, [hQuotient + 3]
@@ -1786,10 +1812,10 @@ CalcMonStatC:
 	inc a
 	ldh [hMultiplicand + 1], a
 .no_overflow_4
-	; ld a, c	
+	; ld a, c
 	; ld [wBattleMonStat], a ; save current stat for later
 
-.return_to_calc	
+.return_to_calc
 	ldh a, [hQuotient + 2]
 	cp HIGH(MAX_STAT_VALUE + 1) + 1
 	jr nc, .max_stat
@@ -1805,126 +1831,127 @@ CalcMonStatC:
 	ld a, LOW(MAX_STAT_VALUE)
 	ldh [hMultiplicand + 2], a
 
-.stat_value_okay	
+.stat_value_okay
 	pop bc
 	pop de
 	pop hl
 	ret
-
+PRINTV UNEVOLVED_STAGE1OF3 | STAT_SPD << 3
 .UnevolvedBonus:
 	; species, level it evolves at, number to define bonus amount
-	db BULBASAUR, 16, $fd
-	db IVYSAUR, 32, $fe
-	db CHARMANDER, 16, $fd
-	db CHARMELEON, 36, $fe
-	db SQUIRTLE, 16, $fd
-	db WARTORTLE, 36, $fe
-	db CATERPIE, 7, $fd
-	db METAPOD, 10, $fe
-	db WEEDLE, 7, $fd
-	db KAKUNA, 10, $fe
-	db PIDGEY, 18, $fd
-	db PIDGEOTTO, 36, $fe
-	db RATTATA, 20, 0
-	db SPEAROW, 20, 0
-	db EKANS, 22, 0
-	db PIKACHU, 20, $fe
-	db SANDSHREW, 22, 0
-	db NIDORAN_F, 16, $fd
-	db NIDORINA, 32, $fe
-	db NIDORAN_M, 16, $fd
-	db NIDORINO, 32, $fe
-	db CLEFAIRY, 20, $fe
-	db VULPIX, 20, 0
-	db JIGGLYPUFF, 20, $fe
-	db ZUBAT, 22, $fd
-	db GOLBAT, 42, $fe
-	db ODDISH, 21, 0
-	db GLOOM, 41, $fe
-	db PARAS, 24, 0
-	db VENONAT, 27, 0
-	db DIGLETT, 26, 0
-	db MEOWTH, 28, 0
-	db PSYDUCK, 33, 0
-	db MANKEY, 28, 0
-	db GROWLITHE, 20, 0
-	db POLIWAG, 25, $fd
-	db POLIWHIRL, 45, $fe
-	db ABRA, 16, $fd
-	db KADABRA, 32, $fe
-	db MACHOP, 28, $fd
-	db MACHOKE, 42, $fe
-	db BELLSPROUT, 21, $fd
-	db WEEPINBELL, 41, $fe
-	db TENTACOOL, 30, 0
-	db GEODUDE, 25, $fd
-	db GRAVELER, 37, $fe
-	db PONYTA, 40, 0
-	db SLOWPOKE, 30, 0
-	db MAGNEMITE, 30, 0
-	db DODUO, 31, 0
-	db SEEL, 34, 0
-	db GRIMER, 38, 0
-	db SHELLDER, 20, 0
-	db GASTLY, 25, $fd
-	db HAUNTER, 37, $fe
-	db ONIX, 26, 0
-	db DROWZEE, 26, 0
-	db KRABBY, 22, 0
-	db VOLTORB, 30, 0
-	db EXEGGCUTE, 20, 0
-	db CUBONE, 28, 0
-	db KOFFING, 35, 0
-	db RHYHORN, 42, 0
-	db CHANSEY, 40, 0
-	db HORSEA, 20, $fd
-	db SEADRA, 40, $fe
-	db GOLDEEN, 33, 0
-	db STARYU, 20, 0
-	db SCYTHER, 36, 0
-	db MAGIKARP, 20, 0
-	db EEVEE, 20, 0
-	db PORYGON, 20, 0
-	db OMANYTE, 35, 0
-	db KABUTO, 35, 0
-	db DRATINI, 25, $fd
-	db CHIKORITA, 16, $fd
-	db BAYLEEF, 34, $fe
-	db CYNDAQUIL, 15, $fd
-	db QUILAVA, 36, $fe
-	db TOTODILE, 17, $fd
-	db CROCONAW, 32, $fe
-	db SENTRET, 15, 0
-	db HOOTHOOT, 20, 0
-	db LEDYBA, 20, 0
-	db SPINARAK, 22, 0
-	db CHINCHOU, 27, 0
-	db PICHU, 15, $fd
-	db CLEFFA, 15, $fd
-	db IGGLYBUFF, 15, $fd
-	db TOGEPI, 15, $fd
-	db NATU, 25, 0
-	db MAREEP, 15, $fd
-	db FLAAFFY, 30, $fe
-	db MARILL, 18, 0
-	db HOPPIP, 18, $fd
-	db SKIPLOOM, 27, $fe
-	db SUNKERN, 20, 0
-	db WOOPER, 20, 0
-	db PINECO, 31, 0
-	db SNUBBULL, 23, 0
-	db TEDDIURSA, 30, 0
-	db SLUGMA, 26, 0
-	db SWINUB, 26, 0
-	db REMORAID, 25, 0
-	db HOUNDOUR, 24, 0
-	db PHANPY, 25, 0
-	db TYROGUE, 16, $fd
-	db SMOOCHUM, 22, $fd
-	db ELEKID, 22, $fd
-	db MAGBY, 22, $fd
-	db LARVITAR, 30, $fd
-	db PUPITAR, 50, $fe
+	;
+	db BULBASAUR,  16, UNEVOLVED_STAGE1OF3 | STAT_SDEF << 2
+	db IVYSAUR,    32, UNEVOLVED_STAGE2OF3 | STAT_SDEF << 2
+	db CHARMANDER, 16, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
+	db CHARMELEON, 36, UNEVOLVED_STAGE2OF3 | STAT_SPD  << 2
+	db SQUIRTLE,   16, UNEVOLVED_STAGE1OF3 | STAT_DEF  << 2
+	db WARTORTLE,  36, UNEVOLVED_STAGE2OF3 | STAT_DEF  << 2
+	db CATERPIE,    7, UNEVOLVED_STAGE1OF3 | STAT_HP   << 2
+	db METAPOD,    10, UNEVOLVED_STAGE2OF3 | STAT_HP   << 2
+	db WEEDLE,      7, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
+	db KAKUNA,     10, UNEVOLVED_STAGE2OF3 | STAT_SPD  << 2
+	db PIDGEY,     18, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
+	db PIDGEOTTO,  36, UNEVOLVED_STAGE2OF3 | STAT_SPD  << 2
+	db RATTATA,    20, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db SPEAROW,    20, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db EKANS,      22, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db PIKACHU,    20, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db SANDSHREW,  22, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
+	db NIDORAN_F,  16, UNEVOLVED_STAGE1OF3 | STAT_DEF  << 2
+	db NIDORINA,   32, UNEVOLVED_STAGE2OF3 | STAT_DEF  << 2
+	db NIDORAN_M,  16, UNEVOLVED_STAGE1OF3 | STAT_ATK  << 2
+	db NIDORINO,   32, UNEVOLVED_STAGE2OF3 | STAT_ATK  << 2
+	db CLEFAIRY,   20, UNEVOLVED_STAGE2OF3 | STAT_SDEF << 2
+	db VULPIX,     20, UNEVOLVED_STAGE1OF2 | STAT_SDEF << 2
+	db JIGGLYPUFF, 20, UNEVOLVED_STAGE2OF3 | STAT_HP   << 2
+	db ZUBAT,      22, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
+	db GOLBAT,     42, UNEVOLVED_STAGE2OF3 | STAT_SDEF << 2
+	db ODDISH,     21, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db GLOOM,      41, UNEVOLVED_STAGE2OF3 | STAT_SATK << 2
+	db PARAS,      24, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db VENONAT,    27, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db DIGLETT,    26, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db MEOWTH,     28, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db PSYDUCK,    33, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db MANKEY,     28, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db GROWLITHE,  20, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db POLIWAG,    25, UNEVOLVED_STAGE1OF3 | STAT_ATK  << 2
+	db POLIWHIRL,  45, UNEVOLVED_STAGE2OF3 | STAT_ATK  << 2
+	db ABRA,       16, UNEVOLVED_STAGE1OF3 | STAT_SATK << 2
+	db KADABRA,    32, UNEVOLVED_STAGE2OF3 | STAT_SATK << 2
+	db MACHOP,     28, UNEVOLVED_STAGE1OF3 | STAT_ATK  << 2
+	db MACHOKE,    42, UNEVOLVED_STAGE2OF3 | STAT_ATK  << 2
+	db BELLSPROUT, 21, UNEVOLVED_STAGE1OF3 | STAT_ATK  << 2
+	db WEEPINBELL, 41, UNEVOLVED_STAGE2OF3 | STAT_ATK  << 2
+	db TENTACOOL,  30, UNEVOLVED_STAGE1OF2 | STAT_SDEF << 2
+	db GEODUDE,    25, UNEVOLVED_STAGE1OF3 | STAT_DEF  << 2
+	db GRAVELER,   37, UNEVOLVED_STAGE2OF3 | STAT_DEF  << 2
+	db PONYTA,     40, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db SLOWPOKE,   30, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
+	db MAGNEMITE,  30, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db DODUO,      31, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db SEEL,       34, UNEVOLVED_STAGE1OF2 | STAT_SDEF << 2
+	db GRIMER,     38, UNEVOLVED_STAGE1OF2 | STAT_SDEF << 2
+	db SHELLDER,   20, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
+	db GASTLY,     25, UNEVOLVED_STAGE1OF3 | STAT_SATK << 2
+	db HAUNTER,    37, UNEVOLVED_STAGE2OF3 | STAT_SATK << 2
+	db ONIX,       26, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
+	db DROWZEE,    26, UNEVOLVED_STAGE1OF2 | STAT_SDEF << 2
+	db KRABBY,     22, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db VOLTORB,    30, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db EXEGGCUTE,  20, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db CUBONE,     28, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
+	db KOFFING,    35, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
+	db RHYHORN,    42, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db CHANSEY,    40, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db HORSEA,     20, UNEVOLVED_STAGE1OF3 | STAT_SATK << 2
+	db SEADRA,     40, UNEVOLVED_STAGE2OF3 | STAT_SDEF << 2
+	db GOLDEEN,    33, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db STARYU,     20, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db SCYTHER,    36, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db MAGIKARP,   20, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db EEVEE,      20, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
+	db PORYGON,    20, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db OMANYTE,    35, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
+	db KABUTO,     35, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db DRATINI,    25, UNEVOLVED_STAGE1OF3 | STAT_ATK  << 2
+	db CHIKORITA,  16, UNEVOLVED_STAGE1OF3 | STAT_SDEF << 2
+	db BAYLEEF,    34, UNEVOLVED_STAGE2OF3 | STAT_SDEF << 2
+	db CYNDAQUIL,  15, UNEVOLVED_STAGE1OF3 | STAT_SATK << 2
+	db QUILAVA,    36, UNEVOLVED_STAGE2OF3 | STAT_SATK << 2
+	db TOTODILE,   17, UNEVOLVED_STAGE1OF3 | STAT_ATK  << 2
+	db CROCONAW,   32, UNEVOLVED_STAGE2OF3 | STAT_ATK  << 2
+	db SENTRET,    15, UNEVOLVED_STAGE1OF2 | STAT_HP   << 2
+	db HOOTHOOT,   20, UNEVOLVED_STAGE1OF2 | STAT_HP   << 2
+	db LEDYBA,     20, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db SPINARAK,   22, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db CHINCHOU,   27, UNEVOLVED_STAGE1OF2 | STAT_HP   << 2
+	db PICHU,      15, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
+	db CLEFFA,     15, UNEVOLVED_STAGE1OF3 | STAT_SDEF << 2
+	db IGGLYBUFF,  15, UNEVOLVED_STAGE1OF3 | STAT_SDEF << 2
+	db TOGEPI,     15, UNEVOLVED_STAGE1OF3 | STAT_SDEF << 2
+	db NATU,       25, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db MAREEP,     15, UNEVOLVED_STAGE1OF3 | STAT_SATK << 2
+	db FLAAFFY,    30, UNEVOLVED_STAGE2OF3 | STAT_SATK << 2
+	db MARILL,     18, UNEVOLVED_STAGE1OF2 | STAT_HP   << 2
+	db HOPPIP,     18, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
+	db SKIPLOOM,   27, UNEVOLVED_STAGE2OF3 | STAT_SPD  << 2
+	db SUNKERN,    20, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db WOOPER,     20, UNEVOLVED_STAGE1OF2 | STAT_HP   << 2
+	db PINECO,     31, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
+	db SNUBBULL,   23, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db TEDDIURSA,  30, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db SLUGMA,     26, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
+	db SWINUB,     26, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db REMORAID,   25, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db HOUNDOUR,   24, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db PHANPY,     25, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2
+	db TYROGUE,    16, UNEVOLVED_STAGE1OF3 | STAT_ATK  << 2
+	db SMOOCHUM,   22, UNEVOLVED_STAGE1OF3 | STAT_SATK << 2
+	db ELEKID,     22, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
+	db MAGBY,      22, UNEVOLVED_STAGE1OF3 | STAT_SATK << 2
+	db LARVITAR,   30, UNEVOLVED_STAGE1OF3 | STAT_ATK  << 2
+	db PUPITAR,    50, UNEVOLVED_STAGE2OF3 | STAT_DEF  << 2
 	db -1
 
 GivePoke::

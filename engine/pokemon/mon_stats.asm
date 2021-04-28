@@ -251,7 +251,7 @@ GetGender:
 
 	ld a, [hl]
 ; Bit 6 of DVs sets if it's male (0) or female (1)
-	bit 6, a
+	bit DV_GENDER_BIT, a
 	jr nz, .Female
 	jr z, .Male
 
@@ -323,7 +323,27 @@ ListMovePP:
 	ld bc, wTempMonPP - (wTempMonMoves + 1)
 	add hl, bc
 	ld a, [hl]
-	and $3f
+; 	bit PP_ATTUNED, [hl]
+; 	jr z, .not_attuned
+; 	and a
+; 	jr z, .not_attuned
+; 	and PP_MASK
+; 	dec a
+; 	jr nc, .min
+; 	xor a ; minimum stamina cost
+; .min
+; .not_attuned
+; 	bit PP_DETUNED, [hl]
+; 	jr z, .not_detuned
+; 	and a
+; 	jr z, .not_detuned
+	and PP_MASK
+; 	inc a
+; 	jr nc, .max
+; 	ld a, PP_MAX ; maximum stamina cost
+; .max
+; .not_detuned
+	; and $3f
 	ld [wStringBuffer1 + 4], a
 	ld h, d
 	ld l, e

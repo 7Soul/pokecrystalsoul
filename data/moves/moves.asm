@@ -309,6 +309,7 @@ VarMoves::
 	move IRON_TAIL,    EFFECT_DEFENSE_DOWN_HIT,   75, WATER,    PHYSICAL + CONTACT,  95, STA_BAR + 1,  50 ; RAZOR_SHELL
 	move IRON_TAIL,    EFFECT_DEFENSE_DOWN_HIT,   75, FIGHTING, PHYSICAL + CONTACT, 100, STA_BAR + 1,  30 ; SPIRAL_KICK
 	move CONSTRICT,    EFFECT_NORMAL_HIT,        120, GRASS,    PHYSICAL,            95, STA_BAR * 3,   0 ; POWER_WHIP
+	move CONSTRICT,    EFFECT_SNORE,              60, NORMAL,   PHYSICAL,           100, STA_BAR,  30     ; TAIL_SMACK
 	move AGILITY,      EFFECT_SPEED_UP_2,          0, ROCK,     STATUS,             100, STA_HALF,      0 ; ROCK_POLISH
 	move LICK,         EFFECT_PARALYZE_HIT,       70, ELECTRIC, PHYSICAL + CONTACT, 100, STA_BAR * 2,  30 ; SHOCK_STING
 	move LICK,         EFFECT_PARALYZE_HIT,       40, PSYCHIC,  SPECIAL,            100, STA_BAR,      20 ; PSYSHOCK
@@ -333,6 +334,7 @@ VarMoves::
 	move HAZE,         EFFECT_RESET_STATS_HIT,    50, POISON,   SPECIAL,            100, STA_BAR * 2 + 1,  0 ; CLEAR_SMOG
 	move U_TURN,       EFFECT_SWITCH_HIT,         70, ELECTRIC, PHYSICAL + CONTACT, 100, STA_BAR * 2,   0 ; VOLT_SWITCH
 	move FIRE_SPIN,    EFFECT_REGEN_SLOW,          0, WATER,    STATUS,               0, STA_BAR,  0      ; AQUA_RING
-	move FIRE_SPIN,    EFFECT_REGEN_SLOW,          0, GRASS,    STATUS,               0, STA_BAR + 1,  0      ; INGRAIN
-	move PSYCH_UP,     EFFECT_PSYCH_UP,            0, FIGHTING, STATUS,             100, STA_BAR * 2,  0 ; CYCLE_FOE
+	move FIRE_SPIN,    EFFECT_REGEN_SLOW,          0, GRASS,    STATUS,               0, STA_BAR + 1,  0  ; INGRAIN
+	move PSYCH_UP,     EFFECT_PSYCH_UP,            0, FIGHTING, STATUS,             100, STA_BAR * 2,  0  ; CYCLE_FOE
 	move HEAL_BELL,    EFFECT_HEAL_BELL,           0, GRASS,    STATUS,             100, STA_BAR * 2 + 1,  0 ; AROMATHERAPY
+	

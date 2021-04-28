@@ -5,7 +5,7 @@
 
 	db NORMAL, FLYING ; type
 	db GROWTH_MEDIUM_SLOW << 5 | BASE_EXP_VERY_LOW << 2 | CATCH_RATE_EASY
-	db NO_ITEM, STEEL_WING ; items
+	db NO_ITEM, STEEL_WING_ ; items
 	db GENDER_F50 ; gender ratio
 	db 15 ; step cycles to hatch
 	INCBIN "gfx/pokemon/pidgey/front.dimensions"

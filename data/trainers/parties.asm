@@ -3,7 +3,7 @@
 ; - 1 to 6 Pokémon:
 ;	 * Always:                       db badges min, badges max, level, evolve bit, species
 ;	 * with TRAINERTYPE_NICKNAME:	 db "NICK@      " <- 11 characters (10 + @)
-;	 * with TRAINERTYPE_DVS:		 db atk|def, spd|spc
+;	 * with TRAINERTYPE_DVS:		 db $DV | DV_SHINY | DV_FEMALE
 ;	 * with TRAINERTYPE_ITEM:		 db badges, item
 ;	 * with TRAINERTYPE_MOVES:		 db move 1, move 2, move 3, move 4
 ; evolve bit dictates if the mon scaling causes it to evolve

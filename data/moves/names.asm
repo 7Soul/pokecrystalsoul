@@ -296,6 +296,7 @@ VariableMoveNames::
 	db "Razor Shell@"
 	db "Spiral Kick@"
 	db "Power Whip@"
+	db "Tail Smack@"
 	db "Rock Polish@"
 	db "Shock Sting@"
 	db "Psyshock@"
@@ -322,3 +323,4 @@ VariableMoveNames::
 	db "Aqua Ring@"
 	db "Ingrain@"
 	db "Cycle Foe@"
+	db "Aromatherapy@"

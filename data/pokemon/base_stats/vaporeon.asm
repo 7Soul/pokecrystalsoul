@@ -19,8 +19,28 @@
 							; 6: up to 196
 							; 7: up to 224
 	; growth rate 3 bits 0~5
-	db GROWTH_SLIGHTLY_FAST << 5 | BASE_EXP_ULTRA_HIGH << 2 | CATCH_RATE_HARD
+	db GROWTH_MEDIUM_FAST << 5 | BASE_EXP_ULTRA_HIGH << 2 | CATCH_RATE_HARD
+	db NO_ITEM, NO_ITEM ; items
+	db GENDER_F12_5 ; gender ratio
+	db 35 ; step cycles to hatch
+	INCBIN "gfx/pokemon/vaporeon/front.dimensions"
+	db TRAIT_BOOST_PUNCHING, TRAIT_BOOST_PUNCHING, TRAIT_BOOST_PUNCHING, TRAIT_BOOST_PUNCHING
+	dn EGG_GROUND, EGG_GROUND ; egg groups
 	
+	; World actions
+	; One of these have to not be ones that show in the menu
+
+	; First action is usable past a certain level
+	; Second action requires attunement
+	; Third action requires attunement and max pokedex data
+
+	; db ACTION_SURF << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL
+	; db ACTION_ROCK_SMASH << 4 | ACTION_SWEETSCENT
+	
+	; tm/hm learnset
+	tmhm HEADBUTT, CURSE, ROAR, ROCK_SMASH, HIDDEN_POWER, BLIZZARD, HYPER_BEAM, ICY_WIND, PROTECT, RAIN_DANCE, ENDURE, AQUA_TAIL, DIG, DOUBLE_TEAM, SWAGGER, WATER_GUN, SWIFT, ATTRACT, CRUNCH, JET_STREAM, HYPER_SONAR, SURF, ICE_BEAM, REST
+	; end
+
 	; PRINTT "Debug: "
 	; PRINTV GROWTH_MEDIUM_FAST
 	; PRINTV GROWTH_MEDIUM_FAST << 5
@@ -32,15 +52,3 @@
 	; PRINTT "\n"
 	; PRINTV GROWTH_MEDIUM_FAST << 5 | BASE_EXP_ULTRA_HIGH << 2 | CATCH_RATE_HARD
 	; PRINTT "\n"
-	
-	db NO_ITEM, NO_ITEM ; items
-	db GENDER_F12_5 ; gender ratio
-	db 35 ; step cycles to hatch
-	INCBIN "gfx/pokemon/vaporeon/front.dimensions"
-	db TRAIT_BOOST_PUNCHING, TRAIT_BOOST_PUNCHING, TRAIT_BOOST_PUNCHING, TRAIT_BOOST_PUNCHING
-	dn EGG_GROUND, EGG_GROUND ; egg groups
-	; db BUBBLEBEAM 45 ; attuned move, attuned level
-
-	; tm/hm learnset
-	tmhm HEADBUTT, CURSE, ROAR, ROCK_SMASH, HIDDEN_POWER, BLIZZARD, HYPER_BEAM, ICY_WIND, PROTECT, RAIN_DANCE, ENDURE, AQUA_TAIL, DIG, DOUBLE_TEAM, SWAGGER, WATER_GUN, SWIFT, ATTRACT, CRUNCH, JET_STREAM, HYPER_SONAR, SURF, ICE_BEAM, REST
-	; end

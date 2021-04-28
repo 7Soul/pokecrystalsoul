@@ -946,6 +946,57 @@ _LearnedMoveText::
 	text_waitbutton
 	db "@@"
 
+_AttunedMoveStart::
+	text "And…" ; And...
+	prompt
+
+_AttunedMoveAsk::
+	text_from_ram wMonOrItemNameBuffer
+	text " is"
+	line "trying to attune"
+	cont "with a move."
+
+	para "Will you let it"
+	line "happen now?"
+	done
+
+_AttunedDelayConfirm::
+	text "A move will cost"
+	line "more stamina, and"
+
+	para "you can try to"
+	line "attune later. Ok?"
+	done
+
+_AttunedMoveText::
+	text_from_ram wMonOrItemNameBuffer
+	text " attuned"
+	line "with @"
+	text_from_ram wStringBuffer2
+	text "!@"
+	sound_dex_fanfare_50_79
+	text_waitbutton
+	db "@@"
+
+_AttunedMoveExplain::
+	text "This move now uses"
+	line "less stamina!"
+	prompt
+
+_DetunedMoveText::
+	text_from_ram wMonOrItemNameBuffer
+	text " detuned"
+	line "with @"
+	text_from_ram wStringBuffer2
+	text ".@"
+	text_waitbutton
+	db "@@"
+
+_DetunedMoveExplain::
+	text "This move now uses"
+	line "more stamina."
+	prompt
+
 _MoveAskForgetText::
 	text "Which move should"
 	next "be forgotten?"

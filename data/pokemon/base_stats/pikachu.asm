@@ -9,7 +9,7 @@
 	db GENDER_F50 ; gender ratio
 	db 10 ; step cycles to hatch
 	INCBIN "gfx/pokemon/pikachu/front.dimensions"
-	db 0, 0, 0, 0
+	db TRAIT_CONTACT_PRZ, TRAIT_SPEED_STATUSED, TRAIT_BOOST_ELECTRIC_SPEED, TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	dn EGG_GROUND, EGG_FAIRY ; egg groups
 
 	; tm/hm learnset

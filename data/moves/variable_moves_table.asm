@@ -50,8 +50,9 @@ VariableMoves::
 	; Type variables under here
 	db U_TURN ; 40 Volt Tackle
 	db FIRE_SPIN ; 41 ; Aqua Ring
-	db PSYCH_UP ; 42 ; Aqua Ring
+	db PSYCH_UP ; 42 ; Circle Foe
 	db HEAL_BELL ; 43 ; Aromatherapy
+	
 	db -1
 
 VariablePointers:
@@ -212,6 +213,7 @@ IronTailVariables:
 	
 ConstrictVariables:
 	db POWER_WHIP, LICKITUNG, TANGELA, -1
+	db TAIL_SMACK, AIPOM, -1
 	db -2
 	
 AgilityVariables:

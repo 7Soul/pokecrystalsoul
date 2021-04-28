@@ -226,10 +226,25 @@ PokeBallEffect:
 	call PrintText
 
 	ld a, [wEnemyMonCatchRate]
-	cp 250
-	jp nc, .dontadd	
-	add 5 ; all pokemon below 251 catch rate have +5 rate
-.dontadd
+	ld hl, .catch_rates_values
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld a, [hl]
+	ld b, a
+
+	ld a, [wEnemyMonSpecies]
+	ld de, 1
+	ld hl, .legendary_mon
+	call IsInArray
+	jr nz, .not_legendary
+	ld a, b
+	sla a
+	sla a
+	ld b, a
+.not_legendary
+	ld a, b
+
 	ld a, [wBattleType]
 	cp BATTLETYPE_TUTORIAL
 	jp z, .catch_without_fail
@@ -730,11 +745,23 @@ PokeBallEffect:
 	ld [wItemQuantityChangeBuffer], a
 	jp TossItem
 
-; .used_park_ball
-; 	ld hl, wParkBallsRemaining
-; 	dec [hl]
-; 	ret
+.catch_rates_values:
+	db 20, 45, 150, 235
 	
+.legendary_mon:
+	db ARTICUNO
+	db ZAPDOS
+	db MOLTRES
+	db MEW
+	db MEWTWO
+	db ENTEI
+	db RAIKOU
+	db SUICUNE
+	db LUGIA
+	db HO_OH
+	db CELEBI
+	db -1
+
 BallMultiplierFunctionTable:
 ; table of routines that increase or decrease the catch rate based on
 ; which ball is used in a certain situation.

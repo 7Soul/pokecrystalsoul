@@ -9,7 +9,7 @@
 	db GENDER_F50 ; gender ratio
 	db 15 ; step cycles to hatch
 	INCBIN "gfx/pokemon/pidgeotto/front.dimensions"
-	db 0, 0, 0, 0
+	db TRAIT_BOOST_FLYING_SPEED, TRAIT_PREVENT_DEFENSE_DOWN, TRAIT_PREVENT_ACCURACY_DOWN, TRAIT_EVASION_WHEN_CONFUSED
 	dn EGG_FLYING, EGG_FLYING ; egg groups
 
 	; tm/hm learnset

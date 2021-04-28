@@ -25,6 +25,14 @@ BASE_EGG_GROUPS  EQUS "(wBaseEggGroups - wCurBaseData)"
 BASE_TMHM        EQUS "(wBaseTMHM - wCurBaseData)"
 BASE_DATA_SIZE   EQUS "(wCurBaseDataEnd - wCurBaseData)"
 
+DV_MASK        EQU %00011111
+DV_SHINY_BIT   EQU 5
+DV_SHINY       EQU %00100000
+DV_GENDER_BIT  EQU 6
+DV_MALE        EQU %00000000
+DV_FEMALE      EQU %01000000
+DV_ATTUNED_BIT EQU 7
+
 ; gender ratio constants
 GENDER_F0      EQU 0 percent
 GENDER_F12_5   EQU 12 percent + 1
@@ -57,12 +65,12 @@ BASE_EXP_MASK    EQU %00011100
 ; wBaseGrowthRate values
 ; GrowthRates indexes (see data/growth_rates.asm)
 	const_def
+	const GROWTH_FAST
 	const GROWTH_MEDIUM_FAST
+	const GROWTH_MEDIUM_SLOW
+	const GROWTH_SLOW
 	const GROWTH_SLIGHTLY_FAST
 	const GROWTH_SLIGHTLY_SLOW
-	const GROWTH_MEDIUM_SLOW
-	const GROWTH_FAST
-	const GROWTH_SLOW
 
 GROWTH_RATE_MASK EQU %11100000
 
@@ -125,17 +133,14 @@ REDMON_STRUCT_LENGTH EQU 44
 
 ; caught data
 
-CAUGHT_TIME_MASK  EQU %11000000
-CAUGHT_LEVEL_MASK EQU %00111111
-
+CAUGHT_TIME_MASK     EQU %11000000
+CAUGHT_LEVEL_MASK    EQU %00111111
 CAUGHT_GENDER_MASK   EQU %10000000
 CAUGHT_LOCATION_MASK EQU %01111111
-
-CAUGHT_BY_UNKNOWN EQU 0
-CAUGHT_BY_GIRL    EQU 1
-CAUGHT_BY_BOY     EQU 2
-
-CAUGHT_EGG_LEVEL EQU 1
+CAUGHT_BY_UNKNOWN    EQU 0
+CAUGHT_BY_GIRL       EQU 1
+CAUGHT_BY_BOY        EQU 2
+CAUGHT_EGG_LEVEL     EQU 1
 
 ; maximum number of party pokemon
 PARTY_LENGTH EQU 6
@@ -168,6 +173,11 @@ NUM_HOF_TEAMS = 30
 	const ATK_GT_DEF
 	const ATK_LT_DEF
 	const ATK_EQ_DEF
+
+	const_def
+	const UNEVOLVED_STAGE1OF2
+	const UNEVOLVED_STAGE1OF3
+	const UNEVOLVED_STAGE2OF3
 
 ; wild data
 
@@ -232,16 +242,33 @@ HAPPINESS_THRESHOLD_1 EQU 100
 HAPPINESS_THRESHOLD_2 EQU 200
 
 ; PP
+PP_MASK    EQU %00000111 ; pp max is 6, uses 3 bits
+PP_ATTUNED EQU 3 ; bit 3
+PP_DETUNED EQU 4 ; bit 4
 PP_UP_MASK EQU %11000000
 PP_UP_ONE  EQU %01000000
-PP_MASK    EQU %00111111
+PP_MAX     EQU 6
 
-STA_MIN     EQU 6
-STA_MAX     EQU 14
 STA_MASK    EQU %00001111
 STA_EX_MASK EQU %00110000
-STA_EX      EQU 5 ; bit
+STA_DETUNE_MASK  EQU %11000000 ; counts how many times attunement was delayed
+STA_EX      EQU 5 ; bit (not used anymore)
 STA_EX_MAX  EQU 3 ; max exhaustion levels
+
+STA_MAX     EQU 14
 STA_BAR     EQU 2
 STA_HALF    EQU STA_BAR / 2
 
+ACTION_LEVEL EQU 4 ; action limited by level multiplies the stored 4 bit number by this value
+
+	const_def
+	const ACTION_CUT ; Fire: Burn, Poison: Poison
+	const ACTION_SURF ; Not-water: Levitate
+	const ACTION_FLY ; Psychic: Teleport, Groud/Rock: Dig
+	const ACTION_SWEETSCENT ; poison types become Stinky Smell
+	const ACTION_STRENGTH ; Psychic: Telekinesis
+	const ACTION_FLASH ; Psychic: Sense
+	const ACTION_ROCK_SMASH ; Ice: Frostbite
+	const ACTION_INVESTIGATE
+	const ACTION_HEADBUTT
+	const ACTION_CAMOUFLAGE

@@ -58,14 +58,16 @@ EvolveAfterBattle_MasterLoop:
 	pop hl
 
 .loop
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	and a
 	jr z, EvolveAfterBattle_MasterLoop
 
 	ld b, a
 
 	cp EVOLVE_TRADE
-	jr z, .trade
+	jp z, .trade
 
 	ld a, [wLinkMode]
 	and a
@@ -87,8 +89,14 @@ EvolveAfterBattle_MasterLoop:
 	jr z, .happiness
 
 ; EVOLVE_STAT
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
+	push bc
+	ld b, a
 	ld a, [wTempMonLevel]
-	cp [hl]
+	cp b
+	pop bc
 	jp c, .dont_evolve_1
 
 	call IsMonHoldingEverstone
@@ -112,7 +120,7 @@ EvolveAfterBattle_MasterLoop:
 	jp nz, .dont_evolve_2
 
 	inc hl
-	jr .proceed
+	jp .proceed
 
 .happiness
 	ld a, [wTempMonHappiness]
@@ -122,7 +130,9 @@ EvolveAfterBattle_MasterLoop:
 	call IsMonHoldingEverstone
 	jp z, .dont_evolve_2
 
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	cp TR_ANYTIME
 	jr z, .proceed
 	cp TR_MORNDAY
@@ -148,7 +158,9 @@ EvolveAfterBattle_MasterLoop:
 	call IsMonHoldingEverstone
 	jp z, .dont_evolve_2
 
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	ld b, a
 	inc a
 	jr z, .proceed
@@ -166,7 +178,9 @@ EvolveAfterBattle_MasterLoop:
 	jr .proceed
 
 .item
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	ld b, a
 	ld a, [wCurItem]
 	cp b
@@ -181,7 +195,9 @@ EvolveAfterBattle_MasterLoop:
 	jr .proceed
 
 .level
-	ld a, [hli]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
+	inc hl
 	ld b, a ; b = evolution level
 	ld a, [wTempMonLevel]
 	cp b
@@ -197,7 +213,8 @@ EvolveAfterBattle_MasterLoop:
 
 	push hl
 
-	ld a, [hl]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
 	ld [wEvolutionNewSpecies], a
 	ld a, [wCurPartyMon]
 	ld hl, wPartyMonNicknames
@@ -231,7 +248,8 @@ EvolveAfterBattle_MasterLoop:
 
 	pop hl
 
-	ld a, [hl]
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte
 	ld [wCurSpecies], a
 	ld [wTempMonSpecies], a
 	ld [wEvolutionNewSpecies], a
@@ -483,11 +501,228 @@ LearnLevelMoves:
 	pop hl
 	jr .find_move
 
-.done
+.done ; LearnLevelMoves.done
 	ld a, [wCurPartySpecies]
 	ld [wTempSpecies], a
+
+	push hl ; push1
+	ld a, MON_CAUGHTDATA
+	call GetPartyParamLocation
+	ld a, [hli]
+	and CAUGHT_LEVEL_MASK
+	jp z, .skip_attunement
+; for the purposes of checking when to attune, the caught level is maxed at 65
+	cp 65
+	jr c, .not_min_level
+	ld a, 65
+.not_min_level
+	ld d, a ; save og level
+	ld a, 100
+	sub d
+	ld c, 10
+	call SimpleDivide
+	ld e, b ; save 1/10th of original level in e
+	ld a, d ; og level
+	ld b, a
+; adds 25%
+	srl a
+	srl a
+	add b 
+	add 4 ; adds a min of 4 levels
+	ld b, a
+; growth rate is added to caught level
+; the slowest the rate, the more is added. Fast (2,4,6,8) Slow
+	ld a, [wBaseSpData]
+	and GROWTH_RATE_MASK
+	swap a
+	rra
+	inc a
+	add a ; doubles
+	add b
+	ld c, a
+; subtract catch rate difficulty
+; the easier to catch, the more it subtracts. Easy (3,2,1,0) Rare
+	ld a, [wBaseSpData]
+	and CATCH_RATE_MASK
+	ld b, a
+	ld a, c
+	sub b
+	ld b, a
+; subtracts current level to get difference
+	ld a, [wCurPartyLevel]
+	sub b
+	ld d, a ; d holds level difference
+; add detune count * (3 + (100-CaughtLevel) / 10) to required level
+; c * (3 + e) (c holds detuned count) (e holds (100-CaughtLevel) / 10)
+	call GetPartyMonDetuneCount
+	ld c, a
+	ld a, 5
+	add e
+	call SimpleMultiply
+	ld b, a
+	ld a, d
+	sub b
+	and a
+	jp nz, .skip_attunement ; comment to test
+; did we already delay it too many times?
+	xor a
+	ld [wDelayAttune], a
+	call GetPartyMonDetuneCount
+	cp 3 ; already delayed 3 times
+	jp z, .do_move ; end
+; regular attune questions (haven't maxed delays yet)
+	ld c, 20
+	call DelayFrames
+	ld hl, Text_AttunedStart ; And...
+	call PrintText
+.start_ask_attunement ; LearnLevelMoves.start_ask_attunement
+	ld hl, Text_AttunedAsk ; Let attunement go through?
+	call PrintText
+	call YesNoBox
+	jr nc, .do_move ; if yes
+	; no
+	ld hl, Text_AttunedDelayConfirm ; Confirm another move costs more stamina?
+	call PrintText
+	call YesNoBox
+	ld a, 1
+	ld [wDelayAttune], a
+	jr nc, .do_move ; go through with delaying it
+	xor a
+	ld [wDelayAttune], a
+	jr .start_ask_attunement ; if no, go back
+
+.do_move
+	ld hl, wPartyMon1DVs
+	ld a, [wCurPartyMon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld a, [wDelayAttune]
+	and a
+	jr nz, .dont_set_attuned_bit ; yes, delay
+	bit DV_ATTUNED_BIT, [hl]
+	jp nz, .skip_attunement
+	set DV_ATTUNED_BIT, [hl]
+
+.dont_set_attuned_bit
+	ld hl, wPartyMon1Moves
+	ld a, [wCurPartyMon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+
+	call BattleRandom
+	maskbits NUM_MOVES
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	ld [wNamedObjectIndexBuffer], a
+	push hl ; push2
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable2
+	farcall GetVariableMoveType
+.not_variable2
+	call GetMoveName
+	call CopyName1
+	pop hl ; pop2
+	ld bc, MON_PP - MON_MOVES
+	add hl, bc
+	ld a, [wDelayAttune]
+	and a
+	jr z, .not_delayed
+
+	set PP_DETUNED, [hl]
+	; mark how many times attunement was delayed in the stamina byte
+	call GetPartyMonDetuneCount
+	
+	inc a
+	swap a
+	rla
+	rla
+	or b
+	ld [hl], a
+
+	ld hl, Text_DetunedMove ; <MON> detuned with <MOVE>
+	call PrintText
+	ld hl, Text_DetunedMoveExplain
+	call PrintText
+
+	jr .skip_attunement
+
+.not_delayed
+	ld a, [hl]
+	and PP_MASK
+	dec a
+	jr nc, .min_cost
+	xor a ; minimum stamina cost
+.min_cost
+	ld [hl], a
+	set PP_ATTUNED, [hl]
+	ld c, 20
+	call DelayFrames
+	ld hl, Text_AttunedMove ; <MON> attuned with <MOVE>!
+	call PrintText
+	ld hl, Text_AttunedMoveExplain
+	call PrintText
+	pop hl ; pop1
+	ret
+
+.skip_attunement
+	pop hl ; pop1
+	ret
+
+GetPartyMonDetuneCount: ; puts actual stamina in `b` and returns detune count in `a`
+	push bc
+	ld hl, wPartyMon1Stamina
+	ld a, [wCurPartyMon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	pop bc
+	ld a, [hl]
+	and STA_MASK | STA_EX
+	ld b, a
+	ld a, [hl]
+	and STA_DETUNE_MASK
+	swap a
+	rra
+	rra
 	ret
 	
+Text_AttunedStart:
+	; And...
+		text_jump _AttunedMoveStart
+		db "@"
+	
+Text_AttunedAsk:
+	; Mon is trying to attune to a move, allow it?
+		text_jump _AttunedMoveAsk
+		db "@"
+
+Text_AttunedDelayConfirm:
+	; A move will cost more stamina, confirm?
+		text_jump _AttunedDelayConfirm
+		db "@"
+	
+Text_DetunedMove:
+	; <MON> attuned with <MOVE>!
+		text_jump _DetunedMoveText
+		db "@"
+
+Text_DetunedMoveExplain:
+	; <MON> attuned with <MOVE>!
+		text_jump _DetunedMoveExplain
+		db "@"
+
+Text_AttunedMove:
+	; <MON> attuned with <MOVE>!
+		text_jump _AttunedMoveText
+		db "@"
+	
+Text_AttunedMoveExplain:
+	; <MON> attuned with <MOVE>!
+		text_jump _AttunedMoveExplain
+		db "@"
+
 FillEggMove:
 	push hl
 	push de

@@ -2210,7 +2210,7 @@ VaporeonEvosAttacks:
 	db 13, QUICK_ATTACK
 	db 17, JET_STREAM
 	db 20, AURORA_BEAM
-	db 24, BITE
+	db 24, SIGNAL_BEAM ; BITE
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 36, HAZE
 	db 46, ACID_ARMOR
@@ -3143,6 +3143,7 @@ AipomEvosAttacks:
 	db 12, BATON_PASS
 	db 19, MAKESHIFT
 	db 22, FURY_ATTACK
+	db 25, CONSTRICT ; becomes Tail Smack
 	db 27, SWIFT
 	db 36, SCREECH
 	db 39, NASTY_PLOT

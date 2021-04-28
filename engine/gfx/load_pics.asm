@@ -1,7 +1,7 @@
 GetUnownLetter: ; Return Unown letter in wUnownLetter based on DVs at hl
 	inc hl
 	ld a, [hl]
-	and %11111
+	and DV_MASK
 	ld [wUnownLetter], a
 	ret
 

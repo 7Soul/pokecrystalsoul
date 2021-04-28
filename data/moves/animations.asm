@@ -5417,7 +5417,7 @@ BattleAnim_Magnitude:
 	anim_wait 2
 	anim_obj ANIM_OBJ_SMALL_ROCK, 136, 68, $30
 	anim_wait 2
-	anim_jumpuntil .loop
+	anim_loop 5, .loop ; anim_jumpuntil .loop
 	anim_wait 96
 	anim_ret
 

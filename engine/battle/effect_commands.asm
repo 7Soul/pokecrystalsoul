@@ -3068,8 +3068,8 @@ BattleCommand_DamageCalc:
 	ld hl, wEnemyMonStamina
 .got_stamina
 	ld a, [hl]
+	and STA_EX_MASK
 	swap a
-	and STA_EX_MAX
 	and a ; 0 exhaustion?
 	jr z, .got_power_changes
 	ld d, 60

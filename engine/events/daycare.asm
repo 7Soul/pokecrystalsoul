@@ -679,7 +679,7 @@ DayCare_InitBreeding:
 	cp 5 percent ; 4.7%
 	jr nc, .TryGender
 .set_shiny ; 0.16%
-	set 5, [hl] ; set shiny bit
+	set DV_SHINY_BIT, [hl] ; set shiny bit
 .TryGender
 	call Random
 	ld b, a
