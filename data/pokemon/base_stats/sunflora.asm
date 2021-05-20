@@ -1,7 +1,7 @@
 	db SUNFLORA ; 192
 
-	db  90,  75,  60,  30, 105,  85
-	;   hp  atk  def  spd  sat  sdf
+	db  110,  75,  60,  80, 105,  88
+	;    hp  atk  def  spd  sat  sdf
 
 	db GRASS, GRASS ; type
 	db GROWTH_MEDIUM_SLOW << 5 | BASE_EXP_HIGH << 2 | CATCH_RATE_MEDIUM

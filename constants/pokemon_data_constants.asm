@@ -22,6 +22,7 @@ BASE_PIC_SIZE    EQUS "(wBasePicSize - wCurBaseData)"
 BASE_TRAITS      EQUS "(wBaseTraits - wCurBaseData)"
 ; BASE_GROWTH_RATE EQUS "(wBaseGrowthRate - wCurBaseData)"
 BASE_EGG_GROUPS  EQUS "(wBaseEggGroups - wCurBaseData)"
+BASE_ACTIONS     EQUS "(wBaseActions - wCurBaseData)"
 BASE_TMHM        EQUS "(wBaseTMHM - wCurBaseData)"
 BASE_DATA_SIZE   EQUS "(wCurBaseDataEnd - wCurBaseData)"
 
@@ -262,13 +263,19 @@ STA_HALF    EQU STA_BAR / 2
 ACTION_LEVEL EQU 4 ; action limited by level multiplies the stored 4 bit number by this value
 
 	const_def
-	const ACTION_CUT ; Fire: Burn, Poison: Poison
-	const ACTION_SURF ; Not-water: Levitate
-	const ACTION_FLY ; Psychic: Teleport, Groud/Rock: Dig
-	const ACTION_SWEETSCENT ; poison types become Stinky Smell
-	const ACTION_STRENGTH ; Psychic: Telekinesis
-	const ACTION_FLASH ; Psychic: Sense
-	const ACTION_ROCK_SMASH ; Ice: Frostbite
-	const ACTION_INVESTIGATE
-	const ACTION_HEADBUTT
-	const ACTION_CAMOUFLAGE
+	const ACTION_CUT         ; 0 Fire: Burn, Poison: Poison
+	const ACTION_SURF        ; 1 Not-water: Levitate
+	const ACTION_FLY         ; 2 Psychic: Teleport, Groud/Rock: Dig
+	const ACTION_SWEETSCENT  ; 3 poison types become Stinky Smell
+	const ACTION_STRENGTH    ; 4 Psychic: Telekinesis
+	const ACTION_FLASH       ; 5 Psychic: Sense
+	const ACTION_ROCKSMASH   ; 6 Ice: Frostbite
+	const ACTION_INVESTIGATE ; 7
+	const ACTION_HEADBUTT    ; 8
+	const ACTION_HOLD        ; 9
+	const ACTION_LUCKY       ; a
+	const ACTION_EVOLUTION   ; b
+	const ACTION_FLAMEBODY   ; c
+	const ACTION_SEARCHLIGHT ; d
+	const ACTION_FAMILY      ; e
+	const ACTION_            ; f

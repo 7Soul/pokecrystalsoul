@@ -153,12 +153,8 @@ Text_ComeBack::
 	line "back!"
 	done
 
-UnknownText_0x1c0373::
+_Text_BootedUpTM::
 	text "Booted up a TM."
-	prompt
-
-UnknownText_0x1c0384::
-	text "Booted up an HM."
 	prompt
 
 UnknownText_0x1c0396::

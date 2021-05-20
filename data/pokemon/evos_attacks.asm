@@ -118,7 +118,7 @@ SquirtleEvosAttacks:
 	db 1, TACKLE
 	db 4, TAIL_WHIP
 	db 7, BUBBLE
-	db 10, HARDEN
+	db 10, HARDEN ; becomes Withdraw
 	db 13, WATER_GUN
 	db 19, BITE
 	db 21, RAPID_SPIN
@@ -136,7 +136,7 @@ WartortleEvosAttacks:
 	db 0 ; no more evolutions
 	db 4, TAIL_WHIP
 	db 7, BUBBLE
-	db 10, HARDEN
+	db 10, HARDEN ; becomes Withdraw
 	db 13, WATER_GUN
 	db 19, BITE
 	db 21, RAPID_SPIN
@@ -203,7 +203,7 @@ ButterfreeEvosAttacks:
 	db 15, SLEEP_POWDER
 	db 18, SUPERSONIC
 	db 20, SILVER_WIND
-	db 25, WHIRLWIND	
+	db 25, WHIRLWIND
 	db 34, PSYBEAM
 	db 40, SAFEGUARD
 	db 49, BUG_BUZZ
@@ -1243,8 +1243,8 @@ GeodudeEvosAttacks:
 	db 29, DOUBLESLAP ; becomes Rock Blast
 	db 34, EARTHQUAKE
 	db 36, EXPLOSION
-	db 40, DOUBLE_EDGE ; changes to wood hammer
-	db 42, CROSS_CHOP ; changes to Stone Edge
+	db 40, DOUBLE_EDGE ; becomes wood hammer
+	db 42, CROSS_CHOP ; becomes Stone Edge
 	db 0 ; no more level-up moves
 
 GravelerEvosAttacks:
@@ -1259,7 +1259,7 @@ GravelerEvosAttacks:
 	db 36, EARTHQUAKE
 	db 40, EXPLOSION
 	db 45, DOUBLE_EDGE
-	db 49, CROSS_CHOP ; changes to Stone Edge
+	db 49, CROSS_CHOP ; becomes Stone Edge
 	db 0 ; no more level-up moves
 
 GolemEvosAttacks:
@@ -1270,7 +1270,7 @@ GolemEvosAttacks:
 	db 36, EARTHQUAKE
 	db 44, EXPLOSION
 	db 59, DOUBLE_EDGE
-	db 54, CROSS_CHOP ; changes to Stone Edge
+	db 54, CROSS_CHOP ; becomes Stone Edge
 	db 0 ; no more level-up moves
 
 PonytaEvosAttacks:
@@ -1493,7 +1493,7 @@ ShellderEvosAttacks:
 	db 32, IRON_TAIL ; becomes Razor Shell
 	db 37, AURORA_BEAM
 	db 40, WHIRLPOOL
-	db 43, BARRIER ; Becomes Iron Defense
+	db 43, BARRIER ; becomes Iron Defense
 	db 46, ICE_BEAM
 	db 53, HYDRO_PUMP
 	db 0 ; no more level-up moves
@@ -1507,7 +1507,7 @@ CloysterEvosAttacks:
 	db 33, IRON_TAIL ; becomes Razor Shell
 	db 38, AURORA_BEAM
 	db 42, WHIRLPOOL
-	db 46, BARRIER ; Becomes Iron Defense
+	db 46, BARRIER ; becomes Iron Defense
 	db 50, ICE_BEAM
 	db 57, HYDRO_PUMP
 	db 0 ; no more level-up moves
@@ -1568,7 +1568,7 @@ OnixEvosAttacks:
 	db 33, STAMPEDE
 	db 36, SANDSTORM
 	db 40, SLAM
-	db 46, CROSS_CHOP ; changes to Stone Edge
+	db 46, CROSS_CHOP ; becomes Stone Edge
 	db 52, EARTHQUAKE
 	db 0 ; no more level-up moves
 
@@ -1826,7 +1826,7 @@ RhyhornEvosAttacks:
 	db 30, STAMPEDE
 	db 37, HORN_DRILL
 	db 41, TAKE_DOWN
-	db 44, CROSS_CHOP ; changes to Stone Edge
+	db 44, CROSS_CHOP ; becomes Stone Edge
 	db 46, EARTHQUAKE
 	db 51, MEGAHORN
 	db 54, ENDURE ; evolution move
@@ -1839,7 +1839,7 @@ RhydonEvosAttacks:
 	db 30, STAMPEDE
 	db 37, HORN_DRILL
 	db 44, TAKE_DOWN
-	db 48, CROSS_CHOP ; changes to Stone Edge
+	db 48, CROSS_CHOP ; becomes Stone Edge
 	db 52, EARTHQUAKE
 	db 59, MEGAHORN
 	db 0 ; no more level-up moves
@@ -3062,7 +3062,7 @@ SudowoodoEvosAttacks:
 	db 33, COUNTER
 	db 37, FAINT_ATTACK
 	db 43, DOUBLE_EDGE ; becomes Wood Hammer
-	db 47, CROSS_CHOP ; changes to Stone Edge
+	db 47, CROSS_CHOP ; becomes Stone Edge
 	db 52, HAMMER_ARM
 	db 0 ; no more level-up moves
 
@@ -3434,7 +3434,7 @@ SteelixEvosAttacks:
 	db 44, SLAM
 	db 50, GYRO_BALL
 	db 52, CRUNCH
-	db 55, CROSS_CHOP ; changes to Stone Edge
+	db 55, CROSS_CHOP ; becomes Stone Edge
 	db 0 ; no more level-up moves
 
 SnubbullEvosAttacks:
@@ -3820,6 +3820,7 @@ PhanpyEvosAttacks:
 	db 38, RAPID_SPIN
 	db 41, ENDURE
 	db 44, DOUBLE_EDGE
+	db 49, SANDSTORM
 	db 0 ; no more level-up moves
 
 DonphanEvosAttacks:
@@ -4048,7 +4049,7 @@ EnteiEvosAttacks:
 	db 48, GROWTH ; becomes Calm Mind
 	db 52, SWAGGER
 	db 55, FIRE_BLAST
-	db 66, DOUBLE_EDGE ; Becomes Flare Blitz
+	db 66, DOUBLE_EDGE ; becomes Flare Blitz
 	db 0 ; no more level-up moves
 
 SuicuneEvosAttacks:
@@ -4082,7 +4083,7 @@ LarvitarEvosAttacks:
 	db 23, SCARY_FACE
 	db 29, THRASH
 	db 32, DARK_PULSE
-	db 35, CROSS_CHOP ; changes to Stone Edge
+	db 35, CROSS_CHOP ; becomes Stone Edge
 	db 41, CRUNCH
 	db 46, EARTHQUAKE
 	db 55, HYPER_BEAM
@@ -4093,7 +4094,7 @@ PupitarEvosAttacks:
 	db 0 ; no more evolutions
 	db 29, THRASH
 	db 34, DARK_PULSE
-	db 37, CROSS_CHOP ; changes to Stone Edge
+	db 37, CROSS_CHOP ; becomes Stone Edge
 	db 44, CRUNCH
 	db 49, EARTHQUAKE
 	db 59, HYPER_BEAM
@@ -4103,7 +4104,7 @@ TyranitarEvosAttacks:
 	db 0 ; no more evolutions
 	db 29, THRASH
 	db 34, DARK_PULSE
-	db 37, CROSS_CHOP ; changes to Stone Edge
+	db 37, CROSS_CHOP ; becomes Stone Edge
 	db 44, CRUNCH
 	db 49, EARTHQUAKE
 	db 54, SCARY_FACE

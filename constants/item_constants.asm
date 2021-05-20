@@ -274,7 +274,7 @@ NUM_TMS = const_value - TM01
 
 ; add_hm: MACRO
 ; if !DEF(HM01)
-HM01 = const_value
+TMS_END = const_value
 ; endc
 ; 	define _\@_1, "HM_\1"
 ; 	const _\@_1
@@ -282,7 +282,7 @@ HM01 = const_value
 ; ENDM
 
 ; 	add_hm AQUA_TAIL    ; fd
-NUM_HMS = const_value - HM01
+NUM_HMS = 0
 ; NUM_HMS = 0
 
 add_mt: MACRO

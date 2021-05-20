@@ -1673,7 +1673,7 @@ CalcMonStatC:
     jr nz, .not_highest_stat
     ld a, b
 	ld c, a
-	ld a, 2
+	ld a, 3
 	call SimpleMultiply
     ld b, a
 .not_highest_stat
@@ -1836,7 +1836,7 @@ CalcMonStatC:
 	pop de
 	pop hl
 	ret
-PRINTV UNEVOLVED_STAGE1OF3 | STAT_SPD << 3
+
 .UnevolvedBonus:
 	; species, level it evolves at, number to define bonus amount
 	;
@@ -1936,7 +1936,7 @@ PRINTV UNEVOLVED_STAGE1OF3 | STAT_SPD << 3
 	db MARILL,     18, UNEVOLVED_STAGE1OF2 | STAT_HP   << 2
 	db HOPPIP,     18, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
 	db SKIPLOOM,   27, UNEVOLVED_STAGE2OF3 | STAT_SPD  << 2
-	db SUNKERN,    20, UNEVOLVED_STAGE1OF2 | STAT_SATK << 2
+	db SUNKERN,    20, UNEVOLVED_STAGE1OF2 | STAT_HP   << 2
 	db WOOPER,     20, UNEVOLVED_STAGE1OF2 | STAT_HP   << 2
 	db PINECO,     31, UNEVOLVED_STAGE1OF2 | STAT_DEF  << 2
 	db SNUBBULL,   23, UNEVOLVED_STAGE1OF2 | STAT_ATK  << 2

@@ -185,16 +185,8 @@ GetTMHMName::
 	push af
 
 ; TM/HM prefix
-	cp HM01
-	push af
-	jr c, .TM
-	jr .asm_34a1
-
-.TM:
 	ld hl, .TMText
 	ld bc, .TMTextEnd - .TMText
-
-.asm_34a1
 	ld de, wStringBuffer1
 	call CopyBytes
 
@@ -204,13 +196,7 @@ GetTMHMName::
 	ld c, a
 	callfar GetTMHMNumber
 	pop de
-
-; HM numbers start from 51, not 1
-	pop af
 	ld a, c
-	jr c, .asm_34b9
-	sub NUM_TMS
-.asm_34b9
 
 ; Divide and mod by 10 to get the top and bottom digits respectively
 	ld b, "0"
@@ -248,8 +234,6 @@ GetTMHMName::
 	db "TM"
 .TMTextEnd:
 	db "@"
-
-INCLUDE "home/hm_moves.asm"
 
 GetMoveName::
 	push hl

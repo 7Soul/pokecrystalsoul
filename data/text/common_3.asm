@@ -1059,11 +1059,6 @@ _MoveForgotText::
 	para "And…"
 	prompt
 
-_MoveCantForgetHMText::
-	text "HM moves can't be"
-	line "forgotten now."
-	prompt
-
 UnknownText_0x1c5793::
 	text "Play with three"
 	line "coins?"

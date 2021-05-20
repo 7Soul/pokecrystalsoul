@@ -42,6 +42,13 @@ GetTMHMItemMove:
 	ret
 
 AskTeachTMHM:
+	hlcoord 5, 10
+	lb bc, 2, 20
+	call ClearBox
+	hlcoord 0, 11
+	ld bc, 5
+	ld a, $24
+	call ByteFill
 	ld hl, wOptions
 	ld a, [hl]
 	push af
@@ -55,11 +62,6 @@ AskTeachTMHM:
 	call GetMoveName
 	call CopyName1
 	ld hl, Text_BootedTM ; Booted up a TM
-	ld a, [wCurItem]
-	cp HM01
-	jr c, .TM
-	ld hl, Text_BootedHM ; Booted up an HM
-.TM:
 	call PrintText
 	ld hl, Text_ItContained
 	call PrintText
@@ -147,7 +149,7 @@ TeachTMHM:
 
 	farcall StubbedTrainerRankings_TMsHMsTaught
 	ld a, [wCurItem]
-	call IsHM
+	and a
 	ret c
 
 	ld c, HAPPINESS_LEARNMOVE
@@ -159,21 +161,13 @@ TeachTMHM:
 	and a
 	ret
 
-.unused
-	ld a, 2
-	ld [wItemEffectSucceeded], a
 .learned_move
 	scf
 	ret
 
 Text_BootedTM:
 	; Booted up a TM.
-	text_jump UnknownText_0x1c0373
-	db "@"
-
-Text_BootedHM:
-	; Booted up an HM.
-	text_jump UnknownText_0x1c0384
+	text_jump _Text_BootedUpTM
 	db "@"
 
 Text_ItContained:
@@ -190,7 +184,7 @@ TMHM_PocketLoop:
 	xor a
 	ldh [hBGMapMode], a
 	call TMHM_DisplayPocketItems
-	ld a, 2
+	ld a, 1
 	ld [w2DMenuCursorInitY], a
 	ld a, 7
 	ld [w2DMenuCursorInitX], a
@@ -244,12 +238,22 @@ TMHM_JoypadLoop:
 TMHM_ShowTMMoveDescription:
 	call TMHM_CheckHoveringOverCancel
 	jp nc, TMHM_ExitPocket
+	jr nc, .not_cancel
+	; clear TM info when hovering cancel
+	hlcoord 5, 10
+	lb bc, 2, 20
+	call ClearBox
+	hlcoord 0, 11
+	ld bc, 5
+	ld a, $24
+	call ByteFill
+.not_cancel
 	hlcoord 0, 12
 	ld b, 4
 	ld c, SCREEN_WIDTH - 2
 	call TextBox
 	ld a, [wCurItem]
-	cp NUM_TMS + NUM_HMS + 1
+	cp NUM_TMS + 1
 	jr nc, TMHM_JoypadLoop
 	ld [wTempTMHM], a
 	predef GetTMHMMove
@@ -257,7 +261,110 @@ TMHM_ShowTMMoveDescription:
 	ld [wCurSpecies], a
 	hlcoord 1, 14
 	call PrintMoveDesc
+	hlcoord 0, 11
+	lb bc, 3, 18
+	call ClearBox
+	call TMHM_CheckHoveringOverCancel
+	call c, PlaceTMMoveData
 	jp TMHM_JoypadLoop
+
+PlaceTMMoveData:
+	xor a
+	ldh [hBGMapMode], a
+	hlcoord 0, 11
+	ld de, StringTM_MoveType_Top
+	call PlaceString
+	hlcoord 0, 12
+	ld de, StringTM_MoveType_Bottom
+	call PlaceString
+	hlcoord 12, 12 ; MoveAtk string
+	ld de, StringTM_MoveAtk
+	call PlaceString
+	ld a, [wCurSpecies]
+	ld b, a
+	farcall GetMoveCategoryName
+	hlcoord 1, 12
+	ld de, wStringBuffer1
+	call PlaceString
+	ld a, [wCurSpecies]
+	ld b, a
+	hlcoord 0, 13
+	ld [hl], "│"
+	inc hl
+	ld [hl], "/"
+	inc hl
+	predef PrintMoveType
+	ld a, [wCurSpecies]
+	dec a
+	ld hl, Moves + MOVE_POWER
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte
+	hlcoord 16, 12
+	cp 2
+	jr c, .no_power
+	ld [wDeciramBuffer], a
+	ld de, wDeciramBuffer
+	lb bc, 1, 3
+	call PrintNum
+	jr .place_acc
+
+.no_power
+	ld de, StringTM_na
+	call PlaceString
+
+.place_acc
+	hlcoord 12, 13 ; MoveAcc string
+	ld de, StringTM_MoveAcc
+	call PlaceString
+	ld a, [wCurVariableMove]
+	cp -1
+	jr z, .not_variable2
+	ld hl, VarMoves + MOVE_ACC
+	jr .got_move_acc
+.not_variable2
+	ld a, [wCurSpecies]
+	dec a
+	ld hl, Moves + MOVE_ACC
+.got_move_acc
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	; convert internal accuracy representation to a number
+	; between 0-100
+	ld a, BANK(Moves)
+	call GetFarByte
+	ld [hMultiplicand], a
+	ld a, 100
+	ld [hMultiplier], a
+	call Multiply
+	ld a, [hProduct]
+	; don't increase a for 0% moves
+	and a
+	jr z, .no_inc
+	inc a
+.no_inc
+	hlcoord 16, 13
+	cp 2
+	jr c, .no_acc
+	ld [wd265], a
+	ld de, wd265
+	lb bc, 1, 3
+	jp PrintNum
+.no_acc
+	ld de, StringTM_na
+	jp PlaceString
+
+StringTM_MoveType_Top:
+	db "┌────────┐ ┌───────┐@"
+StringTM_MoveType_Bottom:
+	db "│        └─┘       │@"
+StringTM_MoveAtk:
+	db "ATK/@"
+StringTM_MoveAcc:
+	db "ACC/@"
+StringTM_na:
+	db "---@"
 
 TMHM_ChooseTMorHM:
 	call TMHM_PlaySFX_ReadText2
@@ -278,7 +385,7 @@ TMHM_CheckHoveringOverCancel:
 .loop
 	inc c
 	ld a, c
-	cp NUM_TMS + NUM_HMS + 1
+	cp NUM_TMS + 1
 	jr nc, .okay
 	ld a, [hli]
 	and a
@@ -321,7 +428,7 @@ TMHM_ScrollPocket:
 .loop
 	inc c
 	ld a, c
-	cp NUM_TMS + NUM_HMS + 1
+	cp NUM_TMS + 1
 	jp nc, TMHM_JoypadLoop
 	ld a, [hli]
 	and a
@@ -334,11 +441,14 @@ TMHM_ScrollPocket:
 	jp TMHM_ShowTMMoveDescription
 
 TMHM_DisplayPocketItems:
+	xor a
+	dec a
+	ld [wCurVariableMove], a
 	ld a, [wBattleType]
 	cp BATTLETYPE_TUTORIAL
 	jp z, Tutorial_TMHMPocket
 
-	hlcoord 5, 2
+	hlcoord 5, 0
 	lb bc, 10, 15
 	ld a, " "
 	call ClearBox
@@ -347,7 +457,7 @@ TMHM_DisplayPocketItems:
 .loop2
 	inc c
 	ld a, c
-	cp NUM_TMS + NUM_HMS + 1
+	cp NUM_TMS + 1
 	jr nc, .NotTMHM
 	ld a, [hli]
 	and a
@@ -361,31 +471,18 @@ TMHM_DisplayPocketItems:
 	call TMHMPocket_GetCurrentLineCoord
 	push hl
 	ld a, [wTempTMHM]
-	cp NUM_TMS + 1
-	jr nc, .HM
 	ld de, wTempTMHM
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
 	call PrintNum
 	jr .okay
 
-.HM:
-	push af
-	sub NUM_TMS
-	ld [wTempTMHM], a
-	ld [hl], "H"
-	inc hl
-	ld de, wTempTMHM
-	lb bc, PRINTNUM_RIGHTALIGN | 1, 2
-	call PrintNum
-	pop af
-	ld [wTempTMHM], a
 .okay
 	predef GetTMHMMove
 	ld a, [wNamedObjectIndexBuffer]
 	ld [wPutativeTMHMMove], a
 	call GetMoveName
 	pop hl
-	ld bc, 3
+	ld bc, 3 ; move text 3 tiles to the right
 	add hl, bc
 	push hl
 	call PlaceString
@@ -393,8 +490,8 @@ TMHM_DisplayPocketItems:
 	pop bc
 	ld a, c
 	push bc
-	cp NUM_TMS + 1
-	jr nc, .hm2
+	; cp NUM_TMS + 1
+	; jr nc, .hm2
 	ld bc, SCREEN_WIDTH + 9
 	add hl, bc
 	ld [hl], "×"
@@ -407,7 +504,7 @@ TMHM_DisplayPocketItems:
 	ld de, wTempTMHM
 	lb bc, 1, 2
 	call PrintNum
-.hm2
+; .hm2
 	pop bc
 	pop de
 	pop hl
@@ -428,7 +525,7 @@ TMHM_DisplayPocketItems:
 	ret
 
 TMHMPocket_GetCurrentLineCoord:
-	hlcoord 5, 0
+	hlcoord 5, -1
 	ld bc, 2 * SCREEN_WIDTH
 	ld a, 6
 	sub d
@@ -438,19 +535,6 @@ TMHMPocket_GetCurrentLineCoord:
 	add hl, bc
 	dec e
 	jr nz, .loop
-	ret
-
-Unreferenced_Function2ca95:
-	pop hl
-	ld bc, 3
-	add hl, bc
-	predef GetTMHMMove
-	ld a, [wTempTMHM]
-	ld [wPutativeTMHMMove], a
-	call GetMoveName
-	push hl
-	call PlaceString
-	pop hl
 	ret
 
 TMHM_String_Cancel:
@@ -487,15 +571,6 @@ TMHM_PlaySFX_ReadText2:
 	call PlaySFX
 	pop de
 	ret
-
-Unreferenced_Function2cadf:
-	call ConvertCurItemIntoCurTMHM
-	call .CheckHaveRoomForTMHM
-	ld hl, .NoRoomText
-	jr nc, .print
-	ld hl, .ReceivedText
-.print
-	jp PrintText
 
 .NoRoomText:
 	; You have no room for any more @ S.
@@ -544,7 +619,7 @@ ConsumeTM:
 
 CountTMsHMs:
 	ld b, 0
-	ld c, NUM_TMS + NUM_HMS
+	ld c, NUM_TMS
 	ld hl, wTMsHMs
 .loop
 	ld a, [hli]

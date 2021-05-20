@@ -113,6 +113,82 @@ CheckPartyMove:
 	scf
 	ret
 
+; Checks species of pokémon in your party for action `d`
+CheckPartyAction:
+	ld e, 0
+	xor a
+	ld [wCurPartyMon], a
+.loop
+	ld c, e
+	ld b, 0
+	ld hl, wPartySpecies
+	add hl, bc
+	ld a, [hl]
+	ld [wCurSpecies], a
+	and a
+	jr z, .no
+	cp -1
+	jr z, .no
+	cp EGG
+	jr z, .next
+; check first species action
+	call GetBaseData
+	ld a, [wBaseActions]
+	and $f ; get bottom nybble (level)
+	ld b, a ; b has action 1 level
+
+	ld a, e
+	ld hl, wPartyMon1Level
+	call GetPartyLocation
+	cp b ; compares action level to mon level
+	jr nc, .check_second_action ; nc = a < b
+; cur level is higher than required level
+	ld a, [wBaseActions]
+	swap a
+	and $f ; get upper nybble (first action id)
+	cp d
+	jr z, .yes
+; fallthrough, check second action
+.check_second_action
+	ld a, [wBaseActions + 1]
+	and $f ; get bottom nybble (second action id)
+	cp d
+	jr z, .yes_attunement
+; fallthrough, check third action
+	ld a, [wBaseActions + 1]
+	swap a
+	and $f ; get upper nybble (third action id)
+	cp d
+	jr nz, .next
+; check dex data, then fallthrough to attunement check
+	ld a, [wCurSpecies]
+	ld [wTempEnemyMonSpecies], a
+	predef GetFoughtMonCount
+	ld a, [wPokedexFoughtCount]
+	cp $FF ; check dex data == 100%
+	jr c, .next
+;fallthrough
+.yes_attunement
+; check if mon is attuned
+	ld a, e
+	ld hl, wPartyMon1DVs
+	call GetPartyLocation
+	bit DV_ATTUNED_BIT, [hl]
+	jr nz, .yes
+;fallthrough
+.next
+	inc e
+	jr .loop
+
+.yes
+	ld a, e
+	ld [wCurPartyMon], a ; which mon has the move
+	xor a
+	ret
+.no
+	scf
+	ret
+
 FieldMoveFailed:
 	ld hl, .CantUseHere
 	call MenuTextBoxBackup
@@ -516,12 +592,8 @@ TrySurfOW::
 	call CheckDirection
 	jr c, .quit
 
-	ld de, ENGINE_FOGBADGE
-	call CheckEngineFlag
-	jr c, .quit
-
-	ld d, SURF
-	call CheckPartyMove
+	ld d, ACTION_SURF
+	call CheckPartyAction
 	jr c, .quit
 
 	ld hl, wBikeFlags

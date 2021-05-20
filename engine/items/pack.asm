@@ -159,15 +159,15 @@ Pack:
 
 .MenuHeader1:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	menu_coords 13, 8, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 	dw .MenuData_1
 	db 1 ; default option
 
 .MenuData_1:
 	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
-	db 2 ; items
+	db 1 ; items
 	db "USE@"
-	db "QUIT@"
+	; db "QUIT@"
 
 .Jumptable1:
 	dw .UseItem
@@ -181,15 +181,15 @@ Pack:
 
 .MenuData_2:
 	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
-	db 3 ; items
+	db 2 ; items
 	db "USE@"
 	db "GIVE@"
-	db "QUIT@"
+	; db "QUIT@"
 
 .Jumptable2:
 	dw .UseItem
 	dw GiveItem
-	dw QuitItemSubmenu
+	; dw QuitItemSubmenu
 
 .UseItem:
 	farcall AskTeachTMHM
@@ -310,29 +310,7 @@ Pack:
 
 MenuHeader_UsableKeyItem:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 13, 1, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
-	dw .MenuData
-	db 1 ; default option
-
-.MenuData:
-	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
-	db 5 ; items
-	db "USE@"
-	db "GIVE@"
-	db "TOSS@"
-	db "SEL@"
-	db "QUIT@"
-
-Jumptable_UseGiveTossRegisterQuit:
-	dw UseItem
-	dw GiveItem
-	dw TossMenu
-	dw RegisterItem
-	dw QuitItemSubmenu
-
-MenuHeader_UsableItem:
-	db MENU_BACKUP_TILES ; flags
-	menu_coords 13, 3, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	menu_coords 13, 2, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 	dw .MenuData
 	db 1 ; default option
 
@@ -342,17 +320,55 @@ MenuHeader_UsableItem:
 	db "USE@"
 	db "GIVE@"
 	db "TOSS@"
-	db "QUIT@"
+	db "SEL@"
+	; db "QUIT@"
+
+Jumptable_UseGiveTossRegisterQuit:
+	dw UseItem
+	dw GiveItem
+	dw TossMenu
+	dw RegisterItem
+	; dw QuitItemSubmenu
+
+MenuHeader_UsableItem:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 13, 4, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	dw .MenuData
+	db 1 ; default option
+
+.MenuData:
+	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
+	db 3 ; items
+	db "USE@"
+	db "GIVE@"
+	db "TOSS@"
+	; db "QUIT@"
 
 Jumptable_UseGiveTossQuit:
 	dw UseItem
 	dw GiveItem
 	dw TossMenu
-	dw QuitItemSubmenu
+	; dw QuitItemSubmenu
 
 MenuHeader_UnusableItem:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	menu_coords 13, 8, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	dw .MenuData
+	db 1 ; default option
+
+.MenuData:
+	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
+	db 1 ; items
+	db "USE@"
+	; db "QUIT@"
+
+Jumptable_UseQuit:
+	dw UseItem
+	; dw QuitItemSubmenu
+
+MenuHeader_UnusableKeyItem:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 13, 6, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 	dw .MenuData
 	db 1 ; default option
 
@@ -360,67 +376,51 @@ MenuHeader_UnusableItem:
 	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
 	db 2 ; items
 	db "USE@"
-	db "QUIT@"
+	db "SEL@"
+	; db "QUIT@"
 
-Jumptable_UseQuit:
+Jumptable_UseRegisterQuit:
 	dw UseItem
-	dw QuitItemSubmenu
+	dw RegisterItem
+	; dw QuitItemSubmenu
 
-MenuHeader_UnusableKeyItem:
+MenuHeader_HoldableKeyItem:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 13, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	menu_coords 13, 4, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 	dw .MenuData
 	db 1 ; default option
 
 .MenuData:
 	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
 	db 3 ; items
-	db "USE@"
-	db "SEL@"
-	db "QUIT@"
-
-Jumptable_UseRegisterQuit:
-	dw UseItem
-	dw RegisterItem
-	dw QuitItemSubmenu
-
-MenuHeader_HoldableKeyItem:
-	db MENU_BACKUP_TILES ; flags
-	menu_coords 13, 3, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
-	dw .MenuData
-	db 1 ; default option
-
-.MenuData:
-	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
-	db 4 ; items
 	db "GIVE@"
 	db "TOSS@"
 	db "SEL@"
-	db "QUIT@"
+	; db "QUIT@"
 
 Jumptable_GiveTossRegisterQuit:
 	dw GiveItem
 	dw TossMenu
 	dw RegisterItem
-	dw QuitItemSubmenu
+	; dw QuitItemSubmenu
 
 MenuHeader_HoldableItem:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 13, 5, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	menu_coords 13, 6, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 	dw .MenuData
 	db 1 ; default option
 
 .MenuData:
 	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
-	db 3 ; items
+	db 2 ; items
 	db "GIVE@"
 	db "TOSS@"
-	db "QUIT@"
+	; db "QUIT@"
 
 Jumptable_GiveTossQuit:
 	dw GiveItem
 	dw TossMenu
-	dw QuitItemSubmenu
+	; dw QuitItemSubmenu
 
 UseItem:
 	farcall CheckItemMenu
@@ -805,19 +805,19 @@ TMHMSubmenu:
 
 .UsableMenuHeader:
 	db MENU_BACKUP_TILES ; flags
-	menu_coords 13, 7, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
+	menu_coords 13, 8, SCREEN_WIDTH - 1, TEXTBOX_Y - 1
 	dw .UsableMenuData
 	db 1 ; default option
 
 .UsableMenuData:
 	db STATICMENU_CURSOR | STATICMENU_NO_TOP_SPACING ; flags
-	db 2 ; items
+	db 1 ; items
 	db "USE@"
-	db "QUIT@"
+	; db "QUIT@"
 
 .UsableJumptable:
 	dw .Use
-	dw .Quit
+	; dw .Quit
 
 .UnusableMenuHeader:
 	db MENU_BACKUP_TILES ; flags
@@ -1336,23 +1336,23 @@ Pack_InitGFX:
 	ld a, BANK(PackMenuGFX)
 	call FarCopyBytes
 ; Background (blue if male, pink if female)
-	hlcoord 0, 1
-	ld bc, 11 * SCREEN_WIDTH
+	hlcoord 0, 0
+	ld bc, 12 * SCREEN_WIDTH
 	ld a, $24
 	call ByteFill
 ; This is where the items themselves will be listed.
-	hlcoord 5, 1
+	hlcoord 5, 0
 	lb bc, 11, 15
 	call ClearBox
 ; ◀▶ POCKET       ▼▲ ITEMS
-	hlcoord 0, 0
-	ld a, $28
-	ld c, SCREEN_WIDTH
-.loop
-	ld [hli], a
-	inc a
-	dec c
-	jr nz, .loop
+; 	hlcoord 0, 0
+; 	ld a, $28
+; 	ld c, SCREEN_WIDTH
+; .loop
+; 	ld [hli], a
+; 	inc a
+; 	dec c
+; 	jr nz, .loop
 	call DrawPocketName
 	call PlacePackGFX
 ; Place the textbox for displaying the item description
@@ -1408,6 +1408,7 @@ DrawPocketName:
 	ld c, a
 	dec c
 	jr nz, .row
+	jr nz, .row
 	ret
 
 .tilemap
@@ -1435,16 +1436,9 @@ Pack_GetItemName:
 	call CopyName1
 	ret
 
-Unreferenced_Pack_ClearTilemap:
-	hlcoord 0, 0
-	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
-	ld a, " "
-	call ByteFill
-	ret
-
 ClearPocketList:
-	hlcoord 5, 2
-	lb bc, 10, SCREEN_WIDTH - 5
+	hlcoord 5, 1
+	lb bc, 11, SCREEN_WIDTH - 5
 	call ClearBox
 	ret
 

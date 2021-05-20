@@ -1824,11 +1824,11 @@ _CGB_PackPals:
 	lb bc, 1, 10
 	ld a, $1
 	call FillBoxCGB
-	hlcoord 10, 0, wAttrMap
-	lb bc, 1, 10
-	ld a, $2
-	call FillBoxCGB
-	hlcoord 7, 2, wAttrMap
+	; hlcoord 10, 0, wAttrMap
+	; lb bc, 1, 10
+	; ld a, $2
+	; call FillBoxCGB
+	hlcoord 7, 1, wAttrMap ; red cursor
 	lb bc, 9, 1
 	ld a, $3
 	call FillBoxCGB

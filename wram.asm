@@ -2191,12 +2191,13 @@ wBasePicSize:: db ; d247
 wBaseTraits:: ds 4 ; d247
 ; wBaseGrowthRate:: db ; d24c
 wBaseEggGroups:: db ; d24d
+wBaseActions:: db
 wBaseTMHM:: flag_array NUM_TM_HM_TUTOR ; d24e
 wCurBaseDataEnd::
 
 wCurDamage:: dw ; d256
 
-	ds 2
+	ds 4
 
 wMornEncounterRate::  db ; d25a
 wDayEncounterRate::   db ; d25b
