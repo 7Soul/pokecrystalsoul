@@ -1141,11 +1141,10 @@ ChooseWildEncounter:
 	ld a, b
 	jp nc, .dont_check_evolve1
 	call EvolveWildMon
-	; jp .dont_check_evolve2
 	
 .dont_check_evolve1
 	call Random 
-	cp 50 percent
+	cp 33 percent
 	ld a, b
 	jp nc, .dont_check_evolve2
 	call EvolveWildMon
@@ -1190,6 +1189,10 @@ EvolveWildMon:
 	dec a
 	push hl
 	push bc
+	cp EEVEE - 1
+	jp z, .evolve_eevee
+	cp TYROGUE - 1
+	jp z, .evolve_tyrogue
 	ld c, a
 	ld b, 0
 	ld hl, EvosAttacksPointers
@@ -1210,12 +1213,8 @@ EvolveWildMon:
 	jp .done
 .has_evolution
 	inc hl
-	cp EVOLVE_ITEM
-	jp z, .evolve_item
-	cp EVOLVE_HAPPINESS
-	jp z, .evolve_happy
-	cp EVOLVE_STAT
-	jp z, .evolve_stat
+	and a
+	jp nz, .evolve_from_list
 	ld a, [wCurPartyLevel]
 	ld d, a ; d = wild mon level
 	
@@ -1231,7 +1230,7 @@ EvolveWildMon:
 	ld d, a
 	cp 5
 	jp nc, .diff_greaterthan5
-	call Random 
+	call Random
 	cp 30 percent ; 0 <= diff < 5
 	jp c, .finish_evolve
 	jp .done
@@ -1240,7 +1239,7 @@ EvolveWildMon:
 	ld a, d
 	cp 10
 	jp nc, .diff_greaterthan10
-	call Random 
+	call Random
 	cp 60 percent ; 5 <= diff < 10
 	jp c, .finish_evolve
 	jp .done
@@ -1249,8 +1248,8 @@ EvolveWildMon:
 	ld a, d
 	cp 15
 	jp nc, .diff_greaterthan15
-	call Random 
-	cp 80 percent ; 10 <= diff < 15
+	call Random
+	cp 75 percent ; 10 <= diff < 15
 	jp c, .finish_evolve
 	jp .done
 	
@@ -1258,8 +1257,8 @@ EvolveWildMon:
 	ld a, d
 	cp 20
 	jp nc, .diff_greaterthan20
-	call Random 
-	cp 95 percent ; 15 <= diff < 20
+	call Random
+	cp 80 percent ; 15 <= diff < 20
 	jp c, .finish_evolve
 	jp .done
 	
@@ -1267,8 +1266,8 @@ EvolveWildMon:
 	ld a, d
 	cp 25
 	jp nc, .diff_greaterthan25
-	call Random 
-	cp 95 percent ; 20 <= diff < 25
+	call Random
+	cp 82 percent ; 20 <= diff < 25
 	jp c, .finish_evolve
 	jp .done
 	
@@ -1276,84 +1275,102 @@ EvolveWildMon:
 	ld a, d
 	cp 30
 	jp nc, .finish_evolve
-	call Random 
-	cp 98 percent ; 25 <= diff < 35
+	call Random
+	cp 86 percent ; 25 <= diff < 35
 	jp c, .finish_evolve
 	jp .done
 	
 .finish_evolve ; diff greater than 30
+	inc hl
+	ld a, BANK("Evolutions and Attacks")
+	call GetFarByte ; a = evolved species
 	pop bc
 	pop hl
-	inc b
+	ld b, a
 	ret
-.evolve_happy2
-	pop bc
-	ld a, b
-	cp PICHU
-	jp z, .evolve_pichu
-	cp CLEFFA
-	jp z, .evolve_cleffa
-	cp IGGLYBUFF
-	jp z, .evolve_igglybuff
-	cp GOLBAT
-	jp z, .evolve_golbat
-	cp CHANSEY
-	jp z, .evolve_chansey
-	cp EEVEE
-	jp z, .done
-	jp .done
-.evolve_pichu
-	pop hl
-	ld a, PIKACHU
-	jp .load_and_end
-.evolve_cleffa
-	pop hl
-	ld a, CLEFAIRY
-	jp .load_and_end
-.evolve_igglybuff
-	pop hl
-	ld a, JIGGLYPUFF
-	jp .load_and_end
-.evolve_golbat
-	pop hl
-	ld a, CROBAT
-	jp .load_and_end
-.evolve_chansey
-	pop hl
-	ld a, BLISSEY
-	jp .load_and_end
+
+.evolve_eevee
+	ld hl, .Eeveelutions
+	ld a, 5
+	jr .evolve_from_set_list
 .evolve_tyrogue
+	ld hl, .TyrogueEvolutions
+	ld a, 3
+.evolve_from_set_list
+	call RandomRange
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld a, [hl]
+	pop bc
 	pop hl
 	jp .load_and_end
-.evolve_item
-	jp .done
-.evolve_happy
+
+.evolve_from_list
 	call Random 
-	cp 4 percent
-	jp c, .evolve_happy2
-	jp .done
-.evolve_stat
-	call Random 
-	cp 4 percent
-	ld d, a
-	ld a, HITMONCHAN
-	jp c, .evolve_tyrogue
-	ld a, d
-	cp 8 percent
-	ld a, HITMONLEE
-	jp c, .evolve_tyrogue
-	ld a, d
-	cp 12 percent
-	ld a, HITMONTOP
-	jp c, .evolve_tyrogue
+	cp 5 percent
+	jp nc, .done
+	pop bc
+	ld hl, .EvolveList
+.get_list_evo
+	ld a, [hli]
+	cp b
+	jr z, .got_list_evo
+	inc hl
+	inc hl
+	jr .get_list_evo
+.got_list_evo
+	call Random
+	cp 45 percent ; alternate evolutions are a bit less likely
+	jr c, .next_list_evo
+	inc hl
+.next_list_evo
+	ld a, [hl]
+	pop hl
+	jp .load_and_end
+
 .lower
 .done
 	pop bc
 	pop hl
 	ret
+.pop_and_end
+	pop hl
+	ret
 .load_and_end
 	ld b, a
 	ret
+
+.EvolveList:
+	db PIKACHU,    RAICHU,     RAICHU
+	db NIDORINA,   NIDOQUEEN,  NIDOQUEEN
+	db NIDORINO,   NIDOKING,   NIDOKING
+	db CLEFAIRY,   CLEFABLE,   CLEFABLE
+	db VULPIX,     NINETALES,  NINETALES
+	db JIGGLYPUFF, WIGGLYTUFF, WIGGLYTUFF
+	db GLOOM,      VILEPLUME,  BELLOSSOM
+	db GROWLITHE,  ARCANINE,   ARCANINE
+	db POLIWHIRL,  POLIWRATH,  POLITOED
+	db WEEPINBELL, VICTREEBEL, VICTREEBEL
+	db SLOWPOKE,   SLOWBRO,    SLOWKING
+	db SHELLDER,   CLOYSTER,   CLOYSTER
+	db EXEGGCUTE,  EXEGGUTOR,  EXEGGUTOR
+	db SEADRA,     KINGDRA,    KINGDRA
+	db STARYU,     STARMIE,    STARMIE
+	db PORYGON,    PORYGON2,   PORYGON2
+	db SUNKERN,    SUNFLORA,   SUNFLORA
+	db GOLBAT,     CROBAT,     CROBAT
+	db CHANSEY,    BLISSEY,    BLISSEY
+	db PICHU,      PIKACHU,    PIKACHU
+	db CLEFFA,     CLEFAIRY,   CLEFAIRY
+	db IGGLYBUFF,  JIGGLYPUFF, JIGGLYPUFF
+	db TOGEPI,     TOGETIC,    TOGETIC
+
+.Eeveelutions:
+	db JOLTEON, VAPOREON, FLAREON, ESPEON, UMBREON
+
+.TyrogueEvolutions:
+	db HITMONLEE, HITMONCHAN, HITMONTOP
 
 CheckRepelEffect::
 ; If there is no active Repel, there's no need to be here.

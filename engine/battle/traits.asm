@@ -896,7 +896,7 @@ TraitOnEnter:
 	
 	ld a, TRAIT_SWAP_DEFENSE_BUFFS
 	call CheckSpecificTrait
-	jp c, SwapDefenseBuffs
+	jp c, NormalizeFoeStats
 
 	ld a, TRAIT_RESIST_RANDOM_TYPE
 	call CheckSpecificTrait
@@ -1050,6 +1050,23 @@ SwapDefenseBuffs:
 	ld a, b
 	ld [de], a
 	ret
+
+NormalizeFoeStats:
+	ld hl, wEnemyStatLevels
+	call GetTraitUser
+	ld b, NUM_LEVEL_STATS
+	jr c, .got_opp_stats
+	ld hl, wPlayerStatLevels
+.got_opp_stats
+	ld a, [hli]
+	cp BASE_STAT_LEVEL
+	jr nc, .skip
+	dec [hl]
+.skip
+	dec b
+	jr nz, .got_opp_stats
+	ld hl, TraitText_TipsyGas
+	jp StdBattleTextBox
 
 TriggerResistRandomType:
 .loop

@@ -128,9 +128,7 @@ MeetMomScript:
 	giveitem BASEMENT_KEY, 1
 
 	givepoke VAPOREON, 50
-	givepoke SUNKERN, 90
-	givepoke SUNFLORA, 90
-	; givepoke PIDGEY, 50
+	givepoke PIDGEY, 50
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	callasm CheatGiveJohtoBadges

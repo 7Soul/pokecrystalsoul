@@ -16,7 +16,6 @@ TraitText_UnknownEnergy::
 TraitText_Sturdy::
 TraitText_NoGuard::
 TraitText_CompoundEyes::
-TraitText_TipsyGas::
 TraitText_PiercingAttack::
 TraitText_IronFist::
 TraitText_IronJaws::
@@ -271,7 +270,6 @@ TraitText_ColorPick::
 	text " type!"
 	prompt
 
-
 TraitText_NegatedDamage::
 	text "<USER> "
 	line "greatly resisted"
@@ -281,4 +279,10 @@ TraitText_NegatedDamage::
 BattleText_AllStatsUp::
 	text "<USER>'s"
 	line "stats went up!"
+	prompt
+
+TraitText_TipsyGas::
+	text "<TARGET>'s"
+	line "raised stats were"
+	para "lowered by one!@"
 	prompt
