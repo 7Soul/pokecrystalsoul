@@ -339,11 +339,9 @@ PadFrontpic:
 
 .six
 	ld c, 7 << 4
-	xor a
 	call .Fill
 .six_loop
 	ld c, (7 - 6) << 4
-	xor a
 	call .Fill
 	ld c, 6 << 4
 	call LoadOrientedFrontpic
@@ -353,25 +351,24 @@ PadFrontpic:
 
 .five
 	ld c, 7 << 4
-	xor a
 	call .Fill
 .five_loop
 	ld c, (7 - 5) << 4
-	xor a
 	call .Fill
 	ld c, 5 << 4
 	call LoadOrientedFrontpic
 	dec b
 	jr nz, .five_loop
 	ld c, 7 << 4
-	xor a
 	call .Fill
 	ret
 
 .Fill:
+	xor a
+.fill_loop
 	ld [hli], a
 	dec c
-	jr nz, .Fill
+	jr nz, .fill_loop
 	ret
 
 LoadOrientedFrontpic:
