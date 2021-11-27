@@ -132,6 +132,10 @@ PlacePartyHPBar:
 	ld d, $6
 	ld b, $0
 	call DrawBattleHPBar
+	; remove HP graphic
+	ld a, $7F
+	ld [hli], a
+	ld [hl], a
 	ld hl, wHPPals
 	ld a, [wSGBPals]
 	ld c, a
@@ -227,7 +231,7 @@ PlacePartyMonLevel:
 	ret z
 	ld c, a
 	ld b, 0
-	hlcoord 8, 2
+	hlcoord 10, 2
 .loop
 	push bc
 	push hl
@@ -699,6 +703,8 @@ PartyMenuSelect:
 	add hl, bc
 	ld a, [hl]
 	ld [wCurPartySpecies], a
+	ld hl, wPartyMenuPair
+	res 7, [hl]
 
 	ld de, SFX_READ_TEXT_2
 	call PlaySFX
@@ -753,6 +759,7 @@ PartyMenuStrings:
 	dw UseOnWhichPKMNString
 	dw ChooseAMonString ; Probably used to be ChooseAFemalePKMNString
 	dw ChooseAMonString ; Probably used to be ChooseAMalePKMNString
+	dw ChooseAMonString ; Pair
 	dw ToWhichPKMNString
 
 ChooseAMonString:

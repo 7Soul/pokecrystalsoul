@@ -148,6 +148,7 @@ PokemonActionSubmenu:
 	dbw MONMENUITEM_BURN,       MonMenu_Burn
 	dbw MONMENUITEM_STATS,      OpenPartyStats
 	dbw MONMENUITEM_SWITCH,     SwitchPartyMons
+	dbw MONMENUITEM_PAIR,       PairPartyMons
 	dbw MONMENUITEM_ITEM,       GiveTakePartyMonItem
 	dbw MONMENUITEM_CANCEL,     CancelPokemonAction
 	dbw MONMENUITEM_MOVE,       ManagePokemonMoves
@@ -198,6 +199,55 @@ SwitchPartyMons:
 	ret
 
 .DontSwitch:
+	xor a
+	ld [wPartyMenuActionText], a
+	call CancelPokemonAction
+	ret
+
+PairPartyMons:
+	ld a, [wPartyCount]
+	cp 2
+	jr c, .DontPair
+
+	ld a, [wCurPartyMon]
+	inc a
+	ld [wSwitchMon], a
+
+	farcall HoldSwitchmonIcon
+	farcall InitPartyMenuNoCancel
+
+	ld a, PARTYMENUACTION_PAIR
+	ld [wPartyMenuActionText], a
+	farcall WritePartyMenuTilemap
+	farcall PrintPartyMenuText
+
+	hlcoord 0, 1
+	ld bc, SCREEN_WIDTH * 2
+	ld a, [wSwitchMon]
+	dec a
+	call AddNTimes
+	ld [hl], "▷"
+	call WaitBGMap
+	call SetPalettes
+	call DelayFrame
+
+	farcall PartyMenuSelect
+	bit 1, b
+	jr c, .DontPair
+
+	farcall _PairMons
+
+	xor a
+	ld [wPartyMenuActionText], a
+
+	farcall LoadPartyMenuGFX
+	farcall InitPartyMenuWithCancel
+	farcall InitPartyMenuGFX
+
+	ld a, 1
+	ret
+
+.DontPair:
 	xor a
 	ld [wPartyMenuActionText], a
 	call CancelPokemonAction

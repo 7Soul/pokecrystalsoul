@@ -50,15 +50,16 @@
 	const MONMENUITEM_ROCKSMASH  ; 12
 	const MONMENUITEM_MILKDRINK  ; 13
 	const MONMENUITEM_SWEETSCENT ; 14
-	const MONMENUITEM_BURN       ; 15a
+	const MONMENUITEM_BURN       ; 15
 	; options
-	const MONMENUITEM_STATS      ; 15
-	const MONMENUITEM_SWITCH     ; 16
-	const MONMENUITEM_ITEM       ; 17
-	const MONMENUITEM_CANCEL     ; 18
-	const MONMENUITEM_MOVE       ; 19
-	const MONMENUITEM_MAIL       ; 20
-	const MONMENUITEM_ERROR      ; 21
+	const MONMENUITEM_STATS      ; 16
+	const MONMENUITEM_SWITCH     ; 17
+	const MONMENUITEM_PAIR       ; 18
+	const MONMENUITEM_ITEM       ; 19
+	const MONMENUITEM_CANCEL     ; 20
+	const MONMENUITEM_MOVE       ; 21
+	const MONMENUITEM_MAIL       ; 22
+	const MONMENUITEM_ERROR      ; 23
 
 ; MonMenuOptions categories
 MONMENU_FIELD_MOVE EQU 0
@@ -81,6 +82,7 @@ HMENURETURN_ASM    EQU %11111111
 	const PARTYMENUACTION_GIVE_MON
 	const PARTYMENUACTION_GIVE_MON_FEMALE ; unused
 	const PARTYMENUACTION_GIVE_ITEM
+	const PARTYMENUACTION_PAIR
 	const PARTYMENUACTION_MOBILE ; mobile
 ; PrintPartyMenuActionText arguments (see engine/pokemon/party_menu.asm)
 	const_def $f0

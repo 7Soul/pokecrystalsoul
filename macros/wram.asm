@@ -34,7 +34,7 @@ ENDM
 party_struct: MACRO
 	box_struct \1
 \1Status::         db
-\1Unused::         db
+\1TraitActivated:: db
 \1HP::             dw
 \1MaxHP::          dw
 \1Stats:: ; big endian

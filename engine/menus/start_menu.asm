@@ -510,6 +510,8 @@ StartMenu_Pokemon:
 	farcall InitPartyMenuGFX
 
 .menunoreload
+	ld hl, wPartyMenuPair
+	set 7, [hl]
 	farcall WritePartyMenuTilemap
 	farcall PrintPartyMenuText
 	call WaitBGMap
@@ -517,7 +519,7 @@ StartMenu_Pokemon:
 	call DelayFrame
 	farcall PartyMenuSelect
 	jr c, .return ; if cancelled or pressed B
-
+	ld a, [wPartyMenuPair]
 	call PokemonActionSubmenu
 	cp 3
 	jr z, .menu
@@ -529,11 +531,15 @@ StartMenu_Pokemon:
 	jr z, .quit
 
 .return
+	ld hl, wPartyMenuPair
+	res 7, [hl]
 	call CloseSubmenu
 	ld a, 0
 	ret
 
 .quit
+	ld hl, wPartyMenuPair
+	res 7, [hl]
 	ld a, b
 	push af
 	call ExitAllMenus

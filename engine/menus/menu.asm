@@ -312,12 +312,20 @@ Unreferenced_Function241d5:
 
 MenuJoypadLoop:
 .loop
+	ld hl, wPartyMenuPair
+	bit 7, [hl]
+	call nz, ShowSupports
+
 	call Move2DMenuCursor
 	call .BGMap_OAM
 	call Do2DMenuRTCJoypad
 	jr nc, .done
+	ld hl, wPartyMenuPair
+	res 0, [hl]
+	res 1, [hl]
 	call _2DMenuInterpretJoypad
 	jr c, .done
+	
 	ld a, [w2DMenuFlags1]
 	bit 7, a
 	jr nz, .done
@@ -442,6 +450,12 @@ _2DMenuInterpretJoypad:
 	ret
 
 .d_left
+; 	ld hl, wPartyMenuPair
+; 	bit 7, [hl]
+; 	jr z, .not_supp_menu_left
+; 	set 0, [hl]
+; 	call SetSupport
+; .not_supp_menu_left
 	ld hl, wMenuCursorX
 	ld a, [hl]
 	dec a
@@ -466,6 +480,12 @@ _2DMenuInterpretJoypad:
 	ret
 
 .d_right
+; 	ld hl, wPartyMenuPair
+; 	bit 7, [hl]
+; 	jr z, .not_supp_menu_right
+; 	set 1, [hl]
+; 	call SetSupport
+; .not_supp_menu_right
 	ld hl, wMenuCursorX
 	ld a, [w2DMenuNumCols]
 	cp [hl]
@@ -490,6 +510,58 @@ _2DMenuInterpretJoypad:
 
 .a_b_start_select
 	xor a
+	ret
+
+ShowSupports:
+	; Clear
+	hlcoord 2, 1
+	ld a, [wPartyCount]
+	ld c, a
+.loop1
+	ld a, $7F
+	ld [hl], a
+	ld de, SCREEN_WIDTH * 2
+	add hl, de
+	dec c
+	jr nz, .loop1
+	;
+	ld a, [wMenuCursorY]
+	dec a
+	ld bc, PARTYMON_STRUCT_LENGTH
+	ld hl, wPartyMon1TraitActivated
+	call AddNTimes
+	ld a, [hl]
+	cp $7
+	jr z, .done
+
+	push af
+	ld c, a
+	hlcoord 2, 1, wAttrMap
+	and a
+	jr z, .skip2
+.loop3
+	ld de, SCREEN_WIDTH * 2
+	add hl, de
+	dec c
+	jr nz, .loop3
+.skip2
+	ld a, $20
+	ld [hl], a
+
+	pop af
+	ld c, a
+	hlcoord 2, 1
+	and a
+	jr z, .skip
+.loop2
+	ld de, SCREEN_WIDTH * 2
+	add hl, de
+	dec c
+	jr nz, .loop2
+.skip
+	ld a, $EC
+	ld [hl], a
+.done
 	ret
 
 Move2DMenuCursor:

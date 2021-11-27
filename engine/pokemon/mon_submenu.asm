@@ -168,6 +168,8 @@ GetMonSubmenuItems:
 	call AddMonMenuItem
 	ld a, MONMENUITEM_SWITCH
 	call AddMonMenuItem
+	ld a, MONMENUITEM_PAIR
+	call AddMonMenuItem
 	ld a, MONMENUITEM_MOVE
 	call AddMonMenuItem
 	ld a, [wLinkMode]

@@ -29,6 +29,7 @@ PartyMenuQualityPointers:
 	dw .Gender   ; PARTYMENUACTION_GIVE_MON
 	dw .Gender   ; PARTYMENUACTION_GIVE_MON_FEMALE
 	dw .Default  ; PARTYMENUACTION_GIVE_ITEM
+	dw .Default  ; PARTYMENUACTION_PAIR
 	dw .Mobile   ; PARTYMENUACTION_MOBILE
 
 .Default:  partymenuqualities NICKNAMES, HP_BAR, HP_DIGITS, LEVEL, STATUS

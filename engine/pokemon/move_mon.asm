@@ -359,7 +359,8 @@ endr
 	; Status
 	ld [de], a
 	inc de
-	; Unused
+	; TraitActivated
+	ld a, $7
 	ld [de], a
 	inc de
 
@@ -509,6 +510,9 @@ FillPP:
 	pop de
 	pop hl
 	ld a, [wStringBuffer1 + MOVE_PP]
+	inc a
+	ld c, 5
+	call SimpleMultiply
 
 .next
 	ld [de], a

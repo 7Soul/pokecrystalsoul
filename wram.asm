@@ -711,7 +711,8 @@ wTempLevel:: db ; c719
 wLastPlayerMon:: db ; c71a
 wLastPlayerMove:: db ; c71b
 wLastEnemyMove:: db ; c71c
-wTraitActivated:: db
+wTraitActivated:: 
+wSupportMon:: db
 
 wPlayerFutureSightCount:: db ; c71d
 wEnemyFutureSightCount:: db ; c71e
@@ -1504,8 +1505,8 @@ wMenuCursorY:: db ; cfa9
 wMenuCursorX:: db ; cfaa
 wCursorOffCharacter:: db ; cfab
 wCursorCurrentTile:: dw ; cfac
-
-	ds 3
+wPartyMenuPair:: db
+	ds 2
 
 wOverworldDelay:: db ; cfb1
 wTextDelayFrames:: db ; cfb2
@@ -1724,6 +1725,9 @@ wKeepSevenBiasChance:: ; used in the slots to handle the favoring of 7 symbol st
 	ds 2
 wStartFlypoint:: db
 wEndFlypoint:: db
+
+NEXTU ; d002
+wSwitchMonBuffer:: ds 48
 
 NEXTU ; d002
 ; unidentified
