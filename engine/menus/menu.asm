@@ -525,8 +525,13 @@ ShowSupports:
 	dec c
 	jr nz, .loop1
 	;
+	ld a, [wPartyCount]
+	ld c, a
 	ld a, [wMenuCursorY]
 	dec a
+	cp c
+	jr nc, .done
+	
 	ld bc, PARTYMON_STRUCT_LENGTH
 	ld hl, wPartyMon1TraitActivated
 	call AddNTimes
