@@ -1363,9 +1363,12 @@ RemoveMonFromPartyOrBox:
 	ld hl, sBoxCount
 
 .okay
+	call RecalculatePartyPairs
+	; Reduce party count by 1
 	ld a, [hl]
 	dec a
 	ld [hli], a
+	; Move party mon species up 1. Last entry is $FF
 	ld a, [wCurPartyMon]
 	ld c, a
 	ld b, 0
@@ -1501,6 +1504,45 @@ RemoveMonFromPartyOrBox:
 	jr nz, .loop2
 .close_sram
 	jp CloseSRAM
+
+RecalculatePartyPairs:
+	push hl
+	ld a, [wPartyCount]
+	dec a
+	ld d, a
+
+.loop
+	ld hl, wPartyMon1TraitActivated
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	; If we are withdrawing, all we do is set pair to $7
+	ld a, [wPokemonWithdrawDepositParameter]
+	and a
+	jr nz, .reset
+
+	ld a, [hl]
+	cp $7
+	jr z, .skip
+	ld b, a
+	ld a, [wCurPartyMon]
+	cp b
+	jr z, .unpair
+	jr nc, .skip
+	dec b
+	ld [hl], b
+.skip
+	dec d
+	ld a, d
+	jr nz, .loop
+	pop hl
+	ret
+.unpair
+	ld a, $7
+	ld [hl], a
+	jr .skip
+.reset
+	ld d, 1
+	jr .unpair
 
 ComputeNPCTrademonStats:
 	ld a, MON_LEVEL
