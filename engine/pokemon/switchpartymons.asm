@@ -154,6 +154,8 @@ _SwitchPartyMons:
 	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld a, [hl] ; vaporeon's pair (3)
+	cp $7
+	jr z, .not_pair1
 	ld hl, wPartyMon1TraitActivated
 	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
@@ -170,6 +172,8 @@ _SwitchPartyMons:
 	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld a, [hl] ; vaporeon's pair
+	cp $7
+	jr z, .not_pair2
 	ld hl, wPartyMon1TraitActivated
 	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
