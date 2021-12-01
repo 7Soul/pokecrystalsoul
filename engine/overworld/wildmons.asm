@@ -851,7 +851,7 @@ ChooseWildEncounter:
 	db 9 ; 16 add
 	db 7 ; 16 random
 	
-.switch_end
+.switch_end ; ChooseWildEncounter.switch_end
 	ld a, b
 	ld [wCurPartyLevel], a
 	ld b, [hl]
@@ -859,16 +859,16 @@ ChooseWildEncounter:
 	call ValidateTempWildMonSpecies
 	jp c, .nowildbattle
 	
-	push hl
-	push de
-	push bc
-	ld hl, wBadges
-	ld b, 2
-	call CountSetBits	
-	ld a, [wNumSetBits]
-	pop bc
-	pop de
-	pop hl
+	; push hl
+	; push de
+	; push bc
+	; ld hl, wBadges
+	; ld b, 2
+	; call CountSetBits	
+	; ld a, [wNumSetBits]
+	; pop bc
+	; pop de
+	; pop hl
 	; If the mon is Legendary, 92% chance to reroll into any other mon
 	push hl
 	push bc
@@ -892,7 +892,7 @@ ChooseWildEncounter:
 	call TryWildEncounter
 
 	ld hl, LegendaryMon ; pick legendary
-	ld a, 7
+	ld a, 6
 	call RandomRange
 	ld b, 0
 	ld c, a
@@ -902,26 +902,24 @@ ChooseWildEncounter:
 
 	; legendary pokemon gain 5 levels
 	ld a, [wCurPartyLevel]
-	ld b, a
-	ld a, 5
-	add b
+	add 5
 	ld [wCurPartyLevel], a
 
-	pop hl
-	pop bc
 	pop de
+	pop bc
+	pop hl
 	jr .continue_with_legendary
 
 .not_legendary
-	pop hl
-	pop bc
 	pop de
+	pop bc
+	pop hl
 
 	ld a, b ; save mon species for later
 	ld [wTempWildMonSpecies], a
 .continue_with_legendary
 	; 2% chance to lucky shiny chance between midnight and 0:59 AM and between noon and 12:59 PM
-	ld a, [hHours]
+	ldh a, [hHours]
 	cp 0
 	jr z, .oneam
 	cp 12
