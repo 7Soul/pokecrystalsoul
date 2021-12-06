@@ -1025,45 +1025,51 @@ BattleCommand_DoTurn:
 	ret nz
 
 	push de
+	call .consume_stamina
 	call .consume_pp
 	pop de
+
 	ld a, b
 	and a
 	jp nz, EndMoveEffect
 
 	; SubStatus5
-; 	inc de
-; 	inc de
+	inc de
+	inc de
 
-; 	ld a, [de]
-; 	bit SUBSTATUS_TRANSFORMED, a
-; 	ret nz
+	ld a, [de]
+	bit SUBSTATUS_TRANSFORMED, a
+	ret nz
 
-; 	ldh a, [hBattleTurn]
-; 	and a
+	ldh a, [hBattleTurn]
+	and a
 
-; 	ld hl, wPartyMon1Stamina
-; 	ld a, [wCurBattleMon]
-; 	jr z, .player
+	ld hl, wPartyMon1PP
+	ld de, wPartyMon1Stamina
+	ld a, [wCurBattleMon]
+	jr z, .player
 
-; ; mimic this part entirely if wildbattle
-; 	ld a, [wBattleMode]
-; 	dec a
-; 	jr z, .wild
+; mimic this part entirely if wildbattle
+	ld a, [wBattleMode]
+	dec a
+	jp z, .wild
 
 
-; 	ld hl, wOTPartyMon1Stamina
-; 	ld a, [wCurOTMon]
+	ld hl, wOTPartyMon1PP
+	ld de, wOTPartyMon1Stamina
+	ld a, [wCurOTMon]
 
-; .player
-; 	call GetPartyLocation
-; 	push hl
-; 	call CheckMimicUsed
-; 	pop hl
-; 	ret c
-	ret
+.player
+	call GetPartyLocation
+	push hl
+	push de
+	call CheckMimicUsed
+	pop de
+	pop hl
+	ret c
 
-.consume_pp
+.consume_pp ; BattleCommand_DoTurn.consume_pp
+	; this is called twice, once for battlemon/enemymon and once for partymon/otpartymon
 	ldh a, [hBattleTurn]
 	and a
 	ld a, [wCurMoveNum]
@@ -1076,87 +1082,34 @@ BattleCommand_DoTurn:
 	add hl, bc
 	ld a, [hl]
 	and PP_MASK
-	ld b, a
+	jr z, .out_of_pp
+	dec [hl]
+	ld b, 0
+	ret
 
-	ldh a, [hBattleTurn]
-	and a
-	ld hl, wPartyMon1Stamina
-	ld de, wBattleMonStamina
-	ld a, [wCurBattleMon]
-	jr z, .reduce_stamina
-	ld hl, wEnemyMonStamina
-	ld de, wEnemyMonStamina
-	ld a, [wBattleMode]
-	dec a
-	jr z, .reduce_stamina_wild
-	ld hl, wOTPartyMon1Stamina
-	ld de, wEnemyMonStamina
-	ld a, [wCurOTMon]
-
-.reduce_stamina
-	push bc
-	call GetPartyLocation
-	pop bc
-.reduce_stamina_wild
-	ld a, [hl]
-	and STA_MASK
-	sub b
-	jr nc, .not_min
-	xor a
-.not_min
+.wild
+	ld hl, wEnemyMonMoves
+	ld a, [wCurEnemyMoveNum]
 	ld c, a
+	ld b, 0
+	add hl, bc
 	ld a, [hl]
-	and STA_EX_MASK
-	or c
-	ld [hl], a
-	ld [de], a
-	; jr z, .out_of_pp
+	cp MIMIC
+	jr z, .mimic
+	ld hl, wWildMonMoves
+	add hl, bc
+	ld a, [hl]
+	cp MIMIC
+	ret z
 
-; Update HUD
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .update_HUD
-	ld hl, UpdateEnemyHUD
-	call CallBattleCore
-	ld b, 0
-	ret
-.update_HUD
-	ld hl, UpdatePlayerHUD
-	call CallBattleCore
-	ld b, 0
+.mimic
+	ld hl, wWildMonMoves
+	ld de, wEnemyMonStamina
+	call .consume_pp
 	ret
 
-; .wild
-; 	ld hl, wEnemyMonMoves
-; 	ld a, [wCurEnemyMoveNum]
-; 	ld c, a
-; 	ld b, 0
-; 	add hl, bc
-; 	ld a, [hl]
-; 	cp MIMIC
-; 	jr z, .mimic
-; 	ld hl, wWildMonMoves
-; 	add hl, bc
-; 	ld a, [hl]
-; 	cp MIMIC
-; 	ret z
-
-; .mimic
-; 	ld hl, wWildMonMoves
-; 	call .consume_pp
-; 	ret
-
-.out_of_pp
-	; ld c, 40
-	; call DelayFrames
-	; ld hl, MonIsExhausted
-	; call StdBattleTextBox
-	; call BattleCommand_SwitchTurn
-	; call BattleCommand_RandomStatDown
-	; call BattleCommand_StatDownMessage
-	; call BattleCommand_SwitchTurn
-	; ld b, 0
-	ret
+.out_of_pp ; BattleCommand_DoTurn.out_of_pp
+	call BattleCommand_MoveDelay
 ; get move effect
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
@@ -1184,6 +1137,94 @@ BattleCommand_DoTurn:
 	db EFFECT_ROLLOUT
 	db EFFECT_RAMPAGE
 	db -1
+
+.consume_stamina:
+	ldh a, [hBattleTurn]
+	and a
+	ld a, [wCurMoveNum]
+	jr z, .okay2
+	ld a, [wCurEnemyMoveNum]
+
+.okay2
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	and PP_MASK
+	ld b, a
+
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wPartyMon1Stamina
+	ld de, wBattleMonStamina
+	ld a, [wCurBattleMon]
+	jr z, .reduce_stamina ; player
+
+	ld a, [wBattleMode]
+	dec a
+	ld hl, wEnemyMonStamina
+	ld de, wEnemyMonStamina
+	ld a, [wCurOTMon]
+	jr z, .reduce_stamina_wild
+
+	ld hl, wOTPartyMon1Stamina
+	ld de, wEnemyMonStamina
+	ld a, [wCurOTMon]
+
+.reduce_stamina
+	; mon's stamina pointer comes in de
+	push bc
+	call GetPartyLocation
+	pop bc
+	
+.reduce_stamina_wild ; BattleCommand_DoTurn.reduce_stamina_wild
+	push hl
+	ld hl, .staminacost
+	; pp cost is in b, put stamina cost in b
+.get_stamina_cost_loop
+	ld a, [hli]
+	cp -1
+	jr z, .got_stamina_cost
+	cp b
+	jr z, .got_stamina_cost
+	inc hl
+	jr .get_stamina_cost_loop
+.got_stamina_cost
+	ld b, [hl]
+	pop hl
+	ld a, [hl]
+	and STA_MASK
+	sub b
+	jr nc, .not_min
+	xor a
+.not_min
+	ld c, a
+	ld a, [hl]
+	and STA_EX_MASK
+	or c
+	ld [hl], a
+	ld [de], a
+
+; Update HUD
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .update_HUD
+	ld hl, UpdateEnemyHUD
+	call CallBattleCore
+	ret
+.update_HUD
+	ld hl, UpdatePlayerHUD
+	call CallBattleCore
+	ret
+
+.staminacost:
+	db PP_5,  8
+	db PP_10, 7
+	db PP_15, 6
+	db PP_20, 5
+	db PP_25, 4
+	db PP_30, 3
+	db -1,    2
 
 CheckMimicUsed:
 	ldh a, [hBattleTurn]

@@ -5743,8 +5743,8 @@ MoveSelectionScreen:
 	jr z, .got_menu_type
 	dec a
 	jr z, .ether_elixer_menu
-	; call CheckPlayerHasUsableMoves
-	; ret z ; use Struggle
+	call CheckPlayerHasUsableMoves
+	ret z ; use Struggle
 	ld hl, wBattleMonMoves
 	jr .got_menu_type
 
@@ -5895,25 +5895,18 @@ MoveSelectionScreen:
 	pop af
 	ret
 
-.use_move
+.use_move ; MoveSelectionScreen.use_move
 	pop af
 	ret nz
 	
-	; ld hl, wBattleMonPP
-	; ld a, [wMenuCursorY]
-	; ld c, a
-	; ld b, 0
-	; add hl, bc
-	; ld a, [hl]
-	; and PP_MASK
-	
-	; ld b, a
-	; ld hl, wBattleMonStamina
-	; ld a, [hl]
-	; sub b
-	; jr c, .no_pp_left
-
+	ld hl, wBattleMonPP
+	ld a, [wMenuCursorY]
 	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	and PP_MASK
+	jr z, .no_pp_left
 	ld a, [wPlayerDisableCount]
 	swap a
 	and $f
@@ -5940,11 +5933,7 @@ MoveSelectionScreen:
 	jr .place_textbox_start_over
 
 .no_pp_left
-	; ld hl, BattleText_TheresNoPPLeftForThisMove
-	; ld a, STRUGGLE
-	; ld [wCurPlayerMove], a
-	; xor a
-	ret
+	ld hl, BattleText_TheresNoPPLeftForThisMove
 
 .place_textbox_start_over
 	call StdBattleTextBox
@@ -6059,52 +6048,51 @@ MoveSelectionScreen:
 	ld [wMoveSwapBuffer], a
 	jp MoveSelectionScreen
 
+CheckPlayerHasUsableMoves:
+	ld a, STRUGGLE
+	ld [wCurPlayerMove], a
+	ld a, [wPlayerDisableCount]
+	and a
+	ld hl, wBattleMonPP
+	jr nz, .disabled
 
-; CheckPlayerHasUsableMoves:
-; 	ld a, STRUGGLE
-; 	ld [wCurPlayerMove], a
-; 	ld a, [wPlayerDisableCount]
-; 	and a
-; 	ld hl, wBattleMonPP
-; 	jr nz, .disabled
+	ld a, [hli]
+	or [hl]
+	inc hl
+	or [hl]
+	inc hl
+	or [hl]
+	and PP_MASK
+	ret nz
+	jr .force_struggle
 
-; 	ld a, [hli]
-; 	or [hl]
-; 	inc hl
-; 	or [hl]
-; 	inc hl
-; 	or [hl]
-; 	and PP_MASK
-; 	ret nz
-; 	jr .force_struggle
+.disabled
+	swap a
+	and $f
+	ld b, a
+	ld d, NUM_MOVES + 1
+	xor a
+.loop
+	dec d
+	jr z, .done
+	ld c, [hl]
+	inc hl
+	dec b
+	jr z, .loop
+	or c
+	jr .loop
 
-; .disabled
-; 	swap a
-; 	and $f
-; 	ld b, a
-; 	ld d, NUM_MOVES + 1
-; 	xor a
-; .loop
-; 	dec d
-; 	jr z, .done
-; 	ld c, [hl]
-; 	inc hl
-; 	dec b
-; 	jr z, .loop
-; 	or c
-; 	jr .loop
+.done
+	and PP_MASK
+	ret nz
 
-; .done
-; 	and PP_MASK
-; 	ret nz
-
-; .force_struggle
-; 	ld hl, BattleText_MonHasNoMovesLeft
-; 	call StdBattleTextBox
-; 	ld c, 60
-; 	call DelayFrames
-; 	xor a
-; 	ret
+.force_struggle
+	ld hl, BattleText_MonHasNoMovesLeft
+	call StdBattleTextBox
+	ld c, 60
+	call DelayFrames
+	xor a
+	ret
 
 ParseEnemyAction:
 	ld a, [wEnemyIsSwitching]
@@ -6718,8 +6706,8 @@ LoadEnemyMon:
 	ld hl, wEnemyMonStatus
 	ld [hli], a
 
-; Unused byte
-	xor a
+; TraitActivated
+	ld a, $7
 	ld [hli], a
 
 ; Full HP..
@@ -8825,6 +8813,28 @@ InitEnemyWildmon:
 ExitBattle:
 	call .HandleEndOfBattle
 	farcall HandleNuzlockeFlags
+	xor a
+	ld [wCurPartyMon], a
+	inc a
+	ld [wBattleEnded], a
+	ld hl, wPartySpecies
+.loop
+	ld a, [hli]
+	cp -1
+	jr z, .done
+	cp EGG
+	jr z, .next
+	push hl
+	farcall RestoreAllPP
+	pop hl
+
+.next
+	ld a, [wCurPartyMon]
+	inc a
+	ld [wCurPartyMon], a
+	jr .loop
+
+.done
 	call CleanUpBattleRAM
 	ret
 

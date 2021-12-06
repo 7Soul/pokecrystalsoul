@@ -240,21 +240,17 @@ ApplyDamageMod::
 ; a = $xy: multiply multiplicands by x, then divide by y
 ; Used by things other than damage
 	push bc
-	push hl
 	ld b, a
 	swap a
 	and $f
-	ld hl, hMultiplier
-	ld [hl], a
-	push bc
+	ld c, LOW(hMultiplier)
+	ldh [c], a
 	call Multiply
-	pop bc
 	ld a, b
 	and $f
-	ld [hl], a
+	ldh [c], a
 	ld b, 4
 	call Divide
-	pop hl
 	pop bc
 	ret
 
@@ -343,7 +339,7 @@ RegenPartyStamina::
 	ld de, wEnemyMonStamina
 
 .got_stamina_location
-	ld c, STA_HALF ; amount to regen
+	ld c, STA_HALF
 ; 	ld a, [hl]
 ; 	and STA_MASK
 ; 	and a ; 0 stamina?
@@ -351,12 +347,12 @@ RegenPartyStamina::
 ; 	sla c
 ; .got_stamina
 ; doubles gain if the last move was super effective
-	ld a, [wTypeModifier]
-	and $7f
-	cp SUPER_EFFECTIVE
-	jr nz, .not_super
-	sla c 
-.not_super
+; 	ld a, [wTypeModifier]
+; 	and $7f
+; 	cp SUPER_EFFECTIVE
+; 	jr nz, .not_super
+; 	sla c 
+; .not_super
 	ld a, [wBuffer2]
 	cp b
 	jr z, .same_battlemon

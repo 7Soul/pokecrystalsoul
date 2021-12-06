@@ -343,24 +343,26 @@ ListMovePP:
 ; 	ld a, PP_MAX ; maximum stamina cost
 ; .max
 ; .not_detuned
-	; and $3f
+	and $3f
+	; inc a
+	; ld c, 5
+	; call SimpleMultiply
 	ld [wStringBuffer1 + 4], a
 	ld h, d
 	ld l, e
-	call FillInCostBar
-	; push hl
-	; ld de, wStringBuffer1 + 4
-	; lb bc, 1, 2
-	; call PrintNum
+	; call FillInCostBar
+
+	push hl
+	ld de, wStringBuffer1 + 4
+	lb bc, 1, 2
+	call PrintNum
 	; ld a, "/"
 	; ld [hli], a
-	; inc hl
-	; inc hl
-	; inc hl
 	; ld de, wTempPP
 	; lb bc, 1, 2
 	; call PrintNum
-	; pop hl
+	pop hl
+
 	ld a, [wBuffer1]
 	ld e, a
 	ld d, 0

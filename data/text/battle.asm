@@ -348,7 +348,7 @@ BattleText_MonCantBeRecalled:
 	prompt
 
 BattleText_TheresNoPPLeftForThisMove:
-	text "Not enough STAMINA"
+	text "There's no PP left"
 	line "for this move!"
 	prompt
 

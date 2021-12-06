@@ -54,6 +54,9 @@ GetVariableMoveType::
 .battle
 	ld a, [wBattleMonSpecies]
 	ld e, a
+	ld a, [wBattleEnded]
+	and a
+	jr nz, .got_species ; if battle ended, we always look at out own mons instead of checking for the turn
 	ldh a, [hBattleTurn]
 	and a
 	jr z, .got_species

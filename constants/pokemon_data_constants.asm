@@ -243,12 +243,19 @@ HAPPINESS_THRESHOLD_1 EQU 100
 HAPPINESS_THRESHOLD_2 EQU 200
 
 ; PP
-PP_MASK    EQU %00000111 ; pp max is 6, uses 3 bits
+PP_MASK    EQU %00011111 ; pp max is 30, uses 5 bits
 PP_ATTUNED EQU 3 ; bit 3
 PP_DETUNED EQU 4 ; bit 4
 PP_UP_MASK EQU %11000000
 PP_UP_ONE  EQU %01000000
 PP_MAX     EQU 6
+
+PP_5	EQU 3  ; uses 8 stamina
+PP_10	EQU 6  ; uses 7 stamina
+PP_15	EQU 9  ; uses 6 stamina
+PP_20	EQU 12 ; uses 5 stamina
+PP_25	EQU 15 ; uses 4 stamina
+PP_30	EQU 18 ; uses 3 stamina
 
 STA_MASK    EQU %00001111
 STA_EX_MASK EQU %00110000

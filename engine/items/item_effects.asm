@@ -3004,7 +3004,12 @@ ComputeMaxPP:
 	pop bc
 	ret
 
-RestoreAllPP:
+RestoreAllPP::
+	; make this also heal stamina
+	push hl
+	ld e, STA_MAX
+	call RestoreStamina
+	pop hl
 	ld a, MON_PP
 	call GetPartyParamLocation
 	push hl
@@ -3105,12 +3110,11 @@ GetMaxPPOfMove:
 	cp WILDMON
 	jr nz, .notwild
 	ld bc, wEnemyMonPP - wEnemyMonMoves
-.notwild
+.notwild ; GetMaxPPOfMove.notwild
 	add hl, bc
 	ld a, [hl]
 	and PP_UP_MASK
 	pop bc
-
 	or b
 	ld hl, wStringBuffer1 + 1
 	ld [hl], a
