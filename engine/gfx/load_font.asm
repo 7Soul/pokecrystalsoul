@@ -28,12 +28,12 @@ _LoadFontsExtra2::
 _LoadFontsBattleExtra::
 	ld de, FontBattleExtra
 	ld hl, vTiles2 tile $60
-	lb bc, BANK(FontBattleExtra), 22
+	lb bc, BANK(FontBattleExtra), 25
 	call Get2bpp_2
-	ld hl, vTiles2 tile $76
-	ld de, FontBattleExtra + 22 tiles
-	lb bc, BANK(FontBattleExtra), 2
-	call Get2bpp_2
+	; ld hl, vTiles2 tile $76
+	; ld de, FontBattleExtra + 22 tiles
+	; lb bc, BANK(FontBattleExtra), 2
+	; call Get2bpp_2
 	jr LoadFrame
 
 LoadFrame:
@@ -56,12 +56,12 @@ LoadFrame:
 LoadBattleFontsHPBar:
 	ld de, FontBattleExtra
 	ld hl, vTiles2 tile $60
-	lb bc, BANK(FontBattleExtra), 22
+	lb bc, BANK(FontBattleExtra), 28
 	call Get2bpp_2
-	ld hl, vTiles2 tile $76
-	ld de, FontBattleExtra + 22 tiles
-	lb bc, BANK(FontBattleExtra), 2
-	call Get2bpp_2
+	; ld hl, vTiles2 tile $76
+	; ld de, FontBattleExtra + 22 tiles
+	; lb bc, BANK(FontBattleExtra), 2
+	; call Get2bpp_2
 	call LoadFrame
 
 LoadHPBar:

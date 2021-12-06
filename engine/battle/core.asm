@@ -1088,11 +1088,15 @@ EndOpponentProtectEndureDestinyBond:
 	ld hl, wEnemyMonStamina
 	ld a, [hl]
 	and STA_MASK
-	add STA_HALF ; half a bar
-	cp STA_MAX
-	jr c, .max
+	and a
+	jr nz, .not_zero
 	ld a, STA_MAX
-.max
+; 	add STA_HALF ; half a bar
+; 	cp STA_MAX
+; 	jr c, .max
+; 	ld a, STA_MAX
+; .max
+.not_zero
 	ld [hl], a
 	jr .done_wild
 .regen_OT_stamina
@@ -5848,8 +5852,35 @@ MoveSelectionScreen:
 	call PlaceString
 	jr .interpret_joypad
 
-.battle_player_moves
+.battle_player_moves ; MoveSelectionScreen.battle_player_moves
 	farcall MoveInfoBox
+
+	ld a, [wPlayerMoveStruct + MOVE_PP]
+	ld b, a
+	ld hl, StaminaCost
+.get_stamina_cost_loop
+	ld a, [hli]
+	cp -1
+	jr z, .got_stamina_cost
+	cp b
+	jr z, .got_stamina_cost
+	inc hl
+	jr .get_stamina_cost_loop
+.got_stamina_cost
+	ld b, [hl]
+	ld a, [wTempMonStamina]
+	sub b
+	; this would be used if the bar didn't reset to full when exhausted
+; 	jr nc, .bar_ok
+; 	add 14
+; .bar_ok
+	jr nc, .got_bar_size
+	xor a
+.got_bar_size
+	ld b, a
+	hlcoord 10, 11
+	call FillInStaminaBar
+
 	ld a, [wMoveSwapBuffer]
 	and a
 	jr z, .interpret_joypad
@@ -8322,35 +8353,41 @@ FillInStaminaBar: ; takes stamina in b
 
 PlaceStaminaBar:
 	; draw exhaustion icon
-	ld a, b
-	swap a
-	and STA_EX_MAX ; grab first 2 bits
-	add $72
-	ld [hli], a
+	; ld a, b
+	; swap a
+	; and STA_EX_MAX ; grab first 2 bits
+	; add $72
+	; ld [hli], a
+	inc hl
+	; draw bar
 	ld a, b
 	and STA_MASK
 	ld b, a
-
+	ld c, 7
 .loop
 	ld a, b
 	and a
-	jr z, .finish ; empty bar
+	jr z, .empty
 	sub 2
-	jr c, .half
 	ld b, a
+	jr c, .half
+	cp -14
+	jr nc, .empty
 
 	ld a, $77 ; full bar
 	ld [hli], a
-
-	ld a, b
-	and a
+.next
+	dec c
 	jr z, .finish
 	jr .loop
-	
+.empty
+	ld a, $78 ; empty bar
+	ld [hli], a
+	jr .next
 .half
 	ld a, $76 ; half bar
 	ld [hli], a
-
+	jr .next
 .finish
 	ret
 

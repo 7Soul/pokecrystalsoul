@@ -250,12 +250,19 @@ PP_UP_MASK EQU %11000000
 PP_UP_ONE  EQU %01000000
 PP_MAX     EQU 6
 
-PP_5	EQU 3  ; uses 8 stamina
-PP_10	EQU 6  ; uses 7 stamina
-PP_15	EQU 9  ; uses 6 stamina
-PP_20	EQU 12 ; uses 5 stamina
-PP_25	EQU 15 ; uses 4 stamina
-PP_30	EQU 18 ; uses 3 stamina
+PP_5	EQU 4
+PP_10	EQU 6
+PP_15	EQU 8
+PP_20	EQU 10
+PP_25	EQU 12
+PP_30	EQU 14
+
+STA_COST_5  EQU 7 ; exhaustion in 2 turns
+STA_COST_10 EQU 6 ; exhaustion in 3 turns
+STA_COST_15 EQU 5 ; exhaustion in 4 turns
+STA_COST_20 EQU 3 ; exhaustion in 5 turns
+STA_COST_25 EQU 2 ; exhaustion in 7 turns
+STA_COST_30 EQU 1 ; exhaustion in 14 turns
 
 STA_MASK    EQU %00001111
 STA_EX_MASK EQU %00110000

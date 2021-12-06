@@ -1061,3 +1061,27 @@ MoveInfoBox:
 
 .String_na:
 	db "---@"
+
+ApplyExhaustionPenalty:
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wEnemyMonStamina
+	jr z, .got_stamina
+	ld hl, wBattleMonStamina
+.got_stamina
+	ld a, [hl]
+	swap a
+	and STA_EX_MAX
+	ld hl, .exhaustion_penalty
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
+	call ApplyDamageMod
+	ret
+
+.exhaustion_penalty:
+	db $11 ;  0 - 1.00
+	db $BA ;  1 - 1.10
+	db $65 ;  2 - 1.20
+	db $CA ;  3 - 1.30

@@ -1179,7 +1179,7 @@ BattleCommand_DoTurn:
 	
 .reduce_stamina_wild ; BattleCommand_DoTurn.reduce_stamina_wild
 	push hl
-	ld hl, .staminacost
+	ld hl, StaminaCost
 	; pp cost is in b, put stamina cost in b
 .get_stamina_cost_loop
 	ld a, [hli]
@@ -1216,15 +1216,6 @@ BattleCommand_DoTurn:
 	ld hl, UpdatePlayerHUD
 	call CallBattleCore
 	ret
-
-.staminacost:
-	db PP_5,  8
-	db PP_10, 7
-	db PP_15, 6
-	db PP_20, 5
-	db PP_25, 4
-	db PP_30, 3
-	db -1,    2
 
 CheckMimicUsed:
 	ldh a, [hBattleTurn]
@@ -1470,6 +1461,8 @@ BattleCommand_Stab:
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	farcall TraitReduceVeryEffective
+
+	farcall ApplyExhaustionPenalty
 
 	ld hl, wCurDamage
 	ldh a, [hMultiplicand + 1] ; damage after stab trait
@@ -5239,34 +5232,6 @@ CalcStats:
 	ld b, 4
 	call Divide
 
-	push de
-	ldh a, [hBattleTurn]
-	and a
-	ld hl, wBattleMonStamina
-	jr z, .got_stamina
-	ld hl, wEnemyMonStamina
-.got_stamina
-	ld a, [hl]
-	swap a
-	and STA_EX_MAX
-	ld hl, .exhaustion_penalty
-	ld c, a
-	ld b, 0
-	add hl, bc
-	add hl, bc
-	ld a, [hli]
-	ld e, a
-	ld d, [hl]
-	
-	ld a, d
-	ldh [hMultiplier], a
-	call Multiply
-	ld b, 4
-	ld a, e
-	ldh [hDivisor], a
-	call Divide
-	pop de
-
 	ldh a, [hQuotient + 2]
 	ld b, a
 	ldh a, [hQuotient + 3]
@@ -5302,12 +5267,6 @@ CalcStats:
 	dec a
 	jp nz, .loop
 	ret
-
-.exhaustion_penalty:
-	dwlb 1,  1 ;  0 - 1.00
-	dwlb 9, 10 ;  1 - 0.90
-	dwlb 8, 10 ;  2 - 0.80
-	dwlb 7, 10 ;  3 - 0.70
 
 ; .stamina_bonuses:
 ; 	dwlb  9, 10 ;  0 - 0.90

@@ -339,13 +339,13 @@ RegenPartyStamina::
 	ld de, wEnemyMonStamina
 
 .got_stamina_location
-	ld c, STA_HALF
-; 	ld a, [hl]
-; 	and STA_MASK
-; 	and a ; 0 stamina?
-; 	jr nz, .got_stamina
-; 	sla c
-; .got_stamina
+	ld c, 0 ; 0 regen for now
+	ld a, [hl]
+	and STA_MASK
+	and a ; 0 stamina?
+	jr nz, .got_stamina
+	ld c, STA_MAX ; full regen when stamina is 0
+.got_stamina
 ; doubles gain if the last move was super effective
 ; 	ld a, [wTypeModifier]
 ; 	and $7f
@@ -461,3 +461,12 @@ GetMoveID::
 	call GetBattleVar
 	and a
 	ret
+
+StaminaCost::
+	db PP_5,  STA_COST_5
+	db PP_10, STA_COST_10
+	db PP_15, STA_COST_15
+	db PP_20, STA_COST_20
+	db PP_25, STA_COST_25
+	db PP_30, STA_COST_30
+	db -1,    1
