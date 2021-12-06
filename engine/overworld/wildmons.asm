@@ -892,7 +892,7 @@ ChooseWildEncounter:
 	call TryWildEncounter
 
 	ld hl, LegendaryMon ; pick legendary
-	ld a, 6
+	ld a, 5
 	call RandomRange
 	ld b, 0
 	ld c, a
@@ -1133,7 +1133,7 @@ ChooseWildEncounter:
 	ld a, WEEDLE
 	ld b, a
 	
-.not_caterpie	
+.not_caterpie 
 	call Random 
 	cp 50 percent
 	ld a, b
@@ -1202,16 +1202,14 @@ EvolveWildMon:
 ; a = the first byte of the species' EvosAttacks data
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte
-; if a == 0, there are no evolutions, so don't boost stats
+; if a == 0, there are no evolutions
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte
 	and a
-	cp 0
-	jp nz, .has_evolution
-	jp .done
+	jp z, .done
 .has_evolution
 	inc hl
-	and a
+	cp EVOLVE_LEVEL
 	jp nz, .evolve_from_list
 	ld a, [wCurPartyLevel]
 	ld d, a ; d = wild mon level

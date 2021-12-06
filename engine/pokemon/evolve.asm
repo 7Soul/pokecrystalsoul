@@ -727,6 +727,8 @@ FillEggMove:
 	push hl
 	push de
 	push bc
+	ld a, [wCurPartySpecies]
+	ld [wTempSpecies], a
 	call GetPreEvolution
 	call GetPreEvolution
 ; Random common egg move based on mon type
@@ -1026,9 +1028,8 @@ FillMoves:
 	ld a, [wLuckyWild]
 	and a
 	jr z, .notLucky
-	ld a, 7 percent
+	ld a, 7 percent + 1
 	add b
-	ld b, a
 	call Random
 	cp b
 	ret nc
@@ -1036,9 +1037,8 @@ FillMoves:
 
 .notLucky
 ; 3% chance to have egg move in a normal battle
-	ld a, 3 percent 
+	ld a, 3 percent + 1
 	add b
-	ld b, a
 	call Random
 	cp b
 	ret nc
