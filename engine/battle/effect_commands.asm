@@ -995,7 +995,19 @@ CheckUserIsCharging:
 BattleCommand_DoTurn:
 	call CheckUserIsCharging
 	ret nz
-
+	; each turn of battle counts as 4 steps for egg hatching 50% of the time
+	; ex: in a battle that lasts 5 tuns, the player gains 20 to 40 steps
+	call BattleRandom
+	cp 50 percent
+	jr c, .no_step
+	ld hl, wStepCount
+	ld a, [hl]
+	; stop adding if the player is within 1 step of checking for eggs cycles
+	cp $7F - 4
+	jr z, .no_step
+	add 4
+	ld [hl], a
+.no_step
 	ld hl, wBattleMonPP
 	ld de, wPlayerSubStatus3
 	ld bc, wPlayerTurnsTaken

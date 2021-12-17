@@ -1307,7 +1307,6 @@ EvolutionLinesList::
 	db MACHOP
 	db BELLSPROUT
 	db TENTACOOL
-	db PONYTA
 	db GEODUDE
 	db PONYTA
 	db SLOWPOKE

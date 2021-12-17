@@ -609,6 +609,21 @@ DayCare_InitBreeding:
 	ld a, [wBreedMon2Species]
 
 .GotMother:
+	ld a, [wBreedMon1Species]
+	cp DITTO
+	jr nz, .not_ditto_species
+	ld a, [wBreedMon2Species]
+	cp DITTO
+	jr nz, .not_ditto_species
+	ld a, 128
+	call RandomRange ; 0 to 127
+	ld hl, EvolutionLinesList
+	ld bc, 1
+	call AddNTimes
+	ld a, BANK(EvolutionLinesList)
+	call GetFarByte
+	
+.not_ditto_species
 	ld [wCurPartySpecies], a
 	callfar GetPreEvolution
 	callfar GetPreEvolution
@@ -628,7 +643,7 @@ DayCare_InitBreeding:
 	ld [wCurPartySpecies], a
 	ld [wCurSpecies], a
 	ld [wEggMonSpecies], a
-
+; generate egg
 	call GetBaseData
 	ld hl, wEggNick
 	ld de, .String_EGG
@@ -720,12 +735,20 @@ DayCare_InitBreeding:
 	ld a, [hl]
 	ld [wEggMonDVs], a
 .dvs_set
-; Chance to not inherit a trait
+	; if both parents are ditto, a completely random trait is chosen
+	ld a, [wBreedMon1Species]
+	cp DITTO
+	jr nz, .not_ditto_trait
+	ld a, [wBreedMon2Species]
+	cp DITTO
+	jr z, .both_parents_ditto_trait
+.not_ditto_trait
+	; Chance to not inherit a trait
 	call Random
 	cp 25 percent
 	jr nc, .get_random_trait
-; pass parent trait to egg
-; if the one parent is ditto, check trait from other parent
+	; pass parent trait to egg
+	; if the one parent is ditto, check trait from other parent
 	ld de, wBreedMon2Trait
 	ld a, [wBreedMon1Species]
 	cp DITTO
@@ -744,8 +767,8 @@ DayCare_InitBreeding:
 	ld e, c
 
 .GotParentTrait: ; parent's trait
-	call GetEggTraits
-	jr c, .got_trait
+	; call GetEggTraits
+	; jr c, .got_trait
 	ld a, [de]
 	ld b, a
 	ld a, [wEggMonSpecies]
@@ -762,18 +785,24 @@ DayCare_InitBreeding:
 	inc hl
 	jr .traits_loop
 
+.both_parents_ditto_trait
+	ld a, TRAIT_COUNT + 1
+	call RandomRange
+	ld b, a
+	jr .got_trait
+
 .get_random_trait
 	ld hl, wBaseTraits
 	call Random
-	cp 30 percent ; 30%
+	cp 60 percent ; 60%
 	jr c, .got_random_trait
 	inc hl
-	cp 60 percent ; 30%
+	cp 90 percent ; 30%
 	jr c, .got_random_trait
 	inc hl
-	cp 85 percent ; 25%
+	cp 98 percent ; 5%
 	jr c, .got_random_trait
-	inc hl ; 15%
+	inc hl ; 5%
 .got_random_trait
 	ld a, [hl]
 .got_trait
@@ -805,63 +834,63 @@ DayCare_InitBreeding:
 	ret
 
 .String_EGG:
-	db "EGG@"
+	db "Egg@"
 
-GetEggTraits:
-	push hl
-	push de
-	push bc
-	ld hl, EggTraitPointers
-	ld a, [wEggMonSpecies]
-	dec a
-	ld c, a
-	ld b, 0
-	add hl, bc
-	add hl, bc
-	ld a, BANK(EggTraitPointers)
-	call GetFarHalfword
-	push hl
-	ld c, 0
-	dec hl
-.count_traits_loop
-	inc c
-	inc hl
-	ld a, BANK("Egg Traits")
-	call GetFarByte
-	cp -1	
-	jr nz, .count_traits_loop
+; GetEggTraits:
+; 	push hl
+; 	push de
+; 	push bc
+; 	ld hl, EggTraitPointers
+; 	ld a, [wEggMonSpecies]
+; 	dec a
+; 	ld c, a
+; 	ld b, 0
+; 	add hl, bc
+; 	add hl, bc
+; 	ld a, BANK(EggTraitPointers)
+; 	call GetFarHalfword
+; 	push hl
+; 	ld c, 0
+; 	dec hl
+; .count_traits_loop
+; 	inc c
+; 	inc hl
+; 	ld a, BANK("Egg Traits")
+; 	call GetFarByte
+; 	cp -1	
+; 	jr nz, .count_traits_loop
 	
-.reached_end
-	pop hl
-	ld a, c
-	call RandomRange
+; .reached_end
+; 	pop hl
+; 	ld a, c
+; 	call RandomRange
 
-; go to hl according to move number
-.get_position
-	ld c, a
-	ld b, 0
-	add hl, bc
+; ; go to hl according to move number
+; .get_position
+; 	ld c, a
+; 	ld b, 0
+; 	add hl, bc
 
-; get trait from hl
-	pop bc
-	pop de
-	ld a, [de]
-	ld b, a ; parent's trait
-	ld a, BANK("Egg Traits")
-	ld c, 4
-.traits_loop
-	call GetFarByte
-	cp b ; compare with parent's trait
-	jr z, .got_trait
-	dec c
-	jr z, .no_egg_traits
-	inc hl
-	jr .traits_loop
-.no_egg_traits
-	pop hl
-	and a
-	ret
-.got_trait
-	pop hl
-	scf
-	ret
+; ; get trait from hl
+; 	pop bc
+; 	pop de
+; 	ld a, [de]
+; 	ld b, a ; parent's trait
+; 	ld a, BANK("Egg Traits")
+; 	ld c, 4
+; .traits_loop
+; 	call GetFarByte
+; 	cp b ; compare with parent's trait
+; 	jr z, .got_trait
+; 	dec c
+; 	jr z, .no_egg_traits
+; 	inc hl
+; 	jr .traits_loop
+; .no_egg_traits
+; 	pop hl
+; 	and a
+; 	ret
+; .got_trait
+; 	pop hl
+; 	scf
+; 	ret

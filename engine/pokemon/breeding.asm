@@ -50,6 +50,7 @@ CheckBreedmonCompatibility:
 .ditto1
 	ld a, [wBreedMon2Species]
 	cp DITTO
+	ld c, 51 ; behaves the same as different species with different owners
 	jr z, .done
 
 .compute
@@ -110,14 +111,14 @@ CheckBreedmonCompatibility:
 	call GetBaseData
 	ld a, [wBaseEggGroups]
 	cp EGG_NONE * $11
-	jr z, .Incompatible
+	jr z, .Compatible
 
 	ld a, [wBreedMon1Species]
 	ld [wCurSpecies], a
 	call GetBaseData
 	ld a, [wBaseEggGroups]
 	cp EGG_NONE * $11
-	jr z, .Incompatible
+	jr z, .Compatible
 
 ; Ditto is automatically compatible with everything.
 ; If not Ditto, load the breeding groups into b/c and d/e.
@@ -184,6 +185,7 @@ DoEggStep::
 	jr nz, .next
 	dec [hl]
 	jr nz, .next
+	; Happiness = 0, hatch egg (and skip checking other eggs)
 	ld a, 1
 	and a
 	ret
@@ -221,7 +223,9 @@ HatchEggs:
 	ld a, [hl]
 	and a
 	jp nz, .next
-	ld [hl], $78
+	; default happiness for egg
+	ld [hl], $20
+	set 7, [hl] ; marks that pokémon was born from egg
 
 	push de
 
@@ -276,8 +280,9 @@ HatchEggs:
 	ld bc, MON_STATUS
 	add hl, bc
 	xor a
-	ld [hli], a
-	ld [hl], a
+	ld [hli], a ; Status
+	ld a, $7
+	ld [hl], a ; TraitActivated
 	pop hl
 	push hl
 	ld bc, MON_STAT_EXP - 1

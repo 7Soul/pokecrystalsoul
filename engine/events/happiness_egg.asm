@@ -55,6 +55,7 @@ ChangeHappiness:
 
 	push de
 	ld a, [de]
+	and %01111111
 	cp HAPPINESS_THRESHOLD_1
 	ld e, 0
 	jr c, .ok
@@ -73,9 +74,12 @@ ChangeHappiness:
 	ld d, 0
 	add hl, de
 	ld a, [hl]
-	cp $64 ; why not $80?
+	cp $80
 	pop de
 
+	ld a, [de]
+	and $80
+	ld b, a
 	ld a, [de]
 	jr nc, .negative
 	add [hl]
@@ -89,6 +93,11 @@ ChangeHappiness:
 	xor a
 
 .done
+	cp HAPPINESS_MAX
+	jr nc, .max
+	ld a, HAPPINESS_MAX
+.max
+	or b
 	ld [de], a
 	ld a, [wBattleMode]
 	and a
@@ -105,12 +114,12 @@ ChangeHappiness:
 INCLUDE "data/events/happiness_changes.asm"
 
 StepHappiness::
-; Raise the party's happiness by 1 point every other step cycle.
+; Raise the party's happiness by 1 point every 4th step cycle.
 
 	ld hl, wHappinessStepCount
 	ld a, [hl]
 	inc a
-	and 1
+	and 3
 	ld [hl], a
 	ret nz
 
@@ -216,6 +225,7 @@ DayCareStep::
 	ld hl, wDayCareMan
 	bit DAYCAREMAN_MONS_COMPATIBLE_F, [hl]
 	ret z
+	; jr .force
 	ld hl, wStepsToEgg
 	dec [hl]
 	ret nz
@@ -226,23 +236,25 @@ DayCareStep::
 	ld [hl], a
 	callfar CheckBreedmonCompatibility
 	ld a, [wBreedingCompatibility]
-	cp 230
-	ld b, 32 percent - 1
+	cp 230 ; same species, same owner
+	ld b, 40 percent + 1
 	jr nc, .okay
 	ld a, [wBreedingCompatibility]
-	cp 170
-	ld b, 24 percent
+	cp 170 ; same species, different owners
+	ld b, 30 percent
 	jr nc, .okay
 	ld a, [wBreedingCompatibility]
-	cp 110
-	ld b, 16 percent
+	cp 110 ; different species, same owners
+	ld b, 20 percent
 	jr nc, .okay
-	ld b, 4 percent
+	; different species, different owners
+	ld b, 15 percent
 
 .okay
 	call Random
 	cp b
 	ret nc
+; .force
 	ld hl, wDayCareMan
 	res DAYCAREMAN_MONS_COMPATIBLE_F, [hl]
 	set DAYCAREMAN_HAS_EGG_F, [hl]

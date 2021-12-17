@@ -584,6 +584,17 @@ SnorlaxEggMoves:
 	db DOUBLE_EDGE
 	db -1 ; end
 
+ArticunoEggMoves:
+ZapdosEggMoves:
+MoltresEggMoves:
+	db HEAL_BELL
+	db MIMIC
+	db SLASH ; becomes Air Cutter
+	db SIGNAL_BEAM
+	db ICY_WIND ; becomes Mud Shot
+	db DIZZY_PUNCH ; becomes Hurricane
+	db -1 ; end
+
 DratiniEggMoves:
 	db SUPERSONIC
 	db JET_STREAM
@@ -591,6 +602,16 @@ DratiniEggMoves:
 	db EXTREMESPEED
 	db CHARGE_BEAM
 	db FLAME_WHEEL
+	db -1 ; end
+
+MewtwoEggMoves:
+MewEggMoves:
+	db METRONOME
+	db PECK ; becomes Electro Ball
+	db FIRE_PUNCH
+	db THUNDERPUNCH
+	db ICE_PUNCH
+	db SELFDESTRUCT
 	db -1 ; end
 
 ChikoritaEggMoves:
@@ -1010,6 +1031,15 @@ MiltankEggMoves:
 
 LarvitarEggMoves:
 	db PURSUIT
+	db STOMP
+	db FOCUS_ENERGY
+	db ANCIENTPOWER
+	db -1 ; end
+
+LugiaEggMoves:
+HoOhEggMoves:
+CelebiEggMoves:
+	db SLASH ; becomes Air Cutter
 	db STOMP
 	db FOCUS_ENERGY
 	db ANCIENTPOWER

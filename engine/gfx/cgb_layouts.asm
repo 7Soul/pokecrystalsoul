@@ -85,10 +85,10 @@ _CGB_BattleColors:
 	ld de, wBGPals1
 	call GetBattlemonBackpicPalettePointer
 	push hl
-	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_PLAYER
+	call LoadPalette_White_Col1_Col2_Black2 ; PAL_BATTLE_BG_PLAYER
 	call GetEnemyFrontpicPalettePointer
 	push hl
-	call LoadPalette_White_Col1_Col2_Black ; PAL_BATTLE_BG_ENEMY
+	call LoadPalette_White_Col1_Col2_Black2 ; PAL_BATTLE_BG_ENEMY
 	ld a, [wTempEnemyMonSpecies]
 	and a
 	jp nz, .get_hp_palettes
@@ -575,7 +575,7 @@ _CGB_StatsScreenHPPals:
 	ld a, [wCurPartySpecies]
 	ld bc, wTempMonDVs
 	call GetPlayerOrMonPalettePointer
-	call LoadPalette_White_Col1_Col2_Black ; mon palette
+	call LoadPalette_White_Col1_Col2_Black2 ; mon palette
 	ld hl, ExpBarPalette
 	call LoadPalette_White_Col1_Col2_Black ; exp palette
 	ld hl, StatsScreenPagePals
@@ -587,7 +587,7 @@ _CGB_StatsScreenHPPals:
 	ld a, [wCurPartySpecies]
 	ld bc, wTempMonDVs
 	call GetExtraFrontpicPalettePointer
-	call LoadPalette_White_Col1_Col2_Black ; mon extra palette
+	call LoadPalette_White_Col1_Col2_Black2 ; mon extra palette
 
 	call WipeAttrMap
 
@@ -957,9 +957,9 @@ _CGB_Pokedex:
 
 .is_pokemon
 	call GetMonPalettePointer
-	call LoadPalette_White_Col1_Col2_Black ; mon palette
+	call LoadPalette_White_Col1_Col2_Black2 ; mon palette
 	call GetExtraMonPalettePointer
-	call LoadPalette_White_Col1_Col2_Black ; mon extra palette
+	call LoadPalette_White_Col1_Col2_Black2 ; mon extra palette
 .got_palette
 	call WipeAttrMap
 	hlcoord 1, 1, wAttrMap
@@ -1325,7 +1325,7 @@ _CGB_BillsPC:
 .GetMonPalette:
 	ld bc, wTempMonDVs
 	call GetPlayerOrMonPalettePointer
-	call LoadPalette_White_Col1_Col2_Black
+	call LoadPalette_White_Col1_Col2_Black2
 .Resume:
 	call WipeAttrMap
 	hlcoord 1, 4, wAttrMap
@@ -1371,7 +1371,7 @@ _CGB_PokedexUnownMode:
 	call LoadHLPaletteIntoDE
 	ld a, [wCurPartySpecies]
 	call GetMonPalettePointer
-	call LoadPalette_White_Col1_Col2_Black
+	call LoadPalette_White_Col1_Col2_Black2
 	call WipeAttrMap
 	hlcoord 7, 5, wAttrMap
 	lb bc, 7, 7
@@ -1580,7 +1580,7 @@ _CGB_Evolution:
 	ld b, h
 	ld a, [wPlayerHPPal]
 	call GetPlayerOrMonPalettePointer
-	call LoadPalette_White_Col1_Col2_Black
+	call LoadPalette_White_Col1_Col2_Black2
 	ld hl, BattleObjectPals
 	ld de, wOBPals1 palette PAL_BATTLE_OB_GRAY
 	ld bc, 6 palettes

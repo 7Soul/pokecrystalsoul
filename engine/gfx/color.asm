@@ -3,23 +3,55 @@ INCLUDE "engine/gfx/sgb_layouts.asm"
 CheckShininess:
 ; Check if a mon is shiny by DVs at bc.
 ; Return carry if shiny.
+	ld hl, wMonIsShiny
+	res 1, [hl]
+	ld a, [bc]
+	and %00011
+	ld [wBattleDvAtk], a
+	ld a, [bc]
+	and %00110
+	sra a
+	ld [wBattleDvDef], a
+	ld a, [bc]
+	and %01100
+	sra a
+	sra a
+	ld [wBattleDvSpd], a
+	ld a, [bc]
+	and %11000
+	sra a
+	sra a
+	sra a
+	ld [wBattleDvSpc], a
+; Sets bit 1 of wMonIsShiny if the 7th bit of the Happiness value is set
+; This is so mons hatched from eggs get special color variations
+	push bc
+	ld h, b
+	ld l, c
+	ld bc, MON_HAPPINESS - MON_DVS
+	add hl, bc
+	pop bc
+	bit 7, [hl]
+	jr z, .not_egg
+	ld hl, wMonIsShiny
+	set 1, [hl]
+
+.not_egg
 	ld h, b
 	ld l, c
 	bit DV_SHINY_BIT, [hl]
 	jr z, .not_shiny
+
 .shiny
-	ld a, 1
-	ld [wMonIsShiny], a
+	ld hl, wMonIsShiny
+	set 0, [hl]
+	set 1, [hl]
 	scf
 	ret
 
 .not_shiny
-	xor a
-	ld [wMonIsShiny], a ; save not shiny bit at wMonIsShiny
-	ld [wBattleDvAtk], a
-	ld [wBattleDvDef], a
-	ld [wBattleDvSpd], a
-	ld [wBattleDvSpc], a
+	ld hl, wMonIsShiny
+	res 0, [hl]
 	and a
 	ret
 
@@ -465,115 +497,29 @@ LoadPalette_White_Col1_Col2_Black:
 	ret
 	
 FlipBitBasedOnShinyValueAtk:
-	ld b, a
-	ld a, [wBattleDvAtk]
-	and %1000
-	cp 0
-	jp nz, .skip1
-	ld a, b
-	xor 2
-	ret
-.skip1
-	ld a, [wBattleDvAtk]
-	and %100
-	cp 0
-	jp nz, .skip2
-	ld a, b
-	xor 3
-	ret
-.skip2
-	ld a, [wBattleDvAtk]
-	and %10
-	cp 0
-	jp nz, .skip3
-	ld a, b
-	xor 4
-	ret
-.skip3
-	ld a, [wBattleDvAtk]
-	and %1
-	cp 0
-	jp nz, .skip4
-	ld a, b
-	xor 5
-	ret
-.skip4
-	ld a, b
-	ret	
+	push hl
+	ld hl, wBattleDvAtk
+	jp FlipBitFinish
 	
 FlipBitBasedOnShinyValueDef:
-	ld b, a
-	ld a, [wBattleDvDef]
-	and %1000
-	cp 0
-	jp nz, .skip1
-	ld a, b
-	xor 2
-	ret
-.skip1
-	ld a, [wBattleDvDef]
-	and %100
-	cp 0
-	jp nz, .skip2
-	ld a, b
-	xor 3
-	ret
-.skip2
-	ld a, [wBattleDvDef]
-	and %10
-	cp 0
-	jp nz, .skip3
-	ld a, b
-	xor 4
-	ret
-.skip3	
-	ld a, [wBattleDvDef]
-	and %1
-	cp 0
-	jp nz, .skip4
-	ld a, b
-	xor 5
-	ret
-.skip4	
-	ld a, b
-	ret
+	push hl
+	ld hl, wBattleDvDef
+	jp FlipBitFinish
+	
+FlipBitBasedOnShinyValueSpd:
+	push hl
+	ld hl, wBattleDvSpd
+	jp FlipBitFinish
 	
 FlipBitBasedOnShinyValueSpcl:
-	ld b, a
-	ld a, [wBattleDvSpd]
-	and %1000
-	cp 0
-	jp nz, .skip1
-	ld a, b
-	xor 2
-	ret
-.skip1
-	ld a, [wBattleDvSpd]
-	and %100
-	cp 0
-	jp nz, .skip2
-	ld a, b
-	xor 3
-	ret
-.skip2
-	ld a, [wBattleDvSpd]
-	and %10
-	cp 0
-	jp nz, .skip3
-	ld a, b
-	xor 4
-	ret
-.skip3
-	ld a, [wBattleDvSpd]
-	and %1
-	cp 0
-	jp nz, .skip4
-	ld a, b
-	xor 5
-	ret
-.skip4
-	ld a, b
-	ret
+	push hl
+	ld hl, wBattleDvSpc
+
+FlipBitFinish:
+	ld b, [hl]
+	xor b
+	pop hl
+	ret	
 	
 LoadPalette_White_Col1_Col2_Black2:
 	ldh a, [rSVBK]
@@ -589,8 +535,8 @@ LoadPalette_White_Col1_Col2_Black2:
 	inc de
 	; add colors
 	ld a, [wMonIsShiny]
-	cp 1
-	jp z, .is_shiny1
+	bit 1, a
+	jp nz, .is_eggmon1
 	
 	ld c, 2 * PAL_COLOR_SIZE
 .loop
@@ -601,13 +547,12 @@ LoadPalette_White_Col1_Col2_Black2:
 	jr nz, .loop
 	jp .add_black
 	
-.is_shiny1
+.is_eggmon1
 	;;; low 1 (gggrrrrr)
 	ld a, [hl]
 	and %11100000
-rept 5
+	swap a
 	sra a
-endr
 	ld c, a ; first 3 'g' bits
 	
 	ld a, [hli]
@@ -619,11 +564,11 @@ endr
 	
 	ld a, c
 	push bc	
-	call FlipBitBasedOnShinyValueDef ; inverts last 3 bits
+	call FlipBitBasedOnShinyValueAtk ; inverts last 3 bits
 	pop bc
-rept 5 ; puts 'g' bits back in place
+	; puts 'g' bits back in place
+	swap a
 	sla a
-endr	
 	add b ; reform original format
 	ld [de], a
 	inc de
@@ -634,7 +579,7 @@ endr
 	sra a
 	sra a
 	push bc
-	call FlipBitBasedOnShinyValueSpcl
+	call FlipBitBasedOnShinyValueDef
 	pop bc
 	ld c, a ; 'b' bits
 	
@@ -655,25 +600,24 @@ endr
 	;;; low 2 (gggrrrrr)
 	ld a, [hl]
 	and %11100000
-rept 5
+	swap a
 	sra a
-endr
 	ld c, a ; first 3 'g' bits
 	
 	ld a, [hli]
 	and %11111
 	push bc
-	call FlipBitBasedOnShinyValueAtk ; inverts last 3 bits
+	call FlipBitBasedOnShinyValueSpd ; inverts last 3 bits
 	pop bc
 	ld b, a ; 'r' bits
 	
 	ld a, c	
 	push bc
-	call FlipBitBasedOnShinyValueDef ; inverts last 3 bits
+	call FlipBitBasedOnShinyValueSpd ; inverts last 3 bits
 	pop bc
-rept 5 ; puts 'g' bits back in place
+	; puts 'g' bits back in place
+	swap a
 	sla a
-endr	
 	add b ; reform original format
 	ld [de], a
 	inc de
@@ -704,8 +648,8 @@ endr
 	; add black	
 .add_black
 	ld a, [wMonIsShiny]
-	cp 1
-	jr z, .is_shiny2
+	bit 1, a
+	jr nz, .is_eggmon2
 	
 	xor a
 	ld a, LOW(PALRGB_BLACK)
@@ -715,11 +659,11 @@ endr
 	ld [de], a
 	inc de
 	jr .end_black
-.is_shiny2
-	ld a, $A0
+.is_eggmon2
+	ld a, LOW(PALRGB_BLACK_SPECIAL)
 	ld [de], a
 	inc de
-	ld a, $24
+	ld a, HIGH(PALRGB_BLACK_SPECIAL)
 	ld [de], a
 	inc de
 .end_black
