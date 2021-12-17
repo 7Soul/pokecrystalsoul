@@ -238,7 +238,7 @@ GetGender:
 	call z, CloseSRAM
 
 	push hl
-	ld a, [wCurSpecies]
+	ld a, [wCurPartySpecies]
 	dec a
 	ld hl, BaseData + BASE_GENDER
 	ld bc, BASE_DATA_SIZE
