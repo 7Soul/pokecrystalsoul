@@ -4,8 +4,6 @@
 ## Pokemon
 Pokemon that were too weak or overpowered received some rebalancing. All movesets were updated.
 
-The types Poison, Ghost, Steel and Dragon were removed. Several pokémon had their types changed to accomodate this
-
 Changes in stats, movepools and held items makes using unevolved Pokemon at higher levels more viable
 
 Evolutions that require trading are replaced with a level evolution. Lowered evolution level for Pokémon that evolved at too high level (babies for example).
@@ -51,9 +49,6 @@ Special Pokeballs are more effective. Fast ball and Moon ball x4 to x8, Net ball
 
 Repels last twice as long (100, 200, 300 steps for each of the repel types). To compensate, they're 85% more expensive. Repels also ask if you want to auto-reaply.
 
-### Held Items
-
-Type boost items come with a downside of lowering HP a little
   
 ## Battle
 STAB is +33% instead of +50%. Random damage variation is 5% instead if 15%
