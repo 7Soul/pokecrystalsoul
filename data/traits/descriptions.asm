@@ -34,6 +34,7 @@ TraitDescriptions::
 	dw CompoundEyesDescription    ; TRAIT_MOVE_ACC_NON_STAB_MORE
 	dw TipsyGasDescription        ; TRAIT_SWAP_DEFENSE_BUFFS
 	dw PiercingAttackDescription  ; TRAIT_BOOST_POWER_RAISED_DEF
+	dw OverpowerDescription       ; TRAIT_BOOST_POWER_RAISED_SPDEF
 	dw IronFistDescription        ; TRAIT_BOOST_PUNCHING
 	dw IronJawsDescription        ; TRAIT_BOOST_BITING
 	dw IronClawsDescription       ; TRAIT_BOOST_CUTTING
@@ -380,6 +381,10 @@ TipsyGasDescription:
 
 PiercingAttackDescription:
 	db   "Pierces foe's DEF"
+	next "bonuses partially.@"
+
+OverpowerDescription:
+	db   "Pierces SP.DEF"
 	next "bonuses partially.@"
 
 IronFistDescription:

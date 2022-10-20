@@ -34,6 +34,7 @@ TraitNames::
 	db "Compound Eyes@"    ; TRAIT_MOVE_ACC_NON_STAB_MORE
 	db "Tipsy Gas@"        ; TRAIT_SWAP_DEFENSE_BUFFS
 	db "Piercing Attack@"  ; TRAIT_BOOST_POWER_RAISED_DEF
+	db "Overpower@"        ; TRAIT_BOOST_POWER_RAISED_SPDEF
 	db "Iron Fist@"        ; TRAIT_BOOST_PUNCHING
 	db "Iron Jaws@"        ; TRAIT_BOOST_BITING
 	db "Iron Claws@"       ; TRAIT_BOOST_CUTTING

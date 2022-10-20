@@ -2624,6 +2624,9 @@ TraitBoostPower:
 	ld a, TRAIT_BOOST_POWER_RAISED_DEF
 	call CheckSpecificTrait
 	jp c, BoostDamageBasedOnFoesDefUp
+	ld a, TRAIT_BOOST_POWER_RAISED_SPDEF
+	call CheckSpecificTrait
+	jp c, BoostDamageBasedOnFoesSpDefUp
 
 	ld a, [wBattleWeather]
 	and a
@@ -3672,11 +3675,19 @@ TraitBoostBerryHeal:
 	ld [wBuffer2], a
 	ret
 
+BoostDamageBasedOnFoesSpDefUp:
+	ld hl, wEnemySDefLevel
+	ld de, wPlayerSDefLevel
+	jp BoostDamageBasedOnFoesBuffs
 BoostDamageBasedOnFoesDefUp:
 	ld hl, wEnemyDefLevel
+	ld de, wPlayerDefLevel
+	; fallthrough
+BoostDamageBasedOnFoesBuffs:
 	call GetTraitUser
 	jr c, .got_opp_def
-	ld hl, wPlayerDefLevel
+	ld h, d
+	ld l, e
 .got_opp_def
 	ld a, [hl]
 	sub 7
@@ -4992,6 +5003,7 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_MOVE_ACC_NON_STAB_MORE
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_SWAP_DEFENSE_BUFFS
 	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_BOOST_POWER_RAISED_DEF
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_BOOST_POWER_RAISED_SPDEF
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_PUNCHING
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_BITING
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_CUTTING
