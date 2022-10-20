@@ -1037,7 +1037,9 @@ BattleCommand_DoTurn:
 	ret nz
 
 	push de
+	push hl
 	call .consume_stamina
+	pop hl
 	call .consume_pp
 	pop de
 
@@ -1638,7 +1640,7 @@ INCLUDE "data/types/type_matchups.asm"
 BattleCommand_DamageVariation:
 ; damagevariation
 
-; Modify the damage spread between 95% and 100%.
+; Modify the damage spread between 85% and 100%.
 
 ; Because of the method of division the probability distribution
 ; is not consistent. This makes the highest damage multipliers
@@ -1663,11 +1665,11 @@ BattleCommand_DamageVariation:
 	ld a, [hl]
 	ldh [hMultiplicand + 2], a
 
-; Multiply by 95-100%...
+; Multiply by 85-100%...
 .loop
 	call BattleRandom
 	rrca
-	cp 95 percent + 1
+	cp 85 percent + 1
 	jr c, .loop
 
 	ldh [hMultiplier], a
@@ -1679,7 +1681,7 @@ BattleCommand_DamageVariation:
 	ld b, $4
 	call Divide
 
-; ...to get .95-1.00x damage.
+; ...to get .85-1.00x damage.
 	ldh a, [hQuotient + 2]
 	ld hl, wCurDamage
 	ld [hli], a

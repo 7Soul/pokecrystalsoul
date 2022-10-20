@@ -149,19 +149,20 @@ _SwitchPartyMons:
 	; Remake pairs
 	; Get mon 2's pair. If it is mon 2's old id, switch it to the new id
 	; At this point the mons have already been switched
-	ld a, [wBuffer2] ; 1 = pidgey, vaporeon is in index 1 now
+	ld a, [wBuffer2] ; 1 = pidgey, vaporeon is in index 0 now
 	ld hl, wPartyMon1TraitActivated
 	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
-	ld a, [hl] ; vaporeon's pair (3)
+	ld a, [hl] ; vaporeon's pair (1)
 	cp $7
 	jr z, .not_pair1
 	ld hl, wPartyMon1TraitActivated
 	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld b, [hl] ; muk's pair id (vaporeon's original id of 0)
-	ld a, [wBuffer2] ; vaporeon's new index (1)
+	ld a, [wBuffer2] ; vaporeon's new index (0)
 	cp b ; is vaporeon muk's pair?
+	call z, SwapPairs
 	jr z, .not_pair1
 	; Give pikachu pidgey's new index of 0
 	ld a, [wBuffer2]
@@ -196,6 +197,21 @@ _SwitchPartyMons:
 .CopyName:
 	ld bc, NAME_LENGTH
 	call CopyBytes
+	ret
+
+SwapPairs: ; for when swaping around two pokémon who are paired with each other
+	ld b, [hl] ; second mon's id
+	push hl
+	push bc
+	ld a, [wBuffer3]
+	ld hl, wPartyMon1TraitActivated
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld d, [hl] ; first mon's id
+	pop bc
+	ld [hl], b
+	pop hl
+	ld [hl], d
 	ret
 
 _PairMons:
