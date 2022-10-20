@@ -4230,7 +4230,10 @@ BattleCommand_FreezeOrSlowTarget:
 
 BattleCommand_FreezeTarget:
 ; freezetarget
-
+	ld b, ICE
+	farcall CheckIfTargetIsNthType ; Don't freeze an Ice-type
+	ret z
+BattleCommand_FreezeTargetSimple:
 	xor a
 	ld [wNumHits], a
 	call CheckSubstituteOpp
@@ -4245,9 +4248,7 @@ BattleCommand_FreezeTarget:
 	ld a, [wBattleWeather]
 	cp WEATHER_SUN
 	ret z
-	ld b, ICE
-	farcall CheckIfTargetIsNthType ; Don't freeze an Ice-type
-	ret z
+	
 	call GetOpponentItem
 	ld a, b
 	cp HELD_PREVENT_FREEZE

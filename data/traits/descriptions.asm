@@ -45,6 +45,7 @@ TraitDescriptions::
 	dw LeafGuardDescription       ; TRAIT_REDUCE_CRIT_DAMAGE
 	dw LiquidOozeDescription      ; TRAIT_PSN_DRAIN
 	dw MagmaFlowDescription       ; TRAIT_BRN_DRAIN
+	dw ColdBloodDescription       ; TRAIT_FRZ_DRAIN
 	dw DrainSurgeDescription      ; TRAIT_BOOST_DRAIN
 	dw SkillLinkDescription       ; TRAIT_BOOST_MULTI_HIT_COUNT
 	dw ChainClipDescription       ; TRAIT_BOOST_MULTI_HIT_DAMAGE
@@ -425,6 +426,10 @@ LiquidOozeDescription:
 
 MagmaFlowDescription:
 	db   "Cause BRN when foe"
+	next "drains life.@"
+
+ColdBloodDescription:
+	db   "Cause FRZ when foe"
 	next "drains life.@"
 
 DrainSurgeDescription:

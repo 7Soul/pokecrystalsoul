@@ -45,6 +45,7 @@ TraitNames::
 	db "Leaf Guard@"       ; TRAIT_REDUCE_CRIT_DAMAGE
 	db "Liquid Ooze@"      ; TRAIT_PSN_DRAIN
 	db "Magma Flow@"       ; TRAIT_BRN_DRAIN
+	db "Cold Blood@"       ; TRAIT_FRZ_DRAIN
 	db "Drain Surge@"      ; TRAIT_BOOST_DRAIN
 	db "Skill Link@"       ; TRAIT_BOOST_MULTI_HIT_COUNT
 	db "Chain Clip@"       ; TRAIT_BOOST_MULTI_HIT_DAMAGE

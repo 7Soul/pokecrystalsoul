@@ -3157,18 +3157,34 @@ TraitWhenDrained:
 	call CheckSpecificTrait
 	jr nc, .not_poison
 
+	call Switch_turn
 	call DoOneSixteenthDamage
+	call Switch_turn
 	ld hl, BattleCommand_PoisonTargetSimple
 	jp TraitUseBattleCommandSimpleSwitchTurn
 
 .not_poison
 	ld a, TRAIT_BRN_DRAIN
 	call CheckSpecificTrait
-	ret nc
-
+	jr nc, .not_burn
+	
+	call Switch_turn
 	call DoOneSixteenthDamage
+	call Switch_turn
 	ld hl, BattleCommand_BurnTargetSimple
 	jp TraitUseBattleCommandSimpleSwitchTurn
+
+.not_burn
+	ld a, TRAIT_FRZ_DRAIN
+	call CheckSpecificTrait
+	ret nc
+	
+	call Switch_turn
+	call DoOneSixteenthDamage
+	call Switch_turn
+	ld hl, BattleCommand_FreezeTargetSimple
+	jp TraitUseBattleCommandSimpleSwitchTurn
+
 
 TraitBoostEffectChance:
 	ld hl, .TraitsThatBoostEffectChance
@@ -4513,6 +4529,7 @@ PrintTraitText:
 	db TRAIT_CONTACT_DAMAGE_FIRE
 	db TRAIT_PSN_DRAIN
 	db TRAIT_BRN_DRAIN
+	db TRAIT_FRZ_DRAIN
 	db TRAIT_HOT_COALS
 	db -1
 
@@ -5014,6 +5031,7 @@ TraitSupportValues:
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_REDUCE_CRIT_DAMAGE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PSN_DRAIN
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BRN_DRAIN
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_FRZ_DRAIN
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_DRAIN
 	db SUP_CHANCE_DOWN + SUP_100_PERCENT; TRAIT_BOOST_MULTI_HIT_COUNT
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_MULTI_HIT_DAMAGE
