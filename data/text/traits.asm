@@ -6,6 +6,7 @@ TraitText_HighTempo::
 TraitText_CuteCharm::
 TraitText_EffectSpore::
 TraitText_HotCoals::
+TraitText_Barbs::
 TraitText_Tailwind::
 TraitText_MindGames::
 TraitText_Revitalize::

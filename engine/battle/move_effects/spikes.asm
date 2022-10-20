@@ -19,13 +19,20 @@ BattleCommand_Spikes:
 	ld a, BATTLE_VARS_TRAIT
 	call GetBattleVar
 	cp TRAIT_HOT_COALS
-	jr nz, .common_spikes
-	set SCREENS_COALS, [hl]
-	ld hl, CoalsText
-	jr .end
+	jr z, .hot_coals
+	cp TRAIT_BARBS
+	jr z, .barbs
 .common_spikes
 	set SCREENS_SPIKES, [hl]
 	ld hl, SpikesText
+	jr .end
+.hot_coals
+	set SCREENS_COALS, [hl]
+	ld hl, CoalsText
+	jr .end
+.barbs
+	set SCREENS_BARBS, [hl]
+	ld hl, BarbsText
 .end
 	push hl
 	call AnimateCurrentMove

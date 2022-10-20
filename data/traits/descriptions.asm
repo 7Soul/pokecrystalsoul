@@ -11,6 +11,7 @@ TraitDescriptions::
 	dw SandBruiserDescription     ; TRAIT_CONTACT_DAMAGE_GROUND
 	dw BurningManeDescription     ; TRAIT_CONTACT_DAMAGE_FIRE
 	dw HotCoalsDescription        ; TRAIT_HOT_COALS
+	dw PoisonBarbsDescription     ; TRAIT_BARBS
 	dw LightningFastDescription   ; TRAIT_EVASION_ON_SPEED_DIFF
 	dw UnleashPowerDescription    ; TRAIT_ATK_ON_ATK_DIFF
 	dw TailwindDescription        ; TRAIT_COPY_SPD_BUFFS
@@ -40,7 +41,7 @@ TraitDescriptions::
 	dw PowerDrillDescription      ; TRAIT_BOOST_PERFURATE
 	dw RockHeadDescription        ; TRAIT_REDUCE_SELF_RECOIL
 	dw SniperDescription          ; TRAIT_BOOST_CRIT_DAMAGE
-	dw ShellArmorDescription      ; TRAIT_REDUCE_CRIT_DAMAGE
+	dw LeafGuardDescription       ; TRAIT_REDUCE_CRIT_DAMAGE
 	dw LiquidOozeDescription      ; TRAIT_PSN_DRAIN
 	dw MagmaFlowDescription       ; TRAIT_BRN_DRAIN
 	dw DrainSurgeDescription      ; TRAIT_BOOST_DRAIN
@@ -96,7 +97,7 @@ TraitDescriptions::
 	dw HydrationDescription       ; TRAIT_RAIN_NO_STATUS
 	dw BurnUpDescription          ; TRAIT_SUNSHINE_SPEED
 	dw SunDanceDescription        ; TRAIT_SUNSHINE_EVASION
-	dw LeafGuardDescription       ; TRAIT_SUNSHINE_NO_STATUS
+	dw LeafGuard2Description       ; TRAIT_SUNSHINE_NO_STATUS
 	dw SandCutterDescription      ; TRAIT_SANDSTORM_SPEED
 	dw SandVeilDescription        ; TRAIT_SANDSTORM_EVASION
 	dw SandFilterDescription      ; TRAIT_SANDSTORM_NO_STATUS
@@ -289,6 +290,10 @@ HotCoalsDescription:
 	db   "Contact may spread"
 	next "hot coals around.@"
 
+PoisonBarbsDescription:
+	db   "Contact may spread"
+	next "poison barbs.@"
+
 LightningFastDescription:
 	db   "Ups EVA if SPD is"
 	next "higher than foe's.@"
@@ -405,7 +410,7 @@ SniperDescription:
 	db   "Raises the damage"
 	next "of critical hits.@"
 
-ShellArmorDescription:
+LeafGuardDescription:
 	db   "Lowers damage from"
 	next "critical hits.@"
 
@@ -669,7 +674,7 @@ SunDanceDescription:
 ; 	db   "Raises EVASION"
 ; 	next "when it's sunny.@"
 
-LeafGuardDescription:
+LeafGuard2Description:
 	db   "Heals status cond-"
 	next "itions when sunny.@"
 

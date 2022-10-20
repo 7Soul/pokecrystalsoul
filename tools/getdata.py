@@ -40,6 +40,7 @@ for poke in pokelist:
             output = re.sub('; unevolved move', '', output)
             output = output.replace(";", "")
             output = output.replace("PSYCHIC M", "PSYCHIC")
+            output = output.replace("U TURN", "U-TURN")
             output = output.title()
             if len(output) >= 13:
                 output = output.replace(" ", "")

@@ -4471,8 +4471,15 @@ SpikesDamage:
 	bit SCREENS_SPIKES, [hl]
 	jr nz, .spikes
 	bit SCREENS_COALS, [hl]
+	jr nz, .coals
+	bit SCREENS_BARBS, [hl]
 	jr z, .cancel
-	
+
+	ld b, POISON
+	farcall CheckIfTargetIsNthTypeGotValue
+	jr z, .cancel
+	jr .spikes
+.coals
 	ld b, FIRE
 	farcall CheckIfTargetIsNthTypeGotValue
 	jr z, .cancel

@@ -1060,6 +1060,12 @@ CoalsText:
 	cont "<TARGET>!"
 	prompt
 
+BarbsText:
+	text "BARBS scattered"
+	line "all around"
+	cont "<TARGET>!"
+	prompt
+
 IdentifiedText:
 	text "<TARGET> is"
 	line "under the prism"

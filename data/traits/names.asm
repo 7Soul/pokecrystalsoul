@@ -11,6 +11,7 @@ TraitNames::
 	db "Sand Bruiser@"     ; TRAIT_CONTACT_DAMAGE_GROUND
 	db "Burning Mane@"     ; TRAIT_CONTACT_DAMAGE_FIRE
 	db "Hot Coals@"        ; TRAIT_HOT_COALS
+	db "Poison Barbs@"     ; TRAIT_BARBS
 	db "Lightning Fast@"   ; TRAIT_EVASION_ON_SPEED_DIFF
 	db "Unleash Power@"    ; TRAIT_ATK_ON_ATK_DIFF
 	db "Tailwind@"         ; TRAIT_COPY_SPD_BUFFS
@@ -40,7 +41,7 @@ TraitNames::
 	db "Power Drill@"      ; TRAIT_BOOST_PERFURATE
 	db "Rock Head@"        ; TRAIT_REDUCE_SELF_RECOIL
 	db "Sniper@"           ; TRAIT_BOOST_CRIT_DAMAGE
-	db "Shell Armor@"      ; TRAIT_REDUCE_CRIT_DAMAGE
+	db "Leaf Guard@"       ; TRAIT_REDUCE_CRIT_DAMAGE
 	db "Liquid Ooze@"      ; TRAIT_PSN_DRAIN
 	db "Magma Flow@"       ; TRAIT_BRN_DRAIN
 	db "Drain Surge@"      ; TRAIT_BOOST_DRAIN
