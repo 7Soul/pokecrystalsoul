@@ -11,6 +11,13 @@ box_struct: MACRO
 \1Moves::          ds NUM_MOVES
 \1ID::             dw
 \1Exp::            ds 3
+; Stat exp uses 5 bytes instead of 10
+; \1StatExp::        dw
+; \1HPExp::          db
+; \1AtkExp::         
+; \1DefExp::         db
+; \1SpdExp::         
+; \1SpcExp::         db
 \1StatExp::
 \1HPExp::          dw
 \1AtkExp::         dw
@@ -89,7 +96,8 @@ battle_struct: MACRO
 \1PP::        ds NUM_MOVES
 \1Happiness:: db
 \1Level::     db
-\1Status::    ds 2
+\1Status::    db
+\1TraitActivated:: db
 \1HP::        dw
 \1MaxHP::     dw
 \1Stats:: ; big endian

@@ -20,24 +20,35 @@ CheckTrait: ; sets carry if trait can be used, returns move index [wBuffer3] in 
 CheckSpecificTrait:
 	ld b, a
 	call CheckTraitActivated ; check if trait only activates once
-	jr c, .no_trait	
+	jr c, .no_trait
 	ld a, [wBuffer1]
 	call GetBattleVar
 	cp b
 	jr nz, .no_trait
 	jp CheckTraitCondition.GotTrait
 .no_trait
+	ld c, 1
+	call TraitCheckSupports
+	jp c, CheckTraitCondition.GotTrait
+; no traits or support traits
 	and a
 	ret
 
 CheckTraitCondition:
+	push hl
 	ld a, [wBuffer1]
 	call GetBattleVar
 	ld de, 1
 	call IsInArray
 	ld a, b
 	ld [wBuffer3], a ; store array index
-	jp nc, .not_met1
+	pop hl
+	jp c, .in_array ; has trait, not support
+	ld c, 2
+	call TraitCheckSupports
+	jp c, .GotTrait
+	jp .not_met1
+.in_array
 	ld a, [wBuffer1]
 	call GetBattleVar
 	; fallthrough
@@ -311,15 +322,14 @@ CheckTraitCondition:
 .success
 	push hl
 	ld hl, OneShotTraits
-	ld a, [wBuffer1]
-	call GetBattleVar
-	ld de, 1	
-	call IsInArray
+	call IsBattlemonOrPairTraitInTable
 	pop hl
 	jr nc, .not_one_shot
 	call ActivateTrait
 .not_one_shot
 	; call PrintTraitText
+	call SupportTraitChance
+	jr nc, .not_met
 	scf
 	ld a, [wBuffer3]
 	ret
@@ -539,7 +549,7 @@ CheckTraitCondition:
 	push de
 	call CheckTraitCount
 	pop de
-	inc a ; 1-based index
+	; inc a ; 1-based index
 	cp d
 	jp nc, .success
 	and a
@@ -836,6 +846,17 @@ GetMoveStructChance:
 TraitTurnTriggers:
 	ld a, [wBuffer1]
 	call GetBattleVar
+	call CheckTraitTurnTriggers
+
+	call GetPairsTrait
+	call CheckTraitTurnTriggers
+	; xor a
+	; ld [wSupportMon], a
+.no_trigger
+	ret
+
+; this is a function so that it's called for both the current trait and the pair's trait
+CheckTraitTurnTriggers:
 	cp TRAIT_HEAL_HP_AFTER_WATER_MOVE
 	jr c, .no_trigger
 
@@ -1198,16 +1219,15 @@ TraitRaiseStat:
 	ld a, [wBuffer3]
 	cp $FF
 	jr z, .no_raise
-	ld a, [wBuffer1]
-	call GetBattleVar
+
 	ld hl, TraitsThatAlsoRaiseAccuracy
-	ld de, 1
-	call IsInArray
+	call IsBattlemonOrPairTraitInTable
 	jr c, .also_raise_acc
 	ret
 .no_raise
 	ret
 .also_raise_acc
+	push af
 	ld a, $FF
 	ld [wBuffer3], a
 	ld b, ACCURACY
@@ -1941,8 +1961,12 @@ TraitContact:
 
 	ld a, TRAIT_HOT_COALS
 	call CheckSpecificTrait
-	jr nc, .not_hot_coals
-
+	jr c, .got_spikes
+	ld a, TRAIT_BARBS
+	call CheckSpecificTrait
+	jr nc, .not_spikes
+	; fallthrough
+.got_spikes
 	call Switch_turn
 	ld a, BATTLE_VARS_MOVE
 	call GetBattleVarAddr
@@ -1963,10 +1987,12 @@ TraitContact:
 	ret nz
 	bit SCREENS_SPIKES, [hl]
 	ret nz
+	bit SCREENS_BARBS, [hl]
+	ret nz
 
 	jr .finish
 
-.not_hot_coals
+.not_spikes
 	ld hl, .TraitsThatRequireContact
 	call CheckTrait
 	ret nc
@@ -1979,8 +2005,8 @@ TraitContact:
 
 .StatusCommands:
 	dw BattleCommand_BurnTarget
-	dw BattleCommand_ParalyzeTarget
 	dw BattleCommand_PoisonTarget
+	dw BattleCommand_ParalyzeTarget
 	dw BattleCommand_FlinchTarget
 	dw BattleCommand_ConfuseTarget
 	dw BattleCommand_Attract
@@ -1989,8 +2015,8 @@ TraitContact:
 
 .TraitsThatRequireContact:
 	db TRAIT_CONTACT_BRN
-	db TRAIT_CONTACT_PRZ
 	db TRAIT_CONTACT_PSN
+	db TRAIT_CONTACT_PRZ
 	db TRAIT_CONTACT_FLINCH
 	db TRAIT_CONTACT_CONFUSED
 	db TRAIT_CONTACT_IN_LOVE
@@ -2160,7 +2186,7 @@ TraitPostHitBattleCommand:
 	dw BattleCommand_BurnTarget
 	dw BattleCommand_ParalyzeOrPoisonTarget
 	dw BattleCommand_FreezeOrSlowTarget
-	; dw BattleCommand_PoisonTarget
+	dw BattleCommand_PoisonTarget
 
 .StatusChances:
 	db 8 percent, 12 percent
@@ -2176,7 +2202,7 @@ TraitPostHitBattleCommand:
 	db TRAIT_FLYING_BRN
 	db TRAIT_PRZ_PSN_WITH_GRASS
 	db TRAIT_FRZ_SPD_WITH_WATER
-	; db TRAIT_PSN_DRAIN ; 5
+	db TRAIT_PSN_DRAIN ; 5
 	db -1
 
 TraitStartWeather:
@@ -2961,7 +2987,7 @@ TraitDamageBasedOnStats:
 	dec hl
 	ld a, [hl]
 .boost
-	jp ApplyDamageMod
+	jp SupportDamageMod
 .max
 	ld a, $FF
 	jr .boost
@@ -3068,7 +3094,7 @@ TraitDamageBasedOnHP:
 	dec hl
 	ld a, [hl]
 .boost
-	jp ApplyDamageMod
+	jp SupportDamageMod
 
 .Boosts:
 	db 0,  $A7 ; 1.42, 00~07%
@@ -3691,7 +3717,7 @@ TraitTransform:
 
 BoostDamage50:
 	ld a, $32 ; ~1.5
-	jp ApplyDamageMod
+	jp SupportDamageMod
 
 BoostDamage50BurnSelf:
 	call BoostDamage50
@@ -3701,41 +3727,90 @@ BoostDamage50BurnSelf:
 
 BoostDamage25:
 	ld a, $54 ; ~1.25
-	jp ApplyDamageMod
+	jp SupportDamageMod
 
 BoostDamage20:
 	ld a, $65 ; ~1.20
-	jp ApplyDamageMod
+	jp SupportDamageMod
 
 BoostDamage15:
-	ld a, $76 ; ~1.16
-	jp ApplyDamageMod
+	ld a, $FD ; ~1.15
+	jp SupportDamageMod
 
 ReduceDamage90:
-	ld a, $9A ; ~0.9 ; 90% reduction
+	ld a, $1A ; ~0.1 ; 90% reduction
 	ld hl, TraitText_NegatedDamage
 	call StdBattleTextBox
-	jp ApplyDamageMod
+	jp SupportDamageMod
 
 ReduceDamage50:
 	ld a, $12 ; ~0.5 ; 50% reduction
-	jp ApplyDamageMod
+	jp SupportDamageMod
 
 ReduceDamage30:
 	ld a, $57 ; ~0.71 ; 29% reduction
-	jp ApplyDamageMod
+	jp SupportDamageMod
 
 ReduceDamage25:
 	ld a, $68 ; ~0.75 ; 25% reduction
-	jp ApplyDamageMod
+	jp SupportDamageMod
 
 ReduceDamage15:
 	ld a, $67 ; ~0.86 ; 14% reduction
-	jp ApplyDamageMod
+	jp SupportDamageMod
 
 ReduceDamage10:
 	ld a, $9A ; =0.9 ; 10% reduction
+	jp SupportDamageMod
+
+SupportDamageMod:
+	; save multipliers in d
+	ld d, a
+	push de
+	; if trait is support
+	call GetSupportTraitValues
+	pop de
+	ret nc
+	; get upper 4 bits of support value
+	and %11110000
+	cp SUP_EFFECT_DOWN
+	ret nz
+	; get lower 4 bits of support value and save it in c
+	ld a, [hl]
+	and %1111
+	inc a
+	ld c, a
+	ld hl, .tableSupBoost
+.loop
+	ld a, [hl]
+	inc hl
+	inc hl
+	inc hl
+	inc hl
+	cp d
+	jr z, .got_value
+	cp -1
+	ret z
+	jr .loop
+.got_value
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
 	jp ApplyDamageMod
+
+.tableSupBoost:
+	 ; val, 75%, 50%, 25%
+	db $32, $B8, $54, $98 ; 1.50, 1.37, 1.25, ~1.125
+	db $54, $DB, $98, $FE ; 1.25, 1.18, ~1.125, ~1.07
+	db $65, $FD, $BA, $FE ; 1.20, 1.15, 1.10, ~1.07
+	db $FD, $98, $CB, $FE ; 1.15, 1.13, 1.09, ~1.07 (1.07 is the lowest we can get)
+	db $1A, $13, $6B, $AC ; 0.10, 0.33, 0.55, 0.77
+	db $12, $8C, $34, $67 ; 0.50, 0.62, 0.75, 0.87
+	db $57, $AC, $67, $BC ; 0.71, 0.77, 0.85, 0.92
+	db $68, $45, $CF, $CD ; 0.75, 0.81, 0.87, 0.93
+	db $67, $89, $CD, $DF ; 0.86, 0.89, 0.928, 0.94 (0.933 is the lowest we can get)
+	db $9A, $CD, $DF, $DF ; 0.90, 0.928, 0.94, 0.94
+	db -1
 
 Chance: ; takes `percent` in `b` and sets carry flag
 	call BattleRandom
@@ -3748,6 +3823,52 @@ Chance: ; takes `percent` in `b` and sets carry flag
 	ld [wAttackMissed], a
 	ld [wEffectFailed], a
 	scf
+	ret
+
+SupportTraitChance:
+	; if trait is support
+	ld a, [wSupportMon]
+	cp -1
+	jr z, .not_met
+	call GetSupportTraitValues
+	ret nc
+	; get upper 4 bits of support value
+	and %11110000
+	cp SUP_CHANCE_DOWN
+	jr nz, .not_met
+
+	ld a, [hl]
+	and %1111 ; get lower 4 bits
+	ld b, a
+	ld a, 8 ; 0 to 7
+	call RandomRange
+	cp b
+	ret
+.not_met
+	scf
+	ret
+
+GetSupportTraitValues:
+	; Get entry in table of how a trait acts when in support position
+	; Check if we have any supports for the current trait being checked
+	ld a, [wSupportMon]
+	cp -1
+	jr z, .no_supports
+	; Get to current support's trait
+	ld hl, wPartyMon1Trait
+	call GetPartyLocation
+	ld a, [hl]
+	; Navigate to trait in table
+	ld b, 0
+	ld c, a
+	ld hl, TraitSupportValues
+	add hl, bc
+	ld a, [hl]
+	; Set carry flag to signal we found a trait
+	scf
+	ret
+.no_supports
+	and a
 	ret
 
 CallHealAmount: ; takes `GetEighthMaxHP` or others in `hl`
@@ -3912,12 +4033,16 @@ GetTraitUser:
 	and a	
 	jr z, .player_turn
 ; enemy turn
+	ld a, [wCurOTMon]
+	ld [wCurPartyMon], a
 	ld a, [wBuffer1]
 	cp BATTLE_VARS_TRAIT_OPP
 	jr nz, .end
 	scf
 	ret ; enemy's turn opp's trait (user's)
 .player_turn
+	ld a, [wCurBattleMon]
+	ld [wCurPartyMon], a
 	ld a, [wBuffer1]
 	cp BATTLE_VARS_TRAIT
 	jr nz, .end
@@ -3945,92 +4070,60 @@ SetUserTurn:
 
 IncreaseTraitCount:
 	call GetTraitUser
-	ld hl, wTraitActivated
 	jr c, .player_user
-	ld a, [hl]
-	and %00011111 ; grab the enemy bit (0001) and the player data (1111) to preserve it in b
-	ld b, a
-	ld a, [hl]
-	and %11100000
-	rrca
-	swap a
-	cp 7
-	jr z, .max1
-	inc a
-.max1
-	rlca
-	swap a
-	add b 
-	jr .end
-
+	call GetOTPartyMonTraitActivated
+	jr .got_addr
 .player_user
+	call GetPartyMonTraitActivated
+.got_addr
 	ld a, [hl]
-	and %11110001 ; grab the player bit (0001) and the enemy data (1111) to preserve it in b
-	ld b, a
+	and %1111
+	ld b, a ; saves lower nybble in b
 	ld a, [hl]
-	and %1110 ; grab the 3 bits after the player bit
-	rrca
-	cp 7
-	jr z, .max2
+	and %11110000 ; grab upper nybble
+	swap a
+	cp $f
+	jr z, .end
 	inc a
-.max2
-	rlca
-	add b
 .end
+	swap a
+	add b
 	ld [hl], a
 	ret
 
 ReduceTraitCount:
 	call GetTraitUser
-	ld hl, wTraitActivated
 	jr c, .player_user
-	ld a, [hl]
-	and %00011111 ; grab the enemy bit (0001) and the player data (1111) to preserve it in b
-	ld b, a
-	ld a, [hl]
-	and %11100000
-	rrca
-	swap a
-	cp 0
-	jr z, .min1
-	dec a
-.min1
-	rlca
-	swap a
-	add b 
-	jr .end
-
+	call GetOTPartyMonTraitActivated
+	jr .got_addr
 .player_user
+	call GetPartyMonTraitActivated
+.got_addr
 	ld a, [hl]
-	and %11110001 ; grab the player bit (0001) and the enemy data (1111) to preserve it in b
+	and %1111 ; saves lower nybble in b
 	ld b, a
 	ld a, [hl]
-	and %1110 ; grab the 3 bits after the player bit
-	rrca
-	cp 0
-	jr z, .min2
+	and %11110000 ; grab upper nybble
+	swap a
+	and a
+	jr z, .end
 	dec a
-.min2
-	rlca
-	add b
 .end
+	add b
 	ld [hl], a
 	ret
 
 CheckTraitCount: ; returns trait activation count in a
 	call GetTraitUser
-	ld hl, wTraitActivated
 	jr c, .player_user
-	ld a, [hl]
-	and %11100000
-	rrca
-	swap a
-	ret
-
+	call GetOTPartyMonTraitActivated
+	jr .got_addr
 .player_user
+	call GetPartyMonTraitActivated
+.got_addr
 	ld a, [hl]
-	and %1110
-	rrca	
+	and %11110000
+	swap a
 	ret
 
 ; Checks if the user's trait is already activated	
@@ -4040,22 +4133,17 @@ CheckTraitActivated:
 	push hl
 	push bc
 	ld hl, OneShotTraits
-	ld a, [wBuffer1]
-	call GetBattleVar
-	ld de, 1	
-	call IsInArray
+	call IsBattlemonOrPairTraitInTable
 	jr nc, .end
 .not_one_shot
 	call GetTraitUser
-	ld hl, wTraitActivated
 	jr c, .player_user
-
-	bit 4, [hl] ; enemy trait
-	jr nz, .already_activated
-	jr .end
-
+	call GetOTPartyMonTraitActivated
+	jr .got_addr
 .player_user
-	bit 0, [hl] ; player trait
+	call GetPartyMonTraitActivated
+.got_addr
+	bit 3, [hl]
 	jr nz, .already_activated
 .end
 	pop bc
@@ -4070,15 +4158,13 @@ CheckTraitActivated:
 
 CheckTraitActivatedSimple:
 	call GetTraitUser
-	ld hl, wTraitActivated
 	jr c, .player_user
-
-	bit 4, [hl] ; enemy trait
-	jr nz, .already_activated
-	jr .end
-
+	call GetOTPartyMonTraitActivated
+	jr .got_addr
 .player_user
-	bit 0, [hl] ; player trait
+	call GetPartyMonTraitActivated
+.got_addr
+	bit 3, [hl]
 	jr nz, .already_activated
 .end
 	and a
@@ -4108,45 +4194,92 @@ ActivateTrait:
 ; 	call StdBattleTextBox
 ; .end1
 	; call PrintTraitText
-	ld hl, wTraitActivated
-	set 4, [hl] ; enemy trait
+	call GetOTPartyMonTraitActivated
+	; ld hl, wTraitActivated
+	set 3, [hl] ; enemy trait
 	ld a, [hl]
 	ret
 .player_user
-; 	ldh a, [hBattleTurn]
-; 	and a
-; 	jr z, .okturn
-; 	call Switch_turn
-; 	call PrintTraitText
-; 	call Switch_turn
-; 	jr .end
-; .okturn
-; 	call PrintTraitText
-; .end	
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .okturn
+	call Switch_turn
+	call PrintTraitText
+	call Switch_turn
+	jr .end
+.okturn
+	call PrintTraitText
+.end	
 	; call PrintTraitText
-	ld hl, wTraitActivated
-	set 0, [hl] ; player trait
+	call GetPartyMonTraitActivated
+	; ld hl, wTraitActivated
+	set 3, [hl] ; player trait
 	ld a, [hl]
+	ret
+
+GetPartyMonTraitActivated:
+	ld a, [wSupportMon]
+	cp -1
+	ld hl, wBattleMonTraitActivated
+	ret z
+	push bc
+	ld hl, wPartyMon1TraitActivated
+	call GetPartyLocation
+	pop bc
+	ret
+
+GetOTPartyMonTraitActivated:
+	ld a, [wSupportMon]
+	cp -1
+	ld hl, wEnemyMonTraitActivated
+	ret z
+	push bc
+	ld hl, wOTPartyMon1TraitActivated
+	call GetPartyLocation
+	pop bc
+	ret
+
+GetPartyMonTrait:
+	push bc
+	push hl
+	ld hl, wPartyMon1Trait
+	ld a, [wCurPartyMon]
+	call GetPartyLocation
+	ld a, [hl]
+	pop hl
+	pop bc
+	ret
+
+GetOTPartyMonTrait:
+	push bc
+	push hl
+	ld hl, wOTPartyMon1Trait
+	ld a, [wCurPartyMon]
+	call GetPartyLocation
+	ld a, [hl]
+	pop hl
+	pop bc
 	ret
 
 ; Resets the wTraitActivated bit for the current trait user	
 ResetActivated:
 	call GetTraitUser
-	ld hl, wTraitActivated
 	jr c, .player_user
-	ld a, [hl]
-	and %00001111
-	ld [hl], a
-	; res 4, [hl] ; enemy trait
-	ret
+	call GetOTPartyMonTraitActivated
+	jr .got_addr
 .player_user
+	call GetPartyMonTraitActivated
+.got_addr
 	ld a, [hl]
-	and %11110000
+	and %11100000 ; lower 5 bits return to 0
 	ld [hl], a
-	; res 0, [hl] ; player trait
 	ret
 
 PrintTraitText:
+	; Trait text doesn't print for a partner's trait
+	ld a, [wSupportMon]
+	cp -1
+	ret nz
 	ld a, [wBuffer1]
 	call GetBattleVar
 	ld c, a
@@ -4190,8 +4323,8 @@ PrintTraitText:
 	jr z, .end
 	pop af
 	ldh [hBattleTurn], a
-
 	ret
+	
 .end
 	pop af
 	ret
@@ -4208,6 +4341,7 @@ PrintTraitText:
     dw TraitText_SandBruiser
     dw TraitText_BurningMane
     dw TraitText_HotCoals
+    dw TraitText_Barbs
     dw TraitText_LightningFast
     dw TraitText_UnleashPower
     dw TraitText_Tailwind
@@ -4668,3 +4802,408 @@ EffectForceRecoverPP:
 .player2
 	farcall UpdatePlayerHUD
 	ret
+
+; Puts pair's trait in `a`
+GetPairsTrait:
+	xor a
+	ld [wCurPartyMon], a
+	call GetTraitUser
+	ld hl, wBattleMonTraitActivated
+	jr c, .player_user
+	ld hl, wEnemyMonTraitActivated
+.player_user
+	ld a, [hl]
+	and %00000111
+	cp $7
+	jr z, .no_pair
+	ld [wSupportMon], a
+	ld [wCurPartyMon], a
+	call GetPartyMonTrait
+.no_pair
+	ret
+
+TraitCheckSupports:
+	; Look for current battlemon/OTMon's partner and check if their trait matches trait `b`
+	; Trait const returns in `a` and sets carry flag
+	xor a
+	ld [wCurPartyMon], a
+	; wSupportMon defaults to -1
+	dec a
+	ld [wSupportMon], a
+	call GetTraitUser
+	jr c, .player_user
+
+.opp_user
+	; Get trait of OTMon's partner
+	push hl ; table of traits, if any
+	push bc
+	; check if partymon is set as support
+	ld hl, wOTPartyMon1TraitActivated
+	ld a, [wCurOTMon]
+	call GetPartyLocation
+	ld a, [hl]
+	pop bc
+	pop hl ; table of traits, if any
+	and %00000111
+	cp $7
+	jr z, .no_trait
+	ld [wCurPartyMon], a
+	ld a, c ; c = 1 we're checking a specific trait, else it's from a table
+	cp 1
+	jr nz, .opp_get_from_array
+	call GetOTPartyMonTrait
+	cp b ; b has trait we're checking against
+	jr z, .got_opp_trait
+	jr .no_trait
+
+.opp_get_from_array
+	call GetOTPartyMonTrait
+	call GetSupportTraitFromArray
+	jr nc, .no_trait
+
+.got_opp_trait
+	ld a, [wCurPartyMon]
+	ld [wSupportMon], a
+	call GetOTPartyMonTrait
+	scf
+	ret
+
+.player_user
+	; Get trait of battlemon's partner
+	push hl ; table of traits, if any
+	push bc
+	; check if partymon is set as support
+	ld hl, wPartyMon1TraitActivated
+	ld a, [wCurBattleMon]
+	call GetPartyLocation
+	ld a, [hl]
+	pop bc
+	pop hl ; table of traits, if any
+	and %00000111
+	cp $7
+	jr z, .no_trait
+	ld [wCurPartyMon], a
+	ld a, c ; c = 1 we're checking a specific trait, else it's from a table
+	cp 1
+	jr nz, .player_get_from_array
+	call GetPartyMonTrait
+	cp b ; b has trait we're checking against
+	jr z, .got_player_trait
+	jr .no_trait
+
+.player_get_from_array
+	call GetPartyMonTrait
+	call GetSupportTraitFromArray
+	jr nc, .no_trait
+
+.got_player_trait
+	ld a, [wCurPartyMon]
+	ld [wSupportMon], a
+	call GetPartyMonTrait
+	scf
+	ret
+
+.no_trait
+	and a
+	ret
+	
+GetSupportTraitFromArray: ; trait is in `a`. Sets `c` if trait is in array
+	push bc
+	ld de, 1
+	call IsInArray
+	ld a, b
+	ld [wBuffer3], a ; store array index
+	pop bc
+	jr c, .in_array
+	and a
+	ret
+
+.in_array
+	scf
+	ret
+
+; Checks if either the current mon or their pair's traits can be found in a table	
+; Takes table in `hl`	
+; Sets carry flag if found	
+; Index returns in `b`	
+IsBattlemonOrPairTraitInTable:
+	push hl
+	ld a, [wBuffer1]
+	call GetBattleVar
+	ld de, 1
+	call IsInArray
+	pop hl
+	ret c
+	
+	push hl
+	call GetPairsTrait
+	pop hl
+	ld de, 1
+	call IsInArray
+	ret
+
+; Checks if either the current mon or their pair's traits equals `a`
+; Takes constant in `b`	
+; Sets z flag if found	
+IsBattlemonOrPairTrait:
+	ld a, [wBuffer1]
+	call GetBattleVar
+	cp b
+	ret z
+	push bc
+	call GetPairsTrait
+	pop bc
+	cp b
+	ret
+
+
+TraitSupportValues:
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_BRN
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_PSN
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_PRZ
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_FLINCH
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_CONFUSED
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_IN_LOVE
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_SPORE
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_DAMAGE_ROCK
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_DAMAGE_GROUND
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CONTACT_DAMAGE_FIRE
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_HOT_COALS
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_BARBS
+	db SUP_EFFECT_DOWN + SUP_EFFECT_25  ; TRAIT_EVASION_ON_SPEED_DIFF
+	db SUP_EFFECT_DOWN + SUP_EFFECT_25  ; TRAIT_ATK_ON_ATK_DIFF
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_COPY_SPD_BUFFS
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_MOVE_DISABLE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_STEAL_BUFF
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_REVERSE_DEBUFF
+	db SUP_CHANCE_DOWN + SUP_100_PERCENT; TRAIT_SPEED_TRANSFORM
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_HEAL_HP_FAINT
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_HEAL_PP_FAINT
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_DAMAGE_FAINT
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_BURN_FAINT
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_POISON_FAINT
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_FREEZE_FAINT
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_CURSE_FAINT
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_ATTACK_OPP_FAINT
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_SP_ATTACK_OPP_FAINT
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_RANDOM_STAT_OPP_FAINT
+	db SUP_TRIGGER_ONCE                 ; TRAIT_STURDY
+	db SUP_SET_FLAT    + 20             ; TRAIT_PERFECT_ACCURACY
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_MOVE_ACC_NON_STAB_MORE
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_SWAP_DEFENSE_BUFFS
+	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_BOOST_POWER_RAISED_DEF
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_PUNCHING
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_BITING
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_CUTTING
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_BEAM
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_PERFURATE
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_REDUCE_SELF_RECOIL
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_CRIT_DAMAGE
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_REDUCE_CRIT_DAMAGE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PSN_DRAIN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BRN_DRAIN
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_DRAIN
+	db SUP_CHANCE_DOWN + SUP_100_PERCENT; TRAIT_BOOST_MULTI_HIT_COUNT
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_MULTI_HIT_DAMAGE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DAMAGE_PER_TURN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DAMAGE_PER_TURN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DAMAGE_PER_TURN_SLOW
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ATTACK_SPECIAL_ODD_EVEN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_BRN_OPP_ITEM
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RANDOM_STAT_BRN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FIND_BERRY
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_UPGRADE_BERRY
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_BERRY
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_CLONE_BERRY
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RESIST_RANDOM_TYPE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ALL_STATS_BOTH_SIDES
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_NORMAL_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_FIGHTING_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_FLYING_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_POISON_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_GROUND_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_ROCK_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_STEEL_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_BUG_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_FIRE_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_WATER_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_GRASS_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_ELECTRIC_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_PSYCHIC_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_ICE_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PARTY_DARK_BOOST_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_ON_RAIN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAIN_DURATION
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAIN_ON_ENTER
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_ON_SUNSHINE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SUNSHINE_DURATION
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SUNSHINE_ON_ENTER
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_ON_SANDSTORM
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SANDSTORM_DURATION
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SANDSTORM_ON_ENTER
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_HEAL_HP_AND_STATUS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAISE_ATTACK_STAT_LOWERED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAISE_DEFENSE_STAT_LOWERED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAISE_SPEED_STAT_LOWERED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAISE_SP_ATTACK_STAT_LOWERED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAISE_SP_DEFENSE_STAT_LOWERED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_HEAL_STATUS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_RECOIL
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAIN_SPEED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAIN_ACCURACY
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAIN_EVASION
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RAIN_NO_STATUS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SUNSHINE_SPEED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SUNSHINE_EVASION
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SUNSHINE_NO_STATUS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SANDSTORM_SPEED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SANDSTORM_EVASION
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SANDSTORM_NO_STATUS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BRN_IMMUNE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_EFFECT_BRN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PSN_IMMUNE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_EFFECT_PSN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PRZ_IMMUNE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_EFFECT_PRZ
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLINCH_IMMUNE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_EFFECT_FLINCH
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_CONFUSED_IMMUNE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_EFFECT_CONFUSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_IN_LOVE_IMMUNE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SLEEP_IMMUNE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FRZ_IMMUNE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FREEZE_STATUS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PREVENT_ATTACK_DOWN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PREVENT_DEFENSE_DOWN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PREVENT_SPEED_DOWN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PREVENT_SP_ATTACK_DOWN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PREVENT_SP_DEFENSE_DOWN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PREVENT_ACCURACY_DOWN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PREVENT_ALL_DOWN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DAMAGE_WITH_EFFECT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_EFFECT_WITH_DAMAGE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_EFFECT_WITH_DAMAGE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_CRITICAL_NOT_STAB
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NOT_STAB_WATER_ICE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NOT_STAB
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NOT_STAB
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_POWER_BRN_SELF
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ACCURACY_TURN_ZERO
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_GAIN_PP_TURN_ZERO
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_ATTACK_TURN_ZERO
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_RANDOM_TURN_ZERO
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_HEAL_AFTER_BERRY
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_HEAL_HP_AFTER_WATER_MOVE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ALL_STATS_AFTER_7_TURNS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_FIRST_TURNS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_CULL_OPP_LOW_HP
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_LOW_HP
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ATTACK_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_DEFENSE_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SPEED_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SP_ATTACK_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SP_DEFENSE_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ACCURACY_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_EVASION_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_CRIT_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ATTACK_AFTER_CRIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_DEFENSE_AFTER_CRIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SPEED_AFTER_CRIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SP_ATTACK_AFTER_CRIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SP_DEFENSE_AFTER_CRIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_CRIT_MORE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_MOVE_SECOND
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_CRITICAL_AFTER_CRIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PASS_STATUS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PASS_STATUS_WITH_PHYSICAL
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_STATUS_TO_SLP
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ATTACK_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_DEFENSE_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SPEED_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SP_ATTACK_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SP_DEFENSE_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ACCURACY_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_EVASION_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_HEAL_PP_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_EVASION_WHEN_CONFUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RANDOM_STAT_WHEN_FLINCHED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_OPP_SAME_TYPE_DMG_BOOST
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_OPP_SAME_TYPE_CRIT_BOOST
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_WEAK_MOVES
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_PSN_AND_POISON
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_BRN_AND_FIRE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_PRZ_AND_ELECTRIC
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_FLINCH_AND_ROCK
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SLP_AND_PSYCHIC
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_PSN_AND_BUG
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_FRZ_AND_ICE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_WATER_FIRE_HIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_ROCK_GROUND_HIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_FIGHTING_ICE_HIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_POISON_PSYCHIC_HIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_FLYING_STEEL_HIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_ELECTRIC_DARK_HIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_WATER_GRASS_HIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_DEFENSE_ICE_FIRE_HIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SPEED_BUG_DARK_HIT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL_MORE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL_ACC
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NORMAL_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FIGHTING_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FLYING_SPEED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FLYING_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLYING_FRZ
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLYING_PRZ
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLYING_BRN
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FLYING_DURING_WEATHER
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_POISON_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_GROUND_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RESIST_GROUND_LATER
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ROCK_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ROCK_SP_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ROCK_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_STEEL_MORE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_STEEL_SPEED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_BUG_HP
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_BUG_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FIRE_HP
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FIRE_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_FIRE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_WATER_DEFENSE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_WATER_HP
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_WATER_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FRZ_SPD_WITH_WATER
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_WATER
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_GRASS_HP
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_GRASS_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PRZ_PSN_WITH_GRASS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ELECTRIC_SPEED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ELECTRIC_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_PSYCHIC_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ICE_HP
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ICE_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DARK_STATUSED
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NOT_EFFECTIVE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SUPER_EFFECTIVE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE

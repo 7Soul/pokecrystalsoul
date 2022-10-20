@@ -273,16 +273,16 @@ HatchEggs:
 	push hl
 	ld bc, MON_LEVEL
 	add hl, bc
-	ld a, [hl]
+	ld a, [hli]
 	ld [wCurPartyLevel], a
+	ld a, $7
+	ld [hl], a ; TraitActivated
 	pop hl
 	push hl
 	ld bc, MON_STATUS
 	add hl, bc
 	xor a
 	ld [hli], a ; Status
-	ld a, $7
-	ld [hl], a ; TraitActivated
 	pop hl
 	push hl
 	ld bc, MON_STAT_EXP - 1

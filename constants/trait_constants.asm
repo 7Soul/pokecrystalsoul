@@ -267,3 +267,20 @@
 	const TRAIT_REDUCE_SUPER_EFFECTIVE
 	const TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
 TRAIT_COUNT EQU const_value
+
+; For support traits, these constants define how they change
+SUP_CHANCE_DOWN  EQU 1 << 4 ; %00010000
+SUP_EFFECT_DOWN  EQU 2 << 4 ; %00100000
+SUP_TRIGGER_ONCE EQU 3 << 4 ; %00110000
+SUP_SET_FLAT     EQU 4 << 4 ; %01000000
+SUP_UNUSABLE     EQU 5 << 4 ; %01010000
+; Support traits that have a reduced chance
+SUP_12_PERCENT   EQU 0 ; 1 in 8
+SUP_25_PERCENT   EQU 1 ; 2 in 8
+SUP_50_PERCENT   EQU 3 ; 4 in 8
+SUP_75_PERCENT   EQU 5 ; 6 in 8
+SUP_100_PERCENT  EQU 7 ; 8 in 8
+; Support traits that use SupportDamageMod
+SUP_EFFECT_75    EQU 0
+SUP_EFFECT_50    EQU 1
+SUP_EFFECT_25    EQU 2
