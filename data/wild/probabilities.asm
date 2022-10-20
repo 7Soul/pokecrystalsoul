@@ -4,24 +4,24 @@ mon_prob: MACRO
 ENDM
 
 GrassMonProbTable:
-	mon_prob 24,  0 ; 24% chance
-	mon_prob 49,  1 ; 24% chance
-	mon_prob 71,  2 ; 23% chance
-	mon_prob 82,  3 ; 11% chance
-	mon_prob 93,  4 ; 11% chance
-	mon_prob 97,  5 ;  4% chance
-	mon_prob 100, 6 ;  3% chance
+	mon_prob 18,  0 ; 18% chance
+	mon_prob 36,  1 ; 18% chance
+	mon_prob 54,  2 ; 18% chance
+	mon_prob 72,  3 ; 18% chance
+	mon_prob 83,  4 ; 11% chance
+	mon_prob 94,  5 ; 11% chance
+	mon_prob 100, 6 ;  6% chance
 	
 ShallowMonProbTable:
-	mon_prob 30,  0 ; 30% chance
-	mon_prob 60,  1 ; 30% chance
-	mon_prob 75,  2 ; 15% chance
-	mon_prob 90,  3 ; 15% chance
-	mon_prob 96,  4 ; 6% chance
-	mon_prob 100, 5 ; 4% chance
+	mon_prob 20,  0 ; 20% chance
+	mon_prob 40,  1 ; 20% chance
+	mon_prob 60,  2 ; 20% chance
+	mon_prob 75,  3 ; 15% chance
+	mon_prob 90,  4 ; 15% chance
+	mon_prob 100, 5 ; 10% chance
 
 WaterMonProbTable:
-	mon_prob 50,  0 ; 50% chance
-	mon_prob 80,  1 ; 30% chance
-	mon_prob 95,  2 ; 15% chance
-	mon_prob 100, 3 ; 5% chance
+	mon_prob 35,  0 ; 35% chance
+	mon_prob 70,  1 ; 35% chance
+	mon_prob 90,  2 ; 20% chance
+	mon_prob 100, 3 ; 10% chance
