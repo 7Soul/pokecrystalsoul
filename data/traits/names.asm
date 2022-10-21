@@ -137,7 +137,6 @@ TraitNames::
 	db "Dark Waters@"      ; TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
 	db "Prismality@"       ; TRAIT_BOOST_NOT_STAB
 	db "Mastery@"          ; TRAIT_REDUCE_NOT_STAB
-	db "Ignite@"           ; TRAIT_BOOST_POWER_BRN_SELF
 	db "Keen Focus@"       ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	db "Grand Entrance@"   ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	db "Free Shot@"        ; TRAIT_GAIN_PP_TURN_ZERO
@@ -173,6 +172,7 @@ TraitNames::
 	db "Magnetism@"        ; TRAIT_PASS_STATUS
 	db "Synchronize@"      ; TRAIT_PASS_STATUS_WITH_PHYSICAL
 	db "Sleep Curse@"      ; TRAIT_STATUS_TO_SLP
+	db "Ignite@"           ; TRAIT_STATUS_TO_BRN
 	db "Guts@"             ; TRAIT_ATTACK_STATUSED
 	db "Marvel Scale@"     ; TRAIT_DEFENSE_STATUSED
 	db "Quick Feet@"       ; TRAIT_SPEED_STATUSED

@@ -18,6 +18,7 @@ TraitText_Sturdy::
 TraitText_NoGuard::
 TraitText_CompoundEyes::
 TraitText_PiercingAttack::
+TraitText_Overpower::
 TraitText_IronFist::
 TraitText_IronJaws::
 TraitText_IronClaws::
@@ -25,10 +26,11 @@ TraitText_FocusBeam::
 TraitText_PowerDrill::
 TraitText_RockHead::
 TraitText_Sniper::
-TraitText_ShellArmor::
 TraitText_LiquidOoze::
 TraitText_MagmaFlow::
+TraitText_ColdBlood::
 TraitText_DrainSurge::
+TraitText_Secretion::
 TraitText_SkillLink::
 TraitText_ChainClip::
 TraitText_LimitBreaker::
@@ -48,6 +50,7 @@ TraitText_Flock::
 TraitText_Contaminate::
 TraitText_Mound::
 TraitText_StackUp::
+TraitText_GearLock::
 TraitText_BugColony::
 TraitText_Engulf::
 TraitText_TagSplash::
@@ -116,7 +119,6 @@ TraitText_Riptide::
 TraitText_DarkWaters::
 TraitText_Prismality::
 TraitText_Mastery::
-TraitText_Ignite::
 TraitText_KeenFocus::
 TraitText_FreeShot::
 TraitText_Intimidate::
@@ -148,6 +150,9 @@ TraitText_MoonProtection::
 TraitText_LuckCurse::
 TraitText_Analytic::
 TraitText_SuperLuck::
+TraitText_Magnetism::
+TraitText_Synchronize::
+TraitText_Guts::
 	text "<TARGET>'s"
 	line "@"
     text_from_ram wStringBuffer1
@@ -287,3 +292,10 @@ TraitText_TipsyGas::
 	line "raised stats were"
 	para "lowered by one!@"
 	prompt
+
+TraitText_SleepCurse::
+TraitText_Ignite::
+	text "<TARGET>'s"
+	line "status replaced!"
+	prompt
+

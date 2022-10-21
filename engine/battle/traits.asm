@@ -1336,9 +1336,9 @@ TraitsThatAlsoRaiseAccuracy:
 	db -1
 
 GetHighestStat:
-    ld hl, wBattleMonSpclDef - 2 ; current stat
+	ld hl, wBattleMonSpclDef - 2 ; current stat
 	ld de, wBattleMonSpclDef ; highest stat
-    ld b, 4 ; how many loops
+	ld b, 4 ; how many loops
 	ld c, 4 ; by default the highes stat is the last one
 
 .loop
@@ -1352,14 +1352,14 @@ GetHighestStat:
 	pop bc
 
 	dec b
-    jr nc, .lower ; If stat < highest, skip
-    ; It's important that equality falls through, to guarantee initialization
+	jr nc, .lower ; If stat < highest, skip
+	; It's important that equality falls through, to guarantee initialization
 	ld e, l
 	ld c, b ; Store index
 .lower
 	dec hl
 	dec hl
-    jr nz, .loop
+	jr nz, .loop
 	ret
 
 TraitLowerStatAfterDamage:
@@ -2076,8 +2076,27 @@ TraitCull:
 TraitReplaceStatus:
 	ld a, TRAIT_STATUS_TO_SLP
 	call CheckSpecificTrait
-	ret nc
+	jr c, .do_sleep
 
+	ld a, TRAIT_STATUS_TO_BRN
+	call CheckSpecificTrait
+	ret nc
+	ld a, BATTLE_VARS_STATUS
+	call GetBattleVarAddr
+	ld a, [hl]
+	and 1 << BRN
+	ret nz
+	xor a
+	ld [hl], a
+	inc a
+	ld [wBuffer3], a
+	call PrintTraitText
+	call Switch_turn
+	ld hl, BattleCommand_BurnTargetSimple
+	call TraitUseBattleCommandSimple
+	jp Switch_turn
+
+.do_sleep
 	ld a, BATTLE_VARS_STATUS
 	call GetBattleVarAddr
 	ld a, [hl]
@@ -2614,9 +2633,6 @@ TraitBoostPower:
 	ld a, TRAIT_BOOST_WEAK_MOVES
 	call CheckSpecificTrait
 	jp c, BoostDamage50
-	ld a, TRAIT_BOOST_POWER_BRN_SELF
-	call CheckSpecificTrait
-	jp c, BoostDamage50BurnSelf
 	ld a, TRAIT_BOOST_POWER_RAISED_DEF
 	call CheckSpecificTrait
 	jp c, BoostDamageBasedOnFoesDefUp
@@ -3758,7 +3774,7 @@ BoostDamage50:
 	ld a, $32 ; ~1.5
 	jp SupportDamageMod
 
-BoostDamage50BurnSelf:
+BoostDamage50BurnSelf: ; unused
 	call BoostDamage50
 	call Switch_turn
 	ld hl, BattleCommand_BurnTargetSimple
@@ -4370,171 +4386,180 @@ PrintTraitText:
 	ret
 
 .TraitTexts:
-    dw TraitText_FlameBody
-    dw TraitText_PoisonPoint
-    dw TraitText_Static
-    dw TraitText_StunBody
-    dw TraitText_HighTempo
-    dw TraitText_CuteCharm
-    dw TraitText_EffectSpore
-    dw TraitText_IronBarbs
-    dw TraitText_SandBruiser
-    dw TraitText_BurningMane
-    dw TraitText_HotCoals
-    dw TraitText_Barbs
-    dw TraitText_LightningFast
-    dw TraitText_UnleashPower
-    dw TraitText_Tailwind
-    dw TraitText_MindGames
-    dw TraitText_Threaten
-    dw TraitText_CurseReversal
-    dw TraitText_LifeDrain
-    dw TraitText_KeepGoing
-    dw TraitText_Boom
-    dw TraitText_Eruption
-    dw TraitText_GasExplosion
-    dw TraitText_NorthStar
-    dw TraitText_DeathlyHex
-    dw TraitText_Moxie
-    dw TraitText_GelidEmbrace
-    dw TraitText_UnknownEnergy
-    dw TraitText_Sturdy
-    dw TraitText_NoGuard
-    dw TraitText_CompoundEyes
-    dw TraitText_TipsyGas
-    dw TraitText_PiercingAttack
-    dw TraitText_IronFist
-    dw TraitText_IronJaws
-    dw TraitText_IronClaws
-    dw TraitText_FocusBeam
-    dw TraitText_PowerDrill
-    dw TraitText_RockHead
-    dw TraitText_Sniper
-    dw TraitText_ShellArmor
-    dw TraitText_LiquidOoze
-    dw TraitText_MagmaFlow
-    dw TraitText_DrainSurge
-    dw TraitText_SkillLink
-    dw TraitText_ChainClip
-    dw TraitText_LimitBreaker
-    dw TraitText_GigaImpact
-    dw TraitText_SlowStart
-    dw TraitText_Pendulum
-    dw TraitText_HotPotato
-    dw TraitText_Fireworks
-    dw TraitText_Pickup
-    dw TraitText_MagicTrick
-    dw TraitText_Nutrition
-    dw TraitText_Harvest
-    dw TraitText_ColorPick
-    dw TraitText_CheerUp
-    dw TraitText_BandTogether
-    dw TraitText_PracticePals
-    dw TraitText_Flock
-    dw TraitText_Contaminate
-    dw TraitText_Mound
-    dw TraitText_StackUp
-    dw TraitText_BugColony
-    dw TraitText_Engulf
-    dw TraitText_TagSplash
-    dw TraitText_CottonGuard
-    dw TraitText_MagnetZone
-    dw TraitText_PowerTap
-    dw TraitText_SnowFort
-    dw TraitText_ShadowCloak
-    dw TraitText_RainDish
-    dw TraitText_Monsoon
-    dw TraitText_Drizzle
-    dw TraitText_VerdantBody
-    dw TraitText_BlueSky
-    dw TraitText_Drought
-    dw TraitText_Rebuild
-    dw TraitText_Tempest
-    dw TraitText_DustDevil
-    dw TraitText_HealingAroma
-    dw TraitText_FierceFighter
-    dw TraitText_ShellPolish
-    dw TraitText_ShadowRun
-    dw TraitText_Competitive
-    dw TraitText_SlimeCoat
-    dw TraitText_ShedSkin
-    dw TraitText_Reckless
-    dw TraitText_SwiftSwimmer
-    dw TraitText_StormySkies
-    dw TraitText_WaterDance
-    dw TraitText_Hydration
-    dw TraitText_BurnUp
-    dw TraitText_SunDance
-    dw TraitText_LeafGuard
-    dw TraitText_SandCutter
-    dw TraitText_SandVeil
-    dw TraitText_SandFilter
-    dw TraitText_WaterVeil
-    dw TraitText_HeatUp
-    dw TraitText_Antivenom
-    dw TraitText_PureToxin
-    dw TraitText_Limber
-    dw TraitText_Conduit
-    dw TraitText_InnerFocus
-    dw TraitText_Presence
-    dw TraitText_OwnTempo
-    dw TraitText_Metronome
-    dw TraitText_Oblivious
-    dw TraitText_Insomnia
-    dw TraitText_InnerFlame
-    dw TraitText_PerfectFreeze
-    dw TraitText_HyperCutter
-    dw TraitText_BigPecks
-    dw TraitText_Turbocharger
-    dw TraitText_AbsoluteFocus
-    dw TraitText_LingeringMemory
-    dw TraitText_KeenEye
-    dw TraitText_MagicBounce
-    dw TraitText_WonderSkin
-    dw TraitText_SereneGrace
-    dw TraitText_SilverAura
-    dw TraitText_GoldAura
-    dw TraitText_SheerForce
-    dw TraitText_ShieldDust
-    dw TraitText_ViciousForm
-    dw TraitText_HiddenPotential
-    dw TraitText_Riptide
-    dw TraitText_DarkWaters
-    dw TraitText_Prismality
-    dw TraitText_Mastery
-    dw TraitText_Ignite
-    dw TraitText_KeenFocus
-    dw TraitText_GrandEntrance
-    dw TraitText_FreeShot
-    dw TraitText_Intimidate
-    dw TraitText_StrangeSignal
-    dw TraitText_SlowDigestion
-    dw TraitText_LifeDew
-    dw TraitText_Preparation
-    dw TraitText_WallOff
-    dw TraitText_Stretching
-    dw TraitText_Setup
-    dw TraitText_Patience
-    dw TraitText_Headache
-    dw TraitText_HealtySpirit
-    dw TraitText_SecretGift
-    dw TraitText_BounceBack
-    dw TraitText_Poise
-    dw TraitText_Solidify
-    dw TraitText_Scamper
-    dw TraitText_Berserk
-    dw TraitText_GoldGuard
-    dw TraitText_TakeAim
-    dw TraitText_DangerSense
-    dw TraitText_AllOut
-    dw TraitText_Anger
-    dw TraitText_Curl
-    dw TraitText_Scatter
-    dw TraitText_ThirdEye
-    dw TraitText_MoonProtection
-    dw TraitText_LuckCurse
-    dw TraitText_Analytic
-    dw TraitText_SuperLuck
+	dw TraitText_FlameBody
+	dw TraitText_PoisonPoint
+	dw TraitText_Static
+	dw TraitText_StunBody
+	dw TraitText_HighTempo
+	dw TraitText_CuteCharm
+	dw TraitText_EffectSpore
+	dw TraitText_IronBarbs
+	dw TraitText_SandBruiser
+	dw TraitText_BurningMane
+	dw TraitText_HotCoals
+	dw TraitText_Barbs
+	dw TraitText_LightningFast
+	dw TraitText_UnleashPower
+	dw TraitText_Tailwind
+	dw TraitText_MindGames
+	dw TraitText_Threaten
+	dw TraitText_CurseReversal
+	dw TraitText_Revitalize
+	dw TraitText_LifeDrain
+	dw TraitText_KeepGoing
+	dw TraitText_Boom
+	dw TraitText_Eruption
+	dw TraitText_GasExplosion
+	dw TraitText_NorthStar
+	dw TraitText_DeathlyHex
+	dw TraitText_Moxie
+	dw TraitText_GelidEmbrace
+	dw TraitText_UnknownEnergy
+	dw TraitText_Sturdy
+	dw TraitText_NoGuard
+	dw TraitText_CompoundEyes
+	dw TraitText_TipsyGas
+	dw TraitText_PiercingAttack
+	dw TraitText_Overpower
+	dw TraitText_IronFist
+	dw TraitText_IronJaws
+	dw TraitText_IronClaws
+	dw TraitText_FocusBeam
+	dw TraitText_PowerDrill
+	dw TraitText_RockHead
+	dw TraitText_Sniper
+	dw TraitText_LeafGuard
+	dw TraitText_LiquidOoze
+	dw TraitText_MagmaFlow
+	dw TraitText_ColdBlood
+	dw TraitText_DrainSurge
+	dw TraitText_Secretion
+	dw TraitText_SkillLink
+	dw TraitText_ChainClip
+	dw TraitText_LimitBreaker
+	dw TraitText_GigaImpact
+	dw TraitText_SlowStart
+	dw TraitText_Pendulum
+	dw TraitText_HotPotato
+	dw TraitText_Fireworks
+	dw TraitText_Pickup
+	dw TraitText_MagicTrick
+	dw TraitText_Nutrition
+	dw TraitText_Harvest
+	dw TraitText_ColorPick
+	dw TraitText_CheerUp
+	dw TraitText_BandTogether
+	dw TraitText_PracticePals
+	dw TraitText_Flock
+	dw TraitText_Contaminate
+	dw TraitText_Mound
+	dw TraitText_StackUp
+	dw TraitText_GearLock
+	dw TraitText_BugColony
+	dw TraitText_Engulf
+	dw TraitText_TagSplash
+	dw TraitText_CottonGuard
+	dw TraitText_MagnetZone
+	dw TraitText_PowerTap
+	dw TraitText_SnowFort
+	dw TraitText_ShadowCloak
+	dw TraitText_RainDish
+	dw TraitText_Monsoon
+	dw TraitText_Drizzle
+	dw TraitText_VerdantBody
+	dw TraitText_BlueSky
+	dw TraitText_Drought
+	dw TraitText_Rebuild
+	dw TraitText_Tempest
+	dw TraitText_DustDevil
+	dw TraitText_HealingAroma
+	dw TraitText_FierceFighter
+	dw TraitText_ShellPolish
+	dw TraitText_ShadowRun
+	dw TraitText_Competitive
+	dw TraitText_SlimeCoat
+	dw TraitText_ShedSkin
+	dw TraitText_Reckless
+	dw TraitText_SwiftSwimmer
+	dw TraitText_StormySkies
+	dw TraitText_WaterDance
+	dw TraitText_Hydration
+	dw TraitText_BurnUp
+	dw TraitText_SunDance
+	dw TraitText_LeafGuard
+	dw TraitText_SandCutter
+	dw TraitText_SandVeil
+	dw TraitText_SandFilter
+	dw TraitText_WaterVeil
+	dw TraitText_HeatUp
+	dw TraitText_Antivenom
+	dw TraitText_PureToxin
+	dw TraitText_Limber
+	dw TraitText_Conduit
+	dw TraitText_InnerFocus
+	dw TraitText_Presence
+	dw TraitText_OwnTempo
+	dw TraitText_Metronome
+	dw TraitText_Oblivious
+	dw TraitText_Insomnia
+	dw TraitText_InnerFlame
+	dw TraitText_PerfectFreeze
+	dw TraitText_HyperCutter
+	dw TraitText_BigPecks
+	dw TraitText_Turbocharger
+	dw TraitText_AbsoluteFocus
+	dw TraitText_LingeringMemory
+	dw TraitText_KeenEye
+	dw TraitText_MagicBounce
+	dw TraitText_WonderSkin
+	dw TraitText_SereneGrace
+	dw TraitText_SilverAura
+	dw TraitText_GoldAura
+	dw TraitText_SheerForce
+	dw TraitText_ShieldDust
+	dw TraitText_ViciousForm
+	dw TraitText_HiddenPotential
+	dw TraitText_Riptide
+	dw TraitText_DarkWaters
+	dw TraitText_Prismality
+	dw TraitText_Mastery
+	dw TraitText_KeenFocus
+	dw TraitText_GrandEntrance
+	dw TraitText_FreeShot
+	dw TraitText_Intimidate
+	dw TraitText_StrangeSignal
+	dw TraitText_SlowDigestion
+	dw TraitText_LifeDew
+	dw TraitText_Preparation
+	dw TraitText_WallOff
+	dw TraitText_Stretching
+	dw TraitText_Setup
+	dw TraitText_Patience
+	dw TraitText_Headache
+	dw TraitText_HealtySpirit
+	dw TraitText_SecretGift
+	dw TraitText_BounceBack
+	dw TraitText_Poise
+	dw TraitText_Solidify
+	dw TraitText_Scamper
+	dw TraitText_Berserk
+	dw TraitText_GoldGuard
+	dw TraitText_TakeAim
+	dw TraitText_DangerSense
+	dw TraitText_AllOut
+	dw TraitText_Anger
+	dw TraitText_Curl
+	dw TraitText_Scatter
+	dw TraitText_ThirdEye
+	dw TraitText_MoonProtection
+	dw TraitText_LuckCurse
+	dw TraitText_Analytic
+	dw TraitText_SuperLuck
+	dw TraitText_Magnetism
+	dw TraitText_Synchronize
+	dw TraitText_SleepCurse
+	dw TraitText_Ignite
+	dw TraitText_Guts
 
 .TraitsAffectsOpponent:
 	db TRAIT_CONTACT_DAMAGE_ROCK
@@ -4544,6 +4569,8 @@ PrintTraitText:
 	db TRAIT_BRN_DRAIN
 	db TRAIT_FRZ_DRAIN
 	db TRAIT_HOT_COALS
+	db TRAIT_STATUS_TO_SLP
+	db TRAIT_STATUS_TO_BRN
 	db -1
 
 OneShotTraits:
@@ -5136,7 +5163,7 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NOT_STAB
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NOT_STAB
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_POWER_BRN_SELF
+	db SUP_TRIGGER_ONCE                 ; TRAIT_BOOST_POWER_BRN_SELF
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_GAIN_PP_TURN_ZERO

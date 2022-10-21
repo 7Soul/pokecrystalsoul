@@ -137,7 +137,6 @@ TraitDescriptions::
 	dw DarkWatersDescription      ; TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
 	dw PismalityDescription       ; TRAIT_BOOST_NOT_STAB
 	dw MasteryDescription         ; TRAIT_REDUCE_NOT_STAB
-	dw IgniteDescription          ; TRAIT_BOOST_POWER_BRN_SELF
 	dw KeenFocusDescription       ; TRAIT_BOOST_ACCURACY_TURN_ZERO
 	dw GrandEntranceDescription   ; TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	dw FreeShotDescription        ; TRAIT_GAIN_PP_TURN_ZERO
@@ -173,6 +172,7 @@ TraitDescriptions::
 	dw MagnetismDescription       ; TRAIT_PASS_STATUS
 	dw SynchronizeDescription     ; TRAIT_PASS_STATUS_WITH_PHYSICAL
 	dw SleepCurseDescription      ; TRAIT_STATUS_TO_SLP
+	dw IgniteDescription          ; TRAIT_STATUS_TO_BRN
 	dw GutsDescription            ; TRAIT_ATTACK_STATUSED
 	dw MarvelScaleDescription     ; TRAIT_DEFENSE_STATUSED
 	dw QuickFeetDescription       ; TRAIT_SPEED_STATUSED
@@ -856,10 +856,6 @@ PismalityDescription:
 MasteryDescription:
 	db   "Lowers damage from"
 	next "Non-STAB attacks.@"
-		
-IgniteDescription:
-	db   "Burn yourself to"
-	next "empower 1st move.@"
 	
 KeenFocusDescription:
 	db   "Boosts move ACC on"
@@ -1000,6 +996,10 @@ SynchronizeDescription:
 SleepCurseDescription:
 	db   "Changes foe's"
 	next "status to SLP.@"
+	
+IgniteDescription:
+	db   "Changes foe's"
+	next "status to BRN.@"
 
 GutsDescription:
 	db   "Volatile status"
