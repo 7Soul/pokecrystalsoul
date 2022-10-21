@@ -565,7 +565,6 @@ CheckTraitCondition:
 
 .check_below_threshold
 	call GetHealthPercentage
-	ld a, d
 	cp b
 	jp c, .success ; greater
 	and a
@@ -580,7 +579,6 @@ CheckTraitCondition:
 	ld de, wBattleMonMaxHP
 .got_stats
 	call GetHealthPercentageWithAddr ; pops bc in it
-	ld a, d
 	cp b
 	jp c, .success ; greater
 	and a
@@ -2466,7 +2464,6 @@ TraitReducePower:
 	ret nc
 
 	call GetHealthPercentage
-	ld a, d
 	cp 50
 	ret nc
 	jp ReduceDamage30
@@ -2571,7 +2568,6 @@ TraitReduceVeryEffective:
 	call CheckTrait
 	jr nc, .next
 	call GetHealthPercentage
-	ld a, d
 	cp 50
 	ret nc
 	jp ReduceDamage30
@@ -3082,7 +3078,6 @@ TraitDamageBasedOnHP:
 	call CheckTrait
 	ret nc
 	call GetHealthPercentage
-	ld a, d
 	cp 45
 	ret nc ; if hp% is over 45%
 	ld hl, .Boosts
@@ -3117,6 +3112,23 @@ TraitsThatBoostMoveByHP:
 	db -1
 
 TraitBoostDrain:
+	ld a, TRAIT_PRZ_DRAIN
+	call CheckSpecificTrait
+	jr nc, .not_paralyze
+	call GetHealthPercentage
+	ld b, 5 percent
+	cp 50
+	jr nc, .normal_hp_prz
+	ld b, 10 percent
+.normal_hp_prz
+	call BattleRandom
+	cp b
+	jr nc, .not_paralyze
+
+	ld hl, BattleCommand_ParalyzeTargetSimple
+	jp TraitUseBattleCommandSimple
+
+.not_paralyze
 	ld a, TRAIT_BOOST_DRAIN
 	call CheckSpecificTrait
 	ret nc
@@ -4032,6 +4044,7 @@ GetHealthPercentageWithAddr:
 	ld a, c 
 	ldh [hMultiplicand + 2], a
 	pop bc
+	ld a, d
 	ret
 
 ; takes target mon addr in HL, opp addr in DE, returns user addr in HL and opp addr in DE
@@ -5033,6 +5046,7 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BRN_DRAIN
 	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_FRZ_DRAIN
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_DRAIN
+	db SUP_CHANCE_DOWN + SUP_75_PERCENT ; TRAIT_PRZ_DRAIN
 	db SUP_CHANCE_DOWN + SUP_100_PERCENT; TRAIT_BOOST_MULTI_HIT_COUNT
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_MULTI_HIT_DAMAGE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DAMAGE_PER_TURN

@@ -47,6 +47,7 @@ TraitDescriptions::
 	dw MagmaFlowDescription       ; TRAIT_BRN_DRAIN
 	dw ColdBloodDescription       ; TRAIT_FRZ_DRAIN
 	dw DrainSurgeDescription      ; TRAIT_BOOST_DRAIN
+	dw SecretionDescription       ; TRAIT_PRZ_DRAIN
 	dw SkillLinkDescription       ; TRAIT_BOOST_MULTI_HIT_COUNT
 	dw ChainClipDescription       ; TRAIT_BOOST_MULTI_HIT_DAMAGE
 	dw LimitBreakerDescription    ; TRAIT_BOOST_DAMAGE_PER_TURN
@@ -435,6 +436,10 @@ ColdBloodDescription:
 DrainSurgeDescription:
 	db   "Ups life drain"
 	next "under half health.@"
+	
+SecretionDescription:
+	db   "May PRZ with drain"
+	next "moves.@"
 	
 SkillLinkDescription:
 	db   "Ups frequency of"

@@ -4286,13 +4286,18 @@ BattleCommand_FreezeTargetSimple:
 BattleCommand_ParalyzeOrPoisonTarget:
 	call BattleRandom
 	and 1
-	jr z, .paralyze
+	jp z, BattleCommand_ParalyzeTarget
 	jp BattleCommand_PoisonTarget
+
+BattleCommand_ParalyzeTargetSimple:
+	ld b, ELECTRIC
+	farcall CheckIfTargetIsNthType ; Don't paralyze an Electric-type
+	ret z
+
 .paralyze
 ; fallthrough
 BattleCommand_ParalyzeTarget:
 ; paralyzetarget
-
 	xor a
 	ld [wNumHits], a
 	call CheckSubstituteOpp
@@ -4303,9 +4308,6 @@ BattleCommand_ParalyzeTarget:
 	ret nz
 	ld a, [wTypeModifier]
 	and $7f
-	ret z
-	ld b, ELECTRIC
-	farcall CheckIfTargetIsNthType ; Don't paralyze an Electric-type
 	ret z
 	call GetOpponentItem
 	ld a, b
