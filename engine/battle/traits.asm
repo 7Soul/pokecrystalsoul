@@ -292,7 +292,7 @@ CheckTraitCondition:
 	ld b, a
 	ld c, WATER
 	jp c, .check_move_type
-	cp TRAIT_BOOST_ELECTRIC_SPEED ; traits that require move type to be GRASS
+	cp TRAIT_BOOST_ELECTRIC_STATUSED ; traits that require move type to be GRASS
 	ld b, a
 	ld c, GRASS
 	jp c, .check_move_type
@@ -308,13 +308,13 @@ CheckTraitCondition:
 	ld b, a
 	ld c, ICE
 	jp c, .check_move_type
-	cp TRAIT_BOOST_NOT_EFFECTIVE ; traits that require move type to be DARK
+	cp TRAIT_BOOST_PRIMARY_HP ; traits that require move type to be DARK
 	ld b, a
 	ld c, DARK
 	jp c, .check_move_type
-	cp TRAIT_BOOST_PRIMARY_HP
+	cp TRAIT_BOOST_PRIMARY_SPD + 1
 	ld b, a
-	jp z, .check_move_type_matches_primary
+	jp c, .check_move_type_matches_primary
 	
 	jr .success
 .not_met1
@@ -607,7 +607,8 @@ CheckTraitCondition:
  	call GetBattleVar
 
 	cp c
-	ld a, b ; restore trait into 'a'	
+	ld a, b ; restore trait into 'a'
+	jp z, .success
 	ret
 
 .check_move_power ; checks if power >= d
@@ -3050,8 +3051,7 @@ TraitsThatBoostDamageBasedOnDefense:
 	db -1
 
 TraitsThatBoostDamageBasedOnSpeed:
-	db TRAIT_BOOST_FLYING_SPEED
-	db TRAIT_BOOST_ELECTRIC_SPEED
+	db TRAIT_BOOST_PRIMARY_SPD
 	db -1
 
 TraitsThatBoostDamageBasedOnSpAttack:
@@ -4015,6 +4015,7 @@ GetToJumptable:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
+	xor a
 	ret
 
 CallFarSpecificTrait:
@@ -5261,7 +5262,6 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ROCK_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_STEEL_MORE
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_STEEL_SPEED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_BUG_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FIRE_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_FIRE
@@ -5273,7 +5273,6 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_GRASS_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PRZ_PSN_WITH_GRASS
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ELECTRIC_SPEED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ELECTRIC_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_PSYCHIC_STATUSED
@@ -5281,8 +5280,9 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ICE_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DARK_STATUSED
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_HP
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_SPD
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NOT_EFFECTIVE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
-	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_HP

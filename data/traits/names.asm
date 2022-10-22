@@ -223,7 +223,6 @@ TraitNames::
 	db "Golden Coat@"      ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	db "Rolling Rock Rage@"; TRAIT_BOOST_ROCK_STATUSED
 	db "Mega Shell@"       ; TRAIT_REDUCE_STEEL_MORE
-	db "Bladed Wings@"     ; TRAIT_BOOST_STEEL_SPEED
 	db "Buzzing Rage@"     ; TRAIT_BOOST_BUG_STATUSED
 	db "Molten Rage@"      ; TRAIT_BOOST_FIRE_STATUSED
 	db "Mystic Fire@"      ; TRAIT_LOWER_SP_ATTACK_FIRE
@@ -235,16 +234,16 @@ TraitNames::
 	db "Forest Rage@"      ; TRAIT_BOOST_GRASS_STATUSED
 	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db "Polen Hazard@"     ; TRAIT_PRZ_PSN_WITH_GRASS
-	db "Zap Rush@"         ; TRAIT_BOOST_ELECTRIC_SPEED
 	db "Zap Rage@"         ; TRAIT_BOOST_ELECTRIC_STATUSED
 	db "Mystic Wave@"      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db "Two-Sided Rage@"   ; TRAIT_BOOST_PSYCHIC_STATUSED
 	db "Mystic Power@"     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
+	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
 	db "Watchful@"         ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
 	db "Tyrant Rage@"      ; TRAIT_BOOST_DARK_STATUSED
-	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
+	db "Dangerous Dance@"  ; TRAIT_BOOST_PRIMARY_HP
+	db "Dynamo@"           ; TRAIT_BOOST_PRIMARY_SPD
 	db "Tinted Lens@"      ; TRAIT_BOOST_NOT_EFFECTIVE
 	db "Ink Bomb@"         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db "Prism Plate@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
-	db "Dangerous Dance@"  ; TRAIT_BOOST_PRIMARY_HP

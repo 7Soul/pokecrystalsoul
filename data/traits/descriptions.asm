@@ -223,7 +223,6 @@ TraitDescriptions::
 	dw GoldCoatDescription        ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	dw RollingRockRageDescription ; TRAIT_BOOST_ROCK_STATUSED
 	dw MegaShellDescription       ; TRAIT_REDUCE_STEEL_MORE
-	dw BladedWingsDescription     ; TRAIT_BOOST_STEEL_SPEED
 	dw BuzzingRageDescription     ; TRAIT_BOOST_BUG_STATUSED
 	dw MoltenRageDescription      ; TRAIT_BOOST_FIRE_STATUSED
 	dw MysticFireDescription      ; TRAIT_LOWER_SP_ATTACK_FIRE
@@ -235,7 +234,6 @@ TraitDescriptions::
 	dw ForestRageDescription      ; TRAIT_BOOST_GRASS_STATUSED
 	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	dw PolenHazardDescription     ; TRAIT_PRZ_PSN_WITH_GRASS
-	dw ZapRushDescription         ; TRAIT_BOOST_ELECTRIC_SPEED
 	dw ZapRageDescription         ; TRAIT_BOOST_ELECTRIC_STATUSED
 	dw MysticWaveDescription      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	dw TwoSidedRageDescription    ; TRAIT_BOOST_PSYCHIC_STATUSED
@@ -243,11 +241,12 @@ TraitDescriptions::
 	dw ArcticRageDescription      ; TRAIT_BOOST_ICE_STATUSED
 	dw WatchfulDescription        ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
 	dw TyrantRageDescription      ; TRAIT_BOOST_DARK_STATUSED
+	dw DangerousDanceDescription  ; TRAIT_BOOST_PRIMARY_HP
+	dw DynamoDescription          ; TRAIT_BOOST_PRIMARY_SPD
 	dw TintedLensDescription      ; TRAIT_BOOST_NOT_EFFECTIVE
 	dw InkBombDescription         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	dw PrismPlateDescription      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
-	dw DangerousDanceDescription  ; TRAIT_BOOST_PRIMARY_HP
     dw TraitFFDescription    
 
 
@@ -1197,10 +1196,6 @@ MegaShellDescription:
 	db   "Resist STEEL under"
 	next "half HP.@"
 
-BladedWingsDescription:
-	db   "SPEED disparity"
-	next "boosts STEEL.@"
-	
 BuzzingRageDescription:
 	db   "Boosts BUG under"
 	next "any status.@"
@@ -1245,10 +1240,6 @@ PolenHazardDescription:
 	db   "May PSN or PRZ"
 	next "with GRASS moves.@"
 	
-ZapRushDescription:
-	db   "SPEED disparity"
-	next "boosts ELECTRIC.@"
-	
 ZapRageDescription:
 	db   "Boosts ELECTRIC"
 	next "under any status.@"
@@ -1277,6 +1268,14 @@ TyrantRageDescription:
 	db   "Boosts DARK under"
 	next "any status.@"
 
+DangerousDanceDescription:
+	db   "Missing HP boosts"
+	next "your primary type.@"
+	
+DynamoDescription:
+	db   "SPEED gap boosts"
+	next "primary type.@"
+	
 TintedLensDescription:
 	db   "Raises NOT VERY"
 	next "EFFECTIVE damage.@"
@@ -1292,10 +1291,6 @@ AdaptiveFurDescription:
 PrismPlateDescription:
 	db   "Resist S.EFFECTIVE"
 	next "damage at half HP.@"
-	
-DangerousDanceDescription:
-	db   "Missing HP boosts"
-	next "your primary type.@"
 	
 TraitFFDescription:
 	db "?@"
