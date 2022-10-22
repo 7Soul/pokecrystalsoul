@@ -129,8 +129,9 @@ GeneratePartyMonStats:
 	push hl
 	; Generate a trait
 	ld hl, wBaseTraits
-	call Random
-	cp 60 percent ; 60%
+	; call Random ; commented so pkmn always gets the first trait for testing
+	; cp 60 percent ; 60%
+	jr .got_trait
 	jr c, .got_trait
 	inc hl
 	cp 90 percent ; 30%
@@ -141,6 +142,7 @@ GeneratePartyMonStats:
 	inc hl ; 5%
 .got_trait
 	ld a, [hl]
+	; call GetRandomCommonTrait
 .set_trait
 	ld [de], a
 	inc de
@@ -2202,3 +2204,71 @@ InitNickname:
 	ld hl, ExitAllMenus
 	rst FarCall
 	ret
+
+GetRandomCommonTrait:
+	push de
+.loop
+	ld a, TRAIT_COUNT
+	call RandomRange
+	ld [wBuffer1], a
+	ld hl, .forbidden_list
+	ld de, 1
+	call IsInArray
+	jr c, .loop
+
+	pop de
+	ld a, [wBuffer1]
+	ret
+
+.forbidden_list
+	db TRAIT_SPEED_TRANSFORM
+	db TRAIT_BOOST_PUNCHING
+	db TRAIT_BOOST_BITING
+	db TRAIT_BOOST_CUTTING
+	db TRAIT_BOOST_BEAM
+	db TRAIT_BOOST_PERFURATE
+	db TRAIT_REDUCE_SELF_RECOIL
+	db TRAIT_PSN_DRAIN
+	db TRAIT_BRN_DRAIN
+	db TRAIT_FRZ_DRAIN
+	db TRAIT_BOOST_DRAIN
+	db TRAIT_PRZ_DRAIN
+	db TRAIT_BOOST_MULTI_HIT_COUNT
+	db TRAIT_BOOST_MULTI_HIT_DAMAGE
+	db TRAIT_BOOST_BRN_OPP_ITEM
+	db TRAIT_RANDOM_STAT_BRN
+	db TRAIT_REGEN_ON_RAIN
+	db TRAIT_RAIN_DURATION
+	db TRAIT_RAIN_ON_ENTER
+	db TRAIT_REGEN_ON_SUNSHINE
+	db TRAIT_SUNSHINE_DURATION
+	db TRAIT_SUNSHINE_ON_ENTER
+	db TRAIT_REGEN_ON_SANDSTORM
+	db TRAIT_SANDSTORM_DURATION
+	db TRAIT_SANDSTORM_ON_ENTER 
+	db TRAIT_BOOST_RECOIL
+	db TRAIT_RAIN_SPEED
+	db TRAIT_RAIN_ACCURACY
+	db TRAIT_RAIN_EVASION
+	db TRAIT_RAIN_NO_STATUS
+	db TRAIT_SUNSHINE_SPEED
+	db TRAIT_SUNSHINE_EVASION
+	db TRAIT_SUNSHINE_NO_STATUS
+	db TRAIT_SANDSTORM_SPEED
+	db TRAIT_SANDSTORM_EVASION
+	db TRAIT_SANDSTORM_NO_STATUS
+	db TRAIT_BRN_IMMUNE
+	db TRAIT_BOOST_EFFECT_BRN
+	db TRAIT_PSN_IMMUNE
+	db TRAIT_BOOST_EFFECT_PSN
+	db TRAIT_PRZ_IMMUNE
+	db TRAIT_BOOST_EFFECT_PRZ
+	db TRAIT_BOOST_EFFECT_FLINCH
+	db TRAIT_BOOST_EFFECT_CONFUSED
+	db TRAIT_FRZ_IMMUNE
+	db TRAIT_BOOST_FREEZE_STATUS
+	db TRAIT_BOOST_NOT_STAB_WATER_ICE
+	db TRAIT_BOOST_NOT_STAB_FIRE_PSYCHIC
+	db TRAIT_HEAL_HP_AFTER_WATER_MOVE
+	db -1
+	

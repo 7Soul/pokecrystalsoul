@@ -6457,15 +6457,15 @@ LoadEnemyMon:
 ; Initialize Trait
 	ld hl, wBaseTraits
 	call Random
-	cp 30 percent ; 30%
+	cp 60 percent ; 60%
 	jr c, .got_trait
 	inc hl
-	cp 60 percent ; 30%
+	cp 90 percent ; 30%
 	jr c, .got_trait
 	inc hl
-	cp 85 percent ; 25%
+	cp 95 percent ; 5%
 	jr c, .got_trait
-	inc hl ; 15%
+	inc hl ; 5%
 .got_trait
 	ld a, [hl]
 	ld [wEnemyMonTrait], a
