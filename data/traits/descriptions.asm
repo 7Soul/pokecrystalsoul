@@ -219,8 +219,6 @@ TraitDescriptions::
 	dw AcidizeDescription         ; TRAIT_BOOST_POISON_STATUSED
 	dw TremorRageDescription      ; TRAIT_BOOST_GROUND_STATUSED
 	dw BalloonDescription         ; TRAIT_RESIST_GROUND_LATER
-	dw IronCoatDescription        ; TRAIT_BOOST_ROCK_DEFENSE
-	dw GoldCoatDescription        ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	dw RollingRockRageDescription ; TRAIT_BOOST_ROCK_STATUSED
 	dw MegaShellDescription       ; TRAIT_REDUCE_STEEL_MORE
 	dw BuzzingRageDescription     ; TRAIT_BOOST_BUG_STATUSED
@@ -243,6 +241,8 @@ TraitDescriptions::
 	dw TyrantRageDescription      ; TRAIT_BOOST_DARK_STATUSED
 	dw DangerousDanceDescription  ; TRAIT_BOOST_PRIMARY_HP
 	dw DynamoDescription          ; TRAIT_BOOST_PRIMARY_SPD
+	dw IronCoatDescription        ; TRAIT_BOOST_PRIMARY_DEF
+	dw GoldCoatDescription        ; TRAIT_BOOST_PRIMARY_SPDEF
 	dw TintedLensDescription      ; TRAIT_BOOST_NOT_EFFECTIVE
 	dw InkBombDescription         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
@@ -1179,14 +1179,6 @@ TremorRageDescription:
 BalloonDescription:
 	db   "Resist GROUND past"
 	next "1st turn.@"
-
-IronCoatDescription:
-	db   "DEFENSE disparity"
-	next "boosts ROCK.@"
-	
-GoldCoatDescription:
-	db   "SP.DEF disparity"
-	next "boosts ROCK.@"
 	
 RollingRockRageDescription:
 	db   "Boosts ROCK under"
@@ -1274,6 +1266,14 @@ DangerousDanceDescription:
 	
 DynamoDescription:
 	db   "SPEED gap boosts"
+	next "primary type.@"
+	
+IronCoatDescription:
+	db   "DEFENSE gap boosts"
+	next "primary type.@"
+	
+GoldCoatDescription:
+	db   "SP.DEF gap boosts"
 	next "primary type.@"
 	
 TintedLensDescription:

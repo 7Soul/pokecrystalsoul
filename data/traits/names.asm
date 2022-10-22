@@ -219,8 +219,6 @@ TraitNames::
 	db "Acidize@"          ; TRAIT_BOOST_POISON_STATUSED
 	db "Tremor Rate@"      ; TRAIT_BOOST_GROUND_STATUSED
 	db "Balloon@"          ; TRAIT_RESIST_GROUND_LATER
-	db "Iron Coat@"        ; TRAIT_BOOST_ROCK_DEFENSE
-	db "Golden Coat@"      ; TRAIT_BOOST_ROCK_SP_DEFENSE
 	db "Rolling Rock Rage@"; TRAIT_BOOST_ROCK_STATUSED
 	db "Mega Shell@"       ; TRAIT_REDUCE_STEEL_MORE
 	db "Buzzing Rage@"     ; TRAIT_BOOST_BUG_STATUSED
@@ -243,6 +241,8 @@ TraitNames::
 	db "Tyrant Rage@"      ; TRAIT_BOOST_DARK_STATUSED
 	db "Dangerous Dance@"  ; TRAIT_BOOST_PRIMARY_HP
 	db "Dynamo@"           ; TRAIT_BOOST_PRIMARY_SPD
+	db "Iron Coat@"        ; TRAIT_BOOST_PRIMARY_DEF
+	db "Gold Coat@"        ; TRAIT_BOOST_PRIMARY_SPDEF
 	db "Tinted Lens@"      ; TRAIT_BOOST_NOT_EFFECTIVE
 	db "Ink Bomb@"         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE
