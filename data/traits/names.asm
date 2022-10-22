@@ -207,42 +207,27 @@ TraitNames::
 	db "Stone Skin@"       ; TRAIT_REDUCE_NORMAL
 	db "Bone Armor@"       ; TRAIT_REDUCE_NORMAL_MORE
 	db "Fade@"             ; TRAIT_REDUCE_NORMAL_ACC
-	db "Wild Rage@"        ; TRAIT_BOOST_NORMAL_STATUSED
-	db "Flailing Rage@"    ; TRAIT_BOOST_FIGHTING_STATUSED
-	db "Flight Rush@"      ; TRAIT_BOOST_FLYING_SPEED
-	db "Air Rage@"         ; TRAIT_BOOST_FLYING_STATUSED
 	db "Ice Legend@"       ; TRAIT_FLYING_FRZ
 	db "Thunder Legend@"   ; TRAIT_FLYING_PRZ
 	db "Fire Legend@"      ; TRAIT_FLYING_BRN
 	db "Flying Legend@"    ; TRAIT_BOOST_FLYING_DURING_WEATHER
 	db "Dilute@"           ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
-	db "Acidize@"          ; TRAIT_BOOST_POISON_STATUSED
-	db "Tremor Rate@"      ; TRAIT_BOOST_GROUND_STATUSED
 	db "Balloon@"          ; TRAIT_RESIST_GROUND_LATER
-	db "Rolling Rock Rage@"; TRAIT_BOOST_ROCK_STATUSED
 	db "Mega Shell@"       ; TRAIT_REDUCE_STEEL_MORE
-	db "Buzzing Rage@"     ; TRAIT_BOOST_BUG_STATUSED
-	db "Molten Rage@"      ; TRAIT_BOOST_FIRE_STATUSED
 	db "Mystic Fire@"      ; TRAIT_LOWER_SP_ATTACK_FIRE
-	db "Hard Water@"       ; TRAIT_BOOST_WATER_DEFENSE
-	db "Deep Sea Rage@"    ; TRAIT_BOOST_WATER_STATUSED
 	db "Hardening Sand@"   ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	db "Ice Water@"        ; TRAIT_FRZ_SPD_WITH_WATER
 	db "Mystic Water@"     ; TRAIT_LOWER_SP_ATTACK_WATER
-	db "Forest Rage@"      ; TRAIT_BOOST_GRASS_STATUSED
 	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db "Polen Hazard@"     ; TRAIT_PRZ_PSN_WITH_GRASS
-	db "Zap Rage@"         ; TRAIT_BOOST_ELECTRIC_STATUSED
 	db "Mystic Wave@"      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
-	db "Two-Sided Rage@"   ; TRAIT_BOOST_PSYCHIC_STATUSED
 	db "Mystic Power@"     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
-	db "Arctic Rage@"      ; TRAIT_BOOST_ICE_STATUSED
 	db "Watchful@"         ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
-	db "Tyrant Rage@"      ; TRAIT_BOOST_DARK_STATUSED
 	db "Dangerous Dance@"  ; TRAIT_BOOST_PRIMARY_HP
 	db "Dynamo@"           ; TRAIT_BOOST_PRIMARY_SPD
 	db "Iron Coat@"        ; TRAIT_BOOST_PRIMARY_DEF
 	db "Gold Coat@"        ; TRAIT_BOOST_PRIMARY_SPDEF
+	db "Under Duress@"     ; TRAIT_BOOST_PRIMARY_STATUSED
 	db "Tinted Lens@"      ; TRAIT_BOOST_NOT_EFFECTIVE
 	db "Ink Bomb@"         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE

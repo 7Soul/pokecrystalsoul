@@ -207,42 +207,27 @@ TraitDescriptions::
 	dw StoneSkinDescription       ; TRAIT_REDUCE_NORMAL
 	dw BoneArmorDescription       ; TRAIT_REDUCE_NORMAL_MORE
 	dw FadeDescription            ; TRAIT_REDUCE_NORMAL_ACC
-	dw WildRageDescription        ; TRAIT_BOOST_NORMAL_STATUSED
-	dw FlailingRageDescription    ; TRAIT_BOOST_FIGHTING_STATUSED
-	dw FlightRushDescription      ; TRAIT_BOOST_FLYING_SPEED
-	dw AirRageDescription         ; TRAIT_BOOST_FLYING_STATUSED
 	dw IceLegendeDescription      ; TRAIT_FLYING_FRZ
 	dw ThunderLegendDescription   ; TRAIT_FLYING_PRZ
 	dw FireLegendDescription      ; TRAIT_FLYING_BRN
 	dw FlyingLegendDescription    ; TRAIT_BOOST_FLYING_DURING_WEATHER
 	dw DiluteDescription          ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
-	dw AcidizeDescription         ; TRAIT_BOOST_POISON_STATUSED
-	dw TremorRageDescription      ; TRAIT_BOOST_GROUND_STATUSED
 	dw BalloonDescription         ; TRAIT_RESIST_GROUND_LATER
-	dw RollingRockRageDescription ; TRAIT_BOOST_ROCK_STATUSED
 	dw MegaShellDescription       ; TRAIT_REDUCE_STEEL_MORE
-	dw BuzzingRageDescription     ; TRAIT_BOOST_BUG_STATUSED
-	dw MoltenRageDescription      ; TRAIT_BOOST_FIRE_STATUSED
 	dw MysticFireDescription      ; TRAIT_LOWER_SP_ATTACK_FIRE
-	dw HardWaterDescription       ; TRAIT_BOOST_WATER_DEFENSE
-	dw DeepSeaRageDescription     ; TRAIT_BOOST_WATER_STATUSED
 	dw HardeningSandDescription   ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	dw IceWaterDescription        ; TRAIT_FRZ_SPD_WITH_WATER
 	dw MysticWaterDescription     ; TRAIT_LOWER_SP_ATTACK_WATER
-	dw ForestRageDescription      ; TRAIT_BOOST_GRASS_STATUSED
 	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	dw PolenHazardDescription     ; TRAIT_PRZ_PSN_WITH_GRASS
-	dw ZapRageDescription         ; TRAIT_BOOST_ELECTRIC_STATUSED
 	dw MysticWaveDescription      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
-	dw TwoSidedRageDescription    ; TRAIT_BOOST_PSYCHIC_STATUSED
 	dw MysticPowerDescription     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
-	dw ArcticRageDescription      ; TRAIT_BOOST_ICE_STATUSED
 	dw WatchfulDescription        ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
-	dw TyrantRageDescription      ; TRAIT_BOOST_DARK_STATUSED
 	dw DangerousDanceDescription  ; TRAIT_BOOST_PRIMARY_HP
 	dw DynamoDescription          ; TRAIT_BOOST_PRIMARY_SPD
 	dw IronCoatDescription        ; TRAIT_BOOST_PRIMARY_DEF
 	dw GoldCoatDescription        ; TRAIT_BOOST_PRIMARY_SPDEF
+	dw UnderDuressDescription     ; TRAIT_BOOST_PRIMARY_STATUSED
 	dw TintedLensDescription      ; TRAIT_BOOST_NOT_EFFECTIVE
 	dw InkBombDescription         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
@@ -1132,22 +1117,6 @@ FadeDescription:
 	db   "Reduces NORMAL"
 	next "damage accuracy.@"
 
-WildRageDescription:
-	db   "Boosts NORMAL un-"
-	next "der any status.@"
-
-FlailingRageDescription:
-	db   "Boosts FIGHTING"
-	next "under any status.@"
-
-FlightRushDescription:
-	db   "SPEED disparity"
-	next "boosts FLYING.@"
-
-AirRageDescription:
-	db   "Boosts FLYING un-"
-	next "der any status.@"
-
 IceLegendeDescription:
 	db   "FLYING moves may"
 	next "cause FRZ.@"
@@ -1168,45 +1137,17 @@ DiluteDescription:
 	db   "Ups best stat when"
 	next "hit by POISON.@"
 	
-AcidizeDescription:
-	db   "Boosts POISON un-"
-	next "der any status.@"
-
-TremorRageDescription:
-	db   "Boosts GROUND un-"
-	next "der any status.@"
-	
 BalloonDescription:
 	db   "Resist GROUND past"
 	next "1st turn.@"
-	
-RollingRockRageDescription:
-	db   "Boosts ROCK under"
-	next "any status.@"
 	
 MegaShellDescription:
 	db   "Resist STEEL under"
 	next "half HP.@"
 
-BuzzingRageDescription:
-	db   "Boosts BUG under"
-	next "any status.@"
-
-MoltenRageDescription:
-	db   "Boosts FIRE under"
-	next "any status.@"
-	
 MysticFireDescription:
 	db   "Lowers SP.ATK with"
 	next "FIRE attacks.@"
-
-HardWaterDescription:
-	db   "DEFENSE disparity"
-	next "boosts WATER.@"
-	
-DeepSeaRageDescription:
-	db   "Boosts WATER un-"
-	next "der any status.@"
 
 HardeningSandDescription:
 	db   "Ups best stat when"
@@ -1220,10 +1161,6 @@ MysticWaterDescription:
 	db   "Lowers SP.ATK with"
 	next "WATER attacks.@"
 
-ForestRageDescription:
-	db   "Boosts GRASS un-"
-	next "der any status.@"
-
 SapSipperDescription:
 	db   "Ups best stat when"
 	next "hit by GRASS.@"
@@ -1232,33 +1169,17 @@ PolenHazardDescription:
 	db   "May PSN or PRZ"
 	next "with GRASS moves.@"
 	
-ZapRageDescription:
-	db   "Boosts ELECTRIC"
-	next "under any status.@"
-
 MysticWaveDescription:
 	db   "Lowers SP.ATK with"
 	next "ELECTRIC attacks.@"
 
-TwoSidedRageDescription:
-	db   "Boosts PSYCHIC"
-	next "under any status.@"
-	
 MysticPowerDescription:
 	db   "Lowers SP.ATK with"
 	next "PSYCHIC attacks.@"
 
-ArcticRageDescription:
-	db   "Boosts ICE under"
-	next "any status.@"
-
 WatchfulDescription:
 	db   "Ups best stat when"
 	next "hit by DARK.@"
-
-TyrantRageDescription:
-	db   "Boosts DARK under"
-	next "any status.@"
 
 DangerousDanceDescription:
 	db   "Missing HP boosts"
@@ -1275,6 +1196,10 @@ IronCoatDescription:
 GoldCoatDescription:
 	db   "SP.DEF gap boosts"
 	next "primary type.@"
+	
+UnderDuressDescription:
+	db   "Ups primary type"
+	next "under any status.@"
 	
 TintedLensDescription:
 	db   "Raises NOT VERY"

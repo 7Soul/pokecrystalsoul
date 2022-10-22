@@ -251,67 +251,67 @@ CheckTraitCondition:
 	ld c, BUG
 	ld e, DARK
 	jp c, .check_move_type
-	ld e, $FF
-	cp TRAIT_BOOST_FIGHTING_STATUSED ; traits below this that require move type to be NORMAL
-	ld b, a
-	ld c, NORMAL
-	jp c, .check_move_type
-	cp TRAIT_BOOST_FLYING_SPEED ; traits that require move type to be FIGHTING
-	ld b, a
-	ld c, FIGHTING
-	jp c, .check_move_type
-	cp TRAIT_REDUCE_POISON_UP_MAIN_STAT ; traits that require move type to be FLYING
-	ld b, a
-	ld c, FLYING
-	jp c, .check_move_type
-	cp TRAIT_BOOST_GROUND_STATUSED ; traits that require move type to be POISON
-	ld b, a
-	ld c, POISON
-	jp c, .check_move_type
-	cp TRAIT_BOOST_ROCK_STATUSED ; traits that require move type to be GROUND
-	ld b, a
-	ld c, GROUND
-	jp c, .check_move_type
-	cp TRAIT_REDUCE_STEEL_MORE ; traits that require move type to be ROCK
-	ld b, a
-	ld c, ROCK
-	jp c, .check_move_type
-	cp TRAIT_BOOST_BUG_STATUSED ; traits that require move type to be STEEL
-	ld b, a
-	ld c, STEEL
-	jp c, .check_move_type
-	cp TRAIT_BOOST_FIRE_STATUSED ; traits that require move type to be BUG
-	ld b, a
-	ld c, BUG
-	jp c, .check_move_type
-	cp TRAIT_BOOST_WATER_DEFENSE ; traits that require move type to be FIRE
-	ld b, a
-	ld c, FIRE
-	jp c, .check_move_type
-	cp TRAIT_BOOST_GRASS_STATUSED ; traits that require move type to be WATER
-	ld b, a
-	ld c, WATER
-	jp c, .check_move_type
-	cp TRAIT_BOOST_ELECTRIC_STATUSED ; traits that require move type to be GRASS
-	ld b, a
-	ld c, GRASS
-	jp c, .check_move_type
-	cp TRAIT_BOOST_PSYCHIC_STATUSED ; traits that require move type to be ELECTRIC
-	ld b, a
-	ld c, ELECTRIC
-	jp c, .check_move_type
-	cp TRAIT_BOOST_ICE_STATUSED ; traits that require move type to be PSYCHIC
-	ld b, a
-	ld c, PSYCHIC
-	jp c, .check_move_type
-	cp TRAIT_REDUCE_DARK_UP_MAIN_STAT ; traits that require move type to be ICE
-	ld b, a
-	ld c, ICE
-	jp c, .check_move_type
-	cp TRAIT_BOOST_PRIMARY_HP ; traits that require move type to be DARK
-	ld b, a
-	ld c, DARK
-	jp c, .check_move_type
+	; ld e, $FF
+	; cp TRAIT_BOOST_FIGHTING_STATUSED ; traits below this that require move type to be NORMAL
+	; ld b, a
+	; ld c, NORMAL
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_FLYING_SPEED ; traits that require move type to be FIGHTING
+	; ld b, a
+	; ld c, FIGHTING
+	; jp c, .check_move_type
+	; cp TRAIT_REDUCE_POISON_UP_MAIN_STAT ; traits that require move type to be FLYING
+	; ld b, a
+	; ld c, FLYING
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_GROUND_STATUSED ; traits that require move type to be POISON
+	; ld b, a
+	; ld c, POISON
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_ROCK_STATUSED ; traits that require move type to be GROUND
+	; ld b, a
+	; ld c, GROUND
+	; jp c, .check_move_type
+	; cp TRAIT_REDUCE_STEEL_MORE ; traits that require move type to be ROCK
+	; ld b, a
+	; ld c, ROCK
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_BUG_STATUSED ; traits that require move type to be STEEL
+	; ld b, a
+	; ld c, STEEL
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_FIRE_STATUSED ; traits that require move type to be BUG
+	; ld b, a
+	; ld c, BUG
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_WATER_DEFENSE ; traits that require move type to be FIRE
+	; ld b, a
+	; ld c, FIRE
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_GRASS_STATUSED ; traits that require move type to be WATER
+	; ld b, a
+	; ld c, WATER
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_ELECTRIC_STATUSED ; traits that require move type to be GRASS
+	; ld b, a
+	; ld c, GRASS
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_PSYCHIC_STATUSED ; traits that require move type to be ELECTRIC
+	; ld b, a
+	; ld c, ELECTRIC
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_ICE_STATUSED ; traits that require move type to be PSYCHIC
+	; ld b, a
+	; ld c, PSYCHIC
+	; jp c, .check_move_type
+	; cp TRAIT_REDUCE_DARK_UP_MAIN_STAT ; traits that require move type to be ICE
+	; ld b, a
+	; ld c, ICE
+	; jp c, .check_move_type
+	; cp TRAIT_BOOST_PRIMARY_HP ; traits that require move type to be DARK
+	; ld b, a
+	; ld c, DARK
+	; jp c, .check_move_type
 	cp TRAIT_BOOST_NOT_EFFECTIVE
 	ld b, a
 	jp c, .check_move_type_matches_primary
@@ -2629,6 +2629,7 @@ TraitBoostNotEffective:
 	ld a, TRAIT_BOOST_NOT_EFFECTIVE
 	call CheckSpecificTrait
 	jp c, BoostDamage20
+	ret
 
 TraitBoostPower:
 	ld a, [wCriticalHit]
@@ -2737,20 +2738,7 @@ TraitBoostPower:
 	jp Divide ; divide damage value that is stored
 
 .TraitsThatBoostTypeStatused:
-	db TRAIT_BOOST_NORMAL_STATUSED
-	db TRAIT_BOOST_FIGHTING_STATUSED
-	db TRAIT_BOOST_FLYING_STATUSED
-	db TRAIT_BOOST_POISON_STATUSED
-	db TRAIT_BOOST_GROUND_STATUSED
-	db TRAIT_BOOST_ROCK_STATUSED
-	db TRAIT_BOOST_BUG_STATUSED
-	db TRAIT_BOOST_FIRE_STATUSED
-	db TRAIT_BOOST_WATER_STATUSED
-	db TRAIT_BOOST_GRASS_STATUSED
-	db TRAIT_BOOST_ELECTRIC_STATUSED
-	db TRAIT_BOOST_PSYCHIC_STATUSED
-	db TRAIT_BOOST_ICE_STATUSED
-	db TRAIT_BOOST_DARK_STATUSED
+	db TRAIT_BOOST_PRIMARY_STATUSED
 	db -1
 
 .TraitsThatBoostDamage:
@@ -5245,42 +5233,27 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL_MORE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL_ACC
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NORMAL_STATUSED
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FIGHTING_STATUSED
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FLYING_SPEED
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FLYING_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLYING_FRZ
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLYING_PRZ
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLYING_BRN
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FLYING_DURING_WEATHER
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_POISON_STATUSED
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_GROUND_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RESIST_GROUND_LATER
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ROCK_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_STEEL_MORE
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_BUG_STATUSED
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FIRE_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_FIRE
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_WATER_DEFENSE
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_WATER_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FRZ_SPD_WITH_WATER
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_WATER
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_GRASS_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PRZ_PSN_WITH_GRASS
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ELECTRIC_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_PSYCHIC_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ICE_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DARK_STATUSED
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_HP
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_SPD
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_DEF
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_SPDEF
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_NOT_EFFECTIVE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SUPER_EFFECTIVE
