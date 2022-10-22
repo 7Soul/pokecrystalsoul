@@ -276,11 +276,11 @@ CheckTraitCondition:
 	ld b, a
 	ld c, ROCK
 	jp c, .check_move_type
-	cp TRAIT_BOOST_BUG_HP ; traits that require move type to be STEEL
+	cp TRAIT_BOOST_BUG_STATUSED ; traits that require move type to be STEEL
 	ld b, a
 	ld c, STEEL
 	jp c, .check_move_type
-	cp TRAIT_BOOST_FIRE_HP ; traits that require move type to be BUG
+	cp TRAIT_BOOST_FIRE_STATUSED ; traits that require move type to be BUG
 	ld b, a
 	ld c, BUG
 	jp c, .check_move_type
@@ -288,7 +288,7 @@ CheckTraitCondition:
 	ld b, a
 	ld c, FIRE
 	jp c, .check_move_type
-	cp TRAIT_BOOST_GRASS_HP ; traits that require move type to be WATER
+	cp TRAIT_BOOST_GRASS_STATUSED ; traits that require move type to be WATER
 	ld b, a
 	ld c, WATER
 	jp c, .check_move_type
@@ -300,7 +300,7 @@ CheckTraitCondition:
 	ld b, a
 	ld c, ELECTRIC
 	jp c, .check_move_type
-	cp TRAIT_BOOST_ICE_HP ; traits that require move type to be PSYCHIC
+	cp TRAIT_BOOST_ICE_STATUSED ; traits that require move type to be PSYCHIC
 	ld b, a
 	ld c, PSYCHIC
 	jp c, .check_move_type
@@ -312,6 +312,9 @@ CheckTraitCondition:
 	ld b, a
 	ld c, DARK
 	jp c, .check_move_type
+	cp TRAIT_BOOST_PRIMARY_HP
+	ld b, a
+	jp z, .check_move_type_matches_primary
 	
 	jr .success
 .not_met1
@@ -591,6 +594,19 @@ CheckTraitCondition:
 	cp e
 	jp z, .success
 	and a
+	ld a, b ; restore trait into 'a'	
+	ret
+
+.check_move_type_matches_primary ; CheckTraitCondition.check_move_type_matches_primary
+	ld a, BATTLE_VARS_MOVE_TYPE
+ 	call GetBattleVar
+	and TYPE_MASK
+	ld c, a
+
+	ld a, BATTLE_VARS_TYPE1
+ 	call GetBattleVar
+
+	cp c
 	ld a, b ; restore trait into 'a'	
 	ret
 
@@ -3092,7 +3108,7 @@ GetStatDifference: ; takes stat in `a` and returns difference in `a`
 TraitDamageBasedOnHP:
 	ld hl, TraitsThatBoostMoveByHP
 	call CheckTrait
-	ret nc
+	ret nz
 	call GetHealthPercentage
 	cp 45
 	ret nc ; if hp% is over 45%
@@ -3117,14 +3133,10 @@ TraitDamageBasedOnHP:
 	db 22, $FD ; 1.15, 22~30%
 	db 30, $A9 ; 1.11, 30~37%
 	db 37, $FE ; 1.07, 37~45%
-	db 45, $FF ; 1.00, +45%
+	db 50, $FF ; 1.00, +45%
 
 TraitsThatBoostMoveByHP:
-	db TRAIT_BOOST_BUG_HP
-	db TRAIT_BOOST_FIRE_HP
-	db TRAIT_BOOST_WATER_HP
-	db TRAIT_BOOST_GRASS_HP
-	db TRAIT_BOOST_ICE_HP
+	db TRAIT_BOOST_PRIMARY_HP
 	db -1
 
 TraitBoostDrain:
@@ -5250,18 +5262,14 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ROCK_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_STEEL_MORE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_STEEL_SPEED
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_BUG_HP
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_BUG_STATUSED
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FIRE_HP
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FIRE_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_FIRE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_WATER_DEFENSE
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_WATER_HP
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_WATER_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FRZ_SPD_WITH_WATER
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_WATER
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_GRASS_HP
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_GRASS_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PRZ_PSN_WITH_GRASS
@@ -5270,7 +5278,6 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_PSYCHIC_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ICE_HP
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_ICE_STATUSED
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DARK_STATUSED
@@ -5278,3 +5285,4 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_HP

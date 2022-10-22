@@ -224,18 +224,14 @@ TraitDescriptions::
 	dw RollingRockRageDescription ; TRAIT_BOOST_ROCK_STATUSED
 	dw MegaShellDescription       ; TRAIT_REDUCE_STEEL_MORE
 	dw BladedWingsDescription     ; TRAIT_BOOST_STEEL_SPEED
-	dw SwarmDescription           ; TRAIT_BOOST_BUG_HP
 	dw BuzzingRageDescription     ; TRAIT_BOOST_BUG_STATUSED
-	dw BlazeDescription           ; TRAIT_BOOST_FIRE_HP
 	dw MoltenRageDescription      ; TRAIT_BOOST_FIRE_STATUSED
 	dw MysticFireDescription      ; TRAIT_LOWER_SP_ATTACK_FIRE
 	dw HardWaterDescription       ; TRAIT_BOOST_WATER_DEFENSE
-	dw TorrentDescription         ; TRAIT_BOOST_WATER_HP
 	dw DeepSeaRageDescription     ; TRAIT_BOOST_WATER_STATUSED
 	dw HardeningSandDescription   ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	dw IceWaterDescription        ; TRAIT_FRZ_SPD_WITH_WATER
 	dw MysticWaterDescription     ; TRAIT_LOWER_SP_ATTACK_WATER
-	dw OvergrowDescription        ; TRAIT_BOOST_GRASS_HP
 	dw ForestRageDescription      ; TRAIT_BOOST_GRASS_STATUSED
 	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	dw PolenHazardDescription     ; TRAIT_PRZ_PSN_WITH_GRASS
@@ -244,7 +240,6 @@ TraitDescriptions::
 	dw MysticWaveDescription      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	dw TwoSidedRageDescription    ; TRAIT_BOOST_PSYCHIC_STATUSED
 	dw MysticPowerDescription     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
-	dw SouthWindDescription       ; TRAIT_BOOST_ICE_HP
 	dw ArcticRageDescription      ; TRAIT_BOOST_ICE_STATUSED
 	dw WatchfulDescription        ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
 	dw TyrantRageDescription      ; TRAIT_BOOST_DARK_STATUSED
@@ -252,6 +247,7 @@ TraitDescriptions::
 	dw InkBombDescription         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
 	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	dw PrismPlateDescription      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
+	dw DangerousDanceDescription  ; TRAIT_BOOST_PRIMARY_HP
     dw TraitFFDescription    
 
 
@@ -1205,18 +1201,10 @@ BladedWingsDescription:
 	db   "SPEED disparity"
 	next "boosts STEEL.@"
 	
-SwarmDescription:
-	db   "Missing HEALTH"
-	next "boosts BUG.@"
-	
 BuzzingRageDescription:
 	db   "Boosts BUG under"
 	next "any status.@"
 
-BlazeDescription:
-	db   "Missing HEALTH"
-	next "boosts FIRE.@"
-	
 MoltenRageDescription:
 	db   "Boosts FIRE under"
 	next "any status.@"
@@ -1229,10 +1217,6 @@ HardWaterDescription:
 	db   "DEFENSE disparity"
 	next "boosts WATER.@"
 	
-TorrentDescription:
-	db   "Missing HEALTH"
-	next "boosts WATER.@"
-
 DeepSeaRageDescription:
 	db   "Boosts WATER un-"
 	next "der any status.@"
@@ -1249,10 +1233,6 @@ MysticWaterDescription:
 	db   "Lowers SP.ATK with"
 	next "WATER attacks.@"
 
-OvergrowDescription:
-	db   "Missing HEALTH"
-	next "boosts GRASS.@"
-	
 ForestRageDescription:
 	db   "Boosts GRASS un-"
 	next "der any status.@"
@@ -1285,10 +1265,6 @@ MysticPowerDescription:
 	db   "Lowers SP.ATK with"
 	next "PSYCHIC attacks.@"
 
-SouthWindDescription:
-	db   "Missing HEALTH"
-	next "boosts ICE.@"
-	
 ArcticRageDescription:
 	db   "Boosts ICE under"
 	next "any status.@"
@@ -1316,6 +1292,10 @@ AdaptiveFurDescription:
 PrismPlateDescription:
 	db   "Resist S.EFFECTIVE"
 	next "damage at half HP.@"
+	
+DangerousDanceDescription:
+	db   "Missing HP boosts"
+	next "your primary type.@"
 	
 TraitFFDescription:
 	db "?@"

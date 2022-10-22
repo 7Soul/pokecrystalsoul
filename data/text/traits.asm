@@ -153,6 +153,7 @@ TraitText_SuperLuck::
 TraitText_Magnetism::
 TraitText_Synchronize::
 TraitText_Guts::
+TraitText_DangerousDance::
 	text "<TARGET>'s"
 	line "@"
     text_from_ram wStringBuffer1
