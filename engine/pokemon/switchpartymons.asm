@@ -238,6 +238,9 @@ _PairMons:
 	ld a, b
 	cp $7 ; 7 indicates no pair
 	call nz, .TargetHasPair
+	call .CheckCompatibility
+	jr z, .skip
+
 	ld a, [wBuffer3]
 	ld [hl], a
 
@@ -267,3 +270,47 @@ _PairMons:
 	ld [hl], a
 	pop hl
 	ret
+
+.CheckCompatibility: ; _PairMons.CheckCompatibility
+	; get trait 1
+	ld a, [wBuffer2]
+	ld hl, wPartyMon1Trait
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld a, [hl]
+	add a ; double a
+	call .GetGroup
+	ld d, a ; save group 1 in d
+
+	ld a, [wBuffer3]
+	ld hl, wPartyMon1Trait
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld a, [hl]
+	add a
+	call .GetGroup
+	cp d
+	ret nz ; compatible
+	and a ; group 0 is always compatible
+	jr z, .compatible
+
+	ld hl, TraitText_PairIncompatible
+	call PrintText
+.compatible
+	xor a
+	ret
+
+.GetGroup:
+	ld hl, TraitCompatibility
+	ld b, 0
+	ld c, a
+	add hl, bc
+	inc hl
+	ld a, BANK(TraitCompatibility)
+	call GetFarByte
+	ret
+
+TraitText_PairIncompatible:
+	text "Pair's traits are"
+	line "not compatible."
+	prompt

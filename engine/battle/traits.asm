@@ -1581,29 +1581,8 @@ TraitAfterMove:
 ; Disable a foe's move
 	ld a, TRAIT_MOVE_DISABLE
 	call CheckSpecificTrait
-	jr nc, .not_disable
+	call c, TraitDoDisable
 
-	call BattleRandom
-	cp 10 percent
-	ret nc
-; Check if there's already a move disabled
-	ld hl, wEnemyDisableCount
-	ld de, wPlayerDisableCount
-	call GetTraitUserAddr
-	and [hl]
-	ret nc
-	call PrintTraitText
-	call Switch_turn
-; Use Disable
-	ld a, BATTLE_VARS_MOVE
-	call GetBattleVarAddr
-	ld a, DISABLE
-	ld [hl], a
-	callfar UpdateMoveData
-	ld hl, BattleCommand_Disable
-	jp TraitUseBattleCommandSimpleSwitchTurn
-	
-.not_disable
 ; Copy foe's speed buff right after it was used
 	ld a, TRAIT_COPY_SPD_BUFFS
 	call CheckSpecificTrait
@@ -1629,6 +1608,28 @@ TraitAfterMove:
 
 	ld hl, BattleCommand_StatUpFailText
 	jp TraitUseBattleCommandSimpleSwitchTurn
+
+TraitDoDisable:
+	call BattleRandom
+	cp 10 percent
+	ret nc
+; Check if there's already a move disabled
+	ld hl, wEnemyDisableCount
+	ld de, wPlayerDisableCount
+	call GetTraitUserAddr
+	and [hl]
+	ret nc
+	call PrintTraitText
+	call Switch_turn
+; Use Disable
+	ld a, BATTLE_VARS_MOVE
+	call GetBattleVarAddr
+	ld a, DISABLE
+	ld [hl], a
+	callfar UpdateMoveData
+	ld hl, BattleCommand_Disable
+	call TraitUseBattleCommandSimpleSwitchTurn
+	ret
 
 TraitRaiseStatOnStatDown:
 	ld a, [wFailedMessage]
@@ -1770,7 +1771,7 @@ TraitLowerCritical:
 	ret
 
 TraitBoostAccuracy:
-	ld hl, TraitsThatBoostAccuracy
+	ld hl, .TraitsThatBoostAccuracy
 	call CheckTrait
 	ret nc
 
@@ -1818,7 +1819,7 @@ TraitBoostAccuracy:
 	ld [wBuffer2], a
 	ret
 
-TraitsThatBoostAccuracy:
+.TraitsThatBoostAccuracy:
 	db TRAIT_PERFECT_ACCURACY         ; 0
 	db TRAIT_BOOST_ACCURACY_TURN_ZERO ; 1
 	db TRAIT_MOVE_ACC_NON_STAB_MORE   ; 2
@@ -1974,11 +1975,8 @@ TraitContact:
 	call Chance
 	ret nc
 
-	ld a, TRAIT_HOT_COALS
-	call CheckSpecificTrait
-	jr c, .got_spikes
-	ld a, TRAIT_BARBS
-	call CheckSpecificTrait
+	ld hl, .TraitsThatThrowSpikes
+	call CheckTrait
 	jr nc, .not_spikes
 	; fallthrough
 .got_spikes
@@ -2036,6 +2034,11 @@ TraitContact:
 	db TRAIT_CONTACT_CONFUSED
 	db TRAIT_CONTACT_IN_LOVE
 	db TRAIT_CONTACT_SPORE
+	db -1
+
+.TraitsThatThrowSpikes:
+	db TRAIT_HOT_COALS
+	db TRAIT_BARBS
 	db -1
 
 ; TraitHail:
@@ -2433,7 +2436,7 @@ TraitReducePower:
  	call GetBattleVarAddr
 	and TYPE_MASK
 	cp c
-	jp z, ReduceDamage50
+	call z, ReduceDamage50
 
 .not_color_pick
 	ld a, [wCriticalHit]
@@ -2441,7 +2444,7 @@ TraitReducePower:
 	jr nz, .not_crit
 	ld a, TRAIT_REDUCE_CRIT_DAMAGE
 	call CheckSpecificTrait
-	jp c, ReduceDamage25
+	call c, ReduceDamage25
 .not_crit
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVarAddr
@@ -2489,11 +2492,11 @@ TraitReducePower:
 .not_balloon
 	ld hl, .TraitsThatReduceDamageLess
 	call CheckTrait
-	jp c, ReduceDamage10
+	call c, ReduceDamage10
 
 	ld hl, .TraitsThatReduceDamage
 	call CheckTrait
-	jp c, ReduceDamage15
+	call c, ReduceDamage15
 
 	ld hl, .TraitsThatReduceDamageMore
 	call CheckTrait
@@ -2637,26 +2640,26 @@ TraitBoostPower:
 	jr nz, .not_crit
 	ld a, TRAIT_BOOST_CRIT_DAMAGE
 	call CheckSpecificTrait
-	jp c, BoostDamage25
+	call c, BoostDamage25
 .not_crit
 	ld a, TRAIT_BOOST_DAMAGE_WITH_EFFECT
 	call CheckSpecificTrait
-	jp c, BoostDamage25
+	call c, BoostDamage25
 	ld a, TRAIT_BOOST_RECOIL
 	call CheckSpecificTrait
-	jp c, BoostDamage20
+	call c, BoostDamage20
 	ld a, TRAIT_BOOST_MOVE_SECOND
 	call CheckSpecificTrait
-	jp c, .move_second
+	call c, .MoveSecondBoost
 	ld a, TRAIT_BOOST_WEAK_MOVES
 	call CheckSpecificTrait
-	jp c, BoostDamage50
+	call c, BoostDamage50
 	ld a, TRAIT_BOOST_POWER_RAISED_DEF
 	call CheckSpecificTrait
-	jp c, BoostDamageBasedOnFoesDefUp
+	call c, BoostDamageBasedOnFoesDefUp
 	ld a, TRAIT_BOOST_POWER_RAISED_SPDEF
 	call CheckSpecificTrait
-	jp c, BoostDamageBasedOnFoesSpDefUp
+	call c, BoostDamageBasedOnFoesSpDefUp
 
 	ld a, [wBattleWeather]
 	and a
@@ -2667,21 +2670,16 @@ TraitBoostPower:
 	ld a, BATTLE_VARS_MOVE_POWER
 	call GetBattleVar
 	cp 60
-	jp nc, BoostDamage20
-	jp BoostDamage50
-.move_second
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-	cp VITAL_THROW
-	jp z, BoostDamage25
-	jp BoostDamage15
+	call nc, BoostDamage20
+	call BoostDamage50
+
 .no_weather
 	ld hl, .TraitsThatBoostTypeStatused
 	call CheckTrait
 	jr c, .boost_with_status
 	ld hl, .TraitsThatBoostDamage
 	call CheckTrait
-	jp c, BoostDamage20
+	call c, BoostDamage20
 
 	ld hl, .JumpTableTraitsBoostMoveClass
 	call CheckTrait
@@ -2718,7 +2716,7 @@ TraitBoostPower:
 .boost_with_status
 	ld d, $FE
 	call CheckTraitCondition.check_user_status
-	jp c, BoostDamage20
+	call c, BoostDamage20
 	ret
 .boost_activated_count
 	call CheckTraitCount
@@ -2736,6 +2734,14 @@ TraitBoostPower:
 	ld a, 10
 	ldh [hDivisor], a
 	jp Divide ; divide damage value that is stored
+
+.MoveSecondBoost:
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+	cp VITAL_THROW
+	call z, BoostDamage25
+	call BoostDamage15
+	ret
 
 .TraitsThatBoostTypeStatused:
 	db TRAIT_BOOST_PRIMARY_STATUSED
@@ -5180,8 +5186,8 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_FIRST_TURNS
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_CULL_OPP_LOW_HP
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_LOW_HP
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ATTACK_BELOW_THIRD
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_DEFENSE_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_100_PERCENT ; TRAIT_ATTACK_BELOW_THIRD
+	db SUP_CHANCE_DOWN + SUP_100_PERCENT ; TRAIT_DEFENSE_BELOW_THIRD
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SPEED_BELOW_THIRD
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SP_ATTACK_BELOW_THIRD
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SP_DEFENSE_BELOW_THIRD
