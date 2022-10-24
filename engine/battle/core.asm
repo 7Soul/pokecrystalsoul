@@ -1010,23 +1010,7 @@ EndOpponentProtectEndureDestinyBond:
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	farcall TraitLowerStatAfterDamage
-
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
-	farcall TraitPassStatusWithAttack
-
-	ld a, BATTLE_VARS_TRAIT_OPP
-	ld [wBuffer1], a
 	farcall TraitAfterMove
-
-	; ld a, BATTLE_VARS_TRAIT ; not needed?
-	; ld [wBuffer1], a
-	; farcall TraitRaiseStatAfterDamage
-
-	ld a, BATTLE_VARS_TRAIT_OPP
-	ld [wBuffer1], a
-	farcall TraitRaiseStatAfterDamage
 	
 	ldh a, [hBattleTurn]
 	and a

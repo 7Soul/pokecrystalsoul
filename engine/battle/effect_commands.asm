@@ -3781,6 +3781,14 @@ UpdateMoveData:
 	call GetMoveName
 	jp CopyName1
 
+BattleCommand_ParalyseOrPoison:
+	call BattleRandom
+	and 1
+	jr z, .prz
+	jp BattleCommand_ParalyzeTarget
+.prz
+	jp BattleCommand_PoisonTarget
+
 BattleCommand_ParalyseOrSleep:
 	call BattleRandom
 	and 1

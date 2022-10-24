@@ -32,7 +32,7 @@ TraitDescriptions::
 	dw SturdyDescription          ; TRAIT_STURDY
 	dw NoGuardDescription         ; TRAIT_PERFECT_ACCURACY
 	dw CompoundEyesDescription    ; TRAIT_MOVE_ACC_NON_STAB_MORE
-	dw TipsyGasDescription        ; TRAIT_SWAP_DEFENSE_BUFFS
+	dw TipsyGasDescription        ; TRAIT_NORMALIZE_FOE_STATS
 	dw PiercingAttackDescription  ; TRAIT_BOOST_POWER_RAISED_DEF
 	dw OverpowerDescription       ; TRAIT_BOOST_POWER_RAISED_SPDEF
 	dw IronFistDescription        ; TRAIT_BOOST_PUNCHING
@@ -127,6 +127,7 @@ TraitDescriptions::
 	dw MagicBounceDescription     ; TRAIT_PREVENT_ALL_DOWN
 	dw WonderSkinDescription      ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	dw SereneGraceDescription     ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	dw PolenHazardDescription     ; TRAIT_PRZ_PSN_WITH_STATUS
 	dw SilverAuraDescription      ; TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
 	dw GoldAuraDescription        ; TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
 	dw SheerForceDescription      ; TRAIT_BOOST_DAMAGE_WITH_EFFECT
@@ -219,7 +220,6 @@ TraitDescriptions::
 	dw IceWaterDescription        ; TRAIT_FRZ_SPD_WITH_WATER
 	dw MysticWaterDescription     ; TRAIT_LOWER_SP_ATTACK_WATER
 	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
-	dw PolenHazardDescription     ; TRAIT_PRZ_PSN_WITH_GRASS
 	dw MysticWaveDescription      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	dw MysticPowerDescription     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
 	dw WatchfulDescription        ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
@@ -358,8 +358,8 @@ CompoundEyesDescription:
 	next "more if non-STAB.@"
 
 TipsyGasDescription:
-	db   "Swaps foe's buffs"
-	next "to DEF and SP.DEF.@"
+	db   "Lowers a foe's"
+	next "raised stats.@"
 
 PiercingAttackDescription:
 	db   "Pierces foe's DEF"
@@ -796,6 +796,10 @@ WonderSkinDescription:
 SereneGraceDescription:
 	db   "Raises the chance"
 	next "of STATUS moves.@"
+
+PolenHazardDescription:
+		db   "May PSN or PRZ"
+		next "with GRASS moves.@"
 	
 SilverAuraDescription:
 	db   "Ups resist to PHY-"
@@ -1165,10 +1169,6 @@ SapSipperDescription:
 	db   "Ups best stat when"
 	next "hit by GRASS.@"
 
-PolenHazardDescription:
-	db   "May PSN or PRZ"
-	next "with GRASS moves.@"
-	
 MysticWaveDescription:
 	db   "Lowers SP.ATK with"
 	next "ELECTRIC attacks.@"

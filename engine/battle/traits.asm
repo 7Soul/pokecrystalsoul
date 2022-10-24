@@ -102,7 +102,7 @@ CheckTraitCondition:
 	jp c, .check_move_sleep
 	cp TRAIT_BOOST_FREEZE_STATUS + 1 ; all freeze traits
 	jp c, .check_move_frz
-	cp TRAIT_BOOST_EFFECT_NO_DAMAGE + 1 ; all traits for status moves 
+	cp TRAIT_PRZ_PSN_WITH_STATUS + 1 ; all traits for status moves 
 	jp c, .check_move_status
 	cp TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS + 1 ; all traits for physical moves 
 	jp c, .check_move_physical
@@ -597,7 +597,7 @@ CheckTraitCondition:
 	ld a, b ; restore trait into 'a'	
 	ret
 
-.check_move_type_matches_primary ; CheckTraitCondition.check_move_type_matches_primary
+.check_move_type_matches_primary
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVar
 	and TYPE_MASK
@@ -930,17 +930,17 @@ TraitRaiseStatAfterDamage:
 TraitOnEnter:
 	call TraitRaiseStatOnEnter
 	
-	ld a, TRAIT_SWAP_DEFENSE_BUFFS
+	ld a, TRAIT_NORMALIZE_FOE_STATS
 	call CheckSpecificTrait
-	jp c, NormalizeFoeStats
+	call c, NormalizeFoeStats
 
 	ld a, TRAIT_RESIST_RANDOM_TYPE
 	call CheckSpecificTrait
-	jp c, TriggerResistRandomType
+	call c, TriggerResistRandomType
 
 	ld a, TRAIT_ALL_STATS_BOTH_SIDES
 	call CheckSpecificTrait
-	jp c, TraitCheerUp
+	call c, TraitCheerUp
 
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
@@ -1031,7 +1031,7 @@ TraitOnEnter:
 	dwlb 13, 10 ; 1.30
 
 ; .OnEnterJumptable:
-; 	db TRAIT_SWAP_DEFENSE_BUFFS, SwapDefenseBuffs
+; 	db TRAIT_NORMALIZE_FOE_STATS, SwapDefenseBuffs
 ; 	db TRAIT_RESIST_RANDOM_TYPE, TriggerResistRandomType
 ; 	db TRAIT_ALL_STATS_BOTH_SIDES, TriggerCheerUp
 ; 	db -1
@@ -1102,7 +1102,8 @@ NormalizeFoeStats:
 	dec b
 	jr nz, .got_opp_stats
 	ld hl, TraitText_TipsyGas
-	jp StdBattleTextBox
+	call StdBattleTextBox
+	ret
 
 TriggerResistRandomType:
 .loop
@@ -1128,7 +1129,8 @@ TriggerResistRandomType:
 	call CopyBytes
 	call GetTraitUserName
 	ld hl, TraitText_ColorPick
-	jp StdBattleTextBox
+	call StdBattleTextBox
+	ret
 
 GetTraitUserName:
 	call GetTraitUser
@@ -1380,8 +1382,6 @@ GetHighestStat:
 	ret
 
 TraitLowerStatAfterDamage:
-	ld a, BATTLE_VARS_TRAIT
-	ld [wBuffer1], a
 	ld hl, TraitsThatLowerStats
 	call CheckTrait
 	jr nc, .check_opp
@@ -1534,8 +1534,6 @@ TraitAfterRaiseStat:
 	ret
 
 TraitAfterLowerStat:
-	ld a, BATTLE_VARS_TRAIT_OPP
-	ld [wBuffer1], a
 	ld a, TRAIT_REVERSE_DEBUFF
 	call CheckSpecificTrait
 	ret nc
@@ -1577,7 +1575,25 @@ TraitAfterLowerStat:
 	call PrintTraitText
 	ret
 
-TraitAfterMove:
+TraitAfterMove: ; checks opponent's traits
+	call TraitLowerStatAfterDamage
+
+	ld a, BATTLE_VARS_TRAIT
+	ld [wBuffer1], a
+
+	call TraitPassStatusWithAttack
+
+	ld a, TRAIT_PRZ_PSN_WITH_STATUS
+	call CheckSpecificTrait
+	call c, TraitDoPostStatus
+
+	ld a, BATTLE_VARS_TRAIT_OPP
+	ld [wBuffer1], a
+
+	call TraitAfterLowerStat
+
+	call TraitRaiseStatAfterDamage
+	
 ; Disable a foe's move
 	ld a, TRAIT_MOVE_DISABLE
 	call CheckSpecificTrait
@@ -1630,6 +1646,25 @@ TraitDoDisable:
 	ld hl, BattleCommand_Disable
 	call TraitUseBattleCommandSimpleSwitchTurn
 	ret
+
+TraitDoPostStatus:
+	ld a, [wAttackMissed]
+	and a
+	ret z ; return if it didn't miss
+
+	ld b, 20 percent
+	call Chance
+	ret nc
+
+	xor a
+	ld [wAttackMissed], a
+	ld [wEffectFailed], a
+	
+	call PrintTraitText
+	ld hl, BattleCommand_ParalyseOrPoison
+	call TraitUseBattleCommandSimpleSwitchTurn
+	ret
+
 
 TraitRaiseStatOnStatDown:
 	ld a, [wFailedMessage]
@@ -2237,7 +2272,7 @@ TraitPostHitBattleCommand:
 	db TRAIT_FLYING_FRZ
 	db TRAIT_FLYING_PRZ
 	db TRAIT_FLYING_BRN
-	db TRAIT_PRZ_PSN_WITH_GRASS
+	db TRAIT_PRZ_PSN_WITH_STATUS
 	db TRAIT_FRZ_SPD_WITH_WATER
 	db TRAIT_PSN_DRAIN ; 5
 	db -1
@@ -4581,7 +4616,7 @@ PrintTraitText:
 
 OneShotTraits:
 ; List of traits that can only go off once while the pokemon is out
-	db TRAIT_SWAP_DEFENSE_BUFFS
+	db TRAIT_NORMALIZE_FOE_STATS
 	db TRAIT_EVASION_ON_SPEED_DIFF
 	db TRAIT_ATK_ON_ATK_DIFF
 	db TRAIT_RAISE_ATTACK_STAT_LOWERED
@@ -5064,7 +5099,7 @@ TraitSupportValues:
 	db SUP_TRIGGER_ONCE                 ; TRAIT_STURDY
 	db SUP_SET_FLAT    + 20             ; TRAIT_PERFECT_ACCURACY
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_MOVE_ACC_NON_STAB_MORE
-	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_SWAP_DEFENSE_BUFFS
+	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_NORMALIZE_FOE_STATS
 	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_BOOST_POWER_RAISED_DEF
 	db SUP_CHANCE_DOWN + SUP_25_PERCENT ; TRAIT_BOOST_POWER_RAISED_SPDEF
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50  ; TRAIT_BOOST_PUNCHING
@@ -5251,7 +5286,7 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FRZ_SPD_WITH_WATER
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_WATER
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PRZ_PSN_WITH_GRASS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PRZ_PSN_WITH_STATUS
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DARK_UP_MAIN_STAT

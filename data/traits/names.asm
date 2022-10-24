@@ -32,7 +32,7 @@ TraitNames::
 	db "Sturdy@"           ; TRAIT_STURDY
 	db "No Guard@"         ; TRAIT_PERFECT_ACCURACY
 	db "Compound Eyes@"    ; TRAIT_MOVE_ACC_NON_STAB_MORE
-	db "Tipsy Gas@"        ; TRAIT_SWAP_DEFENSE_BUFFS
+	db "Tipsy Gas@"        ; TRAIT_NORMALIZE_FOE_STATS
 	db "Piercing Attack@"  ; TRAIT_BOOST_POWER_RAISED_DEF
 	db "Overpower@"        ; TRAIT_BOOST_POWER_RAISED_SPDEF
 	db "Iron Fist@"        ; TRAIT_BOOST_PUNCHING
@@ -127,6 +127,7 @@ TraitNames::
 	db "Magic Bounce@"     ; TRAIT_PREVENT_ALL_DOWN
 	db "Wonder Skin@"      ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	db "Serene Grace@"     ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	db "Polen Hazard@"     ; TRAIT_PRZ_PSN_WITH_STATUS
 	db "Silver Aura@"      ; TRAIT_REDUCE_PHYSICAL_TAKEN
 	db "Gold Aura@"        ; TRAIT_REDUCE_SPECIAL_TAKEN
 	db "Sheer Force@"      ; TRAIT_BOOST_DAMAGE_WITH_EFFECT
@@ -219,7 +220,6 @@ TraitNames::
 	db "Ice Water@"        ; TRAIT_FRZ_SPD_WITH_WATER
 	db "Mystic Water@"     ; TRAIT_LOWER_SP_ATTACK_WATER
 	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
-	db "Polen Hazard@"     ; TRAIT_PRZ_PSN_WITH_GRASS
 	db "Mystic Wave@"      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db "Mystic Power@"     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
 	db "Watchful@"         ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
