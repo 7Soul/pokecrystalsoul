@@ -466,6 +466,7 @@ RoarDescription:
 SingDescription:
 SleepPowderDescription:
 HypnosisDescription:
+LovelyKissDescription:
 	db   "May cause the foe"
 	next "to fall asleep.@"
 
@@ -1135,6 +1136,7 @@ VariableMoveDescriptions::
 	dw $0000 ; FlareBlitzDescription
 	dw ElectroBallDescription
 	dw AuraSphereDescription
+	dw LovelyKissDescription
 	dw SmartStrikeDescription
 	dw $0000 ; IceShardDescription
 	dw $0000 ; AccelerockDescription

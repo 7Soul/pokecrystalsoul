@@ -3,14 +3,6 @@ INCLUDE "constants.asm"
 
 SECTION "Egg Moves", ROMX
 
-; All instances of Charm, Steel Wing, Sweet Scent, and Lovely Kiss were
-; removed from egg move lists in Crystal.
-; Sweet Scent and Steel Wing were redundant since they're TMs, and
-; Charm and Lovely Kiss were unobtainable.
-
-; Staryu's egg moves were removed in Crystal, because Staryu is genderless
-; and can only breed with Ditto.
-
 INCLUDE "data/pokemon/egg_move_pointers.asm"
 
 BulbasaurEggMoves:
@@ -19,14 +11,15 @@ BulbasaurEggMoves:
 	db SLUDGE                      ; min level 10
 	db MAGICAL_LEAF                ; min level 15
 	db SKULL_BASH                  ; min level 20
-	db PETAL_DANCE                 ; min level 25
+	db ANCIENTPOWER                ; min level 25
+	db PETAL_DANCE                 ; min level 30
 	db -1 ; end
 
 CharmanderEggMoves:
 	db BITE
 	db FIRE_FLICK
 	db ABSORB ; becomes Fire Fang
-	db ANCIENTPOWER
+	db CRUNCH
 	db ROCK_SLIDE
 	db THRASH
 	db BELLY_DRUM
@@ -40,6 +33,7 @@ SquirtleEggMoves:
 	db JET_STREAM
 	db REVERSAL
 	db MUD_BOMB
+	db ZAP_CANNON
 	db -1 ; end
 
 CaterpieEggMoves:
@@ -78,6 +72,7 @@ RattataEggMoves:
 
 SpearowEggMoves:
 	db FALSE_SWIPE
+	db SONICBOOM
 	db SCARY_FACE
 	db QUICK_ATTACK
 	db TRI_ATTACK
@@ -106,6 +101,7 @@ SandshrewEggMoves:
 NidoranFEggMoves:
 	db CHARM
 	db SUPERSONIC
+	db PECK ; becomes Lovely Kiss
 	db TAKE_DOWN
 	db FOCUS_ENERGY
 	db COUNTER
@@ -135,7 +131,7 @@ ZubatEggMoves:
 	db ZEN_HEADBUTT
 	db STEEL_WING
 	db CURSE
-	db QUICK_ATTACK
+	db REVERSAL ; becomes Flail
 	db DOUBLE_EDGE ; becomes Brave Bird
 	db -1 ; end
 
@@ -181,17 +177,17 @@ MeowthEggMoves:
 	db HYPNOSIS
 	db MIMIC
 	db NASTY_PLOT
+	db PETAL_DANCE
 	db -1 ; end
 
 PsyduckEggMoves:
-	db CONFUSE_RAY
 	db HYPNOSIS
 	db MUD_BOMB
-	db ICE_BEAM
 	db PSYBEAM
 	db PSYCHIC_M
-	db SLEEP_TALK
-	; db HAZE ; becomes Clear Smog (in common table)
+	db ICE_BEAM
+	db PETAL_DANCE
+	db TRI_ATTACK
 	db -1 ; end
 
 MankeyEggMoves:
@@ -217,6 +213,7 @@ PoliwagEggMoves:
 	db AURORA_BEAM
 	db ENCORE
 	db SIGNAL_BEAM ; becomes Water Pulse
+	db PECK ; becomes Lovely Kiss
 	db -1 ; end
 
 AbraEggMoves:
@@ -229,7 +226,7 @@ AbraEggMoves:
 MachopEggMoves:
 	db LIGHT_SCREEN
 	db ROLLING_KICK
-	db BITE ; becomes Smart Strike
+	db BITE ; becomes Bullet Punch
 	db ICE_PUNCH
 	db FIRE_PUNCH
 	db THUNDERPUNCH
@@ -325,6 +322,7 @@ GrimerEggMoves:
 	db LICK
 	db CURSE
 	db VENOSHOCK
+	db OCTAZOOKA
 	db -1 ; end
 
 ShellderEggMoves:
@@ -352,6 +350,7 @@ OnixEggMoves:
 	db HORN_DRILL
 	db AQUA_TAIL
 	db SKULL_BASH
+	db DARK_PULSE ; becomes Iron Head
 	db -1 ; end
 
 DrowzeeEggMoves:
@@ -361,6 +360,7 @@ DrowzeeEggMoves:
 	db FIRE_PUNCH
 	db THUNDERPUNCH
 	db MEGA_KICK
+	db BELLY_DRUM
 	db -1 ; end
 
 KrabbyEggMoves:
@@ -396,6 +396,7 @@ CuboneEggMoves:
 
 LickitungEggMoves:
 	db COMET_PUNCH
+	db HEAL_BELL
 	db BELLY_DRUM
 	db MAGNITUDE
 	db HAMMER_ARM
@@ -499,6 +500,7 @@ PinsirEggMoves:
 	db CLOSE_COMBAT
 	db LEECH_LIFE
 	db BUG_BUZZ
+	db ROCK_THROW
 	db -1 ; end
 
 TaurosEggMoves:
@@ -528,6 +530,7 @@ LaprasEggMoves:
 	db WHIRLPOOL
 	db CONFUSION ; becomes Avalanche
 	db MACH_PUNCH ; becomes Smart Strike
+	db BITE
 	db -1 ; end
 
 EeveeEggMoves:
@@ -556,6 +559,7 @@ OmanyteEggMoves:
 	db SUPERSONIC
 	db MEGAHORN
 	db FIRE_PLAY ; becomes Tide Clash
+	db ROCK_THROW
 	db -1 ; end
 
 KabutoEggMoves:
@@ -565,6 +569,7 @@ KabutoEggMoves:
 	db REVERSAL
 	db X_SCISSOR
 	db GIGA_DRAIN
+	db ROCK_THROW
 	db -1 ; end
 
 AerodactylEggMoves:
@@ -582,6 +587,7 @@ SnorlaxEggMoves:
 	db ZEN_HEADBUTT
 	db HORN_DRILL ; becomes Fissure
 	db DOUBLE_EDGE
+	db PECK ; becomes Lovely Kiss
 	db -1 ; end
 
 ArticunoEggMoves:
@@ -620,6 +626,7 @@ ChikoritaEggMoves:
 	db HEAL_BELL ; becomes Aromatherapy
 	db REVERSAL
 	db SWORDS_DANCE
+	db PETAL_DANCE
 	db -1 ; end
 
 CyndaquilEggMoves:
@@ -637,12 +644,13 @@ TotodileEggMoves:
 	db ANCIENTPOWER
 	db ROCK_SLIDE
 	db ICE_PUNCH
-	db SEISMIC_TOSS
+	db SUBMISSION
 	db -1 ; end
 
 SentretEggMoves:
 	db PURSUIT
 	db FOCUS_ENERGY
+	db DIZZY_PUNCH
 	db DOUBLE_EDGE
 	db SLASH
 	db REVERSAL
@@ -659,6 +667,7 @@ HoothootEggMoves:
 
 LedybaEggMoves:
 	db FEATHERGALE
+	db BARRIER
 	db DOUBLE_TEAM
 	db PSYBEAM
 	db SCREECH
@@ -690,6 +699,7 @@ PichuEggMoves:
 	db U_TURN ; becomes Volt Switch
 	db THUNDERPUNCH
 	db GNAW
+	db PETAL_DANCE
 	db -1 ; end
 
 CleffaEggMoves:
@@ -698,6 +708,7 @@ CleffaEggMoves:
 	db BELLY_DRUM
 	db MIMIC
 	db FIRE_PUNCH
+	db PETAL_DANCE
 	db -1 ; end
 
 IgglybuffEggMoves:
@@ -706,6 +717,7 @@ IgglybuffEggMoves:
 	db FAINT_ATTACK
 	db SLEEP_TALK
 	db HYPER_SONAR
+	db PETAL_DANCE
 	db -1 ; end
 
 TogepiEggMoves:
@@ -774,6 +786,7 @@ SunkernEggMoves:
 	db PROTECT
 	db DIG
 	db SPORE
+	db OCTAZOOKA
 	db -1 ; end
 
 YanmaEggMoves:
@@ -783,12 +796,14 @@ YanmaEggMoves:
 	db ZOOM_FLIGHT
 	db HURRICANE
 	db AGILITY
+	db STEEL_WING
 	db -1 ; end
 
 WooperEggMoves:
 	db BODY_SLAM
 	db ANCIENTPOWER
 	db FIRE_PLAY ; becomes Tide Clash
+	db BELLY_DRUM
 	db -1 ; end
 
 MurkrowEggMoves:
@@ -837,6 +852,7 @@ DunsparceEggMoves:
 	db HEADBUTT
 	db SLEEP_TALK
 	db SKULL_BASH
+	db HORN_DRILL
 	db -1 ; end
 
 GligarEggMoves:
@@ -862,6 +878,7 @@ QwilfishEggMoves:
 	db BUBBLEBEAM
 	db SUPERSONIC
 	db SILVER_WIND
+	db OCTAZOOKA
 	db -1 ; end
 
 ShuckleEggMoves:
@@ -903,6 +920,7 @@ SlugmaEggMoves:
 	db ROLLOUT
 	db INFERNO
 	db CURSE
+	db DARK_PULSE
 	db -1 ; end
 
 SwinubEggMoves:
@@ -968,6 +986,7 @@ HoundourEggMoves:
 	db -1 ; end
 
 PhanpyEggMoves:
+	db ABSORB
 	db FOCUS_ENERGY
 	db BODY_SLAM
 	db ANCIENTPOWER
@@ -997,9 +1016,12 @@ TyrogueEggMoves:
 
 SmoochumEggMoves:
 	db DIZZY_PUNCH
+	db PECK ; becomes Lovely Kiss
 	db MEDITATE
 	db NASTY_PLOT
 	db BARRIER
+	db PETAL_DANCE
+	db METRONOME
 	db -1 ; end
 
 ElekidEggMoves:
@@ -1027,6 +1049,7 @@ MiltankEggMoves:
 	db REVERSAL
 	db SEISMIC_TOSS
 	db HAMMER_ARM
+	db MEGA_KICK
 	db -1 ; end
 
 LarvitarEggMoves:

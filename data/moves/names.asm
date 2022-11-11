@@ -268,6 +268,7 @@ VariableMoveNames::
 	db "Flare Blitz@"
 	db "Electro Ball@"
 	db "Aura Sphere@"
+	db "Lovely Kiss@"
 	db "Smart Strike@"
 	db "Ice Shard@"
 	db "Accelerock@"

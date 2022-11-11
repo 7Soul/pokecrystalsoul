@@ -2043,7 +2043,7 @@ ScytherEvosAttacks:
 JynxEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, LICK
-	db 9, SING
+	db 9, PECK ; becomes Lovely Kiss
 	db 13, POWDER_SNOW
 	db 21, DOUBLESLAP
 	db 25, ICE_PUNCH
@@ -4102,7 +4102,7 @@ PupitarEvosAttacks:
 
 TyranitarEvosAttacks:
 	db 0 ; no more evolutions
-	db 29, THRASH
+	db 1, THRASH
 	db 34, DARK_PULSE
 	db 37, CROSS_CHOP ; becomes Stone Edge
 	db 44, CRUNCH
