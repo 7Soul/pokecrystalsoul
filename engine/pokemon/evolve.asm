@@ -737,7 +737,7 @@ FillEggMove:
 	jr nc, .not_common_egg
 
 	ld a, [wCurPartySpecies]
-	; dec a
+	dec a
 	ld hl, BaseData + BASE_TYPES
 	ld bc, BASE_DATA_SIZE
 	call AddNTimes
@@ -1015,30 +1015,32 @@ FillMoves:
 	pop bc
 	pop de
 	pop hl
-; if first mon is the same as the wild one, adds 10% egg move chance
+; if first mon is the same as the wild one, adds 8% egg move chance
 	ld a, [wCurPartySpecies]
 	ld b, a
 	ld a, [wPartyMon1Species]
 	cp b
-	ld b, 10 percent
+	ld b, 8 percent
 	jr z, .equal_mons
 	ld b, 0
 .equal_mons
-; 7% chance to have egg move in a lucky battle
+; 8% chance to have egg move in a lucky battle
 	ld a, [wLuckyWild]
 	and a
 	jr z, .notLucky
-	ld a, 7 percent + 1
+	ld a, 8 percent + 1
 	add b
+	ld b, a
 	call Random
 	cp b
 	ret nc
 	jp FillEggMove
 
 .notLucky
-; 3% chance to have egg move in a normal battle
-	ld a, 3 percent + 1
+; 4% chance to have egg move in a normal battle
+	ld a, 4 percent + 1
 	add b
+	ld b, a
 	call Random
 	cp b
 	ret nc
