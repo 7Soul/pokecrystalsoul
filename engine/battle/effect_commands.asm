@@ -1159,7 +1159,7 @@ BattleCommand_DoTurn:
 	jr z, .okay2
 	ld a, [wCurEnemyMoveNum]
 
-.okay2
+.okay2  ; BattleCommand_DoTurn.okay2
 	ld c, a
 	ld b, 0
 	add hl, bc
@@ -1193,13 +1193,26 @@ BattleCommand_DoTurn:
 	
 .reduce_stamina_wild ; BattleCommand_DoTurn.reduce_stamina_wild
 	push hl
+	
+	; get pp cost from move data
+	push de
+	push hl
+	push bc
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVarAddr
+	lb bc, 0, 5
+	add hl, bc
+	ld e, [hl]
+	pop bc
+	pop hl
+
 	ld hl, StaminaCost
 	; pp cost is in b, put stamina cost in b
 .get_stamina_cost_loop
 	ld a, [hli]
 	cp -1
 	jr z, .got_stamina_cost
-	cp b
+	cp e
 	jr z, .got_stamina_cost
 	inc hl
 	jr .get_stamina_cost_loop
@@ -1217,6 +1230,7 @@ BattleCommand_DoTurn:
 	and STA_EX_MASK
 	or c
 	ld [hl], a
+	pop de
 	ld [de], a
 
 ; Update HUD

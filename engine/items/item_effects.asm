@@ -155,7 +155,7 @@ ItemEffects:
 	dw NoEffect            ; SCOPE_LENS
 	dw NoEffect            ; HARDENEDSAND
 	dw NoEffect            ; SHINY_CORAL
-	dw NoEffect            ; ITEM_8F
+	dw PokeBallEffect      ; LUCKY_BALL
 	dw NoEffect            ; ITEM_90
 	dw NoEffect            ; CUTE_RIBBON
 	dw NoEffect            ; LEFTOVERS
@@ -177,7 +177,7 @@ ItemEffects:
 	dw NoEffect            ; ITEM_A2
 	dw NoEffect            ; LIGHT_BALL
 	dw PokeBallEffect      ; FRIEND_BALL
-	dw PokeBallEffect      ; MOON_BALL
+	dw PokeBallEffect      ; STONE_BALL
 	dw PokeBallEffect      ; LOVE_BALL
 	dw NormalBoxEffect     ; NORMAL_BOX
 	dw GorgeousBoxEffect   ; GORGEOUS_BOX
@@ -767,12 +767,12 @@ BallMultiplierFunctionTable:
 ; which ball is used in a certain situation.
 	dbw ULTRA_BALL,  UltraBallMultiplier
 	dbw GREAT_BALL,  GreatBallMultiplier
-	dbw SAFARI_BALL, SafariBallMultiplier ; Safari Ball, leftover from RBY
+	dbw LUCKY_BALL,  LuckyBallMultiplier
 	dbw HEAVY_BALL,  HeavyBallMultiplier
 	dbw LEVEL_BALL,  LevelBallMultiplier
 	dbw LURE_BALL,   LureBallMultiplier
 	dbw FAST_BALL,   FastBallMultiplier
-	dbw MOON_BALL,   MoonBallMultiplier
+	dbw STONE_BALL,  StoneBallMultiplier
 	dbw LOVE_BALL,   LoveBallMultiplier
 	dbw PARK_BALL,   ParkBallMultiplier
 	db -1 ; end
@@ -790,7 +790,6 @@ UltraBallMultiplier:
 	ld b, a
 	ret
 
-SafariBallMultiplier:
 GreatBallMultiplier:
 ParkBallMultiplier:
 ;multiply catch rate by 1.5
@@ -802,13 +801,28 @@ ParkBallMultiplier:
 	ld b, $ff
 	ret
 
+LuckyBallMultiplier:
+; multiply rate by 8 during lucky encounters
+	ld a, [wLuckyWild]
+	and a
+	ret z
+
+	sla b
+	jr c, .max
+	sla b
+	jr c, .max
+	sla b
+	ret nc
+.max
+	ld b, $ff
+	ret
+
 HeavyBallMultiplier:
-; subtract 20 from catch rate if weight < 102.4 kg
-; else add 20 to catch rate if 102.4 kg < weight < 153.6 kg ; (Graveler, Rhyhorn, Scizor, Dewgong, Donphan, Ursaring, Forretress, Rhydon, Exeggutor, Cloyster, Kingdra, Pupitar)
-; else add 40 to catch rate if 153.6 kg < weight < 204.8 kg ; (Arcanine, Raikou, Suicune, Entei, Ho-Oh, Tyranitar)
-; else add 60 to catch rate if 204.8 kg < weight < 307.2 kg ; (Onix, Dragonite, Lugia, Lapras, Gyarados, Golem)
-; else add 60 to catch rate if 307.2 kg < weight < 409.6 kg ; (Steelix)
-; else add 80 to catch rate (never happens)
+; subtract 20 from catch rate if weight < 50.2 kg
+; else add 30 to catch rate if 50.2 kg < weight < 70.5 kg
+; else add 60 to catch rate if 70.5 kg < weight < 120.0 kg
+; else add 90 to catch rate if 120.0 kg < weight < 409.6 kg
+; else add 120 to catch rate if weight > 409.6 kg
 	ld a, [wEnemyMonSpecies]
 	ld hl, PokedexDataPointerTable
 	dec a
@@ -867,7 +881,7 @@ endr
 
 .compare
 	ld c, a
-	cp HIGH(1024) ; 102.4 kg
+	cp HIGH(0502) ; 50.2 kg
 	jr c, .lightmon
 
 	ld hl, .WeightsTable
@@ -898,11 +912,10 @@ endr
 
 .WeightsTable:
 ; weight factor, boost
-	db HIGH(1536),  20
-	db HIGH(2048),  40
-	db HIGH(3072),  60
-	db HIGH(4096),  60
-	db HIGH(65280), 80
+	db HIGH(0705),  30
+	db HIGH(1200),  60
+	db HIGH(4096),  90
+	db HIGH(65280), 120
 
 LureBallMultiplier:
 ; multiply catch rate by 4 if this is a fishing rod battle
@@ -921,8 +934,8 @@ LureBallMultiplier:
 	ld b, a
 	ret
 
-MoonBallMultiplier:
-; Multiply catch rate by 8 if mon evolves with moon stone
+StoneBallMultiplier:
+; Multiply catch rate by 8 if mon evolves with any stone
 	push bc
 	ld a, [wTempEnemyMonSpecies]
 	dec a
@@ -942,16 +955,16 @@ MoonBallMultiplier:
 	pop bc
 	ret nz
 
-	inc hl
-	inc hl
-	inc hl
+	; inc hl
+	; inc hl
+	; inc hl
 
-	push bc
-	ld a, BANK("Evolutions and Attacks")
-	call GetFarByte
-	cp MOON_STONE
-	pop bc
-	ret nz
+	; push bc
+	; ld a, BANK("Evolutions and Attacks")
+	; call GetFarByte
+	; cp MOON_STONE
+	; pop bc
+	; ret nz
 
 	sla b
 	jr c, .max
@@ -964,14 +977,21 @@ MoonBallMultiplier:
 	ret
 
 LoveBallMultiplier:
-; Multiply catch rate by 8 if mons are of same species, different sex
+; Multiply catch rate by 4 if mons are of same species
+; Multiply catch rate by 8 if mons are of same species and diff gender
 	; does species match?
 	ld a, [wTempEnemyMonSpecies]
 	ld c, a
 	ld a, [wTempBattleMonSpecies]
 	cp c
 	ret nz
-
+	; Quadruples rate for same species
+	sla b
+	jr nc, .cont
+	sla b
+	jr nc, .cont
+	ld b, $ff
+.cont
 	; check player mon species
 	push bc
 	ld a, [wTempBattleMonSpecies]
@@ -1006,11 +1026,7 @@ LoveBallMultiplier:
 	cp d
 	pop bc
 	ret z
-
-	sla b
-	jr c, .max
-	sla b
-	jr c, .max
+	; doubles rate again for same gender
 	sla b
 	ret nc
 .max
@@ -1025,7 +1041,7 @@ LoveBallMultiplier:
 	ret
 
 FastBallMultiplier:
-; Multiply catch rate by 4 if enemy mon is in one of the three
+; Multiply catch rate by 8 if enemy mon is in one of the three
 ; FleeMons tables.
 	ld a, [wTempEnemyMonSpecies]
 	ld c, a
@@ -1041,15 +1057,13 @@ FastBallMultiplier:
 	jr z, .next
 	cp c
 	jr nz, .loop 
-	sla b
-	jr c, .max
 
 	sla b
 	jr c, .max
-	
+	sla b
+	jr c, .max
 	sla b
 	ret nc
-
 .max
 	ld b, $ff
 	ret
@@ -2789,8 +2803,6 @@ Ball_NuzlockeFailureMessage:
 	
 	ld a, [wCurItem]
 	cp PARK_BALL
-	ret z
-	cp SAFARI_BALL
 	ret z
 
 	; Item wasn't used.

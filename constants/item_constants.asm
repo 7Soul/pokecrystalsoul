@@ -148,7 +148,7 @@
 	const SCOPE_LENS   ; 8c
 	const HARDENEDSAND ; 8d ; new
 	const SHINY_CORAL  ; 8e ; new
-	const ITEM_8F      ; 8f ; unused
+	const LUCKY_BALL   ; 8f ; new
 	const ITEM_90      ; 90 ; unused
 	const CUTE_RIBBON  ; 91 ; new
 	const LEFTOVERS    ; 92
@@ -170,7 +170,7 @@
 	const ITEM_A2      ; a2 ; unused
 	const LIGHT_BALL   ; a3
 	const FRIEND_BALL  ; a4
-	const MOON_BALL    ; a5
+	const STONE_BALL    ; a5
 	const LOVE_BALL    ; a6
 	const NORMAL_BOX   ; a7 ; trophy from pokemon stadium
 	const GORGEOUS_BOX ; a8 ; trophy from pokemon stadium
@@ -308,6 +308,5 @@ USE_SCRIPT_VAR EQU $00
 ITEM_FROM_MEM  EQU $ff
 
 ; leftovers from red
-SAFARI_BALL    EQU $08 ; MOON_STONE
 MOON_STONE_RED EQU $0a ; BURN_HEAL
 FULL_HEAL_RED  EQU $34 ; X_SPEED

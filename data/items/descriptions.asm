@@ -142,7 +142,7 @@ ItemDescriptions:
 	dw ScopeLensDesc
 	dw HardenedSandDesc
 	dw ShinyCoralDesc
-	dw MetalCoatDesc
+	dw LuckyBallDesc
 	dw DragonFangDesc
 	dw CuteRibbonDesc
 	dw LeftoversDesc
@@ -164,7 +164,7 @@ ItemDescriptions:
 	dw TeruSama21Desc
 	dw LightBallDesc
 	dw FriendBallDesc
-	dw MoonBallDesc
+	dw StoneBallDesc
 	dw LoveBallDesc
 	dw NormalBoxDesc
 	dw GorgeousBoxDesc
@@ -805,9 +805,9 @@ ShinyCoralDesc:
 	db   "Powers unevolved"
 	next "WATER-Types.@"
 
-MetalCoatDesc:
-	db   "Powers up steel-"
-	next "type moves. (HOLD)@"
+LuckyBallDesc:
+	db   "A BALL used during"
+	next "lucky encounters.@"
 
 DragonFangDesc:
 	db   "Powers up dragon-"
@@ -888,9 +888,9 @@ FriendBallDesc:
 	db   "A BALL that makes"
 	next "#MON friendly.@"
 
-MoonBallDesc:
-	db   "A BALL for MOON"
-	next "STONE evolvers.@"
+StoneBallDesc:
+	db   "A BALL for STONE"
+	next "evolvers.@"
 
 LoveBallDesc:
 	db   "For catching the"
