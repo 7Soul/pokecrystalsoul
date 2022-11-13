@@ -203,8 +203,6 @@ TraitDescriptions::
 	dw DiamondShellDescription    ; TRAIT_REDUCE_FLYING_STEEL_HIT
 	dw LightBarrierDescription    ; TRAIT_REDUCE_ELECTRIC_DARK_HIT
 	dw AridShieldDescription      ; TRAIT_REDUCE_WATER_GRASS_HIT
-	dw ThickFatDescription        ; TRAIT_DEFENSE_ICE_FIRE_HIT
-	dw RattledDescription         ; TRAIT_SPEED_BUG_DARK_HIT
 	dw StoneSkinDescription       ; TRAIT_REDUCE_NORMAL
 	dw BoneArmorDescription       ; TRAIT_REDUCE_NORMAL_MORE
 	dw FadeDescription            ; TRAIT_REDUCE_NORMAL_ACC
@@ -230,6 +228,7 @@ TraitDescriptions::
 	dw UnderDuressDescription     ; TRAIT_BOOST_PRIMARY_STATUSED
 	dw TintedLensDescription      ; TRAIT_BOOST_NOT_EFFECTIVE
 	dw InkBombDescription         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
+	dw RattledDescription         ; TRAIT_SUPER_EFFECTIVE_RAISE_STAT
 	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	dw PrismPlateDescription      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
     dw TraitFFDescription    
@@ -1101,14 +1100,6 @@ AridShieldDescription:
 	db   "WATER and GRASS"
 	next "may be negated.@"
 
-ThickFatDescription:
-	db   "Ups DEF when hit"
-	next "by ICE or FIRE.@"
-
-RattledDescription:
-	db   "Ups DEF when hit"
-	next "by BUG or DARK.@"
-
 StoneSkinDescription:
 	db   "Reduces NORMAL"
 	next "damage taken.@"
@@ -1208,6 +1199,10 @@ TintedLensDescription:
 InkBombDescription:
 	db   "S.EFFECTIVE trig-"
 	next "gers ACC lowering.@"
+	
+RattledDescription:
+	db   "Best stat UP when"
+	next "hit by S.EFFECTIVE@"
 
 AdaptiveFurDescription:
 	db   "Take less SUPER-"

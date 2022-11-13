@@ -203,8 +203,6 @@ TraitNames::
 	db "Diamond Shell@"    ; TRAIT_REDUCE_FLYING_STEEL_HIT
 	db "Light Barrier@"    ; TRAIT_REDUCE_ELECTRIC_DARK_HIT
 	db "Arid Shield@"      ; TRAIT_REDUCE_WATER_GRASS_HIT
-	db "Thick Fat@"        ; TRAIT_DEFENSE_ICE_FIRE_HIT
-	db "Rattled@"          ; TRAIT_SPEED_BUG_DARK_HIT
 	db "Stone Skin@"       ; TRAIT_REDUCE_NORMAL
 	db "Bone Armor@"       ; TRAIT_REDUCE_NORMAL_MORE
 	db "Fade@"             ; TRAIT_REDUCE_NORMAL_ACC
@@ -230,5 +228,6 @@ TraitNames::
 	db "Under Duress@"     ; TRAIT_BOOST_PRIMARY_STATUSED
 	db "Tinted Lens@"      ; TRAIT_BOOST_NOT_EFFECTIVE
 	db "Ink Bomb@"         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
+	db "Rattled@"          ; TRAIT_SUPER_EFFECTIVE_RAISE_STAT
 	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db "Prism Plate@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE

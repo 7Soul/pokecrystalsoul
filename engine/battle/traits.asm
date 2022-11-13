@@ -241,16 +241,16 @@ CheckTraitCondition:
 	ld c, WATER
 	ld e, GRASS
 	jp c, .check_move_type
-	cp TRAIT_DEFENSE_ICE_FIRE_HIT + 1; 
-	ld b, a
-	ld c, FIRE
-	ld e, ICE
-	jp c, .check_move_type
-	cp TRAIT_SPEED_BUG_DARK_HIT + 1; 
-	ld b, a
-	ld c, BUG
-	ld e, DARK
-	jp c, .check_move_type
+	; cp TRAIT_DEFENSE_ICE_FIRE_HIT + 1; 
+	; ld b, a
+	; ld c, FIRE
+	; ld e, ICE
+	; jp c, .check_move_type
+	; cp TRAIT_SPEED_BUG_DARK_HIT + 1; 
+	; ld b, a
+	; ld c, BUG
+	; ld e, DARK
+	; jp c, .check_move_type
 	; ld e, $FF
 	; cp TRAIT_BOOST_FIGHTING_STATUSED ; traits below this that require move type to be NORMAL
 	; ld b, a
@@ -900,11 +900,16 @@ CheckTraitTurnTriggers:
 	ret
 
 TraitRaiseStatAfterDamage:
+; checking trait on the receiving end
+	ld a, TRAIT_SUPER_EFFECTIVE_RAISE_STAT
+	call CheckSpecificTrait
+	call c, RaiseBestStat
+
 	ld hl, .TraitsThatRaiseStatAfterDamage
 	call CheckTrait
 	ret nc
 	ld a, [wBuffer3]
-	cp 7
+	cp 5
 	jr nc, .highest_stat
 	call TraitRaiseStat
 	call Switch_turn
@@ -919,13 +924,43 @@ TraitRaiseStatAfterDamage:
 	db TRAIT_DEFENSE_AFTER_CRIT
 	db TRAIT_SPEED_AFTER_CRIT
 	db TRAIT_SP_ATTACK_AFTER_CRIT
-	db TRAIT_SP_DEFENSE_AFTER_CRIT
-	db TRAIT_DEFENSE_ICE_FIRE_HIT
-	db TRAIT_SPEED_BUG_DARK_HIT ; 6
-	db TRAIT_REDUCE_POISON_UP_MAIN_STAT ; 7
+	db TRAIT_SP_DEFENSE_AFTER_CRIT ; 4
+	db TRAIT_REDUCE_POISON_UP_MAIN_STAT ; 5
 	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db -1
+
+RaiseBestStat:
+	ld a, [wTypeModifier]
+	and $7f
+	cp 20 ; check if its over 10 (normal) or 5 (not effective)
+	ret nz
+
+	call Get_move_category
+	cp STATUS
+	ret z
+
+	call GetHighestStat
+	ld a, c
+	push af
+	call Switch_turn
+	pop af
+	ld hl, .JumptableBattleCommands
+	call TraitUseBattleCommand
+
+	ld hl, BattleCommand_StatUpMessage
+	call TraitUseBattleCommandSimple
+
+	ld hl, BattleCommand_StatUpFailText
+	jp TraitUseBattleCommandSimpleSwitchTurn
+
+.JumptableBattleCommands:
+	dw BattleCommand_AttackUp
+	dw BattleCommand_DefenseUp
+	dw BattleCommand_SpeedUp
+	dw BattleCommand_SpecialAttackUp
+	dw BattleCommand_SpecialDefenseUp
+
 
 TraitOnEnter:
 	call TraitRaiseStatOnEnter
@@ -1300,7 +1335,6 @@ TraitsThatRaiseDefense:
 	db TRAIT_DEFENSE_BELOW_THIRD
 	db TRAIT_DEFENSE_STATUSED
 	db TRAIT_DEFENSE_AFTER_CRIT
-	db TRAIT_DEFENSE_ICE_FIRE_HIT
 	db -1
 
 TraitsThatRaiseSpeed:
@@ -1311,7 +1345,6 @@ TraitsThatRaiseSpeed:
 	db TRAIT_SPEED_BELOW_THIRD
 	db TRAIT_SPEED_STATUSED
 	db TRAIT_SPEED_AFTER_CRIT
-	db TRAIT_SPEED_BUG_DARK_HIT
 	db -1
 
 TraitsThatRaiseSpAttack:
@@ -1355,8 +1388,19 @@ TraitsThatAlsoRaiseAccuracy:
 	db -1
 
 GetHighestStat:
-	ld hl, wBattleMonSpclDef - 2 ; current stat
-	ld de, wBattleMonSpclDef ; highest stat
+	ld a, [wPartySpecies]
+	ld [wCurSpecies], a
+	ldh a, [hBattleTurn]
+	and a
+	jr nz, .got_stats ; enemy turn -> get player stats and vice versa
+	ld a, [wCurPartySpecies]
+	ld [wCurSpecies], a
+
+.got_stats
+	call GetBaseData
+	ld hl, wBaseSpecialDefense - 1 ; current stat
+	ld de, wBaseSpecialDefense ; highest stat
+
 	ld b, 4 ; how many loops
 	ld c, 4 ; by default the highes stat is the last one
 
@@ -1377,7 +1421,7 @@ GetHighestStat:
 	ld c, b ; Store index
 .lower
 	dec hl
-	dec hl
+	; dec hl
 	jr nz, .loop
 	ret
 
@@ -4685,8 +4729,6 @@ OneShotTraits:
 	db TRAIT_PARTY_PSYCHIC_BOOST_DEFENSE
 	db TRAIT_PARTY_ICE_BOOST_DEFENSE
 	db TRAIT_PARTY_DARK_BOOST_DEFENSE
-	db TRAIT_DEFENSE_ICE_FIRE_HIT
-	db TRAIT_SPEED_BUG_DARK_HIT
 	db TRAIT_REDUCE_WATER_FIRE_HIT
 	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	db TRAIT_REDUCE_POISON_UP_MAIN_STAT
@@ -5194,6 +5236,7 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PREVENT_ALL_DOWN
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_EFFECT_NO_DAMAGE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_EFFECT_NO_DAMAGE
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PRZ_PSN_WITH_STATUS
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_PHYSICAL_TAKEN_TURNS
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_SPECIAL_TAKEN_TURNS
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_DAMAGE_WITH_EFFECT
@@ -5269,8 +5312,6 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_FLYING_STEEL_HIT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_ELECTRIC_DARK_HIT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_WATER_GRASS_HIT
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_DEFENSE_ICE_FIRE_HIT
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_SPEED_BUG_DARK_HIT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL_MORE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL_ACC
@@ -5286,7 +5327,6 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FRZ_SPD_WITH_WATER
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_WATER
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_PRZ_PSN_WITH_STATUS
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
