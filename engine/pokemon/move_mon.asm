@@ -1674,17 +1674,32 @@ CalcMonStatC:
 ; get first or second form
 	ld a, [hl]
 	and %11
-	and a ; cp UNEVOLVED_STAGE1OF2
-	ld a, 20 ; first for of 2-line
-	jr z, .got_form
+	ld c, a
+	push hl
+	ld hl, .Unevolved_Multipliers
+.find_multi
+	ld a, c
+	cp [hl]
+	jr c, .got_multi
+	inc hl
+	inc hl
+	jr .find_multi
+
+.got_multi
+	inc hl
 	ld a, [hl]
-    and %11
-	cp UNEVOLVED_STAGE1OF3 ; baby or first of 3-line
-	jr z, .baby_form
-	ld a, 30 ; second form or 3-line
-	jr .got_form
-.baby_form
-	ld a, 16 ; first form of a 3-line
+	pop hl
+; 	and a ; cp UNEVOLVED_STAGE1OF2
+; 	ld a, 24 ; first for of 2-line
+; 	jr z, .got_form
+; 	ld a, [hl]
+;   and %11
+; 	cp UNEVOLVED_STAGE1OF3 ; baby or first of 3-line
+; 	jr z, .baby_form
+; 	ld a, 35 ; second form or 3-line
+; 	jr .got_form
+; .baby_form
+; 	ld a, 16 ; first form of a 3-line
 .got_form
 	push de
 	ld d, a
@@ -1710,6 +1725,7 @@ CalcMonStatC:
 	cp c
 	jr nz, .not_highest_stat
     ; reduces the division done later by 4
+	; so the extra stat bonus is higher
 	dec d
 	dec d
 	dec d
@@ -1748,6 +1764,7 @@ CalcMonStatC:
 	jr .try_stat_exp
 
 .bonus_hp
+	; 2 hp per bonus
 	pop de
 	ld a, b
 	ld c, a
@@ -1891,10 +1908,10 @@ CalcMonStatC:
 	db CHARMELEON, 36, UNEVOLVED_STAGE2OF3 | STAT_SPD  << 2
 	db SQUIRTLE,   16, UNEVOLVED_STAGE1OF3 | STAT_DEF  << 2
 	db WARTORTLE,  36, UNEVOLVED_STAGE2OF3 | STAT_DEF  << 2
-	db CATERPIE,    7, UNEVOLVED_STAGE1OF3 | STAT_HP   << 2
-	db METAPOD,    10, UNEVOLVED_STAGE2OF3 | STAT_HP   << 2
-	db WEEDLE,      7, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
-	db KAKUNA,     10, UNEVOLVED_STAGE2OF3 | STAT_SPD  << 2
+	db CATERPIE,    7, UNEVOLVED_STAGE1OF3B | STAT_HP  << 2
+	db METAPOD,    10, UNEVOLVED_STAGE2OF3B | STAT_HP  << 2
+	db WEEDLE,      7, UNEVOLVED_STAGE1OF3B | STAT_SPD << 2
+	db KAKUNA,     10, UNEVOLVED_STAGE2OF3B | STAT_SPD << 2
 	db PIDGEY,     18, UNEVOLVED_STAGE1OF3 | STAT_SPD  << 2
 	db PIDGEOTTO,  36, UNEVOLVED_STAGE2OF3 | STAT_SPD  << 2
 	db RATTATA,    20, UNEVOLVED_STAGE1OF2 | STAT_SPD  << 2
@@ -1998,6 +2015,13 @@ CalcMonStatC:
 	db LARVITAR,   30, UNEVOLVED_STAGE1OF3 | STAT_ATK  << 2
 	db PUPITAR,    50, UNEVOLVED_STAGE2OF3 | STAT_DEF  << 2
 	db -1
+
+.Unevolved_Multipliers:
+	db UNEVOLVED_STAGE1OF2,  24
+	db UNEVOLVED_STAGE1OF3,  16
+	db UNEVOLVED_STAGE2OF3,  35
+	db UNEVOLVED_STAGE1OF3B, 10
+	db UNEVOLVED_STAGE2OF3B, 14
 
 GivePoke::
 	push de
