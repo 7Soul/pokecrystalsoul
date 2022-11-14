@@ -2,8 +2,25 @@
 
 JohtoShallowWildMons:
 
+	map_id CHERRYGROVE_CITY
+	db 4 percent ; encounter rate
+	; morn/day
+	db 1, MARILL
+	db 1, BELLSPROUT
+	db 1, CHINCHOU
+	db 1, FARFETCH_D
+	db 1, SEEL
+	db 1, SHELLDER
+	; nite
+	db 1, POLIWAG
+	db 1, ODDISH
+	db 1, CHINCHOU
+	db 1, FARFETCH_D
+	db 1, POLIWAG
+	db 1, WOOPER
+
 	map_id ROUTE_30
-	db 4 percent, 4 percent ; encounter rate
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, MARILL
 	db 1, BELLSPROUT
@@ -20,7 +37,7 @@ JohtoShallowWildMons:
 	db 1, SEEL
 
 	map_id ROUTE_31
-	db 4 percent, 4 percent ; encounter rate
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, MARILL
 	db 1, BELLSPROUT
@@ -37,7 +54,7 @@ JohtoShallowWildMons:
 	db 1, SEEL
 
 	map_id ROUTE_32
-	db 4 percent, 4 percent ; encounter rate
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, WOOPER
 	db 1, WOOPER
@@ -54,7 +71,7 @@ JohtoShallowWildMons:
 	db 1, TENTACOOL
 
 	map_id ROUTE_34
-	db 4 percent, 4 percent ; encounter rate
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, PSYDUCK
 	db 1, SNUBBULL
@@ -71,7 +88,7 @@ JohtoShallowWildMons:
 	db 1, SQUIRTLE
 
 	map_id OLIVINE_CITY
-	db 4 percent, 4 percent ; encounter rate
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, PIDGEY
 	db 1, SHUCKLE
@@ -88,7 +105,7 @@ JohtoShallowWildMons:
 	db 1, CORSOLA
 
 	map_id CIANWOOD_CITY
-	db 4 percent, 4 percent ; encounter rate
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, PIDGEY
 	db 1, SHUCKLE
@@ -105,7 +122,7 @@ JohtoShallowWildMons:
 	db 1, CORSOLA
 
 	map_id ROUTE_43
-	db 4 percent, 4 percent ; encounter rate
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, MAGIKARP
 	db 1, MARILL
@@ -122,7 +139,7 @@ JohtoShallowWildMons:
 	db 4, MAGIKARP
 	
 	map_id LAKE_OF_RAGE
-	db 4 percent, 4 percent ; encounter rate
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, MAGIKARP
 	db 1, MARILL

@@ -171,6 +171,7 @@ _InitTime::
 	dec de
 
 	ld a, [wStringBuffer2 + 1]
+	; ld a, 20 ; test time
 	sbc [hl]
 	dec hl
 	jr nc, .okay_hrs

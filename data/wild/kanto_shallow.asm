@@ -3,7 +3,7 @@
 KantoShallowWildMons:
 
 	map_id ROUTE_22
-	db 6 percent, 6 percent ; encounter rate
+	db 6 percent ; encounter rate
 	; morn/day
 	db 1, POLIWAG
 	db 1, DODUO

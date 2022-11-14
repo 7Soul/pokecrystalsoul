@@ -1,27 +1,37 @@
 LoadWildMonData:
 	call _GrassWildmonLookup
-	jr c, .copy
-	ld hl, wMornEncounterRate
+	jr c, .copy_grass
 	xor a
-	ld [hli], a
-	ld [hli], a
-	ld [hl], a
-	jr .done_copy
+	ld [wDayEncounterRate], a
+	jr .done_copy_grass
 
-.copy
-	inc hl
-	inc hl
-	ld de, wMornEncounterRate
-	ld bc, 3
-	call CopyBytes
-.done_copy
-	call _WaterWildmonLookup
-	ld a, 0
-	jr nc, .no_copy
+.copy_grass
 	inc hl
 	inc hl
 	ld a, [hl]
-.no_copy
+	ld [wDayEncounterRate], a
+
+.done_copy_grass
+	call _ShallowWildmonLookup
+	jr c, .copy_shallow
+	xor a
+	ld [wShallowEncounterRate], a
+	jr .done_copy
+
+.copy_shallow
+	inc hl
+	inc hl
+	ld a, [hl]
+	ld [wShallowEncounterRate], a
+
+.done_copy
+	call _WaterWildmonLookup
+	ld a, 0
+	jr nc, .no_water_copy
+	inc hl
+	inc hl
+	ld a, [hl]
+.no_water_copy
 	ld [wWaterEncounterRate], a
 	ret
 
@@ -79,7 +89,6 @@ FindNest:
 	ld b, a
 	ld a, [hli]
 	ld c, a
-	inc hl ;
 	inc hl ; skip encounter chance
 	ld a, NUM_GRASSMON * 2
 	call .SearchMapForMon
@@ -107,8 +116,7 @@ FindNest:
 	ld b, a
 	ld a, [hli]
 	ld c, a
-	inc hl
-	inc hl
+	inc hl ; skip encounter chance
 	ld a, NUM_SHALLOWMON * 2
 	call .SearchMapForMon
 	jr nc, .next_shallow
@@ -135,7 +143,7 @@ FindNest:
 	ld b, a
 	ld a, [hli]
 	ld c, a
-	inc hl
+	inc hl ; skip encounter chance
 	ld a, NUM_WATERMON
 	call .SearchMapForMon
 	jr nc, .next_water
@@ -509,6 +517,7 @@ TryWildEncounter::
 
 .EncounterRate:
 	call GetMapEncounterRate
+	ld b, [hl]
 	call ApplyMusicEffectOnEncounterRate
 	call ApplyCleanseTagEffectOnEncounterRate
 	call Random
@@ -516,20 +525,15 @@ TryWildEncounter::
 	ret
 
 GetMapEncounterRate:
-	ld hl, wMornEncounterRate
 	call CheckOnWater
-	ld a, wWaterEncounterRate - wMornEncounterRate
-	jr z, .ok
-	ld a, [wTimeOfDay]
-	cp 0
-	jr z, .continue_with_timeofday
-	dec a
-.continue_with_timeofday
-.ok
-	ld c, a
-	ld b, 0
-	add hl, bc
-	ld b, [hl]
+	ld hl, wWaterEncounterRate
+	ret z
+
+	call CheckShallowWaterTile
+	ld hl, wShallowEncounterRate
+	ret z
+
+	ld hl, wDayEncounterRate
 	ret
 
 ApplyMusicEffectOnEncounterRate::
@@ -575,8 +579,7 @@ ChooseWildEncounter:
 	jp c, .startwildbattle
 
 	inc hl
-	inc hl
-	inc hl
+	inc hl ; skip map group and id
 	call CheckOnWater
 	ld de, WaterMonProbTable
 	jr z, .watermon
@@ -584,7 +587,7 @@ ChooseWildEncounter:
 	ld de, ShallowMonProbTable
 	jr z, .shallowmon
 
-	inc hl
+	inc hl ; skip encounter rate
 	ld a, [wTimeOfDay]
 	cp 0
 	jr z, .continue_with_timeofday
@@ -596,7 +599,7 @@ ChooseWildEncounter:
 	jr .watermon
 
 .shallowmon
-	inc hl
+	inc hl ; skip encounter rate
 	ld a, [wTimeOfDay]
 	cp 0
 	jr z, .continue_with_timeofday2

@@ -3,7 +3,7 @@
 KantoGrassWildMons:
 
 	map_id DIGLETTS_CAVE
-	db 4 percent, 4 percent ; encounter rates: morn/day/nite
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, DIGLETT
 	db 2, DIGLETT
@@ -22,7 +22,7 @@ KantoGrassWildMons:
 	db 1, LARVITAR
 
 	map_id MOUNT_MOON
-	db 6 percent, 6 percent ; encounter rates: morn/day/nite
+	db 6 percent ; encounter rate
 	; morn/day
 	db 1, GEODUDE
 	db 1, SANDSHREW
@@ -41,7 +41,7 @@ KantoGrassWildMons:
 	db 2, CLEFFA
 
 	map_id ROCK_TUNNEL_1F
-	db 6 percent, 6 percent ; encounter rates: morn/day/nite
+	db 6 percent ; encounter rate
 	; morn/day
 	db 1, CUBONE
 	db 1, GEODUDE
@@ -60,7 +60,7 @@ KantoGrassWildMons:
 	db 2, CUBONE
 
 	map_id ROCK_TUNNEL_B1F
-	db 6 percent, 6 percent ; encounter rates: morn/day/nite
+	db 6 percent ; encounter rate
 	; morn/day
 	db 1, CUBONE
 	db 1, GEODUDE
@@ -79,7 +79,7 @@ KantoGrassWildMons:
 	db 2, CUBONE
 
 	map_id VICTORY_ROAD
-	db 6 percent, 6 percent ; encounter rates: morn/day/nite
+	db 6 percent ; encounter rate
 	; morn/day
 	db 2, GEODUDE
 	db 2, RHYHORN
@@ -98,7 +98,7 @@ KantoGrassWildMons:
 	db 4, DRATINI
 
 	map_id TOHJO_FALLS
-	db 6 percent, 6 percent ; encounter rates: morn/day/nite
+	db 6 percent ; encounter rate
 	; morn/day
 	db 3, UNOWN
 	db 1, SLOWPOKE
@@ -117,7 +117,7 @@ KantoGrassWildMons:
 	db 1, DRATINI
 
 	map_id VIRIDIAN_FOREST
-	db 4 percent, 4 percent ; encounter rates: morn/day/nite
+	db 4 percent ; encounter rate
 	; morn/day
 	db 1, CATERPIE
 	db 1, PARAS
@@ -136,7 +136,7 @@ KantoGrassWildMons:
 	db 2, MURKROW
 
 	; map_id CERULEAN_CAVE
-	; db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	; db 10 percent ; encounter rate
 	; ; morn/day
 	; db 3, TANGELA
 	; db 1, PONYTA
@@ -155,7 +155,7 @@ KantoGrassWildMons:
 	; db 3, POLIWAG
 
 	map_id ROUTE_1
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, RATTATA
 	db 1, PIDGEY
@@ -174,7 +174,7 @@ KantoGrassWildMons:
 	db 1, TANGELA
 
 	map_id ROUTE_2
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, MAREEP
 	db 1, PIDGEY
@@ -193,7 +193,7 @@ KantoGrassWildMons:
 	db 1, TEDDIURSA
 
 	map_id ROUTE_3
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, SPEAROW
 	db 1, EKANS
@@ -212,7 +212,7 @@ KantoGrassWildMons:
 	db 1, ZUBAT
 
 	map_id ROUTE_4
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, EKANS
 	db 1, VULPIX
@@ -231,7 +231,7 @@ KantoGrassWildMons:
 	db 1, VOLTORB
 
 	map_id ROUTE_5
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, PIDGEY
 	db 1, MEOWTH
@@ -250,7 +250,7 @@ KantoGrassWildMons:
 	db 1, MAGBY
 
 	map_id ROUTE_6
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, MAGNEMITE
 	db 1, MEOWTH
@@ -269,7 +269,7 @@ KantoGrassWildMons:
 	db 1, PICHU
 
 	map_id ROUTE_7
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, RATTATA
 	db 1, PIDGEY
@@ -288,7 +288,7 @@ KantoGrassWildMons:
 	db 1, ABRA
 
 	map_id ROUTE_8
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, MEOWTH
 	db 2, GROWLITHE
@@ -307,7 +307,7 @@ KantoGrassWildMons:
 	db 2, EXEGGCUTE
 
 	map_id ROUTE_9
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, SPEAROW
 	db 1, NIDORAN_F
@@ -326,7 +326,7 @@ KantoGrassWildMons:
 	db 2, VOLTORB
 
 	map_id ROUTE_10_NORTH
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, SPEAROW
 	db 1, NIDORAN_F
@@ -345,7 +345,7 @@ KantoGrassWildMons:
 	db 1, ELEKID
 
 	map_id ROUTE_11
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, DROWZEE
 	db 1, HOPPIP
@@ -364,7 +364,7 @@ KantoGrassWildMons:
 	db 1, PINSIR
 
 	map_id ROUTE_13
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, NIDORAN_F
 	db 1, PICHU
@@ -383,7 +383,7 @@ KantoGrassWildMons:
 	db 1, PSYDUCK
 
 	map_id ROUTE_14
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, NIDORAN_F
 	db 1, MAREEP
@@ -402,7 +402,7 @@ KantoGrassWildMons:
 	db 2, WOOPER
 
 	map_id ROUTE_15
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, NIDORAN_F
 	db 1, PIDGEY
@@ -421,7 +421,7 @@ KantoGrassWildMons:
 	db 2, CHANSEY
 
 	map_id ROUTE_16
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, GRIMER
 	db 1, SPEAROW
@@ -440,7 +440,7 @@ KantoGrassWildMons:
 	db 2, TOGEPI
 
 	map_id ROUTE_17
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, GRIMER
 	db 2, SPEAROW
@@ -459,7 +459,7 @@ KantoGrassWildMons:
 	db 1, NATU
 
 	map_id ROUTE_18
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, GRIMER
 	db 1, SPEAROW
@@ -478,7 +478,7 @@ KantoGrassWildMons:
 	db 2, TOGEPI
 
 	map_id ROUTE_21
-	db 6 percent, 6 percent ; encounter rates: morn/day/nite
+	db 6 percent ; encounter rate
 	; morn/day
 	db 1, TANGELA
 	db 1, RATTATA
@@ -497,7 +497,7 @@ KantoGrassWildMons:
 	db 2, PICHU
 
 	map_id ROUTE_22
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, EKANS
 	db 1, SPEAROW
@@ -516,7 +516,7 @@ KantoGrassWildMons:
 	db 1, TYROGUE
 
 	map_id ROUTE_24
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, BELLSPROUT
 	db 1, SUNKERN
@@ -535,7 +535,7 @@ KantoGrassWildMons:
 	db 1, ABRA
 
 	map_id ROUTE_25
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, BELLSPROUT
 	db 1, SUNKERN
@@ -554,7 +554,7 @@ KantoGrassWildMons:
 	db 1, ABRA
 
 	map_id ROUTE_26
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, DODUO
 	db 1, SANDSHREW
@@ -573,7 +573,7 @@ KantoGrassWildMons:
 	db 1, DELIBIRD
 
 	map_id ROUTE_27
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 1, DODUO
 	db 1, WOOPER
@@ -592,7 +592,7 @@ KantoGrassWildMons:
 	db 1, DELIBIRD
 
 	map_id ROUTE_28
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 3, TANGELA
 	db 1, PONYTA
@@ -611,7 +611,7 @@ KantoGrassWildMons:
 	db 3, POLIWAG
 
 	map_id ROUTE_28
-	db 10 percent, 10 percent ; encounter rates: morn/day/nite
+	db 10 percent ; encounter rate
 	; morn/day
 	db 3, TANGELA
 	db 1, PONYTA
