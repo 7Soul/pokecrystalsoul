@@ -146,6 +146,8 @@ SPRITE_POKEMON EQU const_value
 	const SPRITE_SCYTHER ; a3
 	const SPRITE_QUAGSIRE ; a4
 	const SPRITE_WOOPER ; a5
+	const SPRITE_VULPIX ; a6
+	const SPRITE_GASTLY ; a7
 
 ; special GetMonSprite values (see engine/overworld/overworld.asm)
 	const_def $e0

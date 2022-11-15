@@ -248,9 +248,9 @@
 	tilecoll WALL, WALL, WALL, WALL ; f7
 	tilecoll FLOOR, WALL, FLOOR, FLOOR ; f8
 	tilecoll WALL, FLOOR, FLOOR, FLOOR ; f9
-	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; fa
-	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; fb
-	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; fc
-	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; fd
+	tilecoll WALL, WALL, WALL, WALL ; fa
+	tilecoll WALL, WALL, WALL, WALL ; fb
+	tilecoll WALL, WALL, WALL, WALL ; fc
+	tilecoll WALL, WALL, WALL, WALL ; fd
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; fe
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; ff

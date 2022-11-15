@@ -286,11 +286,17 @@ MysticWaterGuy:
 	closetext
 	end
 
+WooperPenTeacherScript:
+	jumptextfaceplayer WooperPenTeacherText
+
 CherrygroveCitySign:
 	jumptext CherrygroveCitySignText
 
 GuideGentsHouseSign:
 	jumptext GuideGentsHouseSignText
+
+FlowerShopSign:
+	jumptext FlowerShopSignText
 
 CherrygroveCityPokecenterSign:
 	jumpstd pokecentersign
@@ -603,6 +609,10 @@ GuideGentsHouseSignText:
 	text "GUIDE GENT'S HOUSE"
 	done
 
+FlowerShopSignText:
+	text "FLOWER SHOP"
+	done
+
 CherryGroveQuagsireText:
 	text "QUAGSIRE: Saiii..."
 	done
@@ -615,31 +625,46 @@ CherryGroveWooper2Text:
 	text "WOOPER: Upah...?"
 	done
 
+WooperPenTeacherText:
+	text "I'm helping take"
+	line "care of the"
+	cont "Woopers."
+
+	para "At night they"
+	line "like to play in"
+	cont "the mud,"
+	cont "so cleaning this"
+	cont "pen takes a lot"
+	cont "of effort."
+	done
+
 CherrygroveCity_MapEvents:
 	db 0, 0 ; filler
 
-	db 5 ; warp events
+	db 6 ; warp events
 	warp_event 29,  3, CHERRYGROVE_POKECENTER_1F, 1
 	warp_event 17,  9, CHERRYGROVE_GYM_SPEECH_HOUSE, 1
 	warp_event 23,  9, GUIDE_GENTS_HOUSE, 1
 	warp_event 31, 13, CHERRYGROVE_EVOLUTION_SPEECH_HOUSE, 1
-	warp_event 33, 25, CHERRYGROVE_EVOLUTION_SPEECH_HOUSE, 1
-	warp_event 11,  3, CHERRYGROVE_EVOLUTION_SPEECH_HOUSE, 1
+	warp_event 33, 25, CHERRYGROVE_EVOLUTION_SPEECH_HOUSE, 1 ; wooper house
+	warp_event 11,  3, CHERRYGROVE_EVOLUTION_SPEECH_HOUSE, 1 ; flower shop
 
 	db 2 ; coord events
 	coord_event 33,  6, SCENE_CHERRYGROVECITY_MEET_RIVAL, CherrygroveSilverSceneNorth
 	coord_event 33,  7, SCENE_CHERRYGROVECITY_MEET_RIVAL, CherrygroveSilverSceneSouth
 
-	db 2 ; bg events
+	db 3 ; bg events
 	bg_event 30,  8, BGEVENT_READ, CherrygroveCitySign
 	bg_event 21,  9, BGEVENT_READ, GuideGentsHouseSign
+	bg_event 14,  3, BGEVENT_READ, FlowerShopSign
 
-	db 18 ; object events
+	db 19 ; object events
 	object_event 32,  6, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CherrygroveCityGuideGent, EVENT_GUIDE_GENT_IN_HIS_HOUSE
 	object_event 39,  6, SPRITE_SILVER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_CHERRYGROVE_CITY
 	object_event 28, 15, SPRITE_TEACHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherrygroveTeacherScript, -1
 	object_event 20, 11, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CherrygroveYoungsterScript, -1
 	object_event  9,  7, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, MysticWaterGuy, -1
+	object_event 25, 23, SPRITE_TEACHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, WooperPenTeacherScript, -1
 
 	; south area
 	object_event 19, 25, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, CherrygrovePotion, EVENT_CHERRYGROVE_POTION

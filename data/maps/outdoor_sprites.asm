@@ -169,6 +169,9 @@ EcruteakGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
 	db SPRITE_SUICUNE
+	db SPRITE_VULPIX
+	db SPRITE_GENGAR
+	db SPRITE_GASTLY
 	db 0 ; end
 
 AzaleaGroupSprites:

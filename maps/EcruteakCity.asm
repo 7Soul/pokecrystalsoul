@@ -45,6 +45,28 @@ EcruteakCityLass2Script:
 	closetext
 	end
 
+EcruteakCityTwinScript:
+	jumptextfaceplayer EcruteakCityTwinText
+
+EcruteakCityVulpixScript:
+	opentext
+	writetext EcruteakCityVulpixText
+	cry VULPIX
+	waitbutton
+	closetext
+	end
+
+EcruteakCityYoungster2Script:
+	jumptextfaceplayer EcruteakCityYoungster2Text
+
+EcruteakCityGastlyScript:
+	opentext
+	writetext EcruteakCityGastlyText
+	cry GASTLY
+	waitbutton
+	closetext
+	end
+
 EcruteakCityFisherScript:
 	faceplayer
 	opentext
@@ -151,6 +173,39 @@ EcruteakCityLass2Text_ReleasedBeasts:
 	line "ran off in differ-"
 	cont "ent directions."
 	cont "What were they?"
+	done
+
+EcruteakCityTwinText:
+	text "My Vulpix is"
+	line "really good at"
+	cont "causing burns,"
+
+	para "that's because it"
+	line "has a special"
+	cont "rare trait!"
+
+	para "The dancers at the"
+	line "theater have"
+	cont "rare Eevees too."
+	done
+
+EcruteakCityVulpixText:
+	text "VULPIX: Veee!"
+	done
+
+EcruteakCityYoungster2Text:
+	text "I got a rare"
+	line "Gastly, just like"
+	cont "Morty's!"
+
+	para "Trying to lower"
+	line "its stats can be"
+	cont "a bad move."
+	done
+
+EcruteakCityGastlyText:
+	text "GASTLY: Gheehee"
+	line "khee!"
 	done
 
 EcruteakCityFisherText:
@@ -264,7 +319,7 @@ EcruteakCity_MapEvents:
 	warp_event 28,  4, WISE_TRIOS_ROOM, 1
 	warp_event 28,  5, WISE_TRIOS_ROOM, 2
 	warp_event 23, 27, ECRUTEAK_POKECENTER_1F, 1
-	warp_event  5, 17, ECRUTEAK_LUGIA_SPEECH_HOUSE, 1
+	warp_event  9, 17, ECRUTEAK_LUGIA_SPEECH_HOUSE, 1
 	warp_event 23, 21, DANCE_THEATRE, 1
 	warp_event  7, 24, ECRUTEAK_GYM, 1
 	warp_event  6, 24, ECRUTEAK_GYM, 1
@@ -275,7 +330,7 @@ EcruteakCity_MapEvents:
 	db 0 ; coord events
 
 	db 7 ; bg events
-	bg_event 15, 20, BGEVENT_READ, EcruteakCitySign
+	bg_event 19, 26, BGEVENT_READ, EcruteakCitySign
 	bg_event 33,  9, BGEVENT_READ, TinTowerSign
 	bg_event  8, 25, BGEVENT_READ, EcruteakGymSign
 	bg_event 21, 21, BGEVENT_READ, EcruteakDanceTheaterSign
@@ -283,7 +338,7 @@ EcruteakCity_MapEvents:
 	bg_event 24, 27, BGEVENT_READ, EcruteakCityPokecenterSign
 	bg_event 26,  8, BGEVENT_ITEM, EcruteakCityHiddenHyperPotion
 
-	db 7 ; object events
+	db 12 ; object events
 	object_event 27, 23, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps1Script, -1
 	object_event 12, 23, SPRITE_GRAMPS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps2Script, -1
 	object_event 12, 19, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, EcruteakCityLass1Script, -1
@@ -291,3 +346,10 @@ EcruteakCity_MapEvents:
 	object_event 20, 28, SPRITE_FISHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakCityFisherScript, -1
 	object_event 11, 12, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EcruteakCityYoungsterScript, -1
 	object_event  3,  7, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps3Script, EVENT_ECRUTEAK_CITY_GRAMPS
+
+	object_event 29, 28, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 1, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, EcruteakCityTwinScript, -1
+	object_event 30, 28, SPRITE_VULPIX, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EcruteakCityVulpixScript, -1
+	object_event 6, 21, SPRITE_GENGAR, SPRITEMOVEDATA_POKEMON, 0, 0, -1, NITE, PAL_NPC_PINK, OBJECTTYPE_SCRIPT, 0, EcruteakCityVulpixScript, -1
+
+	object_event 19, 13, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 1, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EcruteakCityYoungster2Script, -1
+	object_event 20, 13, SPRITE_GASTLY, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_PINK, OBJECTTYPE_SCRIPT, 0, EcruteakCityGastlyScript, -1

@@ -38,3 +38,5 @@ SpriteMons:
 	db SCYTHER
 	db QUAGSIRE
 	db WOOPER
+	db VULPIX
+	db GASTLY

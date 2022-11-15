@@ -187,7 +187,7 @@ ENDM
 	connection east, VioletCity, VIOLET_CITY, 0
 
 	map_attributes Route37, ROUTE_37, $05, NORTH | SOUTH
-	connection north, EcruteakCity, ECRUTEAK_CITY, -5
+	connection north, EcruteakCity, ECRUTEAK_CITY, 1
 	connection south, Route36, ROUTE_36, -4
 
 	map_attributes Route38, ROUTE_38, $05, WEST | EAST
