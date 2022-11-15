@@ -76,9 +76,6 @@ Route45_Blocks:
 Route29_Blocks:
 	INCBIN "maps/Route29.ablk"
 
-Route37_Blocks:
-	INCBIN "maps/Route37.ablk"
-
 LavenderTown_Blocks:
 	INCBIN "maps/LavenderTown.ablk"
 
@@ -204,6 +201,7 @@ Route43MahoganyGate_Blocks:
 Route43Gate_Blocks:
 Route35GoldenrodGate_Blocks:
 Route36RuinsOfAlphGate_Blocks:
+Route36Route37Gate_Blocks:
 Route34IlexForestGate_Blocks:
 Route6SaffronGate_Blocks:
 Route40BattleTowerGate_Blocks:
@@ -1052,3 +1050,6 @@ Route33_Blocks:
 
 ViridianForest_Blocks:
 	INCBIN "maps/ViridianForest.ablk"
+
+Route37_Blocks:
+	INCBIN "maps/Route37.ablk"

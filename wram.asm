@@ -2457,6 +2457,11 @@ wMap12Object::  map_object wMap12
 wMap13Object::  map_object wMap13
 wMap14Object::  map_object wMap14
 wMap15Object::  map_object wMap15
+wMap16Object::  map_object wMap16
+wMap17Object::  map_object wMap17
+wMap18Object::  map_object wMap18
+wMap19Object::  map_object wMap19
+wMap20Object::  map_object wMap20
 wMapObjectsEnd::
 
 wObjectMasks:: ds NUM_OBJECTS ; d81e
@@ -2464,7 +2469,7 @@ wObjectMasks:: ds NUM_OBJECTS ; d81e
 wVariableSprites:: ds $100 - SPRITE_VARS ; d82e
 
 wEnteredMapFromContinue:: db ; d83e
-	ds 2
+	; ds 2
 wTimeOfDayPal:: db ; d841
 	ds 4
 
@@ -2472,7 +2477,7 @@ wTimeOfDayPalFlags:: db ; d846
 wTimeOfDayPalset:: db
 wCurTimeOfDay:: db ; d848
 
-	ds 1
+	; ds 1
 
 wSecretID:: dw
 wStatusFlags:: ; d84c
@@ -2680,13 +2685,13 @@ wErinFightCount::    db
 ; da0e
 
 wAchievements:: flag_array NUM_ACHIEVEMENTS
-	ds 48
+	; ds 48
 
 wEventFlags:: flag_array NUM_EVENTS ; da72
 ; db6c
 
 	;ds 6
-	ds 1
+	; ds 1
 wCurBox:: db ; db72
 
 	

@@ -232,7 +232,7 @@ ENDM
 	map_const ROUTE_32,                                    10, 45 ;  1
 	map_const ROUTE_35,                                    10, 18 ;  2
 	map_const ROUTE_36,                                    30,  9 ;  3
-	map_const ROUTE_37,                                    10,  9 ;  4
+	map_const ROUTE_37,                                    16, 16 ;  4
 	map_const VIOLET_CITY,                                 20, 18 ;  5
 	; map_const VIOLET_MART,                                  6,  4 ;  6
 	map_const VIOLET_GYM,                                  9,  11 ;  7
@@ -246,6 +246,7 @@ ENDM
 	map_const ROUTE_35_NATIONAL_PARK_GATE,                  4,  4 ; 15
 	map_const ROUTE_36_RUINS_OF_ALPH_GATE,                  5,  4 ; 16
 	map_const ROUTE_36_NATIONAL_PARK_GATE,                  5,  4 ; 17
+	map_const ROUTE_36_ROUTE_37_GATE,                       5,  4 ; 18
 
 	newgroup                                                      ; 11
 
@@ -488,7 +489,7 @@ ENDM
 
 	map_const ROUTE_30,                                    10, 27 ;  1
 	map_const ROUTE_31,                                    20,  9 ;  2
-	map_const CHERRYGROVE_CITY,                            20, 10 ;  3
+	map_const CHERRYGROVE_CITY,                            20, 20 ;  3
 	; map_const CHERRYGROVE_MART,                             6,  4 ;  4
 	map_const CHERRYGROVE_POKECENTER_1F,                    7,  4 ;  5
 	map_const CHERRYGROVE_GYM_SPEECH_HOUSE,                 4,  4 ;  6

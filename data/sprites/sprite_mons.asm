@@ -36,3 +36,5 @@ SpriteMons:
 	db LUGIA
 	db HO_OH
 	db SCYTHER
+	db QUAGSIRE
+	db WOOPER

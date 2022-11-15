@@ -451,3 +451,18 @@ INCBIN "data/tilesets/port_attributes.bin"
 
 TilesetLabAttr:
 INCBIN "data/tilesets/lab_attributes.bin"
+
+
+SECTION "Tileset Data 12", ROMX
+
+TilesetJohtoOldAttr:
+INCBIN "data/tilesets/johto_old_attributes.bin"
+
+TilesetJohtoOldMeta:
+INCBIN "data/tilesets/johto_old_metatiles.bin"
+	
+TilesetJohtoOldColl:
+INCLUDE "data/tilesets/johto_old_collision.asm"
+
+TilesetJohtoOldGFX:
+INCBIN "gfx/tilesets/johto_old.2bpp.lz"

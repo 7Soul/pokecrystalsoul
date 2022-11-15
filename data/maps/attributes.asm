@@ -124,7 +124,7 @@ ENDM
 	connection west, Route40, ROUTE_40, 11
 
 	map_attributes EcruteakCity, ECRUTEAK_CITY, $05, SOUTH | WEST | EAST
-	connection south, Route37, ROUTE_37, 5
+	connection south, Route37, ROUTE_37, -1
 	connection west, Route38, ROUTE_38, 5
 	connection east, Route42, ROUTE_42, 9
 
@@ -182,13 +182,13 @@ ENDM
 	connection south, GoldenrodCity, GOLDENROD_CITY, -5
 
 	map_attributes Route36, ROUTE_36, $05, NORTH | SOUTH | EAST
-	connection north, Route37, ROUTE_37, 10
+	connection north, Route37, ROUTE_37, 4
 	connection south, Route35, ROUTE_35, 0
 	connection east, VioletCity, VIOLET_CITY, 0
 
 	map_attributes Route37, ROUTE_37, $05, NORTH | SOUTH
 	connection north, EcruteakCity, ECRUTEAK_CITY, -5
-	connection south, Route36, ROUTE_36, -10
+	connection south, Route36, ROUTE_36, -4
 
 	map_attributes Route38, ROUTE_38, $05, WEST | EAST
 	connection west, Route39, ROUTE_39, 0
@@ -535,6 +535,7 @@ ENDM
 	map_attributes Route35GoldenrodGate, ROUTE_35_GOLDENROD_GATE, $00, 0
 	map_attributes Route35NationalParkGate, ROUTE_35_NATIONAL_PARK_GATE, $00, 0
 	map_attributes Route36RuinsOfAlphGate, ROUTE_36_RUINS_OF_ALPH_GATE, $00, 0
+	map_attributes Route36Route37Gate, ROUTE_36_ROUTE_37_GATE, $00, 0
 	map_attributes Route36NationalParkGate, ROUTE_36_NATIONAL_PARK_GATE, $00, 0
 	map_attributes GoldenrodGym, GOLDENROD_GYM, $00, 0
 	map_attributes GoldenrodBikeShop, GOLDENROD_BIKE_SHOP, $00, 0

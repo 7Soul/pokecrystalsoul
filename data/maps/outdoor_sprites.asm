@@ -143,8 +143,8 @@ CherrygroveGroupSprites:
 	; 9 of max 9 walking sprites
 	db SPRITE_POKE_BALL
 	db SPRITE_FRUIT_TREE
-	; db SPRITE_BULBASAUR
-	; db SPRITE_JIGGLYPUFF
+	db SPRITE_QUAGSIRE
+	db SPRITE_WOOPER
 	; db SPRITE_GRIMER
 	; db SPRITE_EKANS
 	; db SPRITE_PARAS

@@ -76,16 +76,17 @@ TilesetForestAnim:
 	dw NULL,  DoneTileAnimation
 
 TilesetJohtoAnim:
+TilesetJohtoOldAnim:
 	dw vTiles2 tile $01, AnimateWaterTile
 	dw vTiles2 tile $0E, AnimateShallowTile
 	dw NULL,  WaitTileAnimation
 	dw NULL,  AnimateWaterPalette
 	dw NULL,  WaitTileAnimation
 	dw NULL,  AnimateFlowerTile
-	dw WhirlpoolFrames1, AnimateWhirlpoolTile
-	dw WhirlpoolFrames2, AnimateWhirlpoolTile
-	dw WhirlpoolFrames3, AnimateWhirlpoolTile
-	dw WhirlpoolFrames4, AnimateWhirlpoolTile
+	; dw WhirlpoolFrames1, AnimateWhirlpoolTile
+	; dw WhirlpoolFrames2, AnimateWhirlpoolTile
+	; dw WhirlpoolFrames3, AnimateWhirlpoolTile
+	; dw WhirlpoolFrames4, AnimateWhirlpoolTile
 	dw NULL,  WaitTileAnimation
 	dw NULL,  StandingTileFrame8
 	dw NULL,  DoneTileAnimation

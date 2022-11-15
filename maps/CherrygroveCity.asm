@@ -23,6 +23,30 @@ CherrygroveCity_MapScripts:
 	setflag ENGINE_FLYPOINT_CHERRYGROVE
 	return
 
+CherryGroveQuagsire:
+	opentext
+	writetext CherryGroveQuagsireText
+	cry QUAGSIRE
+	waitbutton
+	closetext
+	end
+
+CherryGroveWooper:
+	opentext
+	writetext CherryGroveWooperText
+	cry WOOPER
+	waitbutton
+	closetext
+	end
+
+CherryGroveWooper2:
+	opentext
+	writetext CherryGroveWooper2Text
+	cry WOOPER
+	waitbutton
+	closetext
+	end
+
 CherrygroveCityGuideGent:
 	faceplayer
 	opentext
@@ -371,6 +395,9 @@ CherrygroveCity_RivalExitsStageLeft:
 	big_step LEFT
 	step_end
 
+CherrygrovePotion:
+	itemball POTION
+
 GuideGentIntroText:
 	text "You're a rookie"
 	line "trainer, aren't"
@@ -576,14 +603,28 @@ GuideGentsHouseSignText:
 	text "GUIDE GENT'S HOUSE"
 	done
 
+CherryGroveQuagsireText:
+	text "QUAGSIRE: Saiii..."
+	done
+
+CherryGroveWooperText:
+	text "WOOPER: Upah!"
+	done
+
+CherryGroveWooper2Text:
+	text "WOOPER: Upah...?"
+	done
+
 CherrygroveCity_MapEvents:
 	db 0, 0 ; filler
 
-	db 4 ; warp events
+	db 5 ; warp events
 	warp_event 29,  3, CHERRYGROVE_POKECENTER_1F, 1
 	warp_event 17,  9, CHERRYGROVE_GYM_SPEECH_HOUSE, 1
 	warp_event 23,  9, GUIDE_GENTS_HOUSE, 1
 	warp_event 31, 13, CHERRYGROVE_EVOLUTION_SPEECH_HOUSE, 1
+	warp_event 33, 25, CHERRYGROVE_EVOLUTION_SPEECH_HOUSE, 1
+	warp_event 11,  3, CHERRYGROVE_EVOLUTION_SPEECH_HOUSE, 1
 
 	db 2 ; coord events
 	coord_event 33,  6, SCENE_CHERRYGROVECITY_MEET_RIVAL, CherrygroveSilverSceneNorth
@@ -593,9 +634,26 @@ CherrygroveCity_MapEvents:
 	bg_event 30,  8, BGEVENT_READ, CherrygroveCitySign
 	bg_event 21,  9, BGEVENT_READ, GuideGentsHouseSign
 
-	db 5 ; object events
+	db 18 ; object events
 	object_event 32,  6, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CherrygroveCityGuideGent, EVENT_GUIDE_GENT_IN_HIS_HOUSE
 	object_event 39,  6, SPRITE_SILVER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_CHERRYGROVE_CITY
 	object_event 28, 15, SPRITE_TEACHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherrygroveTeacherScript, -1
 	object_event 20, 11, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CherrygroveYoungsterScript, -1
 	object_event  9,  7, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, MysticWaterGuy, -1
+
+	; south area
+	object_event 19, 25, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, CherrygrovePotion, EVENT_CHERRYGROVE_POTION
+		; woopers/quagsires during night
+	object_event 16, 18, SPRITE_QUAGSIRE, SPRITEMOVEDATA_POKEMON, 0, 0, -1, NITE, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveQuagsire, -1
+	object_event 15, 32, SPRITE_QUAGSIRE, SPRITEMOVEDATA_POKEMON, 0, 0, -1, NITE, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveQuagsire, -1
+	object_event 34, 34, SPRITE_QUAGSIRE, SPRITEMOVEDATA_POKEMON, 0, 0, -1, NITE, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveQuagsire, -1
+	object_event 5, 13, SPRITE_WOOPER, SPRITEMOVEDATA_POKEMON, 0, 0, -1, NITE, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveWooper, -1
+	object_event 19, 27, SPRITE_WOOPER, SPRITEMOVEDATA_POKEMON, 0, 0, -1, NITE, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveWooper2, -1
+	object_event 23, 29, SPRITE_WOOPER, SPRITEMOVEDATA_POKEMON, 0, 0, -1, NITE, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveWooper, -1
+		; woopers/quagsires during day
+	object_event 30, 22, SPRITE_QUAGSIRE, SPRITEMOVEDATA_POKEMON, 0, 0, -1, MORN | DAY, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveQuagsire, -1
+	object_event 23, 22, SPRITE_QUAGSIRE, SPRITEMOVEDATA_POKEMON, 0, 0, -1, MORN | DAY, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveQuagsire, -1
+	object_event 22, 26, SPRITE_QUAGSIRE, SPRITEMOVEDATA_POKEMON, 0, 0, -1, MORN | DAY, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveQuagsire, -1
+	object_event 25, 21, SPRITE_WOOPER, SPRITEMOVEDATA_POKEMON, 0, 0, -1, MORN | DAY, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveWooper, -1
+	object_event 27, 25, SPRITE_WOOPER, SPRITEMOVEDATA_POKEMON, 0, 0, -1, MORN | DAY, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveWooper2, -1
+	object_event 30, 21, SPRITE_WOOPER, SPRITEMOVEDATA_POKEMON, 0, 0, -1, MORN | DAY, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CherryGroveWooper, -1

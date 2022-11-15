@@ -13,6 +13,7 @@ Tilesets::
 	tileset Tileset0
 	tileset TilesetJohto
 	tileset TilesetJohtoModern
+	tileset TilesetJohtoOld
 	tileset TilesetKanto
 	tileset TilesetBattleTowerOutside
 	tileset TilesetHouse
