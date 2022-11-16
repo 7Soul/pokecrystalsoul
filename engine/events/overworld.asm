@@ -137,9 +137,12 @@ CheckPartyAction:
 	and $f ; get bottom nybble (level)
 	ld b, a ; b has action 1 level
 
+	push bc
 	ld a, e
 	ld hl, wPartyMon1Level
 	call GetPartyLocation
+	pop bc
+
 	cp b ; compares action level to mon level
 	jr nc, .check_second_action ; nc = a < b
 ; cur level is higher than required level
@@ -1902,49 +1905,11 @@ GotOffTheBikeText:
 	db "@"
 
 TryCutOW::
-	ld d, SLASH
-	call CheckPartyMove
+	ld d, ACTION_CUT
+	call CheckPartyAction
 	jr nc, .do_cut
-	ld d, VICEGRIP
-	call CheckPartyMove
-	jr nc, .do_cut
-	ld d, FURY_CUTTER
-	call CheckPartyMove
-	jr nc, .do_cut
-	ld d, X_SCISSOR
-	call CheckPartyMove
-	jr nc, .do_cut
-	ld d, RAZOR_LEAF
-	call CheckPartyMove
-	jr nc, .do_cut
-	ld d, EMBER
-	call CheckPartyMove
-	jr nc, .do_burn
-	ld d, FIRE_BLAST
-	call CheckPartyMove
-	jr nc, .do_burn
-	ld d, FIRE_SPIN
-	call CheckPartyMove
-	jr nc, .do_burn
-	ld d, FLAMETHROWER
-	call CheckPartyMove
-	jr nc, .do_burn
-	ld d, FLAME_WHEEL
-	call CheckPartyMove
-	jr nc, .do_burn
-	ld d, SACRED_FIRE
-	call CheckPartyMove
-	jr nc, .do_burn
-	ld d, FIRE_PUNCH
-	call CheckPartyMove
-	jr nc, .do_burn
-	jr .cant_cut
 	scf
 	ret
-	ld a, 1 ;
-	ld c, a
-	call CheckBadge
-	jr c, .cant_cut
 	
 .do_cut
 	ld a, BANK(AskCutScript)
@@ -1976,12 +1941,12 @@ TryCutOW::
 
 AskCutScript:
 	opentext
-	writetext UnknownText_0xd1c8
+	writetext AskCutText
 	yesorno
-	iffalse .script_d1b8
+	iffalse .declined
 	callasm .CheckMap
 	iftrue Script_Cut
-.script_d1b8
+.declined
 	closetext
 	end
 
@@ -1994,14 +1959,14 @@ AskCutScript:
 	ld [wScriptVar], a
 	ret
 
-UnknownText_0xd1c8:
+AskCutText:
 	text_jump UnknownText_0x1c09dd
 	db "@"
 
 CantCutScript:
-	jumptext UnknownText_0xd1d0
+	jumptext CanCutText
 
-UnknownText_0xd1d0:
+CanCutText:
 	text_jump UnknownText_0x1c0a05
 	db "@"
 
@@ -2062,37 +2027,37 @@ Text_NothingToBurn:
 
 CheckMapForSomethingToBurn:
 	; Does the collision data of the facing tile permit cutting?
-	call GetFacingTileCoord
-	ld c, a
-	push de
-	farcall CheckBurnCollision
-	pop de
-	jr nc, .fail
-	; Get the location of the current block in wOverworldMapBlocks.
-	call GetBlockLocation
-	ld c, [hl]
-	; See if that block contains something that can be cut.
-	push hl
-	ld hl, CutTreeBlockPointers
-	call CheckOverworldTileArrays
-	pop hl
-	jr nc, .fail
-	; Back up the wOverworldMapBlocks address to wBuffer3
-	ld a, l
-	ld [wBuffer3], a
-	ld a, h
-	ld [wBuffer4], a
-	; Back up the replacement tile to wBuffer5
-	ld a, b
-	ld [wBuffer5], a
-	; Back up the animation index to wBuffer6
-	ld a, c
-	ld [wBuffer6], a
-	xor a
-	ret
+; 	call GetFacingTileCoord
+; 	ld c, a
+; 	push de
+; 	farcall CheckBurnCollision
+; 	pop de
+; 	jr nc, .fail
+; 	; Get the location of the current block in wOverworldMapBlocks.
+; 	call GetBlockLocation
+; 	ld c, [hl]
+; 	; See if that block contains something that can be cut.
+; 	push hl
+; 	ld hl, CutTreeBlockPointers
+; 	call CheckOverworldTileArrays
+; 	pop hl
+; 	jr nc, .fail
+; 	; Back up the wOverworldMapBlocks address to wBuffer3
+; 	ld a, l
+; 	ld [wBuffer3], a
+; 	ld a, h
+; 	ld [wBuffer4], a
+; 	; Back up the replacement tile to wBuffer5
+; 	ld a, b
+; 	ld [wBuffer5], a
+; 	; Back up the animation index to wBuffer6
+; 	ld a, c
+; 	ld [wBuffer6], a
+; 	xor a
+; 	ret
 
-.fail
-	scf
+; .fail
+; 	scf
 	ret
 
 Script_BurnFromMenu:

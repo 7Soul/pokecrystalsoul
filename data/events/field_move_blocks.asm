@@ -2,13 +2,14 @@ CutTreeBlockPointers:
 ; tileset, block list pointer
 	dbw TILESET_JOHTO,        .johto
 	dbw TILESET_JOHTO_MODERN, .johto_modern
+	dbw TILESET_JOHTO_OLD,    .johto_old
 	dbw TILESET_KANTO,        .kanto
 	dbw TILESET_PARK,         .park
 	dbw TILESET_FOREST,       .forest
 	db -1 ; end
 
-.johto:
-; facing block, replacement block, animation
+	; facing block, replacement block, animation
+	.johto:
 	db $03, $02, 1 ; grass
 	db $5b, $3c, 0 ; tree
 	db $5f, $3d, 0 ; tree
@@ -21,6 +22,15 @@ CutTreeBlockPointers:
 	db $03, $02, $01 ; grass
 	db -1 ; end
 
+.johto_old:
+; facing block, replacement block, animation
+	db $03, $02, 1 ; grass
+	db $5b, $3c, 0 ; tree
+	db $5f, $3d, 0 ; tree
+	db $63, $3f, 0 ; tree
+	db $67, $3e, 0 ; tree
+	db -1 ; end
+		
 .kanto:
 ; facing block, replacement block, animation
 	db $0b, $0a, 1 ; grass

@@ -2121,7 +2121,6 @@ NEXTU ; d1ea
 wMagikarpLength:: dw
 wSelectedDecoration:: db
 wOtherDecoration::    db
-wTilesetDataAddress:: dw
 wCurEnemyItem:: db
 ENDU ; d1f7
 
@@ -2195,13 +2194,14 @@ wBasePicSize:: db ; d247
 wBaseTraits:: ds 4 ; d247
 ; wBaseGrowthRate:: db ; d24c
 wBaseEggGroups:: db ; d24d
-; wBaseActions:: db
+wBaseActions:: db
 wBaseTMHM:: flag_array NUM_TM_HM_TUTOR ; d24e
 wCurBaseDataEnd::
 
 wCurDamage:: dw ; d256
 
-	ds 3
+wTilesetDataAddress:: dw
+	ds 1
 
 wDayEncounterRate::   db ; d25b
 wShallowEncounterRate::  db ; d25c

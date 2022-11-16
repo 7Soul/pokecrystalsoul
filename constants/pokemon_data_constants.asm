@@ -22,7 +22,7 @@ BASE_PIC_SIZE    EQUS "(wBasePicSize - wCurBaseData)"
 BASE_TRAITS      EQUS "(wBaseTraits - wCurBaseData)"
 ; BASE_GROWTH_RATE EQUS "(wBaseGrowthRate - wCurBaseData)"
 BASE_EGG_GROUPS  EQUS "(wBaseEggGroups - wCurBaseData)"
-; BASE_ACTIONS     EQUS "(wBaseActions - wCurBaseData)"
+BASE_ACTIONS     EQUS "(wBaseActions - wCurBaseData)"
 BASE_TMHM        EQUS "(wBaseTMHM - wCurBaseData)"
 BASE_DATA_SIZE   EQUS "(wCurBaseDataEnd - wCurBaseData)"
 
