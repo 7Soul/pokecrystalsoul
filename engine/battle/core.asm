@@ -5705,7 +5705,14 @@ CheckAmuletCoin:
 MoveSelectionScreen:
 	xor a ; PARTYMON
 	ld [wMonType], a
-	ld a, [wCurBattleMon]
+
+	ld a, [wMoveSelectionMenuType]
+	cp $2
+	ld a, [wCurBattleMon] ; during battle
+	jr nz, .got_cur_mon
+	ld a, [wCurPartyMon] ; in menus
+.got_cur_mon
+
 	ld [wCurPartyMon], a
 	predef CopyMonToTempMon
 	call SetPlayerTurn
@@ -5769,16 +5776,24 @@ MoveSelectionScreen:
 	hlcoord 5, 17 - NUM_MOVES
 	ld a, [wMoveSelectionMenuType]
 	cp $2
+	ld a, [wBattleMonSpecies] ; in battle
 	jr nz, .got_start_coord
 	hlcoord 5, 17 - NUM_MOVES - 4
+	ld a, [wCurSpecies] ; outside of battle, use this
 .got_start_coord
-	ld a, [wBattleMonSpecies]
 	ld [wCurPartySpecies], a
 
 	ld a, SCREEN_WIDTH
 	ld [wBuffer1], a
 	predef ListMoves
+
+	ld a, [wMoveSelectionMenuType]
+	cp $2
 	hlcoord 2, 13
+	jr nz, .got_default_coord0
+	hlcoord 2, 9
+.got_default_coord0
+
 	ld a, SCREEN_WIDTH
 	ld [wBuffer1], a
 	predef ListMovePP

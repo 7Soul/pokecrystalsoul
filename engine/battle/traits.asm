@@ -241,77 +241,25 @@ CheckTraitCondition:
 	ld c, WATER
 	ld e, GRASS
 	jp c, .check_move_type
-	; cp TRAIT_DEFENSE_ICE_FIRE_HIT + 1; 
-	; ld b, a
-	; ld c, FIRE
-	; ld e, ICE
-	; jp c, .check_move_type
-	; cp TRAIT_SPEED_BUG_DARK_HIT + 1; 
-	; ld b, a
-	; ld c, BUG
-	; ld e, DARK
-	; jp c, .check_move_type
-	; ld e, $FF
-	; cp TRAIT_BOOST_FIGHTING_STATUSED ; traits below this that require move type to be NORMAL
-	; ld b, a
-	; ld c, NORMAL
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_FLYING_SPEED ; traits that require move type to be FIGHTING
-	; ld b, a
-	; ld c, FIGHTING
-	; jp c, .check_move_type
-	; cp TRAIT_REDUCE_POISON_UP_MAIN_STAT ; traits that require move type to be FLYING
-	; ld b, a
-	; ld c, FLYING
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_GROUND_STATUSED ; traits that require move type to be POISON
-	; ld b, a
-	; ld c, POISON
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_ROCK_STATUSED ; traits that require move type to be GROUND
-	; ld b, a
-	; ld c, GROUND
-	; jp c, .check_move_type
-	; cp TRAIT_REDUCE_STEEL_MORE ; traits that require move type to be ROCK
-	; ld b, a
-	; ld c, ROCK
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_BUG_STATUSED ; traits that require move type to be STEEL
-	; ld b, a
-	; ld c, STEEL
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_FIRE_STATUSED ; traits that require move type to be BUG
-	; ld b, a
-	; ld c, BUG
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_WATER_DEFENSE ; traits that require move type to be FIRE
-	; ld b, a
-	; ld c, FIRE
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_GRASS_STATUSED ; traits that require move type to be WATER
-	; ld b, a
-	; ld c, WATER
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_ELECTRIC_STATUSED ; traits that require move type to be GRASS
-	; ld b, a
-	; ld c, GRASS
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_PSYCHIC_STATUSED ; traits that require move type to be ELECTRIC
-	; ld b, a
-	; ld c, ELECTRIC
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_ICE_STATUSED ; traits that require move type to be PSYCHIC
-	; ld b, a
-	; ld c, PSYCHIC
-	; jp c, .check_move_type
-	; cp TRAIT_REDUCE_DARK_UP_MAIN_STAT ; traits that require move type to be ICE
-	; ld b, a
-	; ld c, ICE
-	; jp c, .check_move_type
-	; cp TRAIT_BOOST_PRIMARY_HP ; traits that require move type to be DARK
-	; ld b, a
-	; ld c, DARK
-	; jp c, .check_move_type
+
+	ld e, $FF
+	cp TRAIT_REDUCE_NORMAL_ACC + 1 ; traits below this that require move type to be NORMAL
+	ld b, a
+	ld c, NORMAL
+	jp c, .check_move_type
+	cp TRAIT_BOOST_FLYING_DURING_WEATHER + 1 ; traits that require move type to be FLYING
+	ld b, a
+	ld c, FLYING
+	jp c, .check_move_type
+	cp TRAIT_RESIST_GROUND_LATER + 1 ; traits that require move type to be GROUND
+	ld b, a
+	ld c, GROUND
+	jp c, .check_move_type
+	cp TRAIT_FRZ_SPD_WITH_WATER + 1 ; traits that require move type to be WATER
+	ld b, a
+	ld c, WATER
+	jp c, .check_move_type
+
 	cp TRAIT_BOOST_NOT_EFFECTIVE
 	ld b, a
 	jp c, .check_move_type_matches_primary
@@ -908,14 +856,8 @@ TraitRaiseStatAfterDamage:
 	ld hl, .TraitsThatRaiseStatAfterDamage
 	call CheckTrait
 	ret nc
-	ld a, [wBuffer3]
-	cp 5
-	jr nc, .highest_stat
+
 	call TraitRaiseStat
-	call Switch_turn
-	ret
-.highest_stat
-	call TraitRaiseStat.highest_stat
 	call Switch_turn
 	ret
 
@@ -925,9 +867,6 @@ TraitRaiseStatAfterDamage:
 	db TRAIT_SPEED_AFTER_CRIT
 	db TRAIT_SP_ATTACK_AFTER_CRIT
 	db TRAIT_SP_DEFENSE_AFTER_CRIT ; 4
-	db TRAIT_REDUCE_POISON_UP_MAIN_STAT ; 5
-	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
-	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db -1
 
 RaiseBestStat:
@@ -1374,12 +1313,6 @@ TraitsThatRaiseEvasion:
 	db TRAIT_EVASION_STATUSED
 	db -1
 
-TraitsThatRaiseHighestStat:
-	db TRAIT_REDUCE_POISON_UP_MAIN_STAT
-	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
-	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
-	db -1
-
 TraitsThatAlsoRaiseAccuracy:
 	db TRAIT_BOOST_ATK_ACC_NOT_ATTACKING
 	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
@@ -1474,11 +1407,10 @@ TraitLowerStatAfterDamage:
 TraitLowerStat:	
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
-	ld hl, TraitsThatLowerStats + 3
+	ld hl, TraitsThatLowerStats
 	call CheckTrait
 	ret nc
 
-	add 3
 	ld hl, StatusCommands
 	call TraitUseBattleCommand
 	
@@ -1489,16 +1421,10 @@ TraitLowerStat:
 	jp TraitUseBattleCommandSimple
 
 StatusCommands:
-	dw BattleCommand_SpecialAttackDown
-	dw BattleCommand_SpecialAttackDown
-	dw BattleCommand_SpecialAttackDown
 	dw BattleCommand_AttackDown
 	dw BattleCommand_RandomStatDown
 
 TraitsThatLowerStats:
-	db TRAIT_LOWER_SP_ATTACK_FIRE
-	db TRAIT_LOWER_SP_ATTACK_WATER
-	db TRAIT_LOWER_SP_ATTACK_ELECTRIC
 	db TRAIT_LOWER_ATTACK_TURN_ZERO
 	db TRAIT_LOWER_RANDOM_TURN_ZERO
 	db -1
@@ -2531,17 +2457,6 @@ TraitReducePower:
 	ld d, a
 	ld e, $FF ; reset e so no type equals it
 
-	ld a, [wBuffer1]
-	call GetBattleVar
-	cp TRAIT_REDUCE_POISON_UP_MAIN_STAT
-	jr z, .skip_trigger1
-	
-	cp TRAIT_REDUCE_WATER_UP_MAIN_STAT
-	jr z, .skip_trigger2
-
-	cp TRAIT_REDUCE_GRASS_UP_MAIN_STAT
-	jr z, .skip_trigger3
-
 	ld a, TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	call CheckSpecificTrait
 	jr nc, .not_grand_entrance
@@ -2558,7 +2473,7 @@ TraitReducePower:
 .not_grand_entrance
 	ld hl, .TraitsThatMightNegateDamage
 	call CheckTrait
-	jp c, MayNegateDamage
+	call c, MayNegateDamage
 
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
@@ -2566,7 +2481,7 @@ TraitReducePower:
 	jr c, .not_balloon
 	ld a, TRAIT_RESIST_GROUND_LATER
 	call CheckSpecificTrait
-	jp c, ReduceDamage25
+	call c, ReduceDamage25
 
 .not_balloon
 	ld hl, .TraitsThatReduceDamageLess
@@ -2576,36 +2491,9 @@ TraitReducePower:
 	ld hl, .TraitsThatReduceDamage
 	call CheckTrait
 	call c, ReduceDamage15
-
-	ld hl, .TraitsThatReduceDamageMore
-	call CheckTrait
-	ret nc
-
-	call GetHealthPercentage
-	cp 50
-	ret nc
-	jp ReduceDamage30
-
-.skip_trigger1
-	ld c, POISON
-	ld a, d
-	cp c
-	jp z, ReduceDamage10
-	ret
-.skip_trigger2
-	ld c, WATER
-	ld a, d
-	cp c
-	jp z, ReduceDamage10
-	ret
-.skip_trigger3
-	ld c, GRASS
-	ld a, d
-	cp c
-	jp z, ReduceDamage10
 	ret
 
-.TraitsThatReduceDamage:
+.TraitsThatReduceDamage: ; 15%
 	db TRAIT_REDUCE_NORMAL
 	db TRAIT_ATTACK_AFTER_CRIT
 	db TRAIT_DEFENSE_AFTER_CRIT
@@ -2614,11 +2502,6 @@ TraitReducePower:
 	db TRAIT_SP_DEFENSE_AFTER_CRIT
 	db TRAIT_REDUCE_CRIT_MORE
 	db TRAIT_CRITICAL_AFTER_CRIT
-	db -1
-
-.TraitsThatReduceDamageMore: ; under 50% hp
-	db TRAIT_REDUCE_NORMAL_MORE
-	db TRAIT_REDUCE_STEEL_MORE
 	db -1
 
 .TraitsThatReduceDamageLess: ; 10%
@@ -2630,9 +2513,6 @@ TraitReducePower:
 	db TRAIT_REDUCE_PSN_AND_BUG
 	db TRAIT_REDUCE_FRZ_AND_ICE
 	db TRAIT_REDUCE_CONFUSE_AND_PSYCHIC
-	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
-	db TRAIT_REDUCE_POISON_UP_MAIN_STAT
-	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db -1
 
 .TraitsThatMightNegateDamage:
@@ -2674,8 +2554,6 @@ PowerBoostingTraits:
 	ld a, BATTLE_VARS_TRAIT_OPP
 	ld [wBuffer1], a
 	jp TraitReducePower
-
-; PRINTV TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
 
 TraitReduceVeryEffective:
 	ld a, [wTypeModifier]
@@ -4729,12 +4607,10 @@ OneShotTraits:
 	db TRAIT_PARTY_PSYCHIC_BOOST_DEFENSE
 	db TRAIT_PARTY_ICE_BOOST_DEFENSE
 	db TRAIT_PARTY_DARK_BOOST_DEFENSE
-	db TRAIT_REDUCE_WATER_FIRE_HIT
-	db TRAIT_REDUCE_WATER_UP_MAIN_STAT
-	db TRAIT_REDUCE_POISON_UP_MAIN_STAT
-	db TRAIT_REDUCE_GRASS_UP_MAIN_STAT
 	db TRAIT_EVASION_WHEN_CONFUSED
 	db TRAIT_RANDOM_STAT_WHEN_FLINCHED
+	db TRAIT_SUPER_EFFECTIVE_LOWER_ACC
+	db TRAIT_SUPER_EFFECTIVE_RAISE_STAT
 	db -1
 
 PRINTT "Trait constants left: "
@@ -5313,23 +5189,13 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_ELECTRIC_DARK_HIT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_WATER_GRASS_HIT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL_MORE
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_NORMAL_ACC
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLYING_FRZ
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLYING_PRZ
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FLYING_BRN
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_FLYING_DURING_WEATHER
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RESIST_GROUND_LATER
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_STEEL_MORE
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_FIRE
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_FRZ_SPD_WITH_WATER
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_WATER
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_HP
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_SPD
 	db SUP_EFFECT_DOWN + SUP_EFFECT_50 ; TRAIT_BOOST_PRIMARY_DEF

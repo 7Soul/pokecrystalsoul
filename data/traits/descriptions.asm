@@ -204,23 +204,13 @@ TraitDescriptions::
 	dw LightBarrierDescription    ; TRAIT_REDUCE_ELECTRIC_DARK_HIT
 	dw AridShieldDescription      ; TRAIT_REDUCE_WATER_GRASS_HIT
 	dw StoneSkinDescription       ; TRAIT_REDUCE_NORMAL
-	dw BoneArmorDescription       ; TRAIT_REDUCE_NORMAL_MORE
 	dw FadeDescription            ; TRAIT_REDUCE_NORMAL_ACC
 	dw IceLegendeDescription      ; TRAIT_FLYING_FRZ
 	dw ThunderLegendDescription   ; TRAIT_FLYING_PRZ
 	dw FireLegendDescription      ; TRAIT_FLYING_BRN
 	dw FlyingLegendDescription    ; TRAIT_BOOST_FLYING_DURING_WEATHER
-	dw DiluteDescription          ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
 	dw BalloonDescription         ; TRAIT_RESIST_GROUND_LATER
-	dw MegaShellDescription       ; TRAIT_REDUCE_STEEL_MORE
-	dw MysticFireDescription      ; TRAIT_LOWER_SP_ATTACK_FIRE
-	dw HardeningSandDescription   ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	dw IceWaterDescription        ; TRAIT_FRZ_SPD_WITH_WATER
-	dw MysticWaterDescription     ; TRAIT_LOWER_SP_ATTACK_WATER
-	dw SapSipperDescription       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
-	dw MysticWaveDescription      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
-	dw MysticPowerDescription     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
-	dw WatchfulDescription        ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
 	dw DangerousDanceDescription  ; TRAIT_BOOST_PRIMARY_HP
 	dw DynamoDescription          ; TRAIT_BOOST_PRIMARY_SPD
 	dw IronCoatDescription        ; TRAIT_BOOST_PRIMARY_DEF
@@ -228,7 +218,7 @@ TraitDescriptions::
 	dw UnderDuressDescription     ; TRAIT_BOOST_PRIMARY_STATUSED
 	dw TintedLensDescription      ; TRAIT_BOOST_NOT_EFFECTIVE
 	dw InkBombDescription         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
-	dw RattledDescription         ; TRAIT_SUPER_EFFECTIVE_RAISE_STAT
+	dw EagerDescription           ; TRAIT_SUPER_EFFECTIVE_RAISE_STAT
 	dw AdaptiveFurDescription     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	dw PrismPlateDescription      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
     dw TraitFFDescription    
@@ -1104,10 +1094,6 @@ StoneSkinDescription:
 	db   "Reduces NORMAL"
 	next "damage taken.@"
 	
-BoneArmorDescription:
-	db   "Resists NORMAL"
-	next "under half HP.@"
-
 FadeDescription:
 	db   "Reduces NORMAL"
 	next "damage accuracy.@"
@@ -1127,50 +1113,14 @@ FireLegendDescription:
 FlyingLegendDescription:
 	db   "Boosts FLYING du-"
 	next "ring any weather.@"
-
-DiluteDescription:
-	db   "Ups best stat when"
-	next "hit by POISON.@"
 	
 BalloonDescription:
 	db   "Resist GROUND past"
 	next "1st turn.@"
 	
-MegaShellDescription:
-	db   "Resist STEEL under"
-	next "half HP.@"
-
-MysticFireDescription:
-	db   "Lowers SP.ATK with"
-	next "FIRE attacks.@"
-
-HardeningSandDescription:
-	db   "Ups best stat when"
-	next "hit by WATER.@"
-
 IceWaterDescription:
 	db   "May FRZ/SPD down"
 	next "with WATER moves.@"
-
-MysticWaterDescription:
-	db   "Lowers SP.ATK with"
-	next "WATER attacks.@"
-
-SapSipperDescription:
-	db   "Ups best stat when"
-	next "hit by GRASS.@"
-
-MysticWaveDescription:
-	db   "Lowers SP.ATK with"
-	next "ELECTRIC attacks.@"
-
-MysticPowerDescription:
-	db   "Lowers SP.ATK with"
-	next "PSYCHIC attacks.@"
-
-WatchfulDescription:
-	db   "Ups best stat when"
-	next "hit by DARK.@"
 
 DangerousDanceDescription:
 	db   "Missing HP boosts"
@@ -1200,7 +1150,7 @@ InkBombDescription:
 	db   "S.EFFECTIVE trig-"
 	next "gers ACC lowering.@"
 	
-RattledDescription:
+EagerDescription:
 	db   "Best stat UP when"
 	next "hit by S.EFFECTIVE@"
 

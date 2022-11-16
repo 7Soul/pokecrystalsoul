@@ -204,23 +204,13 @@ TraitNames::
 	db "Light Barrier@"    ; TRAIT_REDUCE_ELECTRIC_DARK_HIT
 	db "Arid Shield@"      ; TRAIT_REDUCE_WATER_GRASS_HIT
 	db "Stone Skin@"       ; TRAIT_REDUCE_NORMAL
-	db "Bone Armor@"       ; TRAIT_REDUCE_NORMAL_MORE
 	db "Fade@"             ; TRAIT_REDUCE_NORMAL_ACC
 	db "Ice Legend@"       ; TRAIT_FLYING_FRZ
 	db "Thunder Legend@"   ; TRAIT_FLYING_PRZ
 	db "Fire Legend@"      ; TRAIT_FLYING_BRN
 	db "Flying Legend@"    ; TRAIT_BOOST_FLYING_DURING_WEATHER
-	db "Dilute@"           ; TRAIT_REDUCE_POISON_UP_MAIN_STAT
 	db "Balloon@"          ; TRAIT_RESIST_GROUND_LATER
-	db "Mega Shell@"       ; TRAIT_REDUCE_STEEL_MORE
-	db "Mystic Fire@"      ; TRAIT_LOWER_SP_ATTACK_FIRE
-	db "Hardening Sand@"   ; TRAIT_REDUCE_WATER_UP_MAIN_STAT
 	db "Ice Water@"        ; TRAIT_FRZ_SPD_WITH_WATER
-	db "Mystic Water@"     ; TRAIT_LOWER_SP_ATTACK_WATER
-	db "Sap Sipper@"       ; TRAIT_REDUCE_GRASS_UP_MAIN_STAT
-	db "Mystic Wave@"      ; TRAIT_LOWER_SP_ATTACK_ELECTRIC
-	db "Mystic Power@"     ; TRAIT_LOWER_SP_ATTACK_PSYCHIC
-	db "Watchful@"         ; TRAIT_REDUCE_DARK_UP_MAIN_STAT
 	db "Dangerous Dance@"  ; TRAIT_BOOST_PRIMARY_HP
 	db "Dynamo@"           ; TRAIT_BOOST_PRIMARY_SPD
 	db "Iron Coat@"        ; TRAIT_BOOST_PRIMARY_DEF
@@ -228,6 +218,6 @@ TraitNames::
 	db "Under Duress@"     ; TRAIT_BOOST_PRIMARY_STATUSED
 	db "Tinted Lens@"      ; TRAIT_BOOST_NOT_EFFECTIVE
 	db "Ink Bomb@"         ; TRAIT_SUPER_EFFECTIVE_LOWER_ACC
-	db "Rattled@"          ; TRAIT_SUPER_EFFECTIVE_RAISE_STAT
+	db "Eager@"            ; TRAIT_SUPER_EFFECTIVE_RAISE_STAT
 	db "Adaptive Fur@"     ; TRAIT_REDUCE_SUPER_EFFECTIVE
 	db "Prism Plate@"      ; TRAIT_REDUCE_SUPER_EFFECTIVE_MORE
