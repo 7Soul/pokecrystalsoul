@@ -3884,8 +3884,8 @@ endr
 	ld [wEnemyTurnsTaken], a
 	ld hl, wPlayerSubStatus5
 	res SUBSTATUS_CANT_RUN, [hl]
-	ld hl, wTraitActivated
-	res 4, [hl]
+	; ld hl, wTraitActivated
+	; res 4, [hl]
 	call SetEnemyTurn
 	farcall ResetAllStatus
 	ret
@@ -4146,9 +4146,10 @@ InitBattleMon:
 	ld de, wBattleMonDVs
 	ld bc, MON_PKRUS - MON_DVS
 	call CopyBytes
-	inc hl
-	inc hl
-	inc hl
+	inc hl ; PokerusStatus
+	inc hl ; CaughtData
+	inc hl ; CaughtLocation
+	inc hl ; TraitActivated
 	ld de, wBattleMonLevel
 	ld bc, PARTYMON_STRUCT_LENGTH - MON_LEVEL
 	call CopyBytes
@@ -4172,6 +4173,14 @@ InitBattleMon:
 	ld bc, PARTYMON_STRUCT_LENGTH - MON_ATK
 	call CopyBytes
 	call ApplyStatusEffectOnPlayerStats
+
+	ld a, MON_SPECIES
+	call GetPartyParamLocation
+	xor a
+	ld [wBuffer1], a
+	ld de, wBattleMonTrait
+	call SetTraitsFromBaseData
+
 	xor a
 	ld a, [wBattleMonLevel]
 	ld b, a
@@ -4263,6 +4272,15 @@ InitEnemyMon:
 	ld bc, PARTYMON_STRUCT_LENGTH - MON_ATK
 	call CopyBytes
 	call ApplyStatusEffectOnEnemyStats
+
+	ld a, [wCurPartyMon]
+	ld hl, wOTPartyMon1Species
+	call GetPartyLocation
+	ld a, 1
+	ld [wBuffer1], a
+	ld de, wEnemyMonTrait
+	call SetTraitsFromBaseData
+
 	ld hl, wBaseType1
 	ld de, wEnemyMonType1
 	ld a, [hli]
@@ -4362,14 +4380,7 @@ SendOutPlayerMon:
 OnEnterTraits:
 	; on enter traits
 	callfar DoTransform
-	ld a, BATTLE_VARS_TRAIT
-	call GetBattleVar
-	cp TRAIT_RAIN_ON_ENTER
-	jr z, .start_rain
-	cp TRAIT_SUNSHINE_ON_ENTER
-	jr z, .start_sun
-	cp TRAIT_SANDSTORM_ON_ENTER
-	jr z, .start_sand
+	
 	ld a, BATTLE_VARS_TRAIT
 	ld [wBuffer1], a
 	farcall TraitOnEnter
@@ -4378,25 +4389,6 @@ OnEnterTraits:
 	ld [wBuffer1], a
 	farcall TraitOnEnter
 	call SwitchTurnCore
-	ret
-.start_rain
-	ld a, RAIN_DANCE
-	jr .finish
-.start_sun
-	ld a, SUNNY_DAY
-	jr .finish
-.start_sand
-	ld a, SANDSTORM
-.finish
-	ld [wCurEnemyMove], a
-	ld [wCurPlayerMove], a
-	callfar UpdateMoveData
-	xor a
-	ld [wAttackMissed], a
-	ld [wAlreadyDisobeyed], a
-	ld a, EFFECTIVE
-	ld [wTypeModifier], a
-	callfar DoMove
 	ret
 
 NewBattleMonStatus:
@@ -4425,8 +4417,8 @@ endr
 	ld [wPlayerTurnsTaken], a
 	ld hl, wEnemySubStatus5
 	res SUBSTATUS_CANT_RUN, [hl]
-	ld hl, wTraitActivated
-	res 0, [hl]
+	; ld hl, wTraitActivated
+	; res 0, [hl]
 	call SetPlayerTurn
 	farcall ResetAllStatus
 	ret
@@ -6453,21 +6445,41 @@ LoadEnemyMon:
 .UpdateItem:
 	ld [wEnemyMonItem], a
 
-; Initialize Trait
-	ld hl, wBaseTraits
+; Initialize Trait LoadEnemyMon.UpdateItem
+	; second trait 0~2
+	ld b, 0
+	call Random
+	cp 35 percent ; 35%
+	jr c, .got_trait
+	inc b
+	cp 70 percent ; 35%
+	jr c, .got_trait
+	inc b ; 30%
+.got_trait
+	ld a, b
+	rla
+	rla
+	ld b, a
+; first trait 0~3
 	call Random
 	cp 60 percent ; 60%
-	jr c, .got_trait
-	inc hl
+	jr c, .got_trait2
+	inc b
 	cp 90 percent ; 30%
-	jr c, .got_trait
-	inc hl
+	jr c, .got_trait2
+	inc b
 	cp 95 percent ; 5%
-	jr c, .got_trait
-	inc hl ; 5%
-.got_trait
-	ld a, [hl]
+	jr c, .got_trait2
+	inc b ; 5%
+.got_trait2
+	ld a, b
+	add PAIR_ID_MASK ; wild/enemy mon have no pokémon pair
 	ld [wEnemyMonTrait], a
+	
+	push de
+	ld de, wEnemyMonTrait
+	call SetTraitsFromBaseDataGotTrait
+	pop de
 
 ; Initialize DVs
 
@@ -6706,6 +6718,11 @@ LoadEnemyMon:
 ; Set happiness
 	ld a, BASE_HAPPINESS
 	ld [wEnemyMonHappiness], a
+	
+; wEnemyMonTraitActivated
+	xor a
+	ld [wEnemyMonTraitActivated], a
+
 ; Set level
 	ld a, [wCurPartyLevel]
 	ld [wEnemyMonLevel], a
@@ -6741,10 +6758,6 @@ LoadEnemyMon:
 
 .UpdateStatus:
 	ld hl, wEnemyMonStatus
-	ld [hli], a
-
-; TraitActivated
-	ld a, $7
 	ld [hli], a
 
 ; Full HP..

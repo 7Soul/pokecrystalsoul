@@ -956,7 +956,7 @@ StatsScreen_LoadGFX:
 	ld de, SCREEN_WIDTH
 	ld b, 9
 	ld a, $bd ; vertical divider
-.BluePageVerticalDivider3:
+.BluePageVerticalDivider3: ; StatsScreen_LoadGFX.BluePageVerticalDivider3
 	ld [hl], a
 	add hl, de
 	dec b
@@ -973,10 +973,23 @@ StatsScreen_LoadGFX:
 	; call PlaceString
 
 	ld a, [wTempMonTrait]
+	and FIRST_TRAIT_MASK
 	ld [wNamedObjectIndexBuffer], a
+	call StatsScreen_GetBaseTrait
 	call GetTraitName
 	hlcoord 1, 12
 	call PlaceString
+	
+	; ld a, [wTempMonTrait]
+	; and SECOND_TRAIT_MASK
+	; rra
+	; rra
+	; add 4
+	; ld [wNamedObjectIndexBuffer], a
+	; call StatsScreen_GetBaseTrait
+	; call GetTraitName
+	; hlcoord 1, 14
+	; call PlaceString
 	
 	ld a, [wTempMonTrait]
 	ld [wCurSpecies], a
@@ -992,6 +1005,14 @@ IDNoString:
 
 OTString:
 	db "OT/@"
+
+StatsScreen_GetBaseTrait:
+	ld hl, wBaseTraits
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld a, [hl]
+	ret
 
 StatsScreen_PlaceFrontpic:
 	ld hl, wTempMonDVs

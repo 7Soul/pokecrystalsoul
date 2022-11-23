@@ -268,13 +268,23 @@ GetMoveNameSimple::
 
 GetTraitName::
 	push hl
+; 	and a
+; 	jr z, .first_trait
+; 	ld a, [wNamedObjectIndexBuffer] ; trait id
+; 	and $f0
+; 	swap a
+; .first_trait
+; 	and $f
+; 	ld hl, wBaseTraits
+; 	ld b, 0
+; 	ld c, a
+; 	add hl, bc
+; 	ld a, [hl]
+	inc a
+	ld [wCurSpecies], a
 
 	ld a, TRAIT_NAME
 	ld [wNamedObjectTypeBuffer], a
-
-	ld a, [wNamedObjectIndexBuffer] ; trait id
-	inc a
-	ld [wCurSpecies], a
 
 	call GetName
 	ld de, wStringBuffer1

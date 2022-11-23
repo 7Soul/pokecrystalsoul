@@ -711,7 +711,7 @@ wTempLevel:: db ; c719
 wLastPlayerMon:: db ; c71a
 wLastPlayerMove:: db ; c71b
 wLastEnemyMove:: db ; c71c
-wTraitActivated:: 
+; wTraitActivated:: 
 wSupportMon:: db
 
 wPlayerFutureSightCount:: db ; c71d
@@ -1883,7 +1883,6 @@ wBallsPocketCursor::    db
 wTMHMPocketCursor::     db
 
 wPCItemsScrollPosition::        db
-wPartyMenuScrollPosition::      db ; unused
 wItemsPocketScrollPosition::    db
 wKeyItemsPocketScrollPosition:: db
 wBallsPocketScrollPosition::    db
@@ -2096,6 +2095,8 @@ wNewHPBarPixels::   db ; d1f2
 wCurHPAnimDeltaHP:: dw ; d1f3
 wCurHPAnimLowHP::   db ; d1f5
 wCurHPAnimHighHP::  db ; d1f6
+wCurTraitID:: db ; d1ef
+wCurTraitIndex:: db ; d1ef
 
 NEXTU ; d1ea
 ; evolution data
@@ -2126,7 +2127,7 @@ ENDU ; d1f7
 
 wOtherTrainerType:: db
 wTrainerGroupBank:: db
-	ds 1
+	; ds 1
 
 wLinkBattleRNs:: ds 10 ; d1fa
 
@@ -2191,17 +2192,17 @@ wBaseItem2:: db ; d242
 wBaseGender:: db ; d243
 wBaseEggSteps:: db ; d245
 wBasePicSize:: db ; d247
-wBaseTraits:: ds 4 ; d247
+wBaseTraits:: ds 7 ; d247
 ; wBaseGrowthRate:: db ; d24c
 wBaseEggGroups:: db ; d24d
-wBaseActions:: db
+wBaseActions:: dw
 wBaseTMHM:: flag_array NUM_TM_HM_TUTOR ; d24e
 wCurBaseDataEnd::
 
 wCurDamage:: dw ; d256
 
 wTilesetDataAddress:: dw
-	ds 1
+	; ds 1
 
 wDayEncounterRate::   db ; d25b
 wShallowEncounterRate::  db ; d25c
@@ -2817,7 +2818,7 @@ wBackupWarpNumber:: db ; dcad
 wBackupMapGroup::   db ; dcae
 wBackupMapNumber::  db ; dcaf
 
-	ds 3
+	ds 4
 
 wLastSpawnMapGroup:: db
 wLastSpawnMapNumber:: db
@@ -2916,9 +2917,9 @@ wRoamMons_CurMapGroup:: db
 wRoamMons_LastMapNumber:: db
 wRoamMons_LastMapGroup:: db
 
-wBestMagikarpLengthFeet:: db
-wBestMagikarpLengthInches:: db
-wMagikarpRecordHoldersName:: ds NAME_LENGTH
+wBestMagikarpLengthFeet:: 
+wBestMagikarpLengthInches:: 
+wMagikarpRecordHoldersName:: db
 
 
 wPokemonDataEnd::

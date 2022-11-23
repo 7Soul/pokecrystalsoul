@@ -19,40 +19,83 @@ CheckTrait: ; sets carry if trait can be used, returns move index [wBuffer3] in 
 
 CheckSpecificTrait:
 	ld b, a
-	call CheckTraitActivated ; check if trait only activates once
-	jr c, .no_trait
+	; check trait 1
+	xor a
+	ld [wCurTraitIndex], a
 	ld a, [wBuffer1]
 	call GetBattleVar
+	ld [wCurTraitID], a
 	cp b
-	jr nz, .no_trait
-	jp CheckTraitCondition.GotTrait
-.no_trait
-	ld c, 1
-	call TraitCheckSupports
+	jp z, CheckTraitCondition.GotTrait
+
+	; check trait 2
+	ld a, 1
+	ld [wCurTraitIndex], a
+	ld a, [wBuffer1]
+	add 2 ; get trait 2
+	call GetBattleVar
+	ld [wCurTraitID], a
+	cp b
+	jp z, CheckTraitCondition.GotTrait
+
+	; check trait 3
+	ld a, 2
+	ld [wCurTraitIndex], a
+	ld a, [wBuffer1]
+	add 4 ; get trait 3
+	call GetBattleVar
+	ld [wCurTraitID], a
 	jp c, CheckTraitCondition.GotTrait
 ; no traits or support traits
 	and a
 	ret
 
 CheckTraitCondition:
+	; check trait 1
 	push hl
 	ld a, [wBuffer1]
 	call GetBattleVar
+	ld [wCurTraitID], a
 	ld de, 1
 	call IsInArray
 	ld a, b
 	ld [wBuffer3], a ; store array index
 	pop hl
 	jp c, .in_array ; has trait, not support
-	ld c, 2
-	call TraitCheckSupports
-	jp c, .GotTrait
-	jp .not_met1
-.in_array
+
+	; check trait 2
+	push hl
 	ld a, [wBuffer1]
+	add 2 ; get trait 2
 	call GetBattleVar
+	ld [wCurTraitID], a
+	ld de, 1
+	call IsInArray
+	ld a, b
+	ld [wBuffer3], a ; store array index
+	pop hl
+	jp c, .in_array ; has trait, not support
+
+	; check trait 3
+	push hl
+	ld a, [wBuffer1]
+	add 4 ; get trait 3
+	call GetBattleVar
+	ld [wCurTraitID], a
+	ld de, 1
+	call IsInArray
+	ld a, b
+	ld [wBuffer3], a ; store array index
+	pop hl
+
+	jp nc, .not_met1
+.in_array
 	; fallthrough
 .GotTrait:
+	ld a, [wCurTraitID]
+	call CheckTraitActivated ; check if trait only activates once
+	jp c, .not_met
+	ld a, b
 	cp TRAIT_SANDSTORM_ON_ENTER + 1 ; traits lower than this have no conditions
 	jp c, .success
 	cp TRAIT_HEAL_HP_AND_STATUS + 1 
@@ -273,14 +316,16 @@ CheckTraitCondition:
 .success
 	push hl
 	ld hl, OneShotTraits
-	call IsBattlemonOrPairTraitInTable
+	ld a, [wCurTraitID]
+	ld de, 1
+	call IsInArray
 	pop hl
 	jr nc, .not_one_shot
 	call ActivateTrait
 .not_one_shot
 	; call PrintTraitText
-	call SupportTraitChance
-	jr nc, .not_met
+	; call SupportTraitChance
+	; jr nc, .not_met
 	scf
 	ld a, [wBuffer3]
 	ret
@@ -545,7 +590,7 @@ CheckTraitCondition:
 	ld a, b ; restore trait into 'a'	
 	ret
 
-.check_move_type_matches_primary
+.check_move_type_matches_primary ; CheckTraitCondition.check_move_type_matches_primary
 	ld a, BATTLE_VARS_MOVE_TYPE
  	call GetBattleVar
 	and TYPE_MASK
@@ -807,16 +852,31 @@ GetMoveStructChance:
 	ret
 
 TraitTurnTriggers:
+	; check trait 1
+	xor a
+	ld [wCurTraitIndex], a
 	ld a, [wBuffer1]
 	call GetBattleVar
+	ld [wCurTraitID], a
 	call CheckTraitTurnTriggers
 
-	call GetPairsTrait
+	; check trait 2
+	ld a, 1
+	ld [wCurTraitIndex], a
+	ld a, [wBuffer1]
+	add 2 ; get trait 2
+	call GetBattleVar
+	ld [wCurTraitID], a
 	call CheckTraitTurnTriggers
-	; xor a
-	; ld [wSupportMon], a
-.no_trigger
-	ret
+
+	; check trait 3
+	ld a, 2
+	ld [wCurTraitIndex], a
+	ld a, [wBuffer1]
+	add 4 ; get trait 3
+	call GetBattleVar
+	ld [wCurTraitID], a
+	jp CheckTraitTurnTriggers
 
 ; this is a function so that it's called for both the current trait and the pair's trait
 CheckTraitTurnTriggers:
@@ -826,7 +886,7 @@ CheckTraitTurnTriggers:
 	cp TRAIT_HEAL_HP_AFTER_WATER_MOVE + 1
 	ld e, $FF
 	ld c, WATER
-	jr c, CheckTraitCondition.check_move_type_trigger
+	jp c, CheckTraitCondition.check_move_type_trigger
 
 	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1
 	jp c, CheckTraitCondition.check_did_no_dmg_for_three_turns
@@ -900,8 +960,36 @@ RaiseBestStat:
 	dw BattleCommand_SpecialAttackUp
 	dw BattleCommand_SpecialDefenseUp
 
-
 TraitOnEnter:
+	ld a, TRAIT_RAIN_ON_ENTER
+	call CheckSpecificTrait
+	ld a, RAIN_DANCE
+	jr c, .finish
+
+	ld a, TRAIT_SUNSHINE_ON_ENTER
+	call CheckSpecificTrait
+	ld a, SUNNY_DAY
+	jr c, .finish
+
+	ld a, TRAIT_SANDSTORM_ON_ENTER
+	call CheckSpecificTrait
+	ld a, SANDSTORM
+	jr c, .finish
+	jr .not_weather
+
+.finish
+	ld [wCurEnemyMove], a
+	ld [wCurPlayerMove], a
+	callfar UpdateMoveData
+	xor a
+	ld [wAttackMissed], a
+	ld [wAlreadyDisobeyed], a
+	ld a, EFFECTIVE
+	ld [wTypeModifier], a
+	callfar DoMove
+	ret
+
+.not_weather
 	call TraitRaiseStatOnEnter
 	
 	ld a, TRAIT_NORMALIZE_FOE_STATS
@@ -1089,7 +1177,7 @@ TriggerResistRandomType:
 	ld [wNamedObjectIndexBuffer], a
 
 	call GetTraitUser
-	ld hl, wTraitActivated
+	; ld hl, wTraitActivated ; todo
 	jr c, .player
 	swap b
 .player
@@ -1212,7 +1300,9 @@ TraitRaiseStat:
 	jr z, .no_raise
 
 	ld hl, TraitsThatAlsoRaiseAccuracy
-	call IsBattlemonOrPairTraitInTable
+	ld a, [wCurTraitID]
+	ld de, 1
+	call IsInArray
 	jr c, .also_raise_acc
 	ret
 .no_raise
@@ -1604,7 +1694,7 @@ TraitDoDisable:
 	ld de, wPlayerDisableCount
 	call GetTraitUserAddr
 	and [hl]
-	ret nc
+	ret nz
 	call PrintTraitText
 	call Switch_turn
 ; Use Disable
@@ -1708,11 +1798,8 @@ TraitPreventStatDown:
 
 TraitRaiseLowerOddEven:
 	ld a, TRAIT_ATTACK_SPECIAL_ODD_EVEN
-	ld b, a
-	ld a, [wBuffer1]
-	call GetBattleVar
-	cp b
-	ret nz
+	call CheckSpecificTrait
+	ret nc
 
 	ld a, BATTLE_VARS_TURNS_TAKEN
  	call GetBattleVar
@@ -2430,7 +2517,7 @@ TraitReducePower:
 	jp nc, .not_color_pick
 	
 	call GetTraitUser
-	ld hl, wTraitActivated
+	; ld hl, wTraitActivated ; todo
 	ld a, [hl]
 	jr c, .player_user
 	swap a
@@ -2940,7 +3027,7 @@ TraitsThatResistDamagePerTurn:
 	db -1
 
 TraitDamageBasedOnStats:
-	ld c, 6
+	ld c, 5
 .loop
 	ld hl, .JumpTableTraitsBoostMoveByStat
 	dec c
@@ -3844,9 +3931,9 @@ Chance: ; takes `percent` in `b` and sets carry flag
 
 SupportTraitChance:
 	; if trait is support
-	ld a, [wSupportMon]
-	cp -1
-	jr z, .not_met
+	ld a, [wCurTraitIndex]
+	cp 2
+	jr nc, .not_met
 	call GetSupportTraitValues
 	ret nc
 	; get upper 4 bits of support value
@@ -3968,10 +4055,10 @@ GetToJumptable:
 	xor a
 	ret
 
-CallFarSpecificTrait:
-	ld a, [wBuffer1]
-	call CheckSpecificTrait
-	ret
+; CallFarSpecificTrait:
+; 	ld a, [wBuffer1]
+; 	call CheckSpecificTrait
+; 	ret
 
 GetHealthPercentage:
 	ld hl, wBattleMonHP
@@ -4095,19 +4182,13 @@ IncreaseTraitCount:
 .player_user
 	call GetPartyMonTraitActivated
 .got_addr
-	ld a, [hl]
-	and %1111
-	ld b, a ; saves lower nybble in b
-	ld a, [hl]
-	and %11110000 ; grab upper nybble
-	swap a
-	cp $f
+	call MaskActivatedTrait
+	cp c
 	jr z, .end
 	inc a
 .end
-	swap a
-	add b
-	ld [hl], a
+	ld c, a
+	call AddToActivatedTrait
 	ret
 
 ReduceTraitCount:
@@ -4140,9 +4221,7 @@ CheckTraitCount: ; returns trait activation count in a
 .player_user
 	call GetPartyMonTraitActivated
 .got_addr
-	ld a, [hl]
-	and %11110000
-	swap a
+	call MaskActivatedTrait
 	ret
 
 ; Checks if the user's trait is already activated	
@@ -4152,7 +4231,8 @@ CheckTraitActivated:
 	push hl
 	push bc
 	ld hl, OneShotTraits
-	call IsBattlemonOrPairTraitInTable
+	ld de, 1
+	call IsInArray
 	jr nc, .end
 .not_one_shot
 	call GetTraitUser
@@ -4162,8 +4242,8 @@ CheckTraitActivated:
 .player_user
 	call GetPartyMonTraitActivated
 .got_addr
-	bit 3, [hl]
-	jr nz, .already_activated
+	cp $7
+	jr z, .already_activated
 .end
 	pop bc
 	pop hl
@@ -4183,8 +4263,8 @@ CheckTraitActivatedSimple:
 .player_user
 	call GetPartyMonTraitActivated
 .got_addr
-	bit 3, [hl]
-	jr nz, .already_activated
+	cp $7
+	jr z, .already_activated
 .end
 	and a
 	ret
@@ -4194,8 +4274,8 @@ CheckTraitActivatedSimple:
 
 ; Activates the wTraitActivated bit for the current user and displays activation text box
 ActivateTrait:
-	ld a, [wBuffer1]
-	call GetBattleVar
+	ld a, [wCurTraitID]
+	; call GetBattleVar
 	ld [wNamedObjectIndexBuffer], a
 	call GetTraitName
 	call GetTraitUser
@@ -4214,9 +4294,6 @@ ActivateTrait:
 ; .end1
 	; call PrintTraitText
 	call GetOTPartyMonTraitActivated
-	; ld hl, wTraitActivated
-	set 3, [hl] ; enemy trait
-	ld a, [hl]
 	ret
 .player_user
 	ldh a, [hBattleTurn]
@@ -4228,57 +4305,126 @@ ActivateTrait:
 	jr .end
 .okturn
 	call PrintTraitText
-.end	
-	; call PrintTraitText
+.end
 	call GetPartyMonTraitActivated
-	; ld hl, wTraitActivated
-	set 3, [hl] ; player trait
-	ld a, [hl]
+	; add 7 to traitActivated
+	call AddToActivatedTrait
 	ret
 
+; Returns current trait activation in `a`
+; and rest of byte in `b` and max values in `c`
+MaskActivatedTrait:
+	ld c, 7 ; max value for traits 1 and 2
+	ld a, [wCurTraitIndex]
+	and a
+	jr z, .first_trait
+	dec a
+	ld a, [hl]
+	jr z, .second_trait
+.third_trait
+	and ACTIVATED_TRAIT3_COUNT_MASK ^ $FF ; grab everything else
+	ld b, a ; saves other traits info in b
+	ld a, c
+	swap a
+	rra
+	rra
+	ld c, a
+	ld a, [hl]
+	and ACTIVATED_TRAIT3_COUNT_MASK
+	swap a
+	rra
+	rra
+	ld c, 3 ; max value for trait 3
+	ret
+.second_trait
+	and ACTIVATED_TRAIT2_COUNT_MASK ^ $FF ; grab everything else
+	ld b, a ; saves other traits info in b
+	ld a, c
+	rra
+	rra
+	rra
+	ld c, a
+	ld a, [hl]
+	and ACTIVATED_TRAIT2_COUNT_MASK
+	rra
+	rra
+	rra
+	ret
+.first_trait
+	ld a, [hl]
+	and ACTIVATED_TRAIT1_COUNT_MASK ^ $FF ; grab everything else
+	ld b, a ; saves other traits info in b
+	ld a, [hl]
+	and ACTIVATED_TRAIT1_COUNT_MASK
+	ret
+
+AddToActivatedTrait:
+	; writes number `c` to `hl` based on trait index
+	; `b` holds rest of byte
+	ld a, [wCurTraitIndex]
+	and a
+	jr z, .zero
+	dec a
+	ld a, [hl]
+	jr z, .one
+; three
+	ld a, c
+	swap a
+	rla
+	rla
+.done
+	and a
+	jr z, .set_zero
+	add b
+	ld [hl], a
+	ret
+.set_zero
+	; if the value we're adding is 0, we're instead just setting the activated value of the current trait to 0
+	; which means we use the b value we had (byte minus current trait activation)
+	ld [hl], b
+	ret
+.one
+	ld a, c
+	jr .done
+.zero
+	ld a, c
+	jr .done
+
+; Uses wCutTraitID to get current trait activation in `a`
 GetPartyMonTraitActivated:
-	ld a, [wSupportMon]
-	cp -1
-	ld hl, wBattleMonTraitActivated
-	ret z
-	push bc
 	ld hl, wPartyMon1TraitActivated
-	call GetPartyLocation
-	pop bc
+	call MaskActivatedTrait
 	ret
 
+; Uses wCutTraitID to get current trait activation in `a`
 GetOTPartyMonTraitActivated:
-	ld a, [wSupportMon]
-	cp -1
-	ld hl, wEnemyMonTraitActivated
-	ret z
-	push bc
 	ld hl, wOTPartyMon1TraitActivated
-	call GetPartyLocation
-	pop bc
+	call MaskActivatedTrait
 	ret
 
-GetPartyMonTrait:
-	push bc
-	push hl
-	ld hl, wPartyMon1Trait
-	ld a, [wCurPartyMon]
-	call GetPartyLocation
-	ld a, [hl]
-	pop hl
-	pop bc
-	ret
+; GetPartyMonTrait:
+; 	push bc
+; 	push hl
+; 	ld hl, wPartyMon1Trait
+; 	ld a, [wCurPartyMon]
+; 	call GetPartyLocation
+; 	ld a, [hl]
+; 	and FIRST_TRAIT_MASK
+; 	pop hl
+; 	pop bc
+; 	ret
 
-GetOTPartyMonTrait:
-	push bc
-	push hl
-	ld hl, wOTPartyMon1Trait
-	ld a, [wCurPartyMon]
-	call GetPartyLocation
-	ld a, [hl]
-	pop hl
-	pop bc
-	ret
+; GetOTPartyMonTrait:
+; 	push bc
+; 	push hl
+; 	ld hl, wOTPartyMon1Trait
+; 	ld a, [wCurPartyMon]
+; 	call GetPartyLocation
+; 	ld a, [hl]
+; 	and FIRST_TRAIT_MASK
+; 	pop hl
+; 	pop bc
+; 	ret
 
 ; Resets the wTraitActivated bit for the current trait user	
 ResetActivated:
@@ -4289,18 +4435,21 @@ ResetActivated:
 .player_user
 	call GetPartyMonTraitActivated
 .got_addr
-	ld a, [hl]
-	and %11100000 ; lower 5 bits return to 0
-	ld [hl], a
+	ld c, 0
+	call AddToActivatedTrait
+	; ld a, [hl]
+	; and %11100000 ; lower 5 bits return to 0
+	; ld [hl], a
 	ret
 
 PrintTraitText:
 	; Trait text doesn't print for a partner's trait
-	ld a, [wSupportMon]
-	cp -1
-	ret nz
-	ld a, [wBuffer1]
-	call GetBattleVar
+	ld a, [wCurTraitID]
+	cp 2
+	ret z
+	ld a, [wCurTraitID]
+	; ld a, [wBuffer1]
+	; call GetBattleVar
 	ld c, a
 	ld [wNamedObjectIndexBuffer], a
 	call GetTraitName	
@@ -4314,8 +4463,9 @@ PrintTraitText:
 
 	ldh a, [hBattleTurn]
 	push af
-	ld a, [wBuffer1]
-	call GetBattleVar
+	ld a, [wCurTraitID]
+	; ld a, [wBuffer1]
+	; call GetBattleVar
 	push af
 	call GetTraitUser
 	jr nc, .not_player
@@ -4523,6 +4673,52 @@ PrintTraitText:
 	dw TraitText_SleepCurse
 	dw TraitText_Ignite
 	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
+	dw TraitText_Guts
 
 .TraitsAffectsOpponent:
 	db TRAIT_CONTACT_DAMAGE_ROCK
@@ -4570,6 +4766,7 @@ OneShotTraits:
 	db TRAIT_BOOST_DEF_ACC_NOT_ATTACKING
 	db TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	db TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
+	db TRAIT_ALL_STATS_AFTER_7_TURNS
 	db TRAIT_REDUCE_DAMAGE_TURN_ZERO
 	db TRAIT_LOWER_ATTACK_TURN_ZERO
 	db TRAIT_LOWER_RANDOM_TURN_ZERO
@@ -4831,108 +5028,105 @@ EffectForceRecoverPP:
 	ret
 
 ; Puts pair's trait in `a`
-GetPairsTrait:
-	xor a
-	ld [wCurPartyMon], a
-	call GetTraitUser
-	ld hl, wBattleMonTraitActivated
-	jr c, .player_user
-	ld hl, wEnemyMonTraitActivated
-.player_user
-	ld a, [hl]
-	and %00000111
-	cp $7
-	jr z, .no_pair
-	ld [wSupportMon], a
-	ld [wCurPartyMon], a
-	call GetPartyMonTrait
-.no_pair
-	ret
+; GetPairsTrait:
+; 	xor a
+; 	ld [wCurPartyMon], a
+; 	call GetTraitUser
+; 	ld hl, wBattleMonTraitActivated
+; 	jr c, .player_user
+; 	ld hl, wEnemyMonTraitActivated
+; .player_user
+; 	ld a, [hl]
+; 	and %00000111
+; 	cp $7
+; 	jr z, .no_pair
+; 	ld [wSupportMon], a
+; 	ld [wCurPartyMon], a
+; 	call GetPartyMonTrait
+; .no_pair
+; 	ret
 
-TraitCheckSupports:
-	; Look for current battlemon/OTMon's partner and check if their trait matches trait `b`
-	; Trait const returns in `a` and sets carry flag
-	xor a
-	ld [wCurPartyMon], a
-	; wSupportMon defaults to -1
-	dec a
-	ld [wSupportMon], a
-	call GetTraitUser
-	jr c, .player_user
+; TraitCheckSupports:
+; 	; Look for current battlemon/OTMon's partner and check if their trait matches trait `b`
+; 	; Trait const returns in `a` and sets carry flag
+; 	xor a
+; 	ld [wCurPartyMon], a
+; 	dec a ; wSupportMon defaults to -1
+; 	ld [wSupportMon], a
+; 	call GetTraitUser
+; 	jr c, .player_user
 
-.opp_user
-	; Get trait of OTMon's partner
-	push hl ; table of traits, if any
-	push bc
-	; check if partymon is set as support
-	ld hl, wOTPartyMon1TraitActivated
-	ld a, [wCurOTMon]
-	call GetPartyLocation
-	ld a, [hl]
-	pop bc
-	pop hl ; table of traits, if any
-	and %00000111
-	cp $7
-	jr z, .no_trait
-	ld [wCurPartyMon], a
-	ld a, c ; c = 1 we're checking a specific trait, else it's from a table
-	cp 1
-	jr nz, .opp_get_from_array
-	call GetOTPartyMonTrait
-	cp b ; b has trait we're checking against
-	jr z, .got_opp_trait
-	jr .no_trait
+; .opp_user
+; 	; Get trait of OTMon's partner
+; 	push hl ; table of traits, if any
+; 	push bc
+; 	; check if partymon is set as support
+; 	ld hl, wOTPartyMon1Trait
+; 	ld a, [wEnemyMonPairIndex]
+; 	call GetPartyLocation
+; 	ld a, [hl]
+; 	pop bc
+; 	pop hl ; table of traits, if any
+; 	cp $7
+; 	jr z, .no_trait
+; 	ld [wCurPartyMon], a
+; 	ld a, c ; c = 1 we're checking a specific trait, else it's from a table
+; 	cp 1
+; 	jr nz, .opp_get_from_array
+; 	call GetOTPartyMonTrait
+; 	cp b ; b has trait we're checking against
+; 	jr z, .got_opp_trait
+; 	jr .no_trait
 
-.opp_get_from_array
-	call GetOTPartyMonTrait
-	call GetSupportTraitFromArray
-	jr nc, .no_trait
+; .opp_get_from_array
+; 	call GetOTPartyMonTrait
+; 	call GetSupportTraitFromArray
+; 	jr nc, .no_trait
 
-.got_opp_trait
-	ld a, [wCurPartyMon]
-	ld [wSupportMon], a
-	call GetOTPartyMonTrait
-	scf
-	ret
+; .got_opp_trait
+; 	ld a, [wCurPartyMon]
+; 	ld [wSupportMon], a
+; 	call GetOTPartyMonTrait
+; 	scf
+; 	ret
 
-.player_user
-	; Get trait of battlemon's partner
-	push hl ; table of traits, if any
-	push bc
-	; check if partymon is set as support
-	ld hl, wPartyMon1TraitActivated
-	ld a, [wCurBattleMon]
-	call GetPartyLocation
-	ld a, [hl]
-	pop bc
-	pop hl ; table of traits, if any
-	and %00000111
-	cp $7
-	jr z, .no_trait
-	ld [wCurPartyMon], a
-	ld a, c ; c = 1 we're checking a specific trait, else it's from a table
-	cp 1
-	jr nz, .player_get_from_array
-	call GetPartyMonTrait
-	cp b ; b has trait we're checking against
-	jr z, .got_player_trait
-	jr .no_trait
+; .player_user
+; 	; Get trait of battlemon's partner
+; 	push hl ; table of traits, if any
+; 	push bc
+; 	; check if partymon is set as support
+; 	ld hl, wPartyMon1Trait
+; 	ld a, [wBattleMonPairIndex]
+; 	call GetPartyLocation
+; 	ld a, [hl]
+; 	pop bc
+; 	pop hl ; table of traits, if any
+; 	cp $7
+; 	jr z, .no_trait
+; 	ld [wCurPartyMon], a
+; 	ld a, c ; c = 1 we're checking a specific trait, else it's from a table
+; 	cp 1
+; 	jr nz, .player_get_from_array
+; 	call GetPartyMonTrait
+; 	cp b ; b has trait we're checking against
+; 	jr z, .got_player_trait
+; 	jr .no_trait
 
-.player_get_from_array
-	call GetPartyMonTrait
-	call GetSupportTraitFromArray
-	jr nc, .no_trait
+; .player_get_from_array
+; 	call GetPartyMonTrait
+; 	call GetSupportTraitFromArray
+; 	jr nc, .no_trait
 
-.got_player_trait
-	ld a, [wCurPartyMon]
-	ld [wSupportMon], a
-	call GetPartyMonTrait
-	scf
-	ret
+; .got_player_trait
+; 	ld a, [wCurPartyMon]
+; 	ld [wSupportMon], a
+; 	call GetPartyMonTrait
+; 	scf
+; 	ret
 
-.no_trait
-	and a
-	ret
+; .no_trait
+; 	and a
+; 	ret
 	
 GetSupportTraitFromArray: ; trait is in `a`. Sets `c` if trait is in array
 	push bc
@@ -4953,35 +5147,35 @@ GetSupportTraitFromArray: ; trait is in `a`. Sets `c` if trait is in array
 ; Takes table in `hl`	
 ; Sets carry flag if found	
 ; Index returns in `b`	
-IsBattlemonOrPairTraitInTable:
-	push hl
-	ld a, [wBuffer1]
-	call GetBattleVar
-	ld de, 1
-	call IsInArray
-	pop hl
-	ret c
+; IsBattlemonOrPairTraitInTable:
+; 	push hl
+; 	ld a, [wCurTraitID]
+; 	call GetBattleVar
+; 	ld de, 1
+; 	call IsInArray
+; 	pop hl
+; 	ret c
 	
-	push hl
-	call GetPairsTrait
-	pop hl
-	ld de, 1
-	call IsInArray
-	ret
+; 	push hl
+; 	call GetPairsTrait
+; 	pop hl
+; 	ld de, 1
+; 	call IsInArray
+; 	ret
 
 ; Checks if either the current mon or their pair's traits equals `a`
 ; Takes constant in `b`	
 ; Sets z flag if found	
-IsBattlemonOrPairTrait:
-	ld a, [wBuffer1]
-	call GetBattleVar
-	cp b
-	ret z
-	push bc
-	call GetPairsTrait
-	pop bc
-	cp b
-	ret
+; IsBattlemonOrPairTrait:
+; 	ld a, [wBuffer1]
+; 	call GetBattleVar
+; 	cp b
+; 	ret z
+; 	push bc
+; 	call GetPairsTrait
+; 	pop bc
+; 	cp b
+; 	ret
 
 
 TraitSupportValues:

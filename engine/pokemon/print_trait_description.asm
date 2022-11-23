@@ -1,7 +1,14 @@
 PrintTraitDesc:
 	push hl
+	; ld a, [wCurSpecies]
+	; and $f
+	; ld hl, wBaseTraits
+	; ld b, 0
+	; ld c, a
+	; add hl, bc
+	; ld a, [hl]
+	
 	ld hl, TraitDescriptions
-	ld a, [wCurSpecies]
 	ld c, a
 	ld b, 0
 	add hl, bc

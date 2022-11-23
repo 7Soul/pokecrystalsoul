@@ -7,9 +7,9 @@ ENDM
 box_struct: MACRO
 \1Species::        db
 \1Item::           db
-\1Trait::          db
 \1Moves::          ds NUM_MOVES
 \1ID::             dw
+\1Trait::          db
 \1Exp::            ds 3
 ; Stat exp uses 5 bytes instead of 10
 ; \1StatExp::        dw
@@ -34,6 +34,7 @@ box_struct: MACRO
 \1CaughtLevel::    db
 \1CaughtGender::
 \1CaughtLocation:: db
+\1TraitActivated:: db ; keeps track of your own 2 traits and pair's support
 \1Level::          db
 \1End::
 ENDM
@@ -41,7 +42,6 @@ ENDM
 party_struct: MACRO
 	box_struct \1
 \1Status::         db
-\1TraitActivated:: db
 \1HP::             dw
 \1MaxHP::          dw
 \1Stats:: ; big endian
@@ -88,16 +88,21 @@ ENDM
 battle_struct: MACRO
 \1Species::   db
 \1Item::      db
-\1Trait::     db
 \1Moves::     ds NUM_MOVES
 \1MovesEnd::
+\1Trait::     db
+\1Trait2::    db
+\1Trait3::    db
+\1PairIndex:: db
 \1DVs::       db
 \1Stamina::   db
 \1PP::        ds NUM_MOVES
 \1Happiness:: db
+\1TraitActivated:: db
+; \1TraitActivated2:: db
+; \1TraitActivated3:: db
 \1Level::     db
 \1Status::    db
-\1TraitActivated:: db
 \1HP::        dw
 \1MaxHP::     dw
 \1Stats:: ; big endian

@@ -10,7 +10,11 @@
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/krabby/front.dimensions"
 	db 0, 0, 0, 0
+	db 0, 0, 0
 	dn EGG_WATER_3, EGG_WATER_3 ; egg groups
+
+	db ACTION_FLY << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
+	db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
 
 	; tm/hm learnset
 	tmhm HEADBUTT, CURSE, ROCK_SMASH, HIDDEN_POWER, FELL_STINGER, PROTECT, RAIN_DANCE, ENDURE, EARTHQUAKE, DIG, MUD_BOMB, DOUBLE_TEAM, SWAGGER, WATER_GUN, SANDSTORM, ATTRACT, CRUNCH, ROCK_TOMB, JET_STREAM, X_SCISSOR, SURF, ICE_BEAM

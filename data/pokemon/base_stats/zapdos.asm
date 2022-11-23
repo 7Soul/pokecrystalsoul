@@ -10,7 +10,11 @@
 	db 80 ; step cycles to hatch
 	INCBIN "gfx/pokemon/zapdos/front.dimensions"
 	db 0, 0, 0, 0
+	db 0, 0, 0
 	dn EGG_NONE, EGG_NONE ; egg groups
+
+	db ACTION_FLY << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
+	db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
 
 	; tm/hm learnset
 	tmhm CURSE, ZAP_CANNON, PSYCH_UP, HIDDEN_POWER, FELL_STINGER, FEATHERGALE, HYPER_BEAM, PROTECT, RAIN_DANCE, ENDURE, THUNDER, DOUBLE_TEAM, SWAGGER, SWIFT, ATTRACT, WILD_STORM, AIR_SLASH, FLY, THUNDERBOLT, REST

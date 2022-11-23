@@ -2472,7 +2472,14 @@ RestorePPEffect:
 
 	push hl
 	ld a, [hl]
+	ld e, a
+	farcall IsVariableMove
+	jr nc, .not_variable
+	farcall GetVariableMoveType
+	jr nc, .not_variable
+	ld a, [hl]
 	ld [wNamedObjectIndexBuffer], a
+.not_variable
 	call GetMoveName
 	call CopyName1
 	pop hl
@@ -2976,7 +2983,7 @@ ComputeMaxPP:
 	ldh [hDividend], a
 	ldh [hDividend + 1], a
 	ldh [hDividend + 2], a
-	ld a, 5
+	ld a, 4
 	ldh [hDivisor], a
 	ld b, 4
 	call Divide

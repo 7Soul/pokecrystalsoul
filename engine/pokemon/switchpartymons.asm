@@ -150,41 +150,31 @@ _SwitchPartyMons:
 	; Get mon 2's pair. If it is mon 2's old id, switch it to the new id
 	; At this point the mons have already been switched
 	ld a, [wBuffer2] ; 1 = pidgey, vaporeon is in index 0 now
-	ld hl, wPartyMon1TraitActivated
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld a, [hl] ; vaporeon's pair (1)
+	call GetPairIDMask ; vaporeon's pair (1)
 	cp $7
 	jr z, .not_pair1
-	ld hl, wPartyMon1TraitActivated
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld b, [hl] ; muk's pair id (vaporeon's original id of 0)
+	call GetPairIDMask
+	ld b, a ; muk's pair id (vaporeon's original id of 0)
 	ld a, [wBuffer2] ; vaporeon's new index (0)
 	cp b ; is vaporeon muk's pair?
 	call z, SwapPairs
 	jr z, .not_pair1
 	; Give pikachu pidgey's new index of 0
 	ld a, [wBuffer2]
-	ld [hl], a
+	call GivePairIDMask
 .not_pair1
 	ld a, [wBuffer3]
-	ld hl, wPartyMon1TraitActivated
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld a, [hl] ; vaporeon's pair
+	call GetPairIDMask ; vaporeon's pair
 	cp $7
 	jr z, .not_pair2
-	ld hl, wPartyMon1TraitActivated
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld b, [hl] ; muk's pair id (vaporeon's original id of 0)
+	call GetPairIDMask
+	ld b, a ; muk's pair id (vaporeon's original id of 0)
 	ld a, [wBuffer3] ; vaporeon's old index (0)
 	cp b ; is vaporeon muk's pair?
 	jr z, .not_pair2
 	; Give muk vaporeon's new index of 1
 	ld a, [wBuffer3]
-	ld [hl], a
+	call GivePairIDMask
 .not_pair2
 	pop bc
 	pop de
@@ -199,15 +189,38 @@ _SwitchPartyMons:
 	call CopyBytes
 	ret
 
+GetPairIDMask:
+	ld hl, wPartyMon1Trait
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld a, [hl]
+	and PAIR_ID_MASK
+	swap a
+	ret
+
+GivePairIDMask:
+	; moves pair id number to upper nybble
+	swap a
+	ld b, a ; save it
+	push bc
+	ld a, c
+	ld hl, wPartyMon1Trait
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld a, [hl]
+	and PAIR_ID_MASK ^ $FF
+	pop bc
+	or b
+	ld [hl], a
+	ret
+
 SwapPairs: ; for when swaping around two pokémon who are paired with each other
 	ld b, [hl] ; second mon's id
 	push hl
 	push bc
 	ld a, [wBuffer3]
-	ld hl, wPartyMon1TraitActivated
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld d, [hl] ; first mon's id
+	call GetPairIDMask
+	ld d, a ; first mon's id
 	pop bc
 	ld [hl], b
 	pop hl
@@ -225,13 +238,11 @@ _PairMons:
 	cp b
 	jr z, .skip
 
-	ld a, [wBuffer2]
-	ld hl, wPartyMon1TraitActivated
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
+	ld a, [wBuffer2] ; pid
+	call GetPairIDMask
 	; it target is already our pair, stop
-	ld b, [hl]
-	ld a, [wBuffer3]
+	ld b, a
+	ld a, [wBuffer3] ; bulb
 	cp b
 	jr z, .skip
 	; if target already has pair, go to its pair and reset it
@@ -240,54 +251,47 @@ _PairMons:
 	call nz, .TargetHasPair
 	call .CheckCompatibility
 	jr z, .skip
+	; puts bulb index into pid trait
+	ld a, [wBuffer2] ; pid
+	ld c, a
+	ld a, [wBuffer3] ; bulb
+	call GivePairIDMask
 
-	ld a, [wBuffer3]
-	ld [hl], a
-
-	ld hl, wPartyMon1TraitActivated
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
+	call GetPairIDMask
 	; it target is already our pair, stop
-	ld b, [hl]
-	ld a, [wBuffer2]
+	ld b, a
+	ld a, [wBuffer2] ; pid
 	cp b
 	jr z, .skip
 	; if target already has pair, go to its pair and reset it
 	ld a, b
 	cp $7 ; 7 indicates no pair
 	call nz, .TargetHasPair
-	ld a, [wBuffer2]
-	ld [hl], a
+	; puts pid index into bulb trait
+	ld a, [wBuffer3] ; bulb
+	ld c, a
+	ld a, [wBuffer2] ; pid
+	call GivePairIDMask
 .skip
 	ret
 
 .TargetHasPair:
 	push hl
-	ld hl, wPartyMon1TraitActivated
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
+	call GetPairIDMask
 	ld a, $7
-	ld [hl], a
+	call GivePairIDMask
 	pop hl
 	ret
 
 .CheckCompatibility: ; _PairMons.CheckCompatibility
 	; get trait 1
 	ld a, [wBuffer2]
-	ld hl, wPartyMon1Trait
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld a, [hl]
-	add a ; double a
+	call .GetTrait
 	call .GetGroup
 	ld d, a ; save group 1 in d
 
 	ld a, [wBuffer3]
-	ld hl, wPartyMon1Trait
-	ld bc, PARTYMON_STRUCT_LENGTH
-	call AddNTimes
-	ld a, [hl]
-	add a
+	call .GetTrait
 	call .GetGroup
 	cp d
 	ret nz ; compatible
@@ -308,6 +312,17 @@ _PairMons:
 	inc hl
 	ld a, BANK(TraitCompatibility)
 	call GetFarByte
+	ret
+
+.GetTrait:
+	ld hl, wPartyMon1Species
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld a, [hl]
+	ld [wCurSpecies], a
+	call GetBaseData
+	call GetTraitFromBaseStats1
+	add a ; double a
 	ret
 
 TraitText_PairIncompatible:

@@ -10,7 +10,11 @@
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/marowak/front.dimensions"
 	db 0, 0, 0, 0
+	db 0, 0, 0
 	dn EGG_MONSTER, EGG_MONSTER ; egg groups
+
+	db ACTION_FLY << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
+	db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
 
 	; tm/hm learnset
 	tmhm CURSE, HIDDEN_POWER, SUNNY_DAY, PROTECT, ENDURE, LEAF_SHIELD, EARTHQUAKE, DIG, SWAGGER, ATTRACT

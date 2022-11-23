@@ -10,7 +10,11 @@
 	db 15 ; step cycles to hatch
 	INCBIN "gfx/pokemon/zubat/front.dimensions"
 	db 0, 0, 0, 0
+	db 0, 0, 0
 	dn EGG_FLYING, EGG_FLYING ; egg groups
+
+	db ACTION_FLY << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
+	db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
 
 	; tm/hm learnset
 	tmhm CURSE, VENOSHOCK, HIDDEN_POWER, SUNNY_DAY, FEATHERGALE, PROTECT, RAIN_DANCE, ENDURE, DOUBLE_TEAM, SWAGGER, SLUDGE_BOMB, SWIFT, CRUNCH, AIR_SLASH, HYPER_SONAR, FLY

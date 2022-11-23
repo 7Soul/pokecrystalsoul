@@ -533,9 +533,11 @@ ShowSupports:
 	jr nc, .done
 	
 	ld bc, PARTYMON_STRUCT_LENGTH
-	ld hl, wPartyMon1TraitActivated
+	ld hl, wPartyMon1Trait
 	call AddNTimes
 	ld a, [hl]
+	and PAIR_ID_MASK
+	swap a
 	cp $7
 	jr z, .done
 

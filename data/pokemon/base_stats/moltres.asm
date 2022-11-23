@@ -10,7 +10,11 @@
 	db 80 ; step cycles to hatch
 	INCBIN "gfx/pokemon/moltres/front.dimensions"
 	db 0, 0, 0, 0
+	db 0, 0, 0
 	dn EGG_NONE, EGG_NONE ; egg groups
+
+	db ACTION_FLY << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
+	db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
 
 	; tm/hm learnset
 	tmhm CURSE, HIDDEN_POWER, SUNNY_DAY, FEATHERGALE, HYPER_BEAM, PROTECT, ENDURE, DOUBLE_TEAM, SWAGGER, FIRE_BLAST, SWIFT, ATTRACT, INFERNO, AIR_SLASH, FLY, FLAMETHROWER

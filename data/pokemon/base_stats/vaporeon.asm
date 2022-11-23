@@ -24,7 +24,8 @@
 	db GENDER_F12_5 ; gender ratio
 	db 35 ; step cycles to hatch
 	INCBIN "gfx/pokemon/vaporeon/front.dimensions"
-	db TRAIT_BOOST_PUNCHING, TRAIT_BOOST_PUNCHING, TRAIT_BOOST_PUNCHING, TRAIT_BOOST_PUNCHING
+	db 0, 0, 0, 0
+	db 0, 0, 0
 	dn EGG_GROUND, EGG_GROUND ; egg groups
 	
 	; World actions
@@ -34,9 +35,9 @@
 	; Second action requires attunement
 	; Third action requires attunement and max pokedex data
 
-	; db ACTION_SURF << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
-	; db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
-	
+	db ACTION_SURF << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
+	db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
+
 	; tm/hm learnset
 	tmhm HEADBUTT, CURSE, ROAR, ROCK_SMASH, HIDDEN_POWER, BLIZZARD, HYPER_BEAM, ICY_WIND, PROTECT, RAIN_DANCE, ENDURE, AQUA_TAIL, DIG, DOUBLE_TEAM, SWAGGER, WATER_GUN, SWIFT, ATTRACT, CRUNCH, JET_STREAM, HYPER_SONAR, SURF, ICE_BEAM, REST
 	; end

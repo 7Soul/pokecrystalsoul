@@ -10,7 +10,11 @@
 	db 25 ; step cycles to hatch
 	INCBIN "gfx/pokemon/mantine/front.dimensions"
 	db 0, 0, 0, 0
+	db 0, 0, 0
 	dn EGG_WATER_1, EGG_WATER_1 ; egg groups
+
+	db ACTION_FLY << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
+	db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
 
 	; tm/hm learnset
 	tmhm HEADBUTT, CURSE, HIDDEN_POWER, FEATHERGALE, HYPER_BEAM, PROTECT, RAIN_DANCE, ENDURE, DOUBLE_TEAM, SWAGGER, WATER_GUN, SWIFT, ATTRACT, JET_STREAM, AIR_SLASH, HYPER_SONAR, SURF, ICE_BEAM, REST, SNORE, SLEEP_TALK, HARMONY

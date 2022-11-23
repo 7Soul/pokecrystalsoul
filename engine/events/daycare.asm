@@ -792,21 +792,35 @@ DayCare_InitBreeding:
 	jr .got_trait
 
 .get_random_trait
-	ld hl, wBaseTraits
+	; Initialize Trait LoadEnemyMon.UpdateItem
+	; second trait 0~2
+	ld b, 0
 	call Random
-	cp 60 percent ; 60%
-	jr c, .got_random_trait
-	inc hl
-	cp 90 percent ; 30%
-	jr c, .got_random_trait
-	inc hl
-	cp 98 percent ; 5%
-	jr c, .got_random_trait
-	inc hl ; 5%
-.got_random_trait
-	ld a, [hl]
+	cp 35 percent ; 35%
+	jr c, .got_trait
+	inc b
+	cp 70 percent ; 35%
+	jr c, .got_trait
+	inc b ; 30%
 .got_trait
 	ld a, b
+	rla
+	rla
+	ld b, a
+; first trait 0~3
+	call Random
+	cp 60 percent ; 60%
+	jr c, .got_trait2
+	inc b
+	cp 90 percent ; 30%
+	jr c, .got_trait2
+	inc b
+	cp 95 percent ; 5%
+	jr c, .got_trait2
+	inc b ; 5%
+.got_trait2
+	ld a, b
+	add PAIR_ID_MASK ; new mon has no pokémon pair
 	ld hl, wEggMonTrait
 	ld [hl], a	
 

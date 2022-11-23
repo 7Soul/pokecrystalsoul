@@ -99,9 +99,9 @@ NUM_DEX_ENTRY_BANKS EQU 1
 ; party_struct members (see macros/wram.asm)
 MON_SPECIES            EQUS "(wPartyMon1Species - wPartyMon1)"
 MON_ITEM               EQUS "(wPartyMon1Item - wPartyMon1)"
-MON_TRAIT              EQUS "(wPartyMon1Trait - wPartyMon1)"
 MON_MOVES              EQUS "(wPartyMon1Moves - wPartyMon1)"
 MON_ID                 EQUS "(wPartyMon1ID - wPartyMon1)"
+MON_TRAIT              EQUS "(wPartyMon1Trait - wPartyMon1)"
 MON_EXP                EQUS "(wPartyMon1Exp - wPartyMon1)"
 MON_STAT_EXP           EQUS "(wPartyMon1StatExp - wPartyMon1)"
 MON_HP_EXP             EQUS "(wPartyMon1HPExp - wPartyMon1)"
@@ -119,6 +119,9 @@ MON_CAUGHTLEVEL        EQUS "(wPartyMon1CaughtLevel - wPartyMon1)"
 MON_CAUGHTTIME         EQUS "(wPartyMon1CaughtTime - wPartyMon1)"
 MON_CAUGHTGENDER       EQUS "(wPartyMon1CaughtGender - wPartyMon1)"
 MON_CAUGHTLOCATION     EQUS "(wPartyMon1CaughtLocation - wPartyMon1)"
+MON_TRAIT_ACTIVATED    EQUS "(wPartyMon1TraitActivated - wPartyMon1)"
+; MON_TRAIT_ACTIVATED2   EQUS "(wPartyMon1TraitActivated2 - wPartyMon1)"
+; MON_TRAIT_ACTIVATED3   EQUS "(wPartyMon1TraitActivated3 - wPartyMon1)"
 MON_LEVEL              EQUS "(wPartyMon1Level - wPartyMon1)"
 MON_STATUS             EQUS "(wPartyMon1Status - wPartyMon1)"
 MON_HP                 EQUS "(wPartyMon1HP - wPartyMon1)"
@@ -276,6 +279,16 @@ STA_EX_MAX  EQU 3 ; max exhaustion levels
 STA_MAX     EQU 14
 STA_BAR     EQU 2
 STA_HALF    EQU STA_BAR / 2
+
+; wPartymon1Trait masks
+FIRST_TRAIT_MASK  EQU %00000011
+SECOND_TRAIT_MASK EQU %00001100
+PAIR_ID_MASK      EQU %01110000
+
+; wBattleMonTraitActivated masks
+ACTIVATED_TRAIT1_COUNT_MASK EQU %00000111
+ACTIVATED_TRAIT2_COUNT_MASK EQU %00111000
+ACTIVATED_TRAIT3_COUNT_MASK EQU %11000000
 
 ACTION_LEVEL EQU 4 ; action limited by level multiplies the stored 4 bit number by this value
 

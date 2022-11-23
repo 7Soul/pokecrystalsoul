@@ -10,7 +10,11 @@
 	db 20 ; step cycles to hatch
 	INCBIN "gfx/pokemon/seaking/front.dimensions"
 	db 0, 0, 0, 0
+	db 0, 0, 0
 	dn EGG_WATER_2, EGG_WATER_2 ; egg groups
+
+	db ACTION_FLY << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
+	db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
 
 	; tm/hm learnset
 	tmhm CURSE, HIDDEN_POWER, PROTECT, RAIN_DANCE, ENDURE, AQUA_TAIL, MEGAHORN, SWAGGER, SWIFT, ATTRACT

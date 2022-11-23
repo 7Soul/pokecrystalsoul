@@ -104,49 +104,6 @@ GeneratePartyMonStats:
 	ld [de], a
 	inc de
 
-	ld a, [wMonType]
-	and $f
-	jr z, .generate_trait
-
-	push hl
-	farcall GetTrainerDVs
-	pop hl
-	ld a, b
-	push hl
-.mod_3
-	cp 3
-	jr c, .ok_mod
-	sub 3
-	jr .mod_3
-.ok_mod
-	ld hl, wBaseTraits
-	ld b, 0
-	ld c, a
-	add hl, bc
-	jr .got_trait
-
-.generate_trait
-	push hl
-	; Generate a trait
-	ld hl, wBaseTraits
-	; call Random ; commented so pkmn always gets the first trait for testing
-	; cp 60 percent ; 60%
-	jr .got_trait
-	jr c, .got_trait
-	inc hl
-	cp 90 percent ; 30%
-	jr c, .got_trait
-	inc hl
-	cp 95 percent ; 5%
-	jr c, .got_trait
-	inc hl ; 5%
-.got_trait
-	ld a, [hl]
-	; call GetRandomCommonTrait
-.set_trait
-	ld [de], a
-	inc de
-	pop hl
 .copy_moves
 	; Copy the moves if it's a wild mon
 	push de
@@ -190,6 +147,66 @@ endr
 	ld a, [wPlayerID + 1]
 	ld [de], a
 	inc de
+
+	ld a, [wMonType]
+	and $f
+	jr z, .generate_trait
+
+	push hl
+	farcall GetTrainerDVs
+	pop hl
+	ld a, b
+	push hl
+.mod_3
+	cp 3
+	jr c, .ok_mod
+	sub 3
+	jr .mod_3
+.ok_mod
+	ld hl, wBaseTraits
+	ld b, 0
+	ld c, a
+	add hl, bc
+	jr .got_trait
+
+.generate_trait
+	push hl
+; Generate a trait
+
+; pick second trait and move it 2 bits left
+; then pick first trate in the lower 2 bits
+; second trait 0~2
+	ld b, 0
+	call Random
+	cp 35 percent ; 35%
+	jr c, .got_trait
+	inc b
+	cp 70 percent ; 35%
+	jr c, .got_trait
+	inc b ; 30%
+.got_trait
+	ld a, b
+	rla
+	rla
+	ld b, a
+; first trait 0~3
+	call Random
+	cp 60 percent ; 60%
+	jr c, .got_trait2
+	inc b
+	cp 90 percent ; 30%
+	jr c, .got_trait2
+	inc b
+	cp 95 percent ; 5%
+	jr c, .got_trait2
+	inc b ; 5%
+.got_trait2
+	ld a, b
+	add PAIR_ID_MASK ; new mon has no pokémon pair
+.set_trait
+	ld [de], a
+	inc de
+	pop hl
 
 	; Initialize Exp.
 	push de
@@ -341,7 +358,6 @@ endr
 	ld [de], a
 	inc de
 
-	xor a
 	; PokerusStatus
 	ld [de], a
 	inc de
@@ -349,6 +365,11 @@ endr
 	ld [de], a
 	inc de
 	; CaughtGender/CaughtLocation
+	ld [de], a
+	inc de
+	
+	; wPartymon1TraitActivated
+	xor a
 	ld [de], a
 	inc de
 
@@ -359,10 +380,6 @@ endr
 
 	xor a
 	; Status
-	ld [de], a
-	inc de
-	; TraitActivated
-	ld a, $7
 	ld [de], a
 	inc de
 
@@ -1511,7 +1528,7 @@ RecalculatePartyPairs:
 	ld d, a
 
 .loop
-	ld hl, wPartyMon1TraitActivated
+	ld hl, wPartyMon1Trait
 	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	; If we are withdrawing, all we do is set pair to $7
@@ -1520,6 +1537,8 @@ RecalculatePartyPairs:
 	jr nz, .reset
 
 	ld a, [hl]
+	and PAIR_ID_MASK
+	swap a
 	cp $7
 	jr z, .skip
 	ld b, a
@@ -1528,7 +1547,9 @@ RecalculatePartyPairs:
 	jr z, .unpair
 	jr nc, .skip
 	dec b
-	ld [hl], b
+	ld a, b
+	swap a
+	ld [hl], a
 .skip
 	dec d
 	ld a, d
@@ -1536,7 +1557,12 @@ RecalculatePartyPairs:
 	pop hl
 	ret
 .unpair
+	ld a, [hl]
+	and PAIR_ID_MASK ^ $FF
+	ld b, a
 	ld a, $7
+	swap a
+	add b
 	ld [hl], a
 	jr .skip
 .reset
