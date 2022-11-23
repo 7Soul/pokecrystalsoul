@@ -587,7 +587,6 @@ ChooseWildEncounter:
 	ld de, ShallowMonProbTable
 	jr z, .shallowmon
 
-	inc hl ; skip encounter rate
 	ld a, [wTimeOfDay]
 	cp 0
 	jr z, .continue_with_timeofday
@@ -599,7 +598,6 @@ ChooseWildEncounter:
 	jr .watermon
 
 .shallowmon
-	inc hl ; skip encounter rate
 	ld a, [wTimeOfDay]
 	cp 0
 	jr z, .continue_with_timeofday2
@@ -609,6 +607,7 @@ ChooseWildEncounter:
 	call AddNTimes
 
 .watermon
+	inc hl ; skip encounter rate
 ; hl contains the pointer to the wild mon data, let's save that to the stack
 	push hl
 .randomloop
