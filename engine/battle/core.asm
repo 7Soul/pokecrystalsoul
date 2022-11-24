@@ -1052,7 +1052,7 @@ EndOpponentProtectEndureDestinyBond:
 	ld a, [wBattleMode]
 	dec a
 	jr z, .wild
-	call UpdatePartyStamina
+	farcall UpdatePartyStamina
 .wild
 .has_stamina
 ; Regen stamina between turns
@@ -1061,7 +1061,7 @@ EndOpponentProtectEndureDestinyBond:
 	jr nz, .enemy_stamina
 	ld a, PARTYMON
 	ld [wBuffer1], a
-	call RegenPartyStamina
+	farcall RegenPartyStamina
 	call UpdatePlayerHUD
 	jr .done_wild
 .enemy_stamina
@@ -1087,7 +1087,7 @@ EndOpponentProtectEndureDestinyBond:
 ; enemy party mon
 	ld a, OTPARTYMON
 	ld [wBuffer1], a
-	call RegenPartyStamina
+	farcall RegenPartyStamina
 .done_wild
 	call UpdateEnemyHUD
 	; Update stats after stamina actions
