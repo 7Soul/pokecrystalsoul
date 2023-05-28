@@ -1054,6 +1054,11 @@ SpikesText:
 	cont "<TARGET>!"
 	prompt
 
+StickyWebText:
+	text "WEBS covered"
+	line "the field."
+	prompt
+
 CoalsText:
 	text "COALS scattered"
 	line "all around"

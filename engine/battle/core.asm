@@ -6811,7 +6811,7 @@ LoadEnemyMon:
 	ld [wCurOTMon], a
 
 ; Get status from the party struct
-	dec hl
+	; dec hl
 	ld a, [hl] ; OTPartyMonStatus
 	ld [wEnemyMonStatus], a
 

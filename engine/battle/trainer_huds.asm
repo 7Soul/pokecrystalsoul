@@ -82,7 +82,6 @@ StageBallTilesData:
 .got_hp
 	dec hl
 	dec hl
-	dec hl
 	ld a, [hl]
 	and a
 	ld b, $32 ; statused
