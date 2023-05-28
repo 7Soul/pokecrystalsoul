@@ -236,11 +236,12 @@ SUBSTATUS_REGEN_STAMINA_TURNS EQU %1110
 	enum SUBSTATUS_TOXIC
 
 ; wPlayerScreens or wEnemyScreens bit flags
-	enum_start 6, -1
+	enum_start 7, -1
 	enum SCREENS_REFLECT
 	enum SCREENS_LIGHT_SCREEN
 	enum SCREENS_SAFEGUARD
 	enum SCREENS_LEAF_SHIELD
+	enum SCREENS_WEB
 	enum SCREENS_COALS
 	enum SCREENS_BARBS
 	enum SCREENS_SPIKES

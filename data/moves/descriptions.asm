@@ -1193,6 +1193,7 @@ VariableMoveDescriptions::
 	dw IngrainDescription
 	dw $0000 ; CycleFoeDescription
 	dw HealBellDescription ; AromatherapyDescription
+	dw StickyWebDescription ; StickyWebDescription
 	
 ; BoneRushDescription:
 ; PinMissileDescription:
@@ -1354,3 +1355,7 @@ WaterfallDescription:
 IronHeadDescription:
 	db   ""
 	next ".@"
+
+StickyWebDescription:
+	db   "SPEED down when"
+	next "foe switches out.@"

@@ -3390,16 +3390,15 @@ BattleCommand_ConstantDamage:
 	jr .got_power
 
 .psywave
-	ld a, b
+	ld a, b ; level
+	ld c, a ; save level in c
 	srl a
 	add b
-	ld b, a
+	ld b, a ; b holds level * 1.5
+	sub c ; a holds difference between min and max damage
 .psywave_loop
-	call BattleRandom
-	and a
-	jr z, .psywave_loop
-	cp b
-	jr nc, .psywave_loop
+	call RandomRange ; from 0 to difference between min and max damage
+	add c
 	ld b, a
 	ld a, 0
 	jr .got_power

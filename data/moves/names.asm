@@ -325,3 +325,4 @@ VariableMoveNames::
 	db "Ingrain@"
 	db "Cycle Foe@"
 	db "Aromatherapy@"
+	db "Sticky Web@"

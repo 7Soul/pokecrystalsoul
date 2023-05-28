@@ -3,7 +3,7 @@ varmove: MACRO
 	dw \2 ; pointer
 ENDM
 
-TYPE_VARIABLE equ 40
+TYPE_VARIABLE equ 42
 
 VariableMoves::
 	db NO_MOVE
@@ -47,11 +47,12 @@ VariableMoves::
 	db CHARGE_BEAM ; Poison Fang
 	db SIGNAL_BEAM ; Water Pulse
 	db HAZE ; Clear Smog
+	db SPIKES ; Sticky Web
 	; Type variables under here
-	db U_TURN ; 40 Volt Tackle
-	db FIRE_SPIN ; 41 ; Aqua Ring
-	db PSYCH_UP ; 42 ; Circle Foe
-	db HEAL_BELL ; 43 ; Aromatherapy
+	db U_TURN ; 41 Volt Tackle
+	db FIRE_SPIN ; 42 ; Aqua Ring
+	db PSYCH_UP ; 43 ; Circle Foe
+	db HEAL_BELL ; 44 ; Aromatherapy
 	
 	db -1
 
@@ -96,6 +97,7 @@ VariablePointers:
 	varmove CHARGE_BEAM,  ChargeBeamVariables
 	varmove SIGNAL_BEAM,  SignalBeamVariables
 	varmove HAZE,         HazeVariables
+	varmove SPIKES,       SpikesVariables
 	; Type variables under here
 	varmove U_TURN,       UTurnVariables
 	varmove FIRE_SPIN,    FireSpinVariables
@@ -285,6 +287,10 @@ SignalBeamVariables:
 
 HazeVariables:
 	db CLEAR_SMOG, PSYDUCK, GOLDUCK, MAGMAR, KOFFING, WEEZING, MAGBY, SLUGMA, MAGCARGO, -1
+	db -2
+
+SpikesVariables:
+	db STICKY_WEB, VAPOREON, -1
 	db -2
 
 UTurnVariables:

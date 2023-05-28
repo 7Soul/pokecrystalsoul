@@ -370,4 +370,5 @@ NUM_ATTACKS EQU const_value + -1
 	const INGRAIN         ; 43
 	const CYCLE_FOE       ; 44
 	const AROMATHERAPY    ; 45
+	const STICKY_WEB      ; 46
 	

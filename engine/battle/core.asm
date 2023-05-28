@@ -4448,6 +4448,9 @@ SpikesDamage:
 	jr nz, .spikes
 	bit SCREENS_COALS, [hl]
 	jr nz, .coals
+	bit SCREENS_WEB, [hl]
+	call nz, BattleCommand_SpeedDown
+	jr .cancel
 	bit SCREENS_BARBS, [hl]
 	jr z, .cancel
 

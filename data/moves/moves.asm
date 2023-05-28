@@ -51,7 +51,7 @@ Moves:
 	move THRASH,       EFFECT_RAMPAGE,            90, NORMAL,   PHYSICAL + CONTACT, 100, PP_10,   0
 	move DOUBLE_EDGE,  EFFECT_RECOIL_HIT,        120, NORMAL,   PHYSICAL + CONTACT, 100, PP_5,    0
 	move TAIL_WHIP,    EFFECT_DEFENSE_DOWN,        0, NORMAL,   STATUS,             100, PP_30,   0
-	move POISON_STING, EFFECT_POISON_HIT,         15, POISON,   PHYSICAL,           100, PP_15,  30
+	move POISON_STING, EFFECT_POISON_HIT,         25, POISON,   PHYSICAL,           100, PP_15,  30
 	move TWINEEDLE,    EFFECT_POISON_MULTI_HIT,   30, BUG,      PHYSICAL,           100, PP_15,  30
 	move GYRO_BALL,    EFFECT_SLOW_HIT,            1, STEEL,    PHYSICAL + CONTACT, 100, PP_10,   0
 	move LEER,         EFFECT_DEFENSE_DOWN,        0, NORMAL,   STATUS,             100, PP_30,   0
@@ -338,4 +338,5 @@ VarMoves::
 	move FIRE_SPIN,    EFFECT_REGEN_SLOW,          0, GRASS,    STATUS,               0, PP_10,   0 ; INGRAIN
 	move PSYCH_UP,     EFFECT_PSYCH_UP,            0, FIGHTING, STATUS,             100, PP_10,   0 ; CYCLE_FOE
 	move HEAL_BELL,    EFFECT_HEAL_BELL,           0, GRASS,    STATUS,             100, PP_10,   0 ; AROMATHERAPY
+	move SPIKES,       EFFECT_SPIKES,              0, BUG,      STATUS,             100, PP_10,   0 ; STICKY_WEB
 	
