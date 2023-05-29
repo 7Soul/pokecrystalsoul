@@ -163,50 +163,51 @@ BlastoiseEvosAttacks:
 	db 0 ; no more level-up moves
 
 CaterpieEvosAttacks:
-	db EVOLVE_LEVEL, 7, METAPOD
+	db EVOLVE_LEVEL, 12, METAPOD
 	db 0 ; no more evolutions
-	db 1, TACKLE
+	db 1, GNAW
 	db 1, STRING_SHOT
-	db 6, GNAW
-	db 10, DOUBLESLAP ; becomes Pin Missile
-	db 14, NASTY_PLOT
-	db 19, PURSUIT
-	db 22, TWINEEDLE
-	db 32, BULK_UP
-	db 34, REFLECT
-	db 41, FELL_STINGER
-	db 49, MEGAHORN
+	db 7, DOUBLESLAP ; becomes Pin Missile
+	db 13, SILVER_WIND
+	db 25, WHIRLWIND
+	db 30, MOONLIGHT
+	db 34, PSYBEAM
+	db 37, SAFEGUARD
+	db 41, SIGNAL_BEAM
+	db 44, REFLECT
 	db 0 ; no more level-up moves
 
 MetapodEvosAttacks:
-	db EVOLVE_LEVEL, 10, BUTTERFREE
+	db EVOLVE_LEVEL, 18, BUTTERFREE
 	db 0 ; no more evolutions
 	db 6, HARDEN
 	db 8, GNAW
-	db 11, DOUBLESLAP ; becomes Pin Missile
-	db 14, NASTY_PLOT
-	db 20, PURSUIT
-	db 23, TWINEEDLE
-	db 33, MOONLIGHT
-	db 35, REFLECT
-	db 43, FELL_STINGER
-	db 53, MEGAHORN
+	db 10, DOUBLESLAP ; becomes Pin Missile
+	db 17, SILVER_WIND
+	db 25, WHIRLWIND
+	db 30, MOONLIGHT
+	db 34, PSYBEAM
+	db 37, SAFEGUARD
+	db 41, SIGNAL_BEAM
+	db 44, REFLECT
 	db 0 ; no more level-up moves
 
 ButterfreeEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, CONFUSION
-	db 9, GUST
-	db 11, CONFUSION
+	db 1, STRING_SHOT
 	db 13, POISONPOWDER
 	db 14, STUN_SPORE
 	db 15, SLEEP_POWDER
-	db 18, SUPERSONIC
+	db 17, CONFUSION
 	db 20, SILVER_WIND
 	db 25, WHIRLWIND
+	db 30, MOONLIGHT
 	db 34, PSYBEAM
-	db 40, SAFEGUARD
-	db 49, BUG_BUZZ
+	db 37, SAFEGUARD
+	db 41, SIGNAL_BEAM
+	db 44, REFLECT
+	db 55, DIZZY_PUNCH ; becomes Hurricane
 	db 0 ; no more level-up moves
 
 WeedleEvosAttacks:
@@ -1207,11 +1208,11 @@ TentacoolEvosAttacks:
 	db 14, WRAP
 	db 17, SIGNAL_BEAM ; becomes Water Pulse
 	db 22, BUBBLEBEAM
-	db 28, BARRIER
+	db 26, BARRIER
 	db 31, SPARK ; becomes Shock Sting
-	db 34, SCREECH
-	db 37, SLUDGE
-	db 42, VENOSHOCK
+	db 33, LICK ; becomes Poison Jab
+	db 36, SCREECH
+	db 41, EMBER ; becomes Brine
 	db 46, HYDRO_PUMP
 	db 48, MINIMIZE
 	db 0 ; no more level-up moves
@@ -1223,11 +1224,11 @@ TentacruelEvosAttacks:
 	db 22, BUBBLEBEAM
 	db 28, BARRIER
 	db 33, SPARK ; becomes Shock Sting
-	db 38, SCREECH
-	db 41, SLUDGE
-	db 46, VENOSHOCK
+	db 36, LICK ; becomes Poison Jab
+	db 40, SCREECH
+	db 45, EMBER ; becomes Brine
 	db 51, HYDRO_PUMP
-	db 54, MINIMIZE
+	db 53, MINIMIZE
 	db 0 ; no more level-up moves
 
 GeodudeEvosAttacks:
@@ -2210,7 +2211,8 @@ VaporeonEvosAttacks:
 	db 13, QUICK_ATTACK
 	db 17, JET_STREAM
 	db 20, AURORA_BEAM
-	db 24, SIGNAL_BEAM ; BITE
+	db 24, BITE
+	db 24, LICK
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 36, HAZE
 	db 46, ACID_ARMOR
@@ -2753,17 +2755,19 @@ SpinarakEvosAttacks:
 	db EVOLVE_LEVEL, 22, ARIADOS
 	db 0 ; no more evolutions
 	db 1, POISON_STING
-	db 1, STRING_SHOT
-	db 6, SCARY_FACE
+	db 1, SCARY_FACE
 	db 9, LEECH_LIFE
 	db 11, CONSTRICT
-	db 17, NIGHT_SHADE	
-	db 28, FURY_ATTACK	
-	db 34, FELL_STINGER
-	db 37, MEAN_LOOK
-	db 45, AGILITY
-	db 53, PSYCHIC_M
-	; add cross poison, poison jab
+	db 15, NIGHT_SHADE
+	db 20, TWINEEDLE
+	db 25, FURY_ATTACK
+	db 29, MEAN_LOOK
+	db 30, FELL_STINGER
+	db 33, AGILITY
+	db 37, DOUBLESLAP ; becomes Pin Missile
+	db 41, PSYCHIC_M
+	db 45, LICK ; becomes Poison Jab
+	db 48, SPIKES ; becomes Sticky Web
 	db 0 ; no more level-up moves
 
 AriadosEvosAttacks:
@@ -2771,14 +2775,16 @@ AriadosEvosAttacks:
 	db 6, SCARY_FACE
 	db 9, LEECH_LIFE
 	db 11, CONSTRICT
-	db 17, NIGHT_SHADE
-	db 25, TWINEEDLE
-	db 32, FURY_ATTACK
-	db 38, FELL_STINGER
-	db 40, MEAN_LOOK
-	db 48, AGILITY
-	db 56, PSYCHIC_M
-	; add cross poison, poison jab
+	db 15, NIGHT_SHADE
+	db 20, TWINEEDLE
+	db 28, FURY_ATTACK
+	db 32, MEAN_LOOK
+	db 34, FELL_STINGER
+	db 37, AGILITY
+	db 41, DOUBLESLAP ; becomes Pin Missile
+	db 46, PSYCHIC_M
+	db 50, LICK ; becomes Poison Jab
+	db 53, SPIKES ; becomes Sticky Web
 	db 0 ; no more level-up moves
 
 CrobatEvosAttacks:
@@ -3325,6 +3331,7 @@ UnownEvosAttacks:
 
 WobbuffetEvosAttacks:
 	db 0 ; no more evolutions
+	db 1, TELEPORT
 	db 1, METRONOME
 	db 1, AMNESIA
 	db 1, ENCORE
@@ -3335,6 +3342,8 @@ WobbuffetEvosAttacks:
 	db 1, MIRROR_COAT
 	db 1, SAFEGUARD
 	db 1, PAIN_SPLIT
+	db 1, FIRE_FLICK
+	db 1, LICK ; becomes Poison Jab
 	db 0 ; no more level-up moves
 
 GirafarigEvosAttacks:
@@ -3483,7 +3492,7 @@ QwilfishEvosAttacks:
 	db 38, TAKE_DOWN
 	db 41, EMBER ; becomes Brine
 	db 44, TOXIC
-	db 49, VENOSHOCK
+	db 33, LICK ; becomes Poison Jab
 	db 54, AQUA_TAIL
 	db 59, FELL_STINGER
 	db 0 ; no more level-up moves

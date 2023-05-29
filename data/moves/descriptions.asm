@@ -1194,6 +1194,7 @@ VariableMoveDescriptions::
 	dw $0000 ; CycleFoeDescription
 	dw HealBellDescription ; AromatherapyDescription
 	dw StickyWebDescription ; StickyWebDescription
+	dw PoisonJabDescription ; PoisonJabDescription
 	
 ; BoneRushDescription:
 ; PinMissileDescription:
@@ -1359,3 +1360,7 @@ IronHeadDescription:
 StickyWebDescription:
 	db   "SPEED down when"
 	next "foe switches out.@"
+
+PoisonJabDescription:
+	db   "A move that may"
+	next "poison the foe.@"

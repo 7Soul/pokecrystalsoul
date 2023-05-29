@@ -339,4 +339,5 @@ VarMoves::
 	move PSYCH_UP,     EFFECT_PSYCH_UP,            0, FIGHTING, STATUS,             100, PP_10,   0 ; CYCLE_FOE
 	move HEAL_BELL,    EFFECT_HEAL_BELL,           0, GRASS,    STATUS,             100, PP_10,   0 ; AROMATHERAPY
 	move SPIKES,       EFFECT_SPIKES,              0, BUG,      STATUS,             100, PP_10,   0 ; STICKY_WEB
+	move LICK,         EFFECT_POISON_HIT,         80, POISON,   PHYSICAL + CONTACT, 100, PP_15,  30 ; POISON JAB
 	

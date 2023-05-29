@@ -40,8 +40,7 @@ CaterpieEggMoves:
 	db FAINT_ATTACK
 	db SUPERSONIC
 	db GIGA_DRAIN
-	db SIGNAL_BEAM
-	db PSYBEAM
+	db SPIKES ; becomes Sticky Web
 	db BUG_BUZZ
 	db -1 ; end
 
@@ -824,6 +823,10 @@ MisdreavusEggMoves:
 	db FIRE_FLICK
 	db -1 ; end
 
+UnownEggMoves:
+	db SPIKES
+	db -1 ; end
+
 WobbuffetEggMoves:
 	db CONFUSION
 	db CURSE
@@ -885,7 +888,7 @@ ShuckleEggMoves:
 	db FELL_STINGER
 	db MINIMIZE
 	db ACID
-	db HARMONY
+	db SPIKES ; becomes Sticky Web
 	db EMBER ; becomes Brine
 	db -1 ; end
 
