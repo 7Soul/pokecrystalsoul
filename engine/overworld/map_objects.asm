@@ -402,18 +402,18 @@ UpdatePlayerStep:
 	set 5, [hl]
 	ret
 
-Unreferenced_Function4759:
-	push bc
-	ld e, a
-	ld d, 0
-	ld hl, OBJECT_MAP_OBJECT_INDEX
-	add hl, bc
-	ld a, [hl]
-	call GetMapObject
-	add hl, de
-	ld a, [hl]
-	pop bc
-	ret
+; Unreferenced_Function4759:
+; 	push bc
+; 	ld e, a
+; 	ld d, 0
+; 	ld hl, OBJECT_MAP_OBJECT_INDEX
+; 	add hl, bc
+; 	ld a, [hl]
+; 	call GetMapObject
+; 	add hl, de
+; 	ld a, [hl]
+; 	pop bc
+; 	ret
 
 RestoreDefaultMovement:
 	ld hl, OBJECT_MAP_OBJECT_INDEX
@@ -1084,28 +1084,28 @@ StepTypesJumptable:
 	dw ObjectMovementReset ; 00
 	dw MapObjectMovementPattern ; 01
 	dw NPCStep ; 02
-	dw StepType03 ; 03
-	dw StepType04 ; 04
-	dw StepType05 ; 05
-	dw PlayerStep ; 06
-	dw StepType07 ; 07
+	dw StepFunction_Sleep ; 03
+	dw StepFunction_Standing ; 04
+	dw StepFunction_Restore ; 05
+	dw StepFunction_PlayerWalk ; 06
+	dw StepFunction_ContinueWalk ; 07
 	dw NPCJump ; 08
 	dw PlayerJump ; 09
-	dw PlayerOrNPCTurnStep ; 0a
+	dw StepFunction_Turn ; 0a
 	dw StepTypeBump ; 0b
 	dw TeleportFrom ; 0c
 	dw TeleportTo ; 0d
 	dw Skyfall ; 0e
-	dw StepType0f ; 0f
+	dw StepFunction_StrengthBoulder ; 0f
 	dw GotBiteStep ; 10
 	dw RockSmashStep ; 11
 	dw ReturnDigStep ; 12
 	dw StepTypeTrackingObject ; 13
 	dw StepType14 ; 14
-	dw StepType15 ; 15
+	dw StepFunction_ScreenShake ; 15
 	dw StepType16 ; 16
 	dw StepType17 ; 17
-	dw StepType18 ; 18
+	dw StepFunction_Delete ; 18
 	dw SkyfallTop ; 19
 
 WaitStep_InPlace:
@@ -1483,7 +1483,7 @@ ReturnDigStep:
 	ld [hl], a
 	jp WaitStep_InPlace
 
-StepType03:
+StepFunction_Sleep:
 	ld hl, OBJECT_DIRECTION_WALKING
 	add hl, bc
 	ld [hl], STANDING
@@ -1496,7 +1496,7 @@ StepType03:
 	ld [hl], STEP_TYPE_SLEEP
 	ret
 
-StepType18:
+StepFunction_Delete:
 	ld hl, OBJECT_DIRECTION_WALKING
 	add hl, bc
 	ld [hl], STANDING
@@ -1516,11 +1516,11 @@ StepTypeBump:
 	ld [hl], STEP_TYPE_SLEEP
 	ret
 
-StepType05:
+StepFunction_Restore:
 	call Field1cAnonymousJumptable
 ; anonymous dw
 	dw .Reset
-	dw StepType04
+	dw StepFunction_Standing
 
 .Reset:
 	call RestoreDefaultMovement
@@ -1529,7 +1529,7 @@ StepType05:
 	add hl, bc
 	ld [hl], a
 	call IncrementObjectStructField1c
-StepType04:
+StepFunction_Standing:
 	call Stubbed_Function4fb2
 	ld hl, OBJECT_DIRECTION_WALKING
 	add hl, bc
@@ -1552,16 +1552,19 @@ NPCStep:
 	ld [hl], STEP_TYPE_SLEEP
 	ret
 
-StepType07:
+StepFunction_ContinueWalk:
 	call AddStepVector
 	ld hl, OBJECT_STEP_DURATION
 	add hl, bc
 	dec [hl]
 	ret nz
 	call CopyNextCoordsTileToStandingCoordsTile
+	; ld hl, OBJECT_STEP_DURATION
+	; add hl, bc
+	; ld [hl], 1
 	jp RandomStepDuration_Slow
 
-PlayerStep:
+StepFunction_PlayerWalk:
 ; AnimateStep?
 	call Field1cAnonymousJumptable
 ; anonymous dw
@@ -1589,7 +1592,7 @@ PlayerStep:
 	ld [hl], STEP_TYPE_SLEEP
 	ret
 
-PlayerOrNPCTurnStep:
+StepFunction_Turn:
 	call Field1cAnonymousJumptable
 ; anonymous dw
 	dw .init1
@@ -1607,7 +1610,7 @@ PlayerOrNPCTurnStep:
 	ld [hl], 2
 	ld hl, OBJECT_STEP_DURATION
 	add hl, bc
-	ld [hl], 2
+	ld [hl], 1
 	call IncrementObjectStructField1c
 .step1
 	ld hl, OBJECT_STEP_DURATION
@@ -1624,7 +1627,7 @@ PlayerOrNPCTurnStep:
 	ld [hl], a
 	ld hl, OBJECT_STEP_DURATION
 	add hl, bc
-	ld [hl], 2
+	ld [hl], 1
 	call IncrementObjectStructField1c
 .step2
 	ld hl, OBJECT_STEP_DURATION
@@ -1636,7 +1639,7 @@ PlayerOrNPCTurnStep:
 	ld [hl], STEP_TYPE_SLEEP
 	ret
 
-StepType0f:
+StepFunction_StrengthBoulder:
 	call AddStepVector
 	ld hl, OBJECT_STEP_DURATION
 	add hl, bc
@@ -1701,7 +1704,7 @@ StepTypeTrackingObject:
 	jp DeleteMapObject
 
 StepType14:
-StepType15:
+StepFunction_ScreenShake:
 	call Field1cAnonymousJumptable
 ; anonymous dw
 	dw .Init

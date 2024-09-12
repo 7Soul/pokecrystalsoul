@@ -598,10 +598,10 @@ SurfStartStep:
 	ret
 
 .movement_data
-	slow_step DOWN
-	slow_step UP
-	slow_step LEFT
-	slow_step RIGHT
+	step DOWN
+	step UP
+	step LEFT
+	step RIGHT
 
 FollowNotExact::
 	push bc
