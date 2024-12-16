@@ -135,16 +135,19 @@ CheckPartyAction:
 	call GetBaseData
 	ld a, [wBaseActions]
 	and $f ; get bottom nybble (level)
+	ld c, ACTION_LEVEL
+	call SimpleMultiply
 	ld b, a ; b has action 1 level
 
 	push bc
 	ld a, e
 	ld hl, wPartyMon1Level
 	call GetPartyLocation
+	ld a, [hl]
 	pop bc
-
+	
 	cp b ; compares action level to mon level
-	jr nc, .check_second_action ; nc = a < b
+	jr c, .check_second_action ; a < b
 ; cur level is higher than required level
 	ld a, [wBaseActions]
 	swap a
@@ -421,74 +424,74 @@ UnknownText_0xc8f3:
 	db "@"
 
 SurfFunction:
-	call FieldMoveJumptableReset
-.loop
-	ld hl, .Jumptable
-	call FieldMoveJumptable
-	jr nc, .loop
-	and $7f
-	ld [wFieldMoveSucceeded], a
+; 	call FieldMoveJumptableReset
+; .loop
+; 	ld hl, .Jumptable
+; 	call FieldMoveJumptable
+; 	jr nc, .loop
+; 	and $7f
+; 	ld [wFieldMoveSucceeded], a
 	ret
 
-.Jumptable:
-	dw .TrySurf
-	dw .DoSurf
-	dw .FailSurf
-	dw .AlreadySurfing
+; .Jumptable:
+; 	dw .TrySurf
+; 	dw .DoSurf
+; 	dw .FailSurf
+; 	dw .AlreadySurfing
 
-.TrySurf:
-	ld a, 4 ;
-	ld c, a
-	call CheckBadge
-	jr c, .nobadge
-	ld hl, wBikeFlags
-	bit BIKEFLAGS_ALWAYS_ON_BIKE_F, [hl]
-	jr nz, .cannotsurf
-	ld a, [wPlayerState]
-	cp PLAYER_SURF
-	jr z, .alreadyfail
-	cp PLAYER_SURF_PIKA
-	jr z, .alreadyfail
-	call GetFacingTileCoord
-	call GetTileCollision
-	cp WATERTILE
-	jr nz, .cannotsurf
-	call CheckDirection
-	jr c, .cannotsurf
-	farcall CheckFacingObject
-	jr c, .cannotsurf
-	ld a, $1
-	ret
-.nobadge
-	ld a, $80
-	ret
-.alreadyfail
-	ld a, $3
-	ret
-.cannotsurf
-	ld a, $2
-	ret
+; .TrySurf:
+; 	ld a, 4 ;
+; 	ld c, a
+; 	call CheckBadge
+; 	jr c, .nobadge
+; 	ld hl, wBikeFlags
+; 	bit BIKEFLAGS_ALWAYS_ON_BIKE_F, [hl]
+; 	jr nz, .cannotsurf
+; 	ld a, [wPlayerState]
+; 	cp PLAYER_SURF
+; 	jr z, .alreadyfail
+; 	cp PLAYER_SURF_PIKA
+; 	jr z, .alreadyfail
+; 	call GetFacingTileCoord
+; 	call GetTileCollision
+; 	cp WATERTILE
+; 	jr nz, .cannotsurf
+; 	call CheckDirection
+; 	jr c, .cannotsurf
+; 	farcall CheckFacingObject
+; 	jr c, .cannotsurf
+; 	ld a, $1
+; 	ret
+; .nobadge
+; 	ld a, $80
+; 	ret
+; .alreadyfail
+; 	ld a, $3
+; 	ret
+; .cannotsurf
+; 	ld a, $2
+; 	ret
 
-.DoSurf:
-	call GetSurfType
-	ld [wBuffer2], a
-	call GetPartyNick
-	ld hl, SurfFromMenuScript
-	call QueueScript
-	ld a, $81
-	ret
+; .DoSurf:
+; 	call GetSurfType
+; 	ld [wBuffer2], a
+; 	call GetPartyNick
+; 	ld hl, SurfFromMenuScript
+; 	call QueueScript
+; 	ld a, $81
+; 	ret
 
-.FailSurf:
-	ld hl, CantSurfText
-	call MenuTextBoxBackup
-	ld a, $80
-	ret
+; .FailSurf:
+; 	ld hl, CantSurfText
+; 	call MenuTextBoxBackup
+; 	ld a, $80
+; 	ret
 
-.AlreadySurfing:
-	ld hl, AlreadySurfingText
-	call MenuTextBoxBackup
-	ld a, $80
-	ret
+; .AlreadySurfing:
+; 	ld hl, AlreadySurfingText
+; 	call MenuTextBoxBackup
+; 	ld a, $80
+; 	ret
 
 SurfFromMenuScript:
 	special UpdateTimePals
@@ -498,7 +501,7 @@ UsedSurfScript:
 	waitbutton
 	closetext
 
-	callasm .empty_fn ; empty function
+	; callasm .empty_fn ; empty function
 
 	copybytetovar wBuffer2
 	writevarcode VAR_MOVEMENT
@@ -510,8 +513,8 @@ UsedSurfScript:
 	applymovement PLAYER, wMovementBuffer
 	end
 
-.empty_fn
-	farcall StubbedTrainerRankings_Surf
+; .empty_fn
+; 	farcall StubbedTrainerRankings_Surf
 	ret
 
 UsedSurfText:
@@ -620,15 +623,15 @@ TrySurfOW::
 
 AskSurfScript:
 	opentext
-	writetext AskSurfText
-	yesorno
-	iftrue UsedSurfScript
+	; writetext AskSurfText
+	; yesorno
+	jump UsedSurfScript
 	closetext
 	end
 
-AskSurfText:
-	text_jump _AskSurfText ; The water is calm.
-	db "@"              ; Want to SURF?
+; AskSurfText:
+; 	text_jump _AskSurfText ; The water is calm.
+; 	db "@"                 ; Want to SURF?
 
 FlyFunction:
 	call FieldMoveJumptableReset
@@ -1160,12 +1163,8 @@ UnknownText_0xcd73:
 	db "@"
 
 TryStrengthOW:
-	ld d, HAMMER_ARM
-	call CheckPartyMove
-	jr c, .nope
-
-	ld de, ENGINE_PLAINBADGE
-	call CheckEngineFlag
+	ld d, ACTION_STRENGTH
+	call CheckPartyAction
 	jr c, .nope
 
 	ld hl, wBikeFlags
@@ -1412,8 +1411,8 @@ HeadbuttScript:
 	end
 
 TryHeadbuttOW::
-	ld d, HEADBUTT
-	call CheckPartyMove
+	ld d, ACTION_HEADBUTT
+	call CheckPartyAction
 	jr c, .no
 
 	ld a, BANK(AskHeadbuttScript)
@@ -1539,226 +1538,216 @@ UnknownText_0xcf77:
 	db "@"
 
 HasRockSmash:
-	ld d, ROCK_SMASH
-	call CheckPartyMove
+	ld d, ACTION_ROCKSMASH
+	call CheckPartyAction
 	jr nc, .yes
-	ld d, ROCK_SLIDE
-	call CheckPartyMove
-	jr nc, .yes
-	ld d, ROCK_THROW
-	call CheckPartyMove
-	jr nc, .yes
-	; ld d, CRABHAMMER
-	; call CheckPartyMove
-	; jr nc, .yes
 .no
 	ld a, 1
 	jr .done
 .yes
 	xor a
-	jr .done
 .done
 	ld [wScriptVar], a
 	ret
 
-FishFunction:
-	ld a, e
-	push af
-	call FieldMoveJumptableReset
-	pop af
-	ld [wBuffer2], a
-.loop
-	ld hl, .FishTable
-	call FieldMoveJumptable
-	jr nc, .loop
-	and $7f
-	ld [wFieldMoveSucceeded], a
-	ret
+; FishFunction:
+; 	ld a, e
+; 	push af
+; 	call FieldMoveJumptableReset
+; 	pop af
+; 	ld [wBuffer2], a
+; .loop
+; 	ld hl, .FishTable
+; 	call FieldMoveJumptable
+; 	jr nc, .loop
+; 	and $7f
+; 	ld [wFieldMoveSucceeded], a
+; 	ret
 
-.FishTable:
-	dw .TryFish
-	dw .FishNoBite
-	dw .FishGotSomething
-	dw .FailFish
-	dw .FishNoFish
+; .FishTable:
+; 	dw .TryFish
+; 	dw .FishNoBite
+; 	dw .FishGotSomething
+; 	dw .FailFish
+; 	dw .FishNoFish
 
-.TryFish:
-	ld a, [wPlayerState]
-	cp PLAYER_SURF
-	jr z, .fail
-	cp PLAYER_SURF_PIKA
-	jr z, .fail
-	call GetFacingTileCoord
-	call GetTileCollision
-	cp WATERTILE
-	jr z, .facingwater
-.fail
-	ld a, $3
-	ret
+; .TryFish:
+; 	ld a, [wPlayerState]
+; 	cp PLAYER_SURF
+; 	jr z, .fail
+; 	cp PLAYER_SURF_PIKA
+; 	jr z, .fail
+; 	call GetFacingTileCoord
+; 	call GetTileCollision
+; 	cp WATERTILE
+; 	jr z, .facingwater
+; .fail
+; 	ld a, $3
+; 	ret
 
-.facingwater
-	call GetFishingGroup
-	and a
-	jr nz, .goodtofish
-	ld a, $4
-	ret
+; .facingwater
+; 	call GetFishingGroup
+; 	and a
+; 	jr nz, .goodtofish
+; 	ld a, $4
+; 	ret
 
-.goodtofish
-	ld d, a
-	ld a, [wBuffer2]
-	ld e, a
-	farcall Fish
-	ld a, d
-	and a
-	jr z, .nonibble
-	ld [wTempWildMonSpecies], a
-	ld a, e
-	ld [wCurPartyLevel], a
-	ld a, BATTLETYPE_FISH
-	ld [wBattleType], a
-	ld a, $2
-	ret
+; .goodtofish
+; 	ld d, a
+; 	ld a, [wBuffer2]
+; 	ld e, a
+; 	farcall Fish
+; 	ld a, d
+; 	and a
+; 	jr z, .nonibble
+; 	ld [wTempWildMonSpecies], a
+; 	ld a, e
+; 	ld [wCurPartyLevel], a
+; 	ld a, BATTLETYPE_FISH
+; 	ld [wBattleType], a
+; 	ld a, $2
+; 	ret
 
-.nonibble
-	ld a, $1
-	ret
+; .nonibble
+; 	ld a, $1
+; 	ret
 
-.FailFish:
-	ld a, $80
-	ret
+; .FailFish:
+; 	ld a, $80
+; 	ret
 
-.FishGotSomething:
-	ld a, $1
-	ld [wBuffer6], a
-	ld hl, Script_GotABite
-	call QueueScript
-	ld a, $81
-	ret
+; .FishGotSomething:
+; 	ld a, $1
+; 	ld [wBuffer6], a
+; 	ld hl, Script_GotABite
+; 	call QueueScript
+; 	ld a, $81
+; 	ret
 
-.FishNoBite:
-	ld a, $2
-	ld [wBuffer6], a
-	ld hl, Script_NotEvenANibble
-	call QueueScript
-	ld a, $81
-	ret
+; .FishNoBite:
+; 	ld a, $2
+; 	ld [wBuffer6], a
+; 	ld hl, Script_NotEvenANibble
+; 	call QueueScript
+; 	ld a, $81
+; 	ret
 
-.FishNoFish:
-	ld a, $0
-	ld [wBuffer6], a
-	ld hl, Script_NotEvenANibble2
-	call QueueScript
-	ld a, $81
-	ret
+; .FishNoFish:
+; 	ld a, $0
+; 	ld [wBuffer6], a
+; 	ld hl, Script_NotEvenANibble2
+; 	call QueueScript
+; 	ld a, $81
+; 	ret
 
-Script_NotEvenANibble:
-	scall Script_FishCastRod
-	writetext UnknownText_0xd0a9
-	jump Script_NotEvenANibble_FallThrough
+; Script_NotEvenANibble:
+; 	scall Script_FishCastRod
+; 	writetext UnknownText_0xd0a9
+; 	jump Script_NotEvenANibble_FallThrough
 
-Script_NotEvenANibble2:
-	scall Script_FishCastRod
-	writetext UnknownText_0xd0a9
+; Script_NotEvenANibble2:
+; 	scall Script_FishCastRod
+; 	writetext UnknownText_0xd0a9
 
-Script_NotEvenANibble_FallThrough:
-	loademote EMOTE_SHADOW
-	callasm PutTheRodAway
-	closetext
-	end
+; Script_NotEvenANibble_FallThrough:
+; 	loademote EMOTE_SHADOW
+; 	callasm PutTheRodAway
+; 	closetext
+; 	end
 
-Script_GotABite:
-	scall Script_FishCastRod
-	callasm Fishing_CheckFacingUp
-	iffalse .NotFacingUp
-	applymovement PLAYER, .Movement_FacingUp
-	jump .FightTheHookedPokemon
+; Script_GotABite:
+; 	scall Script_FishCastRod
+; 	callasm Fishing_CheckFacingUp
+; 	iffalse .NotFacingUp
+; 	applymovement PLAYER, .Movement_FacingUp
+; 	jump .FightTheHookedPokemon
 
-.NotFacingUp:
-	applymovement PLAYER, .Movement_NotFacingUp
+; .NotFacingUp:
+; 	applymovement PLAYER, .Movement_NotFacingUp
 
-.FightTheHookedPokemon:
-	pause 40
-	applymovement PLAYER, .Movement_RestoreRod
-	writetext UnknownText_0xd0a4
-	callasm PutTheRodAway
-	closetext
-	randomwildmon
-	startbattle
-	reloadmapafterbattle
-	end
+; .FightTheHookedPokemon:
+; 	pause 40
+; 	applymovement PLAYER, .Movement_RestoreRod
+; 	writetext UnknownText_0xd0a4
+; 	callasm PutTheRodAway
+; 	closetext
+; 	randomwildmon
+; 	startbattle
+; 	reloadmapafterbattle
+; 	end
 
-.Movement_NotFacingUp:
-	fish_got_bite
-	fish_got_bite
-	fish_got_bite
-	fish_got_bite
-	show_emote
-	step_end
+; .Movement_NotFacingUp:
+; 	fish_got_bite
+; 	fish_got_bite
+; 	fish_got_bite
+; 	fish_got_bite
+; 	show_emote
+; 	step_end
 
-.Movement_FacingUp:
-	fish_got_bite
-	fish_got_bite
-	fish_got_bite
-	fish_got_bite
-	step_sleep 1
-	show_emote
-	step_end
+; .Movement_FacingUp:
+; 	fish_got_bite
+; 	fish_got_bite
+; 	fish_got_bite
+; 	fish_got_bite
+; 	step_sleep 1
+; 	show_emote
+; 	step_end
 
-.Movement_RestoreRod:
-	hide_emote
-	fish_cast_rod
-	step_end
+; .Movement_RestoreRod:
+; 	hide_emote
+; 	fish_cast_rod
+; 	step_end
 
-Fishing_CheckFacingUp:
-	ld a, [wPlayerDirection]
-	and $c
-	cp OW_UP
-	ld a, $1
-	jr z, .up
-	xor a
+; Fishing_CheckFacingUp:
+; 	ld a, [wPlayerDirection]
+; 	and $c
+; 	cp OW_UP
+; 	ld a, $1
+; 	jr z, .up
+; 	xor a
 
-.up
-	ld [wScriptVar], a
-	ret
+; .up
+; 	ld [wScriptVar], a
+; 	ret
 
-Script_FishCastRod:
-	reloadmappart
-	loadvar hBGMapMode, $0
-	special UpdateTimePals
-	loademote EMOTE_ROD
-	callasm LoadFishingGFX
-	loademote EMOTE_SHOCK
-	applymovement PLAYER, MovementData_0xd093
-	pause 40
-	end
+; Script_FishCastRod:
+; 	reloadmappart
+; 	loadvar hBGMapMode, $0
+; 	special UpdateTimePals
+; 	loademote EMOTE_ROD
+; 	callasm LoadFishingGFX
+; 	loademote EMOTE_SHOCK
+; 	applymovement PLAYER, MovementData_0xd093
+; 	pause 40
+; 	end
 
-MovementData_0xd093:
-	fish_cast_rod
-	step_end
+; MovementData_0xd093:
+; 	fish_cast_rod
+; 	step_end
 
-PutTheRodAway:
-	xor a
-	ldh [hBGMapMode], a
-	ld a, $1
-	ld [wPlayerAction], a
-	call UpdateSprites
-	call ReplaceKrisSprite
-	ret
+; PutTheRodAway:
+; 	xor a
+; 	ldh [hBGMapMode], a
+; 	ld a, $1
+; 	ld [wPlayerAction], a
+; 	call UpdateSprites
+; 	call ReplaceKrisSprite
+; 	ret
 
-UnknownText_0xd0a4:
-	; Oh! A bite!
-	text_jump UnknownText_0x1c0958
-	db "@"
+; UnknownText_0xd0a4:
+; 	; Oh! A bite!
+; 	text_jump UnknownText_0x1c0958
+; 	db "@"
 
-UnknownText_0xd0a9:
-	; Not even a nibble!
-	text_jump UnknownText_0x1c0965
-	db "@"
+; UnknownText_0xd0a9:
+; 	; Not even a nibble!
+; 	text_jump UnknownText_0x1c0965
+; 	db "@"
 
-UnknownText_0xd0ae: ; unused
-	; Looks like there's nothing here.
-	text_jump UnknownText_0x1c0979
-	db "@"
+; UnknownText_0xd0ae: ; unused
+; 	; Looks like there's nothing here.
+; 	text_jump UnknownText_0x1c0979
+; 	db "@"
 
 BikeFunction:
 	call .TryBike
@@ -1774,23 +1763,27 @@ BikeFunction:
 	jr z, .GetOnBike
 	cp PLAYER_BIKE
 	jr z, .GetOffBike
+
+	ld d, ACTION_RIDE
+	call CheckPartyAction
+	jr c, .CannotUseBike
+
 	jr .CannotUseBike
 
 .GetOnBike:
+	call GetPartyNick
 	ld hl, Script_GetOnBike
-	ld de, Script_GetOnBike_Register
-	call .CheckIfRegistered
 	call QueueScript
-	xor a
-	ld [wMusicFade], a
-	ld de, MUSIC_NONE
-	call PlayMusic
-	call DelayFrame
-	call MaxVolume
-	ld de, MUSIC_BICYCLE
-	ld a, e
-	ld [wMapMusic], a
-	call PlayMusic
+	; xor a
+	; ld [wMusicFade], a
+	; ld de, MUSIC_NONE
+	; call PlayMusic
+	; call DelayFrame
+	; call MaxVolume
+	; ld de, MUSIC_BICYCLE
+	; ld a, e
+	; ld [wMapMusic], a
+	; call PlayMusic
 	ld a, $1
 	ret
 
@@ -1799,8 +1792,6 @@ BikeFunction:
 	bit BIKEFLAGS_ALWAYS_ON_BIKE_F, [hl]
 	jr nz, .CantGetOffBike
 	ld hl, Script_GetOffBike
-	ld de, Script_GetOffBike_Register
-	call .CheckIfRegistered
 	ld a, BANK(Script_GetOffBike)
 	jr .done
 
@@ -1815,14 +1806,6 @@ BikeFunction:
 .done
 	call QueueScript
 	ld a, $1
-	ret
-
-.CheckIfRegistered:
-	ld a, [wUsingItemWithSelect]
-	and a
-	ret z
-	ld h, d
-	ld l, e
 	ret
 
 .CheckEnvironment:
@@ -1861,10 +1844,6 @@ Script_GetOnBike_Register:
 	closetext
 	special ReplaceKrisSprite
 	end
-
-; unused
-	nop
-	ret
 
 Script_GetOffBike:
 	reloadmappart

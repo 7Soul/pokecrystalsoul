@@ -1125,22 +1125,39 @@ JohtoGrassWildMons:
 
 	map_id ROUTE_46
 	db 10 percent ; encounter rate
-	; morn/day
-	db 1, ((__ISO_8601_UTC__ % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 1)) % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 2)) % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 3)) % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 4)) % NUM_POKEMON) & $FF) - 4
-	db 2, (((__ISO_8601_UTC__ + ($2A * 5)) % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 6)) % NUM_POKEMON) & $FF) - 4
-	; nite
-	db 1, ((__ISO_8601_UTC__ % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 1)) % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 2)) % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 3)) % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 4)) % NUM_POKEMON) & $FF) - 4
-	db 2, (((__ISO_8601_UTC__ + ($2A * 5)) % NUM_POKEMON) & $FF) - 4
-	db 1, (((__ISO_8601_UTC__ + ($2A * 6)) % NUM_POKEMON) & $FF) - 4
+	; ; morn/day
+	; db 1, ((__ISO_8601_UTC__ % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 1)) % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 2)) % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 3)) % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 4)) % NUM_POKEMON) & $FF) - 4
+	; db 2, (((__ISO_8601_UTC__ + ($2A * 5)) % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 6)) % NUM_POKEMON) & $FF) - 4
+	; ; nite
+	; db 1, ((__ISO_8601_UTC__ % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 1)) % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 2)) % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 3)) % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 4)) % NUM_POKEMON) & $FF) - 4
+	; db 2, (((__ISO_8601_UTC__ + ($2A * 5)) % NUM_POKEMON) & $FF) - 4
+	; db 1, (((__ISO_8601_UTC__ + ($2A * 6)) % NUM_POKEMON) & $FF) - 4
+
+	; ; morn/day
+	db 1, BULBASAUR
+	db 1, BULBASAUR
+	db 1, BULBASAUR
+	db 1, BULBASAUR
+	db 1, BULBASAUR
+	db 2, BULBASAUR
+	db 1, BULBASAUR
+	; ; nite
+	db 1, BULBASAUR
+	db 1, BULBASAUR
+	db 1, BULBASAUR
+	db 1, BULBASAUR
+	db 1, BULBASAUR
+	db 2, BULBASAUR
+	db 1, BULBASAUR
 
 	; ; morn/day
 	; db 1, GEODUDE

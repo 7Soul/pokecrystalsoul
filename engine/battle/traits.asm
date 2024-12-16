@@ -164,7 +164,7 @@ CheckTraitCondition:
 	cp TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING + 1 ; 
 	ld d, 3
 	jp c, .check_trait_activation_equal	
-	cp TRAIT_RANDOM_STAT_AFTER_5_TURNS + 1 ; 
+	cp TRAIT_RANDOM_STAT_AFTER_4_TURNS + 1 ; 
 	jp c, .check_trait_activated
 	cp TRAIT_REGEN_FIRST_TURNS + 1 ; all traits on turn 3 and lower
 	ld d, 2 ; 0, 1, 2
@@ -895,8 +895,8 @@ CheckTraitTurnTriggers:
 	ld d, 7
 	jp c, CheckTraitCondition.check_every_x_turns
 
-	cp TRAIT_RANDOM_STAT_AFTER_5_TURNS + 1
-	ld d, 5
+	cp TRAIT_RANDOM_STAT_AFTER_4_TURNS + 1
+	ld d, 4
 	jp c, CheckTraitCondition.check_every_x_turns
 
 	cp TRAIT_REDUCE_CRIT_MORE + 1 ; no trigger before this
@@ -1235,7 +1235,7 @@ TraitRaiseStat:
 	ld a, TRAIT_ALL_STATS_AFTER_7_TURNS
 	call CheckSpecificTrait
 	jp c, .all_stats
-	ld a, TRAIT_RANDOM_STAT_AFTER_5_TURNS
+	ld a, TRAIT_RANDOM_STAT_AFTER_4_TURNS
 	call CheckSpecificTrait
 	jr c, .random_stat
 	ld a, TRAIT_EVASION_WHEN_CONFUSED
@@ -5330,7 +5330,7 @@ TraitSupportValues:
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_ALL_STATS_AFTER_7_TURNS
-	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
+	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_RANDOM_STAT_AFTER_4_TURNS
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_FIRST_TURNS
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_CULL_OPP_LOW_HP
 	db SUP_CHANCE_DOWN + SUP_50_PERCENT ; TRAIT_REGEN_LOW_HP

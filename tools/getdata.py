@@ -6,70 +6,123 @@ id = 0
 linenum = 0
 evos_attacks = open('data/pokemon/evos_attacks.asm').read()
 for poke in pokelist:
-    if poke == "Nidoran_F":
-        poke = "NidoranF"
-    if poke == "Nidoran_M":
-        poke = "NidoranM"
-    if poke == "Farfetch_d":
-        poke = "FarfetchD"
-    if poke == "Mr__Mime":
-        poke = "MrMime"
-    if poke == "Ho_Oh":
-        poke = "HoOh"
-    # if poke == "Bulbasaur":
-    linenum = 0
-    x = re.findall(poke + '(.*?); no more level-up moves', evos_attacks, re.DOTALL + re.MULTILINE)
-    # y = re.findall('db [\S]+ (\d+), (.*?)\n', x[0], re.DOTALL + re.MULTILINE)
-    # for line in y:
-    #     for group in line:
-    #         data.append(group + ",")
-    #     linenum += 1
+	if poke == "Nidoran_F":
+		poke = "NidoranF"
+	if poke == "Nidoran_M":
+		poke = "NidoranM"
+	if poke == "Farfetch_d":
+		poke = "FarfetchD"
+	if poke == "Mr__Mime":
+		poke = "MrMime"
+	if poke == "Ho_Oh":
+		poke = "HoOh"
+	
+	linenum = 0
+	x = re.findall(poke + '(.*?); no more level-up moves', evos_attacks, re.DOTALL + re.MULTILINE)
+	# if poke == "Bulbasaur":
+		# print(x[0])
 
-    learnset = re.findall('db (\d+), (.*?)\n', x[0], re.DOTALL + re.MULTILINE)
-    linenum = 0
-    for line in learnset:
-        for group in line:
-            output = group
-            y = re.findall('(.*?) ; becomes (.*)', group)
-            for replaced in y:
-                output = replaced[1].upper()
-                # print(replaced[1])
-            output = output.replace("_", " ")
-            output = re.sub('; becomes (.+)', '', output)
-            output = re.sub('; evolution move', '', output)
-            output = re.sub('; unevolved move', '', output)
-            output = output.replace(";", "")
-            output = output.replace("PSYCHIC M", "PSYCHIC")
-            output = output.replace("U TURN", "U-TURN")
-            output = output.title()
-            if len(output) >= 13:
-                output = output.replace(" ", "")
-            data.append(output + ",")
-        linenum += 1
+	learnset = re.findall('db (\d+), (.*?)\n', x[0], re.DOTALL + re.MULTILINE)
+	linenum = 0
+	for line in learnset:
+		for group in line:
+			output = group
+			y = re.findall('(.*?) ; becomes (.*)', group)
+			for replaced in y:
+				output = replaced[1].upper()
+				# print(replaced[1])
+			output = output.replace("_", " ")
+			output = re.sub('; becomes (.+)', '', output)
+			output = re.sub('; evolution move', '', output)
+			output = re.sub('; unevolved move', '', output)
+			output = output.replace("	", "")
+			output = output.replace(";", "")
+			output = output.replace("PSYCHIC M", "PSYCHIC")
+			output = output.replace("U TURN", "U-TURN")
+			output = output.replace("EERIEIMPULSE", "EERIE IMPULSE")
+			output = output.title()
+			if len(output) >= 13:
+				output = output.replace(" ", "")
+			data.append(output + ",")
+		linenum += 1
 
-    # with open ('data/pokemon/base_stats/' + poke.lower() + '.asm', 'rt') as myfile:
-    #     linenum = 0
-    #     id += 1
-    #     data.append("#" + str(id).zfill(3) + ",")
-    #     data.append(poke + ",")
-    #     for line in myfile:
-    #         linenum += 1
-    #         if linenum == 3:
-    #             x = re.findall('[0-9]+', line)
-    #             for n in x:
-    #                 data.append(n + ",")
-    #         if linenum == 6:
-    #             x = re.findall('[A-Z]+', line)
-    #             typeCount = 0
-    #             for n in x:
-    #                 if typeCount == 1 and n == x[0]:
-    #                     n = ""
-    #                 data.append(n + ",")
-    #                 typeCount += 1
-    data.append("\n")
+	# with open ('data/pokemon/base_stats/' + poke.lower() + '.asm', 'rt') as myfile:
+		# linenum = 0
+		# id += 1
+		# data.append("#" + str(id).zfill(3) + ",")
+		# data.append(poke + ",")
+		# for line in myfile:
+			# linenum += 1
+			# if linenum == 3:
+				# x = re.findall('[0-9]+', line)
+				# for n in x:
+					# data.append(n + ",")
+			# if linenum == 6:
+				# x = re.findall('[A-Z]+', line)
+				# typeCount = 0
+				# for n in x:
+					# if typeCount == 1 and n == x[0]:
+						# n = ""
+					# data.append(n + ",")
+					# typeCount += 1
+	data.append("\n")
+	
+data.append("\n")
+data.append("\n")
 
-file1 = open("output.txt","r+")
+egg_moves = open('data/pokemon/egg_moves.asm').read()
+for poke in pokelist:
+	if poke == "Nidoran_F":
+		poke = "NidoranF"
+	if poke == "Nidoran_M":
+		poke = "NidoranM"
+	if poke == "Farfetch_d":
+		poke = "FarfetchD"
+	if poke == "Mr__Mime":
+		poke = "MrMime"
+	if poke == "Ho_Oh":
+		poke = "HoOh"
+	
+	linenum = 0
+	x = re.findall(poke + '(.*?) ; end\n', egg_moves, re.DOTALL + re.MULTILINE)
+	if len(x) == 1:
+		# print(x[0])
+		
+		eggset = re.findall('db (.*?)\n', x[0], re.DOTALL + re.MULTILINE)
+		linenum = 0
+		for line in eggset:
+			# if poke == "Bulbasaur":
+				# print(line)
+				
+			output = line
+			y = re.findall('(.*?) ; becomes (.*)', line)
+			for replaced in y:
+				output = replaced[1].upper()
+				
+			output = output.replace("_", " ")
+			output = re.sub(' ; becomes (.+)', '', output)
+			output = re.sub(' ; level (\d+)(.+)', '', output)
+			output = re.sub(' ; min level (\d+)', '', output)
+			output = re.sub('  ', '', output)
+			output = output.replace("	", "")
+			output = output.replace(";", "")
+			output = output.replace("PSYCHIC M", "PSYCHIC")
+			output = output.replace("U TURN", "U-TURN")
+			output = output.replace("EERIEIMPULSE", "EERIE IMPULSE")
+			
+			output = output.title()
+			
+			if len(output) >= 13:
+				output = output.replace(" ", "")
+			data.append(output + ",")
+		linenum += 1
+		data.append("\n")
+	if len(x) == 0:
+		data.append("\n")
+
+file1 = open("output_moves.txt","r+")
 file1.truncate(0)
 for dat in data:
-    file1.writelines(dat)
+	file1.writelines(dat)
+print("Done")
 file1.close()

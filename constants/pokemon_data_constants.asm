@@ -192,7 +192,7 @@ NUM_WATERMON EQU 4 ; data/wild/*_water.asm table size
 NUM_SHALLOWMON EQU 6 ; data/wild/*_grass.asm table size
 
 GRASS_WILDDATA_LENGTH EQU ( ( NUM_GRASSMON * 2 ) * 2 ) + 3
-WATER_WILDDATA_LENGTH EQU (NUM_WATERMON * 2 + 1) * 1 + 2
+WATER_WILDDATA_LENGTH EQU ( NUM_WATERMON * 2 ) + 1 + 2
 SHALLOW_WILDDATA_LENGTH EQU ( (NUM_SHALLOWMON * 2) * 2 ) + 3
 FISHGROUP_DATA_LENGTH EQU 1 + 2 * 3
 
@@ -296,16 +296,16 @@ ACTION_LEVEL EQU 4 ; action limited by level multiplies the stored 4 bit number 
 	const ACTION_CUT         ; 0 Fire: Burn, Poison: Poison
 	const ACTION_SURF        ; 1 Not-water: Levitate
 	const ACTION_FLY         ; 2 Psychic: Teleport, Groud/Rock: Dig
-	const ACTION_SWEETSCENT  ; 3 poison types become Stinky Smell
-	const ACTION_STRENGTH    ; 4 Psychic: Telekinesis
+	const ACTION_STRENGTH    ; 3 Psychic: Telekinesis
+	const ACTION_SWEETSCENT  ; 4 
 	const ACTION_FLASH       ; 5 Psychic: Sense
-	const ACTION_ROCKSMASH   ; 6 Ice: Frostbite
-	const ACTION_INVESTIGATE ; 7
-	const ACTION_HEADBUTT    ; 8
-	const ACTION_HOLD        ; 9
-	const ACTION_LUCKY       ; a
-	const ACTION_EVOLUTION   ; b
-	const ACTION_FLAMEBODY   ; c
-	const ACTION_SEARCHLIGHT ; d
-	const ACTION_FAMILY      ; e
-	const ACTION_            ; f
+	const ACTION_ROCKSMASH   ; 6 Ice: Frostbite, Flying: Drill
+	const ACTION_INVESTIGATE ; 7 
+	const ACTION_HEADBUTT    ; 8 
+	const ACTION_HOLD        ; 9 
+	const ACTION_LUCKY       ; a 
+	const ACTION_EVOLUTION   ; b 
+	const ACTION_FLAMEBODY   ; c 
+	const ACTION_SEARCHLIGHT ; d 
+	const ACTION_FAMILY      ; e Poison: inverse effect
+	const ACTION_RIDE		 ; f 

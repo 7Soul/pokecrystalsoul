@@ -372,4 +372,6 @@ NUM_ATTACKS EQU const_value + -1
 	const AROMATHERAPY    ; 45
 	const STICKY_WEB      ; 46
 	const POISON_JAB      ; 47
+	const HOWL            ; 48
+	const SAND_TOMB       ; 49
 	

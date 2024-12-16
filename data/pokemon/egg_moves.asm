@@ -6,42 +6,42 @@ SECTION "Egg Moves", ROMX
 INCLUDE "data/pokemon/egg_move_pointers.asm"
 
 BulbasaurEggMoves:
-	db FIRE_SPIN ; becomes Ingrain ; can always learn
-	db AMNESIA                     ; min level 5
-	db SLUDGE                      ; min level 10
-	db MAGICAL_LEAF                ; min level 15
-	db SKULL_BASH                  ; min level 20
-	db ANCIENTPOWER                ; min level 25
-	db PETAL_DANCE                 ; min level 30
+	db FIRE_SPIN    ; min level 10 ; becomes Ingrain
+	db AMNESIA      ; min level 15
+	db SLUDGE       ; min level 20
+	db MAGICAL_LEAF ; min level 25
+	db SKULL_BASH   ; min level 30
+	db ANCIENTPOWER ; min level 35
+	db PETAL_DANCE  ; min level 40
 	db -1 ; end
 
 CharmanderEggMoves:
-	db BITE
-	db FIRE_FLICK
-	db ABSORB ; becomes Fire Fang
-	db CRUNCH
-	db ROCK_SLIDE
-	db THRASH
-	db BELLY_DRUM
+	db BITE        ; min level 10
+	db FIRE_FLICK  ; min level 15
+	db ABSORB      ; min level 20 ; becomes Fire Fang
+	db CRUNCH      ; min level 25
+	db ROCK_SLIDE  ; min level 30
+	db THRASH      ; min level 35
+	db BELLY_DRUM  ; min level 40
 	db -1 ; end
 
 SquirtleEggMoves:
-	db MIRROR_COAT
-	db FIRE_SPIN ; becomes Aqua Ring
-	db CONFUSION
-	db PECK ; becomes Aura Sphere
-	db JET_STREAM
-	db REVERSAL
-	db MUD_BOMB
-	db ZAP_CANNON
+	db MIRROR_COAT ; min level 10
+	db FIRE_SPIN   ; min level 15 ; becomes Aqua Ring
+	db CONFUSION   ; min level 20 
+	db JET_STREAM  ; min level 25 
+	db PECK        ; min level 30 ; becomes Aura Sphere
+	db REVERSAL    ; min level 35
+	db MUD_BOMB    ; min level 40
+	db ZAP_CANNON  ; min level 45
 	db -1 ; end
 
 CaterpieEggMoves:
-	db FAINT_ATTACK
-	db SUPERSONIC
-	db GIGA_DRAIN
-	db SPIKES ; becomes Sticky Web
-	db BUG_BUZZ
+	db SPIKES       ; min level 10 ; becomes Sticky Web
+	db FAINT_ATTACK ; min level 15
+	db SUPERSONIC   ; min level 20
+	db BUG_BUZZ     ; min level 25 
+	db GIGA_DRAIN   ; min level 30
 	db -1 ; end
 
 WeedleEggMoves:
@@ -70,22 +70,23 @@ RattataEggMoves:
 	db -1 ; end
 
 SpearowEggMoves:
-	db FALSE_SWIPE
-	db SONICBOOM
-	db SCARY_FACE
-	db QUICK_ATTACK
-	db TRI_ATTACK
-	db FIRE_PLAY ; becomes Flutter Clap
-	db SCREECH ; becomes Feather Dance
+	db FALSE_SWIPE  ; level 10 
+	db SONICBOOM    ; level 15 
+	db SCARY_FACE   ; level 20 
+	db QUICK_ATTACK ; level 25 
+	db TRI_ATTACK   ; level 30 
+	db FIRE_PLAY    ; level 35 ; becomes Flutter Clap
+	db SCREECH      ; level 40 ; becomes Feather Dance
 	db -1 ; end
 
 EkansEggMoves:
-	db SLAM
-	db SPITE
-	db CRUNCH
-	db ABSORB ; becomes Fire Fang
-	db EMBER ; becomes Ice Fang
-	db PSYBEAM ; becomes Thunder Fang
+	db SLAM      ; level 10
+	db PURSUIT   ; level 15
+	db CRUNCH    ; level 20
+	db AQUA_TAIL ; level 25
+	db ABSORB    ; level 30 ; becomes Fire Fang
+	db EMBER     ; level 35 ; becomes Ice Fang
+	db PSYBEAM   ; level 40 ; becomes Thunder Fang
 	db -1 ; end
 
 SandshrewEggMoves:
@@ -344,12 +345,13 @@ GastlyEggMoves:
 	db -1 ; end
 
 OnixEggMoves:
-	db REVERSAL
-	db QUICK_ATTACK ; becomes Accelerock
-	db HORN_DRILL
-	db AQUA_TAIL
-	db SKULL_BASH
-	db DARK_PULSE ; becomes Iron Head
+	db REVERSAL     ; min level 6 
+	db QUICK_ATTACK ; min level 12 ; becomes Accelerock
+	db HORN_DRILL   ; min level 18
+	db AQUA_TAIL    ; min level 24
+	db ABSORB       ; min level 30 ; Fire Fang
+	db EMBER        ; min level 36 ; Ice Fang
+	db PSYBEAM      ; min level 42 ; becomes Thunder Fang
 	db -1 ; end
 
 DrowzeeEggMoves:
@@ -436,6 +438,7 @@ TangelaEggMoves:
 	db REFLECT
 	db AMNESIA
 	db HYPNOSIS
+	db WAKEUP_SLAP
 	db -1 ; end
 
 KangaskhanEggMoves:
@@ -629,6 +632,7 @@ ChikoritaEggMoves:
 	db -1 ; end
 
 CyndaquilEggMoves:
+	db MEDITATE ; becomes Howl
 	db FURY_ATTACK
 	db DOUBLE_KICK
 	db REVERSAL
@@ -658,6 +662,7 @@ SentretEggMoves:
 HoothootEggMoves:
 	db MIRROR_MOVE
 	db SUPERSONIC
+	db ICY_WIND
 	db NIGHT_SHADE
 	db DIZZY_PUNCH ; becomes Hurricane
 	db SKY_ATTACK
@@ -668,9 +673,9 @@ LedybaEggMoves:
 	db FEATHERGALE
 	db BARRIER
 	db DOUBLE_TEAM
-	db PSYBEAM
-	db SCREECH
+	db SIGNAL_BEAM
 	db IRON_TAIL ; becomes Spiral Kick
+	db PECK ; becomes Aura Sphere
 	db -1 ; end
 
 SpinarakEggMoves:
@@ -683,12 +688,13 @@ SpinarakEggMoves:
 	db -1 ; end
 
 ChinchouEggMoves:
-	db WHIRLPOOL
 	db SCREECH
 	db AGILITY
+	db PRISM_LIGHT
 	db PSYBEAM
 	db EMBER ; becomes Brine
 	db AMNESIA
+	db AURORA_BEAM
 	db -1 ; end
 
 PichuEggMoves:
@@ -842,12 +848,13 @@ GirafarigEggMoves:
 	db -1 ; end
 
 PinecoEggMoves:
-	db REFLECT
-	db DOUBLESLAP ; becomes Pin Missile
-	db REVERSAL
-	db SWIFT
-	db ENDURE
-	db CONFUSION ; becomes Revenge
+	db ENDURE     ; can always learn
+	db DARK_PULSE ; min level 5 ; becomes Iron Head 
+	db REVERSAL   ; min level 10
+	db SWIFT      ; min level 15
+	db ROLLOUT    ; min level 20
+	db CONFUSION  ; min level 25 ; becomes Revenge
+	db ROCK_SLIDE ; min level 30
 	db -1 ; end
 
 DunsparceEggMoves:
@@ -877,6 +884,7 @@ SnubbullEggMoves:
 	db -1 ; end
 
 QwilfishEggMoves:
+	db SPIKE_CANNON
 	db HAZE
 	db BUBBLEBEAM
 	db SUPERSONIC
@@ -890,6 +898,7 @@ ShuckleEggMoves:
 	db ACID
 	db SPIKES ; becomes Sticky Web
 	db EMBER ; becomes Brine
+	db TOXIC 
 	db -1 ; end
 
 HeracrossEggMoves:
@@ -1063,7 +1072,19 @@ LarvitarEggMoves:
 	db -1 ; end
 
 LugiaEggMoves:
+	db SLASH ; becomes Air Cutter
+	db STOMP
+	db FOCUS_ENERGY
+	db ANCIENTPOWER
+	db -1 ; end
+	
 HoOhEggMoves:
+	db SLASH ; becomes Air Cutter
+	db STOMP
+	db FOCUS_ENERGY
+	db ANCIENTPOWER
+	db -1 ; end
+
 CelebiEggMoves:
 	db SLASH ; becomes Air Cutter
 	db STOMP

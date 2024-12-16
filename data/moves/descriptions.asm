@@ -1195,6 +1195,8 @@ VariableMoveDescriptions::
 	dw HealBellDescription ; AromatherapyDescription
 	dw StickyWebDescription ; StickyWebDescription
 	dw PoisonJabDescription ; PoisonJabDescription
+	dw $0000 ; HowlDescription
+	dw SandTombDescription ; SandTombDescription
 	
 ; BoneRushDescription:
 ; PinMissileDescription:
@@ -1364,3 +1366,7 @@ StickyWebDescription:
 PoisonJabDescription:
 	db   "A move that may"
 	next "poison the foe.@"
+
+SandTombDescription:
+	db   "Traps the foe"
+	next "for 2-5 turns.@"

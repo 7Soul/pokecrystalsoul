@@ -424,24 +424,21 @@ PokeBallEffect:
 	ld hl, Text_ThreeShakes
 	jp z, .shake_and_break_free
 .caught
-	ld hl, wBaseTraits
 	ld a, [wEnemyMonTrait]
-	ld b, a
-	ld c, 4
-.trait_loop
-	ld a, [hli]
-	dec c
-	jr z, .last_trait
-	cp b
-	jr nz, .trait_loop
-	; found trait
-	ld a, c
+	and FIRST_TRAIT_MASK
 	cp 2
-	jr nc, .not_rare
-.last_trait
-	ld de, EVENT_CAUGHT_MON_RARE_TRAIT
+	jr c, .not_rare
+	ld de, ACHIEV_CAUGHT_MON_RARE_TRAIT
 	call SetAchievement
 .not_rare
+	ld a, [wEnemyMonItem]
+	and a
+	jr z, .no_item
+	ld de, ACHIEV_CAUGHT_MON_HOLDING_ITEM
+	call SetAchievement
+.no_item
+	ld de, ACHIEV_CAUGHT_MON
+	call SetAchievement
 	ld hl, wEnemyMonStatus
 	ld a, [hli]
 	push af
@@ -2421,7 +2418,7 @@ SuperRodEffect:
 	jr UseRod
 
 UseRod:
-	farcall FishFunction
+	; farcall FishFunction
 	ret
 
 ItemfinderEffect:

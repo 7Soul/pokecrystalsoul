@@ -524,7 +524,7 @@ TraitCompatibility::
 	trait TRAIT_BOOST_SPD_ACC_NOT_ATTACKING, 0
 	trait TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING, 0
 	trait TRAIT_ALL_STATS_AFTER_7_TURNS, TGROUP_MOVE_CLASS
-	trait TRAIT_RANDOM_STAT_AFTER_5_TURNS, 0
+	trait TRAIT_RANDOM_STAT_AFTER_4_TURNS, 0
 	trait TRAIT_REGEN_FIRST_TURNS, 0 ; checks first 3 turns
 	trait TRAIT_CULL_OPP_LOW_HP, 0 ; opp at low hp comes before this
 	trait TRAIT_REGEN_LOW_HP , 0; low hp (50%) comes before this

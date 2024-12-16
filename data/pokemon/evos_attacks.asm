@@ -169,8 +169,10 @@ CaterpieEvosAttacks:
 	db 1, STRING_SHOT
 	db 7, DOUBLESLAP ; becomes Pin Missile
 	db 13, SILVER_WIND
-	db 25, WHIRLWIND
-	db 30, MOONLIGHT
+	db 16, WHIRLWIND
+	db 21, SWIFT
+	db 25, MOONLIGHT
+	db 30, BUG_BUZZ
 	db 34, PSYBEAM
 	db 37, SAFEGUARD
 	db 41, SIGNAL_BEAM
@@ -180,16 +182,18 @@ CaterpieEvosAttacks:
 MetapodEvosAttacks:
 	db EVOLVE_LEVEL, 18, BUTTERFREE
 	db 0 ; no more evolutions
-	db 6, HARDEN
-	db 8, GNAW
-	db 10, DOUBLESLAP ; becomes Pin Missile
-	db 17, SILVER_WIND
-	db 25, WHIRLWIND
-	db 30, MOONLIGHT
-	db 34, PSYBEAM
-	db 37, SAFEGUARD
-	db 41, SIGNAL_BEAM
-	db 44, REFLECT
+	db 1, GNAW
+	db 1, HARDEN
+	db 9, DOUBLESLAP ; becomes Pin Missile
+	db 15, SILVER_WIND
+	db 18, WHIRLWIND
+	db 24, SWIFT
+	db 28, MOONLIGHT
+	db 33, BUG_BUZZ
+	db 37, PSYBEAM
+	db 40, SAFEGUARD
+	db 45, SIGNAL_BEAM
+	db 49, REFLECT
 	db 0 ; no more level-up moves
 
 ButterfreeEvosAttacks:
@@ -200,14 +204,16 @@ ButterfreeEvosAttacks:
 	db 14, STUN_SPORE
 	db 15, SLEEP_POWDER
 	db 17, CONFUSION
-	db 20, SILVER_WIND
-	db 25, WHIRLWIND
-	db 30, MOONLIGHT
-	db 34, PSYBEAM
-	db 37, SAFEGUARD
-	db 41, SIGNAL_BEAM
-	db 44, REFLECT
-	db 55, DIZZY_PUNCH ; becomes Hurricane
+	db 18, SILVER_WIND
+	db 20, WHIRLWIND
+	db 27, SWIFT
+	db 32, MOONLIGHT
+	db 37, BUG_BUZZ
+	db 41, PSYBEAM
+	db 44, SAFEGUARD
+	db 49, SIGNAL_BEAM
+	db 54, REFLECT
+	db 59, DIZZY_PUNCH ; becomes Hurricane
 	db 0 ; no more level-up moves
 
 WeedleEvosAttacks:
@@ -388,8 +394,7 @@ EkansEvosAttacks:
 	db 36, MUD_BOMB
 	db 41, HAZE
 	db 44, ACID_ARMOR
-	db 49, GUNK_SHOT
-	db 55, CHARGE_BEAM ; becomes Poison Fang
+	db 48, CHARGE_BEAM ; becomes Poison Fang
 	db 0 ; no more level-up moves
 
 ArbokEvosAttacks:
@@ -403,7 +408,7 @@ ArbokEvosAttacks:
 	db 39, MUD_BOMB
 	db 45, HAZE
 	db 49, ACID_ARMOR
-	db 54, GUNK_SHOT
+	db 53, CHARGE_BEAM ; becomes Poison Fang
 	db 0 ; no more level-up moves
 
 PikachuEvosAttacks:
@@ -970,40 +975,42 @@ PrimeapeEvosAttacks:
 	db 55, THRASH
 	db 0 ; no more level-up moves
 
+
 GrowlitheEvosAttacks:
 	db EVOLVE_ITEM, FIRE_STONE, ARCANINE
 	db 0 ; no more evolutions
-	db 1, BITE
-	db 1, ROAR
-	db 5, EMBER
-	db 7, LEER
-	db 14, TAKE_DOWN
+	db 1, EMBER
+	db 1, LEER
+	db 6, HOWL
+	db 8, BITE
+	db 11, ROAR
 	db 17, FLAME_WHEEL
 	db 19, REVERSAL
-	db 23, ABSORB ; becomes Fire Fang
-	db 28, CRUNCH
-	db 30, AGILITY
-	db 32, THRASH
-	db 38, FLAMETHROWER
-	db 45, BODY_SLAM
-	db 49, DOUBLE_EDGE ; becomes Flare Blitz
-	db 55, EXTREMESPEED
-	db 63, SACRED_FIRE ;
+	db 21, ABSORB ; becomes Fire Fang
+	db 23, TAKE_DOWN
+	db 29, AGILITY
+	db 34, FLAMETHROWER
+	db 39, CRUNCH
+	db 43, THRASH
+	db 50, DOUBLE_EDGE ; becomes Flare Blitz
 	db 0 ; no more level-up moves
 
 ArcanineEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, BITE
-	db 5, EMBER
-	db 22, FLAME_WHEEL
-	db 27, REVERSAL
-	db 32, CRUNCH
-	db 34, AGILITY
-	db 36, THRASH
-	db 44, FLAMETHROWER
-	db 52, BODY_SLAM
-	db 57, DOUBLE_EDGE ; becomes Flare Blitz
-	db 62, EXTREMESPEED
+	db 1, EMBER
+	db 1, LEER
+	db 6, HOWL
+	db 8, BITE
+	db 11, ROAR
+	db 17, FLAME_WHEEL
+	db 21, REVERSAL
+	db 23, ABSORB ; becomes Fire Fang
+	db 26, TAKE_DOWN
+	db 32, AGILITY
+	db 38, FLAMETHROWER
+	db 44, CRUNCH
+	db 49, THRASH
+	db 56, DOUBLE_EDGE ; becomes Flare Blitz
 	db 0 ; no more level-up moves
 
 PoliwagEvosAttacks:
@@ -1447,7 +1454,7 @@ DewgongEvosAttacks:
 	db 0 ; no more level-up moves
 
 GrimerEvosAttacks:
-	db EVOLVE_LEVEL, 38, MUK
+	db EVOLVE_LEVEL, 34, MUK ; was 38
 	db 0 ; no more evolutions
 	db 1, POISON_GAS
 	db 1, POUND
@@ -1501,16 +1508,17 @@ ShellderEvosAttacks:
 
 CloysterEvosAttacks:
 	db 0 ; no more evolutions
+	db 1, SPIKE_CANNON
 	db 1, PROTECT
 	db 1, LEER
-	db 1, CLAMP
-	db 1, QUICK_ATTACK	; becomes Ice Shard
-	db 33, IRON_TAIL ; becomes Razor Shell
-	db 38, AURORA_BEAM
-	db 42, WHIRLPOOL
-	db 46, BARRIER ; becomes Iron Defense
-	db 50, ICE_BEAM
-	db 57, HYDRO_PUMP
+	db 25, CLAMP
+	db 29, SPIKES
+	db 34, IRON_TAIL ; becomes Razor Shell
+	db 40, AURORA_BEAM
+	db 43, WHIRLPOOL
+	db 47, BARRIER ; becomes Iron Defense
+	db 51, ICE_BEAM
+	db 58, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 GastlyEvosAttacks:
@@ -1559,18 +1567,21 @@ OnixEvosAttacks:
 	db EVOLVE_LEVEL, 26, STEELIX
 	db 0 ; no more evolutions
 	db 1, TACKLE
-	db 1, SCREECH
 	db 1, WRAP
-	db 7, ROCK_THROW
-	db 11, ROCK_TOMB
-	db 20, HARDEN
-	db 25, DIG
+	db 4, HARDEN
+	db 6, SCREECH
+	db 9, ROCK_THROW
+	db 14, RAGE
+	db 17, ROCK_TOMB
+	db 22, SANDSTORM
+	db 25, SLAM
 	db 28, SEISMIC_TOSS ; becomes Rock Tumble
-	db 33, STAMPEDE
-	db 36, SANDSTORM
-	db 40, SLAM
-	db 46, CROSS_CHOP ; becomes Stone Edge
-	db 52, EARTHQUAKE
+	db 30, AGILITY ; becomes Rock Polish
+	db 38, CURSE
+	db 41, IRON_TAIL
+	db 46, PECK ; becomes Sand Tomb
+	db 49, DOUBLE_EDGE
+	db 54, CROSS_CHOP ; becomes Stone Edge
 	db 0 ; no more level-up moves
 
 DrowzeeEvosAttacks:
@@ -1865,19 +1876,20 @@ ChanseyEvosAttacks:
 
 TangelaEvosAttacks:
 	db 0 ; no more evolutions
+	db 1, FIRE_SPIN ; becomes Ingrain
 	db 1, POUND
-	db 4, SLEEP_POWDER
-	db 10, ABSORB
+	db 5, SLEEP_POWDER
+	db 8, VINE_WHIP
+	db 11, ABSORB
 	db 13, POISONPOWDER
-	db 19, VINE_WHIP
-	db 22, WRAP
-	db 24, FIRE_SPIN ; becomes Ingrain
-	db 31, MEGA_DRAIN
-	db 34, STUN_SPORE
+	db 16, WRAP
+	db 23, MEGA_DRAIN
+	db 27, GROWTH
+	db 33, STUN_SPORE
+	db 38, ANCIENTPOWER
 	db 40, SLAM
-	db 43, GROWTH
 	db 46, CONSTRICT ; becomes Power Whip
-	db 51, SKULL_BASH ; becomes Brutal Vine
+	db 52, SKULL_BASH ; becomes Brutal Vine
 	db 0 ; no more level-up moves
 
 KangaskhanEvosAttacks:
@@ -2212,7 +2224,7 @@ VaporeonEvosAttacks:
 	db 17, JET_STREAM
 	db 20, AURORA_BEAM
 	db 24, BITE
-	db 24, LICK
+	; db 24, LICK
 	db 35, DARK_PULSE ; becomes Waterfall
 	db 36, HAZE
 	db 46, ACID_ARMOR
@@ -2720,35 +2732,36 @@ LedybaEvosAttacks:
 	db EVOLVE_LEVEL, 20, LEDIAN
 	db 0 ; no more evolutions
 	db 1, COMET_PUNCH
-	db 1, WAKEUP_SLAP
+	db 1, HIDDEN_POWER
 	db 7, SUPERSONIC
 	db 9, SWIFT
-	db 12, LIGHT_SCREEN
 	db 12, SAFEGUARD
-	db 12, REFLECT
 	db 16, MACH_PUNCH
-	db 21, SILVER_WIND
-	db 26, BATON_PASS
-	db 28, ZOOM_FLIGHT
+	db 20, THUNDERPUNCH
+	db 20, ICE_PUNCH
+	db 20, FIRE_PUNCH
+	db 26, DARK_PULSE ; becomes Extrasensory
 	db 31, AGILITY
-	db 36, AIR_SLASH
-	db 43, DOUBLE_EDGE
-	db 50, BUG_BUZZ
+	db 33, AIR_SLASH
+	db 39, U_TURN
+	db 43, BUG_BUZZ
+	db 48, GROWTH ; becomes Cosmic Power
+	db 52, BITE ; becomes Bullet Punch
 	db 0 ; no more level-up moves
 
 LedianEvosAttacks:
 	db 0 ; no more evolutions
-	db 9, SWIFT
-	db 12, LIGHT_SCREEN
-	db 12, REFLECT
-	db 16, MACH_PUNCH
-	db 22, SILVER_WIND
-	db 29, BATON_PASS
-	db 31, ZOOM_FLIGHT
-	db 34, AGILITY
-	db 40, AIR_SLASH
-	db 47, DOUBLE_EDGE
-	db 56, BUG_BUZZ
+	db 1, MACH_PUNCH
+	db 1, THUNDERPUNCH
+	db 1, ICE_PUNCH
+	db 1, FIRE_PUNCH
+	db 28, DARK_PULSE ; becomes Extrasensory
+	db 33, AGILITY
+	db 36, AIR_SLASH
+	db 42, U_TURN
+	db 47, BUG_BUZZ
+	db 52, GROWTH ; becomes Cosmic Power
+	db 57, BITE ; becomes Bullet Punch
 	db 0 ; no more level-up moves
 
 SpinarakEvosAttacks:
@@ -3364,18 +3377,18 @@ GirafarigEvosAttacks:
 PinecoEvosAttacks:
 	db EVOLVE_LEVEL, 31, FORRETRESS
 	db 0 ; no more evolutions
-	db 1, TACKLE
+	db 1, DOUBLESLAP ; becomes Pin Missile
 	db 1, PROTECT
-	db 1, LEECH_LIFE
-	db 8, SELFDESTRUCT
-	db 15, TAKE_DOWN
-	db 22, RAPID_SPIN
-	db 28, SPIKES
-	db 32, ZOOM_FLIGHT
-	db 36, EXPLOSION
-	db 41, ACID_ARMOR
-	db 44, ROCK_SLIDE
-	db 49, DOUBLE_EDGE
+	db 7, LEECH_LIFE
+	db 9, SELFDESTRUCT
+	db 12, TAKE_DOWN
+	db 17, RAPID_SPIN
+	db 23, SPIKES
+	db 29, ASSURANCE
+	db 34, EXPLOSION
+	db 37, BARRIER ; becomes Iron Defense
+	db 40, GYRO_BALL
+	db 44, DOUBLE_EDGE
 	db 0 ; no more level-up moves
 
 ForretressEvosAttacks:
@@ -3430,20 +3443,21 @@ GligarEvosAttacks:
 SteelixEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
-	db 1, SCREECH
 	db 1, WRAP
-	db 10, ROCK_THROW
-	db 14, ROCK_TOMB	
-	db 19, ICY_WIND
-	db 23, HARDEN
-	db 28, DIG
-	db 30, RAGE
-	db 39, IRON_TAIL
-	db 41, SANDSTORM
-	db 44, SLAM
-	db 50, GYRO_BALL
-	db 52, CRUNCH
-	db 55, CROSS_CHOP ; becomes Stone Edge
+	db 4, HARDEN
+	db 6, SCREECH
+	db 9, ROCK_THROW
+	db 14, RAGE
+	db 17, ROCK_TOMB
+	db 22, SANDSTORM
+	db 25, SLAM
+	db 28, SEISMIC_TOSS ; becomes Rock Tumble
+	db 30, AGILITY ; becomes Rock Polish
+	db 38, CURSE
+	db 41, IRON_TAIL
+	db 46, CRUNCH
+	db 49, DOUBLE_EDGE
+	db 54, CROSS_CHOP ; becomes Stone Edge
 	db 0 ; no more level-up moves
 
 SnubbullEvosAttacks:

@@ -150,7 +150,7 @@ TraitDescriptions::
 	dw StretchingDescription      ; TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	dw SetupDescription           ; TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	dw PatienceDescription        ; TRAIT_ALL_STATS_AFTER_7_TURNS
-	dw HeadacheDescription        ; TRAIT_RANDOM_STAT_AFTER_5_TURNS
+	dw HeadacheDescription        ; TRAIT_RANDOM_STAT_AFTER_4_TURNS
 	dw HealtySpiritDescription    ; TRAIT_REGEN_FIRST_TURNS
 	dw SecretGiftDescription      ; TRAIT_CULL_OPP_LOW_HP
 	dw BounceBackDescription      ; TRAIT_REGEN_LOW_HP
@@ -880,7 +880,7 @@ PatienceDescription:
 
 HeadacheDescription:
 	db   "Ups a random stat"
-	next "every 5 turns.@"
+	next "every 4 turns.@"
 	
 HealtySpiritDescription:
 	db   "Regain HP on your"

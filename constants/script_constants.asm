@@ -64,7 +64,8 @@ NUM_MEM_BUFFERS EQU const_value
 	const VAR_BLUECARDBALANCE  ; 18
 	const VAR_BUENASPASSWORD   ; 19
 	const VAR_KENJI_BREAK      ; 1a
-NUM_VARS EQU const_value       ; 1b
+	const VAR_PROGRESS         ; 1b
+NUM_VARS EQU const_value       ; 1c
 
 ; variable action types
 RETVAR_STRBUF2 EQU (0 << 6)

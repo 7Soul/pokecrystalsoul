@@ -449,7 +449,7 @@ UnknownText_0x1c0924::
 	line "breakable."
 
 	para "Want to use a"
-	line "SMASH move?"
+	line "ROCK SMASH?"
 	done
 
 UnknownText_0x1c0958::
@@ -472,16 +472,16 @@ UnknownText_0x1c099a::
 	done
 
 UnknownText_0x1c09b2::
-	text "<PLAYER> got on the"
+	text "<PLAYER> got on"
 	line "@"
-	text_from_ram wStringBuffer2
+	text_from_ram wStringBuffer3
 	text "."
 	done
 
 UnknownText_0x1c09c7::
 	text "<PLAYER> got off"
-	line "the @"
-	text_from_ram wStringBuffer2
+	line "@"
+	text_from_ram wStringBuffer3
 	text "."
 	done
 

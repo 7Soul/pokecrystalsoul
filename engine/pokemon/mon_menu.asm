@@ -131,21 +131,10 @@ PokemonActionSubmenu:
 	ret
 
 .Actions:
-	dbw MONMENUITEM_CUT,        MonMenu_Cut
 	dbw MONMENUITEM_FLY,        MonMenu_Fly
-	dbw MONMENUITEM_SURF,       MonMenu_Surf
-	dbw MONMENUITEM_STRENGTH,   MonMenu_Strength
-	dbw MONMENUITEM_FLASH,      MonMenu_Flash
-	dbw MONMENUITEM_WHIRLPOOL,  MonMenu_Whirlpool
-	dbw MONMENUITEM_DIG,        MonMenu_Dig
-	dbw MONMENUITEM_TELEPORT,   MonMenu_Teleport
-	dbw MONMENUITEM_SOFTBOILED, MonMenu_Softboiled_MilkDrink
-	dbw MONMENUITEM_MILKDRINK,  MonMenu_Softboiled_MilkDrink
-	dbw MONMENUITEM_HEADBUTT,   MonMenu_Headbutt
-	dbw MONMENUITEM_WATERFALL,  MonMenu_Waterfall
-	dbw MONMENUITEM_ROCKSMASH,  MonMenu_RockSmash
 	dbw MONMENUITEM_SWEETSCENT, MonMenu_SweetScent
-	dbw MONMENUITEM_BURN,       MonMenu_Burn
+	dbw MONMENUITEM_RIDE, 		MonMenu_Ride
+	
 	dbw MONMENUITEM_STATS,      OpenPartyStats
 	dbw MONMENUITEM_SWITCH,     SwitchPartyMons
 	dbw MONMENUITEM_PAIR,       PairPartyMons
@@ -828,12 +817,21 @@ MonMenu_Fly:
 	ld a, $0
 	ret
 
-.Unreferenced:
-	ld a, $1
-	ret
-
 MonMenu_Flash:
 	farcall OWFlash
+	ld a, [wFieldMoveSucceeded]
+	cp $1
+	jr nz, .Fail
+	ld b, $4
+	ld a, $2
+	ret
+
+.Fail:
+	ld a, $3
+	ret
+
+MonMenu_Ride:
+	farcall BikeFunction
 	ld a, [wFieldMoveSucceeded]
 	cp $1
 	jr nz, .Fail
@@ -898,12 +896,12 @@ MonMenu_Teleport:
 	ret
 
 MonMenu_Surf:
-	farcall SurfFunction
-	ld a, [wFieldMoveSucceeded]
-	and a
-	jr z, .Fail
-	ld b, $4
-	ld a, $2
+	; farcall SurfFunction
+	; ld a, [wFieldMoveSucceeded]
+	; and a
+	; jr z, .Fail
+	; ld b, $4
+	; ld a, $2
 	ret
 
 .Fail:
@@ -997,19 +995,6 @@ MonMenu_SweetScent:
 	ld a, $2
 	ret
 	
-MonMenu_Burn:
-	farcall BurnFunction
-	ld a, [wFieldMoveSucceeded]
-	and a
-	jr z, .Fail
-	ld b, $4
-	ld a, $2
-	ret
-
-.Fail:
-	ld a, $3
-	ret
-
 ChooseMoveToDelete:
 	ld hl, wOptions
 	ld a, [hl]

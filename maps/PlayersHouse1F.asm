@@ -115,6 +115,7 @@ MeetMomScript:
 	givecoins 9999
 	givemoney 0, 100000
 	giveitem MASTER_BALL, 99
+	giveitem LUCKY_BALL, 99
 	giveitem POKE_BALL, 99
 	giveitem RARE_CANDY, 99
 	giveitem MAX_REPEL, 99
@@ -125,10 +126,13 @@ MeetMomScript:
 	giveitem ETHER, 99
 	giveitem MAX_REVIVE, 99
 	giveitem BERRY, 99
+	giveitem PP_UP, 99
 	giveitem BASEMENT_KEY, 1
+	giveitem STEEL_WING_, 1
 
-	givepoke VAPOREON, 50
-	givepoke PIDGEY, 50
+	; givepoke BULBASAUR, 50
+	givepoke VAPOREON, 40
+	givepoke PIDGEY, 40
 	callasm CheatFillPokedex
 	callasm CheatGiveTMs
 	callasm CheatGiveJohtoBadges
@@ -142,7 +146,8 @@ MeetMomScript:
 	callasm CheatSetFlypoints
 	; warp ROUTE_2, $5, $22
 	; warp ROUTE_36_NATIONAL_PARK_GATE, $0, $6
-	warp ROUTE_46, $6, $F
+	; warp ECRUTEAK_CITY, 21, 13
+	warp ROUTE_46, 8, 15
 	; warp ROUTE_30, $C, $16
 	; warp ROUTE_40, $a, $a ; battle tower
 	; warp ROUTE_37, $e, $a

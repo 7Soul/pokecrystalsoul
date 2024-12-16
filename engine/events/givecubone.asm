@@ -3,7 +3,7 @@ IncreaseBadgeEvent:
 	ld b, 2
 	call CountSetBits
 	ld a, [wNumSetBits]	
-	; ld hl, EVENT_HAS_ONE_BADGE
+	; ld hl, ACHIEV_HAS_ONE_BADGE
 	; ld a, [hl]
 	; inc hl
 	; ld a, [hl]
@@ -14,10 +14,10 @@ IncreaseBadgeEvent:
 	; ld e, l
 	; add b
 
-; 	ld a, EVENT_HAS_ONE_BADGE
+; 	ld a, ACHIEV_HAS_ONE_BADGE
 ; 	call GetScriptByte
 ; 	ld e, a
-; 	ld a, EVENT_HAS_ONE_BADGE
+; 	ld a, ACHIEV_HAS_ONE_BADGE
 ; 	call GetScriptByte
 ; 	ld d, a
 

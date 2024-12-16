@@ -116,12 +116,7 @@ GetMonMenuString:
 
 GetFieldName::
 	push hl
-
-	ld hl, FieldNamesIds
-	ld de, 1
-	call IsInArray
-	ld a, b
-
+	; dec a
 	ld hl, FieldNamesString
 	call GetNthString
 	ld d, h
@@ -130,38 +125,38 @@ GetFieldName::
 	pop hl
 	ret
 
-
 GetMonSubmenuItems:
 	call ResetMonSubmenu
 	ld a, [wCurPartySpecies]
+	ld [wCurSpecies], a
 	cp EGG
 	jr z, .egg
 	ld a, [wLinkMode]
 	and a
 	jr nz, .skip_moves
-	ld a, MON_MOVES
-	call GetPartyParamLocation
-	ld d, h
-	ld e, l
-	ld c, NUM_MOVES
-.loop
-	push bc
-	push de
-	ld a, [de]
+	
+	call GetBaseData
+	ld c, 3
+.loop_actions
+	call GetActionByIndex
 	and a
-	jr z, .next
-	push hl
-	call IsFieldMove
-	pop hl
-	jr nc, .next
-	call AddMonMenuItem
+	jr z, .skip_moves
+	ld hl, MonMenuShow
+.loop_table
+	ld a, [hli]
+	cp -1
+	jr z, .end_of_table
+	cp b
+	jr z, .add_field_move
+	jr .loop_table
 
-.next
-	pop de
-	inc de
-	pop bc
+.end_of_table
 	dec c
-	jr nz, .loop
+	jr nz, .loop_actions
+
+.add_field_move
+	ld a, b
+	call AddMonMenuItem
 
 .skip_moves
 	ld a, MONMENUITEM_STATS
@@ -208,6 +203,62 @@ GetMonSubmenuItems:
 	call AddMonMenuItem
 	call TerminateMonSubmenu
 	ret
+
+GetActionByIndex:
+	push bc
+	ld a, c
+	cp 3
+	jr z, .level_action
+	cp 2
+	jr z, .happiness_action
+
+	ld a, [wBaseActions]
+	and %11 ; get last action
+.end
+	pop bc
+	ld b, e
+	ret
+.fail
+	pop bc
+	xor a
+	ret
+
+.level_action
+	ld a, [wBaseActions]
+	swap a
+	and $f
+	ld e, a
+
+	ld a, [wBaseActions]
+	; get level requirement
+	and $f
+	ld c, a
+	ld a, ACTION_LEVEL
+	call SimpleMultiply
+	ld d, a ; d has requirement level
+
+	ld a, [wCurPartyMon]
+	ld hl, wPartyMon1Level
+	call GetPartyLocation
+	ld a, [hl]
+	cp d
+	jr nc, .end
+	jr .fail
+
+.happiness_action
+	ld a, [wBaseActions + 1]
+	swap a
+	and $f
+	ld e, a
+	
+	ld a, [wCurPartyMon]
+	ld hl, wPartyMon1Happiness
+	call GetPartyLocation
+	ld a, [hl]
+	cp HAPPINESS_THRESHOLD_2
+	jr nc, .end
+	jr .fail
+	
 
 IsFieldMove:
 	ld b, a

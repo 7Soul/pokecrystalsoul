@@ -327,3 +327,5 @@ VariableMoveNames::
 	db "Aromatherapy@"
 	db "Sticky Web@"
 	db "Poison Jab@"
+	db "Howl@"
+	db "Sand Tomb@"

@@ -2538,7 +2538,7 @@ wBallsEnd::
 wPCItems:: ds MAX_PC_ITEMS * 2 + 1 ; d8f1
 wPCItemsEnd::
 
-	ds 1
+wProgressPoints:: db
 
 wPokegearFlags::
 ; bit 0: map

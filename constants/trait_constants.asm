@@ -150,7 +150,7 @@
 	const TRAIT_BOOST_SPD_ACC_NOT_ATTACKING
 	const TRAIT_BOOST_SPATK_ACC_NOT_ATTACKING
 	const TRAIT_ALL_STATS_AFTER_7_TURNS
-	const TRAIT_RANDOM_STAT_AFTER_5_TURNS
+	const TRAIT_RANDOM_STAT_AFTER_4_TURNS
 	const TRAIT_REGEN_FIRST_TURNS ; checks first 3 turns
 	const TRAIT_CULL_OPP_LOW_HP ; opp at low hp comes before this
 	const TRAIT_REGEN_LOW_HP ; low hp (50%) comes before this

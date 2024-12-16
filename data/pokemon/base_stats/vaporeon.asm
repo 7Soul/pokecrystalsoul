@@ -35,8 +35,8 @@
 	; Second action requires attunement
 	; Third action requires attunement and max pokedex data
 
-	db ACTION_SURF << 4 | 25 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
-	db ACTION_ROCKSMASH << 4 | ACTION_SWEETSCENT
+	db ACTION_FLASH << 4 | 24 / ACTION_LEVEL ; Action | Level/ACTION_LEVEL (max level is 60)
+	db ACTION_FLY << 4 | ACTION_SWEETSCENT
 
 	; tm/hm learnset
 	tmhm HEADBUTT, CURSE, ROAR, ROCK_SMASH, HIDDEN_POWER, BLIZZARD, HYPER_BEAM, ICY_WIND, PROTECT, RAIN_DANCE, ENDURE, AQUA_TAIL, DIG, DOUBLE_TEAM, SWAGGER, WATER_GUN, SWIFT, ATTRACT, CRUNCH, JET_STREAM, HYPER_SONAR, SURF, ICE_BEAM, REST

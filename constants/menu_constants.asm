@@ -34,32 +34,33 @@
 
 ; MonMenuOptions indexes (see data/mon_menu.asm)
 ; used by PokemonActionSubmenu (see engine/pokemon/mon_menu.asm)
-	const_def 1
+	const_def 0
 	; moves
-	const MONMENUITEM_CUT        ; 1
-	const MONMENUITEM_FLY        ; 2
-	const MONMENUITEM_SURF       ; 3
-	const MONMENUITEM_STRENGTH   ; 4
-	const MONMENUITEM_WATERFALL  ; 5
-	const MONMENUITEM_FLASH      ; 6
-	const MONMENUITEM_WHIRLPOOL  ; 7
-	const MONMENUITEM_DIG        ; 8
-	const MONMENUITEM_TELEPORT   ; 9
-	const MONMENUITEM_SOFTBOILED ; 10
-	const MONMENUITEM_HEADBUTT   ; 11
-	const MONMENUITEM_ROCKSMASH  ; 12
-	const MONMENUITEM_MILKDRINK  ; 13
-	const MONMENUITEM_SWEETSCENT ; 14
-	const MONMENUITEM_BURN       ; 15
+	const MONMENUITEM_CUT         ; 0
+	const MONMENUITEM_SURF        ; 1
+	const MONMENUITEM_FLY         ; 2
+	const MONMENUITEM_STRENGTH    ; 3
+	const MONMENUITEM_SWEETSCENT  ; 4
+	const MONMENUITEM_FLASH       ; 5
+	const MONMENUITEM_ROCKSMASH   ; 6
+	const MONMENUITEM_INVESTIGATE ; 7
+	const MONMENUITEM_HEADBUTT    ; 8
+	const MONMENUITEM_HOLD        ; 9
+	const MONMENUITEM_LUCKY       ; a
+	const MONMENUITEM_EVOLUTION   ; b
+	const MONMENUITEM_FLAMEBODY   ; c
+	const MONMENUITEM_SEARCHLIGHT ; d
+	const MONMENUITEM_FAMILY      ; e
+	const MONMENUITEM_RIDE        ; f
 	; options
-	const MONMENUITEM_STATS      ; 16
-	const MONMENUITEM_SWITCH     ; 17
-	const MONMENUITEM_PAIR       ; 18
-	const MONMENUITEM_ITEM       ; 19
-	const MONMENUITEM_CANCEL     ; 20
-	const MONMENUITEM_MOVE       ; 21
-	const MONMENUITEM_MAIL       ; 22
-	const MONMENUITEM_ERROR      ; 23
+	const MONMENUITEM_STATS      ; 10
+	const MONMENUITEM_SWITCH     ; 11
+	const MONMENUITEM_PAIR       ; 12
+	const MONMENUITEM_ITEM       ; 13
+	const MONMENUITEM_CANCEL     ; 14
+	const MONMENUITEM_MOVE       ; 15
+	const MONMENUITEM_MAIL       ; 16
+	const MONMENUITEM_ERROR      ; 17
 
 ; MonMenuOptions categories
 MONMENU_FIELD_MOVE EQU 0

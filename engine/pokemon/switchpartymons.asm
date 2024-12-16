@@ -321,7 +321,7 @@ _PairMons:
 	ld a, [hl]
 	ld [wCurSpecies], a
 	call GetBaseData
-	call GetTraitFromBaseStats1
+	call GetTraitFromBaseStats1 ; todo
 	add a ; double a
 	ret
 

@@ -66,8 +66,8 @@ EvolveAfterBattle_MasterLoop:
 
 	ld b, a
 
-	cp EVOLVE_TRADE
-	jp z, .trade
+	; cp EVOLVE_TRADE
+	; jp z, .trade
 
 	ld a, [wLinkMode]
 	and a
@@ -150,32 +150,32 @@ EvolveAfterBattle_MasterLoop:
 	jp z, .dont_evolve_3
 	jr .proceed
 
-.trade
-	ld a, [wLinkMode]
-	and a
-	jp z, .dont_evolve_2
+; .trade
+; 	ld a, [wLinkMode]
+; 	and a
+; 	jp z, .dont_evolve_2
 
-	call IsMonHoldingEverstone
-	jp z, .dont_evolve_2
+; 	call IsMonHoldingEverstone
+; 	jp z, .dont_evolve_2
 
-	ld a, BANK("Evolutions and Attacks")
-	call GetFarByte
-	inc hl
-	ld b, a
-	inc a
-	jr z, .proceed
+; 	ld a, BANK("Evolutions and Attacks")
+; 	call GetFarByte
+; 	inc hl
+; 	ld b, a
+; 	inc a
+; 	jr z, .proceed
 
-	ld a, [wLinkMode]
-	cp LINK_TIMECAPSULE
-	jp z, .dont_evolve_3
+; 	ld a, [wLinkMode]
+; 	cp LINK_TIMECAPSULE
+; 	jp z, .dont_evolve_3
 
-	ld a, [wTempMonItem]
-	cp b
-	jp nz, .dont_evolve_3
+; 	ld a, [wTempMonItem]
+; 	cp b
+; 	jp nz, .dont_evolve_3
 
-	xor a
-	ld [wTempMonItem], a
-	jr .proceed
+; 	xor a
+; 	ld [wTempMonItem], a
+; 	jr .proceed
 
 .item
 	ld a, BANK("Evolutions and Attacks")
@@ -728,12 +728,14 @@ FillEggMove:
 	push de
 	push bc
 	ld a, [wCurPartySpecies]
+	cp 10
+	jp c, .no_moves
 	ld [wTempSpecies], a
 	call GetPreEvolution
 	call GetPreEvolution
-; Random common egg move based on mon type
+; Random common egg move based on mon type (15% chance)
 	call Random
-	cp 25 percent
+	cp 15 percent
 	jr nc, .not_common_egg
 
 	ld a, [wCurPartySpecies]
@@ -787,15 +789,16 @@ FillEggMove:
 	inc c
 	inc hl
 ; limit move index by mon level
-; can learn the next index every 5 levels
+; can learn the next index every 6 levels
 	ld a, [wCurPartyLevel]
+	sub 6
 	call SimpleDivide
-	cp 5
+	cp 6
 	jr nc, .reached_end
 
 	ld a, BANK("Egg Moves")
 	call GetFarByte
-	cp -1	
+	cp -1
 	jr nz, .count_moves_loop
 
 .reached_end
@@ -839,7 +842,7 @@ FillEggMove:
 .LearnMove
 	ld a, b
 	cp $FF
-	jp z, .no_moves
+	jr z, .no_moves
 	ld [de], a
 ; set pp (gets set after FillMoves)
 ; 	ld a, [wCurVariableMove]

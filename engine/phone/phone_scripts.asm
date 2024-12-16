@@ -1890,20 +1890,19 @@ LeagueAchievementCall:
 	specialphonecall SPECIALCALL_NONE
 	jump .end
 .achievement
-	checkevent EVENT_HAS_NEW_ACHIVEMENT
+	checkevent ACHIEV_HAS_NEW_ACHIVEMENT
 	iffalse .end
 	farwritetext AchievNewText
 	buttonsound
-	checkevent EVENT_CAUGHT_MON_RARE_TRAIT
-	iftrue .rare_trait
-	jump .end ; temp
-.rare_trait
-	checkevent EVENT_CAUGHT_MON_RARE_TRAIT_WARNED
-	iftrue .end
-	
-	farwritetext AchievCaughtRareTraitText
-	setevent EVENT_CAUGHT_MON_RARE_TRAIT_WARNED
+	checkcode VAR_PROGRESS
+	vartomem MEM_BUFFER_0
+	callasm CheckNextAchievementCall
+
 .end
-	clearevent EVENT_HAS_NEW_ACHIVEMENT
+	clearevent ACHIEV_HAS_NEW_ACHIVEMENT
 	specialphonecall SPECIALCALL_NONE
 	end
+
+CheckNextAchievementCall:
+	farcall _CheckNextAchievementCall
+	ret

@@ -105,11 +105,93 @@ CheckReceivedDex::
 	ret
 
 SetAchievement:: ; takes event flag in `de`
+	push de
+	inc de
+	ld b, CHECK_FLAG
+	call EventFlagAction
+	ld a, c
+	and a
+	jr nz, .already_got_achievement
+
+	pop de
+	ld b, d
+	ld c, e
+	push de
+
+	; Get the point value from table
+	ld hl, .Points
+.table_loop
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	inc hl
+
+	; if (de >= bc) jr .table_loop_end;
+	ld a, b
+	cp d
+	jr c, .table_loop_next
+	jr nz, .table_loop_end
+	ld a, c
+	cp e
+	jr z, .table_loop_end
+.table_loop_next
+	inc hl
+	jr .table_loop
+.table_loop_end
+
+	ld b, [hl]
+	ld a, [wProgressPoints]
+	add b
+	ld [wProgressPoints], a
+
+	pop de
 	ld b, SET_FLAG
 	call EventFlagAction
-	ld de, EVENT_HAS_NEW_ACHIVEMENT
+	ld de, ACHIEV_HAS_NEW_ACHIVEMENT
 	ld b, SET_FLAG
 	call EventFlagAction
 	ld a, SPECIALCALL_ACHIEVEMENT
 	ld [wSpecialPhoneCallID], a
 	ret
+.already_got_achievement
+	pop de
+	ret
+	
+.Points
+	dwb ACHIEV_CAUGHT_MON,						0
+	dwb ACHIEV_CAUGHT_MON_RARE_TRAIT,			0
+	dwb ACHIEV_CAUGHT_MON_HOLDING_ITEM,			0
+	dwb ACHIEV_CAUGHT_MON_EGG_MOVE,				0
+	dwb ACHIEV_MAX_POKEDEX_DATA,				1
+	dwb ACHIEV_POKEMON_SEEN,					1
+	dwb ACHIEV_POKEMON_CAUGHT,					1
+
+	dwb ACHIEV_POKEMON_LEVEL_15,				2
+	dwb ACHIEV_POKEMON_LEVEL_30,				3
+	dwb ACHIEV_POKEMON_LEVEL_50,				4
+	dwb ACHIEV_POKEMON_LEVEL_70,				5
+
+	dwb ACHIEV_CAUGHT_LEGENDARY_BIRD,			1
+	dwb ACHIEV_CAUGHT_LEGENDARY_BEAST,			1
+	dwb ACHIEV_CAUGHT_LEGENDARY_HO_OH,			2
+	dwb ACHIEV_CAUGHT_LEGENDARY_LUGIA,			2
+	dwb ACHIEV_CAUGHT_LEGENDARY_MEW,			2
+	dwb ACHIEV_CAUGHT_LEGENDARY_CELEBI,			2
+	dwb ACHIEV_CAUGHT_FOUR_LEGENDARY,			2
+	dwb ACHIEV_DEFEATED_RED,					4
+
+	dwb ACHIEV_HAS_ONE_BADGE,					1
+	dwb ACHIEV_HAS_FOUR_BADGES,					4
+	dwb ACHIEV_HAS_EIGHT_BADGES,				4
+	dwb ACHIEV_HAS_TWELVE_BADGES,				4
+	dwb ACHIEV_HAS_SIXTEEN_BADGES,				4
+	dwb ACHIEV_BEAT_ELITE_FOUR_1,				4
+	dwb ACHIEV_BEAT_ELITE_FOUR_2,				4
+
+	dwb ACHIEV_DEFEAT_ROCKET_PROTON,			2
+	dwb ACHIEV_DEFEAT_ROCKET_ARIANA,			2
+	dwb ACHIEV_DEFEAT_ROCKET_PRETEL,			2
+	dwb ACHIEV_DEFEAT_ROCKET_ARCHER,			2
+	dwb ACHIEV_DEFEAT_ROCKET_KODIAK,			2
+	dwb ACHIEV_DEFEAT_ROCKET_SABER,				2
+	dwb ACHIEV_DEFEAT_ROCKET_GIOVANNI,			4
